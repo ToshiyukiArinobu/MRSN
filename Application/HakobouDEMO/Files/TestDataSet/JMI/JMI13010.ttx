@@ -1,0 +1,15 @@
+年月度From	Date		2011/11/01
+年月度To	Date		2011/11/30
+乗務員指定	String	20	（ピックアップ指定有）
+表示区分	String	20	（売上あり乗務員のみ）
+表示順序	String	10	（コード順）
+乗務員コード	Number		101
+乗務員名	String	15	乗務員名サンプルデータ
+運送収入	Number		1802000
+稼働日	Number		20
+燃料L	Number		1000
+燃料費	Number		185142
+走行Km	Number		3008
+修理費	Number		15000
+タイヤ費	Number		35800
+固定費	Number		443670

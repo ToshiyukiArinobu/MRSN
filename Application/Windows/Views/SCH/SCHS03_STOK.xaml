@@ -1,0 +1,163 @@
+﻿<fw:WindowMasterSearchBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+    x:Class="KyoeiSystem.Application.Windows.Views.SCHS03_STOK"
+    mc:Ignorable="d" d:DesignWidth="650"
+    Height="768" Width="580"
+    Left="1025" Top="0"
+    Name="MainWindow"
+    Title="在庫参照(SCHS03_STOK)"
+    Loaded="MainWindow_Loaded" Closed="MainWindow_Closed">
+
+  <Window.Resources>
+    <!-- DataGridのHeader背景色 -->
+    <LinearGradientBrush x:Key="DataGridHeaderBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#3b5998" Offset="0"/>
+    </LinearGradientBrush>
+  </Window.Resources>
+
+  <Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Margin="5">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Grid Margin="15,15,5,5">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="30" />
+        <RowDefinition Height="30" />
+        <RowDefinition Height="30" />
+        <RowDefinition Height="30" />
+        <RowDefinition Height="30" />
+        <RowDefinition Height="30" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="auto" />
+      </Grid.ColumnDefinitions>
+
+      <ctls:UcLabelTextBox
+          x:Name="txtProductCode" Grid.Row="0" Margin="1"
+          Label_Context="自社品番" Label_Width="80"
+          ImeType="Off" ValidationType="Integer"
+          cWidth="140" cMaxLength="11" cHorizontalAlignment="Left" cVerticalContentAlignment="Center"
+          cTextChanged="textBox_cTextChanged" LostFocus="textBox_LostFocus"
+      />
+
+      <ctls:UcLabelTextBox
+          x:Name="txtProductName" Grid.Row="1" Margin="1"
+          Label_Context="自社品名" Label_Width="80"
+          ImeType="Native"
+          cWidth="350" cMaxLength="100" cHorizontalAlignment="Left" cVerticalContentAlignment="Center"
+          cTextChanged="textBox_cTextChanged" LostFocus="textBox_LostFocus"
+      />
+
+      <ctls:UcLabelTextBox
+          x:Name="txtColorName" Grid.Row="2" Margin="1"
+          Label_Context="自社色" Label_Width="80"
+          ImeType="Native"
+          cWidth="350" cMaxLength="100" cHorizontalAlignment="Left" cVerticalContentAlignment="Center"
+          cTextChanged="textBox_cTextChanged" LostFocus="textBox_LostFocus"
+      />
+
+      <ctls:UcLabelTextBox
+          x:Name="txtBrandName" Grid.Row="3" Margin="1"
+          Label_Context="ブランド名" Label_Width="80"
+          ImeType="Native"
+          cWidth="350" cMaxLength="100" cHorizontalAlignment="Left" cVerticalContentAlignment="Center"
+          cTextChanged="textBox_cTextChanged" LostFocus="textBox_LostFocus"
+      />
+
+      <ctls:UcLabelTextBox
+          x:Name="txtSeriesName" Grid.Row="4" Margin="1"
+          Label_Context="シリーズ名" Label_Width="80"
+          ImeType="Native"
+          cWidth="350" cMaxLength="100" cHorizontalAlignment="Left" cVerticalContentAlignment="Center"
+          cTextChanged="textBox_cTextChanged" LostFocus="textBox_LostFocus"
+      />
+
+      <ctls:UcLabelTextBox
+          x:Name="txtHingun" Grid.Row="5" Margin="1"
+          Label_Context="品群名" Label_Width="80"
+          ImeType="Native"
+          cWidth="350" cMaxLength="100" cHorizontalAlignment="Left" cVerticalContentAlignment="Center"
+          cTextChanged="textBox_cTextChanged" LostFocus="textBox_LostFocus"
+      />
+
+      <Button
+        Name="CancelButton" Grid.Row="3" Grid.Column="4" Grid.RowSpan="3" Height="61" Width="51"
+        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" RenderTransformOrigin="0.5,0.5"
+        BorderThickness="3" BorderBrush="#FF071281"
+        OpacityMask="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"
+        Click="CancelButton_Click" MouseEnter="CancelButton_MouseEnter" MouseLeave="CancelButton_MouseLeave">
+
+        <Button.Background>
+          <ImageBrush ImageSource="../Images/appbar.app.remove.white.png"  Stretch="None" AlignmentY="Bottom" />
+        </Button.Background>
+      </Button>
+
+      <!--
+      <Button Name="OkButton" Grid.RowSpan="3" Grid.Column="4" Grid.Row="0" Height="61" Width="49" Margin="5" RenderTransformOrigin="0.5,0.5"
+              HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderThickness="3" BorderBrush="#FF071281"
+              OpacityMask="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"
+              MouseEnter="OkButton_MouseEnter" MouseLeave="OkButton_MouseLeave" Click="OkButton_Click">
+        <Button.Background>
+          <ImageBrush ImageSource="../Images/appbar.checkmark.pencil.top.white.png" Stretch="None" AlignmentY="Bottom" />
+        </Button.Background>
+      </Button>
+      -->
+      
+    </Grid>
+
+    <DataGrid Name="SearchGrid" Grid.Row="1" SelectionMode="Single" IsReadOnly="True"
+              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" CanUserSortColumns="False"
+              ItemsSource="{Binding Path=SearchResult,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}">
+
+      <DataGrid.ColumnHeaderStyle>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+          <Setter Property="Height" Value="25" />
+          <Setter Property="Foreground" Value="White" />
+          <Setter Property="BorderThickness" Value="0.5" />
+          <Setter Property="BorderBrush" Value="Orange" />
+          <Setter Property="HorizontalContentAlignment" Value="Center" />
+          <Setter x:Name="GridHeaderStye" Property="Background" Value="{StaticResource DataGridHeaderBackground}" />
+        </Style>
+      </DataGrid.ColumnHeaderStyle>
+
+      <DataGrid.Columns>
+        <!--<DataGridTextColumn x:Name="Grid_SupplierCode" Visibility="Hidden" Binding="{Binding 得意先コード}" />-->
+        <DataGridTextColumn Header="品番" Binding="{Binding 品番コード}" />
+        <DataGridTextColumn Header="自社品番" Binding="{Binding 自社品番}" />
+        <DataGridTextColumn Header="自社品名" Binding="{Binding 自社品名}" />
+        <DataGridTextColumn Header="自社色名" Binding="{Binding 自社色名}" />
+        <DataGridTextColumn Header="賞味期限" Binding="{Binding 賞味期限, StringFormat={}{0:yyyy/MM/dd}}">
+          <DataGridTextColumn.ElementStyle>
+            <Style TargetType="TextBlock">
+              <Setter Property="TextAlignment" Value="Center" />
+            </Style>
+          </DataGridTextColumn.ElementStyle>
+        </DataGridTextColumn>
+        <DataGridTextColumn Header="在庫数" Binding="{Binding 在庫数, StringFormat={}{0:#\,0}}">
+          <DataGridTextColumn.ElementStyle>
+            <Style TargetType="TextBlock">
+              <Setter Property="TextAlignment" Value="Right" />
+            </Style>
+          </DataGridTextColumn.ElementStyle>
+        </DataGridTextColumn>
+        <DataGridTextColumn Header="ブランド名" Binding="{Binding ブランド名}" />
+        <DataGridTextColumn Header="シリーズ名" Binding="{Binding シリーズ名}" />
+        <DataGridTextColumn Header="品群名" Binding="{Binding 品群名}" />
+      </DataGrid.Columns>
+
+    </DataGrid>
+
+  </Grid>
+
+</fw:WindowMasterSearchBase>

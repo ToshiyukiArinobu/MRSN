@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/KyoeiSystem.Data" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/KyoeiSystem.Data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="M04_DRV_Member">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="かな読み" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="デジタコCD" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="乗務員ID" type="xs:int" />
+      <xs:element minOccurs="0" name="乗務員名" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="事業者コード" type="xs:int" />
+      <xs:element minOccurs="0" name="住居の種類" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="住所_xFF11___xFF11_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="住所_xFF11___xFF12_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="住所_xFF12___xFF11_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="住所_xFF12___xFF12_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="作成番号" type="xs:int" />
+      <xs:element minOccurs="0" name="健康保険加入日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="健康保険番号" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="備考" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="免許種類1" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類10" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類2" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類3" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類4" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類5" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類6" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類7" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類8" type="xs:int" />
+      <xs:element minOccurs="0" name="免許種類9" type="xs:int" />
+      <xs:element minOccurs="0" name="免許証取得年月日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="免許証条件" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="免許証番号" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="入社日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="写真" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="労災保険加入日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="労災保険番号" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="厚生年金加入日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="厚生年金番号" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="受診状況" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="変更日付1" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="変更日付2" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="変更日付3" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="変更理由1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="変更理由2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="変更理由3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="変更職種1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="変更職種2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="変更職種3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族氏名1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族氏名2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族氏名3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族氏名4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族氏名5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族氏名6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族生年月日1" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="家族生年月日2" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="家族生年月日3" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="家族生年月日4" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="家族生年月日5" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="家族生年月日6" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="家族続柄1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族続柄2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族続柄3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族続柄4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族続柄5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族続柄6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="家族連絡" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="就労区分" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴事業所1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="履歴事業所2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="履歴定員1" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴定員2" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴年月日1" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="履歴年月日2" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="履歴年月日3" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="履歴年月日4" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="履歴年月日5" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="履歴種類1" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴種類2" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴積載量1" type="xs:decimal" />
+      <xs:element minOccurs="0" name="履歴積載量2" type="xs:decimal" />
+      <xs:element minOccurs="0" name="履歴経験年1" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴経験年2" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴経験月1" type="xs:int" />
+      <xs:element minOccurs="0" name="履歴経験月2" type="xs:int" />
+      <xs:element minOccurs="0" name="性別区分" type="xs:int" />
+      <xs:element minOccurs="0" name="携帯電話" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="撮影年" type="xs:int" />
+      <xs:element minOccurs="0" name="撮影月" type="xs:int" />
+      <xs:element minOccurs="0" name="更新日時" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="最終学歴1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="最終学歴2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="最終学歴3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="最終学歴4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="最終学歴5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効年月日1" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効年月日2" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効年月日3" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効年月日4" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効年月日5" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効年月日6" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効年月日7" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効年月日8" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="有効番号1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効番号2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効番号3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効番号4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効番号5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効番号6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効番号7" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="有効番号8" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="歩合率" type="xs:decimal" />
+      <xs:element minOccurs="0" name="歩合計算区分ID" type="xs:int" />
+      <xs:element minOccurs="0" name="水揚連動区分" type="xs:int" />
+      <xs:element minOccurs="0" name="生年月日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="登録日時" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="経費割当車輌ID" type="xs:int" />
+      <xs:element minOccurs="0" name="職種" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="職種分類" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="職種分類区分" type="xs:int" />
+      <xs:element minOccurs="0" name="自傭区分" type="xs:int" />
+      <xs:element minOccurs="0" name="自社部門ID" type="xs:int" />
+      <xs:element minOccurs="0" name="血液型" type="xs:int" />
+      <xs:element minOccurs="0" name="資格名称1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="資格名称2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="資格名称3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="資格名称4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="資格年月日1" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="資格年月日2" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="資格年月日3" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="資格年月日4" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="賞罰内容1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="賞罰内容2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="賞罰内容3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="賞罰内容4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="賞罰内容5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="賞罰内容6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="賞罰年月日1" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="賞罰年月日2" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="賞罰年月日3" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="賞罰年月日4" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="賞罰年月日5" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="賞罰年月日6" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="退職日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="退職理由" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="通勤分" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="通勤時間" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="運転免許更新日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="運転免許有効日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="選任年月日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="郵便番号_xFF11_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="郵便番号_xFF12_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="雇入日付" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="雇用保険加入日" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="雇用保険番号" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="電話番号_xFF11_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="電話番号_xFF12_" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="M04_DRV_Member" nillable="true" type="tns:M04_DRV_Member" />
+  <xs:complexType name="M04_DRVPIC_Member">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="乗務員ID" type="xs:int" />
+      <xs:element minOccurs="0" name="画像" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="M04_DRVPIC_Member" nillable="true" type="tns:M04_DRVPIC_Member" />
+</xs:schema>

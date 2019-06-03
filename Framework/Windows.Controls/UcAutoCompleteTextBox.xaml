@@ -1,0 +1,48 @@
+﻿<fw:FrameworkControl
+    x:Class="KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.Controls"
+    GotFocus="FrameworkControl_GotFocus"
+    LostFocus="FrameworkControl_LostFocus"
+  Validation.ErrorTemplate="{StaticResource validationTemplate}"
+    >
+  <Grid>
+    <!-- ■注意■ ComboBoxとUcTextBoxの順番を変えないこと！ -->
+    <ComboBox Name="comboBox" IsSynchronizedWithCurrentItem="True" IsTabStop="False" Margin="1,2,1,0" VerticalAlignment="Top"
+              SelectedValuePath="Value" Focusable="True" BorderThickness="0" BorderBrush="Transparent" 
+              SelectionChanged="comboBox_SelectionChanged" PreviewKeyDown="comboBox_PreviewKeyDown"
+              Loaded="comboBox_Loaded" GotFocus="comboBox_GotFocus" 
+              >
+      <ComboBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <VirtualizingStackPanel VerticalAlignment="Stretch" />
+        </ItemsPanelTemplate>
+      </ComboBox.ItemsPanel>
+
+      <ComboBox.ItemTemplate>
+        <HierarchicalDataTemplate>
+          <VirtualizingStackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+            <Label Content="{Binding ColumnValues[0]}" Width="{Binding DisplayColWidth[0]}" HorizontalContentAlignment="{Binding DisplayColHorizontalAlignment[0]}" VerticalContentAlignment="Stretch" Visibility="{Binding ColVisibility[0]}"/>
+            <Border  BorderBrush="LightGray" BorderThickness="0.5" Width="1" Visibility="{Binding ColVisibility[1]}"/>
+            <Label Content="{Binding ColumnValues[1]}" Width="{Binding DisplayColWidth[1]}" HorizontalContentAlignment="{Binding DisplayColHorizontalAlignment[1]}" VerticalContentAlignment="Stretch" Visibility="{Binding ColVisibility[1]}"/>
+            <Border BorderBrush="LightGray" BorderThickness="0.5" Width="1" Visibility="{Binding ColVisibility[2]}"/>
+            <Label Content="{Binding ColumnValues[2]}" Width="{Binding DisplayColWidth[2]}" HorizontalContentAlignment="{Binding DisplayColHorizontalAlignment[2]}" VerticalContentAlignment="Stretch" Visibility="{Binding ColVisibility[2]}"/>
+            <Border BorderBrush="LightGray" BorderThickness="0.5" Width="1" Visibility="{Binding ColVisibility[3]}"/>
+            <Label Content="{Binding ColumnValues[3]}" Width="{Binding DisplayColWidth[3]}" HorizontalContentAlignment="{Binding DisplayColHorizontalAlignment[3]}" VerticalContentAlignment="Stretch" Visibility="{Binding ColVisibility[3]}"/>
+            <Border BorderBrush="LightGray" BorderThickness="0.5" Width="1" Visibility="{Binding ColVisibility[4]}"/>
+            <Label Content="{Binding ColumnValues[4]}" Width="{Binding DisplayColWidth[4]}" HorizontalContentAlignment="{Binding DisplayColHorizontalAlignment[4]}" VerticalContentAlignment="Stretch" Visibility="{Binding ColVisibility[4]}"/>
+          </VirtualizingStackPanel>
+        </HierarchicalDataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+    <fw:UcTextBox x:Name="cTextBox" VerticalContentAlignment="Center" IsUpDownHandling="False" VerticalAlignment="Top"
+                  ValidationType="NumberAutoComplete" 
+                  Text="{Binding Path=Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                  cTextChanged="textBox_cTextChanged" PreviewKeyDown="textBox_PreviewKeyDown" GotFocus="textBox_GotFocus"
+                  PreviewMouseLeftButtonDown="cTextBox_PreviewMouseLeftButtonDown" PreviewTextInput="cTextBox_PreviewTextInput"
+                  MouseWheel="cTextBox_MouseWheel"
+                  />
+  </Grid>
+</fw:FrameworkControl>
+  

@@ -1,0 +1,484 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KyoeiSystem.Framework.Reports</name>
+    </assembly>
+    <members>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.FwPrinterInfo">
+            <summary>
+            プリンター用設定項目
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.PrinterSettingMode">
+            <summary>
+            印刷設定画面動作モード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.PrinterSettingMode.Save">
+            <summary>
+            設定保存のみ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.PrinterSettingMode.Print">
+            <summary>
+            印刷ページ範囲入力
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.FontDialogEx">
+            <summary>
+            FontDialogEx
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.FontDialogEx.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.PrinterSettingWindow">
+            <summary>
+            PrinterSettingWindow
+            </summary>
+            <summary>
+            PrinterSettingWindow
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.PrinterSettingWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.RptObjectLabel">
+            <summary>
+            デザイナ用レポートオブジェクト
+            </summary>
+            <summary>
+            RptObjectLabel
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.RptObjectLabel.#ctor">
+            <summary>
+            初期化
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.RptObjectLabel.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Preview.RptObjectLabel.Content">
+            <summary>
+            ContentControl のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Preview.RptObjectLabel.HorizontalContentAlignment">
+            <summary>
+            コントロールのコンテンツの水平方向の配置を取得または設定します
+            </summary>
+        </member>
+        <!-- 正しくない形式の XML コメントがメンバー "T:KyoeiSystem.Framework.Reports.Preview.ReportPreview" で無視されました -->
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportPreview.reportFilePath">
+            <summary>
+            CrystalReportsのレポート定義ファイルパス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportPreview._printerName">
+            <summary>
+            印刷先のプリンター名
+            空文字の場合は「通常使用するプリンター」を対象とする
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.PreviewPDF(System.Int32)">
+            <summary>
+            PDF生成＆表示
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.MergePDFs(System.String[],System.String)">
+            <summary>
+            複数PDFのマージ
+            </summary>
+            <param name="fileNames"></param>
+            <param name="outFile"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.PrintOutPDF">
+            <summary>
+            PDFファイル作成（各請求書毎）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.closebtn_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            閉じるボタンクリック
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.ReportPreviewPrintButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            印刷ボタンクリック
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.PrintOutToPrinter(KyoeiSystem.Framework.Reports.Preview.FwPrinterInfo,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            印刷実行（ユーザー定義用紙も反映）
+            </summary>
+            <param name="dataTable">プリンタ設定情報</param>
+            <param name="fromPage">開始ページ（全て印刷の場合はNULL）</param>
+            <param name="toPage">終了ページ（全て印刷の場合はNULL）</param>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportPreview.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreview.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Preview.ReportPreview.PrinterName">
+            <summary>
+            印刷先のプリンター名
+            空文字の場合は「通常使用するプリンター」を対象とする
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Properties.Resources">
+            <summary>
+              ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Properties.Resources.ResourceManager">
+            <summary>
+              このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Properties.Resources.Culture">
+            <summary>
+              厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+              現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Properties.Resources.PrinterSetting">
+            <summary>
+              型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.ReportException">
+            <summary>
+            レポートクラス関連の例外クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.ReportException.#ctor">
+            <summary>
+            デフォルトコンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.ReportException.#ctor(System.String)">
+            <summary>
+            コンストラクタ：メッセージ指定
+            </summary>
+            <param name="message">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.ReportException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ：メッセージ及び内部例外指定
+            </summary>
+            <param name="message">メッセージ</param>
+            <param name="innerException">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.ReportParameter">
+            <summary>
+            レポートパラメータ（CrystalReportsのレポート定義で設定されたパラメータ）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportParameter.PNAME">
+            <summary>
+            パラメータ名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportParameter.VALUE">
+            <summary>
+            パラメータ値
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.SectInfo">
+            <summary>
+            セクション情報定義体（デザイナー専用）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.ObjectInfoType">
+            <summary>
+            レポートオブジェクトタイプ（デザイナー専用）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.ObjectInfo">
+            <summary>
+            レポートオブジェクト情報定義体（デザイナー専用）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ObjectInfo.name">
+            <summary>
+            オブジェクト名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ObjectInfo.sectionname">
+            <summary>
+            セクション名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ObjectInfo.extendSection">
+            <summary>
+            複数セクションへの拡張
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ObjectInfo.endSectionName">
+            <summary>
+            最終セクション名（複数セクション拡張時）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ObjectInfo.visible">
+            <summary>
+            表示・非表示
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ObjectInfo.objectType">
+            <summary>
+            レポートオブジェクトタイプ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Preview.ObjectInfo.control">
+            <summary>
+            デザイナエリアのコントロール情報
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF">
+            <summary>
+            ReportWindowBase.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            ReportPreviewWPF
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.targetReportDocument">
+            <summary>
+            CrystalReportsの定義オブジェクト
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.reportFilePath">
+            <summary>
+            CrystalReportsのレポート定義ファイルパス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.printerName">
+            <summary>
+            印刷先のプリンター名
+            空文字の場合は「通常使用するプリンター」を対象とする
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.#ctor">
+            <summary>
+            デフォルトコンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.ShowDesigner">
+            <summary>
+            画面表示（通常ダイアログモード）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.Window_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            画面Load時のイベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.DisplayObjectTree">
+            <summary>
+            レポートオブジェクトのツリービュー表示
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.tvReportObject_SelectedItemChanged(System.Object,System.Windows.RoutedPropertyChangedEventArgs{System.Object})">
+            <summary>
+            ツリービューでの選択
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.ChangeVisibleObjectByCheckbox(System.Windows.Controls.CheckBox,System.Boolean)">
+            <summary>
+            オブジェクトの表示状態切り替え
+            </summary>
+            <param name="cbx"></param>
+            <param name="visible"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.CheckBox_Unchecked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            オブジェクトの非表示切り替え
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.CheckBox_Checked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            オブジェクトの表示切替
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.DisplayLayout">
+            <summary>
+            デザインエリア表示
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.DisplayLayoutObject(CrystalDecisions.CrystalReports.Engine.ReportObject,System.Boolean)">
+            <summary>
+            レポートオブジェクトのコンテンツをデザインエリアに表示
+            </summary>
+            <param name="item"></param>
+            <param name="visible"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.rptLayout_MouseMove(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            デザインエリアのマウス移動時のイベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.movingFrame_MouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            マウスボタンダウン
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.movingFrame_MouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            マウスボタンアップ
+            </summary>
+            <param name="sender">イベント受信対象</param>
+            <param name="e">イベントパラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.movingFrame_MouseMove(System.Object,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            移動用のフレームを掴んだ状態でマウス移動（ドラッグ）
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.MoveObject">
+            <summary>
+            オブジェクトの移動
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.reportViewer_SelectionChange(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            イベント：CrystalReportプレビューのフィールド選択時に発生する。
+            </summary>
+            <param name="sender">イベント受信対象</param>
+            <param name="e">イベントパラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.DisplaySelectedInfo(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.reportViewer_ClickPage(System.Object,SAPBusinessObjects.WPF.Viewer.PageMouseEventArgs)">
+            <summary>
+            イベント：CrystalReportプレビューのページブロッククリック時に発生する。
+            </summary>
+            <param name="sender">イベント受信対象</param>
+            <param name="e">イベントパラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.Button_Reload_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            やり直しボタン
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.Button_Cancel_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            取消ボタン
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.Button_Save_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            保存ボタン
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.Button_Initialize_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            全て元に戻す
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.Button_Printout_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            印刷ボタン
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.Button_Close_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            閉じるボタン
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.btnItemProperyUpdate_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            フィールドのプロパティ変更内容を適用する
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.PrinterName">
+            <summary>
+            印刷先のプリンター名
+            空文字の場合は「通常使用するプリンター」を対象とする
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.LineStyleComboItem.NotifyPropertyChanged(System.String)">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント送信）
+            </summary>
+            <param name="propertyName">Bindingプロパティ名</param>
+        </member>
+        <member name="E:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.LineStyleComboItem.PropertyChanged">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.PreviewRate.NotifyPropertyChanged(System.String)">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント送信）
+            </summary>
+            <param name="propertyName">Bindingプロパティ名</param>
+        </member>
+        <member name="E:KyoeiSystem.Framework.Reports.Preview.ReportPreviewWPF.PreviewRate.PropertyChanged">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント）
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,16 @@
+年月	Date		2013/11/01
+車輌指定	String	15	（ピックアップ指定）
+車輌番号	String	6	104101
+乗務員名	String	15	乗務員名サンプルデータ
+日数	Number		29
+輸送屯数	Number		236
+走行Km	Number		3767
+実車Km	Number		2560
+燃料Ｌ	Number		1569
+燃料代	Number		185142
+前月燃費	Number		0
+前月燃費差益	Number		0
+前月対比％	Number		0
+前年燃費	Number		0
+前年対比％	Number		0
+前年燃費差益	Number		0

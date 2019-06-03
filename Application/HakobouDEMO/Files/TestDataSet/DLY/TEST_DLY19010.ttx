@@ -1,0 +1,28 @@
+乗務員コード	Number		101
+乗務員名	String	15	乗務員名サンプルデータ
+車輌ID	Number		10401
+車輌番号	String	6	1041
+得意先名	String	15	八代ライン
+発地名	String	15	南港センター
+着地名	String	15	大阪府大阪市中ノ島区
+数量	Number		100
+重量	Number		500
+容量	Number		300
+備考	String	20	備考サンプルデータ
+走行Km	Number		200
+作業日	Date		2011/01/15
+経費項目	String	10	経費項目サンプル
+拘束時間	String	5	10:00
+一般時間	String	5	10:00
+高速時間	String	5	10:00
+作業時間	String	5	10:00
+待機時間	String	5	10:00
+休憩時間	String	5	10:00
+残業時間	String	5	10:00
+深夜時間	String	5	10:00
+軽油	Number		50
+通行料	Number		10000
+出庫時間	String	5	8:00
+帰庫時間	String	5	18:00
+出庫メーター	Number	10000
+帰庫メーター	Number	15000

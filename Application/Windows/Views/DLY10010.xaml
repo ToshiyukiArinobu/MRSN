@@ -1,0 +1,618 @@
+﻿<fw:RibbonWindowViewBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+  x:Class="KyoeiSystem.Application.Windows.Views.DLY10010"
+        mc:Ignorable="d" d:DesignWidth="300" Loaded="MainWindow_Loaded_1"
+ 		WindowStyle="SingleBorderWindow" AllowsTransparency="False" PreviewKeyDown="Window_PreviewKeyDown"
+		Title="売上明細問合せ(DLY10010)" MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
+>
+  <Window.Resources>
+    <!--コンボボックス-->
+    <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <!-- TabItemの枠線の色 -->
+    <SolidColorBrush x:Key="TabItemNormalBorderBrush" Color="White"/>
+    <!-- TabItemの背景色 -->
+    <LinearGradientBrush x:Key="TabItemBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#5383c3" Offset="0"/>
+      <GradientStop Color="#4c6cd3" Offset=".5"/>
+      <GradientStop Color="#3e62ad" Offset=".5"/>
+      <GradientStop Color="#507ea4" Offset="1"/>
+    </LinearGradientBrush>
+    <!-- TabItemのマウスオーバー時の背景色 -->
+    <LinearGradientBrush x:Key="TabItemHotBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#C1D9C7" Offset="0.15"/>
+      <GradientStop Color="#6EA5A4" Offset=".5"/>
+      <GradientStop Color="#00a497" Offset=".5"/>
+      <GradientStop Color="#5c9291" Offset="1"/>
+    </LinearGradientBrush>
+    <!-- TabItemのマウスオーバー時の枠線の色 -->
+    <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#eebbcd"/>
+    <!-- TabItem選択時の背景色 -->
+    <LinearGradientBrush x:Key="TabItemSelectedBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#5383c3" Offset="0"/>
+      <GradientStop Color="#3e62ad" Offset=".5"/>
+      <GradientStop Color="#c89932" Offset=".6"/>
+      <GradientStop Color="#507ea4" Offset="1"/>
+    </LinearGradientBrush>
+    <!-- TabItem無効化時の色 -->
+    <SolidColorBrush x:Key="TabItemDisabledBackground" Color="DarkGray"/>
+    <!-- TabItem無効化時の枠線の色 -->
+    <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
+
+    <!-- TabItemのスタイルを設定 -->
+    <Style TargetType="{x:Type TabItem}">
+      <!-- TabItemの文字の色 -->
+      <Setter Property="Foreground" Value="White"/>
+      <!-- TabItemの枠線の色-->
+      <Setter Property="BorderBrush" Value="{StaticResource TabItemNormalBorderBrush}"/>
+      <!-- TabItemの背景色の設定 -->
+      <Setter Property="Background" Value="{StaticResource TabItemBackground}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type TabItem}">
+            <Grid SnapsToDevicePixels="true">
+              <Border x:Name="Bd" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="1,1,1,0" 
+                                    Background="{TemplateBinding Background}" 
+                                    Padding="{TemplateBinding Padding}">
+                <ContentPresenter x:Name="Content" 
+                                                  ContentSource="Header" 
+                                                  HorizontalAlignment="{Binding HorizontalContentAlignment, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                                  RecognizesAccessKey="True" 
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{Binding VerticalContentAlignment, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+              </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="true">
+                <!-- マウスオーバー時の背景色 -->
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemHotBackground}"/>
+              </Trigger>
+              <Trigger Property="IsSelected" Value="true">
+                <Setter Property="Panel.ZIndex" Value="1"/>
+                <!-- 選択時の背景色 -->
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemSelectedBackground}"/>
+              </Trigger>
+              <MultiTrigger>
+                <MultiTrigger.Conditions>
+                  <Condition Property="IsSelected" Value="false"/>
+                  <Condition Property="IsMouseOver" Value="true"/>
+                </MultiTrigger.Conditions>
+                <!-- マウスオーバー時の枠線の色 -->
+                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemHotBorderBrush}"/>
+              </MultiTrigger>
+
+              <Trigger Property="IsEnabled" Value="false">
+                <!-- 無効化時の背景色 -->
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemDisabledBackground}"/>
+                <!-- 無効化時の枠線の色-->
+                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
+                <!-- 無効化時の文字の色 -->
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="82"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="0.6*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <!--リボン-->
+    <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+      <!--アプリケーションメニュー-->
+      <Ribbon.ApplicationMenu>
+        <RibbonApplicationMenu SmallImageSource="../Images/Menu.png">
+          <RibbonApplicationMenuItem Header="マスタ照会" ImageSource="../Images/F1_MasterVerification.png"/>
+          <RibbonApplicationMenuItem Header="マスタ入力" ImageSource="../Images/F2_MasterInput.png"/>
+          <RibbonApplicationSplitMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp">
+            <RibbonApplicationMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp"/>
+            <RibbonApplicationMenuItem Header="ページ設定" ImageSource="../Images/Insatu_pure.bmp"/>
+            <RibbonApplicationMenuItem Header="印刷プレビュー" ImageSource="../Images/Insatu_pure.bmp"/>
+          </RibbonApplicationSplitMenuItem>
+          <RibbonApplicationMenuItem Header="終了" ImageSource="../Images/LogOut.bmp"/>
+        </RibbonApplicationMenu>
+      </Ribbon.ApplicationMenu>
+
+      <!--タブ-->
+      <RibbonTab Name="RibbonTabHome" Header="ホーム" KeyTip="h">
+
+        <RibbonGroup  KeyTip="M" Header="マスタ">
+          <RibbonButton Name="RibbonKensaku" LargeImageSource="../Images/F1_MasterVerification.png" Label="検索" Click="RibbonKensaku_Click_1" KeyTip="a"/>
+        </RibbonGroup>
+        <RibbonGroup Header="ファンクション"  KeyTip="t">
+
+          <RibbonButton  Name="CsvSyuturyoku" LargeImageSource="../Images/CsvImage.png" Click="CsvSyuturyoku_Click_1" KeyTip="e"
+								Label="CSV出力" ToolTipTitle="CSV出力(F5)" ToolTipDescription="CSV形式で出力します" ToolTipImageSource="../Images/CsvImage.png"/>
+          <RibbonButton Name="Insatu" LargeImageSource="../Images/Insatu.bmp" Click="Insatu_Click_1" KeyTip="d"
+								Label="印刷" ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します"  ToolTipImageSource="../Images/Insatu.bmp"/>
+          <RibbonButton   Name="Syuuryou" LargeImageSource="../Images/F11_End.png" Click="Syuuryou_Click_1" KeyTip="g"
+								Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+        </RibbonGroup>
+        <RibbonGroup>
+          <RibbonButton Name="PickUpRibbon" LargeImageSource="../Images/InputTure.png" Click="PickUpRibbon_Click_1" KeyTip="i" 
+								  Label="検索条件" ToolTipTitle="ピックアップ(Fxx)" ToolTipDescription="ピックアップ" ToolTipImageSource="../Images/Input.png"/>
+        </RibbonGroup>
+
+        <RibbonGroup >
+          <RibbonButton Name="RibbonButton_WebHome" LargeImageSource="../Images/IE.bmp" Click="RibbonButton_WebHome_Click_1"
+								  Label="Webホーム" ToolTipTitle="インターネット" ToolTipDescription="Webブラウザを起動します" />
+          <RibbonButton Name="RibbonButton_Meil" LargeImageSource="../Images/Mail.bmp" Click="RibbonButton_Meil_Click_1"
+								  Label="メール" ToolTipTitle="メール" ToolTipDescription="メールソフトを起動します"/>
+          <RibbonButton Name="RibbonButton_Dentaku" LargeImageSource="../Images/Dentaku.bmp" Click="RibbonButton_Dentaku_Click_1"
+								  Label="電卓" ToolTipTitle="電子式卓上計算機" ToolTipDescription="電卓を表示します"/>
+        </RibbonGroup>
+
+        <RibbonGroup Name="Ribbontest1" AllowDrop="True"  >
+          <RibbonButton Name="Kensaku_RibbonHomeBenri" LargeImageSource="../Images/Yahoo.bmp" Click="Kensaku_RibbonHomeBenri_Click_1"
+								  Label="検索" ToolTipTitle="Yahoo!JAPAN" ToolTipDescription="Yahoo!JAPANのページに遷移します" />
+          <RibbonButton Name="DouroJyouhou_RibbonHomeBenri" LargeImageSource="../Images/KousokuJyouhou.bmp" Click="DouroJyouhou_RibbonHomeBenri_Click_1"
+								  Label="道路情報" ToolTipTitle="高速道路交通情報" ToolTipDescription="高速道路交通情報のページに遷移します"/>
+          <RibbonButton Name="DouroNabi_RibbonHomeBenri" LargeImageSource="../Images/HaiuleiNabi.bmp" Click="DouroNabi_RibbonHomeBenri_Click_1"
+								  Label="道路ナビ" ToolTipTitle="ハイウェイナビゲータ" ToolTipDescription="ハイウェイナビゲータのページに遷移します"/>
+          <RibbonButton Name="JyuutaiJyouhou_RibbonHomeBenri" LargeImageSource="../Images/SeikatuTizu.bmp" Click="JyuutaiJyouhou_RibbonHomeBenri_Click_1"
+								  Label="渋滞情報" ToolTipTitle="生活地図サイト MapFan Web" ToolTipDescription="生活地図サイト MapFan Webのページに遷移します" />
+          <RibbonButton Name="Tenki_RibbonHomeBenri" LargeImageSource="../Images/Tenki.bmp" HorizontalAlignment="Right" Click="Tenki_RibbonHomeBenri_Click_1"
+								  Label="天気" ToolTipTitle="天気予報ウェザーニュース" ToolTipDescription="天気予報ウェザーニュースのページに遷移します"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+
+      <RibbonTab Background="Gray">
+        <RibbonGroup Name="RibbonOpusyonKinou" Header="機能" AllowDrop="True" />
+        <RibbonGroup Header="追加"/>
+      </RibbonTab>
+      <RibbonTab Header="ヘルプ" Background="Gray">
+        <RibbonGroup Header="サポート">
+          <RibbonButton LargeImageSource="../Images/Toiawase.bmp"
+								  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/QandA.bmp"
+								  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/KyoueiIcon.bmp"
+								  Label="企業HP" ToolTipTitle="カレンダー" ToolTipDescription="共栄システムHPに遷移します"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+      <!--ピックアップタブ-->
+      <RibbonTab Name="RibbonTabPickUp" Header="ピックアップ" Background="Gray" Visibility="Collapsed" >
+        <RibbonGroup Header="単体指定">
+
+          <RibbonButton Label="全選択" LargeImageSource="../Images/CheckTure.png"/>
+          <RibbonButton Label="クリア" LargeImageSource="../Images/CheckFalse.png"/>
+
+          <Grid >
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"  Grid.ColumnSpan="2">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+              </Grid.ColumnDefinitions>
+              <RibbonTextBox Label="範囲" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"/>
+              <RibbonTextBox Label="～" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left"/>
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+              </Grid.ColumnDefinitions>
+
+              <RibbonMenuButton Label="〆" Grid.Column="0" Grid.Row="0">
+                <RibbonGallery>
+                  <RibbonGalleryCategory>
+                    <Calendar Name="RTPickUp_SimeCalendar" />
+                  </RibbonGalleryCategory>
+                </RibbonGallery>
+              </RibbonMenuButton>
+              <RibbonTextBox Grid.Column="1" Grid.Row="0"/>
+            </Grid>
+          </Grid>
+
+          <RibbonButton Name="RibbonTabPickUP_HaneiButton" Label="反映" LargeImageSource="../Images/Input.png" Click="RibbonTabPickUP_HaneiButton_Click_1"/>
+
+        </RibbonGroup>
+
+        <RibbonGroup Header="その他">
+          <RibbonButton Name="GyouTuika" LargeImageSource="../Images/F2_MasterInput.png" KeyTip="d"
+									  Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/F2_MasterInput.png"/>
+          <RibbonButton Name="MasterTourokuJissiNyuuryoku" LargeImageSource="../Images/F9_SlipRecord.png" KeyTip="e"
+									  Label="マスタ登録" ToolTipTitle="伝票登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+          <RibbonButton Name="TorikesiJissiNyuuryoku" LargeImageSource="../Images/F10_InputRevocation.png"  KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/F10_InputRevocation.png"/>
+          <RibbonButton Name="SyuuryouJissiNyuuryoku" LargeImageSource="../Images/F11_End.png" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+      <!--		<Ribbon.ContextualTabGroups>
+				<RibbonContextualTabGroup Name="RibbonPickUp" Header="ピックアップ" Visibility="Visible" Background="Red"/>
+			</Ribbon.ContextualTabGroups>
+-->
+      <!--クイックアクセスツールバー-->
+      <Ribbon.QuickAccessToolBar>
+        <RibbonQuickAccessToolBar>
+          <RibbonButton Name="M_Sansyou" SmallImageSource="../Images/F1_MasterVerification.png" KeyTip="a" Click="RibbonKensaku_Click_1"
+								  ToolTipTitle="マスタ照会" ToolTipDescription="マスタの紹介を行います" />
+          <RibbonButton SmallImageSource="../Images/F2_MasterInput.png"
+								   ToolTipTitle="マスタ入力" ToolTipDescription="マスタの入力を行います" />
+          <RibbonButton SmallImageSource="../Images/Modoru.png"
+								  ToolTipTitle="マスタ照会" ToolTipDescription="マスタの紹介を行います" />
+          <RibbonButton SmallImageSource="../Images/Susumu.png"
+								   ToolTipTitle="マスタ入力" ToolTipDescription="マスタの入力を行います" />
+          <RibbonButton SmallImageSource="../Images/F11_End.png"
+								  ToolTipTitle="終了" ToolTipDescription="作業を終了します" />
+        </RibbonQuickAccessToolBar>
+      </Ribbon.QuickAccessToolBar>
+    </Ribbon>
+
+
+    <!--ヘッダー部-->
+    <Border Name="Header" BorderBrush="Black" Grid.Row="1" BorderThickness="1" Grid.Column="0" Margin="10,10,10,5" Grid.ColumnSpan="2">
+      <Grid  Background="#FFB6D8D3" Margin="-1,3,1,-3">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="5"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width=".2*"/>
+          <ColumnDefinition Width=".6*"/>
+          <ColumnDefinition Width=".6*"/>
+          <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="27"/>
+          <RowDefinition Height="27"/>
+          <RowDefinition Height="27"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <ctls:UcLabelTwinTextBox Name="TokuisakiSitei" Label_Context="得意先指定" Label_Width="80" Grid.Column="1" Grid.Row="1" Margin="1"  Label1Visibility="Collapsed" Label2Visibility="Collapsed"/>
+                <ctls:UcLabelTwinTextBox Name="SiharaisakiSitei" Label_Context="支払先指定" Label_Width="80" Grid.Column="1" Grid.Row="2" Margin="1" Label1Visibility="Collapsed" Label2Visibility="Collapsed"/>
+                <ctls:UcLabelTwinTextBox Name="UtiwakeSitei" Label_Context="内訳指定" Label_Width="80" Grid.Column="1" Grid.Row="3" Margin="1" Label1Visibility="Collapsed" Label2Visibility="Collapsed"/>
+ <!--       <ctls:UcLabelTextBoxVariation Name="SeikyuuSaki" Label_Context="請求先指定" FirstText_Background="Gold" CounteType="LabelDoubleText"  Label_Width="80" Grid.Column="1" Grid.Row="4" Margin="1"/>
+ -->   <!--表示順指定-->
+        <Grid Name="HyoujiGrid" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Grid.RowSpan="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="2" Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="2" Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="2" Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="2" Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="2" Width="auto"/>
+
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+          </Grid.RowDefinitions>
+          <Button Name="HyoujiJyun" Content="表示順序指定" Click="HyoujiJyun_Click_1"/>
+
+          <TextBox Name="HyoujiText1" Grid.Column="1" Background="White" Margin="2,2,0,2" IsReadOnly="True" TextChanged="HyoujiText1_TextChanged_1" />
+          <Image Name="HyoujiImage1" Grid.Column="2" Source="../Images/SyouJyun.png" Margin="0,2,2,2" MouseDown="HyoujiImage1_MouseDown_1" Visibility="Collapsed" />
+
+          <TextBox Name="HyoujiText2" Grid.Column="3" Background="White" Margin="2,2,0,2" IsReadOnly="True" TextChanged="HyoujiText1_TextChanged_1" />
+          <Image Name="HyoujiImage2" Grid.Column="4" Source="../Images/SyouJyun.png" Margin="0,2,2,2" Visibility="Collapsed" MouseDown="HyoujiImage2_MouseDown_1"/>
+
+          <TextBox Name="HyoujiText3" Grid.Column="5" Background="White" Margin="2,2,0,2" IsReadOnly="True" TextChanged="HyoujiText1_TextChanged_1"/>
+          <Image Name="HyoujiImage3" Grid.Column="6" Source="../Images/SyouJyun.png" Margin="0,2,2,2" Visibility="Collapsed" MouseDown="HyoujiImage3_MouseDown_1"/>
+
+          <TextBox Name="HyoujiText4" Grid.Column="7" Background="White" Margin="2,2,0,2" IsReadOnly="True" TextChanged="HyoujiText1_TextChanged_1" />
+          <Image Name="HyoujiImage4" Grid.Column="8" Source="../Images/SyouJyun.png" Margin="0,2,2,2" Visibility="Collapsed" MouseDown="HyoujiImage4_MouseDown_1"/>
+
+          <TextBox Name="HyoujiText5" Grid.Column="9" Background="White" Margin="2,2,0,2" IsReadOnly="True" TextChanged="HyoujiText1_TextChanged_1"/>
+          <Image Name="HyoujiImage5" Grid.Column="10" Source="../Images/SyouJyun.png" Margin="0,2,2,2" Visibility="Collapsed" MouseDown="HyoujiImage5_MouseDown_1"/>
+
+          <ListBox Name="HyoujiList" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Visibility="Collapsed"
+							 MouseDoubleClick="HyoujiList_MouseDoubleClick_1">
+            <ListBoxItem>得意先ID</ListBoxItem>
+            <ListBoxItem>請求内訳ID</ListBoxItem>
+            <ListBoxItem>車輌ID</ListBoxItem>
+            <ListBoxItem>自社部門ID</ListBoxItem>
+            <ListBoxItem>乗務員名</ListBoxItem>
+          </ListBox>
+          <Grid Name="HyoujiButtonGrid" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="10" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Button Name="HyoujiTojiru" Width="auto" Height="50"  Content="閉じる" Click="HyoujiTojiru_Click_1" HorizontalAlignment="Left"	Visibility="Collapsed"/>
+            <Button Name="HyoujiCria" Width="auto" Height="50" Content="クリア" Click="HyoujiCria_Click_1" HorizontalAlignment="Left" Visibility="Collapsed" Grid.Row="1"/>
+          </Grid>
+        </Grid>
+   
+        <!--検索ボタン-->
+        <Button Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Width="100" Height="40" 
+							HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0" Margin="3,0,0,0" Click="Button_Click_1" >
+          <Button.Template>
+            <ControlTemplate TargetType="Button">
+              <Border CornerRadius="15" Padding="10" BorderThickness="3">
+                <Border.BorderBrush>
+                  <LinearGradientBrush EndPoint="0, 1">
+                    <LinearGradientBrush.GradientStops>
+                      <GradientStop Offset="0" Color="#FFFFFFFF" />
+                      <GradientStop Offset="1" Color="#FF777777" />
+                    </LinearGradientBrush.GradientStops>
+                  </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                  <LinearGradientBrush StartPoint="0,0.2" EndPoint="1,3">
+                    <LinearGradientBrush.GradientStops>
+                      <GradientStop Offset="0.143" Color="#2792c3" />
+                      <GradientStop Offset="0.052" Color="DarkGray" />
+                      <GradientStop Offset="0.922" Color="DarkBlue" />
+                      <GradientStop Offset="0.326" Color="#2792c3" />
+                      <GradientStop Offset="0.417" Color="#0593E2" />
+                      <GradientStop Color="#FF2792C3" Offset="0.23"/>
+                    </LinearGradientBrush.GradientStops>
+                  </LinearGradientBrush>
+                </Border.Background>
+                <Label Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+										   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Margin="0,-10">検索</Label>
+              </Border>
+            </ControlTemplate>
+          </Button.Template>
+        </Button>
+
+        <Grid Grid.Column="1" Grid.Row="7"  Grid.ColumnSpan="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+          </Grid.RowDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Background="#2792c3" Foreground="White" Grid.Column="0" Grid.Row="0"  Margin="1">検索日付</Label>
+                        <ComboBox Name="DaySelectionComboBox" Grid.Column="1" Grid.Row="0" Margin="1">
+                            <ComboBoxItem IsSelected="True">請求日付</ComboBoxItem>
+                            <ComboBoxItem>支払日付</ComboBoxItem>
+                            <ComboBoxItem>配送日付</ComboBoxItem>
+                        </ComboBox>
+                        <ctls:UcLabelDatePicker Name="SearchDay" Grid.Column="2"  Label_Visibility="Collapsed"/>
+                    </Grid>
+
+                    <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="80"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="80"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <ctls:UcLabelComboBox Name="BumonSitei" Label_Context="部門指定" Label_Width="80" Grid.ColumnSpan="2" Combo_DisplayMemberPath="自社部門名" Combo_SelectedValuePath="自社部門ID" Combo_SelectedIndex="0"/>
+            
+            <Label Background="#2792c3" Foreground="White" Grid.Column="0" Grid.Row="1"  Margin="1">未定区分</Label>
+            <ComboBox Name="MiteiKubun" Grid.Column="1" Grid.Row="1" Margin="1">
+              <ComboBoxItem IsSelected="True">全体</ComboBoxItem>
+              <ComboBoxItem>未定のみ</ComboBoxItem>
+              <ComboBoxItem>確定のみ</ComboBoxItem>
+              <ComboBoxItem>金額が未入力のみ</ComboBoxItem>
+            </ComboBox>
+          </Grid>
+         
+          <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="5" BorderThickness="2" BorderBrush="#00552e" Background="#b9d08b" />
+            <ctls:UcLabelTextBox Name="SyouhinNm" Grid.Column="0" Grid.Row="0" Margin="5,3,5,0" Label_Context="商品名" Label_Width="80"/>
+            <ctls:UcLabelTextBox Name="HottiNm"  Grid.Column="0" Grid.Row="1" Margin="5,3,5,0" Label_Context="発地名" Label_Width="80"/>
+            <ctls:UcLabelTextBox Name="TyakutiNm" Grid.Column="0" Grid.Row="2" Margin="5,3,5,0" Label_Context="着地名" Label_Width="80"/>
+            <ctls:UcLabelTextBox Name="SeikyuTekiyou" Grid.Column="0" Grid.Row="3" Margin="5,2,5,0" Label_Context="請求適用" Label_Width="80"/>
+            <ctls:UcLabelTextBox Name="SyanaiBikou" Grid.Column="0" Grid.Row="4" Margin="5,2,1,5" Label_Context="社内備考" Label_Width="80"/>
+          </Grid>
+          
+        </Grid>
+        <!--PickUp指定-->
+        <Grid Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="1" Grid.RowSpan="2">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+          </Grid.RowDefinitions>
+          <Border Name="PickUpJyoukenBorder3" Margin="3,3,-1,0"
+						Background="#FFEAE0" Visibility="Hidden" BorderThickness="3,3,0,0" BorderBrush="#FFD3B4">
+            <ScrollViewer>
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="2"/>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="2"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="2"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  Background="#FFEAE0" Foreground="Black" HorizontalContentAlignment="Center">ピックアップ選択</Label>
+                <Button  Grid.Row="5" Grid.Column="1" Margin="1">全選択</Button>
+                <Button Grid.Row="5" Grid.Column="2" Margin="1">クリア</Button>
+                <Button Grid.Row="5" Grid.Column="3" Margin="1">反映</Button>
+                <Label Grid.Row="2" Grid.Column="1" Margin="1"  Background="#2792c3" Foreground="White" HorizontalContentAlignment="Center">選択</Label>
+                <ComboBox Name="PickUplan3ComboBox" Grid.Row="2"  Grid.Column="2" Grid.ColumnSpan="2" SelectionChanged="PickUplan3ComboBox_SelectionChanged_1" >
+                  <ComboBoxItem IsSelected="True">得意先コード</ComboBoxItem>
+                  <ComboBoxItem>請求先コード</ComboBoxItem>
+                  <ComboBoxItem>支払先コード</ComboBoxItem>
+                  <ComboBoxItem>乗務員コード</ComboBoxItem>
+                  <ComboBoxItem>車輌コード</ComboBoxItem>
+                  <ComboBoxItem>車種ID</ComboBoxItem>
+                  <ComboBoxItem>発地コード</ComboBoxItem>
+                  <ComboBoxItem>着地コード</ComboBoxItem>
+                  <ComboBoxItem>商品コード</ComboBoxItem>
+                </ComboBox>
+                <Grid Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Margin="1">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <Label Grid.Row="0" Grid.ColumnSpan="3" Background="#2792c3" Foreground="White" HorizontalContentAlignment="Center">選択</Label>
+                  <TextBox Grid.Row="1" BorderThickness="0" Background="#FFF1F19E"></TextBox>
+                  <Label Grid.Column="1" Grid.Row="1" Background="White" BorderThickness="0" BorderBrush="White">～</Label>
+                  <TextBox Grid.Column="2" Grid.Row="1"  BorderThickness="0" Background="#FFF1F19E"></TextBox>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabelTextBox Name="PickUpSime" Label_Context="締め日" Label_Width="80" />
+                  <DatePicker Grid.Column="1"/>
+                </Grid>
+              </Grid>
+            </ScrollViewer>
+          </Border>
+          <Button Name="PickUpFlagButton3" Grid.Row="1" Margin="5,0,2,-1" Content="ピックアップ指定" Click="PickUpFlagButton3_Click_1"/>
+        </Grid>
+
+        <Grid Name="PickUpDataGridGrid3"  Grid.Column="4" Grid.Row="1" Grid.RowSpan="8"
+					  Background="#FFEAE0" Margin="-2,1,1,3" Visibility="Collapsed">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <!--得意先DataGrid-->
+          <ctls:UcDataGrid Name="DataGridPickUp_Tokuisaki" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White"/>
+          
+          <!--請求先DataGrid-->
+          <ctls:UcDataGrid Name="DataGridPickUp_SeikyuSaki" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+
+          <!--支払先DataGrid-->
+          <ctls:UcDataGrid Name="DataGridPickUp_Siharaisaki" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+
+          <!--乗務員DataGrid-->
+          <ctls:UcDataGrid Name="DrvDataGrid" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+
+          <!--車輌DataGrid-->
+          <ctls:UcDataGrid Name="CarDataGrid" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+
+          <!--車種DataGrid-->
+          <ctls:UcDataGrid Name="SyaDataGrid" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+
+          <!--発地DataGrid-->
+          <ctls:UcDataGrid Name="TikDataGrid" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+
+          <!--着地DataGrid-->
+          <ctls:UcDataGrid Name="DataGridPickUp_Tyakuti" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+         
+          <!--商品名DataGrid-->
+          <ctls:UcDataGrid Name="HinDataGrid" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+							 VerticalAlignment="Stretch" cIsReadOnly="True" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" Visibility="Collapsed"/>
+        </Grid>
+      </Grid>
+    </Border>
+    <!--Body(表)-->
+    <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+
+            <DataGrid ItemsSource="{Binding MakeTable}"
+                            AutoGenerateColumns="True"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto"
+                            VirtualizingPanel.IsVirtualizing="True"
+                            VirtualizingPanel.VirtualizationMode="Recycling"
+                            Height="161"
+                           />
+            <!--一覧表示-->
+      <ctls:UcDataGrid Name="cDataGrid" cAutoGenerateColumns="False" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+						cVisibility="Collapsed"	 VerticalAlignment="Stretch" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White"/>
+    </Grid>
+    <!--フッダー部-->
+    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="3" Margin="10" Grid.ColumnSpan="2">
+      <Grid Background="#FFB6D8D3">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ctls:UcLabelTextBox  Grid.Column="0" Grid.Row="0" Label_Context="売上金額" Label_Width="80" Margin="1" />
+                <ctls:UcLabelTextBox  Grid.Column="1" Grid.Row="0" Label_Context="時間外割増" Label_Width="80" Margin="1" />
+                <ctls:UcLabelTextBox  Grid.Column="2" Grid.Row="0" Label_Context="距離割増" Label_Width="80" Margin="1" />
+                <ctls:UcLabelTextBox  Grid.Column="3" Grid.Row="0" Label_Context="通行料" Label_Width="80" Margin="1" />
+                <ctls:UcLabelTextBox  Grid.Column="4" Grid.Row="0" Label_Context="売上合計" Label_Width="80" Margin="1" />
+                <ctls:UcLabelTextBox  Grid.Column="0" Grid.Row="1" Label_Context="数量" Label_Width="80" Margin="1" />
+                <ctls:UcLabelTextBox  Grid.Column="1" Grid.Row="1" Label_Context="重量" Label_Width="80"  Margin="1"/>
+                <ctls:UcLabelTextBox  Grid.Column="2" Grid.Row="1" Label_Context="支払･社内" Label_Width="80"  Margin="1"/>
+                <ctls:UcLabelTextBox  Grid.Column="3" Grid.Row="1" Label_Context="支払交通料" Label_Width="80" Margin="1" />
+                <ctls:UcLabelTextBox  Grid.Column="4" Grid.Row="1" Label_Context="支払合計" Label_Width="80" Margin="1" />
+      </Grid>
+    </Border>
+  </Grid>
+</fw:RibbonWindowViewBase>

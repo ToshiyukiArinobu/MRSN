@@ -1,0 +1,4 @@
+C:\HBMS\Framework\Common\bin\Debug\KyoeiSystem.Framework.Common.dll
+C:\HBMS\Framework\Common\bin\Debug\KyoeiSystem.Framework.Common.pdb
+C:\HBMS\Framework\Common\obj\Debug\KyoeiSystem.Framework.Common.dll
+C:\HBMS\Framework\Common\obj\Debug\KyoeiSystem.Framework.Common.pdb

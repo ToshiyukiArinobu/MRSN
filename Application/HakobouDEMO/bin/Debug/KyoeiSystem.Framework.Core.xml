@@ -1,0 +1,437 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KyoeiSystem.Framework.Core</name>
+    </assembly>
+    <members>
+        <member name="T:KyoeiSystem.Framework.Core.IKESService">
+            <summary>
+            WCFサービスのインターフェース定義
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.IKESService.CallFunction(System.String,System.String,System.String,System.String[],System.Object[])">
+            <summary>
+            WCFサービス機能呼び出し用メソッド
+            </summary>
+            <param name="fname">機能名</param>
+            <param name="kind">機能タイプ</param>
+            <param name="cstr">接続情報</param>
+            <param name="ptypes">パラメータタイプ</param>
+            <param name="plist">パラメータ</param>
+            <returns>各機能の戻り値</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.DataAccessConst">
+            <summary>
+            複数のソリューションに対応するが、WCFサービスの名前空間は固定しておく。
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.DataAccessConst.APLWCFNAMESPACE">
+            <summary>
+            アプリケーションWCFクラスライブラリのNamespace名省略時の値
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.DataAccessConst.APLWCFDLL">
+            <summary>
+            アプリケーションWCFクラスライブラリのDLL名省略時の値
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.DataAccessConst.DACCLASSNAME">
+            <summary>
+            アプリケーションDACクラス名省略時の値
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.DataAccessConst.SCVCLASSNAME">
+            <summary>
+            アプリケーションWCFサービス名省略時の値
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.DataAccessConst.GETCONFIGMETHODNAME">
+            <summary>
+            DACエントリー情報取得用メソッド名
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.MessageType">
+            <summary>
+            スレッド間通信メッセージタイプ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.None">
+            <summary>
+            メッセージ内容なし（Default）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.TimerLoop">
+            <summary>
+            指定時間待機（ミリ秒）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.RequestData">
+            <summary>
+            指定条件データの取得要求（Dataset）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.RequestDataNoManage">
+            <summary>
+            指定条件データの取得要求（Dataset変換なし）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.UpdateData">
+            <summary>
+            更新データ（Dataset）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.CallStoredProcedure">
+            <summary>
+            ストアドプロシージャ呼出
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.RequestDataWithBusy">
+            <summary>
+            データアクセス要求（画面のビジー・フリー制御）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.RequestLicense">
+            <summary>
+            ライセンスDBアクセス専用
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.ResponseData">
+            <summary>
+            取得結果データ（WCF）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.ResponsePut">
+            <summary>
+            更新結果データ（WCF）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.ResponseStored">
+            <summary>
+            ストアド呼出の結果
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.ResponseWithFree">
+            <summary>
+            RequestDataWithBusyに対する応答
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.Error">
+            <summary>
+            エラー通知
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageType.ErrorWithFree">
+            <summary>
+            RequestDataWithBusyに対するエラー応答
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.MessageErrorType">
+            <summary>
+            データアクセスクラスの実行時エラーのタイプ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.NoError">
+            <summary>
+            正常（エラーなし）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.DataNotFound">
+            <summary>
+            該当データなし
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.UpdateConflict">
+            <summary>
+            他のトランザクションとの衝突により更新不可
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.DataError">
+            <summary>
+            データアクセスエラー
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.DBConnectError">
+            <summary>
+            データベース接続エラー
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.DBGetError">
+            <summary>
+            データ取得エラー
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.DBUpdateError">
+            <summary>
+            データ更新エラー
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.MessageErrorType.SystemError">
+            <summary>
+            システムエラー
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.ThreadContext">
+            <summary>
+            スレッド関連情報
+            </summary>
+            <remarks>
+            画面アプリケーションとデータアクセス処理のスレッド間通信を制御するための情報を保持します。
+            ThreadManagerにて使用する情報であり、アプリケーション側でアクセスする必要はありません。
+            </remarks>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ThreadContext._thread">
+            <summary>
+            ワーカースレッド情報
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ThreadContext.isRunnig">
+            <summary>
+            ワーカースレッドの実行状態
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ThreadContext.stopflag">
+            <summary>
+            ワーカースレッドへの停止要求フラグ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ThreadContext.requestflag">
+            <summary>
+            メッセージ送信要求フラグ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ThreadContext.commdata">
+            <summary>
+            スレッド間通信で使用するオブジェクト
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.CommunicationData">
+            <summary>
+            インターフェースオブジェクト
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.CommunicationData.Parameters">
+            <summary>
+            パラメータオブジェクトのコレクション
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.ComColumn">
+            <summary>
+            パラメータオブジェクト
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ComColumn.Name">
+            <summary>
+            キー名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ComColumn.Value">
+            <summary>
+            オブジェクト値
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.CommunicationObject">
+            <summary>
+            スレッド間通信用メッセージ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.CommunicationObject.ReqesterThreadID">
+            <summary>
+            メッセージ送信要求スレッド情報
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.CommunicationObject.Name">
+            <summary>
+            メッセージ名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.CommunicationObject.data">
+            <summary>
+            メッセージデータ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.CommunicationObject.mType">
+            <summary>
+            メッセージタイプ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.CommunicationObject.ErrorType">
+            <summary>
+            エラーの種類
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.CommunicationObject.connection">
+            <summary>
+            DB接続文字列
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.CommunicationObject.GetMessageName">
+            <summary>
+            メッセージ名を取得する
+            </summary>
+            <returns>メッセージ名</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.CommunicationObject.GetResultData">
+            <summary>
+            実行結果として受信したオブジェクトを取得する
+            </summary>
+            <remarks>
+            データアクセスの各機能を実行した結果として受信したオブジェクトがListまたはArrayである場合、DataTable形式に変換されます。
+            ただし、各コレクションの要素のメンバーは、getterのあるプロパティのみが対象となります。
+            </remarks>
+            <returns>受信した結果オブジェクト</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.CommunicationObject.GetParameters">
+            <summary>
+            パラメータとして指定されたオブジェクトを取得する
+            </summary>
+            <returns>データアクセス機能に渡される引数オブジェクトのコレクション</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.CommunicationObject.#ctor(KyoeiSystem.Framework.Core.MessageType,System.String,System.Object[])">
+            <summary>
+            コンストラクタ（通常）
+            </summary>
+            <param name="mtype">メッセージタイプ</param>
+            <param name="messagename">メッセージ名</param>
+            <param name="parameters">データアクセス機能に渡される引数オブジェクト（可変長）</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.CommunicationObject.#ctor(KyoeiSystem.Framework.Core.MessageType,KyoeiSystem.Framework.Core.MessageErrorType,System.String,System.Object[])">
+            <summary>
+            コンストラクタ（エラー時）
+            </summary>
+            <remarks>
+            呼び出し元に返すオブジェクトは、現状、エラーメッセージのみです。
+            </remarks>
+            <param name="mtype">メッセージタイプ</param>
+            <param name="errType">エラー種別</param>
+            <param name="messagename">メッセージ名</param>
+            <param name="parameters">呼び出し元に返すオブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.CommunicationObject.Initialize(KyoeiSystem.Framework.Core.MessageType,KyoeiSystem.Framework.Core.MessageErrorType,System.String,System.Object[])">
+            <summary>
+            インスタンスの初期化を行います。
+            </summary>
+            <param name="mtype">メッセージタイプ</param>
+            <param name="errType"></param>
+            <param name="messagename">メッセージ名</param>
+            <param name="parameters"></param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.ConstDataAccess">
+            <summary>
+            定数定義（データアクセス時エラーメッセージ）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ConstDataAccess.Error">
+            <summary>
+            データアクセスエラー（一般）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ConstDataAccess.ErrDataTypeUnknown">
+            <summary>
+            データタイプ不整合
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ConstDataAccess.ErrUnknownMethod">
+            <summary>
+            データアクセスメソッド不明
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.ThreadManeger">
+            <summary>
+            スレッド管理クラス
+            </summary>
+            <remarks>
+            各画面は、用途に応じた基底クラスを継承すれば、基底クラス内部でスレッド管理の機能を使用するため、アプリケーションから直接利用する必要はない。
+            </remarks>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.DataAccessLocal(System.Object)">
+            <summary>
+            データアクセスメソッドの実行
+            </summary>
+            <param name="param">スレッド起動時に渡されるパラメータ(ThreadContext)</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.OnRemoteCertificateValidationCallback(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            証明書チェックコールバック処理
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="sslPolicyErrors"></param>
+            <returns></returns>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Core.ThreadManeger.appLog">
+            <summary>
+            データアクセス定義情報
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.#ctor(KyoeiSystem.Framework.Common.DataAccessConfig,KyoeiSystem.Framework.Common.AppLogger)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="cfg">データアクセス定義情報</param>
+            <param name="logger">ログ出力モジュール</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.SystemEvents_PowerModeChanged(System.Object,Microsoft.Win32.PowerModeChangedEventArgs)">
+            <summary>
+            電源状態の変化イベント
+            </summary>
+            <param name="sender">object</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.Dispose">
+            <summary>
+            オブジェクトを破棄する。
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.OnMesasageRecived(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            メッセージ受信ハンドラ
+            </summary>
+            <param name="message">受信メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.TimerLoopStart(System.Int32)">
+            <summary>
+            タイマースレッドを開始する。
+            </summary>
+            <param name="timer">タイマー周期時間（ミリ秒）</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.TimerLoopStop">
+            <summary>
+            タイマースレッドを停止する。
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.Stop">
+            <summary>
+            ワーカースレッドを全て停止する。
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.SendRequest(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            メッセージ送信要求
+            </summary>
+            <param name="request">送信メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Core.ThreadManeger.TimerLoop(System.Object)">
+            <summary>
+            ワーカースレッドのタイマーイベントループ
+            </summary>
+            <param name="param">タイマー周期時間（ミリ秒）</param>
+        </member>
+        <member name="E:KyoeiSystem.Framework.Core.ThreadManeger.OnReceived">
+            <summary>
+            メッセージ受信イベント
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Core.ThreadManeger.Name">
+            <summary>
+            スレッド名（省略可）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Core.MessageReceiveHandler">
+            <summary>
+            スレッド間通信イベント用デリゲート
+            </summary>
+            <param name="message">受信メッセージ</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,44 @@
+﻿<vm:WindowGeneralBase
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase"
+  xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+  x:Class="KyoeiSystem.Framework.Windows.ViewBase.LogView"
+  mc:Ignorable="d" Language="ja-JP"
+  Loaded="Window_Loaded"
+  d:DesignHeight="432.602" WindowStartupLocation="CenterScreen" Title="LOG Viewer" Width="1024" Height="768"
+  >
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="30"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <DockPanel Grid.ColumnSpan="3">
+      <StackPanel Orientation="Horizontal" Grid.Row="0" DockPanel.Dock="Left">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="auto"/>
+          </Grid.ColumnDefinitions>
+          <Label Grid.Column="0" Content="ログファイル：" />
+          <Label Grid.Column="1" Content="{Binding LogFilePath}" Height="28" HorizontalAlignment="Right"/>
+        </Grid>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+        <Button Content=" 再表示 " Click="Reflesh_Click"/>
+        <Button Content=" 閉じる " Click="Close_Click"/>
+      </StackPanel>
+    </DockPanel>
+    <FlowDocumentReader Name="DOCVIEW" Grid.Row="1" Document="{Binding LogDocument}"
+                        FontFamily="MS Gothic" BorderThickness="1" BorderBrush="Black"
+                        IsInactiveSelectionHighlightEnabled="True" ViewingMode="Scroll" MinZoom="50"
+                        SelectionBrush="Lime" 
+                        />
+  </Grid>
+</vm:WindowGeneralBase>
+  

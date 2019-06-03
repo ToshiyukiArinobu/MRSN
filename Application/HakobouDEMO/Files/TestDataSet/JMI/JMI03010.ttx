@@ -1,0 +1,32 @@
+労務日	Date		2013/09/01
+運行日自	Date		2013/09/01
+運行日至	Date		2013/09/01
+出社区分	String	2	出勤
+乗務員コード	Number		101
+乗務員名	String	15	乗務員名サンプルデータ
+対象日付From	Date		2013/09/01
+対象日付To	Date		2013/09/30
+車番	String	6	123456
+出社H	String	5	8:00
+退社H	String	5	17:00
+拘束H	String	5	9:00
+運転H	String	5	4:00
+高速H	String	5	0:00
+作業H	String	5	4:00
+待機H	String	5	0:00
+休憩H	String	5	1:00
+残業H	String	5	0:00
+深夜H	String	5	0:00
+走行Km	Number		127
+実車Km	Number		90
+輸送屯数	Number		8
+経費合計	Number		23178
+明細番号	Number		22052
+拘束H合計	String	5	9:00
+運転H合計	String	5	4:00
+高速H合計	String	5	0:00
+作業H合計	String	5	4:00
+待機H合計	String	5	0:00
+休憩H合計	String	5	1:00
+残業H合計	String	5	0:00
+深夜H合計	String	5	0:00

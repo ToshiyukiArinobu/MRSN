@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="KyoeiSystem.Application.WCFService.M70" CodeBehind="M70.svc.cs" %>

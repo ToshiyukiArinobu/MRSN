@@ -1,0 +1,12 @@
+年From	String	5	2011年
+年To	String	5	2013年
+表示順序	String	5	コード順
+対象年	String	5	2011年
+乗務員コード	Number		101
+乗務員名	String	20	乗務員名サンプルデータ
+発生年月日	Date		2013/09/25
+登録番号	String	12	12345678
+事故の種類	String	20	自損事故
+有責・無責	String	1	有
+事故記録簿No.	String	10	123456789
+概要・処置等	String	30	謹慎処分

@@ -1,0 +1,1098 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TRAC3ModelStoreContainer" CdmEntityContainer="TRAC3Entities">
+    <EntitySetMapping Name="M01_TOK">
+      <EntityTypeMapping TypeName="TRAC3Model.M01_TOK">
+        <MappingFragment StoreEntitySet="M01_TOK">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="論理削除" ColumnName="論理削除" />
+          <ScalarProperty Name="集計コード３" ColumnName="集計コード３" />
+          <ScalarProperty Name="集計コード２" ColumnName="集計コード２" />
+          <ScalarProperty Name="集計コード１" ColumnName="集計コード１" />
+          <ScalarProperty Name="参照取引先枝番３" ColumnName="参照取引先枝番３" />
+          <ScalarProperty Name="参照取引先コード３" ColumnName="参照取引先コード３" />
+          <ScalarProperty Name="参照取引先枝番２" ColumnName="参照取引先枝番２" />
+          <ScalarProperty Name="参照取引先コード２" ColumnName="参照取引先コード２" />
+          <ScalarProperty Name="参照取引先枝番１" ColumnName="参照取引先枝番１" />
+          <ScalarProperty Name="参照取引先コード１" ColumnName="参照取引先コード１" />
+          <ScalarProperty Name="集約取引先枝番" ColumnName="集約取引先枝番" />
+          <ScalarProperty Name="集約取引先コード" ColumnName="集約取引先コード" />
+          <ScalarProperty Name="自社備考２" ColumnName="自社備考２" />
+          <ScalarProperty Name="自社備考１" ColumnName="自社備考１" />
+          <ScalarProperty Name="Ｓ担当者コード" ColumnName="Ｓ担当者コード" />
+          <ScalarProperty Name="Ｔ担当者コード" ColumnName="Ｔ担当者コード" />
+          <ScalarProperty Name="与信枠" ColumnName="与信枠" />
+          <ScalarProperty Name="Ｓ入金日２" ColumnName="Ｓ入金日２" />
+          <ScalarProperty Name="Ｓ入金日１" ColumnName="Ｓ入金日１" />
+          <ScalarProperty Name="Ｓサイト２" ColumnName="Ｓサイト２" />
+          <ScalarProperty Name="Ｓサイト１" ColumnName="Ｓサイト１" />
+          <ScalarProperty Name="Ｓ支払区分" ColumnName="Ｓ支払区分" />
+          <ScalarProperty Name="Ｓ支払条件" ColumnName="Ｓ支払条件" />
+          <ScalarProperty Name="Ｓ締日" ColumnName="Ｓ締日" />
+          <ScalarProperty Name="Ｓ税区分ID" ColumnName="Ｓ税区分ID" />
+          <ScalarProperty Name="Ｓ支払消費税区分" ColumnName="Ｓ支払消費税区分" />
+          <ScalarProperty Name="Ｔ入金日２" ColumnName="Ｔ入金日２" />
+          <ScalarProperty Name="Ｔ入金日１" ColumnName="Ｔ入金日１" />
+          <ScalarProperty Name="Ｔサイト２" ColumnName="Ｔサイト２" />
+          <ScalarProperty Name="Ｔサイト１" ColumnName="Ｔサイト１" />
+          <ScalarProperty Name="Ｔ請求区分" ColumnName="Ｔ請求区分" />
+          <ScalarProperty Name="Ｔ請求条件" ColumnName="Ｔ請求条件" />
+          <ScalarProperty Name="Ｔ締日" ColumnName="Ｔ締日" />
+          <ScalarProperty Name="Ｔ税区分ID" ColumnName="Ｔ税区分ID" />
+          <ScalarProperty Name="Ｔ消費税区分" ColumnName="Ｔ消費税区分" />
+          <ScalarProperty Name="担当会社コード" ColumnName="担当会社コード" />
+          <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+          <ScalarProperty Name="ＦＡＸ" ColumnName="ＦＡＸ" />
+          <ScalarProperty Name="電話番号" ColumnName="電話番号" />
+          <ScalarProperty Name="住所２" ColumnName="住所２" />
+          <ScalarProperty Name="住所１" ColumnName="住所１" />
+          <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
+          <ScalarProperty Name="略称名" ColumnName="略称名" />
+          <ScalarProperty Name="部課名称" ColumnName="部課名称" />
+          <ScalarProperty Name="得意先名２" ColumnName="得意先名２" />
+          <ScalarProperty Name="得意先名１" ColumnName="得意先名１" />
+          <ScalarProperty Name="取引区分" ColumnName="取引区分" />
+          <ScalarProperty Name="枝番" ColumnName="枝番" />
+          <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M02_BAIKA">
+      <EntityTypeMapping TypeName="TRAC3Model.M02_BAIKA">
+        <MappingFragment StoreEntitySet="M02_BAIKA">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="枝番" ColumnName="枝番" />
+          <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M03_BAIKA">
+      <EntityTypeMapping TypeName="TRAC3Model.M03_BAIKA">
+        <MappingFragment StoreEntitySet="M03_BAIKA">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="枝番" ColumnName="枝番" />
+          <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M04_BAIKA">
+      <EntityTypeMapping TypeName="TRAC3Model.M04_BAIKA">
+        <MappingFragment StoreEntitySet="M04_BAIKA">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="枝番" ColumnName="枝番" />
+          <ScalarProperty Name="外注先コード" ColumnName="外注先コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M06_IRO">
+      <EntityTypeMapping TypeName="TRAC3Model.M06_IRO">
+        <MappingFragment StoreEntitySet="M06_IRO">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="色名称" ColumnName="色名称" />
+          <ScalarProperty Name="色コード" ColumnName="色コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M10_SHIN">
+      <EntityTypeMapping TypeName="TRAC3Model.M10_SHIN">
+        <MappingFragment StoreEntitySet="M10_SHIN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="使用数量" ColumnName="使用数量" />
+          <ScalarProperty Name="構成品番コード" ColumnName="構成品番コード" />
+          <ScalarProperty Name="部品行" ColumnName="部品行" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M10_TOKHIN">
+      <EntityTypeMapping TypeName="TRAC3Model.M10_TOKHIN">
+        <MappingFragment StoreEntitySet="M10_TOKHIN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="得意先品番コード" ColumnName="得意先品番コード" />
+          <ScalarProperty Name="枝番" ColumnName="枝番" />
+          <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M11_TEK">
+      <EntityTypeMapping TypeName="TRAC3Model.M11_TEK">
+        <MappingFragment StoreEntitySet="M11_TEK">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要名" ColumnName="摘要名" />
+          <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+          <ScalarProperty Name="摘要ID" ColumnName="摘要ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M12_DAIBUNRUI">
+      <EntityTypeMapping TypeName="TRAC3Model.M12_DAIBUNRUI">
+        <MappingFragment StoreEntitySet="M12_DAIBUNRUI">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="大分類名" ColumnName="大分類名" />
+          <ScalarProperty Name="大分類コード" ColumnName="大分類コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M13_TYUBUNRUI">
+      <EntityTypeMapping TypeName="TRAC3Model.M13_TYUBUNRUI">
+        <MappingFragment StoreEntitySet="M13_TYUBUNRUI">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="中分類名" ColumnName="中分類名" />
+          <ScalarProperty Name="中分類コード" ColumnName="中分類コード" />
+          <ScalarProperty Name="大分類コード" ColumnName="大分類コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M14_BRAND">
+      <EntityTypeMapping TypeName="TRAC3Model.M14_BRAND">
+        <MappingFragment StoreEntitySet="M14_BRAND">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+          <ScalarProperty Name="ブランド名" ColumnName="ブランド名" />
+          <ScalarProperty Name="ブランドコード" ColumnName="ブランドコード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M15_SERIES">
+      <EntityTypeMapping TypeName="TRAC3Model.M15_SERIES">
+        <MappingFragment StoreEntitySet="M15_SERIES">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+          <ScalarProperty Name="シリーズ名" ColumnName="シリーズ名" />
+          <ScalarProperty Name="シリーズコード" ColumnName="シリーズコード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M16_HINGUN">
+      <EntityTypeMapping TypeName="TRAC3Model.M16_HINGUN">
+        <MappingFragment StoreEntitySet="M16_HINGUN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+          <ScalarProperty Name="品群名" ColumnName="品群名" />
+          <ScalarProperty Name="品群コード" ColumnName="品群コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M21_SYUK">
+      <EntityTypeMapping TypeName="TRAC3Model.M21_SYUK">
+        <MappingFragment StoreEntitySet="M21_SYUK">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="備考２" ColumnName="備考２" />
+          <ScalarProperty Name="備考１" ColumnName="備考１" />
+          <ScalarProperty Name="出荷先電話番号" ColumnName="出荷先電話番号" />
+          <ScalarProperty Name="出荷先住所２" ColumnName="出荷先住所２" />
+          <ScalarProperty Name="出荷先住所１" ColumnName="出荷先住所１" />
+          <ScalarProperty Name="出荷先郵便番号" ColumnName="出荷先郵便番号" />
+          <ScalarProperty Name="出荷先カナ" ColumnName="出荷先カナ" />
+          <ScalarProperty Name="出荷先名２" ColumnName="出荷先名２" />
+          <ScalarProperty Name="出荷先名１" ColumnName="出荷先名１" />
+          <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M22_SOUK">
+      <EntityTypeMapping TypeName="TRAC3Model.M22_SOUK">
+        <MappingFragment StoreEntitySet="M22_SOUK">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="寄託会社コード" ColumnName="寄託会社コード" />
+          <ScalarProperty Name="場所会社コード" ColumnName="場所会社コード" />
+          <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+          <ScalarProperty Name="倉庫略称名" ColumnName="倉庫略称名" />
+          <ScalarProperty Name="倉庫名" ColumnName="倉庫名" />
+          <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M70_JIS">
+      <EntityTypeMapping TypeName="TRAC3Model.M70_JIS">
+        <MappingFragment StoreEntitySet="M70_JIS">
+          <ScalarProperty Name="決算月" ColumnName="決算月" />
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="枝番" ColumnName="枝番" />
+          <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
+          <ScalarProperty Name="自社区分" ColumnName="自社区分" />
+          <ScalarProperty Name="法人ナンバー" ColumnName="法人ナンバー" />
+          <ScalarProperty Name="ロゴ画像" ColumnName="ロゴ画像" />
+          <ScalarProperty Name="振込銀行３" ColumnName="振込銀行３" />
+          <ScalarProperty Name="振込銀行２" ColumnName="振込銀行２" />
+          <ScalarProperty Name="振込銀行１" ColumnName="振込銀行１" />
+          <ScalarProperty Name="ＦＡＸ" ColumnName="ＦＡＸ" />
+          <ScalarProperty Name="電話番号" ColumnName="電話番号" />
+          <ScalarProperty Name="住所２" ColumnName="住所２" />
+          <ScalarProperty Name="住所１" ColumnName="住所１" />
+          <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
+          <ScalarProperty Name="代表者名" ColumnName="代表者名" />
+          <ScalarProperty Name="カナ" ColumnName="カナ" />
+          <ScalarProperty Name="自社名" ColumnName="自社名" />
+          <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M72_TNT">
+      <EntityTypeMapping TypeName="TRAC3Model.M72_TNT">
+        <MappingFragment StoreEntitySet="M72_TNT">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+          <ScalarProperty Name="利用者コード" ColumnName="利用者コード" />
+          <ScalarProperty Name="自社部門ID" ColumnName="自社部門ID" />
+          <ScalarProperty Name="設定項目" ColumnName="設定項目" />
+          <ScalarProperty Name="個人ナンバー" ColumnName="個人ナンバー" />
+          <ScalarProperty Name="グループ権限ID" ColumnName="グループ権限ID" />
+          <ScalarProperty Name="パスワード" ColumnName="パスワード" />
+          <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+          <ScalarProperty Name="担当者名" ColumnName="担当者名" />
+          <ScalarProperty Name="担当者ID" ColumnName="担当者ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M73_ZEI">
+      <EntityTypeMapping TypeName="TRAC3Model.M73_ZEI">
+        <MappingFragment StoreEntitySet="M73_ZEI">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="軽減税率" ColumnName="軽減税率" />
+          <ScalarProperty Name="消費税率" ColumnName="消費税率" />
+          <ScalarProperty Name="適用開始日付" ColumnName="適用開始日付" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M74_KGRP_NAME">
+      <EntityTypeMapping TypeName="TRAC3Model.M74_KGRP_NAME">
+        <MappingFragment StoreEntitySet="M74_KGRP_NAME">
+          <ScalarProperty Name="グループ権限名" ColumnName="グループ権限名" />
+          <ScalarProperty Name="グループ権限ID" ColumnName="グループ権限ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M88_SEQ">
+      <EntityTypeMapping TypeName="TRAC3Model.M88_SEQ">
+        <MappingFragment StoreEntitySet="M88_SEQ">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="最大明細番号" ColumnName="最大明細番号" />
+          <ScalarProperty Name="現在明細番号" ColumnName="現在明細番号" />
+          <ScalarProperty Name="明細番号ID" ColumnName="明細番号ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M89_KENALL">
+      <EntityTypeMapping TypeName="TRAC3Model.M89_KENALL">
+        <MappingFragment StoreEntitySet="M89_KENALL">
+          <ScalarProperty Name="削除日付" ColumnName="削除日付" />
+          <ScalarProperty Name="住所３" ColumnName="住所３" />
+          <ScalarProperty Name="住所２" ColumnName="住所２" />
+          <ScalarProperty Name="住所１" ColumnName="住所１" />
+          <ScalarProperty Name="住所かな３" ColumnName="住所かな３" />
+          <ScalarProperty Name="住所かな２" ColumnName="住所かな２" />
+          <ScalarProperty Name="住所かな１" ColumnName="住所かな１" />
+          <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
+          <ScalarProperty Name="郵便番号ID" ColumnName="郵便番号ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M90_GRID">
+      <EntityTypeMapping TypeName="TRAC3Model.M90_GRID">
+        <MappingFragment StoreEntitySet="M90_GRID">
+          <ScalarProperty Name="削除日付" ColumnName="削除日付" />
+          <ScalarProperty Name="表示フラグ" ColumnName="表示フラグ" />
+          <ScalarProperty Name="表示順" ColumnName="表示順" />
+          <ScalarProperty Name="列名" ColumnName="列名" />
+          <ScalarProperty Name="GRIDID" ColumnName="GRIDID" />
+          <ScalarProperty Name="画面ID" ColumnName="画面ID" />
+          <ScalarProperty Name="担当者ID" ColumnName="担当者ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M99_COMBOLIST">
+      <EntityTypeMapping TypeName="TRAC3Model.M99_COMBOLIST">
+        <MappingFragment StoreEntitySet="M99_COMBOLIST">
+          <ScalarProperty Name="表示名" ColumnName="表示名" />
+          <ScalarProperty Name="表示順" ColumnName="表示順" />
+          <ScalarProperty Name="コード" ColumnName="コード" />
+          <ScalarProperty Name="カテゴリ" ColumnName="カテゴリ" />
+          <ScalarProperty Name="機能" ColumnName="機能" />
+          <ScalarProperty Name="分類" ColumnName="分類" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M99_MSG">
+      <EntityTypeMapping TypeName="TRAC3Model.M99_MSG">
+        <MappingFragment StoreEntitySet="M99_MSG">
+          <ScalarProperty Name="削除日付" ColumnName="削除日付" />
+          <ScalarProperty Name="サブメッセージ" ColumnName="サブメッセージ" />
+          <ScalarProperty Name="メッセージ" ColumnName="メッセージ" />
+          <ScalarProperty Name="コード" ColumnName="コード" />
+          <ScalarProperty Name="種別" ColumnName="種別" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M99_ZIP">
+      <EntityTypeMapping TypeName="TRAC3Model.M99_ZIP">
+        <MappingFragment StoreEntitySet="M99_ZIP">
+          <ScalarProperty Name="住所漢字" ColumnName="住所漢字" />
+          <ScalarProperty Name="住所かな" ColumnName="住所かな" />
+          <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
+          <ScalarProperty Name="地区コード" ColumnName="地区コード" />
+          <ScalarProperty Name="キー" ColumnName="キー" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T02_URDTL">
+      <EntityTypeMapping TypeName="TRAC3Model.T02_URDTL">
+        <MappingFragment StoreEntitySet="T02_URDTL">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="単位" ColumnName="単位" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T03_SRDTL">
+      <EntityTypeMapping TypeName="TRAC3Model.T03_SRDTL">
+        <MappingFragment StoreEntitySet="T03_SRDTL">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="単位" ColumnName="単位" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T03_SRDTL_HAN">
+      <EntityTypeMapping TypeName="TRAC3Model.T03_SRDTL_HAN">
+        <MappingFragment StoreEntitySet="T03_SRDTL_HAN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="単位" ColumnName="単位" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T04_AGRDTB">
+      <EntityTypeMapping TypeName="TRAC3Model.T04_AGRDTB">
+        <MappingFragment StoreEntitySet="T04_AGRDTB">
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="部材行番号" ColumnName="部材行番号" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T04_AGRDTL">
+      <EntityTypeMapping TypeName="TRAC3Model.T04_AGRDTL">
+        <MappingFragment StoreEntitySet="T04_AGRDTL">
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="単位" ColumnName="単位" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T04_AGRHD">
+      <EntityTypeMapping TypeName="TRAC3Model.T04_AGRHD">
+        <MappingFragment StoreEntitySet="T04_AGRHD">
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="総合計" ColumnName="総合計" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="小計" ColumnName="小計" />
+          <ScalarProperty Name="備考" ColumnName="備考" />
+          <ScalarProperty Name="入荷先コード" ColumnName="入荷先コード" />
+          <ScalarProperty Name="外注先枝番" ColumnName="外注先枝番" />
+          <ScalarProperty Name="外注先コード" ColumnName="外注先コード" />
+          <ScalarProperty Name="加工区分" ColumnName="加工区分" />
+          <ScalarProperty Name="仕上り日" ColumnName="仕上り日" />
+          <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T05_IDODTL">
+      <EntityTypeMapping TypeName="TRAC3Model.T05_IDODTL">
+        <MappingFragment StoreEntitySet="T05_IDODTL">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S03_STOK">
+      <EntityTypeMapping TypeName="TRAC3Model.S03_STOK">
+        <MappingFragment StoreEntitySet="S03_STOK">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="在庫数" ColumnName="在庫数" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T05_IDOHD">
+      <EntityTypeMapping TypeName="TRAC3Model.T05_IDOHD">
+        <MappingFragment StoreEntitySet="T05_IDOHD">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="出荷先倉庫コード" ColumnName="出荷先倉庫コード" />
+          <ScalarProperty Name="出荷元倉庫コード" ColumnName="出荷元倉庫コード" />
+          <ScalarProperty Name="移動区分" ColumnName="移動区分" />
+          <ScalarProperty Name="日付" ColumnName="日付" />
+          <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T11_NYKNDTL">
+      <EntityTypeMapping TypeName="TRAC3Model.T11_NYKNDTL">
+        <MappingFragment StoreEntitySet="T11_NYKNDTL">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="期日" ColumnName="期日" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="金種コード" ColumnName="金種コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T11_NYKNHD">
+      <EntityTypeMapping TypeName="TRAC3Model.T11_NYKNHD">
+        <MappingFragment StoreEntitySet="T11_NYKNHD">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
+          <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+          <ScalarProperty Name="入金元販社コード" ColumnName="入金元販社コード" />
+          <ScalarProperty Name="入金日" ColumnName="入金日" />
+          <ScalarProperty Name="入金先自社コード" ColumnName="入金先自社コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T03_SRHD_HAN">
+      <EntityTypeMapping TypeName="TRAC3Model.T03_SRHD_HAN">
+        <MappingFragment StoreEntitySet="T03_SRHD_HAN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="総合計" ColumnName="総合計" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="小計" ColumnName="小計" />
+          <ScalarProperty Name="備考" ColumnName="備考" />
+          <ScalarProperty Name="発注番号" ColumnName="発注番号" />
+          <ScalarProperty Name="入荷先コード" ColumnName="入荷先コード" />
+          <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+          <ScalarProperty Name="仕入区分" ColumnName="仕入区分" />
+          <ScalarProperty Name="仕入日" ColumnName="仕入日" />
+          <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T03_SRHD">
+      <EntityTypeMapping TypeName="TRAC3Model.T03_SRHD">
+        <MappingFragment StoreEntitySet="T03_SRHD">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="元伝票番号" ColumnName="元伝票番号" />
+          <ScalarProperty Name="備考" ColumnName="備考" />
+          <ScalarProperty Name="発注番号" ColumnName="発注番号" />
+          <ScalarProperty Name="入荷先コード" ColumnName="入荷先コード" />
+          <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
+          <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+          <ScalarProperty Name="仕入区分" ColumnName="仕入区分" />
+          <ScalarProperty Name="入力区分" ColumnName="入力区分" />
+          <ScalarProperty Name="仕入日" ColumnName="仕入日" />
+          <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T02_URHD">
+      <EntityTypeMapping TypeName="TRAC3Model.T02_URHD">
+        <MappingFragment StoreEntitySet="T02_URHD">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="総合計" ColumnName="総合計" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="小計" ColumnName="小計" />
+          <ScalarProperty Name="元伝票番号" ColumnName="元伝票番号" />
+          <ScalarProperty Name="備考" ColumnName="備考" />
+          <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
+          <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+          <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
+          <ScalarProperty Name="出荷元コード" ColumnName="出荷元コード" />
+          <ScalarProperty Name="受注番号" ColumnName="受注番号" />
+          <ScalarProperty Name="出荷日" ColumnName="出荷日" />
+          <ScalarProperty Name="納品伝票番号" ColumnName="納品伝票番号" />
+          <ScalarProperty Name="在庫倉庫コード" ColumnName="在庫倉庫コード" />
+          <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
+          <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+          <ScalarProperty Name="売上区分" ColumnName="売上区分" />
+          <ScalarProperty Name="売上日" ColumnName="売上日" />
+          <ScalarProperty Name="伝票要否" ColumnName="伝票要否" />
+          <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S01_SEIDTL">
+      <EntityTypeMapping TypeName="TRAC3Model.S01_SEIDTL">
+        <MappingFragment StoreEntitySet="S01_SEIDTL">
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="売上日" ColumnName="売上日" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+          <ScalarProperty Name="行" ColumnName="行" />
+          <ScalarProperty Name="回数" ColumnName="回数" />
+          <ScalarProperty Name="入金日" ColumnName="入金日" />
+          <ScalarProperty Name="請求先枝番" ColumnName="請求先枝番" />
+          <ScalarProperty Name="請求先コード" ColumnName="請求先コード" />
+          <ScalarProperty Name="請求締日" ColumnName="請求締日" />
+          <ScalarProperty Name="請求年月" ColumnName="請求年月" />
+          <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_TKS08010">
+      <EntityTypeMapping TypeName="TRAC3Model.V_TKS08010">
+        <MappingFragment StoreEntitySet="V_TKS08010">
+          <ScalarProperty Name="当月入金額" ColumnName="当月入金額" />
+          <ScalarProperty Name="締日" ColumnName="締日" />
+          <ScalarProperty Name="請求年月" ColumnName="請求年月" />
+          <ScalarProperty Name="回収予定額" ColumnName="回収予定額" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="売上額" ColumnName="売上額" />
+          <ScalarProperty Name="入金日付" ColumnName="入金日付" />
+          <ScalarProperty Name="得意先名" ColumnName="得意先名" />
+          <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+          <ScalarProperty Name="K得意先枝番" ColumnName="K得意先枝番" />
+          <ScalarProperty Name="K得意先コード" ColumnName="K得意先コード" />
+          <ScalarProperty Name="K入金日" ColumnName="K入金日" />
+          <ScalarProperty Name="K入金年月" ColumnName="K入金年月" />
+          <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T12_PAYDTL">
+      <EntityTypeMapping TypeName="TRAC3Model.T12_PAYDTL">
+        <MappingFragment StoreEntitySet="T12_PAYDTL">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="期日" ColumnName="期日" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="金種コード" ColumnName="金種コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T12_PAYHD">
+      <EntityTypeMapping TypeName="TRAC3Model.T12_PAYHD">
+        <MappingFragment StoreEntitySet="T12_PAYHD">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
+          <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+          <ScalarProperty Name="出金先販社コード" ColumnName="出金先販社コード" />
+          <ScalarProperty Name="出金日" ColumnName="出金日" />
+          <ScalarProperty Name="出金元自社コード" ColumnName="出金元自社コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S02_SHRDTL">
+      <EntityTypeMapping TypeName="TRAC3Model.S02_SHRDTL">
+        <MappingFragment StoreEntitySet="S02_SHRDTL">
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="仕入日" ColumnName="仕入日" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+          <ScalarProperty Name="行" ColumnName="行" />
+          <ScalarProperty Name="回数" ColumnName="回数" />
+          <ScalarProperty Name="支払日" ColumnName="支払日" />
+          <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />
+          <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
+          <ScalarProperty Name="支払締日" ColumnName="支払締日" />
+          <ScalarProperty Name="支払年月" ColumnName="支払年月" />
+          <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S02_SHRHD">
+      <EntityTypeMapping TypeName="TRAC3Model.S02_SHRHD">
+        <MappingFragment StoreEntitySet="S02_SHRHD">
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="非課税支払額" ColumnName="非課税支払額" />
+          <ScalarProperty Name="値引額" ColumnName="値引額" />
+          <ScalarProperty Name="支払額" ColumnName="支払額" />
+          <ScalarProperty Name="前月残高" ColumnName="前月残高" />
+          <ScalarProperty Name="集計最終日" ColumnName="集計最終日" />
+          <ScalarProperty Name="集計開始日" ColumnName="集計開始日" />
+          <ScalarProperty Name="支払年月日" ColumnName="支払年月日" />
+          <ScalarProperty Name="回数" ColumnName="回数" />
+          <ScalarProperty Name="支払日" ColumnName="支払日" />
+          <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />
+          <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
+          <ScalarProperty Name="支払締日" ColumnName="支払締日" />
+          <ScalarProperty Name="支払年月" ColumnName="支払年月" />
+          <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_SHR06010">
+      <EntityTypeMapping TypeName="TRAC3Model.V_SHR06010">
+        <MappingFragment StoreEntitySet="V_SHR06010">
+          <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
+          <ScalarProperty Name="締日" ColumnName="締日" />
+          <ScalarProperty Name="支払年月" ColumnName="支払年月" />
+          <ScalarProperty Name="支払予定額" ColumnName="支払予定額" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="支払額" ColumnName="支払額" />
+          <ScalarProperty Name="支払日付" ColumnName="支払日付" />
+          <ScalarProperty Name="支払先名" ColumnName="支払先名" />
+          <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
+          <ScalarProperty Name="K支払先枝番" ColumnName="K支払先枝番" />
+          <ScalarProperty Name="K支払先コード" ColumnName="K支払先コード" />
+          <ScalarProperty Name="K入金日" ColumnName="K入金日" />
+          <ScalarProperty Name="K支払年月" ColumnName="K支払年月" />
+          <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S04_HISTORY">
+      <EntityTypeMapping TypeName="TRAC3Model.S04_HISTORY">
+        <MappingFragment StoreEntitySet="S04_HISTORY">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="作成機能ID" ColumnName="作成機能ID" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="入出庫区分" ColumnName="入出庫区分" />
+          <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+          <ScalarProperty Name="入出庫時刻" ColumnName="入出庫時刻" />
+          <ScalarProperty Name="入出庫日" ColumnName="入出庫日" />
+          <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T04_AGRWK">
+      <EntityTypeMapping TypeName="TRAC3Model.T04_AGRWK">
+        <MappingFragment StoreEntitySet="T04_AGRWK">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="仕上数" ColumnName="仕上数" />
+          <ScalarProperty Name="依頼数" ColumnName="依頼数" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="枝番" ColumnName="枝番" />
+          <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
+          <ScalarProperty Name="依頼日" ColumnName="依頼日" />
+          <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S05_STOK_MONTH">
+      <EntityTypeMapping TypeName="TRAC3Model.S05_STOK_MONTH">
+        <MappingFragment StoreEntitySet="S05_STOK_MONTH">
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="在庫数量" ColumnName="在庫数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+          <ScalarProperty Name="締年月" ColumnName="締年月" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S01_SEIHD">
+      <EntityTypeMapping TypeName="TRAC3Model.S01_SEIHD">
+        <MappingFragment StoreEntitySet="S01_SEIHD">
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="当月請求額" ColumnName="当月請求額" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="非税売上額" ColumnName="非税売上額" />
+          <ScalarProperty Name="値引額" ColumnName="値引額" />
+          <ScalarProperty Name="売上額" ColumnName="売上額" />
+          <ScalarProperty Name="前月残高" ColumnName="前月残高" />
+          <ScalarProperty Name="集計最終日" ColumnName="集計最終日" />
+          <ScalarProperty Name="集計開始日" ColumnName="集計開始日" />
+          <ScalarProperty Name="請求年月日" ColumnName="請求年月日" />
+          <ScalarProperty Name="回数" ColumnName="回数" />
+          <ScalarProperty Name="入金日" ColumnName="入金日" />
+          <ScalarProperty Name="請求先枝番" ColumnName="請求先枝番" />
+          <ScalarProperty Name="請求先コード" ColumnName="請求先コード" />
+          <ScalarProperty Name="請求締日" ColumnName="請求締日" />
+          <ScalarProperty Name="請求年月" ColumnName="請求年月" />
+          <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T02_URDTL_HAN">
+      <EntityTypeMapping TypeName="TRAC3Model.T02_URDTL_HAN">
+        <MappingFragment StoreEntitySet="T02_URDTL_HAN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="調整金額" ColumnName="調整金額" />
+          <ScalarProperty Name="調整単価" ColumnName="調整単価" />
+          <ScalarProperty Name="摘要" ColumnName="摘要" />
+          <ScalarProperty Name="金額" ColumnName="金額" />
+          <ScalarProperty Name="単価" ColumnName="単価" />
+          <ScalarProperty Name="単位" ColumnName="単位" />
+          <ScalarProperty Name="数量" ColumnName="数量" />
+          <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <ScalarProperty Name="行番号" ColumnName="行番号" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T02_URHD_HAN">
+      <EntityTypeMapping TypeName="TRAC3Model.T02_URHD_HAN">
+        <MappingFragment StoreEntitySet="T02_URHD_HAN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="調整比率" ColumnName="調整比率" />
+          <ScalarProperty Name="調整消費税" ColumnName="調整消費税" />
+          <ScalarProperty Name="消費税" ColumnName="消費税" />
+          <ScalarProperty Name="備考" ColumnName="備考" />
+          <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
+          <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+          <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
+          <ScalarProperty Name="出荷元コード" ColumnName="出荷元コード" />
+          <ScalarProperty Name="受注番号" ColumnName="受注番号" />
+          <ScalarProperty Name="出荷日" ColumnName="出荷日" />
+          <ScalarProperty Name="納品伝票番号" ColumnName="納品伝票番号" />
+          <ScalarProperty Name="在庫倉庫コード" ColumnName="在庫倉庫コード" />
+          <ScalarProperty Name="販社コード" ColumnName="販社コード" />
+          <ScalarProperty Name="売上区分" ColumnName="売上区分" />
+          <ScalarProperty Name="売上日" ColumnName="売上日" />
+          <ScalarProperty Name="伝票要否" ColumnName="伝票要否" />
+          <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+          <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M09_HIN">
+      <EntityTypeMapping TypeName="TRAC3Model.M09_HIN">
+        <MappingFragment StoreEntitySet="M09_HIN">
+          <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+          <ScalarProperty Name="削除者" ColumnName="削除者" />
+          <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+          <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="登録者" ColumnName="登録者" />
+          <ScalarProperty Name="論理削除" ColumnName="論理削除" />
+          <ScalarProperty Name="ＪＡＮコード" ColumnName="ＪＡＮコード" />
+          <ScalarProperty Name="返却可能期限" ColumnName="返却可能期限" />
+          <ScalarProperty Name="備考２" ColumnName="備考２" />
+          <ScalarProperty Name="備考１" ColumnName="備考１" />
+          <ScalarProperty Name="消費税区分" ColumnName="消費税区分" />
+          <ScalarProperty Name="掛率" ColumnName="掛率" />
+          <ScalarProperty Name="売価" ColumnName="売価" />
+          <ScalarProperty Name="卸値" ColumnName="卸値" />
+          <ScalarProperty Name="加工原価" ColumnName="加工原価" />
+          <ScalarProperty Name="原価" ColumnName="原価" />
+          <ScalarProperty Name="単位" ColumnName="単位" />
+          <ScalarProperty Name="自社品名" ColumnName="自社品名" />
+          <ScalarProperty Name="品群" ColumnName="品群" />
+          <ScalarProperty Name="シリーズ" ColumnName="シリーズ" />
+          <ScalarProperty Name="ブランド" ColumnName="ブランド" />
+          <ScalarProperty Name="中分類" ColumnName="中分類" />
+          <ScalarProperty Name="大分類" ColumnName="大分類" />
+          <ScalarProperty Name="商品分類" ColumnName="商品分類" />
+          <ScalarProperty Name="商品形態分類" ColumnName="商品形態分類" />
+          <ScalarProperty Name="自社色" ColumnName="自社色" />
+          <ScalarProperty Name="自社品番" ColumnName="自社品番" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_M09_HIN">
+      <EntityTypeMapping TypeName="TRAC3Model.V_M09_HIN">
+        <MappingFragment StoreEntitySet="V_M09_HIN">
+          <ScalarProperty Name="ＪＡＮコード" ColumnName="ＪＡＮコード" />
+          <ScalarProperty Name="返却可能期限" ColumnName="返却可能期限" />
+          <ScalarProperty Name="備考２" ColumnName="備考２" />
+          <ScalarProperty Name="備考１" ColumnName="備考１" />
+          <ScalarProperty Name="消費税区分名" ColumnName="消費税区分名" />
+          <ScalarProperty Name="消費税区分" ColumnName="消費税区分" />
+          <ScalarProperty Name="掛率" ColumnName="掛率" />
+          <ScalarProperty Name="売価" ColumnName="売価" />
+          <ScalarProperty Name="卸値" ColumnName="卸値" />
+          <ScalarProperty Name="加工原価" ColumnName="加工原価" />
+          <ScalarProperty Name="原価" ColumnName="原価" />
+          <ScalarProperty Name="単位" ColumnName="単位" />
+          <ScalarProperty Name="品群名" ColumnName="品群名" />
+          <ScalarProperty Name="品群" ColumnName="品群" />
+          <ScalarProperty Name="シリーズ名" ColumnName="シリーズ名" />
+          <ScalarProperty Name="シリーズ" ColumnName="シリーズ" />
+          <ScalarProperty Name="ブランド名" ColumnName="ブランド名" />
+          <ScalarProperty Name="ブランド" ColumnName="ブランド" />
+          <ScalarProperty Name="中分類名" ColumnName="中分類名" />
+          <ScalarProperty Name="中分類" ColumnName="中分類" />
+          <ScalarProperty Name="大分類名" ColumnName="大分類名" />
+          <ScalarProperty Name="大分類" ColumnName="大分類" />
+          <ScalarProperty Name="商品分類名" ColumnName="商品分類名" />
+          <ScalarProperty Name="商品分類" ColumnName="商品分類" />
+          <ScalarProperty Name="商品形態分類名" ColumnName="商品形態分類名" />
+          <ScalarProperty Name="商品形態分類" ColumnName="商品形態分類" />
+          <ScalarProperty Name="自社色名" ColumnName="自社色名" />
+          <ScalarProperty Name="自社品名" ColumnName="自社品名" />
+          <ScalarProperty Name="自社色" ColumnName="自社色" />
+          <ScalarProperty Name="自社品番" ColumnName="自社品番" />
+          <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="M74_KGRP">
+      <EntityTypeMapping TypeName="TRAC3Model.M74_KGRP">
+        <MappingFragment StoreEntitySet="M74_KGRP">
+          <ScalarProperty Name="削除日付" ColumnName="削除日付" />
+          <ScalarProperty Name="更新日時" ColumnName="更新日時" />
+          <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+          <ScalarProperty Name="データ更新FLG" ColumnName="データ更新FLG" />
+          <ScalarProperty Name="使用可能FLG" ColumnName="使用可能FLG" />
+          <ScalarProperty Name="タブグループ番号" ColumnName="タブグループ番号" />
+          <ScalarProperty Name="プログラムID" ColumnName="プログラムID" />
+          <ScalarProperty Name="グループ権限ID" ColumnName="グループ権限ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

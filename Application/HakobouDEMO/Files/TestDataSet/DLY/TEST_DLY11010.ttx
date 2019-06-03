@@ -1,0 +1,33 @@
+明細番号	Number		123456
+検索日付From	Date		2013/09/20
+検索日付To	Date		2013/10/20
+支払先指定	String	50	１
+請求先指定	String	50	２
+部門指定	String	50	３
+未定区分	String	4	全件表示
+文字列検索１	String	50	テスト１
+文字列検索２	String	50	テスト２
+表示順	String	50	指定日付　　支払先　　発地名　　着地名
+支払日付	Date		2013/09/20
+未区	String	1	未
+税区	String	3	課　税
+支払先名	String	20	支払先名サンプルデータ
+得意先名	String	20	得意先名サンプルデータ
+発地名	String	20	発地名サンプルデータ
+着地名	String	20	着地名サンプルデータ
+支払先名２次	String	20	支払先名２次データ
+実運送乗務員	String	10	実運送乗務員太郎
+乗務員連絡先	String	15	000-0000-0000
+商品名	String	15	商品名のサンプルデータ
+車輌番号	String	6	3369
+数量	Number		10
+重量	Number		20
+支払単価	Number		30
+支払金額	Number		50000
+支払通行料	Number		51000
+請求金額	Number		60000
+請求通行料	Number		60000
+行	Number		2
+運行日	Date		2013/10/20
+運賃未定	String	3	未　定
+単位	String	4	個

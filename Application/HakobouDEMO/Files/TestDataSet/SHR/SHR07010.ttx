@@ -1,0 +1,13 @@
+支払先コード	Number		3001
+支払先名	String	15	支払先名サンプルデータ
+集計開始	Date		2010/04/01
+表示順序	String	4	締日表示
+年月	Date		2011/01/01
+出金金額	Number		100065
+出金調整額	Number		735
+差引金額	Number		100800
+支払金額	Number		96000
+支払消費税	Number		4800
+支払通行料	Number		
+支払合計額	Number		100800
+繰越残高	Number		100800

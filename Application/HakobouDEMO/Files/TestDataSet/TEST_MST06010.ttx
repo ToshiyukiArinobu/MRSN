@@ -1,0 +1,25 @@
+車輌ID	Number		123456
+車輌番号	String	6	123456
+車輌登録番号	String	28	12345678
+車種ID	Number		1
+車種名	String	20	車種名サンプルデータ
+乗務員ID	Number		1
+乗務員名	String	20	乗務員名サンプルデータ
+自社部門ID	Number		1
+自社部門名	String	30	自社部門名サンプルデータ
+運輸局ID	Number		1
+運輸局名	String	20	運輸局名サンプルデータ
+廃車区分表示	String	5	稼働中
+廃車日	Date		2013/09/20
+登録日	Date		2013/09/20
+次回車検日	Date		2013/09/20
+自動車種別	String	10	自動車種別サンプル
+車体形状	String	20	車体形状サンプル
+型式	String	20	型式サンプル
+車輌重量	Number		20000
+車輌総重量	Number		20000
+車輌最大積載量	Number	20000	
+車輌実積載量	Number	20000	
+車名	String	20	車名サンプルデータ
+総排気量	Number		5000
+現在メーター	Number	87500	

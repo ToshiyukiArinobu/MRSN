@@ -1,0 +1,20 @@
+年月度	Date		2011/01/01
+支払先指定	String	15	
+集計区分	String	15	（締日データを集計）
+表示区分	String	15	（支払あり支払先のみ）
+締日	String	5	全締日
+表示順序	String	20	支払先コード　前月残高　当月支払
+支払先コード	Number		60001
+支払先名	String	15	支払先名サンプルデータ
+締日明細	Number		31
+前月残高	Number		53000
+出金金額	Number		50000
+出金調整額	Number		1050
+差引金額	Number		53000
+当月支払	Number		897384
+内課税額	Number		897384
+消費税	Number		44869
+通行料	Number		
+当月合計額	Number		942253
+繰越金額	Number		942253
+件数	Number		30

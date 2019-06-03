@@ -1,0 +1,3422 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KyoeiSystem.Framework.Windows.Controls</name>
+    </assembly>
+    <members>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.User32">
+            <summary>
+            USER32API用クラス
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.User32.MouseMove">
+            <summary>
+            マウス移動制御クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.User32.MouseMove.SetPosition(System.Int32,System.Int32)">
+            <summary>
+            マウスカーソルの位置を設定します。
+            </summary>
+            <param name="a">X 座標を指定します。</param>
+            <param name="b">Y 座標を指定します。</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData">
+            <summary>
+            オートコンプリート専用データクラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.NotifyPropertyChanged(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="propertyName"></param>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.DisplayText">
+            <summary>
+            表示テキストを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.columns">
+            <summary>
+            カラム名を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.ColumnValues">
+            <summary>
+            カラム値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.ColVisibility">
+            <summary>
+            カラム表示状態を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.DisplayColumns">
+            <summary>
+            表示対象カラム名を取得または設定します。カラムを複数指定する場合は"|"で区切ります。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.DisplayColWidth">
+            <summary>
+            カラム幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.DisplayColHorizontalAlignment">
+            <summary>
+            各カラムの横位置を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.ComboBoxItemData.Value">
+            <summary>
+            DataRow型で全カラムの値を取得または設定します。
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox">
+            <summary>
+            UcAutoCompleteTextBoxの実装クラス
+            </summary>
+            <summary>
+            UcAutoCompleteTextBox
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.FrameworkControl">
+            <summary>
+            Framework Control クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.NotifyPropertyChanged(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="propertyName"></param>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.appLog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.viewsCommData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.ValidationMessage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.UcUnloading">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.CheckValidation">
+            <summary>
+            値チェックは各ユーザコントロール側でこのメソッドをoverrideして実装する。
+            チェックメソッドが必要ないものは単純にtrueを返す。
+            </summary>
+            <returns>OK=true、NG=false</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.GetValidationMessage">
+            <summary>
+            値チェック結果のメッセージは各ユーザコントロール側でこのメソッドをoverrideして実装する。
+            規定値として空白を返す。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.IsTagetForEnabler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.IsKeyItem">
+            <summary>
+            キー項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.IsEnabled">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.FrameworkControl.IsLastField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.ValueSelectedEvent">
+            <summary>
+            値が選択されたときに発生するイベント
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.TextProperty">
+            <summary>
+            現在の文字列
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="E:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.ValueSelected">
+            <summary>
+            値が選択されたときに発生するイベントを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.Text">
+            <summary>
+            現在の文字列を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.IsDropDownOnFocus">
+            <summary>
+            設定値を無視するようになりました。規定値は false のみです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cAcceptsReturn">
+            <summary>
+            AcceptsReturn 依存プロパティ
+            Enter キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cAcceptsTab">
+            <summary>
+            AcceptsTab 依存プロパティ
+            Tab キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cBackground">
+            <summary>
+            Background 
+            コントロールの背景を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cHorizontalAlignment">
+            <summary>
+            HorizontalAlignment 
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cVerticalAlignment">
+            <summary>
+            VerticalAlignment  依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cIsReadOnly">
+            <summary>
+            IsReadOnly 依存プロパティ
+            テキスト編集コントロールを操作するユーザーに対して、コントロールが読み取り専用であるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cMaxLength">
+            <summary>
+            MaxLength 依存プロパティ
+            テキスト ボックスに手動で入力できる最大文字数を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cMinLines">
+            <summary>
+            MinLines 依存プロパティ
+            表示行の最小数を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cSelectedText">
+            <summary>
+            SelectedText 依存プロパティ
+            テキスト ボックス内の現在の選択範囲のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cSelectionStart">
+            <summary>
+            SelectionStart 依存プロパティ
+            現在の選択範囲の先頭の文字インデックスを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cTextAlignment">
+            <summary>
+            TextAlignment 依存プロパティ
+            テキスト ボックスのテキスト コンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cTextWrapping">
+            <summary>
+            TextWrapping 依存プロパティ
+            テキスト ボックスのテキスト折り返し方法を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cToolTip">
+            <summary>
+            ToolTip 依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cWidth">
+            <summary>
+            Width プロパティ
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.cValidationType">
+            <summary>
+            ValidationType
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcAutoCompleteTextBox.ImeType">
+            <summary>
+            IMEType
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.IMETypes">
+            <summary>
+            IMEのタイプ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.IMETypes.Off">
+            <summary>
+            未設定
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.IMETypes.Native">
+            <summary>
+            日本語文字列
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.IMETypes.Katakana">
+            <summary>
+            全角カタカナ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.IMETypes.HankakuKatakana">
+            <summary>
+            半角カタカナ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.OnOff.On">
+            <summary>
+            OFF
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.OnOff.Off">
+            <summary>
+            ON
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.SearchModeTypes.FORWARD_MATCH">
+            <summary>
+            前方一致
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.SearchModeTypes.BACKWARD_MATCH">
+            <summary>
+            後方一致
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.SearchModeTypes.PARTIAL_MATCH">
+            <summary>
+            部分一致
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.BooleanInverter">
+            <summary>
+            Booleanプロパティとint型の値の変換
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.IsTabStopConverter">
+            <summary>
+            IsTabStopプロパティと他のBoolean型プロパティの変換
+              主としてReadOnlyの値の反転値をIsTabStopに与える為の機能であり、DataGridCellのReadOnlyのセルを
+              Tabキーでカーソル移動する際にスキップ対象とすることができる
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.FocusControl.SetFocusToTopControl(System.Windows.DependencyObject)">
+            <summary>
+            指定したオブジェクトの範囲内で移動可能な先頭のコントロールにフォーカスを移動する
+            </summary>
+            <param name="target">フォーカス移動の検索範囲となるオブジェクト</param>
+            <returns>true:移動した、false:移動していない</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcDataGrid">
+            <summary>
+            UcDataGrid.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcDataGrid
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.#ctor">
+            <summary>
+            初期化
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cDataGrid_PreviewKeyDown_1(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            key操作
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cDataGrid_CellEditEnding_1(System.Object,System.Windows.Controls.DataGridCellEditEndingEventArgs)">
+            <summary>
+            セルの変更時イベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cAlternatingRowBackground">
+            <summary>
+            交互の行の背景ブラシを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cAreRowDetailsFrozen">
+            <summary>
+            行の詳細は水平方向にスクロールできるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cAutoGenerateColumns">
+            <summary>
+            列が自動的に作成するかどうかを示す値を取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cBackground">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cCanUserAddRows">
+            <summary>
+            ユーザーは DataGridに新しい行を追加できるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cCanUserDeleteRows">
+            <summary>
+            ユーザーは DataGridから行を削除できるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cCanUserReorderColumns">
+            <summary>
+            ユーザーが列見出しをマウスでドラッグして列の表示順を変更できるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cCanUserResizeColumns">
+            <summary>
+            ユーザーがマウスを使用して列の幅を調整できるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cCanUserSortColumns">
+            <summary>
+            ユーザーが列見出しをクリックして、項目を並べ替えられるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cColumns">
+            <summary>
+            DataGridのすべての列を含むコレクションを取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cCommandBindings">
+            <summary>
+            DataGridのすべての列を含むコレクションを取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cDataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cFrozenColumnCount">
+            <summary>
+            非スクロール列の数を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cEnableRowVirtualization">
+            <summary>
+            行の仮想化が有効かどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cHorizontalScrollBarVisibility">
+            <summary>
+            水平スクロール バーが DataGridでどのように表示されるかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cIsReadOnly">
+            <summary>
+            ユーザーは DataGridの値を編集できるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cItemsSource">
+            <summary>
+            DataGridのすべての列を含むコレクションを取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cRowDetailsVisibilityMode">
+            <summary>
+            行の詳細セクションがいつ表示されるかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cRowBackground">
+            <summary>
+            行の背景の既定のブラシを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cVerticalScrollBarVisibility">
+            <summary>
+            垂直スクロール バーが DataGridでどのように表示されるかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cVisibility">
+            <summary>
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDataGrid.cWidth">
+            <summary>
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabel">
+            <summary>
+            UcLabel.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcLabel
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabel.#ctor">
+            <summary>
+            初期化
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabel.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cBackground">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cDataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cCommandBindings">
+            <summary>
+            この要素に関連付けられている CommandBinding のオブジェクトのコレクションを取得します。
+            CommandBinding は、この要素に対するコマンドを有効にし、コマンド、イベント、およびこの要素に接続するハンドラー間の連結を宣言します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cContent">
+            <summary>
+            ContentControl のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cDispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cFocusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。これは 依存関係プロパティです
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cFontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cFontSize">
+            <summary>
+            フォント サイズを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cFontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cFontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cFontWeight">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cForeground">
+            <summary>
+            前景色を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cHasContent">
+            <summary>
+            ContentControl にコンテンツが含まれているかどうかを示す値を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cHeight">
+            <summary>
+            要素の提案された高さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cHorizontalContentAlignment">
+            <summary>
+            コントロールのコンテンツの水平方向の配置を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cIsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cIsTabStop">
+            <summary>
+            コントロールがタブ ナビゲーションに含まれるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cIsVisible">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cMargin">
+            <summary>
+            この要素が ユーザー インターフェイス 
+            (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cMaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cMaxWidth">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cMinHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cMinWidth">
+            <summary>
+            要素の高さの最小値を取得または設定します 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cName">
+            <summary>
+            要素の ID の名前を取得または設定します。名前は XAML のプロセッサで処理中に作成されると分離コードを、
+            イベント ハンドラー コードなどのマークアップ要素を参照できるように参照を提供します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cPadding">
+            <summary>
+            コントロール内のスペースを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cParent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cTabIndex">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示される
+            ツール ヒントのオブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオ
+            ブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cVerticalContentAlignment">
+            <summary>
+            コントロールのコンテンツの垂直方向の配置を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cVisibility">
+            <summary>
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabel.cWidth">
+            <summary>
+            要素の幅を取得または設定します。 
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.CodeData.NotifyPropertyChanged(System.String)">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント送信）
+            </summary>
+            <param name="propertyName">Bindingプロパティ名</param>
+        </member>
+        <member name="E:KyoeiSystem.Framework.Windows.Controls.CodeData.PropertyChanged">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox">
+            <summary>
+            UcLabelComboBox.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcLabelComboBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.#ctor">
+            <summary>
+            Label + ComboBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.setReceivedData(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            取得データの取り込み
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.TableSort(System.Data.DataTable,System.String)">
+            <summary>
+            データテーブルをソートする
+            </summary>
+            <param name="TargetTable">対象テーブル</param>
+            <param name="TargetColumn">対象カラム</param>
+            <returns>ソート後のテーブル</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Background">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。 (Control から継承されます。) 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_DataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Dispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_DisplayMemberPath">
+            <summary>
+            ソース オブジェクトの値にパスをオブジェクトのビジュアル表現として実行するように取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Effect">
+            <summary>
+            ビットマップ効果を UIElementに適用する取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_FontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_FontSize">
+            <summary>
+            フォント サイズを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_FontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_FontStyle">
+            <summary>
+            フォント スタイルを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_FontWeight">
+            <summary>
+            指定したフォントの太さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Foreground">
+            <summary>
+            前景色を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_HasItems">
+            <summary>
+            ItemsControl は、項目が含まれているかどうかを示す値を取得します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Height">
+            <summary>
+            要素の提案された高さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_IsEditable">
+            <summary>
+            ComboBox のテキスト ボックス内のテキストの編集を有効または無効にする値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_IsEnabled">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)で有効になっているかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_IsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_IsReadOnly">
+            <summary>
+            選択専用モードを有効にする値を取得または設定します。選択専用モードでは、コンボ ボックスの内容は選択可能ですが、編集することはできません。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_IsTabStop">
+            <summary>
+            コントロールがタブ ナビゲーションに含まれるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Margin">
+            <summary>
+            要素の前辺を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_MaxDropDownHeight">
+            <summary>
+            コンボ ボックス ドロップダウンの最大の高さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_MaxHeight">
+            <summary>
+            要素の高さの最小値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_MaxWidth">
+            <summary>
+            要素の幅の最大値を取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_MinHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_MinWidth">
+            <summary>
+            要素の幅の最小値を取得または設定します 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Padding">
+            <summary>
+            コントロール内のスペースを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Parent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_SelectedIndex">
+            <summary>
+            現在選択されている最初の項目のインデックスを取得または設定します。選択範囲が空の場合は -1 を返します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_SelectedItem">
+            <summary>
+            現在選択されている最初の項目を取得または設定します。選択範囲が空の場合は null を返します 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_SelectedValue">
+            <summary>
+            SelectedValuePath を使用して取得される SelectedItem の値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_SelectedValuePath">
+            <summary>
+            SelectedItem から SelectedValue を取得するために使用するパスを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_TabIndex">
+            <summary>
+            ユーザーが Tab キーを使用してコントロール間を移動するときに、要素がフォーカスを受け取る順序を決定する値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Text">
+            <summary>
+            現在選択されている項目のテキストを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_ToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Combo_Width">
+            <summary>
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Background">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_DataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Context">
+            <summary>
+            ContentControl のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_CommandBindings">
+            <summary>
+            この要素に関連付けられている CommandBinding のオブジェクトのコレクションを取得します。
+            CommandBinding は、この要素に対するコマンドを有効にし、コマンド、イベント、およびこの要素に接続するハンドラー間の連結を宣言します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Dispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Focusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。これは 依存関係プロパティです
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_FontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_FontSize">
+            <summary>
+            フォント サイズを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_FontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_FontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_FontWeight">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Foreground">
+            <summary>
+            前景色を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_HasContent">
+            <summary>
+            ContentControl にコンテンツが含まれているかどうかを示す値を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Height">
+            <summary>
+            要素の提案された高さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_HorizontalContentAlignment">
+            <summary>
+            コントロールのコンテンツの水平方向の配置を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_IsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_IsTabStop">
+            <summary>
+            コントロールがタブ ナビゲーションに含まれるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Visibility">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Margin">
+            <summary>
+            この要素が ユーザー インターフェイス 
+            (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_MaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_MaxWidth">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_MinHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_MinWidth">
+            <summary>
+            要素の高さの最小値を取得または設定します 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Name">
+            <summary>
+            要素の ID の名前を取得または設定します。名前は XAML のプロセッサで処理中に作成されると分離コードを、
+            イベント ハンドラー コードなどのマークアップ要素を参照できるように参照を提供します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Padding">
+            <summary>
+            コントロール内のスペースを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Parent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_TabIndex">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示される
+            ツール ヒントのオブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_ToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオ
+            ブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_VerticalContentAlignment">
+            <summary>
+            コントロールのコンテンツの垂直方向の配置を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelComboBox.Label_Width">
+            <summary>
+            要素の幅を取得または設定します。 
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcDatePicker">
+            <summary>
+            UcLabelDatePicker.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcDatePicker
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.ValidatorError">
+            <summary>
+            バリデータチェックフラグ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.#ctor">
+            <summary>
+            初期化
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.FrameworkControl_Loaded_1(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            ロードイベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cDatePicker_LostFocus_1(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            LostFocus
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.DatePickerFormat(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            日付を整形する
+            </summary>
+            <param name="InputNumber">入力された数値</param>
+            <param name="TargetDay">元とする日付</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.InputDate(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            DataPickerに日付を格納する
+            </summary>
+            <param name="Year">年</param>
+            <param name="Month">月</param>
+            <param name="Day">日</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cDatePicker_DateValidationError_1(System.Object,System.Windows.Controls.DatePickerDateValidationErrorEventArgs)">
+            <summary>
+            日付にならない数値が入力された場合
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.ValidationStatus">
+            <summary>
+            値チェックメッセージ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cBackground">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。 (Control から継承されます。)
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cCommandBindings">
+            <summary>
+            この要素に関連付けられている CommandBinding のオブジェクトのコレクションを取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cDataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cDispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cEffect">
+            <summary>
+            ビットマップ効果を UIElementに適用する取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cFocusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cFontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cFontSize">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cFontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cFontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cFontWeight">
+            <summary>
+            指定したフォントの太さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cForeground">
+            <summary>
+            要素の提案された高さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cHeight">
+            <summary>
+            要素の提案された高さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cHorizontalAlignment">
+            <summary>
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cIsEnabled">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)で有効になっているかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cIsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cMargin">
+            <summary>
+            要素の前辺を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cMaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cMaxWidth">
+            <summary>
+            要素の幅の最大値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cMinHeight">
+            <summary>
+            要素の高さの最小値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cMinWidth">
+            <summary>
+            要素の幅の最小値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cName">
+            <summary>
+            要素の ID の名前を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cPadding">
+            <summary>
+            コントロール内のスペースを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cParent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cSelectedDate">
+            <summary>
+            現在選択されている日付を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cSelectedDateFormat">
+            <summary>
+            選択した日付を表示するために使用される形式を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cTabIndex">
+            <summary>
+            ユーザーが Tab キーを使用してコントロール間を移動するときに、要素がフォーカスを受け取る順序を決定する値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cText">
+            <summary>
+            DatePicker によって表示されるテキストを取得するか、選択した日付を設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcDatePicker.cWidth">
+            <summary>
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker">
+            <summary>
+            UcLabelDatePicker.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcLabelDatePicker
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.#ctor">
+            <summary>
+            初期化
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.pickerState">
+            <summary>
+            DatePickerの初期状態
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.ValidatorError">
+            <summary>
+            バリデータチェックフラグ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDatePicker_LostFocus(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            DataPickerロストフォーカス
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.DatePickerState">
+            <summary>
+            ２つ目のDataPickerの表示の有無
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Background">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_DataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_CommandBindings">
+            <summary>
+            この要素に関連付けられている CommandBinding のオブジェクトのコレクションを取得します。
+            CommandBinding は、この要素に対するコマンドを有効にし、コマンド、イベント、およびこの要素に接続するハンドラー間の連結を宣言します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Content">
+            <summary>
+            ContentControl のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Dispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Focusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。これは 依存関係プロパティです
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_FontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_FontSize">
+            <summary>
+            フォント サイズを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_FontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_FontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_FontWeight">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Foreground">
+            <summary>
+            前景色を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_HasContent">
+            <summary>
+            ContentControl にコンテンツが含まれているかどうかを示す値を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Height">
+            <summary>
+            要素の提案された高さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_HorizontalContentAlignment">
+            <summary>
+            コントロールのコンテンツの水平方向の配置を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_IsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_IsTabStop">
+            <summary>
+            コントロールがタブ ナビゲーションに含まれるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_IsVisible">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Margin">
+            <summary>
+            この要素が ユーザー インターフェイス 
+            (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_MaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_MaxWidth">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_MinHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_MinWidth">
+            <summary>
+            要素の高さの最小値を取得または設定します 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Name">
+            <summary>
+            要素の ID の名前を取得または設定します。名前は XAML のプロセッサで処理中に作成されると分離コードを、
+            イベント ハンドラー コードなどのマークアップ要素を参照できるように参照を提供します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Padding">
+            <summary>
+            コントロール内のスペースを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Parent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_TabIndex">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示される
+            ツール ヒントのオブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_ToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオ
+            ブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_VerticalContentAlignment">
+            <summary>
+            コントロールのコンテンツの垂直方向の配置を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Visibility">
+            <summary>
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.Label_Width">
+            <summary>
+            要素の幅を取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Background">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。 (Control から継承されます。)
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_CommandBindings">
+            <summary>
+            この要素に関連付けられている FirstDate_ommandBinding のオブジェクトのコレクションを取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_DataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Dispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Effect">
+            <summary>
+            ビットマップ効果を UIElementに適用する取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Focusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_FontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_FontSize">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_FontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_FontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_FontWeight">
+            <summary>
+            指定したフォントの太さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Foreground">
+            <summary>
+            要素の提案された高さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Height">
+            <summary>
+            要素の提案された高さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_HorizontalAlignment">
+            <summary>
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_IsEnabled">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)で有効になっているかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_IsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Margin">
+            <summary>
+            要素の前辺を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_MaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_MaxWidth">
+            <summary>
+            要素の幅の最大値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_MinHeight">
+            <summary>
+            要素の高さの最小値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_MinWidth">
+            <summary>
+            要素の幅の最小値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Name">
+            <summary>
+            要素の ID の名前を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Padding">
+            <summary>
+            コントロール内のスペースを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Parent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_SelectedDate">
+            <summary>
+            現在選択されている日付を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_SelectedDateFormat">
+            <summary>
+            選択した日付を表示するために使用される形式を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_TabIndex">
+            <summary>
+            ユーザーが Tab キーを使用してコントロール間を移動するときに、要素がフォーカスを受け取る順序を決定する値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Text">
+            <summary>
+            DatePicker によって表示されるテキストを取得するか、選択した日付を設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_ToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.FirstDate_Width">
+            <summary>
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Background">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。 (Control から継承されます。)
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_CommandBindings">
+            <summary>
+            この要素に関連付けられている SecondDate_ommandBinding のオブジェクトのコレクションを取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_DataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Dispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Effect">
+            <summary>
+            ビットマップ効果を UIElementに適用する取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Focusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_FontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_FontSize">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_FontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_FontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_FontWeight">
+            <summary>
+            指定したフォントの太さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Foreground">
+            <summary>
+            要素の提案された高さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Height">
+            <summary>
+            要素の提案された高さを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_HorizontalAlignment">
+            <summary>
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_IsEnabled">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)で有効になっているかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_IsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Margin">
+            <summary>
+            要素の前辺を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_MaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_MaxWidth">
+            <summary>
+            要素の幅の最大値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_MinHeight">
+            <summary>
+            要素の高さの最小値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_MinWidth">
+            <summary>
+            要素の幅の最小値を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Name">
+            <summary>
+            要素の ID の名前を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Padding">
+            <summary>
+            コントロール内のスペースを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Parent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_SelectedDate">
+            <summary>
+            現在選択されている日付を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_SelectedDateFormat">
+            <summary>
+            選択した日付を表示するために使用される形式を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_TabIndex">
+            <summary>
+            ユーザーが Tab キーを使用してコントロール間を移動するときに、要素がフォーカスを受け取る順序を決定する値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Text">
+            <summary>
+            DatePicker によって表示されるテキストを取得するか、選択した日付を設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_ToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.SecondDate_Width">
+            <summary>
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.DatePickerStates">
+            <summary>
+            DatePickerの状態
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.DatePickerStates.Single">
+            <summary>
+            LableとDatePicker
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelDatePicker.DatePickerStates.Two">
+            <summary>
+            範囲を指定する
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton">
+            <summary>
+            UcLabelTextRadioButton.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcLabelTextRadioButton
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.#ctor">
+            <summary>
+            Label+TextBox+RadioButton
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton._RadioOneStart">
+            <summary>
+            ラジオボタンを１からスタートさせる。
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioCount">
+            <summary>
+            ラジオボタンの表示個数を格納する変数
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioSelect">
+            <summary>
+            ラジオボタンの初期選択を格納する変数
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.InitializationRadioButton">
+            <summary>
+            ラジオボタンの初期化
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.ViewRadioOneStart">
+            <summary>
+            ラジオボタンのスタート項目の表示の有無
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButton_Checked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            ラジオボタンの変化を取得
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioViewCount">
+            <summary>
+            ラジオボタンの個数を選択
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioSelectButton">
+            <summary>
+            ラジオボタンの初期選択を選択
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.Label_Content">
+            <summary>
+            LabelのContent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.Label_Width">
+            <summary>
+            LabelのWidth
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.Label_Visibility">
+            <summary>
+            LabelのVisibility
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextAcceptsReturn">
+            <summary>
+            AcceptsReturn 依存プロパティ
+            Enter キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextAcceptsTab">
+            <summary>
+            AcceptsTab 依存プロパティ
+            Tab キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextBackground">
+            <summary>
+            Background 
+            コントロールの背景を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextHorizontalAlignment">
+            <summary>
+            HorizontalAlignment 
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextVerticalAlignment">
+            <summary>
+            VerticalAlignment 
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextHorizontalContentAlignment">
+            <summary>
+            HorizontalContentAlignment 
+            コントロールのコンテンツの水平方向の配置を取得または設定します。 (Control から継承されます。) 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextIsReadOnly">
+            <summary>
+            IsReadOnly 依存プロパティ
+            テキスト編集コントロールを操作するユーザーに対して、コントロールが読み取り専用であるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextMinLines">
+            <summary>
+            MinLines 依存プロパティ
+            表示行の最小数を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextSelectedText">
+            <summary>
+            SelectedText 依存プロパティ
+            テキスト ボックス内の現在の選択範囲のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextSelectionStart">
+            <summary>
+            SelectionStart 依存プロパティ
+            現在の選択範囲の先頭の文字インデックスを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextAlignment">
+            <summary>
+            TextAlignment 依存プロパティ
+            テキスト ボックスのテキスト コンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextWrapping">
+            <summary>
+            TextWrapping 依存プロパティ
+            テキスト ボックスのテキスト折り返し方法を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextToolTip">
+            <summary>
+            ToolTip 依存プロパティ
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextVisibility">
+            <summary>
+            Visibility 依存プロパティ
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.TextWidth">
+            <summary>
+            Width プロパティ
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioOne_Content">
+            <summary>
+            1つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioSecond_Content">
+            <summary>
+            2つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioThird_Content">
+            <summary>
+            3つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioFourth_Content">
+            <summary>
+            4つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioFifth_Content">
+            <summary>
+            5つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioSixth_Content">
+            <summary>
+            6つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioSeventh_Content">
+            <summary>
+            7つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioEighth_Content">
+            <summary>
+            8つ目のラジオボタンにCountを入力
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount">
+            <summary>
+            ラジオボタンの数を指定
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.One">
+            <summary>
+            １つ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.Two">
+            <summary>
+            ２つ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.Three">
+            <summary>
+            ３つ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.Four">
+            <summary>
+            ４つ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.Five">
+            <summary>
+            ５つ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.Six">
+            <summary>
+            ６つ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.Seven">
+            <summary>
+            ７つ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton.RadioButtonCount.Eight">
+            <summary>
+            ８つ
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcTextBox">
+            <summary>
+            UcTextBox.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcTextBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.#ctor">
+            <summary>
+            TextBox(UserControl)
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextChangedEvent">
+            <summary>
+            cTextChangeイベントの作成
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextBox_TextChanged(System.Object,System.Windows.Controls.TextChangedEventArgs)">
+            <summary>
+            テキスト変更チェック
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextBox_PreviewMouseDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            マウスダウンによってフォーカスを得た場合、TextBoxのGotFocusで全選択したものが解除されるため
+            マウスダウンを無効化してTextBoxのFocusイベントを起こす。
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextBox_GotFocus(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            論理フォーカスを取得したときに発生します。
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.IMEChange">
+            <summary>
+            IMEの切り替え
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextBox_LostFocus(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            論理フォーカスを失ったときに発生します。
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextBox_PreviewKeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Enter、Tab、矢印キーによるフォーカス移動
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.ValidationType">
+            <summary>
+            値チェック
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.ValidationStatus">
+            <summary>
+            値チェックメッセージ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.ImeType">
+            <summary>
+            IME設定
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cAcceptsReturn">
+            <summary>
+            AcceptsReturn 依存プロパティ
+            Enter キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cAcceptsTab">
+            <summary>
+            AcceptsTab 依存プロパティ
+            Tab キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cBackground">
+            <summary>
+            Background 
+            コントロールの背景を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cBorderBrush">
+            <summary>
+            Background 
+            コントロールの境界線を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cBorderThickness">
+            <summary>
+            Background 
+            コントロールの境界線の幅を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cHorizontalAlignment">
+            <summary>
+            HorizontalAlignment 
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cVerticalAlignment">
+            <summary>
+            VerticalAlignment 
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cHorizontalContentAlignment">
+            <summary>
+            HorizontalContentAlignment 
+            コントロールのコンテンツの水平方向の配置を取得または設定します。 (Control から継承されます。) 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cIsReadOnly">
+            <summary>
+            IsReadOnly 依存プロパティ
+            テキスト編集コントロールを操作するユーザーに対して、コントロールが読み取り専用であるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cMaxLength">
+            <summary>
+            MaxLength 依存プロパティ
+            テキスト ボックスに手動で入力できる最大文字数を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cMinLines">
+            <summary>
+            MinLines 依存プロパティ
+            表示行の最小数を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cSelectedText">
+            <summary>
+            SelectedText 依存プロパティ
+            テキスト ボックス内の現在の選択範囲のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cSelectionStart">
+            <summary>
+            SelectionStart 依存プロパティ
+            現在の選択範囲の先頭の文字インデックスを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cText">
+            <summary>
+            Text 依存プロパティ
+            テキスト ボックスのテキスト コンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextAlignment">
+            <summary>
+            TextAlignment 依存プロパティ
+            テキスト ボックスのテキスト コンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cTextWrapping">
+            <summary>
+            TextWrapping 依存プロパティ
+            テキスト ボックスのテキスト折り返し方法を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cToolTip">
+            <summary>
+            ToolTip 依存プロパティ
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cVisibility">
+            <summary>
+            Visibility 依存プロパティ
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcTextBox.cWidth">
+            <summary>
+            Width プロパティ
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTextBox.VarDump.Dump(System.Object)">
+            <summary>
+            クラスのフィールドをダンプする
+            </summary>
+            <param name="obj">ダンプ対象</param>
+            <returns>フィールドのダンプリスト</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcTreeView">
+            <summary>
+            UcTreeView.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcTreeView
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcTreeView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.Validator">
+            <summary>
+            値チェック機能
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.Validator.Check(KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes,System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            各タイプに応じて値チェックを行う。
+            </summary>
+            <param name="ValidationType">値タイプ</param>
+            <param name="value">入力値</param>
+            <returns>
+            チェック結果
+            ・true：OK
+            ・false：NG
+            </returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage">
+            <summary>
+            値チェック結果メッセージ定数
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrInteger">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrDecimal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrDecimalFormat">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrDateTime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrASCII">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrNihongo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrString">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrRange">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrRangeMax">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrRangeMin">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrOverLength">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrEmpty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationMessage.ErrNotFound">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes">
+            <summary>
+            値チェックのタイプ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.None">
+            <summary>
+            チェックなし
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.Integer">
+            <summary>
+            数値（整数）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.SignedInteger">
+            <summary>
+            数値（マイナス許可）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.Decimal">
+            <summary>
+            数値（小数）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.SignedDecimal">
+            <summary>
+            数値（小数：マイナス許可）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.Date">
+            <summary>
+            日付
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.DateYYYYMM">
+            <summary>
+            日付（年月のみ）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.DateMMDD">
+            <summary>
+            日付（月日のみ）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.Time">
+            <summary>
+            時刻
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.DateTime">
+            <summary>
+            日付および時刻
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.Number">
+            <summary>
+            数字文字
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.SignedNumber">
+            <summary>
+            数字文字（マイナス許可）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.ASCII">
+            <summary>
+            英数字文字（ASCII）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.Nihongo">
+            <summary>
+            日本語文字列
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.String">
+            <summary>
+            全ての文字（ASCII文字日本語混在）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.StringList">
+            <summary>
+            文字のリスト
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.NumberAutoComplete">
+            <summary>
+            AutoComplete数値入力専用（ComboBoxのアイテムからの選択）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.StringAutoComplete">
+            <summary>
+            AutoComplete文字入力専用（ComboBoxのアイテムからの選択）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.CustomAutoComplete">
+            <summary>
+            AutoComplete正規表現による入力専用（別途CustomCharsプロパティの設定が必要）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.Validator.ValidationTypes.EditableAutoComplete">
+            <summary>
+            編集可能かつAutoComplete（リストになくても正常とする）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox">
+            <summary>
+            UcLabelTextBox.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcLabelTextBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.#ctor">
+            <summary>
+            Label+TextBox UserControl
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Background">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_DataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Context">
+            <summary>
+            ContentControl のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_CommandBindings">
+            <summary>
+            この要素に関連付けられている CommandBinding のオブジェクトのコレクションを取得します。
+            CommandBinding は、この要素に対するコマンドを有効にし、コマンド、イベント、およびこの要素に接続するハンドラー間の連結を宣言します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Dispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Focusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。これは 依存関係プロパティです
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_FontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_FontSize">
+            <summary>
+            フォント サイズを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_FontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_FontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_FontWeight">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Foreground">
+            <summary>
+            前景色を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_HasContent">
+            <summary>
+            ContentControl にコンテンツが含まれているかどうかを示す値を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Height">
+            <summary>
+            要素の提案された高さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_HorizontalContentAlignment">
+            <summary>
+            コントロールのコンテンツの水平方向の配置を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_IsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_IsTabStop">
+            <summary>
+            コントロールがタブ ナビゲーションに含まれるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_cIsVisible">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Visibility">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Margin">
+            <summary>
+            この要素が ユーザー インターフェイス 
+            (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_MaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_MaxWidth">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Padding">
+            <summary>
+            コントロール内のスペースを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Parent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_ToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオ
+            ブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_VerticalContentAlignment">
+            <summary>
+            コントロールのコンテンツの垂直方向の配置を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.Label_Width">
+            <summary>
+            要素の幅を取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cAcceptsReturn">
+            <summary>
+            AcceptsReturn 依存プロパティ
+            Enter キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cAcceptsTab">
+            <summary>
+            AcceptsTab 依存プロパティ
+            Tab キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cBackground">
+            <summary>
+            Background 
+            コントロールの背景を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cHorizontalAlignment">
+            <summary>
+            HorizontalAlignment 
+            この要素が、Panel またはアイテム コントロールのような親要素内に構成されるときに適用される水平方向の配置特性を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cVerticalAlignment">
+            <summary>
+            VerticalAlignment  依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cIsReadOnly">
+            <summary>
+            IsReadOnly 依存プロパティ
+            テキスト編集コントロールを操作するユーザーに対して、コントロールが読み取り専用であるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cMaxLength">
+            <summary>
+            MaxLength 依存プロパティ
+            テキスト ボックスに手動で入力できる最大文字数を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cMinLines">
+            <summary>
+            MinLines 依存プロパティ
+            表示行の最小数を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cSelectedText">
+            <summary>
+            SelectedText 依存プロパティ
+            テキスト ボックス内の現在の選択範囲のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cSelectionStart">
+            <summary>
+            SelectionStart 依存プロパティ
+            現在の選択範囲の先頭の文字インデックスを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cTextAlignment">
+            <summary>
+            TextAlignment 依存プロパティ
+            テキスト ボックスのテキスト コンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cTextWrapping">
+            <summary>
+            TextWrapping 依存プロパティ
+            テキスト ボックスのテキスト折り返し方法を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cToolTip">
+            <summary>
+            ToolTip 依存プロパティ
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cWidth">
+            <summary>
+            Width プロパティ
+            要素の幅を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.cValidationType">
+            <summary>
+            ValidationType
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTextBox.ImeType">
+            <summary>
+            IMEType
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox">
+            <summary>
+            UcLabelTwinTextBox.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcLabelTwinTextBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.#ctor">
+            <summary>
+             Label + TextBox + TextBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.setReceivedData(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            取得データの取り込み
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Background">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_DataContext">
+            <summary>
+            データ バインディングに参加すると要素のデータ コンテキストを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Context">
+            <summary>
+            ContentControl のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_CommandBindings">
+            <summary>
+            この要素に関連付けられている CommandBinding のオブジェクトのコレクションを取得します。
+            CommandBinding は、この要素に対するコマンドを有効にし、コマンド、イベント、およびこの要素に接続するハンドラー間の連結を宣言します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Dispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Focusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。これは 依存関係プロパティです
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_FontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_FontSize">
+            <summary>
+            フォント サイズを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_FontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_FontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_FontWeight">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Foreground">
+            <summary>
+            前景色を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_HasContent">
+            <summary>
+            ContentControl にコンテンツが含まれているかどうかを示す値を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Height">
+            <summary>
+            要素の提案された高さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_HorizontalContentAlignment">
+            <summary>
+            コントロールのコンテンツの水平方向の配置を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_IsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_IsTabStop">
+            <summary>
+            コントロールがタブ ナビゲーションに含まれるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Visibility">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Margin">
+            <summary>
+            この要素が ユーザー インターフェイス 
+            (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_MaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_MaxWidth">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_MinHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_MinWidth">
+            <summary>
+            要素の高さの最小値を取得または設定します 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Name">
+            <summary>
+            要素の ID の名前を取得または設定します。名前は XAML のプロセッサで処理中に作成されると分離コードを、
+            イベント ハンドラー コードなどのマークアップ要素を参照できるように参照を提供します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Padding">
+            <summary>
+            コントロール内のスペースを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Parent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_TabIndex">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示される
+            ツール ヒントのオブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_ToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオ
+            ブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_VerticalContentAlignment">
+            <summary>
+            コントロールのコンテンツの垂直方向の配置を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Label_Width">
+            <summary>
+            要素の幅を取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1Width">
+            <summary>
+            Width
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1ValidationType">
+            <summary>
+            ValidationType
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1IMEType">
+            <summary>
+            ImeType
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1AcceptsReturn">
+            <summary>
+            AcceptsReturn 依存プロパティ
+            Enter キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1AcceptsTab">
+            <summary>
+            AcceptsTab 依存プロパティ
+            Tab キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1Background">
+            <summary>
+            Background 
+            コントロールの背景を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1BorderThickness">
+            <summary>
+            BorderBrush 
+            ValueTextのBorderのブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1BorderBrush">
+            <summary>
+            BorderBrush 
+            ValueTextのBorderのブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1IsReadOnly">
+            <summary>
+            IsReadOnly 依存プロパティ
+            テキスト編集コントロールを操作するユーザーに対して、コントロールが読み取り専用であるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1MaxLength">
+            <summary>
+            MaxLength 依存プロパティ
+            テキスト ボックスに手動で入力できる最大文字数を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1MinLines">
+            <summary>
+            MinLines 依存プロパティ
+            表示行の最小数を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1SelectedText">
+            <summary>
+            SelectedText 依存プロパティ
+            テキスト ボックス内の現在の選択範囲のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1SelectionStart">
+            <summary>
+            SelectionStart 依存プロパティ
+            現在の選択範囲の先頭の文字インデックスを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1TextAlignment">
+            <summary>
+            TextAlignment 依存プロパティ
+            テキスト ボックスのテキスト コンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1TextWrapping">
+            <summary>
+            TextWrapping 依存プロパティ
+            テキスト ボックスのテキスト折り返し方法を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1ToolTip">
+            <summary>
+            ToolTip 依存プロパティ
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1Visibility">
+            <summary>
+            Visibility 依存プロパティ
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1HorizontalAlignment">
+            <summary>
+            HorizontalAlignment 依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1VerticalAlignment">
+            <summary>
+            VerticalAlignment  依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text1HorizontalContentAlignment">
+            <summary>
+            HorizontalContentAlignment  依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2Width">
+            <summary>
+            Width
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2ValidationType">
+            <summary>
+            ValidationType
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2AcceptsReturn">
+            <summary>
+            AcceptsReturn 依存プロパティ
+            Enter キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2AcceptsTab">
+            <summary>
+            AcceptsTab 依存プロパティ
+            Tab キーが押されたとき、テキスト編集コントロールがどのように反応するかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2Background">
+            <summary>
+            Background 
+            コントロールの背景を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2BorderBrush">
+            <summary>
+            BorderBrush 
+            ValueTextのBorderのブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2BorderThickness">
+            <summary>
+            BorderBrush 
+            ValueTextのBorderのブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2IsReadOnly">
+            <summary>
+            IsReadOnly 依存プロパティ
+            テキスト編集コントロールを操作するユーザーに対して、コントロールが読み取り専用であるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2MaxLength">
+            <summary>
+            MaxLength 依存プロパティ
+            テキスト ボックスに手動で入力できる最大文字数を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2MinLines">
+            <summary>
+            MinLines 依存プロパティ
+            表示行の最小数を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2SelectedText">
+            <summary>
+            SelectedText 依存プロパティ
+            テキスト ボックス内の現在の選択範囲のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2SelectionStart">
+            <summary>
+            SelectionStart 依存プロパティ
+            現在の選択範囲の先頭の文字インデックスを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2TextAlignment">
+            <summary>
+            TextAlignment 依存プロパティ
+            テキスト ボックスのテキスト コンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2TextWrapping">
+            <summary>
+            TextWrapping 依存プロパティ
+            テキスト ボックスのテキスト折り返し方法を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2ToolTip">
+            <summary>
+            ToolTip 依存プロパティ
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2Visibility">
+            <summary>
+            Visibility 依存プロパティ
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2HorizontalAlignment">
+            <summary>
+            HorizontalAlignment 依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2VerticalAlignment">
+            <summary>
+            VerticalAlignment  依存プロパティ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcLabelTwinTextBox.Text2HorizontalContentAlignment">
+            <summary>
+            HorizontalContentAlignment  依存プロパティ
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcCheckBox">
+            <summary>
+            UcLabel.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcCheckBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.#ctor">
+            <summary>
+            初期化
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cBackground">
+            <summary>
+            コントロールの背景を表すブラシを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cCommandBindings">
+            <summary>
+            この要素に関連付けられている CommandBinding のオブジェクトのコレクションを取得します。
+            CommandBinding は、この要素に対するコマンドを有効にし、コマンド、イベント、およびこの要素に接続するハンドラー間の連結を宣言します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cContent">
+            <summary>
+            ContentControl のコンテンツを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cDispatcher">
+            <summary>
+            この DispatcherObject が関連付けられている Dispatcher を取得します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cFocusable">
+            <summary>
+            要素がフォーカスを得ることができるかどうかを示す値を取得または設定します。これは 依存関係プロパティです
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cFontFamily">
+            <summary>
+            コントロールのフォント ファミリを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cFontSize">
+            <summary>
+            フォント サイズを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cFontStretch">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cFontStyle">
+            <summary>
+            フォント スタイルを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cFontWeight">
+            <summary>
+            画面上でフォントを縮小または拡大する度合いを取得または設定します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cForeground">
+            <summary>
+            前景色を表すブラシを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cHasContent">
+            <summary>
+            ContentControl にコンテンツが含まれているかどうかを示す値を取得します。 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cHeight">
+            <summary>
+            要素の提案された高さを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cHorizontalContentAlignment">
+            <summary>
+            コントロールのコンテンツの水平方向の配置を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cIsFocused">
+            <summary>
+            この要素に論理フォーカスがあるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cIsTabStop">
+            <summary>
+            コントロールがタブ ナビゲーションに含まれるかどうかを示す値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cIsVisible">
+            <summary>
+            この要素が ユーザー インターフェイス (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cMargin">
+            <summary>
+            この要素が ユーザー インターフェイス 
+            (UI)に表示されるかどうかを示す値を取得します。
+            これは 依存関係プロパティです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cMaxHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cMaxWidth">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cMinHeight">
+            <summary>
+            要素の高さの最大値を取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cMinWidth">
+            <summary>
+            要素の高さの最小値を取得または設定します 
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cPadding">
+            <summary>
+            コントロール内のスペースを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cParent">
+            <summary>
+            この要素の logical parent の要素を取得します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cTabIndex">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示される
+            ツール ヒントのオブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cToolTip">
+            <summary>
+            ユーザー インターフェイス (UI)のこの要素に対して表示されるツール ヒントのオ
+            ブジェクトを取得または設定します
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cVerticalContentAlignment">
+            <summary>
+            コントロールのコンテンツの垂直方向の配置を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cVisibility">
+            <summary>
+            この要素の ユーザー インターフェイス (UI) 表現を取得または設定します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcCheckBox.cWidth">
+            <summary>
+            要素の幅を取得または設定します。 
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox">
+            <summary>
+            UcTextBox.xaml の相互作用ロジック
+            </summary>
+            <summary>
+            UcPasswordBox
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.#ctor">
+            <summary>
+            TextBox(UserControl)
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.PasswordChangedEvent">
+            <summary>
+            cTextChangeイベントの作成
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.cPasswordBox_GotFocus(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            論理フォーカスを取得したときに発生します。
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.IMEChange">
+            <summary>
+            IMEの切り替え
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.cPasswordBox_LostFocus(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            論理フォーカスを失ったときに発生します。
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.cPasswordBox_KeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            フォーカス移動
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.ValidationType">
+            <summary>
+            値チェック
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.ValidationStatus">
+            <summary>
+            値チェックメッセージ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.UcPasswordBox.IsRequired">
+            <summary>
+            入力必須項目であるかどうかを指定します。
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.Controls.Properties.Resources">
+            <summary>
+              ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.Properties.Resources.ResourceManager">
+            <summary>
+              このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.Controls.Properties.Resources.Culture">
+            <summary>
+              厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+              現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

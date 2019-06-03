@@ -1,0 +1,18 @@
+年月度	Date		2011/01/01
+支払先指定	String	15	
+表示区分	String	15	（支払あり支払先のみ）
+締日	String	5	全締日
+支払先コード	Number		60001
+支払先名	String	15	支払先名サンプルデータ
+出金日	Number		10
+サイト	String	5	翌々月
+支払金額	Number		897384
+内課税額	Number		897384
+消費税	Number		44869
+支払通行料	Number		
+支払予定額	Number		942253
+支払年月	Date		2011/03/01
+締日明細	Number		31
+当月出金額	Number		
+出金調整額	Number		1050
+出金合計額	Number		942253

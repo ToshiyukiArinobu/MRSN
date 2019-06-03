@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="COMMONDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="COMMONDBEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="COMMON_TABLE" EntityType="COMMONDBModel.COMMON_TABLE" />
+  </EntityContainer>
+  <ComplexType Name="ComplexType1" />
+  <EntityType Name="COMMON_TABLE">
+    <Key>
+      <PropertyRef Name="ユーザーID" />
+    </Key>
+    <Property Type="Int32" Name="顧客コード" />
+    <Property Type="String" Name="ユーザーID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="パスワード" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="ログインフラグ" />
+    <Property Type="DateTime" Name="アクセス時間" Precision="3" />
+    <Property Type="String" Name="DB接続先" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ユーザーDB" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DBログインID" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DBパスワード" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="開始日" Precision="0" />
+    <Property Type="DateTime" Name="有効期限" Precision="0" />
+    <Property Type="DateTime" Name="登録日" Precision="0" />
+    <Property Type="String" Name="メッセージ1" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="メッセージ2" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="メッセージ3" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="メッセージ4" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

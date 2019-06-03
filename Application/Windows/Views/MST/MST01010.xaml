@@ -1,0 +1,790 @@
+﻿<fw:WindowMasterMainteBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+    xmlns:uc="clr-namespace:KyoeiSystem.Application.Windows.Views"
+    xmlns:Data="clr-namespace:System.Data;assembly=System.Data"
+    x:Class="KyoeiSystem.Application.Windows.Views.MST01010"
+    mc:Ignorable="d" AllowsTransparency="False" Language="ja-JP"
+    Height="980" Width="970"
+    MinHeight="980" MinWidth="1024"
+    WindowStartupLocation="CenterOwner"
+    Title="取引先マスタ保守(MST01010)"
+    Loaded="Window_Loaded" Closed="Window_Closed">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <!-- リボン -->
+    <Ribbon HorizontalAlignment="Stretch" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+      <!-- タブ -->
+      <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+        <RibbonGroup Width="90" >
+          <!-- 処理モード表示用に空けておく -->
+        </RibbonGroup>
+
+        <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,-1,0,0"
+                        ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"
+                        ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"
+          />
+        </RibbonGroup>
+        <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                                  Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+                                  Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+                                  Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+
+      </RibbonTab>
+
+      <RibbonTab Header="ヘルプ" Background="Gray">
+        <RibbonGroup Header="サポート">
+          <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+                                  Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
+          <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+                                  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+                                  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+                                  Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+      <RibbonTab Header="実施状況入力" Background="Gray" ContextualTabGroupHeader="入力補助" >
+        <RibbonGroup Header="従来ファンクションキー">
+          <RibbonButton LargeImageSource="../Images/16マスタ入力.png" KeyTip="d"
+                                  Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/16マスタ入力.png"/>
+          <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+                                  Label="マスタ登録" ToolTipTitle="伝票登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+          <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="f"
+                                  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+          <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="g"
+                                  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+      <RibbonTab Header="一括入力" Background="Gray" ContextualTabGroupHeader="入力補助">
+        <RibbonGroup Header="従来ファンクションキー">
+          <RibbonButton LargeImageSource="../Images/22リスト.png" KeyTip="d"
+                                  Label="プレビュー" ToolTipTitle="プレビュー(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/22リスト.png"/>
+          <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+                                  Label="印刷" ToolTipTitle="印刷(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+          <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+                                  Label="マスタ登録" ToolTipTitle="マスタ登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+          <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="f"
+                                  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+          <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="g"
+                                  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+    </Ribbon>
+
+    <Grid Grid.Row="0" VerticalAlignment="Bottom">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="74" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="90" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <!-- 編集モード領域 -->
+      <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+                 Background="{Binding MaintenanceModeBackground}">
+        <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+               FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
+               HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"
+        />
+      </DockPanel>
+
+      <!-- エラーメッセージ領域 -->
+      <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+      <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"
+      />
+
+    </Grid>
+
+    <!--ヘッダー-->
+    <Grid Grid.Row="1" Background="AliceBlue" Margin="5">
+
+      <Grid Margin="15">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="30" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="55*" />
+          <ColumnDefinition Width="67*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 取引先コード -->
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+
+          <ctls:UcLabelTextBox x:Name="TORI_CODE" Label_Context="取引先コード" cWidth="60" Label_Width="100" IsKeyItem="True"
+                               ImeType="Off" cMaxLength="4" HorizontalAlignment="Left" ValidationType="Integer" cVerticalContentAlignment="Center"
+                               Text="{Binding 取引先コード, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                               GotFocus="supCode_GotFocus" LostFocus="supCode_LostFocus" PreviewMouseDown="supCode_PreviewMouseDown"
+          />
+
+          <Label Content="―" Width="20" HorizontalAlignment="Left" Grid.Column="1"/>
+
+          <ctls:UcTextBox x:Name="TORI_EDA" IsKeyItem="True" Grid.Column="2" cWidth="30"
+                          ImeType="Off" cMaxLength="2" HorizontalAlignment="Left" ValidationType="Integer" cVerticalContentAlignment="Center"
+                          Text="{Binding 枝番, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                          PreviewKeyDown="TORI_EDA_PreviewKeyDown"
+          />
+        </Grid>
+
+        <!-- 取引先基本情報 -->
+        <Grid x:Name="grdLeft" VerticalAlignment="Top" Grid.Row="1" Height="760" >
+          <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+          </Grid.RowDefinitions>
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+
+          <ctls:UcLabelTextBox x:Name="TORI_NM_1" Label_Context="正式名称" Grid.Row="0" Label_Width="100"
+                               ImeType="Native" cMaxLength="50" HorizontalAlignment="Left" Width="430" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[得意先名１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <ctls:UcLabelTextBox x:Name="TORI_NM_2" Label_Context="正式名称２" Grid.Row="1" Label_Width="100"
+                               ImeType="Native" cMaxLength="50" HorizontalAlignment="Left" Width="430" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[得意先名２], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <ctls:UcLabelTextBox x:Name="TORI_DEPT_NM" Label_Context="部課名称" Grid.Row="2" Label_Width="100"
+                               ImeType="Native" cMaxLength="50" HorizontalAlignment="Left" Width="430" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[部課名称], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <ctls:UcLabelTextBox x:Name="TORI_RNM" Label_Context="略　称" Grid.Row="3" Label_Width="100"
+                               ImeType="Native" cMaxLength="30" HorizontalAlignment="Left" Width="430" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[略称名], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <ctls:UcLabelTextBox x:Name="YUBIN_NO" Label_Context="郵便番号" Grid.Row="4" Label_Width="100"
+                               ImeType="Off" cMaxLength="8" HorizontalAlignment="Left" cWidth="100" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[郵便番号], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                               SourceUpdated="YUBIN_NO_SourceUpdated"
+          />
+          <ctls:UcLabelTextBox x:Name="ADDRESS_1" Label_Context="住所１" Grid.Row="5" Label_Width="100"
+                               ImeType="Native" cMaxLength="50" HorizontalAlignment="Left" Width="430" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[住所１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <ctls:UcLabelTextBox x:Name="ADDRESS_2" Label_Context="住所２" Grid.Row="6" Label_Width="100"
+                               ImeType="Native" cMaxLength="50" HorizontalAlignment="Left" Width="430" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[住所２], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+
+          <ctls:UcLabelTextBox x:Name="TEL" Label_Context="ＴＥＬ" Grid.Row="7" Label_Width="100"
+                               ImeType="Off" cMaxLength="15" HorizontalAlignment="Left" cWidth="100" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[電話番号], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+
+          <ctls:UcLabelTextBox x:Name="FAX" Label_Context="ＦＡＸ" Grid.Row="8" Label_Width="100"
+                               ImeType="Off" cMaxLength="15" HorizontalAlignment="Left" cWidth="100" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[ＦＡＸ], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+
+          <ctls:UcLabelTextBox x:Name="TORI_KNM" Label_Context="カナ名称" Grid.Row="9" Label_Width="100"
+                               ImeType="HankakuKatakana" cMaxLength="20" HorizontalAlignment="Left" Width="430" cVerticalContentAlignment="Center"
+                               Text="{Binding RowM01TOK[かな読み], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+
+          <ctls:UcLabelTwinTextBox
+              x:Name="JIS_COMPANY" Label_Context="担当会社コード" Grid.Row="10" Label_Width="100" DataAccessName="M70_JIS" DataAccessMode="On" IsKeyItem="False"
+              VerticalAlignment="Top" HorizontalAlignment="Left" Height="30"
+              Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+              Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+              Text2Width="286" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+              Text1="{Binding RowM01TOK[担当会社コード], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <uc:M01_TOK_TextBox
+            x:Name="KAISYA_CD" Grid.Row="11" HorizontalAlignment="Left" Margin="0,0,240,0"
+            DataAccessName="M01_TOK" DataAccessMode="On"
+            Label_Context="集約取引先コード" Label_Width="100"
+            Label1Text="－" Label1Visibility="Visible"
+            Text1Width="60" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+            Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
+            Text1="{Binding RowM01TOK[集約取引先コード], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+            Text2="{Binding RowM01TOK[集約取引先枝番], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+<!--
+          <ctls:UcLabelTwinTextBox
+              x:Name="KAISYA_CD" Label_Context="集約取引先コード" Grid.Row="11" Label_Width="100" IsKeyItem="False"
+              HorizontalAlignment="Left" Margin="0,0,240,0" DataAccessName="M01_TOK" DataAccessMode="Off"
+              Label1Text="－" Label1Visibility="Visible"
+              Text1Width="60" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+              Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
+              Text1="{Binding RowM01TOK[集約取引先コード], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+              Text2="{Binding RowM01TOK[集約取引先枝番], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+-->
+          <ctls:UcLabelTextBox
+              x:Name="SHUKEI_CD_1" Label_Context="集計ｺｰﾄﾞ①" Grid.Row="12" Label_Width="100" cWidth="60"
+              ImeType="Off" cMaxLength="5" HorizontalAlignment="Left" ValidationType="Integer" cVerticalContentAlignment="Center"
+              Text="{Binding RowM01TOK[集計コード１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <ctls:UcLabelTextBox
+              x:Name="SHUKEI_CD_2" Label_Context="集計ｺｰﾄﾞ②" Grid.Row="13" Label_Width="100" cWidth="60"
+              ImeType="Off" cMaxLength="5" HorizontalAlignment="Left" ValidationType="Integer" cVerticalContentAlignment="Center"
+              Text="{Binding RowM01TOK[集計コード２], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+          <ctls:UcLabelTextBox
+              x:Name="SHUKEI_CD_3" Label_Context="集計ｺｰﾄﾞ③" Grid.Row="14" Label_Width="100" cWidth="60"
+              ImeType="Off" cMaxLength="5" HorizontalAlignment="Left" ValidationType="Integer" cVerticalContentAlignment="Center"
+              Text="{Binding RowM01TOK[集計コード３], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+
+          <Grid Grid.Row="15" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="100" />
+              <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ctls:UcLabel LabelText="自社備考" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="58" Width="100" />
+            <ctls:UcLabelTwinTextBox
+                x:Name="BIKO_1" Grid.Row="0" Grid.Column="1" DataAccessName="M11_TEK" DataAccessMode="On" IsKeyItem="False" HorizontalAlignment="Left"
+                Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                Text1Width="40" Text1MaxLength="5" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                Text2Width="285" Text2MaxLength="50" Text2IMEType="Native" Text2VerticalContentAlignment="Center"
+                Text2="{Binding RowM01TOK[自社備考１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+            />
+            <ctls:UcLabelTwinTextBox
+                x:Name="BIKO_2" Grid.Column="1" Grid.Row="1" DataAccessName="M11_TEK" DataAccessMode="On" IsKeyItem="False" HorizontalAlignment="Left"
+                Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                Text1Width="40" Text1MaxLength="5" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                Text2Width="285" Text2MaxLength="50" Text2IMEType="Native" Text2VerticalContentAlignment="Center"
+                Text2="{Binding RowM01TOK[自社備考２], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+            />
+          </Grid>
+          
+          <Grid Grid.Row="17">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="0.5*" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ctls:UcLabelTextBox
+                x:Name="DEL_FLG" Grid.Row="17" HorizontalAlignment="Left"
+                Label_Context="論理削除" Label_Width="100"
+                ValidationType="Integer" ImeType="Off"
+                cWidth="30" cMaxLength="1" cVerticalContentAlignment="Center"
+                Text="{Binding RowM01TOK[論理削除], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+            />
+            <Label Content="&quot;0&quot;は使用中、&quot;9&quot;は削除済みになります。" HorizontalAlignment="Left" Grid.Row="17" Grid.Column="2" Width="267" />
+          </Grid>
+          
+          <ctls:UcLabelTextBox
+              x:Name="DEL_DT" Grid.Row="18" Focusable="False"
+              Label_Context="削除日" Label_Width="100"
+              cWidth="305" cIsReadOnly="True" cBorderThickness="0" cBackground="Transparent"
+              cHorizontalContentAlignment="Right" cVerticalContentAlignment="Center"
+              Text="{Binding RowM01TOK[削除日時], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat='yyyy/MM/dd HH:mm:ss'}"
+          />
+          <ctls:UcLabelTwinTextBox
+              x:Name="DEL_STAFF" Grid.Row="19" HorizontalAlignment="Left"
+              DataAccessName="M72_TNT" DataAccessMode="On"
+              Label_Context="削除者" Label_Width="100"
+              Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+              Text1Visibility="Collapsed" Text1IsReadOnly="True" Text1AcceptsTab="False"
+              Text2IsReadOnly="True" Text2Width="286" Text2VerticalContentAlignment="Center" Text2AcceptsTab="False"
+              Text2BorderThickness="0" Text2Background="Transparent"
+              Text1="{Binding RowM01TOK[削除者], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+
+          <ctls:UcLabelTextBox
+              x:Name="ADD_DT" Grid.Row="20" Focusable="False"
+              Label_Context="登録日" Label_Width="100"
+              cWidth="305" cIsReadOnly="True" cBorderThickness="0" cBackground="Transparent"
+              cHorizontalContentAlignment="Right" cVerticalContentAlignment="Center"
+              Text="{Binding RowM01TOK[登録日時], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat='yyyy/MM/dd HH:mm:ss'}"
+          />
+          <ctls:UcLabelTwinTextBox
+              x:Name="ADD_STAFF" Grid.Row="21" HorizontalAlignment="Left"
+              Label_Context="登録者" Label_Width="100"
+              Label1Visibility="Collapsed" Label2Visibility="Collapsed" DataAccessName="M72_TNT" DataAccessMode="On"
+              Text1Visibility="Collapsed" Text1IsReadOnly="True" Text1AcceptsTab="False"
+              Text2IsReadOnly="True" Text2Width="286" Text2VerticalContentAlignment="Center" Text2AcceptsTab="False"
+              Text2Background="Transparent" Text2BorderThickness="0"
+              Text1="{Binding RowM01TOK[登録者], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+
+          <ctls:UcLabelTextBox
+              x:Name="UPD_DT" Grid.Row="22" Focusable="False"
+              Label_Context="最終更新日" Label_Width="100"
+              cWidth="305" cIsReadOnly="True" cBorderThickness="0" cBackground="Transparent"
+              cHorizontalContentAlignment="Right" cVerticalContentAlignment="Center"
+              Text="{Binding RowM01TOK[最終更新日時], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat='yyyy/MM/dd HH:mm:ss'}"
+          />
+          <ctls:UcLabelTwinTextBox
+              x:Name="UPD_STAFF" Grid.Row="23" HorizontalAlignment="Left"
+              Label_Context="最終更新者" Label_Width="100"
+              Label1Visibility="Collapsed" Label2Visibility="Collapsed" DataAccessName="M72_TNT" DataAccessMode="On"
+              Text1Visibility="Collapsed" Text1IsReadOnly="True" Text1AcceptsTab="False"
+              Text2IsReadOnly="True" Text2Width="286" Text2VerticalContentAlignment="Center" Text2AcceptsTab="False"
+              Text2Background="Transparent" Text2BorderThickness="0"
+              Text1="{Binding RowM01TOK[最終更新者], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+          />
+        </Grid>
+
+        <!-- 右欄 -->
+        <Grid x:Name="grdInPut2" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+
+          <ctls:UcLabelTextRadioButton
+              x:Name="M01_TORI_KBN"
+              Label_Content="取引区分" Label_Width="100"
+              RadioSelectButton="One" RadioViewCount="Five"
+              RadioOne_Content="得意先" RadioSecond_Content="仕入先" RadioThird_Content="加工先" RadioFourth_Content="相殺" RadioFifth_Content="販社"
+              Text1VerticalContentAlignment="Center"
+              Text="{Binding Path=RowM01TOK[取引区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+              TargetUpdated="TORI_KBN_TargetUpdated"
+          />
+          <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto" />
+              <RowDefinition Height="auto" />
+              <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!-- 請求 -->
+            <Grid Grid.Row="0" Margin="0,10,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+              </Grid.RowDefinitions>
+
+              <Label Content="&#xA;&#xA;&#xA;&#xD;&#xA;&#xA;請&#xA;&#xA;&#xA;&#xA;求" Width="37" Background="Orange" Margin="0,0,1,0"
+                     Foreground="White" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.RowSpan="9"
+              />
+
+              <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTextBox
+                    x:Name="T_YOSHIN"
+                    Label_Context="与信枠" Label_Width="100"
+                    ValidationType="Integer" ImeType="Off"
+                    cWidth="50" cMaxLength="5" cTextAlignment="Right" cVerticalContentAlignment="Center"
+                    Text="{Binding RowM01TOK[与信枠], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                />
+                <Label Grid.Column="1" Content="万円" Width="50" HorizontalAlignment="Left" />
+              </Grid>
+
+              <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTextRadioButton x:Name="T_TAX_KBN"
+                    Label_Content="消費税区分" Label_Width="100"
+                    RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Four"
+                    RadioSecond_Content="一括" RadioThird_Content="個別" RadioFourth_Content="請求無"
+                    Text1VerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｔ消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+
+              </Grid>
+
+              <Grid Grid.Row="2" Grid.Column="1">
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTextRadioButton x:Name="T_TAX_TANI"
+                    Label_Content="消費税単位" Label_Width="100"
+                    RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Four"
+                    RadioSecond_Content="切捨て" RadioThird_Content="四捨五入" RadioFourth_Content="切上げ"
+                    Text1VerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｔ税区分ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+              </Grid>
+              <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTextBox x:Name="T_SHIME_DT"
+                    Label_Context="締日" Label_Width="100" cWidth="29"
+                    ImeType="Off" cMaxLength="2" ValidationType="Integer" cVerticalContentAlignment="Center"
+                    Text="{Binding RowM01TOK[Ｔ締日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                />
+                <Label Content="末締めは[31]を入力して下さい" HorizontalAlignment="Left" Height="24" Grid.Column="1" VerticalAlignment="Center" Width="267" />
+              </Grid>
+
+              <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTextBox
+                    x:Name="T_SHIHARAI" Label_Context="請求条件" Grid.Column="1" Grid.Row="7" Label_Width="100" cWidth="100"
+                    ImeType="Off" cMaxLength="8" ValidationType="Integer" Margin="237,0,0,0" cVerticalContentAlignment="Center"
+                    Text="{Binding RowM01TOK[Ｔ請求条件], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                />
+              </Grid>
+
+              <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelComboBox
+                    x:Name="T_SHIHARAI_KBN" Height="27" Width="200" Margin="237,0,0,0"
+                    Label_Context="請求区分" Label_Background="Orange" Label_Width="100" Label_Focusable="False" Grid.Column="1"
+                    ComboListingParams="取引先マスタ,コンボ,支払区分"
+                    SelectedValue="{Binding RowM01TOK[Ｔ請求区分], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                />
+              </Grid>
+
+              <Grid Grid.Row="6" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                
+                <ctls:UcLabelTextBox
+                    x:Name="T_SITE1" Grid.Column="0" HorizontalAlignment="Left"
+                    Label_Context="サイト" Label_Width="100"
+                    cWidth="30" cValidationType="Integer" ImeType="Off" cVerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｔサイト１], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+                <Label Content="ヶ月" Grid.Column="0" Margin="130,0,0,0" HorizontalContentAlignment="Left" Width="107" />
+
+                <ctls:UcLabelTextBox
+                    x:Name="T_SITE2" Grid.Column="1" HorizontalAlignment="Left"
+                    Label_Context="サイト" Label_Width="100"
+                    cWidth="30" cValidationType="Integer" ImeType="Off" cVerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｔサイト２], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+                <Label Content="ヶ月" Grid.Column="1" Margin="130,0,0,0" HorizontalContentAlignment="Left" Width="107" />
+
+              </Grid>
+
+              <Grid Grid.Row="7" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <ctls:UcLabelTextBox x:Name="T_NYUKIN_DT1" Label_Context="入金日" Grid.Column="0" Label_Width="100"
+                                     cWidth="30" ImeType="Off" ValidationType="Integer" cMaxLength="2" Height="27" cVerticalContentAlignment="Center"
+                                     Text="{Binding RowM01TOK[Ｔ入金日１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                />
+                <ctls:UcLabelTextBox x:Name="T_NYUKIN_DT2" Label_Context="入金日" Grid.Column="1" Label_Width="100"
+                                     cWidth="30" ImeType="Off" ValidationType="Integer" cMaxLength="2" Height="27" Margin="105,0,0,0" cVerticalContentAlignment="Center"
+                                     Text="{Binding RowM01TOK[Ｔ入金日2], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                />
+              </Grid>
+              <ctls:UcLabelTwinTextBox x:Name="T_TANTO" IsKeyItem="False" Label_Context="担当者" Label_Width="100" Grid.Row="8" Grid.Column="1"
+                                       DataAccessName="M72_TNT" Text2Visibility="Visible" Label1Visibility="Collapsed"
+                                       Text1Width="50" Text1MaxLength="4" Label_Background="Orange" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                                       Text1="{Binding RowM01TOK[Ｔ担当者コード], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                       Text2IsReadOnly="True" Text2BorderThickness="0" Text2Background="Transparent" Text2VerticalContentAlignment="Center"
+                                       Text2="{Binding Ｔ担当者名, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+              />
+            </Grid>
+
+            <!-- 支払 -->
+            <Grid Grid.Row="1" Margin="0,10,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+              </Grid.RowDefinitions>
+              <Label Content="&#xA;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;支&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;払" Background="Green" Grid.RowSpan="9" Margin="0,0,1,0"
+                     Foreground="White" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" Height="270" VerticalAlignment="Bottom"
+              />
+
+              <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <ctls:UcLabelTextRadioButton
+                    x:Name="S_TAX_KBN"
+                    Label_Content="消費税区分" Label_Width="100"
+                    RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Four"
+                    RadioSecond_Content="一括" RadioThird_Content="個別" RadioFourth_Content="請求無"
+                    Text1VerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｓ支払消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+              </Grid>
+
+              <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <ctls:UcLabelTextRadioButton
+                    x:Name="S_TAX_TANI"
+                    Label_Content="消費税単位" Label_Width="100"
+                    RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Four"
+                    RadioSecond_Content="切捨て" RadioThird_Content="四捨五入" RadioFourth_Content="切上げ"
+                    Text1VerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｓ税区分ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+              </Grid>
+
+              <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <ctls:UcLabelTextBox
+                    x:Name="S_SHIME_DT" Grid.Column="0" Grid.Row="13"
+                    Label_Context="締日" Label_Width="100"
+                    ValidationType="Integer" ImeType="Off"
+                    cWidth="29" cMaxLength="2" cVerticalContentAlignment="Center"
+                    Text="{Binding RowM01TOK[Ｓ締日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                />
+                <Label Content="末締めは[31]を入力して下さい" HorizontalAlignment="Left" Height="24" Grid.Column="1" Width="267" />
+              </Grid>
+
+              <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTextBox
+                    x:Name="S_SHIHARAI" Grid.Column="1" Margin="237,0,0,0"
+                    Label_Context="支払条件" Label_Width="100"
+                    ValidationType="Integer" ImeType="Off"
+                    cWidth="100" cMaxLength="8" cVerticalContentAlignment="Center"
+                    Text="{Binding RowM01TOK[Ｓ支払条件], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                />
+              </Grid>
+
+              <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelComboBox
+                    x:Name="S_SHIHARAI_KBN" Label_Context="支払区分" Height="27" Width="200" Label_Width="100" Grid.Column="1"
+                    Label_Background="Green" Label_Focusable="False" Margin="237,0,0,0"
+                    ComboListingParams="取引先マスタ,コンボ,支払区分"
+                    SelectedValue="{Binding RowM01TOK[Ｓ支払区分], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                />
+              </Grid>
+
+              <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <ctls:UcLabelTextBox
+                    x:Name="S_SITE1" Grid.Column="0" HorizontalAlignment="Left"
+                    Label_Context="サイト" Label_Width="100"
+                    cWidth="30" cValidationType="Integer" ImeType="Off" cVerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｓサイト１], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+                <Label Content="ヶ月" Grid.Column="0" Margin="130,0,0,0" HorizontalContentAlignment="Left" Width="107" />
+
+                <ctls:UcLabelTextBox
+                    x:Name="S_SITE2" Grid.Column="1" HorizontalAlignment="Left"
+                    Label_Context="サイト" Label_Width="100"
+                    cWidth="30" cValidationType="Integer" ImeType="Off" cVerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｓサイト２], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+                <Label Content="ヶ月" Grid.Column="1" Margin="130,0,0,0" HorizontalContentAlignment="Left" Width="107" />
+
+              </Grid>
+
+              <Grid Grid.Row="6" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <ctls:UcLabelTextBox x:Name="S_NYUKIN_DT1" Label_Context="入金日" Grid.Column="0" Grid.Row="17" Label_Width="100" cWidth="30"
+                                     ImeType="Off" cMaxLength="2"
+                                     Text="{Binding RowM01TOK[Ｓ入金日１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                     Height="27" cVerticalContentAlignment="Center"
+                />
+                <ctls:UcLabelTextBox x:Name="S_NYUKIN_DT2" Label_Context="入金日" Grid.Column="1" Grid.Row="17" Label_Width="100" cWidth="30"
+                                     ImeType="Off" cMaxLength="2" Margin="105,0,0,0"
+                                     Text="{Binding RowM01TOK[Ｓ入金日２], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                     Height="27" cVerticalContentAlignment="Center"
+                />
+              </Grid>
+
+              <ctls:UcLabelTwinTextBox x:Name="S_TANTO" Label_Context="担当者" Grid.Column="1" Grid.Row="7" Label_Width="100" IsKeyItem="False"
+                                       DataAccessName="M72_TNT" Label_Background="Green"
+                                       Label1Visibility="Collapsed"
+                                       Text1Width="50" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                                       Text1="{Binding RowM01TOK[Ｓ担当者コード], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                       Text2IsReadOnly="True" Text2BorderThickness="0" Text2Background="Transparent" Text2VerticalContentAlignment="Center"
+                                       Text2="{Binding Ｓ担当者名, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+              />
+            </Grid>
+
+            <!-- 参照取引先 -->
+            <Grid Grid.Row="2" Margin="0,10,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+              </Grid.RowDefinitions>
+
+              <Button x:Name="btnTokuShoBaikaSet" Content="得意先商品売価設定" Grid.Row="0" Width="160" Click="btnTokuShoBaikaSet_Click" />
+              <Button x:Name="btnShiShoGenkaSet" Content="仕入先商品原価設定" Grid.Row="1" Width="160" Click="btnShiShoGenkaSet_Click" />
+              <Button x:Name="btnGaiShoKakoSet" Content="外注先商品加工原価設定" Grid.Row="2" Width="160" Click="btnGaiShoKakoSet_Click" />
+
+              <!-- 取引区分=0(得意先)の取引先を参照する -->
+              <uc:M01_TOK_TextBox
+                  x:Name="SAN_TORI1" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" IsKeyItem="False" Margin="10,1,0,1"
+                  DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
+                  Label_Context="参照取引先" Label_Width="100"
+                  Label1Text="－" Label1Visibility="Visible"
+                  Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                  Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
+                  Text1="{Binding RowM01TOK[参照取引先コード１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                  Text2="{Binding RowM01TOK[参照取引先枝番１], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+              />
+
+              <!-- 取引区分=1(仕入先)の取引先を参照する -->
+              <uc:M01_TOK_TextBox
+                  x:Name="SAN_TORI2" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" IsKeyItem="False" Margin="10,1,0,1"
+                  DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,3"
+                  Label_Context="参照取引先" Label_Width="100"
+                  Label1Text="－" Label1Visibility="Visible"
+                  Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                  Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
+                  Text1="{Binding RowM01TOK[参照取引先コード２], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                  Text2="{Binding RowM01TOK[参照取引先枝番２], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+              />
+
+              <!-- 取引区分=2(加工先)の取引先を参照する -->
+              <uc:M01_TOK_TextBox
+                  x:Name="SAN_TORI3" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" IsKeyItem="False" Margin="10,1,0,1"
+                  DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="2,3"
+                  Label_Context="参照取引先" Label_Width="100"
+                  Label1Text="－" Label1Visibility="Visible"
+                  Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                  Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
+                  Text1="{Binding RowM01TOK[参照取引先コード３], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                  Text2="{Binding RowM01TOK[参照取引先枝番３], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+              />
+
+            </Grid>
+
+          </Grid>
+        </Grid>
+
+      </Grid>
+
+    </Grid>
+
+  </Grid>
+</fw:WindowMasterMainteBase>

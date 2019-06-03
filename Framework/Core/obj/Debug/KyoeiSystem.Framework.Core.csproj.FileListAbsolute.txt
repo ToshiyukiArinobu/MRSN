@@ -1,0 +1,7 @@
+C:\HBMS\Framework\Core\bin\Debug\KyoeiSystem.Framework.Core.dll
+C:\HBMS\Framework\Core\bin\Debug\KyoeiSystem.Framework.Core.pdb
+C:\HBMS\Framework\Core\bin\Debug\KyoeiSystem.Framework.Common.dll
+C:\HBMS\Framework\Core\bin\Debug\KyoeiSystem.Framework.Common.pdb
+C:\HBMS\Framework\Core\obj\Debug\KyoeiSystem.Framework.Core.csprojResolveAssemblyReference.cache
+C:\HBMS\Framework\Core\obj\Debug\KyoeiSystem.Framework.Core.dll
+C:\HBMS\Framework\Core\obj\Debug\KyoeiSystem.Framework.Core.pdb

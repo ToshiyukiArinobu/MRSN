@@ -1,0 +1,14 @@
+対象月	Date		2011/01/01
+累計開始月	Date		2010/04/01
+支払先指定	String	15	
+作成区分	String	15	（支払あり支払先のみ）
+締日	String	4	全締日
+表示順序	String	20	支払先コード　かな読み　当月支払
+支払先コード	Number		3001
+支払先名	String	15	支払先名サンプルデータ
+締日明細	Number		31
+当月支払額	Number		96000
+累積支払額	Number		96000
+前月支払額	Number		0
+前年同月	Number		0
+前々年同月	Number		0

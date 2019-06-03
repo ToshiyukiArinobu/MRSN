@@ -1,0 +1,10 @@
+支払先ID	Number		1
+支払先１	String	40	支払先１のサンプルデータ
+支払先２	String	40	支払先２のサンプルデータ
+発地ID	Number		2
+着地ID	Number		3
+発地名	String	30	発地名のサンプルデータ
+着地名	String	30	着地名のサンプルデータ
+商品ＩＤ	Number		11
+商品名	String	20	商品名のサンプルデータ
+支払単価	Number	100	

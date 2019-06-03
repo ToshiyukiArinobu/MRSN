@@ -1,0 +1,9 @@
+C:\HBMS\Framework\Common\bin\Release\KyoeiSystem.Framework.Common.dll
+C:\HBMS\Framework\Common\bin\Release\KyoeiSystem.Framework.Common.pdb
+C:\HBMS\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.dll
+C:\HBMS\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.pdb
+C:\MRSN\MRSN\Framework\Common\bin\Release\KyoeiSystem.Framework.Common.dll
+C:\MRSN\MRSN\Framework\Common\bin\Release\KyoeiSystem.Framework.Common.pdb
+C:\MRSN\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.dll
+C:\MRSN\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.pdb
+C:\MRSN\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.csprojResolveAssemblyReference.cache

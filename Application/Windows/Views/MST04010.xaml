@@ -1,0 +1,1207 @@
+﻿<fw:WindowMasterMainteBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+  x:Class="KyoeiSystem.Application.Windows.Views.MST04010"
+  Language="ja-JP"
+ 		  WindowStyle="SingleBorderWindow" AllowsTransparency="False" Loaded="RibbonWindow_Loaded_1" 
+		Title="乗務員マスタ(MST04010)" MinHeight="728" MinWidth="1024" Height="1440" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
+		>
+  <Window.Resources>
+    <!-- Ribbonファンクションキーの背景色 -->
+    <LinearGradientBrush x:Key="RibbonFunctionBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="Transparent" Offset="0.3"/>
+      <GradientStop Color="Orange" Offset="0.99"/>
+      <GradientStop Color="Transparent" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- 画像用ボタン -->
+    <Style x:Key="ImageButton" TargetType="{x:Type Button}" BasedOn="{x:Null}">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="Transparent"/>
+      <Setter Property="Padding" Value="3"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="BorderBrush" Value="Transparent"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Grid>
+              <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                  <VisualState x:Name="Normal"/>
+                  <VisualState x:Name="MouseOver" />
+                  <VisualState x:Name="Disabled" />
+                  <VisualState x:Name="Pressed" />
+                </VisualStateGroup>
+                <VisualStateGroup x:Name="FocusStates">
+                  <VisualState x:Name="Focused">
+                    <Storyboard>
+                      <DoubleAnimation Duration="0" 
+															 Storyboard.TargetName="FocusVisualElement" 
+															 Storyboard.TargetProperty="Opacity" To="0"/>
+                    </Storyboard>
+                  </VisualState>
+                  <VisualState x:Name="Unfocused" />
+                </VisualStateGroup>
+              </VisualStateManager.VisualStateGroups>
+              <Border x:Name="Background" CornerRadius="3" Background="Transparent" 
+									BorderThickness="{TemplateBinding BorderThickness}" 
+									BorderBrush="{TemplateBinding BorderBrush}">
+                <Grid Background="{TemplateBinding Background}" Margin="1">
+                  <Border Opacity="0" x:Name="BackgroundAnimation" Background="Transparent" />
+                  <Rectangle x:Name="BackgroundGradient" >
+                    <Rectangle.Fill>
+                      <SolidColorBrush Color="Transparent" Opacity="0.25" />
+                    </Rectangle.Fill>
+                  </Rectangle>
+                </Grid>
+              </Border>
+              <ContentPresenter
+							 x:Name="contentPresenter"
+							 Content="{TemplateBinding Content}"
+							 ContentTemplate="{TemplateBinding ContentTemplate}"
+							 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							 Margin="{TemplateBinding Padding}"/>
+              <Rectangle x:Name="DisabledVisualElement" RadiusX="3" 
+									  RadiusY="3" Fill="#FFFFFFFF" 
+									  Opacity="0" IsHitTestVisible="false" />
+              <Rectangle x:Name="FocusVisualElement" RadiusX="2" 
+									  RadiusY="2" Margin="1" Stroke="#FF6DBDD1" 
+									  StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!--コンボボックス-->
+    <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <!-- TabItemの枠線の色 -->
+    <SolidColorBrush x:Key="TabItemNormalBorderBrush" Color="White"/>
+    <!-- TabItemの背景色 -->
+    <LinearGradientBrush x:Key="TabItemBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#5383c3" Offset="0"/>
+      <GradientStop Color="#4c6cd3" Offset=".5"/>
+      <GradientStop Color="#3e62ad" Offset=".5"/>
+      <GradientStop Color="#507ea4" Offset="1"/>
+    </LinearGradientBrush>
+    <!-- TabItemのマウスオーバー時の背景色 -->
+    <LinearGradientBrush x:Key="TabItemHotBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#C1D9C7" Offset="0.15"/>
+      <GradientStop Color="#6EA5A4" Offset=".5"/>
+      <GradientStop Color="#00a497" Offset=".5"/>
+      <GradientStop Color="#5c9291" Offset="1"/>
+    </LinearGradientBrush>
+    <!-- TabItemのマウスオーバー時の枠線の色 -->
+    <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#eebbcd"/>
+    <!-- TabItem選択時の背景色 -->
+    <LinearGradientBrush x:Key="TabItemSelectedBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#5383c3" Offset="0"/>
+      <GradientStop Color="#3e62ad" Offset=".5"/>
+      <GradientStop Color="#c89932" Offset=".6"/>
+      <GradientStop Color="#507ea4" Offset="1"/>
+    </LinearGradientBrush>
+    <!-- TabItem無効化時の色 -->
+    <SolidColorBrush x:Key="TabItemDisabledBackground" Color="DarkGray"/>
+    <!-- TabItem無効化時の枠線の色 -->
+    <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
+
+    <!-- TabItemのスタイルを設定 -->
+    <Style TargetType="{x:Type TabItem}">
+      <!-- TabItemの文字の色 -->
+      <Setter Property="Foreground" Value="White"/>
+      <!-- TabItemの枠線の色-->
+      <Setter Property="BorderBrush" Value="{StaticResource TabItemNormalBorderBrush}"/>
+      <!-- TabItemの背景色の設定 -->
+      <Setter Property="Background" Value="{StaticResource TabItemBackground}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type TabItem}">
+            <Grid SnapsToDevicePixels="true">
+              <Border x:Name="Bd" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="1,1,1,0" 
+                                    Background="{TemplateBinding Background}" 
+                                    Padding="{TemplateBinding Padding}">
+                <ContentPresenter x:Name="Content" 
+                                                  ContentSource="Header" 
+                                                  HorizontalAlignment="{Binding HorizontalContentAlignment, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                                  RecognizesAccessKey="True" 
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{Binding VerticalContentAlignment, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+              </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="true">
+                <!-- マウスオーバー時の背景色 -->
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemHotBackground}"/>
+              </Trigger>
+              <Trigger Property="IsSelected" Value="true">
+                <Setter Property="Panel.ZIndex" Value="1"/>
+                <!-- 選択時の背景色 -->
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemSelectedBackground}"/>
+              </Trigger>
+              <MultiTrigger>
+                <MultiTrigger.Conditions>
+                  <Condition Property="IsSelected" Value="false"/>
+                  <Condition Property="IsMouseOver" Value="true"/>
+                </MultiTrigger.Conditions>
+                <!-- マウスオーバー時の枠線の色 -->
+                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemHotBorderBrush}"/>
+              </MultiTrigger>
+
+              <Trigger Property="IsEnabled" Value="false">
+                <!-- 無効化時の背景色 -->
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemDisabledBackground}"/>
+                <!-- 無効化時の枠線の色-->
+                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
+                <!-- 無効化時の文字の色 -->
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!--リボン-->
+    <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <!--アプリケーションメニュー-->
+      <Ribbon.ApplicationMenu>
+        <RibbonApplicationMenu SmallImageSource="../Images/Menu.png">
+          <RibbonApplicationMenuItem Header="マスタ照会" ImageSource="../Images/F1_MasterVerification.png"/>
+          <RibbonApplicationMenuItem Header="マスタ入力" ImageSource="../Images/F2_MasterInput.png"/>
+          <RibbonApplicationSplitMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp">
+            <RibbonApplicationMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp"/>
+            <RibbonApplicationMenuItem Header="ページ設定" ImageSource="../Images/Insatu_pure.bmp"/>
+            <RibbonApplicationMenuItem Header="印刷プレビュー" ImageSource="../Images/Insatu_pure.bmp"/>
+          </RibbonApplicationSplitMenuItem>
+
+          <RibbonApplicationMenuItem Header="終了" ImageSource="../Images/LogOut.bmp"/>
+        </RibbonApplicationMenu>
+      </Ribbon.ApplicationMenu>
+
+
+      <!--クイックアクセスツールバー-->
+      <Ribbon.QuickAccessToolBar>
+        <RibbonQuickAccessToolBar>
+          <RibbonButton SmallImageSource="../Images/F1_MasterVerification.png" KeyTip="F1" Click="RibbonButton_Click"
+								  ToolTipTitle="マスタ照会" ToolTipDescription="マスタの照会を行います" />
+          <RibbonButton SmallImageSource="../Images/F2_MasterInput.png" KeyTip="F2" Click="RibbonButton_Click"
+								   ToolTipTitle="マスタ登録" ToolTipDescription="マスタの登録を行います" />
+          <RibbonButton SmallImageSource="../Images/InputTure.png" KeyTip="c" Click="RibbonButton_Click"
+								  ToolTipTitle="データ登録" ToolTipDescription="データの登録を行います" />
+          <RibbonButton SmallImageSource="../Images/Gomibako.bmp" KeyTip="d" Click="RibbonButton_Click"
+								   ToolTipTitle="データ削除" ToolTipDescription="データの削除を行います" />
+          <RibbonButton SmallImageSource="../Images/F11_End.png" KeyTip="F11" Click="RibbonButton_Click"
+								  ToolTipTitle="終了" ToolTipDescription="画面を終了します" />
+        </RibbonQuickAccessToolBar>
+      </Ribbon.QuickAccessToolBar>
+
+
+      <!--タブ-->
+      <RibbonTab Header="ホーム" KeyTip="h">
+
+        <RibbonGroup Header="マスタ" KeyTip="M" Background="{StaticResource RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/F1_MasterVerification.png" Label="検索" Click="RibbonButton_Click" KeyTip="F1"/>
+          <RibbonButton LargeImageSource="../Images/F2_MasterInput.png" Label="入力" Click="RibbonButton_Click" KeyTip="F2"/>
+          <RibbonButton LargeImageSource="../Images/Insatu_pure.bmp" Click="RibbonButton_Click" KeyTip="F6"
+								  Label="一覧" ToolTipTitle="一覧(F6)" ToolTipDescription="一覧を表示します" ToolTipImageSource="../Images/Insatu_pure.bmp" />
+          <RibbonButton LargeImageSource="../Images/Gomibako.bmp" Click="RibbonButton_Click" KeyTip="F12"
+								  Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="入力を削除します" ToolTipImageSource="../Images/Gomibako.bmp"/>
+        </RibbonGroup>
+        <RibbonGroup Header="日次処理" KeyTip="t">
+
+          <RibbonButton LargeImageSource="../Images/Insatu.bmp" Click="RibbonButton_Click" KeyTip="F8"
+								  Label="印刷" ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します"  ToolTipImageSource="../Images/Insatu.bmp"/>
+          <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="F9"
+								  Label="マスタ登録" ToolTipTitle="マスタ登録(F9)" ToolTipDescription="マスタ登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+          <RibbonButton LargeImageSource="../Images/F10_InputRevocation.png" Click="RibbonButton_Click" KeyTip="F10"
+								  Label="入力取消し" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/F10_InputRevocation.png"/>
+          <RibbonButton LargeImageSource="../Images/F11_End.png" Click="RibbonButton_Click" KeyTip="F11"
+								  Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+        </RibbonGroup>
+
+        <RibbonGroup Header="その他">
+          <RibbonButton LargeImageSource="../Images/IE.bmp" KeyTip="WEBHOME" Click="RibbonButton_Click"
+								  Label="Webホーム" ToolTipTitle="インターネット" ToolTipDescription="Webブラウザを起動します" />
+          <RibbonButton LargeImageSource="../Images/Mail.bmp" KeyTip="MAIL" Click="RibbonButton_Click"
+								  Label="メール" ToolTipTitle="メール" ToolTipDescription="メールソフトを起動します"/>
+          <RibbonButton LargeImageSource="../Images/Dentaku.bmp" KeyTip="CALC" Click="RibbonButton_Click"
+								  Label="電卓" ToolTipTitle="電子式卓上計算機" ToolTipDescription="電卓を表示します" />
+        </RibbonGroup>
+        <RibbonGroup Header="便利リンク" AllowDrop="True"  >
+          <RibbonButton LargeImageSource="../Images/Yahoo.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="検索" ToolTipTitle="Yahoo!JAPAN" ToolTipDescription="Yahoo!JAPANのページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/Tenki.bmp" HorizontalAlignment="Right" KeyTip="WEATHER"
+								  Label="天気" ToolTipTitle="天気予報ウェザーニュース" ToolTipDescription="天気予報ウェザーニュースのページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/KousokuJyouhou.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="道路情報" ToolTipTitle="高速道路交通情報" ToolTipDescription="高速道路交通情報のページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/HaiuleiNabi.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="道路ナビ" ToolTipTitle="ハイウェイナビゲータ" ToolTipDescription="ハイウェイナビゲータのページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/SeikatuTizu.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="渋滞情報" ToolTipTitle="生活地図サイト MapFan Web" ToolTipDescription="生活地図サイト MapFan Webのページに遷移します" />
+        </RibbonGroup>
+      </RibbonTab>
+
+      <RibbonTab Header="ヘルプ" Background="Gray">
+        <RibbonGroup Header="サポート">
+          <RibbonButton LargeImageSource="../Images/Toiawase.bmp"
+								  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/QandA.bmp"
+								  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/KyoueiIcon.bmp"
+								  Label="企業HP" ToolTipTitle="カレンダー" ToolTipDescription="共栄システムHPに遷移します"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+      <RibbonTab Header="実施状況入力" Background="Gray" ContextualTabGroupHeader="入力補助">
+        <RibbonGroup Header="従来ファンクションキー">
+          <RibbonButton LargeImageSource="../Images/F2_MasterInput.png" KeyTip="d"
+									  Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/F2_MasterInput.png"/>
+          <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="マスタ登録" ToolTipTitle="伝票登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+          <RibbonButton LargeImageSource="../Images/F10_InputRevocation.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/F10_InputRevocation.png"/>
+          <RibbonButton LargeImageSource="../Images/F11_End.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+        </RibbonGroup>
+      </RibbonTab>
+      <RibbonTab Header="一括入力" Background="Gray" ContextualTabGroupHeader="入力補助">
+        <RibbonGroup Header="従来ファンクションキー">
+          <RibbonButton LargeImageSource="../Images/Insatu_pure.bmp" KeyTip="d"
+									  Label="プレビュー" ToolTipTitle="プレビュー(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/Insatu_pure.bmp"/>
+          <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="印刷" ToolTipTitle="印刷(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+          <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="e"
+								  Label="マスタ登録" ToolTipTitle="マスタ登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+          <RibbonButton LargeImageSource="../Images/F10_InputRevocation.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/F10_InputRevocation.png"/>
+          <RibbonButton LargeImageSource="../Images/F11_End.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+        </RibbonGroup>
+      </RibbonTab>
+    </Ribbon>
+
+    <!-- エラーメッセージ領域 -->
+    <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+    <Label Grid.Row="0" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+
+    <!--ヘッダ-->
+    <Grid x:Name="HerderGrid" Grid.Row="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+
+        <ColumnDefinition Width="22"/>
+        <ColumnDefinition Width="22"/>
+        <ColumnDefinition Width="22"/>
+        <ColumnDefinition Width="7.612"/>
+        <ColumnDefinition Width="14.388"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Button Content="≪" Grid.Column="0" Grid.Row="0" FontSize="19" Focusable="False" Click="FistIdButton_Click_1" IsEnabledChanged="Button_IsEnabledChanged"/>
+      <Button Content="＜" Grid.Column="1" Grid.Row="0" FontWeight="Bold" Focusable="False" Click="BeforeIdButton_Click_1" IsEnabledChanged="Button_IsEnabledChanged"/>
+      <Button Content="＞" Grid.Column="2" Grid.Row="0"  FontWeight="Bold" Focusable="False" Click="NextIdButton_Click_1" IsEnabledChanged="Button_IsEnabledChanged"/>
+      <Button Content="≫" Grid.Column="3" Grid.Row="0" FontSize="19" Focusable="False" Click="LastIdButoon_Click_1" Grid.ColumnSpan="2" IsEnabledChanged="Button_IsEnabledChanged"/>
+      <ctls:UcLabelTextBox Label_Context="乗務員コード" Width="140" Margin="2" IsKeyItem="True"
+                           Text="{Binding Path=DriverID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"  Grid.Column="5" Grid.Row="0" LostFocus="JyoumuinCd_LostFocus_1"
+                           />
+      <ctls:UcLabelTextBox Label_Context="従業員名" Margin="2" ImeType="Native"
+                           Text="{Binding Path=RowM04[乗務員名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"  Grid.Column="6" Grid.Row="0"
+                           />
+      <ctls:UcLabelTextBox Label_Context="従業員カナ" Margin="2" ImeType="Katakana"
+                           Text="{Binding Path=RowM04[かな読み], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"  Grid.Column="7" Grid.Row="0"
+                           />
+    </Grid>
+
+    <TabControl x:Name="tabControl1" TabStripPlacement="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2">
+      <!--タブ0-->
+      <TabItem x:Name="MasterNyuryokuTab" Header="マスタ入力" IsTabStop="False">
+        <ScrollViewer >
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="28"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+              </Grid.RowDefinitions>
+
+              <!--写真-->
+              <Button Grid.Column="2" Grid.RowSpan="10" Margin="10,0,10,0" BorderBrush="Black" BorderThickness="2" Background="Transparent" 
+                      MouseDoubleClick="ImageButton_MouseDoubleClick" Focusable="False"
+                      Style="{StaticResource ImageButton}">
+                <Image Source="{Binding Path=DriverPicData}" Stretch="Uniform"/>
+              </Button>
+
+              <ctls:UcLabelTwinTextBox Label_Context="自社コード" Label_Width="108" Grid.Column="0" Grid.Row="0" Margin="1"
+                                       Text1Width="50" Text2Width="400" DataAccessName="M71_JIS" OutputColumnName="自社名"
+                                       Text1="{Binding Path=RowM04[事業者コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=自社名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+              <ctls:UcLabelTwinTextBox Label_Context="担当部門" Label_Width="108" Grid.Column="0" Grid.Row="1" Margin="1"
+                                       Text1Width="50" Text2Width="400" Text2IsReadOnly="True" DataAccessName="M71_BUM" OutputColumnName="自社部門"
+                                       Text1="{Binding Path=RowM04[自社部門ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=担当部門名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+
+              <ctls:UcLabelTwinTextBox Label_Context="デジタコCD" Label_Width="108"  Grid.Column="0" Grid.Row="2" Margin="1"
+                                       Text1Width="50" Text2Width="400" Text2IsReadOnly="True"
+                                       Text1="{Binding Path=RowM04[デジタコCD], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=デジタコ名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+
+              <ctls:UcLabelTextRadioButton cGroupName="SyokusyuBunrui" Grid.Row="3" Grid.ColumnSpan="2" Label_Content="職業分類" Label_Width="108" Margin="1" RadioViewCount="Six" RadioOne_Content="未" RadioSecond_Content="常時選任運転者" RadioThird_Content="運転者" RadioFourth_Content="職員" RadioFifth_Content="整備士" RadioSixth_Content="その他" RadioSelectButton="One"
+                                   Text="{Binding Path=RowM04[職種分類区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                   />
+
+              <ctls:UcLabelTextBox Label_Context="職業分類(その他)" Label_Width="108"  Grid.Column="0" Grid.Row="4" Margin="1"
+                                   Text="{Binding Path=RowM04[職種分類], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                   />
+
+              <ctls:UcLabelTextRadioButton cGroupName="Seibetu" Grid.Row="5" Grid.ColumnSpan="2" Label_Content="性別" Label_Width="108" Margin="1" RadioViewCount="Three" RadioOne_Content="未" RadioSecond_Content="男" RadioThird_Content="女" RadioSelectButton="One"
+                                           Text="{Binding Path=RowM04[性別区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                           />
+
+              <ctls:UcLabelTextRadioButton cGroupName="KetuekiGata" Grid.Row="6" Grid.ColumnSpan="2" Label_Content="血液型" Label_Width="108" Margin="1" RadioViewCount="Five" RadioOne_Content="未" RadioSecond_Content="A型" RadioThird_Content="B型" RadioFourth_Content="O型" RadioFifth_Content="AB型" RadioSelectButton="One"
+                                           Text="{Binding Path=RowM04[血液型], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                           />
+
+              <ctls:UcLabelTextRadioButton cGroupName="SyozokuKubun" Grid.Row="7" Grid.ColumnSpan="2" Label_Content="所属区分" Label_Width="108" Margin="1" RadioViewCount="Two" RadioOne_Content="自社" RadioSecond_Content="支払先" RadioSelectButton="One"
+                                           Text="{Binding Path=RowM04[自傭区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                           />
+
+              <ctls:UcLabelTextRadioButton cGroupName="SyuuryouKubun" Grid.Row="8" Grid.ColumnSpan="2" Label_Content="勤労区分" Label_Width="108" Margin="1" RadioViewCount="Three" RadioOne_Content="就業者" RadioSecond_Content="休職者" RadioThird_Content="退職者" RadioSelectButton="One"
+                                           Text="{Binding Path=RowM04[就労区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                           />
+
+              <ctls:UcLabelTextRadioButton cGroupName="MizuageRendouKubun" Grid.Row="9" Grid.ColumnSpan="2" Label_Content="水揚連動区分" Label_Width="108" Margin="1" RadioViewCount="Two" RadioOne_Content="連動する" RadioSecond_Content="連動しない" RadioSelectButton="One"
+                                           Text="{Binding Path=RowM04[水揚連動区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                           />
+
+              <Grid Grid.Column="1" Grid.Row="10" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="108"/>
+                  <ColumnDefinition Width="50"/>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="50"/>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <ctls:UcLabelTwinTextBox Grid.Row="0" Grid.ColumnSpan="6" Margin="10,0,1,0" Label_Context="撮影年月" Label_Width="100"
+                                         Label1Text="年" Label2Text="月" Text1Background="Transparent"
+                                         Text1Width="70" Text2Width="40"
+                                         Text1="{Binding Path=RowM04[撮影年], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         Text2="{Binding Path=RowM04[撮影月], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         />
+              </Grid>
+              <Grid Grid.Row="10" Grid.ColumnSpan="2" Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTextBox Label_Context="選任年月日" Label_Width="108"  Grid.Column="0" Grid.Row="0" Margin="1"
+                                     Text="{Binding Path=RowM04[選任年月日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="生年月日" Label_Width="108"  Grid.Column="1" Grid.Row="0" Margin="1"
+                                     Text="{Binding Path=RowM04[生年月日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="入社日" Label_Width="108"  Grid.Column="0" Grid.Row="1" Margin="1"
+                                     Text="{Binding Path=RowM04[入社日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="退職日" Label_Width="108"  Grid.Column="1" Grid.Row="1" Margin="1"
+                                     Text="{Binding Path=RowM04[退職日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="退職理由" Label_Width="108"  Grid.Column="2" Grid.Row="1" Margin="1"
+                                     Text="{Binding Path=RowM04[退職理由], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+              </Grid>
+
+              <Grid Grid.Row="11" Grid.ColumnSpan="2" Margin="0,0,0,0" >
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <ctls:UcLabelTextBox Label_Context="郵便番号1" Label_Width="108"  Grid.Column="0" Grid.Row="0" Margin="1"
+                                     Text="{Binding Path=RowM04[郵便番号１], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="住所1" Label_Width="108"  Grid.Column="0" Grid.Row="1" Margin="1"
+                                     Text="{Binding Path=RowM04[住所１_１], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="番地･建物1" Label_Width="108"  Grid.Column="1" Grid.Row="1" Margin="1"
+                                     Text="{Binding Path=RowM04[住所１_２], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="電話番号1" Label_Width="108"  Grid.Column="2" Grid.Row="1" Margin="1"
+                                     Text="{Binding Path=RowM04[電話番号１], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+
+                <ctls:UcLabelTextBox Label_Context="郵便番号2" Label_Width="108"  Grid.Column="0" Grid.Row="2" Margin="1"
+                                     Text="{Binding Path=RowM04[郵便番号２], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="住所2" Label_Width="108"  Grid.Column="0" Grid.Row="3" Margin="1"
+                                     Text="{Binding Path=RowM04[住所２_１], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="番地･建物2" Label_Width="108"  Grid.Column="1" Grid.Row="3" Margin="1"
+                                     Text="{Binding Path=RowM04[住所２_２], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="電話番号2" Label_Width="108"  Grid.Column="2" Grid.Row="3" Margin="1"
+                                     Text="{Binding Path=RowM04[電話番号２], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+
+                <ctls:UcLabelTextBox Label_Context="携帯番号" Label_Width="108"  Grid.Column="1" Grid.Row="4" Margin="1"
+                                     Text="{Binding Path=RowM04[携帯電話], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <Grid Grid.Column="2" Grid.Row="4">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabelTextBox Label_Context="歩合率" Label_Width="108"  Grid.Column="0" Grid.Row="0" Margin="1"
+                                       Text="{Binding Path=RowM04[歩合率], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcLabel Grid.Column="2" cContent="%" cForeground="Black" cBackground="Transparent" Margin="1"/>
+                </Grid>
+              </Grid>
+
+              <ctls:UcLabelTextBox Label_Context="職種" Label_Width="108"  Grid.Column="0" Grid.Row="12" Margin="1"
+                                   Text="{Binding Path=RowM04[職種], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                   />
+              <Grid Grid.Row="13" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabel Grid.Column="0" Grid.Row="0"  Margin="1" cContent="変更職種"/>
+                <ctls:UcLabel Grid.Column="1" Grid.Row="0"  Margin="1" cContent="変更日付"/>
+                <ctls:UcLabel Grid.Column="2" Grid.Row="0"  Margin="1" cContent="変更理由"/>
+                <ctls:UcLabel Grid.Column="3" Grid.Row="0"  Margin="1" cContent="健康診断受診状況"/>
+                <ctls:UcTextBox Grid.Column="0" Grid.Row="1" Margin="1"
+                                Text="{Binding Path=RowM04[変更職種1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="1" Grid.Row="1" Margin="1"
+                                Text="{Binding Path=RowM04[変更日付1], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="2" Grid.Row="1" Margin="1"
+                                Text="{Binding Path=RowM04[変更理由1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="0" Grid.Row="2" Margin="1"
+                                Text="{Binding Path=RowM04[変更職種2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="1" Grid.Row="2" Margin="1"
+                                Text="{Binding Path=RowM04[変更日付2], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="2" Grid.Row="2" Margin="1"
+                                Text="{Binding Path=RowM04[変更理由2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="0" Grid.Row="3" Margin="1"
+                                Text="{Binding Path=RowM04[変更職種3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="1" Grid.Row="3" Margin="1"
+                                Text="{Binding Path=RowM04[変更日付3], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                <ctls:UcTextBox Grid.Column="2" Grid.Row="3" Margin="1"
+                                Text="{Binding Path=RowM04[変更理由3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+
+                <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="3" >
+                  <ctls:UcTextBox Margin="1"
+                                Text="{Binding Path=RowM04[受診状況], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                </Grid>
+              </Grid>
+              <Grid Grid.Row="14" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <ctls:UcLabelTextBox Label_Context="免許証番号" Label_Width="108"  Grid.Column="0" Grid.Row="0"
+                                     Text="{Binding Path=RowM04[免許証番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="免許証条件" Label_Width="108"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                                     Text="{Binding Path=RowM04[免許証条件], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+
+                <!--チェックボックス-->
+                <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <ctls:UcLabel cBackground="Pink"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="2,1,5,1"
+                                cContent="免許証種類"
+                              />
+                  <CheckBox Grid.Column="1" Grid.Row="0" Content="大型" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[0], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="2" Grid.Row="0" Content="中型" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="3" Grid.Row="0" Content="普通" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="4" Grid.Row="0" Content="大型特殊" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="5" Grid.Row="0" Content="けん引" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[4], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="1" Grid.Row="1" Content="大型2種" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[5], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="2" Grid.Row="1" Content="中型2種" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[6], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="3" Grid.Row="1" Content="普通2種" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[7], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="4" Grid.Row="1" Content="大型特殊2種" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[8], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+                  <CheckBox Grid.Column="5" Grid.Row="1" Content="けん引2種" KeyDown="CheckBox_KeyDown"
+                            IsChecked="{Binding Path=LisenceChecked[9], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            />
+
+                </Grid>
+                <ctls:UcLabelTextBox Label_Context="運転免許取得日" Label_Width="108"  Grid.Column="0" Grid.Row="2"
+                                     Text="{Binding Path=RowM04[免許証取得年月日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="運転免許更新日" Label_Width="108"  Grid.Column="1" Grid.Row="2"
+                                     Text="{Binding Path=RowM04[運転免許更新日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+                <ctls:UcLabelTextBox Label_Context="運転免許有効日" Label_Width="108"  Grid.Column="2" Grid.Row="2"
+                                     Text="{Binding Path=RowM04[運転免許有効日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                     />
+              </Grid>
+
+              <Grid Grid.Row="15" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="2*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1" cContent="免許証有効期限　番号"/>
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[有効年月日1], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[有効番号1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[有効年月日2], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[有効番号2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[有効年月日3], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[有効番号3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[有効年月日4], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[有効番号4], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[有効年月日5], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[有効番号5], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[有効年月日6], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[有効番号6], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="0">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="1" cContent="最終学歴　前･前々勤務先"/>
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="1"
+                                       Text="{Binding Path=RowM04[履歴年月日1], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="1"
+                                       Text="{Binding Path=RowM04[最終学歴1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="2"
+                                       Text="{Binding Path=RowM04[履歴年月日2], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="2"
+                                       Text="{Binding Path=RowM04[最終学歴2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="3"
+                                       Text="{Binding Path=RowM04[履歴年月日3], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="3"
+                                       Text="{Binding Path=RowM04[最終学歴3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                </Grid>
+
+                <Grid Grid.Column="2" Grid.Row="0">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Margin="1" cContent="備考"/>
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="1" Margin="1,1,2,1"
+                                  Text="{Binding Path=RowM04[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                </Grid>
+              </Grid>
+
+
+              <Grid Grid.Row="16" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width=".5*"/>
+                  <ColumnDefinition Width=".5*"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width=".3*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Margin="1" cContent="自動車種類"/>
+                  <ctls:UcLabelTextRadioButton cGroupName="JidousyaSyurui1" Grid.Row="1" RadioViewCount="Four" RadioSelectButton="One" RadioOne_Content="未定" RadioSecond_Content="乗用" RadioThird_Content="バス" RadioFourth_Content="貨物" Label_Visibility="Collapsed"
+                                       Text="{Binding Path=RowM04[履歴種類1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                               />
+                  <ctls:UcLabelTextRadioButton cGroupName="JidousyaSyurui2" Grid.Row="2" RadioViewCount="Four" RadioSelectButton="One" RadioOne_Content="未定" RadioSecond_Content="乗用" RadioThird_Content="バス" RadioFourth_Content="貨物" Label_Visibility="Collapsed"
+                                       Text="{Binding Path=RowM04[履歴種類2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                               />
+                </Grid>
+                <Grid Grid.Column="1">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1" cContent="定員･積載量"/>
+                  <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" 
+                                           LabelVisibility="Collapsed"
+                                           Label1Text="人" Label2Text="ｔ"
+                                           Text1Background="Transparent"
+                                           Text1Width="50" Text2Width="40"
+                                       Text1="{Binding Path=RowM04[履歴定員1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=RowM04[履歴積載量1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" 
+                                           LabelVisibility="Collapsed"
+                                           Label1Text="人" Label2Text="ｔ"
+                                           Text1Background="Transparent"
+                                           Text1Width="50" Text2Width="40"
+                                       Text1="{Binding Path=RowM04[履歴定員2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=RowM04[履歴積載量2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+
+                </Grid>
+                <Grid Grid.Column="2">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1" cContent="経験年月"/>
+                  <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" 
+                                           LabelVisibility="Collapsed"
+                                           Label1Text="年" Label2Text="月"
+                                           Text1Background="Transparent"
+                                           Text1Width="55" Text2Width="32"
+                                       Text1="{Binding Path=RowM04[履歴経験年1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=RowM04[履歴経験月1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" 
+                                           LabelVisibility="Collapsed"
+                                           Label1Text="年" Label2Text="月"
+                                           Text1Background="Transparent"
+                                           Text1Width="55" Text2Width="32"
+                                       Text1="{Binding Path=RowM04[履歴経験年2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=RowM04[履歴経験月2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+
+                </Grid>
+                <Grid Grid.Column="3">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1" cContent="経験事業所名称"/>
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[履歴事業所1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[履歴事業所2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                </Grid>
+              </Grid>
+
+
+              <Grid Grid.Row="17" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="1" cContent="資格取得年月日 名称"/>
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[資格年月日1], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[資格名称1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[資格年月日2], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[資格名称2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[資格年月日3], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[資格名称3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[資格年月日4], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[資格名称4], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="0">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4"  Margin="1" cContent="賞罰年月日　名称"/>
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[賞罰年月日1], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[賞罰内容1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[賞罰年月日2], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[賞罰内容2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[賞罰年月日3], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[賞罰内容3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[賞罰年月日4], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="1"
+                                  Text="{Binding Path=RowM04[賞罰内容4], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[賞罰年月日5], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="2"
+                                  Text="{Binding Path=RowM04[賞罰内容5], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[賞罰年月日6], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="3"
+                                  Text="{Binding Path=RowM04[賞罰内容6], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                </Grid>
+
+              </Grid>
+              <Grid Grid.Row="18" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="0.9*"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="0" Margin="1" Label_Context="健康保険" Label_Width="108"
+                                         Label1Text="" Label2Text="" Text1Background="Transparent"
+                                         Text1Width="100" Text2Width="200"
+                                         Text1="{Binding Path=RowM04[健康保険加入日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         Text2="{Binding Path=RowM04[健康保険番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         />
+                <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="1" Margin="1" Label_Context="厚生年金保険" Label_Width="108"
+                                         Label1Text="" Label2Text="" Text1Background="Transparent"
+                                         Text1Width="100" Text2Width="200"
+                                         Text1="{Binding Path=RowM04[厚生年金加入日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         Text2="{Binding Path=RowM04[厚生年金番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         />
+                <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="2" Margin="1" Label_Context="雇用保険" Label_Width="108"
+                                         Label1Text="" Label2Text="" Text1Background="Transparent"
+                                         Text1Width="100" Text2Width="200"
+                                         Text1="{Binding Path=RowM04[雇用保険加入日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         Text2="{Binding Path=RowM04[雇用保険番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         />
+                <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="3" Margin="1" Label_Context="労災保険" Label_Width="108"
+                                         Label1Text="" Label2Text="" Text1Background="Transparent"
+                                         Text1Width="100" Text2Width="200"
+                                         Text1="{Binding Path=RowM04[労災保険加入日], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         Text2="{Binding Path=RowM04[労災保険番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                         />
+
+                <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="4">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width=".3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width=".3*"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                  </Grid.RowDefinitions>
+                  <ctls:UcLabel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" Margin="1" cContent="家族状況 氏名 生年月日 続柄"/>
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="1"
+                                       Text="{Binding Path=RowM04[家族氏名1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="1"
+                                       Text="{Binding Path=RowM04[家族生年月日1], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="1" Margin="0,0,5,0"
+                                       Text="{Binding Path=RowM04[家族続柄1], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="2"
+                                       Text="{Binding Path=RowM04[家族氏名2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="2"
+                                       Text="{Binding Path=RowM04[家族生年月日2], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="2" Margin="0,0,5,0"
+                                       Text="{Binding Path=RowM04[家族続柄2], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="0" Grid.Row="3"
+                                       Text="{Binding Path=RowM04[家族氏名3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="1" Grid.Row="3"
+                                       Text="{Binding Path=RowM04[家族生年月日3], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="2" Grid.Row="3" Margin="0,0,5,0"
+                                       Text="{Binding Path=RowM04[家族続柄3], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="1"
+                                       Text="{Binding Path=RowM04[家族氏名4], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="4" Grid.Row="1"
+                                       Text="{Binding Path=RowM04[家族生年月日4], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="5" Grid.Row="1" Margin="0,0,5,0"
+                                       Text="{Binding Path=RowM04[家族続柄4], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="2"
+                                       Text="{Binding Path=RowM04[家族氏名5], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="4" Grid.Row="2"
+                                       Text="{Binding Path=RowM04[家族生年月日5], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="5" Grid.Row="2" Margin="0,0,5,0"
+                                       Text="{Binding Path=RowM04[家族続柄5], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="3" Grid.Row="3"
+                                       Text="{Binding Path=RowM04[家族氏名6], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                  <ctls:UcTextBox Grid.Column="4" Grid.Row="3"
+                                       Text="{Binding Path=RowM04[家族生年月日6], StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                  <ctls:UcTextBox Grid.Column="5" Grid.Row="3" Margin="0,0,5,0"
+                                       Text="{Binding Path=RowM04[家族続柄6], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  />
+                </Grid>
+              </Grid>
+
+
+              <Grid Grid.Row="19" Grid.ColumnSpan="2" Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                  <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0" Grid.Row="0" Margin="1">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="108"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="auto"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" 
+                                           LabelText="通勤所要時間" Label_Width="108"
+                                           Label1Text="時間" Label2Text="分" Text1Background="Transparent"
+                                           Text1Width="50" Text2Width="30"
+                                       Text1="{Binding Path=RowM04[通勤時間], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       Text2="{Binding Path=RowM04[通勤分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                />
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="1" Margin="1">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="340"/>
+                  </Grid.ColumnDefinitions>
+                  <ctls:UcLabelTextBox Label_Context="家族への連絡方法" Label_Width="108" Grid.Column="1" Grid.Row="0"
+                                       Text="{Binding Path=RowM04[家族連絡], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                       />
+                </Grid>
+
+                <ctls:UcLabelTextRadioButton cGroupName="JyuukyoNoSyurui" Label_Content="住居の種類" Grid.Column="0" Grid.Row="2" Label_Width="107"  Margin="1"
+                                             RadioSelectButton="One" RadioViewCount="Eight" RadioOne_Content="未" RadioSecond_Content="自宅" RadioThird_Content="借家" RadioFourth_Content="間借" RadioFifth_Content="下宿" RadioSixth_Content="アパート" RadioSeventh_Content="マンション" RadioEighth_Content="寮"
+                                       Text="{Binding Path=RowM04[住居の種類], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                             />
+
+
+              </Grid>
+              <Grid Grid.Row="20" Grid.ColumnSpan="2"/>
+            </Grid>
+          </Grid>
+        </ScrollViewer>
+      </TabItem>
+      <!--タブ1-->
+      <TabItem Header="適正診断実施" IsTabStop="False">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+          </Grid.RowDefinitions>
+          <ctls:UcDataGrid 
+                           ItemSources="{Binding Path=ProperDiagnosisData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                           cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+                           VerticalAlignment="Stretch" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True"
+                           cRowBackground="White" cAlternatingRowBackground="LightBlue"
+                           />
+
+        </Grid>
+      </TabItem>
+      <!--タブ2-->
+      <TabItem Header="事故履歴" IsTabStop="False">
+
+        <ctls:UcDataGrid 
+                         ItemSources="{Binding Path=AccidentHistoryData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                         cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+											 VerticalAlignment="Stretch"  cCanUserResizeColumns="True"  cCanUserReorderColumns="True"
+											 cCanUserSortColumns="True" cRowBackground="White" cAlternatingRowBackground="LightBlue"
+											 />
+      </TabItem>
+      <!--タブ3-->
+      <TabItem Header="違反履歴" IsTabStop="False">
+        <ctls:UcDataGrid 
+                        ItemSources="{Binding Path=ViolationHistoryData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                          cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+								VerticalAlignment="Stretch"	cCanUserResizeColumns="True"  cCanUserReorderColumns="True" 
+								cCanUserSortColumns="True" cRowBackground="White" cAlternatingRowBackground="LightBlue"
+								/>
+
+      </TabItem>
+      <!--タブ4-->
+      <TabItem Header="特別教育実施" IsTabStop="False">
+
+        <ctls:UcDataGrid
+                        ItemSources="{Binding Path=SpecialEducationData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                        cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+                        VerticalAlignment="Stretch" cCanUserResizeColumns="True"  cCanUserReorderColumns="True" cCanUserSortColumns="True"
+                        cRowBackground="White" cAlternatingRowBackground="LightBlue"
+                        />
+
+      </TabItem>
+      <!--タブ5-->
+      <TabItem Header="一括入力" x:Name="Tab_IkkatuNyuuryoku" Margin="0,-23,0,23" IsTabStop="False">
+        <TabControl>
+          <TabItem Header="適正診断実施状況" IsTabStop="False">
+            <ctls:UcDataGrid cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+											 VerticalAlignment="Stretch"  cCanUserResizeColumns="True"
+											 cCanUserReorderColumns="True" cCanUserSortColumns="True" cRowBackground="White" cAlternatingRowBackground="LightBlue"
+											 />
+          </TabItem>
+          <TabItem Header="事故履歴" IsTabStop="False">
+            <ctls:UcDataGrid cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+										 VerticalAlignment="Stretch" cCanUserResizeColumns="True" cCanUserReorderColumns="True"
+										 cCanUserSortColumns="True" cRowBackground="White" cAlternatingRowBackground="LightBlue"
+										 />
+          </TabItem>
+          <TabItem Header="違反履歴" IsTabStop="False">
+            <ctls:UcDataGrid cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+											 VerticalAlignment="Stretch" cCanUserResizeColumns="True"  cCanUserReorderColumns="True"
+											 cCanUserSortColumns="True" cRowBackground="White" cAlternatingRowBackground="LightBlue"
+											 />
+          </TabItem>
+          <TabItem Header="特別教育実施状況" IsTabStop="False">
+            <ctls:UcDataGrid cAutoGenerateColumns="True" cHorizontalScrollBarVisibility="Auto" cVerticalScrollBarVisibility="Auto"
+											 VerticalAlignment="Stretch" cCanUserResizeColumns="True"  cCanUserReorderColumns="True"
+											 cCanUserSortColumns="True" cRowBackground="White" cAlternatingRowBackground="LightBlue"
+											 />
+          </TabItem>
+        </TabControl>
+      </TabItem>
+    </TabControl>
+  </Grid>
+</fw:WindowMasterMainteBase>

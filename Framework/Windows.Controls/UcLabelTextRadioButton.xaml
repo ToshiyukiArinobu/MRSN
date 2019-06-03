@@ -1,0 +1,39 @@
+﻿<fw:FrameworkControl x:Class="KyoeiSystem.Framework.Windows.Controls.UcLabelTextRadioButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             Validation.ErrorTemplate="{StaticResource validationTemplate}"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="300">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="30"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+      <ColumnDefinition Width="auto"/>
+    </Grid.ColumnDefinitions>
+    <fw:UcLabel x:Name="cLabel"/>
+    <fw:UcTextBox x:Name="cTextBox" Grid.Column="1" cTextChanged="cTextBox_cTextChanged_1" Margin="1" ValidationType="Number" cMaxLength="1"
+                  Text="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                  />
+        <StackPanel x:Name="RadioButtonContainer" Grid.Column="2" Orientation="Horizontal">
+      <RadioButton x:Name="cRadio1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Margin="1"/>
+            <RadioButton x:Name="cRadio2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Visibility="Collapsed"/>
+            <RadioButton x:Name="cRadio3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Visibility="Collapsed"/>
+            <RadioButton x:Name="cRadio4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Visibility="Collapsed"/>
+            <RadioButton x:Name="cRadio5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Visibility="Collapsed"/>
+            <RadioButton x:Name="cRadio6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Visibility="Collapsed"/>
+            <RadioButton x:Name="cRadio7" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Visibility="Collapsed"/>
+            <RadioButton x:Name="cRadio8" Content="" HorizontalAlignment="Stretch" VerticalAlignment="Center" Checked="RadioButton_Checked" Visibility="Collapsed"/>
+        </StackPanel>
+
+  </Grid>
+</fw:FrameworkControl>

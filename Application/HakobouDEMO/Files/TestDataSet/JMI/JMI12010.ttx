@@ -1,0 +1,41 @@
+乗務員コード	Number		201
+乗務員名	String	15	乗務員サンプルデータ
+車種ID	Number		2081
+車種名	String	15	車種名サンプルデータ
+月度From	Date		2011/01/01
+月度To	Date		2011/12/01
+月	Date		2011/01/01
+運送収入	Number		1735000
+燃料代（軽油）	Number		23010
+燃料代（ｶﾞｿﾘﾝ）	Number		
+油脂費	Number		15000
+外注（個人報奨金	Number		
+タイヤ費	Number		73500
+修理費	Number		73500
+部品代	Number		3850
+現金高速代	Number		
+ETC	Number		8500
+その他１	Number		23500
+その他２	Number		
+諸口１	Number		
+諸口２	Number		
+諸口３	Number		
+給与（固定）	Number		313500
+給与（変動）	Number		
+賞与積立	Number		25000
+福利厚生費	Number		10500
+法廷福利費	Number		35580
+退職引当金	Number		5340
+労働保険	Number		9640
+減価償却費	Number		73500
+自動車税	Number		1250
+重量税	Number		1870
+所得税	Number		2080
+自賠責保険	Number		6980
+車輌保険	Number		7220
+対人保険	Number		4200
+対物保険	Number		7500
+荷物保険	Number		320
+車輌直接費	Number		504230
+車輌直接益	Number		156910
+一般管理費	Number		32300

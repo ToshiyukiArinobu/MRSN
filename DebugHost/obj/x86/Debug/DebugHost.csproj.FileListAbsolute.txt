@@ -1,0 +1,17 @@
+C:\HBMS\DebugHost\bin\Debug\Host.exe.config
+C:\HBMS\DebugHost\bin\Debug\Host.exe
+C:\HBMS\DebugHost\bin\Debug\Host.pdb
+C:\HBMS\DebugHost\bin\Debug\WcfServiceHost.dll
+C:\HBMS\DebugHost\bin\Debug\KyoeiSystem.Framework.Common.dll
+C:\HBMS\DebugHost\bin\Debug\KyoeiSystem.Application.WCFService.dll
+C:\HBMS\DebugHost\bin\Debug\KyoeiSystem.Framework.Core.dll
+C:\HBMS\DebugHost\bin\Debug\WcfServiceHost.pdb
+C:\HBMS\DebugHost\bin\Debug\KyoeiSystem.Framework.Common.pdb
+C:\HBMS\DebugHost\bin\Debug\KyoeiSystem.Application.WCFService.pdb
+C:\HBMS\DebugHost\bin\Debug\KyoeiSystem.Framework.Core.pdb
+C:\HBMS\DebugHost\obj\x86\Debug\DebugHost.csprojResolveAssemblyReference.cache
+C:\HBMS\DebugHost\obj\x86\Debug\Host.exe
+C:\HBMS\DebugHost\obj\x86\Debug\Host.pdb
+C:\MRSN\MRSN\DebugHost\bin\Debug\Host.exe.config
+C:\MRSN\MRSN\DebugHost\obj\x86\Debug\Host.exe
+C:\MRSN\MRSN\DebugHost\obj\x86\Debug\Host.pdb

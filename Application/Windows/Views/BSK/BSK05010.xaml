@@ -1,0 +1,257 @@
+﻿<fw:WindowReportBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+    xmlns:uc="clr-namespace:KyoeiSystem.Application.Windows.Views"
+    xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
+    x:Class="KyoeiSystem.Application.Windows.Views.BSK05010"
+    mc:Ignorable="d" d:DesignWidth="300" Name="Window"
+    WindowStyle="SingleBorderWindow" AllowsTransparency="False" 
+    MinHeight="728" MinWidth="1024" Height="768" Width="1024"
+    WindowStartupLocation="CenterOwner" Language="ja-JP"
+    Title="年次販社売上調整(BSK05010)"
+    Loaded="Window_Loaded_1" Closed="Window_Closed">
+
+  <vm:WindowReportBase.Resources>
+    <ctls:BooleanInverter x:Key="boolInverter" />
+  </vm:WindowReportBase.Resources>
+
+  <Grid Margin="5">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <!--リボン領域-->
+      <RowDefinition Height="auto" />
+      <!--検索条件領域-->
+      <RowDefinition Height="*" />
+      <!--明細表示領域-->
+    </Grid.RowDefinitions>
+
+    <!--リボン-->
+    <Ribbon HorizontalAlignment="Stretch"  Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+      <!--タブ-->
+      <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+        <RibbonGroup Width="90" >
+          <!-- 処理モード表示用に空けておく -->
+        </RibbonGroup>
+
+        <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/15マスタ照会.png" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50" />
+        </RibbonGroup>
+        <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/25集計開始.png" ToolTipTitle="計算(F3)" ToolTipDescription="決算調整結果を計算します。"  ToolTipImageSource="../Images/25集計開始.png"
+                        Label="計算" Click="RibbonButton_Click" KeyTip="F3" Height="50" />
+        </RibbonGroup>
+        <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/16マスタ入力.png" ToolTipTitle="請求書発行(F5)" ToolTipDescription=""  ToolTipImageSource="../Images/16マスタ入力.png"
+                        Label="請求書" Click="RibbonButton_Click" KeyTip="F5" Height="50" />
+        </RibbonGroup>
+        <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+                                  Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+        </RibbonGroup>
+        <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+
+      </RibbonTab>
+
+      <RibbonTab Header="ヘルプ" Background="Gray">
+        <RibbonGroup Header="サポート">
+          <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+                                  Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
+          <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+                                  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+                                  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+                                  Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+    </Ribbon>
+
+    <Grid Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="74"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="90" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <!-- 編集モード領域  -->
+      <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+                 Background="{Binding MaintenanceModeBackground}">
+        <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+               FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
+               HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+      </DockPanel>
+      <!-- エラーメッセージ領域 -->
+      <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+      <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+
+    </Grid>
+
+    <Grid Grid.Row="1" Background="AliceBlue">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <!-- 枠 -->
+      <Border Grid.Row="0" BorderBrush="#2792c3" BorderThickness="1" Margin="0,5,0,0">
+
+        <Grid Background="AliceBlue" Margin="5">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+
+          <!-- 処理年度 -->
+          <ctls:UcLabelTextBox
+              Name="FiscalYear" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
+              ValidationType="Integer" ImeType="Off"
+              Label_Context="処理年度" Label_Width="100"
+              cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center"
+          />
+          <TextBlock Text="年度" Grid.Row="0" VerticalAlignment="Center" Margin="150,5,0,0" />
+
+          <!-- 対象販社 -->
+          <ctls:UcLabelTwinTextBox
+              Name="MyCompany" Grid.Row="1" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
+              DataAccessName="M70_JIS" DataAccessMode="On" LinkItem="1"
+              Label_Context="対象販社" Label_Width="100"
+              Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+              Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
+              Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+          />
+
+          <!-- 調整割合 -->
+          <ctls:UcLabelTextBox
+              Name="AjustRatio" Grid.Row="2" HorizontalAlignment="Left" Margin="5,5,0,0"
+              ValidationType="Decimal" ImeType="Off"
+              Label_Context="調整比率" Label_Width="100"
+              cMaxLength="5" cWidth="50" Mask="##0.##" cHorizontalContentAlignment="Right" cVerticalContentAlignment="Center"
+          />
+          <TextBlock Text="%" Grid.Row="2" VerticalAlignment="Center" Margin="160,5,0,0" />
+
+          <!-- 検索ボタン -->
+          <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="80,25,0,0">
+<!--
+            <Button Visibility="Hidden" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Click="Button_Click">
+              <Image Source="../Images/検索実行ボタン.png" Stretch="Fill" />
+            </Button>
+-->            
+            <Button Name="SubCalc" Width="100" Height="35"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Background="#D2691E" Foreground="White" FontWeight="SemiBold"
+                    Content="調整見込計算" Click="SubCalc_Click"
+            />
+          </StackPanel>
+
+        </Grid>
+      </Border>
+
+      <!-- 月別売上調整一覧 -->
+      <Grid Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,300">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="860" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 初期表示は非表示、見込計算実施時に表示 -->
+        <sg:GcSpreadGrid
+            Name="sgSearchResult" Grid.Column="0" RowCount="12" LayoutMode="Cell" MaxWidth="700" MaxHeight="300"
+           HorizontalAlignment="Left"
+            AutoGenerateColumns="False" ColumnDragMode="SelectThenDrag"
+            ItemsSource="{Binding SearchList, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+            DocumentUri="/KyoeiSystem.Application.Windows;component/views/BSK/BSK05010G1.sgxml">
+
+          <!--カーソル色変更-->
+          <sg:GcSpreadGrid.SelectionBorderUnfocused>
+            <sg:BorderLine Color="Orange" Style="Thick"/>
+          </sg:GcSpreadGrid.SelectionBorderUnfocused>
+          <sg:GcSpreadGrid.SelectionBorder>
+            <sg:BorderLine Color="Orange" Style="Thick"/>
+          </sg:GcSpreadGrid.SelectionBorder>
+
+          <sg:GcSpreadGrid.Columns>
+            <sg:Column HorizontalAlignment="Center" Locked="True">
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding Path=決算対象年月, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True">
+              <sg:Column.CellType>
+                <sg:NumberCellType MaxValue="9999999999" MinValue="-9999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,###,##0,,,-," />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding Path=決算調整前金額, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True">
+              <sg:Column.CellType>
+                <sg:NumberCellType MaxValue="9999999999" MinValue="-9999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,###,##0,,,-," />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding Path=決算調整見込金額, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True">
+              <sg:Column.CellType>
+                <sg:NumberCellType MaxValue="9999999999" MinValue="-9999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,###,##0,,,-," />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding Path=決算調整後金額, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+              </sg:Column.DataField>
+            </sg:Column>
+          </sg:GcSpreadGrid.Columns>
+
+        </sg:GcSpreadGrid>
+
+        <Button Name="Confirm" Grid.Column="1" Width="100" Height="35"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Background="#CD5C5C" Foreground="White" FontWeight="SemiBold"
+                Content="調整確定" Click="Confirm_Click"
+        />
+
+      </Grid>
+
+    </Grid>
+
+  </Grid>
+
+</fw:WindowReportBase>

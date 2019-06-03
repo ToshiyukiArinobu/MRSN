@@ -1,0 +1,346 @@
+﻿<fw:WindowMasterMainteBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+  xmlns:Data="clr-namespace:System.Data;assembly=System.Data"
+  x:Class="KyoeiSystem.Application.Windows.Views.MST14010"
+        mc:Ignorable="d" d:DesignWidth="300" 
+ 		  AllowsTransparency="False"
+		Title="支払先別軽油マスタ入力(MST14010)" MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
+  Loaded="RibbonWindow_Loaded_1">
+    <Window.Resources>
+        <!-- Ribbonファンクションキーの背景色 -->
+        <LinearGradientBrush x:Key="RibbonFunctionBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="Transparent" Offset="0.3"/>
+            <GradientStop Color="Orange" Offset="0.99"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- 画像用ボタン -->
+        <Style x:Key="ImageButton" TargetType="{x:Type Button}" BasedOn="{x:Null}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Transparent"/>
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Disabled" />
+                                    <VisualState x:Name="Pressed" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" 
+															 Storyboard.TargetName="FocusVisualElement" 
+															 Storyboard.TargetProperty="Opacity" To="0"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Background" CornerRadius="3" Background="Transparent" 
+									BorderThickness="{TemplateBinding BorderThickness}" 
+									BorderBrush="{TemplateBinding BorderBrush}">
+                                <Grid Background="{TemplateBinding Background}" Margin="1">
+                                    <Border Opacity="0" x:Name="BackgroundAnimation" Background="Transparent" />
+                                    <Rectangle x:Name="BackgroundGradient" >
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="Transparent" Opacity="0.25" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Border>
+                            <ContentPresenter
+							 x:Name="contentPresenter"
+							 Content="{TemplateBinding Content}"
+							 ContentTemplate="{TemplateBinding ContentTemplate}"
+							 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							 Margin="{TemplateBinding Padding}"/>
+                            <Rectangle x:Name="DisabledVisualElement" RadiusX="3" 
+									  RadiusY="3" Fill="#FFFFFFFF" 
+									  Opacity="0" IsHitTestVisible="false" />
+                            <Rectangle x:Name="FocusVisualElement" RadiusX="2" 
+									  RadiusY="2" Margin="1" Stroke="#FF6DBDD1" 
+									  StrokeThickness="1" Opacity="0" IsHitTestVisible="false" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--コンボボックス-->
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        <!-- TabItemの枠線の色 -->
+        <SolidColorBrush x:Key="TabItemNormalBorderBrush" Color="White"/>
+        <!-- TabItemの背景色 -->
+        <LinearGradientBrush x:Key="TabItemBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#5383c3" Offset="0"/>
+            <GradientStop Color="#4c6cd3" Offset=".5"/>
+            <GradientStop Color="#3e62ad" Offset=".5"/>
+            <GradientStop Color="#507ea4" Offset="1"/>
+        </LinearGradientBrush>
+        <!-- TabItemのマウスオーバー時の背景色 -->
+        <LinearGradientBrush x:Key="TabItemHotBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#C1D9C7" Offset="0.15"/>
+            <GradientStop Color="#6EA5A4" Offset=".5"/>
+            <GradientStop Color="#00a497" Offset=".5"/>
+            <GradientStop Color="#5c9291" Offset="1"/>
+        </LinearGradientBrush>
+        <!-- TabItemのマウスオーバー時の枠線の色 -->
+        <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#eebbcd"/>
+        <!-- TabItem選択時の背景色 -->
+        <LinearGradientBrush x:Key="TabItemSelectedBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#5383c3" Offset="0"/>
+            <GradientStop Color="#3e62ad" Offset=".5"/>
+            <GradientStop Color="#c89932" Offset=".6"/>
+            <GradientStop Color="#507ea4" Offset="1"/>
+        </LinearGradientBrush>
+        <!-- TabItem無効化時の色 -->
+        <SolidColorBrush x:Key="TabItemDisabledBackground" Color="DarkGray"/>
+        <!-- TabItem無効化時の枠線の色 -->
+        <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
+
+        <!-- TabItemのスタイルを設定 -->
+        <Style TargetType="{x:Type TabItem}">
+            <!-- TabItemの文字の色 -->
+            <Setter Property="Foreground" Value="White"/>
+            <!-- TabItemの枠線の色-->
+            <Setter Property="BorderBrush" Value="{StaticResource TabItemNormalBorderBrush}"/>
+            <!-- TabItemの背景色の設定 -->
+            <Setter Property="Background" Value="{StaticResource TabItemBackground}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid SnapsToDevicePixels="true">
+                            <Border x:Name="Bd" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="1,1,1,0" 
+                                    Background="{TemplateBinding Background}" 
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="Content" 
+                                                  ContentSource="Header" 
+                                                  HorizontalAlignment="{Binding HorizontalContentAlignment, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" 
+                                                  RecognizesAccessKey="True" 
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{Binding VerticalContentAlignment, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <!-- マウスオーバー時の背景色 -->
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemHotBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <!-- 選択時の背景色 -->
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemSelectedBackground}"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="false"/>
+                                    <Condition Property="IsMouseOver" Value="true"/>
+                                </MultiTrigger.Conditions>
+                                <!-- マウスオーバー時の枠線の色 -->
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemHotBorderBrush}"/>
+                            </MultiTrigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <!-- 無効化時の背景色 -->
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemDisabledBackground}"/>
+                                <!-- 無効化時の枠線の色-->
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
+                                <!-- 無効化時の文字の色 -->
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!--リボン-->
+        <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <!--アプリケーションメニュー-->
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu SmallImageSource="../Images/Menu.png">
+                    <RibbonApplicationMenuItem Header="マスタ照会" ImageSource="../Images/F1_MasterVerification.png"/>
+                    <RibbonApplicationMenuItem Header="マスタ入力" ImageSource="../Images/F2_MasterInput.png"/>
+                    <RibbonApplicationSplitMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp">
+                        <RibbonApplicationMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp"/>
+                        <RibbonApplicationMenuItem Header="ページ設定" ImageSource="../Images/Insatu_pure.bmp"/>
+                        <RibbonApplicationMenuItem Header="印刷プレビュー" ImageSource="../Images/Insatu_pure.bmp"/>
+                    </RibbonApplicationSplitMenuItem>
+
+                    <RibbonApplicationMenuItem Header="終了" ImageSource="../Images/LogOut.bmp"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+
+
+            <!--クイックアクセスツールバー-->
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonButton SmallImageSource="../Images/F1_MasterVerification.png" KeyTip="F1" Click="RibbonButton_Click"
+								  ToolTipTitle="マスタ照会" ToolTipDescription="マスタの照会を行います" />
+                    <RibbonButton SmallImageSource="../Images/F2_MasterInput.png" KeyTip="F2" Click="RibbonButton_Click"
+								   ToolTipTitle="マスタ登録" ToolTipDescription="マスタの登録を行います" />
+                    <RibbonButton SmallImageSource="../Images/InputTure.png" KeyTip="c" Click="RibbonButton_Click"
+								  ToolTipTitle="データ登録" ToolTipDescription="データの登録を行います" />
+                    <RibbonButton SmallImageSource="../Images/Gomibako.bmp" KeyTip="d" Click="RibbonButton_Click"
+								   ToolTipTitle="データ削除" ToolTipDescription="データの削除を行います" />
+                    <RibbonButton SmallImageSource="../Images/F11_End.png" KeyTip="F11" Click="RibbonButton_Click"
+								  ToolTipTitle="終了" ToolTipDescription="画面を終了します" />
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+
+
+            <!--タブ-->
+            <RibbonTab Header="ホーム" KeyTip="h">
+
+                <RibbonGroup Header="マスタ" KeyTip="M" Background="{StaticResource RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/F1_MasterVerification.png" Label="検索" Click="RibbonButton_Click" KeyTip="F1"/>
+                    <RibbonButton LargeImageSource="../Images/F2_MasterInput.png" Label="入力" Click="RibbonButton_Click" KeyTip="F2"/>
+                    <RibbonButton LargeImageSource="../Images/Insatu_pure.bmp" Click="RibbonButton_Click" KeyTip="F6"
+								  Label="一覧" ToolTipTitle="一覧(F6)" ToolTipDescription="一覧を表示します" ToolTipImageSource="../Images/Insatu_pure.bmp" />
+                    <RibbonButton LargeImageSource="../Images/Gomibako.bmp" Click="RibbonButton_Click" KeyTip="F12"
+								  Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="入力を削除します" ToolTipImageSource="../Images/Gomibako.bmp"/>
+                </RibbonGroup>
+                <RibbonGroup Header="日次処理" KeyTip="t">
+
+                    <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="F9"
+								  Label="マスタ登録" ToolTipTitle="マスタ登録(F9)" ToolTipDescription="マスタ登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+                    <RibbonButton LargeImageSource="../Images/F10_InputRevocation.png" Click="RibbonButton_Click" KeyTip="F10"
+								  Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/F10_InputRevocation.png"/>
+                    <RibbonButton LargeImageSource="../Images/F11_End.png" Click="RibbonButton_Click" KeyTip="F11"
+								  Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+                </RibbonGroup>
+
+                <RibbonGroup Header="その他">
+                    <RibbonButton LargeImageSource="../Images/IE.bmp" KeyTip="WEBHOME" Click="RibbonButton_Click"
+								  Label="Webホーム" ToolTipTitle="インターネット" ToolTipDescription="Webブラウザを起動します" />
+                    <RibbonButton LargeImageSource="../Images/Mail.bmp" KeyTip="MAIL" Click="RibbonButton_Click"
+								  Label="メール" ToolTipTitle="メール" ToolTipDescription="メールソフトを起動します"/>
+                    <RibbonButton LargeImageSource="../Images/Dentaku.bmp" KeyTip="CALC" Click="RibbonButton_Click"
+								  Label="電卓" ToolTipTitle="電子式卓上計算機" ToolTipDescription="電卓を表示します" />
+                </RibbonGroup>
+                <RibbonGroup Header="便利リンク" AllowDrop="True"  >
+                    <RibbonButton LargeImageSource="../Images/Yahoo.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="検索" ToolTipTitle="Yahoo!JAPAN" ToolTipDescription="Yahoo!JAPANのページに遷移します" />
+                    <RibbonButton LargeImageSource="../Images/Tenki.bmp" HorizontalAlignment="Right" KeyTip="WEATHER"
+								  Label="天気" ToolTipTitle="天気予報ウェザーニュース" ToolTipDescription="天気予報ウェザーニュースのページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/KousokuJyouhou.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="道路情報" ToolTipTitle="高速道路交通情報" ToolTipDescription="高速道路交通情報のページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/HaiuleiNabi.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="道路ナビ" ToolTipTitle="ハイウェイナビゲータ" ToolTipDescription="ハイウェイナビゲータのページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/SeikatuTizu.bmp" KeyTip="WEBSEARCH" Click="RibbonButton_Click"
+								  Label="渋滞情報" ToolTipTitle="生活地図サイト MapFan Web" ToolTipDescription="生活地図サイト MapFan Webのページに遷移します" />
+                </RibbonGroup>
+            </RibbonTab>
+
+            <RibbonTab Header="ヘルプ" Background="Gray">
+                <RibbonGroup Header="サポート">
+                    <RibbonButton LargeImageSource="../Images/Toiawase.bmp"
+								  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+                    <RibbonButton LargeImageSource="../Images/QandA.bmp"
+								  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/KyoueiIcon.bmp"
+								  Label="企業HP" ToolTipTitle="カレンダー" ToolTipDescription="共栄システムHPに遷移します"/>
+                </RibbonGroup>
+            </RibbonTab>
+
+            <RibbonTab Header="実施状況入力" Background="Gray" ContextualTabGroupHeader="入力補助">
+                <RibbonGroup Header="従来ファンクションキー">
+                    <RibbonButton LargeImageSource="../Images/F2_MasterInput.png" KeyTip="d"
+									  Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/F2_MasterInput.png"/>
+                    <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="マスタ登録" ToolTipTitle="伝票登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+                    <RibbonButton LargeImageSource="../Images/F10_InputRevocation.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/F10_InputRevocation.png"/>
+                    <RibbonButton LargeImageSource="../Images/F11_End.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="一括入力" Background="Gray" ContextualTabGroupHeader="入力補助">
+                <RibbonGroup Header="従来ファンクションキー">
+                    <RibbonButton LargeImageSource="../Images/Insatu_pure.bmp" KeyTip="d"
+									  Label="プレビュー" ToolTipTitle="プレビュー(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/Insatu_pure.bmp"/>
+                    <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="印刷" ToolTipTitle="印刷(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+                    <RibbonButton LargeImageSource="../Images/F9_SlipRecord.png" Click="RibbonButton_Click" KeyTip="e"
+								  Label="マスタ登録" ToolTipTitle="マスタ登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/F9_SlipRecord.png"/>
+                    <RibbonButton LargeImageSource="../Images/F10_InputRevocation.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/F10_InputRevocation.png"/>
+                    <RibbonButton LargeImageSource="../Images/F11_End.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <!-- エラーメッセージ領域 -->
+    <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+    <Label Grid.Row="0" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red"
+            Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+
+      <!--ヘッダー-->
+    <Border Grid.Row="1" BorderBrush="#2792c3" BorderThickness="1" Margin="5" Background="AliceBlue">
+      <Grid Margin="15">
+        <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="2*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <ctls:UcLabelTwinTextBox Name="LabelTextShiharaiId" Label_Context="支払先ID" Label_Width="100" Margin="0,0,70,0" Grid.Row ="0" Label1Visibility="Collapsed"  Label2Visibility="Collapsed"
+                            Text1Width="100" Text2Width="370" OutputColumnName="支払先"
+                            Text1="{Binding Path=支払先ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            Text2="{Binding Path=支払先名１, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            LostFocus="LabelTextShiharaiId_LostFocus" DataAccessName="M01_TOK"
+                                 />
+        <ctls:UcTextBox Grid.Row="2" Width="370" Margin="203,0,70,0" IsEnabled="False" 
+                             Text="{Binding 支払先名２, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+        <ctls:UcLabelDatePicker Label_Content="適用開始日" Grid.Row="4" Label_Width="100" Margin="0,0,435,0"                             
+                             SelectedDate1="{Binding 適用開始日付,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}"
+                                LostFocus="LabelTextShiharaiId_LostFocus"
+                             />
+        <ctls:UcLabelTextBox Label_Context="軽油単価" Grid.Row="6" Label_Width="100" Margin="0,0,450,0"
+                             Text="{Binding MstData[軽油単価], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+        <ctls:UcLabelTextBox Label_Context="軽油税単価" Grid.Row="8" Label_Width="100" Margin="0,0,450,0"
+                             Text="{Binding MstData[軽油税単価], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+
+            </Grid>
+    </Border>
+  </Grid>
+</fw:WindowMasterMainteBase>
+  
+  

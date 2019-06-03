@@ -1,0 +1,27 @@
+年月From	Date		2013/11/01
+年月To	Date		2013/11/01
+車輌指定	String	15	（ピックアップ指定有）
+表示順序	String	5	コード順
+車輌コード	Number		10401
+車輌番号	String	6	104155
+日数	Number		29
+拘束H	String	6	261:00
+運転H	String	6	113:00
+作業H	String	6	119:00
+休憩H	String	6	37:00
+実働H	String	6	261:00
+走行Km	Number		3767
+実車Km	Number		2560
+輸送屯数	Number		236
+運送収入	Number		1012000
+燃料Ｌ	Number		1569
+固定費計	Number		500000
+変動費計	Number		501510
+経費合計	Number		1001510
+予算達成率	Number		80
+拘束H合計	String	6	261:00
+運転H合計	String	6	113:00
+作業H合計	String	6	119:00
+休憩H合計	String	6	37:00
+実働H合計	String	6	261:00
+合計予算達成率	Number		80

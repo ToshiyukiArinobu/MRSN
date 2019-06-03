@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="COMMONDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="COMMONDBModelStoreContainer">
+    <EntitySet Name="COMMON_TABLE" EntityType="COMMONDBModel.Store.COMMON_TABLE" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="COMMON_TABLE">
+    <Key>
+      <PropertyRef Name="ユーザーID" />
+    </Key>
+    <Property Name="顧客コード" Type="int" />
+    <Property Name="ユーザーID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="パスワード" Type="varchar" MaxLength="50" />
+    <Property Name="ログインフラグ" Type="int" />
+    <Property Name="アクセス時間" Type="datetime" />
+    <Property Name="DB接続先" Type="varchar" MaxLength="50" />
+    <Property Name="ユーザーDB" Type="varchar" MaxLength="50" />
+    <Property Name="DBログインID" Type="varchar" MaxLength="50" />
+    <Property Name="DBパスワード" Type="varchar" MaxLength="50" />
+    <Property Name="開始日" Type="date" />
+    <Property Name="有効期限" Type="date" />
+    <Property Name="登録日" Type="date" />
+    <Property Name="メッセージ1" Type="varchar" MaxLength="500" />
+    <Property Name="メッセージ2" Type="varchar" MaxLength="500" />
+    <Property Name="メッセージ3" Type="varchar" MaxLength="500" />
+    <Property Name="メッセージ4" Type="varchar" MaxLength="500" />
+  </EntityType>
+</Schema>

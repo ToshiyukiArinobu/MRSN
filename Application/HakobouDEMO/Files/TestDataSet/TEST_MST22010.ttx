@@ -1,0 +1,9 @@
+支払先ID	Number		1
+支払先名１	String	20	支払先名１のサンプルデータ
+支払先名２	String	20	支払先名２のサンプルデータ
+重量	Number		2
+個数	Number		3
+着地ID	Number		4
+着地名	String	20	着地名のサンプルデータ
+個建単価	Number		5
+個建金額	Number		6

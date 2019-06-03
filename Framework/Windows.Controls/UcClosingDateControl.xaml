@@ -1,0 +1,53 @@
+﻿<fw:FrameworkControl  x:Class="KyoeiSystem.Framework.Windows.Controls.UcClosingDateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+             xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <fw:UcLabelTextBox x:Name="ClosingDate" Label_Context="締日"  LostFocus="ViewPeriodDay_LostFocus"/>
+      <CheckBox x:Name="ALLChackBox"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Content="全締" Visibility="Collapsed" Click="ALLChackBox_Click_1"/>      
+    </Grid>
+
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>  
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="auto"/>
+      </Grid.ColumnDefinitions>
+      <fw:UcTextBox x:Name="Year" Grid.Column="0" LostFocus="ViewPeriodDay_LostFocus"/>
+      <fw:UcLabel Grid.Column="1" cContent="年" cForeground="Black" cBackground="Transparent"/>
+      <fw:UcTextBox x:Name="Month" Grid.Column="2" LostFocus="ViewPeriodDay_LostFocus"/>
+      <fw:UcLabel Grid.Column="3"  cContent="月" cBackground="Transparent" cForeground="Black"/>
+    </Grid>
+
+    <Grid Grid.Row="2" x:Name="PeriodDay" Visibility="Visible">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <fw:UcLabel x:Name="StartLabel" Grid.Column="0" cContent="開始日"/>
+      <fw:UcDatePicker x:Name="StartDay" Grid.Column="1"/>
+      <fw:UcLabel Grid.Column="2" cContent="～"  cForeground="Black" cBackground="Transparent"/>
+      <fw:UcLabel x:Name="EndLabel" Grid.Column="3" cContent="終了日"/>
+      <fw:UcDatePicker Grid.Column="4" x:Name="EndDay"/>
+    </Grid>
+  </Grid>
+</fw:FrameworkControl>

@@ -1,0 +1,23 @@
+コースID	Number		1
+得意先ID	Number		2
+請求内訳ID	Number		3
+コース名	String	30	コース名のサンプルデータ
+得意先名(略称名)	String	24	得意先名(略称名)サンプル
+請求内訳名	String	30	請求内訳名のサンプルデータ
+車輌ID	Number		10
+乗務員ID	Number		123
+支払先ID	Number		321
+車輌番号	String	6	サンプ
+乗務員名	String	20	
+支払先名(略称名)	String	24	支払先名(略称名)サンプル
+車種ID	Number		222
+車種名	String	20	車種名のサンプル
+発地ID	Number		333
+着地ID	Number		555
+発地名	String	30	発地名のサンプルデータ
+着地名	String	30	着地名のサンプルデータ
+売上金額	Number		200000
+通行料	Number		300000
+支払(社内)金額	Number		0
+支払通行料	Number		0
+社内区分	String	4	請求明細

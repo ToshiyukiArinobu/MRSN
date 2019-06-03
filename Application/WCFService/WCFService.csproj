@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8559B6BE-9B38-41B2-8011-72F89E8470D7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KyoeiSystem.Application.WCFService</RootNamespace>
+    <AssemblyName>KyoeiSystem.Application.WCFService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44320</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Data.Edm.5.0.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Data.OData.5.0.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Data.Services.5.0.0\lib\net40\Microsoft.Data.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Data.Services.Client.5.0.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Spatial, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\System.Spatial.5.0.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\MENU\MENU01.svc" />
+    <Content Include="Views\MST\M02.svc" />
+    <Content Include="Views\MST\M03.svc" />
+    <Content Include="Views\MST\M04.svc" />
+    <Content Include="Views\MST\M06.svc" />
+    <Content Include="Views\MST\M09.svc" />
+    <Content Include="Views\MST\M10.svc" />
+    <Content Include="Views\MST\M11.svc" />
+    <Content Include="Views\MST\M12.svc" />
+    <Content Include="Views\MST\M13.svc" />
+    <Content Include="Views\MST\M15SERIES.svc" />
+    <Content Include="Views\MST\M16.svc" />
+    <Content Include="Views\MST\M14BRAND.svc" />
+    <Content Include="Views\MST\M70.svc" />
+    <Content Include="Views\MST\M72.svc" />
+    <Content Include="Views\MST\M73.svc" />
+    <Content Include="Views\MST\M74.svc" />
+    <Content Include="Views\MST\M22.svc" />
+    <Content Include="Views\MST\M21.svc" />
+    <Content Include="Views\MST\M88.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\MST\M01.svc" />
+    <Content Include="UcMST.svc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="COMMONDB.Context.Extensions.cs">
+      <DependentUpon>COMMONDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COMMONDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>COMMONDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Account.cs" />
+    <Compile Include="Common\Common.cs" />
+    <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\DataAccessCfg.cs" />
+    <Compile Include="Common\KESSVCEntry.cs" />
+    <Compile Include="COMMON_TABLE.cs">
+      <DependentUpon>COMMONDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CommonData.cs" />
+    <Compile Include="ComplexType1.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M01_TOK.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M02_BAIKA.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M03_BAIKA.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M04_BAIKA.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M06_IRO.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M09_HIN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M10_SHIN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M10_TOKHIN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M11_TEK.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M12_DAIBUNRUI.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M13_TYUBUNRUI.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M14_BRAND.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M15_SERIES.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M16_HINGUN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M21_SYUK.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M22_SOUK.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M70_JIS.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M72_TNT.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M73_ZEI.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M74_KGRP.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M74_KGRP_NAME.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M88_SEQ.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M89_KENALL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M90_GRID.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M99_COMBOLIST.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M99_MSG.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M99_ZIP.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S01_SEIDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S01_SEIHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S02_SHRDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S02_SHRHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S03_STOK.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S04_HISTORY.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S05_STOK_MONTH.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T02_URDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T02_URDTL_HAN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T02_URHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T02_URHD_HAN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T03_SRDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T03_SRDTL_HAN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T03_SRHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T03_SRHD_HAN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T04_AGRDTB.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T04_AGRDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T04_AGRHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T04_AGRWK.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T05_IDODTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T05_IDOHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T11_NYKNDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T11_NYKNHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T12_PAYDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T12_PAYHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BaseService.cs" />
+    <Compile Include="Views\BSK\BSK01010.cs" />
+    <Compile Include="Views\BSK\BSK02010.cs" />
+    <Compile Include="Views\BSK\BSK03010.cs" />
+    <Compile Include="Views\BSK\BSK05010.cs" />
+    <Compile Include="Views\BSK\BSK09010.cs" />
+    <Compile Include="Views\DLY\DLY01010.cs" />
+    <Compile Include="Views\DLY\DLY01020.cs" />
+    <Compile Include="Views\DLY\DLY03010.cs" />
+    <Compile Include="Views\DLY\DLY03020.cs" />
+    <Compile Include="Views\DLY\DLY04010.cs" />
+    <Compile Include="Views\DLY\DLY07010.cs" />
+    <Compile Include="Views\DLY\DLY11010.cs" />
+    <Compile Include="Views\DLY\T04.cs" />
+    <Compile Include="Views\DLY\T02.cs" />
+    <Compile Include="Views\DLY\T05.cs" />
+    <Compile Include="Views\DLY\T11.cs" />
+    <Compile Include="Views\DLY\T12.cs" />
+    <Compile Include="Views\SCH\SCHS03_STOK.cs" />
+    <Compile Include="Views\SHR\SHR03010.cs" />
+    <Compile Include="Views\SHR\SHR05010.cs" />
+    <Compile Include="Views\SHR\SHR06010.cs" />
+    <Compile Include="Views\TKS\TKS01020.cs" />
+    <Compile Include="Views\MENU\MENU01.svc.cs">
+      <DependentUpon>MENU01.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TRAC3.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TRAC3.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TRAC3.Context.Extensions.cs">
+      <DependentUpon>TRAC3.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TRAC3.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TRAC3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TRAC3.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="COMMONDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>COMMONDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COMMONDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>COMMONDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M01.svc.cs">
+      <DependentUpon>M01.svc</DependentUpon>
+    </Compile>
+    <Compile Include="UcMST.svc.cs">
+      <DependentUpon>UcMST.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M02.svc.cs">
+      <DependentUpon>M02.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M03.svc.cs">
+      <DependentUpon>M03.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M04.svc.cs">
+      <DependentUpon>M04.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M06.svc.cs">
+      <DependentUpon>M06.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M09.svc.cs">
+      <DependentUpon>M09.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M10.svc.cs">
+      <DependentUpon>M10.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M11.svc.cs">
+      <DependentUpon>M11.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M12.svc.cs">
+      <DependentUpon>M12.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M13.svc.cs">
+      <DependentUpon>M13.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CommonDBReadWrite.cs" />
+    <Compile Include="Views\MST\M15SERIES.svc.cs">
+      <DependentUpon>M15SERIES.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M14BRAND.svc.cs">
+      <DependentUpon>M14BRAND.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M16.svc.cs">
+      <DependentUpon>M16.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M70.svc.cs">
+      <DependentUpon>M70.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M72.svc.cs">
+      <DependentUpon>M72.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M73.svc.cs">
+      <DependentUpon>M73.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M74.svc.cs">
+      <DependentUpon>M74.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M22.svc.cs">
+      <DependentUpon>M22.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M21.svc.cs">
+      <DependentUpon>M21.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\M88.svc.cs">
+      <DependentUpon>M88.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\T03.cs" />
+    <Compile Include="Views\TKS\TKS01010.cs" />
+    <Compile Include="Views\TKS\TKS03010.cs" />
+    <Compile Include="Views\TKS\TKS07010.cs" />
+    <Compile Include="Views\TKS\TKS08010.cs" />
+    <Compile Include="Views\TKS\TKS09010.cs" />
+    <Compile Include="Views\ZIJ\S03.cs" />
+    <Compile Include="Views\ZIJ\S04.cs" />
+    <Compile Include="Views\ZIJ\ZIJ02010.cs" />
+    <Compile Include="Views\ZIJ\ZIJ03010.cs" />
+    <Compile Include="Views\ZIJ\ZIJ04010.cs" />
+    <Compile Include="Views\ZIJ\ZIJ05010.cs" />
+    <Compile Include="Views\ZIJ\ZIJ06010.cs" />
+    <Compile Include="Views\ZIJ\ZIJ09010.cs" />
+    <Compile Include="Views\ZIJ\ZIJ01010.cs" />
+    <Compile Include="Views\ZIJ\ZIJ07010.cs" />
+    <Compile Include="Views\ZIK\ZIK01010.cs" />
+    <Compile Include="V_M09_HIN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_SHR06010.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_TKS08010.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <EntityDeploy Include="TRAC3.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TRAC3.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="TRAC3.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TRAC3.edmx</DependentUpon>
+      <LastGenOutput>TRAC3.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="TRAC3.edmx.diagram">
+      <DependentUpon>TRAC3.edmx</DependentUpon>
+    </Content>
+    <Content Include="TRAC3.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TRAC3.edmx</DependentUpon>
+      <LastGenOutput>TRAC3.cs</LastGenOutput>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="COMMONDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>COMMONDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="COMMONDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>COMMONDB.edmx</DependentUpon>
+      <LastGenOutput>COMMONDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="COMMONDB.edmx.diagram">
+      <DependentUpon>COMMONDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="COMMONDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>COMMONDB.edmx</DependentUpon>
+      <LastGenOutput>COMMONDB.cs</LastGenOutput>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\App_LocalResources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Common\KyoeiSystem.Framework.Common.csproj">
+      <Project>{69eed3ca-6248-4dfe-84dc-d4d7b0ea54ed}</Project>
+      <Name>KyoeiSystem.Framework.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Core\KyoeiSystem.Framework.Core.csproj">
+      <Project>{f8147bcc-c764-49e4-90f3-015bfdb584d9}</Project>
+      <Name>KyoeiSystem.Framework.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56632</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50383/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

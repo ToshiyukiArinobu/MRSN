@@ -1,0 +1,18 @@
+乗務員コード	Number		101
+乗務員名	String	15	乗務員名サンプルデータ
+対象日付From	Date		2013/09/01
+対象日付To	Date		2013/09/30
+日付	String	5	09/01
+車番	String	6	123456
+発地名	String	20	南港センター
+着地名	String	20	大阪府大阪市中ノあ
+商品名	String	20	大阪市内北コース
+数量	Number		350
+重量	Number		5000
+水揚金額	Number		35000
+得意先名	String	10	八千代ライン
+備考	String	20	備考サンプルデータ
+売上金額	Number		35000
+距離割増	Number		
+時間割増	Number		
+通行料	Number		35000

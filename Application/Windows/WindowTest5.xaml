@@ -1,0 +1,880 @@
+﻿<fw:WindowGeneralBase
+        xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+        xmlns:Controls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="KyoeiSystem.Application.Windows.Views.WindowTest5"
+        Title="{Binding TitleString}" Height="768" Width="1024" MinHeight="768" MinWidth="1024"
+    DataContext="{Binding}"
+        Language="ja-JP" WindowStyle="ThreeDBorderWindow"
+        Style="{Binding Source={StaticResource MenuWindowStyle}}"
+        Loaded="Window_Loaded_1" Closing="Window_Closing_1" Top="10" Left="10" KeyDown="AppClose">
+    <Window.Resources>
+        <!-- プログラムを修正する場合 -->
+        <!-- Height="768" Width="1024" -->
+        <!-- 起動した際 全画面表示したい場合 -->
+        <!--WindowState="Maximized" WindowStyle="None" Topmost="True"-->
+        
+        <!-- DataGridのHeader背景色 -->
+        <LinearGradientBrush x:Key="DataGridHeaderBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#3b5998" Offset="0"/>
+
+        </LinearGradientBrush>
+        <!-- Buttonの色 -->
+        <SolidColorBrush x:Key="Brush" Color="White"/>
+        <SolidColorBrush x:Key="Back" Color="#3b5998"/>
+        <SolidColorBrush x:Key="Fore" Color="White"/>
+        <!-- 字体 -->
+        <Style TargetType="Button">
+            <Setter Property="Button.FontFamily" Value="tahoma"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="tahoma"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Button.FontFamily" Value="Tahoma"/>
+        </Style>
+
+
+            <Style x:Key="ButtonFocusVisual">  
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+      <Setter Property="OverridesDefaultStyle" Value="true" />
+      <Setter Property="HasDropShadow" Value="True" />
+      <Setter Property="HorizontalOffset" Value="0"/>
+      <Setter Property="VerticalOffset" Value="-20"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ToolTip">
+            <Border Name="Border" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+              <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                  <LinearGradientBrush.GradientStops>
+                    <GradientStopCollection>
+                      <GradientStop Color="#3b5998" Offset="0.0" />
+                      <GradientStop Color="#3b5998" Offset="1.0" />
+                    </GradientStopCollection>
+                  </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+              </Border.Background>
+              <Border.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
+              </Border.BorderBrush>
+              <ContentPresenter Margin="4" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="HasDropShadow" Value="true">
+                <Setter TargetName="Border" Property="CornerRadius" Value="4" />
+                <Setter TargetName="Border" Property="SnapsToDevicePixels" Value="true" />
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+  </Window.Resources>
+
+
+    <!--<Viewbox Width="auto" Height="auto" Stretch="Fill" StretchDirection="Both">-->
+    <DockPanel>
+        <Grid>
+
+            <DockPanel Background="White" >
+                <DockPanel DockPanel.Dock="Top" Height="50" Background="#3b5998" >
+                    <!-- **ヘッダー部をダブルクリックで最大化イベント** PreviewMouseDown="DoubleClick" -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="5" HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.Column="0"><Label Content="" FontSize="21" Foreground="White"/></TextBlock>
+                        <TextBlock Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1"><Label Content="{Binding VersionString}" FontSize="16" Foreground="White"/></TextBlock>
+                        <TextBlock Margin="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2"><Label Content="{Binding NowTime}" FontSize="16" Foreground="White"/><Label Content="{Binding DayOfWeek}" FontSize="16" Foreground="White"></Label><Label Name="Timer" FontSize="16" Foreground="White"/></TextBlock>
+                    </Grid>
+
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top"  Height="100">
+                    <Image Source ="Views/images/HAKOBO_logo02.png" Margin="10,0,0,0" Width="auto"  HorizontalAlignment="Left" Grid.RowSpan="2"/>
+
+                    <StackPanel HorizontalAlignment="Right" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <RibbonGroup Header="UserName" FontSize="12" HorizontalAlignment="Right" Grid.Column="0">
+                                <Button Name="Name"  Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Bottom" >
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                        <Image Source="./Views/images/12ログイン画像.png" Width="55" Height="55"/>
+                                        <TextBlock HorizontalAlignment="Center" Background="Transparent" ><Run x:Name="UserName" Background="Transparent" FontSize="11"
+                                Text="{Binding 担当者名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </RibbonGroup>
+
+                            <!--<RibbonGroup Header="Esc" FontSize="12" HorizontalAlignment="Right" Grid.Column="1">
+                                <Button Name="Esc" Click="WindowScreen" Background="Transparent" BorderBrush="Transparent">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                        <Image Source="./Views/images/Menu.png" Width="50" Height="35"/>
+                                        <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="11"><Run Text="画面サイズ"/></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </RibbonGroup>-->
+
+                            <!--<RibbonGroup Header="Insert" FontSize="12" HorizontalAlignment="Right" Grid.Column="1">
+                                <Button Name="Cfg" Click="CfgUpdateClicked" Background="Transparent" BorderBrush="Transparent">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                        <Image Source="./Views/images/Menu.png" Width="50" Height="55"/>
+                                        <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="11"><Run Text="画面保存"/></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </RibbonGroup>-->
+
+                            <RibbonGroup Header="Home" FontSize="12" HorizontalAlignment="Right" Grid.Column="2">
+                                <Button Name="Home" Click="HomeButtonClicked" Background="Transparent" BorderBrush="Transparent">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                        <Image Source="./Views/images/13共栄Webリンク.png" Width="55" Height="55"/>
+                                        <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="11"><Run Text="共栄ｼｽﾃﾑHP"/></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </RibbonGroup>
+
+                            <RibbonGroup Header="End" FontSize="12" HorizontalAlignment="Right" Grid.Column="3">
+                                <Button Name="LogOut" Click="ExitButtonClicked" Background="Transparent" BorderBrush="Transparent">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                        <Image Source="./Views/images/14ログアウト.png" Width="50" Height="55"/>
+                                        <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="11" ><Run Text="ログアウト" /></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </RibbonGroup>
+                        </Grid>
+                    </StackPanel>
+                </DockPanel>
+
+
+
+
+
+                <DockPanel DockPanel.Dock="Top" Margin="05" Height="60">
+                    <Label Width="100" Content="メモ" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Background="#3b5998" Foreground="White" FontSize="16"/>
+                    <TextBox Name="memo"  Width="auto" Background="AliceBlue" TextWrapping="Wrap" BorderBrush="Gray" Padding="5"
+                         AcceptsReturn="True" VerticalScrollBarVisibility="Visible"
+                         Text="{Binding メモ, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                </DockPanel>
+
+
+                <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
+                    <Grid Width="auto" Height="95">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="95"/>
+
+
+                        </Grid.RowDefinitions>
+
+                        <!--<Button Name="Menu1" Click="Tab1Click" Background="White" BorderThickness="0" BorderBrush="White" Grid.Column="0" KeyTipService.KeyTip="F1">
+                        <Image Source="./Views/images/Menu1.png" Height="45" Width="45" Grid.Row="0" Grid.Column="0"/>
+                    </Button>
+                    <Label  Background="White" Grid.Row="1" Grid.Column="0" Width="80" Height="25" HorizontalContentAlignment="Center" FontSize="11"
+                           Content="日次処理"/>-->
+
+                        <RibbonGroup Header="F1" FontSize="12" HorizontalAlignment="Center">
+                            <Button Name="Menu1" Click="Tab1Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost"  Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/01日次処理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="日次処理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F2" FontSize="12" Grid.Column="1" HorizontalAlignment="Center">
+                            <Button Name="Menu2" Click="Tab2Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/02随時処理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="随時処理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F3" FontSize="12" Grid.Column="2" HorizontalAlignment="Center">
+                            <Button Name="Menu3" Click="Tab3Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/03得意先管理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="得意先管理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F4" FontSize="12" Grid.Column="3" HorizontalAlignment="Center">
+                            <Button Name="Menu4" Click="Tab4Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/04支払先管理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="支払先管理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F5" FontSize="12" Grid.Column="4" HorizontalAlignment="Center">
+                            <Button Name="Menu5" Click="Tab5Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/05乗務員管理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="乗務員管理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F6" FontSize="12" Grid.Column="5" HorizontalAlignment="Center">
+                            <Button Name="Menu6" Click="Tab6Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/06車両管理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="車輌管理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F7" FontSize="12" Grid.Column="6" HorizontalAlignment="Center">
+                            <Button Name="Menu7" Click="Tab7Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/07車種管理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="車種管理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F8" FontSize="12" Grid.Column="7" HorizontalAlignment="Center">
+                            <Button Name="Menu8" Click="Tab8Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/08マスタ管理1.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="マスタ管理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F9" FontSize="12" Grid.Column="8" HorizontalAlignment="Center">
+                            <Button Name="Menu9" Click="Tab9Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/09マスタ管理2.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12" ><Run Text="マスタ管理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+
+                        <RibbonGroup Header="F10" FontSize="12" Grid.Column="9" HorizontalAlignment="Center"  >
+                            <Button Name="Menu10" Click="Tab10Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/10年次処理.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="年次処理" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+
+                        <RibbonGroup Header="F11" FontSize="12" Grid.Column="10" HorizontalAlignment="Center">
+                            <Button Name="Menu11" Click="Tab11Click" GotFocus="KeyboardChange" PreviewKeyDown="OnKeyDown" LostFocus="KeybordLost" Background="Transparent" BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <Image Source="./Views/images/11その他.png" Width="55" Height="55"/>
+                                    <TextBlock HorizontalAlignment="Center" Background="Transparent" FontSize="12"><Run Text="その他" /></TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </RibbonGroup>
+                    </Grid>
+                </StackPanel>
+
+                <Viewbox Width="auto" Height="auto" Stretch="Fill" StretchDirection="Both">
+
+                    <DockPanel DockPanel.Dock="Top" Margin="5" Height="480">
+                        <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal">
+                            <Grid Width="1109">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="6.5*"/>
+                                    <ColumnDefinition Width="3.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="480" Name="rowDefinition"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <TabControl DockPanel.Dock="Top" Background="AliceBlue">
+
+                                        <TabItem Name="Tab1" Header="日次処理" Visibility="Collapsed">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="DLY01010" Content="    1. 運転日報入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" KeyDown="OnKeyUP" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY01" Panel.ZIndex="10" DataContext="0" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
+                                                    <Button Name="DLY07010" Content="    4. 経費伝票入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY07" Panel.ZIndex="10" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}"  Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY19010" Content="    7. 運転作業日報印刷" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY19" Panel.ZIndex="10" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="DLY02010" Content="    2. 売上伝票入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" KeyDown="OnKeyUP" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY02"  Panel.ZIndex="10" DataContext="0" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY08010" Content="    5. 入金伝票入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY08" Panel.ZIndex="10" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY23010" Content="    8. 日別売上管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY23" Panel.ZIndex="10" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="DLY03010" Content="    3. 日報入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" KeyDown="OnKeyUP" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY03" Panel.ZIndex="10" DataContext="0" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY09010" Content="    6. 出金伝票入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY09"  Panel.ZIndex="10" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+                                            </Grid>
+                                        </TabItem>
+
+                                        <TabItem Name="Tab2" Header="随時処理" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="DLY10010" Content="    1. 売上明細問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY10" DataContext="1" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY13010" Content="    4. 運転日報明細問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY13" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY16010" Content="    7. 出金伝票問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY16" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="DLY11010" Content="    2. 支払明細問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" KeyDown="OnKeyUP" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY11" DataContext="1" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY14010" Content="    5. 経費明細問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY14" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="DLY12010" Content="    3. 乗務員・車輌明細問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY12" DataContext="1" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="DLY15010" Content="    6. 入金伝票問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_DLY15" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab3" Header="得意先管理" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="TKS01010" Content="    1. 請求書発行" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_6" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS05010"   Content="    4. 得意先集計処理" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS05" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS08010" Content="    7. 請求一覧表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS08" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS11010" Content="  10. 回収予定表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS11" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS18010" Content="  13. 部門別日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS18" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS21010" Content="  16. 部門別売上推移表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS21" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="TKS03010" Content ="    2. 得意先売上明細書" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS03" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS06010" Content="    5. 売上合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS06" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS09010" Content="    8. 得意先残高問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS09" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS12010" Content="  11. 取引先別管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS12" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS19010" Content="  14. 車輌別日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS19" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+                                                    <Button Name="TKS04010" Content="    3. 得意先売上日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_TKS04" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS07010"   Content="    6. 売上累計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS07" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS10010" Content="  9. 入金滞留管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS10" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS14010" Content="  12. 取引先別相殺管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS14" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="TKS20010" Content="  15. 得意先部門別売上管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_TKS20" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab4" Header="支払先管理" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+
+
+                                                    <Button Name="SHR02010" Content="    1. 支払先明細書" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_SHR02" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR04010" Content="    4. 支払先集計処理" MouseMove="ScreenChange"  GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR04" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR07010" Content="    7. 支払先残高問合せ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR07" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR13010" Content="  10. 取引先別相殺管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR13" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="SHR03010" Content ="    2. 支払経費明細書" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" KeyDown="OnKeyUP" Margin="5,10,5,5" Click="Button_Click_SHR03" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR05010" Content="    5. 支払合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR05" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR08010" Content="    8. 支払一覧表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR08" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR09010" Content="  11. 支払予定表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR09" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="SHR10010" Content="    3. 支払先支払日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_SHR10" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR06010" Content="    6. 支払累計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR06" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SHR12010" Content="    9. 取引先別管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SHR12" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab5" Header="乗務員管理"  Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="JMI01010" Content="    1. 乗務員出勤表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_JMI01" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI04010" Content="    4. 乗務員管理合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_JMI04" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI07010" Content="    7. 乗務員売上合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI07" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI10010" Content="  10. 乗務員集計処理" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Click="Button_Click_JMI10"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI13010" Content="  13. 乗務員収支合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI13" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="JMI02010" Content="    2. 乗務員管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_JMI02" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI05010" Content="    5. 乗務員売上明細書" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI05" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI08010" Content="    8. 乗務員状況履歴" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI08" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI11010" Content="  11. 乗務員月次経費入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI11" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="JMI03010" Content ="    3. 乗務員労務管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" KeyDown="OnKeyUP" Margin="5,10,5,5" Click="Button_Click_JMI03" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI06010" Content="    6. 乗務員売上日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI06" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI09010" Content="    9. 乗務員運転免許管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI09" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="JMI12010" Content="  12. 乗務員収支実績表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_JMI12" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab6"  Header="車輌管理" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="SRY01010"  Content="    1. 車輌管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="2" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_SRY01" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY05010" Content="    4. 車輌集計処理" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY05" FontSize="16" Height="45"  HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY08010" Content="    7. 車輌収支合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY08" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY14010" Content="   10. 輸送実績報告書" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY14" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY19010" Content="  13. 燃料消費量実績表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY19" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY21010" Content="  16. 車検予定管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY21" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+                                                    <Button Name="SRY02010" Content="    2. 車輌売上明細書" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="2" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_SRY02" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY06010" Content="    5. 車輌月次入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY06" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY09010" Content="    8. 車輌合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY09" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY23010" Content="  11. 付表作成" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY23" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY20010" Content="  14. 燃費管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY20" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY24010" Content="  17. 稼働日数管理表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY24" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="SRY03010" Content ="    3. 車輌別日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="2" Margin="5,10,5,5" Click="Button_Click_SRY03" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY07010" Content="    6. 車輌収支実績表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY07" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY10010" Content="    9. 車輌統計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY10" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY17010" Content="  12. 車輌管理台帳" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY17" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY22010" Content="  15. 車輌点検表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY22" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab7" Header="車種管理" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="SRY04010" Content="    1. 車種別日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="3" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_SRY04" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="SRY13010" Content="    4. 車種統計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_SRY13" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="SRY11010" Content="    2. 車種収支実績表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="3" Margin="5,10,5,5" Click="Button_Click_SRY11" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="SRY12010" Content="    3. 車種合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="3" Margin="5,10,5,5" Click="Button_Click_SRY12" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab8" Header="マスタ管理①" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="MST01010" Content="    1. 取引先マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="4" Margin="5,10,5,5" FontSize="16" Height="45"  Click="Button_Click_9" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST06010" Content="    4. 車輌マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_MST06" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST07010" Content="    7. 商品マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_07" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST19010" Content="  10. 得意先品名単価マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST19" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST18010" Content="  13. 得意先個建単価マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST18" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST22010" Content="  16. 支払先個建単価マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST22" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST32010" Content="  19. 車輌別売上予算マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST32" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="MST02010" Content="    2. 請求内訳マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="4" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_10" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST04010" Content="    5. 乗務員マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_4" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST09010" Content="    8. 経費項目マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST09" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST16010" Content="  11. 得意先車種単価マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST16" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST21010" Content="  14. 支払先品名単価マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST21" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST14010" Content="  17. 支払先軽油マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST14" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST33010" Content="  20. 部門別売上予算マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST33" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="MST03010" Content="    3. 発着地マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="4" Margin="5,10,5,5" Click="Button_Click_MST03" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST05010" Content="    6. 車種マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_05" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST08010" Content="    9. 摘要マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_08" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST17010" Content="  12. 独自タリフマスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST17" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST20010" Content="  15. 支払先車種単価マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST20" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST31010" Content="  18. 燃費目標マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST31" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+
+                                                </StackPanel>
+                                            </Grid>
+                                        </TabItem>
+
+                                        <TabItem Name="Tab9" Header="マスタ管理②" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+
+                                                    <Button Name="MST06030" Content="    1. 車輌固定費一括入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="5" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_MST0603" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST12010" Content="    4. 自社名マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST12" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST25010" Content="    7. 得意先月次集計Ｆ修正" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST25" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST29010" Content="  10. 規制マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST29" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="MST04020" Content="    2. 乗務員一括入力" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="5" Margin="5,10,5,5" Click="Button_Click_乗務員一括入力" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST13010" Content="    5. 消費税率マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST13" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST26010" Content="    8. 支払先月次集計Ｆ修正" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST26" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST30010" Content="  11. 基礎情報設定" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST30" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+                                                    <Button Name="MST10010" Content="    3. 自社部門マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="5" Margin="5,10,5,5" Click="Button_Click_MST10" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST23010" Content="    6. 担当者マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST23" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST28010" Content="    9. グリーン車種マスタ" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST28" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab10" Header="年次処理" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+                                                    <Button Name="NNG01010" Content="    1. 得意先月別合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_NNG01" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="NNG04010" Content="    4. 車輌月別合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_NNG04" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="NNG07010" Content="    7. 部門別売上日計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_NNG07" FontSize="16"  Height="45"  HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="NNG02010" Content="    2. 支払先月別合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_NNG02" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="NNG05010" Content="    5. 車種月別合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_NNG05" FontSize="16" Height="45"  HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="NNG08010" Content="    8. 部門月別合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_NNG08" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="NNG03010" Content ="    3. 乗務員月別合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" KeyDown="OnKeyUP" Margin="5,10,5,5" Click="Button_Click_NNG03" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="NNG06010" Content ="    6. 部門別売上合計表" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_NNG06" FontSize="16"  Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                        <TabItem Name="Tab11" Header="その他" Visibility="Collapsed">
+                                            <Grid>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0">
+                                                    <Button Name="MST90030" Content ="    1. マスタCSV一括出力" MouseMove="ScreenChange" GotFocus="KeyboardChange" KeyDown="OnKeyUP" LostFocus="KeybordLost" DataContext="6" Margin="5,10,5,5" FontSize="16" Height="45" Click="Button_Click_MST90030" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                    <Button Name="MST90010" Content="    4. 請求書レイアウト設定" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" Click="Button_Click_MST90010" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1">
+
+                                                    <Button Name="MST90020" Content="    2. マスタCSV取込" MouseMove="ScreenChange" KeyDown="OnKeyUP" GotFocus="KeyboardChange" LostFocus="KeybordLost" DataContext="6" Margin="5,10,5,5" Click="Button_Click_MST90090" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="2">
+
+                                                    <Button Name="MST90050" Content="    3. 伝票CSV取込" MouseMove="ScreenChange" KeyDown="OnKeyUP" GotFocus="KeyboardChange" LostFocus="KeybordLost" DataContext="6" Margin="5,10,5,5" Click="Button_Click_MST90050" FontSize="16" Height="45"  HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+
+                                                </StackPanel>
+                                            </Grid>
+
+                                        </TabItem>
+
+                                    </TabControl>
+
+                                </Grid>
+
+
+                                <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                    <DockPanel  Background="#3b5998" >
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Name="Lblお知らせ" Foreground="White" FontSize="15" FontFamily="tahoma" Content="{Binding メッセージ}" HorizontalAlignment="Right">
+                                                <Label.Triggers>
+                                                    <EventTrigger RoutedEvent="Label.Loaded">
+                                                        <BeginStoryboard>
+                                                            <Storyboard Name="StoryBd">
+                                                                <DoubleAnimation Name="MsgScllol"
+                                                                Storyboard.TargetName="Lblお知らせ" 
+                                                                Storyboard.TargetProperty="(Label.Width)" 
+                                                                From="0.0" To="1400.0" Duration="0:0:20" 
+                                                                RepeatBehavior="Forever" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </Grid>
+                                    </DockPanel>
+                                </Grid>
+
+                                <!-- ///////////////////////////////////////////////////////////////////    Grid   //////////////////////////////////////////////////////////////// -->
+                                <Grid Grid.Column="1" Margin="5,3,3,0">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="7*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Content="画面レイアウト" FontSize="15" Background="#3b5998" Foreground="White" />
+                                        <Label Name="ScreenName" Background="#3b5998" Foreground="White" FontSize="15" VerticalContentAlignment="Center" Grid.Column="1"/>
+                                        <!--<ctls:UcLabelTextBox Label_Visibility="Hidden" cBackground="#3b5998" Foreground="White" BorderThickness="0" Grid.Column="1" FontSize="16" Background="#3b5998"/>-->
+                                    </Grid>
+
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="47*"/>
+                                            <ColumnDefinition Width="123*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button BorderBrush="Black" BorderThickness="1" Background="Transparent" Focusable="False"  Width="auto" Height="auto" Grid.ColumnSpan="2" ToolTipService.ShowDuration="60000">
+                                            <Image Name="MineScreen" Source="{Binding ScreenImg}" Stretch="Uniform"/>
+                                            <Button.ToolTip>
+                                                <ToolTip>
+                                                  <Border>
+                                                    <StackPanel>
+                                                        <Image Name="Screen" Source="{Binding ScreenImg}" MaxHeight="600" MaxWidth="950" Stretch="Uniform"/>
+                                                    </StackPanel>
+                                                  </Border>
+                                                </ToolTip>
+                                            </Button.ToolTip>
+
+                                        </Button>
+                                    </Grid>
+
+                                    <Grid Grid.Row="2">
+                                        <Label Content="お知らせ" FontSize="15" Grid.Row="2" Background="#3b5998" Foreground="White"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="3">
+                                        <DataGrid Name="dgMain" Background="AliceBlue" Grid.Row="3" Height="auto"  HorizontalScrollBarVisibility="Visible" CanUserAddRows="False" RowHeaderWidth="0" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" HorizontalAlignment="Left"
+                                  ItemsSource="{Binding dtOshirase, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" >
+                                            <DataGrid.ColumnHeaderStyle>
+                                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                                    <Setter Property="Height" Value="25"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="BorderThickness" Value="0.5"/>
+                                                    <Setter Property="BorderBrush" Value="Black"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    <Setter x:Name="GridHeaderStye" Property="Background" Value="{StaticResource DataGridHeaderBackground}"/>
+                                                </Style>
+                                            </DataGrid.ColumnHeaderStyle>
+
+                                            <DataGrid.Columns>
+                                                <!--乗務員-->
+                                                <DataGridTemplateColumn Width="1*">
+                                                    <DataGridTemplateColumn.Header>
+                                                        <TextBlock Text="名　称" FontSize="15" Foreground="White" Background="Transparent" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </DataGridTemplateColumn.Header>
+
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding 名称}" FontSize="13" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <!--内容-->
+                                                <DataGridTemplateColumn Width="1*">
+                                                    <DataGridTemplateColumn.Header>
+                                                        <TextBlock Text="内  容" FontSize="15" Foreground="White" Background="Transparent" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </DataGridTemplateColumn.Header>
+
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding 内容}" FontSize="13"  Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <!--期限-->
+                                                <DataGridTemplateColumn Width="1*">
+                                                    <DataGridTemplateColumn.Header>
+                                                        <TextBlock Text="期  限" FontSize="15" Foreground="White" Background="Transparent" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </DataGridTemplateColumn.Header>
+
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding 期限, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, StringFormat=yyyy/MM/dd}" 
+                                                             FontSize="13" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            />
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </DockPanel>
+                </Viewbox>
+            </DockPanel>
+            
+
+        </Grid>
+    </DockPanel>
+    <!--</Viewbox>-->
+</fw:WindowGeneralBase>
+ 

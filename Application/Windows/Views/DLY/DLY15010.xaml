@@ -1,0 +1,451 @@
+﻿<fw:RibbonWindowViewBase
+        xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+        xmlns:Controls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        x:Class="KyoeiSystem.Application.Windows.Views.DLY15010"
+        mc:Ignorable="d" d:DesignWidth="300" Loaded="MainWindow_Loaded_1" Closed="Window_Closed" Closing="Window_Closing"
+ 		WindowStyle="SingleBorderWindow" AllowsTransparency="False"
+		Title="入金伝票問合せ(DLY15010)" MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
+        Language="ja-JP"
+        >
+
+    <Window.Resources>
+        <!-- 昇順降順指定用ボタンのスタイル -->
+        <ControlTemplate x:Key="buttonTemplate" TargetType="ToggleButton">
+            <Border Name="border" BorderThickness="0" BorderBrush="Transparent">
+                <Border.Background>
+                    <ImageBrush ImageSource="../Images/昇順.png" />
+                </Border.Background>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="border" Property="Background" >
+                        <Setter.Value>
+                            <ImageBrush ImageSource="../Images/降順.png" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="82"/>
+        </Grid.RowDefinitions>
+
+        <!--リボン-->
+        <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+            <!--タブ-->
+            <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+                <RibbonGroup Width="90" >
+                    <!-- 処理モード表示用に空けておく -->
+                </RibbonGroup>
+
+                <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,0,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/18詳細表示.png" Click="RibbonButton_Click" KeyTip="F4" Height="50"
+								  Label="詳細表示" ToolTipTitle="詳細表示(F4)" ToolTipDescription="運転日報入力画面を表示します"  ToolTipImageSource="../Images/18詳細表示.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/19CSV出力.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
+								  Label="CSV出力" ToolTipTitle="CSV出力(F5)" ToolTipDescription="CSVファイルに出力します"  ToolTipImageSource="../Images/19CSV出力.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/23印刷.png" Click="RibbonButton_Click" KeyTip="F8" Height="50"
+								  Label="印刷" ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します"  ToolTipImageSource="../Images/23印刷.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+								  Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+            </RibbonTab>
+
+            <RibbonTab Header="ヘルプ" Background="Gray">
+                <RibbonGroup Header="サポート">
+                    <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+								  Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
+                    <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+								  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+                    <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+								  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+								  Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <Grid Grid.Row="0" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="74"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- 編集モード領域  -->
+            <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+                 Background="{Binding MaintenanceModeBackground}">
+                <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+               FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
+               HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            </DockPanel>
+            <!-- エラーメッセージ領域 -->
+            <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+        </Grid>
+
+        <!--ヘッダー-->
+        <Border Name="Header" BorderBrush="Black" Grid.Row="1" BorderThickness="1" Grid.Column="0" Margin="10,10,10,5" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width=".78*"/>
+                            <ColumnDefinition Width="1"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid x:Name="HyoujiGrid" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="640" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MinWidth="2" Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MinWidth="2" Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MinWidth="2" Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MinWidth="2" Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MinWidth="2" Width="auto"/>
+
+                            </Grid.ColumnDefinitions>
+                            <ctls:UcLabel Grid.Column="0" cContent="表示順序指定" />
+
+                            <ctls:UcLabelComboBox Grid.Column="1" x:Name="cmb表示順指定0" Label_Visibility="Collapsed"
+          			ComboListingParams="日次,入金伝票入力,表示順序"
+          			Text="{Binding 表示順名[0], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			SelectedValue="{Binding 表示順[0], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionChanged="cmb表示順指定_SelectionChanged"
+                                />
+
+                            <ToggleButton Grid.Column="2" Width="28" Margin="1" Template="{StaticResource buttonTemplate}"
+          			IsChecked="{Binding 表示順方向[0], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			Click="SortButton_Click"/>
+
+                            <ctls:UcLabelComboBox Grid.Column="3" x:Name="cmb表示順指定1" Label_Visibility="Collapsed"
+          			ComboListingParams="日次,入金伝票入力,表示順序"
+          			Text="{Binding 表示順名[1], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			SelectedValue="{Binding 表示順[1], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionChanged="cmb表示順指定_SelectionChanged"
+                                />
+                            <ToggleButton Grid.Column="4" Width="28" Margin="1" Template="{StaticResource buttonTemplate}"
+          			IsChecked="{Binding 表示順方向[1], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			Click="SortButton_Click"/>
+
+                            <ctls:UcLabelComboBox Grid.Column="5" x:Name="cmb表示順指定2" Label_Visibility="Collapsed"
+          			ComboListingParams="日次,入金伝票入力,表示順序"
+          			Text="{Binding 表示順名[2], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			SelectedValue="{Binding 表示順[2], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionChanged="cmb表示順指定_SelectionChanged"
+                                />
+                            <ToggleButton Grid.Column="6" Width="28" Margin="1" Template="{StaticResource buttonTemplate}"
+          			IsChecked="{Binding 表示順方向[2], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			Click="SortButton_Click"/>
+
+                            <ctls:UcLabelComboBox Grid.Column="7" x:Name="cmb表示順指定3" Label_Visibility="Collapsed" 
+          			ComboListingParams="日次,入金伝票入力,表示順序"
+          			Text="{Binding 表示順名[3], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			SelectedValue="{Binding 表示順[3], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionChanged="cmb表示順指定_SelectionChanged"
+                                />
+                            <ToggleButton Grid.Column="8" Width="28" Margin="1" Template="{StaticResource buttonTemplate}"
+          			IsChecked="{Binding 表示順方向[3], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			Click="SortButton_Click"/>
+
+                            <ctls:UcLabelComboBox Grid.Column="9" x:Name="cmb表示順指定4" Label_Visibility="Collapsed" 
+          			ComboListingParams="日次,入金伝票入力,表示順序"
+          			Text="{Binding 表示順名[4], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			SelectedValue="{Binding 表示順[4], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                SelectionChanged="cmb表示順指定_SelectionChanged"
+                                />
+                            <ToggleButton Grid.Column="10" Width="28" Margin="1" Template="{StaticResource buttonTemplate}"
+          			IsChecked="{Binding 表示順方向[4], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+          			Click="SortButton_Click"/>
+
+                        </Grid>
+
+                        <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="28"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                              </Grid.ColumnDefinitions>
+
+                            <ctls:UcLabel LabelText="検索日付"/>
+                            <ctls:UcLabelComboBox x:Name="c日付区分" Label_Visibility="Collapsed" Grid.Column="1" Grid.Row="0" Margin="1"
+            		                ComboListingParams="日次,入金伝票入力,日付区分"
+            		                SelectedValue="{Binding 日付区分Combo, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <ctls:UcTextBox Grid.Column="2" Name="TekiyouDay1"
+            		                ValidationType="Date" Mask="yyyy/MM/dd"
+            		                Text="{Binding 適用開始日From, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+                            />
+
+                            <ctls:UcLabel LabelText="～" cBackground="Transparent" cForeground="Black" Grid.Column="3"/>
+                            
+                            <ctls:UcTextBox Name="TekiyouDay2" Grid.Column="4" ValidationType="Date" Mask="yyyy/MM/dd"
+            		Text="{Binding 適用開始日To, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+                            />
+                          
+              <ctls:UcLabelComboBox x:Name="c入金区分" Label_Visibility="Collapsed" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="0" Margin="5,0,0,0"
+            		                ComboListingParams="日次,入金伝票入力,入金区分"
+            		                SelectedValue="{Binding 入金区分Combo, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </Grid>
+                        <ctls:UcLabelTwinTextBox Name="T指定" Label_Context="得意先指定" Label_Width="80" Grid.Column="1" Grid.Row="2" Margin="1"  Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+          		Text1Width="80" DataAccessName="M01_TOK_TOKU_SCH" OutputColumnName="得意先名１" Text1MaxLength="8" 
+                                                 PreviewKeyDown="KensakuBtnFocus" Text1TextAlignment="Right" Text2IsReadOnly="True"
+          		Text1="{Binding 得意先ID, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
+                Text2="{Binding 得意先名, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                 />
+
+                        <!--検索ボタン-->
+                        <Button Name="btnKensaku" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Click="Button_Click_1" Margin="40,0,0,0">
+                            <Image Source="../Images/検索実行ボタン.png" Stretch="Fill"/>
+                        </Button>
+
+                        <Grid Grid.Column="1" Grid.Row="7"  Grid.ColumnSpan="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                        </Grid>
+
+                        <Grid Grid.Column="4" Grid.Row="0" Grid.RowSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Content="表示項目位置リセット" Width="140"
+                      Focusable="False"
+                      Click="ColumnResert_Click" Height="30" VerticalAlignment="Bottom"/>
+                            <ctls:UcLabelTextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Width="140"
+                                   Focusable="False" ValidationType="Integer" MinValue="1" MaxValue="32" cMaxLength="3"
+                                   Label_Context="表示固定列数"
+                                   Text="{Binding 表示固定列数, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                   />
+                        </Grid>
+
+                    </Grid>
+
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Expander Name="ExpSyousai" Header="＜検索条件詳細＞" Focusable="False"
+                    IsExpanded="{Binding IsExpanded, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                    >
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="400"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+              <ctls:UcLabelTwinTextBox Name="txtbox担当者指定" Grid.Row="0" Label_Context="担当者指定" Label_Width="80" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+              	            Text1Width="80" DataAccessName="M72_TNT" OutputColumnName="担当者名" Text1MaxLength="8" LinkItem="2" Margin="5,0,0,0" Text1TextAlignment="Right" Text2IsReadOnly="False"
+              	            Text1="{Binding 担当者ID, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+
+
+              <ctls:UcLabelTwinTextBox Name="txtbox摘要指定" Grid.Row="1" Label_Context="摘要指定" Margin="5,0,0,0" Text1MaxLength="9" Text1IMEType="Native"
+                            Label_Width="80" Text1Width="313" Label1Visibility="Collapsed" Label2Visibility="Collapsed" Text2IsReadOnly="True"
+              	            Text1="{Binding 摘要指定, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                            PreviewKeyDown="LastField_PreviewKeyDown"
+                                       />
+
+            </Grid>
+                    </Expander>
+                </Grid>
+            </Grid>
+        </Border>
+        <!--Main-->
+        <Grid Grid.Row="2" Background="White">
+            <sg:GcSpreadGrid Name="sp入金明細データ" Margin="10,5,10,1"
+                    ItemsSource="{Binding 売上明細データ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    AutoGenerateColumns="False"  HighlightHeader="None" LayoutMode="Cell" ColumnCount="9" RowCount="1"
+                    CanUserSortColumns="False" ColumnDragMode="Direct" Protected="True" CanUserFilterColumns="true"
+                    CellEnter="sp入金明細データ_CellEnter" CellEditEnding="sp入金明細データ_CellEditEnding" CellEditEnded="sp入金明細データ_CellEditEnded" PreviewKeyDown="sp入金明細データ_PreviewKeyDown"
+                    CellBeginEdit="sp入金明細データ_CellBeginEdit"	EditElementShowing="sp入金明細データ_EditElementShowing"	RowCollectionChanged="sp入金明細データ_RowCollectionChanged"
+                    DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY15010G1.sgxml" Grid.ColumnSpan="2"
+                    >
+
+                <sg:GcSpreadGrid.Columns>
+                    <sg:Column Focusable="False">
+                        <sg:Column.CellType>
+                            <sg:ButtonCellType Content="詳細" />
+                        </sg:Column.CellType>
+                    </sg:Column>
+                    <sg:Column Locked="True" Focusable="False">
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 入金日付}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column Locked="True" Focusable="False">
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 得意先名}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column Locked="True" Focusable="False">
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 入金区分}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column HorizontalAlignment="Right">
+                        <sg:Column.CellType>
+                            <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 入金金額}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column>
+                        <sg:Column.CellType>
+                            <sg:TextCellType MaxLength="30" MaxLengthUnit="Byte" ImeState="On"/>
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 摘要名}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column Locked="True" Focusable="False">
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 手形日付}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column Locked="True" Focusable="False">
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 明細番号}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column Locked="True" Focusable="False">
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 明細行}"/>
+                        </sg:Column.DataField>
+                    </sg:Column>
+                </sg:GcSpreadGrid.Columns>
+            </sg:GcSpreadGrid>
+
+            <!--<Grid Grid.Column="0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>-->
+
+            <!--<StackPanel Orientation="Vertical">
+                    <ctls:UcLabel cContent="入金予定額" cWidth="100"/>
+                    <TextBox Text ="{Binding 入金予定額, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="2">
+                    <ctls:UcLabel cContent="既入金額" cWidth="100"/>
+                    <TextBox Text ="{Binding 既入金額, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="3">
+                    <ctls:UcLabel cContent="出金相殺" cWidth="100"/>
+                    <TextBox Text ="{Binding 出金相殺, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="4">
+                    <ctls:UcLabel cContent="入金合計" cWidth="100"/>
+                    <TextBox Text ="{Binding 入金合計, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                </StackPanel>-->
+            <!--</Grid>-->
+
+
+        </Grid>
+        <!--フッター-->
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="3" Margin="10" Grid.ColumnSpan="2">
+            <Grid Background="AliceBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ctls:UcLabelTextBox Label_Context="入金合計" Grid.Column="4" Label_Width="80"  Height="30" IsEnabled="False" cTextAlignment="Right"
+                                     Text ="{Binding 入金合計, StringFormat='#,0', Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</fw:RibbonWindowViewBase>

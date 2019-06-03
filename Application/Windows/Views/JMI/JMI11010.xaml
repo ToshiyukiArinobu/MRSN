@@ -1,0 +1,539 @@
+﻿<fw:WindowMasterMainteBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+  x:Class="KyoeiSystem.Application.Windows.Views.JMI11010"
+  Language="ja-JP"
+ 		  WindowStyle="SingleBorderWindow" AllowsTransparency="False" Loaded="Window_Loaded_1" Closed="MainWindow_Closed"
+		Title="乗務員月次経費入力(JMI11010)" MinHeight="728" MinWidth="1024" Height="768" Width="1024"   WindowStartupLocation="CenterOwner" Left="0" Top="0"
+		>
+    <Window.Resources>
+        <!-- DataGridのHeader背景色 -->
+        <LinearGradientBrush x:Key="DataGridHeaderBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#5383c3" Offset="0"/>
+            <GradientStop Color="#4c6cd3" Offset=".5"/>
+            <GradientStop Color="#3e62ad" Offset=".5"/>
+            <GradientStop Color="#507ea4" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--リボン-->
+        <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+            <!--タブ-->
+            <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+                <RibbonGroup Width="90" >
+                    <!-- 処理モード表示用に空けておく -->
+                </RibbonGroup>
+
+                <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,-1,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/16マスタ入力.png" Label="入力" Click="RibbonButton_Click" KeyTip="F2" Height="50"
+                                  ToolTipTitle="マスタ入力(F2)" ToolTipDescription="マスタの入力画面を開きます"  ToolTipImageSource="../Images/16マスタ入力.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton  Click="RibbonButton_Click" KeyTip="F8" Visibility="Hidden"
+								  Label="リスト" ToolTipTitle="リスト一覧(F8)" ToolTipDescription="リストを表示します"  ToolTipImageSource="../Images/22リスト.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                        Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+								  Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+								  Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+								  Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+                        Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+								  Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="入力を削除します" ToolTipImageSource="../Images/28削除.png"/>
+                </RibbonGroup>
+
+            </RibbonTab>
+
+            <RibbonTab Header="ヘルプ" Background="Gray">
+                <RibbonGroup Header="サポート">
+                    <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+								  Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
+                    <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+								  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+                    <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+								  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+								  Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"/>
+                </RibbonGroup>
+            </RibbonTab>
+
+            <RibbonTab Header="実施状況入力" Background="Gray" ContextualTabGroupHeader="入力補助" >
+                <RibbonGroup Header="従来ファンクションキー">
+                    <RibbonButton LargeImageSource="../Images/16マスタ入力.png" KeyTip="d"
+									  Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/16マスタ入力.png"/>
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="マスタ登録" ToolTipTitle="伝票登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="一括入力" Background="Gray" ContextualTabGroupHeader="入力補助">
+                <RibbonGroup Header="従来ファンクションキー">
+                    <RibbonButton LargeImageSource="../Images/22リスト.png" KeyTip="d"
+									  Label="プレビュー" ToolTipTitle="プレビュー(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/22リスト.png"/>
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="印刷" ToolTipTitle="印刷(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+								  Label="マスタ登録" ToolTipTitle="マスタ登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <Grid Grid.Row="0" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="74"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- 編集モード領域  -->
+            <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+                 Background="{Binding MaintenanceModeBackground}">
+
+                <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+               FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
+               HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            </DockPanel>
+
+            <!-- エラーメッセージ領域 -->
+            <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+        </Grid>
+
+        <!--ヘッダー-->
+        <Border Grid.Row="1" BorderBrush="#2792c3" BorderThickness="1" Margin="5" Background="AliceBlue">
+            <Grid Margin="15,10,15,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="100*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="33"/>
+                        <RowDefinition Height="36"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="254"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Row="0">
+
+                        <WrapPanel>
+                            <ctls:UcLabelTwinTextBox Name="LabelTextShiharaiId" Label_Context="乗務員名" Label_Width="100"  Grid.Row ="0" Label1Visibility="Collapsed"  Label2Visibility="Collapsed"
+                            Text1Width="100" Text2Width="200" OutputColumnName="乗務員名" Margin="0,2,2,2" Text1MaxLength="7" MasterCheckEnabled="True"
+                            DataAccessName="M04_DRV"
+                            Text1="{Binding Path=乗務員ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                            IsRequired="True" Text1ValidationType="Integer" IsKeyItem="True"
+                              />
+
+                        </WrapPanel>
+
+                        <!--     ImeType="Native" -->
+
+                        <!--<Grid Grid.Row="0" Grid.Column="1">-->
+                        <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>-->
+                        <!--経費先だけの前次ボタン
+                        <Button Name="FistIdButton" Grid.Row="2" Grid.Column="0" Content="≪" Margin="2,2,2,2" Width="30" Click="FistIdButton_Click"  Focusable="False" />
+                        <Button Name="BeforeIdButton" Grid.Row="2" Grid.Column="1" Content="＜" Margin="0,2,2,2"  Width="30" Click="BeforeIdButton_Click" Focusable="False"/>
+                        <Button Name="NextIdButton" Grid.Row="2" Grid.Column="2" Content="＞" Margin="2"  Width="30" Click="NextIdButton_Click" Focusable="False"/>
+                        <Button Name="LastIdButoon" Grid.Row="2" Grid.Column="3" Content="≫" Margin="0,2,0,2" Width="30" Click="LastIdButoon_Click" Focusable="False"/>
+                        -->
+                        <!--</Grid>-->
+                    </Grid>
+
+                    <Label  Content="変動費は経費入力処理で行ってください。" Grid.Row="0" Grid.Column="2"  Margin="0,5,0,0" FontSize="15"  HorizontalContentAlignment="Left" 
+                                     Foreground="Tomato" BorderBrush="Black" />
+
+                    <Grid Grid.Row="1">
+
+                        <WrapPanel>
+                            <ctls:UcLabelTextBox  Name="txtboxdate" Label_Context="処理年月" Label_Width="100"  cWidth="120" Grid.Row="1" Margin="0,2,2,2"
+                                          cMaxLength="8" ValidationType="DateYYYYMM" Mask="yyyy/MM"
+                                         Text="{Binding Path=処理年月, StringFormat=yyyy/MM, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         ImeType="Off" IsKeyItem="True" IsRequired="True"
+                                         LostFocus="UcLabelTextBox_PreviewKeyDown"
+                                     />
+                            <!--<ctls:UcLabelTextBox  Name="txtboxdate" Label_Context="適用開始年月日" Label_Width="100"  cWidth="150" Grid.Row="1" Margin="0,2,2,2"
+                                          cValidationType="Date" Mask="yyyy/MM/dd" cMaxLength="10"
+                                         DataAccessName="M91_OTAN"
+                                         Text="{Binding Path=適用開始年月日, StringFormat=yyyy/MM/dd, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=Explicit}"
+                                         ImeType="Off" IsKeyItem="True" IsRequired="True"
+                                         PreviewKeyDown="UcLabelTextBox_PreviewKeyDown"
+                                     />-->
+                        </WrapPanel>
+
+                    </Grid>
+
+                    <WrapPanel Grid.Row="1" Grid.Column="2">
+                        <Label  Content="運送収入 (A)" Grid.Row="5" Grid.Column="6" Margin="0,3,0,3" FontSize="16" Width="185" HorizontalContentAlignment="Center" 
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+                        <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="3" Grid.Column="7" Width="118" Margin="0,3,3,3"
+                                         ValidationType="Integer" MaxValue="9999999999" MinValue="-9999999999" ImeType="Off"  PreviewKeyDown="KOUSHIN_KeyDown" cTextAlignment="Right"
+                                         Text="{Binding rowS01[運送収入], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    </WrapPanel>
+
+                </Grid>
+
+
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="250*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="250*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="250*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label  Content="変　動　費" Grid.Row="0" Grid.Column="1" Margin="1,1,1,1" FontSize="16"  HorizontalContentAlignment="Center"
+                            BorderThickness="1" Foreground="White" BorderBrush="Black" >
+                        <Label.Background>
+                            <RadialGradientBrush>
+                                <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="0"/>
+                                <GradientStop Color="{DynamicResource ControlMouseOverColor}" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Label.Background>
+                    </Label>
+                    <Label  Content="人　件　費" Grid.Row="0" Grid.Column="3" Margin="1,1,1,1" FontSize="16"  HorizontalContentAlignment="Center"
+                            BorderThickness="1" Foreground="White" BorderBrush="Black" >
+                        <Label.Background>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF7381F9" Offset="0"/>
+                                <GradientStop Color="#FF663366" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Label.Background>
+                    </Label>
+                    <Label  Content="固　定　経　費" Grid.Row="0" Grid.Column="5" Margin="1,1,1,1" FontSize="16"  HorizontalContentAlignment="Center"
+                            BorderThickness="1" Foreground="White" BorderBrush="Black" >
+                        <Label.Background>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF7381F9" Offset="0"/>
+                                <GradientStop Color="#FF663366" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Label.Background>
+                    </Label>
+
+                    <!--変動費-->
+                    <sg:GcSpreadGrid Name="sp変動費" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="1"
+                                     HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" LayoutMode="Cell"
+                             ItemsSource="{Binding rowHendoData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                             AutoGenerateColumns="False" ColumnDragMode="Direct" CellEditEnded="KOUSHIN_KeyDown"
+                             DocumentUri="/KyoeiSystem.Application.Windows;component/views/JMI/JMI11010_1.sgxml" 
+                             >
+                        <sg:GcSpreadGrid.Columns>
+                            <sg:Column  Locked="True" Focusable="False">
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 経費項目名}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+
+                            <sg:Column HorizontalAlignment="Right">
+                                <sg:Column.CellType>
+                                    <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                                </sg:Column.CellType>
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 金額}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+                            
+                            <sg:Column  Locked="True" IsVisible="False">
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 固定変動区分}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+
+                        </sg:GcSpreadGrid.Columns>
+                    </sg:GcSpreadGrid>
+
+
+
+                    <!--人件費-->
+                    <sg:GcSpreadGrid Name="sp人件費" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Row="1" Grid.Column="3" 
+                                    HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  LayoutMode="Cell"
+                             ItemsSource="{Binding rowJinkenData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                             AutoGenerateColumns="False" ColumnDragMode="Direct" CellEditEnded="KOUSHIN_KeyDown"
+                             DocumentUri="/KyoeiSystem.Application.Windows;component/views/JMI/JMI11010_1.sgxml" 
+                             >
+                        <sg:GcSpreadGrid.Columns>
+                            <sg:Column  Locked="True" Focusable="False">
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 経費項目名}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+
+                            <sg:Column HorizontalAlignment="Right">
+                                <sg:Column.CellType>
+                                    <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                                </sg:Column.CellType>
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 金額}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+
+                            <sg:Column  Locked="True" IsVisible="False">
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 固定変動区分}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+                        </sg:GcSpreadGrid.Columns>
+                    </sg:GcSpreadGrid>
+
+
+                    <!--固定経費-->
+                    <sg:GcSpreadGrid Name="sp固定経" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Row="1" Grid.Column="5" 
+                                    HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                             ItemsSource="{Binding rowKoteiData, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                             AutoGenerateColumns="False" ColumnDragMode="Direct" CellEditEnded="KOUSHIN_KeyDown"
+                             DocumentUri="/KyoeiSystem.Application.Windows;component/views/JMI/JMI11010_1.sgxml" 
+                             >
+                        <sg:GcSpreadGrid.Columns>
+                            <sg:Column Focusable="False" Locked="True" >
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 経費項目名}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+                            <sg:Column HorizontalAlignment="Right">
+                                <sg:Column.CellType>
+                                    <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                                </sg:Column.CellType>
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 金額}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+
+                            <sg:Column  Locked="True" IsVisible="False">
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding 固定変動区分}"/>
+                                </sg:Column.DataField>
+                            </sg:Column>
+                        </sg:GcSpreadGrid.Columns>
+                    </sg:GcSpreadGrid>
+
+                    <WrapPanel Grid.Row="2" Grid.Column="1" Margin="0,5,0,0">
+                        <Label  Content="小 計 (B)"  Margin="0,0,0,0" FontSize="16" HorizontalContentAlignment="Center" Width="180"
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+
+                        <ctls:UcTextBox  cHorizontalContentAlignment="Right" Width="124"  Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" cTextAlignment="Right"
+                                         Text="{Binding Path=小計B, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                                         />
+                    </WrapPanel>
+
+                    <WrapPanel Grid.Row="2" Grid.Column="3" Margin="0,5,0,0">
+                        <Label  Content="小 計 (C)"  Margin="0,0,0,0" FontSize="16"  HorizontalContentAlignment="Center" Width="180"
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+
+                        <ctls:UcTextBox  cHorizontalContentAlignment="Right" cWidth="124" Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" cTextAlignment="Right"
+                                         Text="{Binding Path=小計C, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    </WrapPanel>
+
+                    <WrapPanel Grid.Row="2" Grid.Column="5" Margin="0,5,0,0">
+                        <Label  Content="小 計 (D)"  Margin="0,0,0,0" FontSize="16"  HorizontalContentAlignment="Center" Width="180"
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+
+                        <ctls:UcTextBox  cHorizontalContentAlignment="Right" cWidth="124" Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" cTextAlignment="Right"
+                                         Text="{Binding Path=小計D, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    </WrapPanel>
+
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="12*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="115" />
+                        <ColumnDefinition Width="80*" />
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="60*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="60*" />
+                        <ColumnDefinition Width="110*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label  Content="限界利益 A-B" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" FontSize="16"  HorizontalContentAlignment="Center"
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="1" Grid.Column="2" Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" cTextAlignment="Right"
+                                         Text="{Binding Path=限界利益, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <Label  Content="乗務員直接費合計 C+D" Grid.Row="2" Grid.Column="1" Margin="0,0,0,0" FontSize="16"  HorizontalContentAlignment="Center" 
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="2" Grid.Column="2" Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" cTextAlignment="Right"
+                                         Text="{Binding Path=乗務員直接費合計, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <Label  Content="直接利益 A-B-C-D" Grid.Row="3" Grid.Column="1" Margin="0,0,0,0" FontSize="16"  HorizontalContentAlignment="Center"
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="3" Grid.Column="2" Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" cTextAlignment="Right" 
+                                         Text="{Binding Path=直接利益, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <Label  Content="一般管理費" Grid.Row="4" Grid.Column="1" Margin="0,0,0,0" FontSize="16"  HorizontalContentAlignment="Center"
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="CornflowerBlue" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="4" Grid.Column="2" cIsReadOnly="False" cTextAlignment="Right"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" PreviewKeyDown="KOUSHIN_KeyDown"
+                                         Text="{Binding rowS01[一般管理費], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <Label  Content="当月利益" Grid.Row="5" Grid.Column="1" Margin="0,0,0,0" FontSize="16"  HorizontalContentAlignment="Center" 
+                                BorderThickness="1" Foreground="White" BorderBrush="Black" Background="Tomato" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="5" Grid.Column="2" Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedInteger"  cMaxLength="10" ImeType="Off" cTextAlignment="Right"
+                                         Text="{Binding Path=当月利益, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="5" Grid.Column="3" Focusable="False" cIsReadOnly="True"
+                                         ValidationType="SignedNumber"  cMaxLength="10" ImeType="Off" cTextAlignment="Right"
+                                         Text="{Binding Path=当月利益率, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <Label  Content="％" Grid.Row="5" Grid.Column="4" Margin="0,5,0,0" FontSize="16"  HorizontalContentAlignment="Center" 
+                                 Foreground="Black" BorderBrush="Black"  />
+
+
+                    <Label  Content="（青い字は固定費です。）" Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3" Margin="0,5,0,0" FontSize="15"  HorizontalContentAlignment="Left" 
+                                 Foreground="Blue" BorderBrush="Black"  />
+                    <Label  Content="稼動日数" Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" Margin="0,3,0,0" FontSize="15"  HorizontalContentAlignment="Center"
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="2" Grid.Column="7" Margin="0,3,3,0" cTextAlignment="Right"
+                                         ValidationType="Integer"  ImeType="Off" PreviewKeyDown="KOUSHIN_KeyDown" MaxValue="31" MinValue="0"
+                                         Text="{Binding rowS01[稼動日数], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <Label  Content="走行" Grid.Row="3" Grid.Column="5" Grid.RowSpan="3" Margin="0,3,3,0" FontSize="15"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <Label  Content="実車KM" Grid.Row="3" Grid.Column="6" Margin="0,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" 
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <Label  Content="空車KM" Grid.Row="4" Grid.Column="6" Margin="0,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" 
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <Label  Content="走行KM" Grid.Row="5" Grid.Column="6" Margin="0,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" 
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="3" Grid.Column="7" Margin="0,3,3,0" cTextAlignment="Right"
+                                         ValidationType="SignedInteger"  ImeType="Off" PreviewKeyDown="KOUSHIN_KeyDown" MaxValue="999999999" MinValue="-999999999"
+                                         Text="{Binding rowS01[実車ＫＭ], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="4" Grid.Column="7" Margin="0,3,3,0"  Focusable="False" cIsReadOnly="True" cTextAlignment="Right"
+                                         ValidationType="SignedInteger"  ImeType="Off" PreviewKeyDown="KOUSHIN_KeyDown" MaxValue="999999999" MinValue="-999999999"
+                                         Text="{Binding Path=空車ＫＭ, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="5" Grid.Column="7" Margin="0,3,3,0" cTextAlignment="Right"
+                                         ValidationType="SignedInteger" ImeType="Off" PreviewKeyDown="KOUSHIN_KeyDown" MaxValue="999999999" MinValue="-999999999"
+                                         Text="{Binding rowS01[走行ＫＭ], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+
+                    <Label  Content="燃料" Grid.Row="2" Grid.Column="8" Grid.RowSpan="2" Margin="3,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <Label  Content="消費量(L)" Grid.Row="2" Grid.Column="9" Margin="3,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <Label  Content="1L当たり走行" Grid.Row="3" Grid.Column="9" Margin="3,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <Label  Content="1KM当たり収入" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="2" Margin="3,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <Label  Content="1KM当たり輸送原価" Grid.Row="5" Grid.Column="8" Grid.ColumnSpan="2" Margin="3,3,0,0" FontSize="15"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                BorderThickness="1" Foreground="Black" BorderBrush="Black" Background="Moccasin" />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="2" Grid.Column="10" Margin="0,3,3,0" cTextAlignment="Right"
+                                         ValidationType="Decimal" ImeType="Off" PreviewKeyDown="KOUSHIN_KeyDown" MaxValue="999999999.9" MinValue="-999999999.9"
+                                         Text="{Binding rowS01[燃料Ｌ], StringFormat='#,0.0',  Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="3" Grid.Column="10" Margin="0,3,3,0" Focusable="False" cIsReadOnly="True" cTextAlignment="Right" 
+                                         ValidationType="Decimal"  ImeType="Off" PreviewKeyDown="KOUSHIN_KeyDown" MaxValue="999999999" MinValue="-999999999"
+                                         Text="{Binding Path=燃費, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="4" Grid.Column="10" Margin="0,3,3,0" Focusable="False" cIsReadOnly="True" cTextAlignment="Right"
+                                         ValidationType="SignedInteger"  ImeType="Off"  MaxValue="999999999" MinValue="-999999999"
+                                         Text="{Binding Path=収入, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                    <ctls:UcTextBox  cHorizontalContentAlignment="Right" Grid.Row="5" Grid.Column="10" Margin="0,3,3,0" Focusable="False" cIsReadOnly="True" cTextAlignment="Right"
+                                         ValidationType="SignedInteger"  ImeType="Off" MaxValue="999999999" MinValue="-999999999"
+                                         Text="{Binding Path=輸送原価, StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                </Grid>
+
+            </Grid>
+
+
+        </Border>
+    </Grid>
+</fw:WindowMasterMainteBase>
+  
+  

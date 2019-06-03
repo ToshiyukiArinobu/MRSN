@@ -1,0 +1,856 @@
+﻿<fw:WindowMasterMainteBase
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+    xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+  xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
+  xmlns:Data="clr-namespace:System.Data;assembly=System.Data"
+  x:Class="KyoeiSystem.Application.Windows.Views.MST06010"
+        mc:Ignorable="d" d:DesignWidth="300" Closed="MainWindow_Closed"
+ 		  AllowsTransparency="False"
+		Title="車輌マスタ入力(MST06010)" MinHeight="728" MinWidth="1024" Height="750" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
+  Loaded="RibbonWindow_Loaded" >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--リボン-->
+        <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+            <!--タブ-->
+            <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+                <RibbonGroup Width="90" >
+                    <!-- 処理モード表示用に空けておく -->
+                </RibbonGroup>
+
+                <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,-1,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/16マスタ入力.png" Label="ﾏｽﾀ入力" Click="RibbonButton_Click" KeyTip="F2" Height="50"
+                                  ToolTipTitle="マスタ入力(F2)" ToolTipDescription="マスタの入力画面を開きます"  ToolTipImageSource="../Images/16マスタ入力.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/21社員台帳.png" Label="車輌台帳" Click="RibbonButton_Click" KeyTip="F7" Height="50"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/22リスト.png" Click="RibbonButton_Click" KeyTip="F8" Height="50"
+								  Label="リスト" ToolTipTitle="リスト一覧(F8)" ToolTipDescription="リストを表示します"  ToolTipImageSource="../Images/22リスト.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                            Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+								  Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+								  Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+								  Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+                            Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+								  Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="入力を削除します" ToolTipImageSource="../Images/28削除.png"/>
+                </RibbonGroup>
+
+            </RibbonTab>
+
+            <RibbonTab Header="ヘルプ" Background="Gray">
+                <RibbonGroup Header="サポート">
+                    <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+								  Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
+                    <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+								  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+                    <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+								  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+								  Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"/>
+                </RibbonGroup>
+            </RibbonTab>
+
+            <RibbonTab Header="実施状況入力" Background="Gray" ContextualTabGroupHeader="入力補助" >
+                <RibbonGroup Header="従来ファンクションキー">
+                    <RibbonButton LargeImageSource="../Images/16マスタ入力.png" KeyTip="d"
+									  Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/16マスタ入力.png"/>
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="マスタ登録" ToolTipTitle="伝票登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="一括入力" Background="Gray" ContextualTabGroupHeader="入力補助">
+                <RibbonGroup Header="従来ファンクションキー">
+                    <RibbonButton LargeImageSource="../Images/22リスト.png" KeyTip="d"
+									  Label="プレビュー" ToolTipTitle="プレビュー(F5)" ToolTipDescription="売上の履歴を表示します"  ToolTipImageSource="../Images/22リスト.png"/>
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+									  Label="印刷" ToolTipTitle="印刷(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="e"
+								  Label="マスタ登録" ToolTipTitle="マスタ登録(F9)" ToolTipDescription="伝票の登録を行います" ToolTipImageSource="../Images/24登録.png"/>
+                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="f"
+									  Label="入力取消し" ToolTipTitle="入力取消(F12)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"/>
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="g"
+									  Label="終了" ToolTipTitle="入力取消(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <Grid Grid.Row="0" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="74"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- 編集モード領域  -->
+            <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+                 Background="{Binding MaintenanceModeBackground}">
+                <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+               FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
+               HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            </DockPanel>
+            <!-- エラーメッセージ領域 -->
+            <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+
+        </Grid>
+        <!--ヘッダー-->
+        <Border Grid.Row="1" BorderBrush="#2792c3" BorderThickness="1" Margin="5,5,5,0" Background="AliceBlue">
+            <Grid Margin="15,15,15,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+          <WrapPanel Grid.Column="1">
+                        <ctls:UcLabelTwinTextBox Label_Context="車輌ID" Label_Width="98" Text1MaxLength="5" Text1TextAlignment="Right"
+                                             Text1="{Binding 車輌ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                             Text1Width="100" IsKeyItem="True" DataAccessName="M05_CAR" MasterCheckEnabled="False"
+                                             Text2Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                             PreviewKeyDown="LabelTextSyaryou_PreviewKeyDown"
+                                             OutputColumnName="車輌"
+                               />
+            <Button Grid.Column="1" Name="FistIdButton" Content="≪" Margin="2" Width="30" Click="FistIdButton_Click" Focusable="False"/>
+            <Button Grid.Column="2" Name="BeforeIdButton" Content="＜" Margin="0,2,2,2"  Width="30" Click="BeforeIdButton_Click" Focusable="False"/>
+            <Button Grid.Column="3" Name="NextIdButton" Content="＞" Margin="2"  Width="30" Click="NextIdButton_Click" Focusable="False"/>
+            <Button Grid.Column="4" Name="LastIdButton" Content="≫" Margin="0,2,2,2" Width="30" Click="LastIdButoon_Click" Focusable="False"/>
+            <ctls:UcLabelTextBox Name="txt類似ID" Label_Context="類似ID" Grid.Row="2" Label_Width="80" cWidth="80" HorizontalAlignment="Left" IsKeyItem="False" PreviewKeyDown="txt類似ID_PreviewKeyDown"
+                             Text="{Binding Path=類似ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                             ImeType="Off" cMaxLength="30" 
+                             />
+          </WrapPanel>
+
+          <Grid Grid.Column="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ctls:UcLabelTextBox Name="ID変換" Grid.Column="1" Label_Context="ID変換" Label_Width="70" ValidationType="Integer" cTextAlignment="Right"
+                                             Text="{Binding Path=new_ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Width="150" HorizontalAlignment="Left"
+                                             PreviewKeyDown="ID変換_PreviewKeyDown"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ctls:UcLabelTextBox x:Name="Txt登録件数" Grid.Column="0" Label_Context="登録件数" Label_Width="85" Width="200" HorizontalAlignment="Left"
+                     ValidationType="Integer" cMaxLength="9" cTextAlignment="Right" MaxValue="999999999" Focusable="False"
+                     Text="{Binding Path=登録件数, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+
+                    <Label Content="件" Grid.Column="1"/>
+
+                </Grid>
+
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <ctls:UcLabelTextBox Grid.Column="0" Label_Context="車輌番号" Label_Width="98" cMaxLength="6" cTextAlignment="Right" Margin="0,0,3,0"
+                             Text="{Binding 車輌番号, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"/>
+                    <ctls:UcLabelTextBox Grid.Column="1" Label_Context="車輌登録番号" Label_Width="100" cMaxLength="28"
+                             Text="{Binding 車輌登録番号, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"/>
+                </Grid>
+                <ctls:UcLabelTwinTextBox Label_Context="担当部門" Label_Width="98" Margin="0,0,70,0" Grid.Row ="4" Text1TextAlignment="Right" Label1Visibility="Collapsed" Label2Visibility="Collapsed" 
+                                 Text1Width="100"  Text1ValidationType="Integer" Text1MaxLength="5" MasterCheckEnabled="True" Text2IsReadOnly="True" 
+                                 Text1="{Binding Path=MstData[自社部門ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=担当部門名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 DataAccessName="M71_BUM" OutputColumnName="自社部門" GotFocus="UcTextBox_GotFocus"
+                                 />
+                <ctls:UcLabelTwinTextBox Label_Context="車種" Label_Width="98" Margin="0,0,70,0" Grid.Row ="6" Text1TextAlignment="Right" Label1Visibility="Collapsed" Label2Visibility="Collapsed" 
+                                 Text1Width="100"  Text1ValidationType="Integer" Text1MaxLength="5" IsRequired="True" Text2IsReadOnly="True"
+                                 Text1="{Binding Path=MstData[車種ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=車種名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 DataAccessName="M06_SYA" OutputColumnName="車種" GotFocus="UcTextBox_GotFocus"
+                                 />
+                <ctls:UcLabelTwinTextBox Name="JmiName" Label_Context="主乗務員" Label_Width="98" Margin="0,0,70,0" Grid.Row ="8" Text1TextAlignment="Right" Label1Visibility="Collapsed" Label2Visibility="Collapsed" 
+                                 Text1Width="100" Text1ValidationType="Integer" Text1MaxLength="7" MasterCheckEnabled="True" Text2IsReadOnly="True"
+                                 Text1="{Binding Path=MstData[乗務員ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=主乗務員名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text3="{Binding Path=MstData[乗務員KEY], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 DataAccessName="M04_DRV" OutputColumnName="乗務員" GotFocus="UcTextBox_GotFocus"
+                                 />
+            </Grid>
+        </Border>
+        <Border Grid.Row="2" BorderBrush="#2792c3" BorderThickness="1" Margin="5,0,5,5" Background="AliceBlue">
+            <TabControl x:Name="tabControl1" TabStripPlacement="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Margin="1,-1,-1,1">
+                <TabItem x:Name="MasterNyuryokuTab" Header="マスタ入力" IsTabStop="False">
+                    <ScrollViewer Name="General_ScrollViewer" Margin="0,0,0,10">
+                        <Grid Margin="15,0,15,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0" Grid.Column="0" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+
+                                    <RowDefinition Height="10"/>
+                                </Grid.RowDefinitions>
+                                <Grid  Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ctls:UcLabelTextBox Grid.Column="0" Label_Context="デジタコCD" Label_Width="100" Margin="0,0,10,0" ValidationType="Integer"                           
+                             Text="{Binding MstData[デジタコCD], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" cMaxLength="9" GotFocus="UcTextBox_GotFocus"
+                               />
+
+                                    <ctls:UcLabelComboBox Name="ComboUnyukyoku" Label_Context="所属運輸局" Grid.Column="1" Label_Width="100"
+                                                  ComboboxItems="{Binding 所属運輸局View}"
+                                                  Combo_DisplayMemberPath="運輸局名" Combo_SelectedValuePath="運輸局ID" GotFocus="UcTextBox_GotFocus"
+                                                  />
+
+                                </Grid>
+                                <ctls:UcLabelTextBox Grid.Row="2" Label_Context="現在メーター" Label_Width="100" Margin="0,0,250,0" ValidationType="Integer" cMaxLength="9" MaxValue="999999999" MinValue="-999999999"  cTextAlignment="Right"                          
+                                 Text="{Binding MstData[現在メーター], StringFormat='#,0' , Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+
+                                <ctls:UcLabelTextRadioButton Label_Content="廃車区分" Grid.Row="4"  Grid.ColumnSpan="2" Label_Width="100"
+                                                     RadioOne_Content="稼動中" RadioSecond_Content="廃車済" RadioViewCount="Two" RadioSelectButton="One"
+                                                     Text="{Binding Path=MstData[廃車区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                                     />
+
+                                <ctls:UcLabelTextBox Name="ltb廃車日" Label_Width="100" Grid.Row="6" Margin="0,0,0,0" HorizontalAlignment="Left" Width="200"
+                      						    Label_Context="廃車日" Mask="yyyy/MM/dd" cMaxLength="10" cValidationType="Date"
+                                      Text="{Binding MstData[廃車日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+                                      GotFocus="UcTextBox_GotFocus"/>
+
+                                <ctls:UcLabelTextBox Name="ltb次回車検日" Label_Width="100" Grid.Row="8" Margin="0,0,0,0" HorizontalAlignment="Left" Width="200"
+                      						    Label_Context="次回車検日" Mask="yyyy/MM/dd" cMaxLength="10" cValidationType="Date"
+                                      Text="{Binding MstData[次回車検日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+                                      GotFocus="UcTextBox_GotFocus"/>
+
+                                <ctls:UcLabelTextBox Name="ltb登録日" Label_Width="100" Grid.Row="10" Margin="0,0,0,0" HorizontalAlignment="Left" Width="200"
+                      						    Label_Context="登録日" Mask="yyyy/MM/dd" cMaxLength="10" cValidationType="Date"
+                                      Text="{Binding MstData[登録日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+                                      GotFocus="UcTextBox_GotFocus"/>
+
+                                <ctls:UcLabelTwinTextBox Grid.Row ="12" Label_Context="初年度登録年月" Text1TextAlignment="Center" Text2TextAlignment="Center" Label1Text="年" Label2Text="月"  Label_Width="100" Margin="0,1,0,3"
+                                 Text1Width="55" Text2Width="32" Text1Background="White"  HorizontalAlignment="Left" Text1MaxLength="4" Text2MaxLength="2"
+                                 Text1="{Binding Path=MstData[初年度登録年], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=MstData[初年度登録月], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 GotFocus="UcTextBox_GotFocus" Grid.RowSpan="2"
+                                 />
+
+                                <ctls:UcLabelTextBox Grid.Row="14" Label_Context="自動車種別" Label_Width="100" Margin="0,0,250,0" cMaxLength="10" ImeType="Native"                           
+                                 Text="{Binding MstData[自動車種別], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Grid.Row="16" Label_Context="用途" Label_Width="100" Margin="0,0,250,0" cMaxLength="10" ImeType="Native"                           
+                                 Text="{Binding MstData[用途], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Grid.Row="18" Label_Context="自家用事業用" Label_Width="100" Margin="0,0,250,0" cMaxLength="10" ImeType="Native"                           
+                                 Text="{Binding MstData[自家用事業用], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Grid.Row="20" Label_Context="車体形状" Label_Width="100" Margin="0,0,150,0" cMaxLength="20" ImeType="Native"                          
+                                 Text="{Binding MstData[車体形状], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Grid.Row="22" Label_Context="車名" Label_Width="100" Margin="0,0,150,0" cMaxLength="20" ImeType="Native"                            
+                                 Text="{Binding MstData[車名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Grid.Row="24" Label_Context="型式" Label_Width="100" Margin="0,0,150,0" cMaxLength="20"                           
+                                 Text="{Binding MstData[型式], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+
+                                <Grid Grid.Row="26">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ctls:UcLabelTextBox Label_Context="乗車定員" Label_Width="100" ValidationType="Integer" cMaxLength="2" 
+                                                 Text="{Binding Path=MstData[乗車定員], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"/>
+                                    <ctls:UcLabel LabelText="名" Grid.Column="1" cBackground="Transparent" cHorizontalContentAlignment="Left" cForeground="Black" GotFocus="UcTextBox_GotFocus"/>
+                                </Grid>
+                            </Grid>
+
+                            <Grid Grid.Row="1" Grid.Column="0" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.15*"/>
+                                </Grid.ColumnDefinitions>
+                                <ctls:UcLabelTextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Label_Context="車台番号" Label_Width="100" Margin="0,0,150,0" cMaxLength="20"                       
+                                 Text="{Binding MstData[車台番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Label_Context="原動機型式" Label_Width="100" Margin="0,0,150,0" cMaxLength="20"                          
+                                 Text="{Binding MstData[原動機型式], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Name="Car1" Grid.Row="4" Grid.Column="0"  Label_Context="長さ" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[長さ], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down1"
+                                   />
+                                <ctls:UcLabelTextBox Name="Kg1" Grid.Row="4" Grid.Column="1" Label_Context="車輌重量" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[車輌重量],  StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down5"
+                                   />
+                                <ctls:UcLabel Grid.Row="4" Grid.Column="2"  LabelText="Kg" cBackground="Transparent" cHorizontalContentAlignment="Left" cForeground="Black"/>
+
+                                <ctls:UcLabelTextBox Name="Car2" Grid.Row="6" Grid.Column="0" Label_Context="幅" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[幅], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down2"
+                                   />
+                                <ctls:UcLabelTextBox Name="Kg2" Grid.Row="6" Grid.Column="1" Label_Context="車輌最大積載量" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[車輌最大積載量], StringFormat='#,0', Mode=TwoWay,  NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down6"
+                                   />
+                                <ctls:UcLabel Grid.Row="6" Grid.Column="2"  LabelText="Kg" cBackground="Transparent" cHorizontalContentAlignment="Left" cForeground="Black"/>
+
+                                <ctls:UcLabelTextBox Name="Car3" Grid.Row="8" Grid.Column="0" Label_Context="高さ" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[高さ], StringFormat='#,0', Mode=TwoWay,  NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down3"
+                                   />
+                                <ctls:UcLabelTextBox Name="Kg3" Grid.Row="8" Grid.Column="1" Label_Context="車輌総重量" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[車輌総重量], StringFormat='#,0', Mode=TwoWay,  NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down7"
+                                   />
+                                <ctls:UcLabel Grid.Row="8" Grid.Column="2"  LabelText="Kg" cBackground="Transparent" cHorizontalContentAlignment="Left" cForeground="Black"/>
+
+                                <ctls:UcLabelTextBox Name="Car4" Grid.Row="10" Grid.Column="0" Label_Context="総排気量" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[総排気量], StringFormat='#,0', Mode=TwoWay,  NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down4"
+                                   />
+                                <ctls:UcLabelTextBox Name="Kg4" Grid.Row="10" Grid.Column="1" Label_Context="車輌実積載量" Label_Width="100" ValidationType="Integer" cTextAlignment="Right" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[車輌実積載量], StringFormat='#,0', Mode=TwoWay,  NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabel Grid.Row="10" Grid.Column="2"  LabelText="Kg" cBackground="Transparent" cHorizontalContentAlignment="Left" cForeground="Black"/>
+
+                            </Grid>
+
+                            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="3"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="15"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.2*"/>
+                                    <ColumnDefinition Width="1.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <ctls:UcLabelTextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Label_Context="燃料種類" Label_Width="100" Margin="0,0,150,0" cMaxLength="10" ImeType="Native"
+                                 Text="{Binding MstData[燃料種類], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+
+                                <ctls:UcLabelTwinTextBox Grid.Row ="2" Grid.Column="0" Grid.ColumnSpan="2" Text1TextAlignment="Right"  Label1Visibility="Collapsed"  Label2Visibility="Collapsed"
+                                 Label_Context="所有者名" Label_Width="100" Margin="0,0,0,0" Text1Width="90"
+                                 Text1="{Binding Path=所有者ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                 Text2="{Binding Path=所有者名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 DataAccessName="M01_TOK" MasterCheckEnabled="False" OutputColumnName="取引先"
+                                 />
+                                
+
+                                <!--非表示テキスト-->
+                                <ctls:UcLabelTwinTextBox Visibility="Collapsed" Grid.Row ="4" Grid.Column="0" Grid.ColumnSpan="2"  Label1Visibility="Collapsed"  Label2Visibility="Collapsed"
+                                 Label_Context="所有者住所" Label_Width="100" Margin="0,0,0,0" Text1Width="90" Text2Width="272" Text2MaxLength="40" GotFocus="UcTextBox_GotFocus"
+                                 Text1="{Binding Path=所有者ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=所有者住所  , Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 DataAccessName="M01_TOK_JIS"                                                 
+                                 />
+                                <ctls:UcLabelTextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Label_Context="所有者住所" Label_Width="100" Margin="0,0,0,0" cMaxLength="40"                          
+                                 Text="{Binding 所有者住所, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+
+
+                                <ctls:UcLabelTwinTextBox Grid.Row ="6" Grid.Column="0" Grid.ColumnSpan="2" Text1TextAlignment="Right" Label1Visibility="Collapsed" Label2Visibility="Collapsed" 
+                                 Label_Context="使用者名" Label_Width="100" Margin="0,0,0,0" Text1Width="90" Text2MaxLength="40" GotFocus="UcTextBox_GotFocus"
+                                 Text1="{Binding Path=使用者ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=使用者名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 DataAccessName="M01_TOK" MasterCheckEnabled="False" OutputColumnName="取引先"                                                                           
+                                 />
+
+                                <!--非表示テキスト-->
+                                <ctls:UcLabelTwinTextBox Visibility="Collapsed" Grid.Row ="6" Grid.Column="0" Grid.ColumnSpan="1" Label1Visibility="Collapsed" Label2Visibility="Collapsed" 
+                                 Label_Context="使用者住所" Label_Width="98" Margin="0,0,0,0" Text1Width="90" Text2Visibility="Collapsed" Text2MaxLength="40" GotFocus="UcTextBox_GotFocus"
+                                 Text1="{Binding Path=使用者ID, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=使用者住所, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 DataAccessName="M01_TOK_JIS"                                                 
+                                 />
+                                <ctls:UcLabelTextBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Label_Context="使用者住所" Label_Width="100" Margin="0,0,0,0" cMaxLength="40"                          
+                                 Text="{Binding 使用者住所, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+
+                                <ctls:UcLabelTextBox Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Label_Context="使用の本拠位置" Label_Width="100" Margin="0,0,0,0" cMaxLength="40"               
+                                 Text="{Binding MstData[使用本拠位置], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                <ctls:UcLabelTextBox Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" Label_Context="備考" Label_Width="100" Margin="0,0,0,0" cMaxLength="50"                      
+                                 Text="{Binding MstData[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+
+                                <ctls:UcLabelTextBox Name="Cars1" Grid.Row="14" Grid.Column="0"  Label_Context="型式指定番号" Label_Width="100" Margin="0,0,0,0" cMaxLength="10"    
+                                 Text="{Binding MstData[型式指定番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down11"
+                                   />
+                                <ctls:UcLabelTextBox Name="Tanka1" Grid.Row="14" Grid.Column="1"  Label_Context="燃料費単価" Label_Width="100" Margin="20,0,30,0" GotFocus="UcTextBox_GotFocus"
+                                 ValidationType="Decimal" cTextAlignment="Right"  PreviewKeyDown="Down16" MaxValue="9999.999" MinValue="0.000"
+                                 Text="{Binding MstData[燃料費単価],StringFormat='\#,0.000', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" 
+                                                     />
+
+                                <ctls:UcLabelTextBox Name="Cars2" Grid.Row="16" Grid.Column="0"  Label_Context="前前軸重" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" cTextAlignment="Right" MaxValue="9999999" MinValue="0"
+                                 Text="{Binding MstData[前前軸重], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down12"
+                                   />
+                                <ctls:UcLabelTextBox Name="Tanka2" Grid.Row="16" Grid.Column="1"  Label_Context="油脂費単価" Label_Width="100" Margin="20,0,30,0" GotFocus="UcTextBox_GotFocus"
+                                                     ValidationType="Decimal" cTextAlignment="Right" PreviewKeyDown="Down17" MaxValue="9999.999" MinValue="0.000"
+                                 Text="{Binding MstData[油脂費単価],StringFormat='\#,0.000', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}"
+                                   />
+
+                                <ctls:UcLabelTextBox Name="Cars3" Grid.Row="18" Grid.Column="0"  Label_Context="前後軸重" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" cTextAlignment="Right" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down13" MaxValue="9999999" MinValue="0"
+                                 Text="{Binding MstData[前後軸重], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}"
+                                   />
+                                <ctls:UcLabelTextBox Name="Tanka3" Grid.Row="18" Grid.Column="1"  Label_Context="タイヤ費単価" Label_Width="100" Margin="20,0,30,0" GotFocus="UcTextBox_GotFocus"
+                                                      ValidationType="Decimal" cTextAlignment="Right" PreviewKeyDown="Down18" MaxValue="9999.999" MinValue="0.000"
+                                 Text="{Binding MstData[タイヤ費単価],StringFormat='\#,0.000', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}"
+                                   />
+
+                                <ctls:UcLabelTextBox Name="Cars4" Grid.Row="20" Grid.Column="0"  Label_Context="後前軸重" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" cTextAlignment="Right" MaxValue="9999999" MinValue="0"
+                                      Text="{Binding MstData[後前軸重], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}"
+                                      GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down14"
+                                   />
+                                <ctls:UcLabelTextBox Name="Tanka4" Grid.Row="20" Grid.Column="1"  Label_Context="修繕費単価" Label_Width="100" Margin="20,0,30,0" cTextAlignment="Right" MaxValue="9999.999" MinValue="0.000"
+                                 Text="{Binding MstData[修繕費単価],  StringFormat='\#,0.000', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}"
+                                     ValidationType="Decimal" GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down19"
+                                   />
+
+                                <ctls:UcLabelTextBox Name="Cars5" Grid.Row="22" Grid.Column="0"  Label_Context="後後軸重" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" cTextAlignment="Right" MaxValue="9999999" MinValue="0"
+                                 Text="{Binding MstData[後後軸重], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}"
+                                      GotFocus="UcTextBox_GotFocus" PreviewKeyDown="Down15"
+                                   />
+                                <ctls:UcLabelTextBox Name="Tanka5" Grid.Row="22" Grid.Column="1"  Label_Context="車検費単価" Label_Width="100" Margin="20,0,30,0" ValidationType="Decimal" cTextAlignment="Right" MaxValue="9999.999" MinValue="0.000"
+                                 Text="{Binding MstData[車検費単価], StringFormat='\#,0.000', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" 
+                                      PreviewKeyDown="Down20" GotFocus="UcTextBox_GotFocus" 
+                                   />
+                                <ctls:UcLabel Grid.Row="24" Grid.ColumnSpan="2" LabelText="固定経費" />
+
+                                <ctls:UcLabelTextBox Name="Zei1" Grid.Row="26" Grid.Column="0"  Label_Context="自動車税" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" PreviewKeyDown="Down21" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定自動車税], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+                                <ctls:UcLabelTextBox Name="Hoken2" Grid.Row="26" Grid.Column="1"  Label_Context="車輌保険" Label_Width="100" Margin="20,0,30,0" ValidationType="Integer" PreviewKeyDown="Down25" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定車輌保険], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+
+                                <ctls:UcLabelTextBox Name="Zei2" Grid.Row="28" Grid.Column="0"  Label_Context="重　量　税" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" PreviewKeyDown="Down22" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定重量税], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+                                <ctls:UcLabelTextBox Name="Hoken3" Grid.Row="28" Grid.Column="1"  Label_Context="対人保険" Label_Width="100" Margin="20,0,30,0" ValidationType="Integer" PreviewKeyDown="Down26" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定対人保険], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+
+                                <ctls:UcLabelTextBox Name="Zei3" Grid.Row="30" Grid.Column="0"  Label_Context="取　得　税" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" PreviewKeyDown="Down23" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定取得税], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+                                <ctls:UcLabelTextBox Name="Hoken4" Grid.Row="30" Grid.Column="1"  Label_Context="対物保険" Label_Width="100" Margin="20,0,30,0" ValidationType="Integer" PreviewKeyDown="Down27" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定対物保険], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+                                <ctls:UcLabelTextBox Name="Hoken1" Grid.Row="32" Grid.Column="0"  Label_Context="自賠責保険" Label_Width="100" Margin="0,0,0,0" ValidationType="Integer" PreviewKeyDown="Down24"  MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定自賠責保険], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+                                <ctls:UcLabelTextBox Name="Hoken5" Grid.Row="32" Grid.Column="1"  Label_Context="貨物保険" Label_Width="100" Margin="20,0,30,0" ValidationType="SignedInteger" MaxValue="999999999" MinValue="0"
+                                 Text="{Binding MstData[固定貨物保険], StringFormat='#,0', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=LostFocus}" GotFocus="UcTextBox_GotFocus" cTextAlignment="Right"
+                                   />
+
+                                <Grid Grid.Row="36" Grid.ColumnSpan="2" Background="LightGreen">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="37"/>
+                                        <RowDefinition Height="3"/>
+                                        <RowDefinition Height="30"/>
+
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="3"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="3"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="3"/>
+                                        <RowDefinition Height="37"/>
+                                    </Grid.RowDefinitions>
+                                    <ctls:UcLabelTextBox Grid.Row="0" Label_Context="CO2区分" Label_Width="100" Margin="0,10,300,0" ValidationType="Integer" cMaxLength="1" MaxValue="2"
+                                 Text="{Binding MstData[CO2区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                    <ctls:UcLabel Grid.Row="2" LabelText="※通常は１を、ハイブリッド車のみガソリンは１を、軽油は２を入力してください" cBackground="Transparent" cHorizontalContentAlignment="Left" cForeground="Black"/>
+
+                                    <ctls:UcLabelTextBox Grid.Row="4" Label_Context="基準燃費" Label_Width="100" Margin="0,0,250,0" ValidationType="Number" Mask="#,0.00" cTextAlignment="Right" MaxValue="999999.99" MinValue="0.00"
+                                 Text="{Binding MstData[基準燃費],StringFormat='#,##0.00',  Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+                                    <ctls:UcLabelTextBox Grid.Row="6" Label_Context="黒煙規制値" Label_Width="100" Margin="0,0,250,0" ValidationType="Number" Mask="#,0.00" cTextAlignment="Right" MaxValue="99999.99" MinValue="0.00"
+                                 Text="{Binding MstData[黒煙規制値],StringFormat='#,##0.00',  Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" GotFocus="UcTextBox_GotFocus"
+                                   />
+
+                                    <ctls:UcLabelTwinTextBox Grid.Row ="8" Grid.Column="0" Grid.ColumnSpan="2"  Label_Context="Ｇ経営用車種" Label_Width="100" Margin="0,0,0,0" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                 Text1Width="100"  Text1ValidationType="Integer" Text1MaxLength="9" GotFocus="UcTextBox_GotFocus" Text2IsReadOnly="True" Text1TextAlignment="Right" 
+                                 Text1="{Binding Path=MstData[G車種ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=Ｇ経営用車種名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                                         DataAccessName="M14_GSYA"
+                                 />
+                                    <ctls:UcLabelTwinTextBox Grid.Row ="10" Grid.Column="0" Grid.ColumnSpan="2"  Label_Context="規制区分" Label_Width="100" Margin="0,0,0,10" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                 Text1Width="100" Text1ValidationType="Integer" Text1MaxLength="9" GotFocus="UcTextBox_GotFocus" Text2IsReadOnly="True" Text1TextAlignment="Right"
+                                 Text1="{Binding Path=MstData[規制区分ID], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                 Text2="{Binding Path=規制区分名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                                             DataAccessName="M12_KIS" PreviewKeyDown="KeyDownUpDate" 
+                                 />
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+                    </ScrollViewer >
+                </TabItem>
+
+                <!--タブ1-->
+                <TabItem Header="強制保険情報" IsTabStop="False">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Margin="10,1,0,0" Content="行削除" Click="sp強制保険_Delete_Click"/>
+                            <Button Grid.Column="1" Margin="10,1,0,0" Content="行追加" Click="sp強制保険_Insert_Click"/>
+                        </Grid>
+
+                        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
+                            <sg:GcSpreadGrid Name="sp強制保険" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                             ItemsSource="{Binding 強制保険データ, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                             AutoGenerateColumns="False" ColumnDragMode="SelectThenDrag" CellEditEnded="spread_CellEditEnded" CellEnter="spread_CellEnter"
+                             DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST06010G1.sgxml"
+                             >
+                                <sg:GcSpreadGrid.Columns>
+                                    <sg:Column>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding 契約先}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding 保険証番号}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding Str加入年月日, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding Str期限年月日, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="3" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding S_月数}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                </sg:GcSpreadGrid.Columns>
+                            </sg:GcSpreadGrid>
+                        </Grid>
+
+                    </Grid>
+                </TabItem>
+                <!--タブ2-->
+                <TabItem Header="任意保険情報" IsTabStop="False">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Margin="10,1,0,0" Content="行削除" Click="sp任意保険_Delete_Click"/>
+                            <Button Grid.Column="1" Margin="10,1,0,0" Content="行追加" Click="sp任意保険_Insert_Click"/>
+                        </Grid>
+
+                        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
+                            <sg:GcSpreadGrid Name="sp任意保険" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                             ItemsSource="{Binding 任意保険データ, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                             AutoGenerateColumns="False" ColumnDragMode="SelectThenDrag" 
+                             CellEnter="spread_CellEnter" CellEditEnded="spread_CellEditEnded"
+                             DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST06010G2.sgxml"
+                             >
+                                <sg:GcSpreadGrid.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding Path=NavigationCommands.MoveNext, ElementName=sp任意保険}" />
+                                </sg:GcSpreadGrid.InputBindings>
+                                <sg:GcSpreadGrid.Columns>
+                                    <sg:Column>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding 契約先}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding 保険証番号}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding Str加入年月日, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding Str期限年月日, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="3" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding S_月数}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                </sg:GcSpreadGrid.Columns>
+                            </sg:GcSpreadGrid>
+                        </Grid>
+
+                    </Grid>
+
+                </TabItem>
+                <!--タブ3-->
+                <TabItem Header="納税情報" IsTabStop="False">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Margin="10,1,0,0" Content="行削除" Click="sp納税_Delete_Click"/>
+                            <Button Grid.Column="1" Margin="10,1,0,0" Content="行追加" Click="sp納税_Insert_Click"/>
+                        </Grid>
+
+                        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
+                            <sg:GcSpreadGrid Name="sp納税" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                             ItemsSource="{Binding 納税データ, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                             AutoGenerateColumns="False" ColumnDragMode="SelectThenDrag"
+                             DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST06010G3.sgxml"
+                             >
+                                <sg:GcSpreadGrid.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding Path=NavigationCommands.MoveNext, ElementName=sp納税}" />
+                                </sg:GcSpreadGrid.InputBindings>
+                                <sg:GcSpreadGrid.Columns>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="4" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding S_年度}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="4" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding S_自動車税年月}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding d自動車税}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:TextCellType MaxLength="4" MaxLengthUnit="Byte" ImeState="Off"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding S_重量税年月}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+                                    <sg:Column HorizontalAlignment="Right">
+                                        <sg:Column.CellType>
+                                            <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                                        </sg:Column.CellType>
+                                        <sg:Column.DataField>
+                                            <sg:BindingDataField Binding="{Binding d重量税}"/>
+                                        </sg:Column.DataField>
+                                    </sg:Column>
+
+                                </sg:GcSpreadGrid.Columns>
+                            </sg:GcSpreadGrid>
+                        </Grid>
+
+                    </Grid>
+
+                </TabItem>
+
+            </TabControl>
+        </Border>
+    </Grid>
+</fw:WindowMasterMainteBase>
+  
+  

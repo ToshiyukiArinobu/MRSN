@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPTEST", "TCPTEST\TCPTEST.csproj", "{4B4E887D-B38D-4E9E-8DF1-5AD06F6BEDB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KyoeiSystem.Framework.Net", "Framework\Net\KyoeiSystem.Framework.Net.csproj", "{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{D065830D-4A86-4616-B596-9A92B996D70D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNumbers", "MyNumbers\MyNumbers.csproj", "{D83C7A59-4E93-4645-83E3-E5ECFF71A5F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KyoeiSystem.Framework.Common", "Framework\Common\KyoeiSystem.Framework.Common.csproj", "{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://win-f8ccjd7v57b:8080/tfs/hbms_package
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Framework\\Net\\KyoeiSystem.Framework.Net.csproj
+		SccProjectTopLevelParentUniqueName1 = MyNumber.sln
+		SccProjectName1 = Framework/Net
+		SccLocalPath1 = Framework\\Net
+		SccProjectUniqueName2 = TCPTEST\\TCPTEST.csproj
+		SccProjectName2 = TCPTEST
+		SccLocalPath2 = TCPTEST
+		SccProjectUniqueName3 = MyNumbers\\MyNumbers.csproj
+		SccProjectName3 = MyNumbers
+		SccLocalPath3 = MyNumbers
+		SccProjectUniqueName4 = Framework\\Common\\KyoeiSystem.Framework.Common.csproj
+		SccProjectTopLevelParentUniqueName4 = MyNumber.sln
+		SccProjectName4 = Framework/Common
+		SccLocalPath4 = Framework\\Common
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B4E887D-B38D-4E9E-8DF1-5AD06F6BEDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B4E887D-B38D-4E9E-8DF1-5AD06F6BEDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B4E887D-B38D-4E9E-8DF1-5AD06F6BEDB6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4B4E887D-B38D-4E9E-8DF1-5AD06F6BEDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B4E887D-B38D-4E9E-8DF1-5AD06F6BEDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B4E887D-B38D-4E9E-8DF1-5AD06F6BEDB6}.Release|x64.ActiveCfg = Release|Any CPU
+		{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{D83C7A59-4E93-4645-83E3-E5ECFF71A5F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83C7A59-4E93-4645-83E3-E5ECFF71A5F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D83C7A59-4E93-4645-83E3-E5ECFF71A5F4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D83C7A59-4E93-4645-83E3-E5ECFF71A5F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D83C7A59-4E93-4645-83E3-E5ECFF71A5F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D83C7A59-4E93-4645-83E3-E5ECFF71A5F4}.Release|x64.ActiveCfg = Release|Any CPU
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Debug|x64.ActiveCfg = Debug|x64
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Debug|x64.Build.0 = Debug|x64
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Release|x64.ActiveCfg = Release|x64
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6F4BABAE-8ECE-4C51-8092-FADEF25C43AD} = {D065830D-4A86-4616-B596-9A92B996D70D}
+		{69EED3CA-6248-4DFE-84DC-D4D7B0EA54ED} = {D065830D-4A86-4616-B596-9A92B996D70D}
+	EndGlobalSection
+EndGlobal

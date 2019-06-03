@@ -1,0 +1,14 @@
+C:\HBMS\Framework\Core\bin\Release\KyoeiSystem.Framework.Core.dll
+C:\HBMS\Framework\Core\bin\Release\KyoeiSystem.Framework.Core.pdb
+C:\HBMS\Framework\Core\bin\Release\KyoeiSystem.Framework.Common.dll
+C:\HBMS\Framework\Core\bin\Release\KyoeiSystem.Framework.Common.pdb
+C:\HBMS\Framework\Core\obj\Release\KyoeiSystem.Framework.Core.csprojResolveAssemblyReference.cache
+C:\HBMS\Framework\Core\obj\Release\KyoeiSystem.Framework.Core.dll
+C:\HBMS\Framework\Core\obj\Release\KyoeiSystem.Framework.Core.pdb
+C:\MRSN\MRSN\Framework\Core\bin\Release\KyoeiSystem.Framework.Core.dll
+C:\MRSN\MRSN\Framework\Core\bin\Release\KyoeiSystem.Framework.Core.pdb
+C:\MRSN\MRSN\Framework\Core\bin\Release\KyoeiSystem.Framework.Common.dll
+C:\MRSN\MRSN\Framework\Core\bin\Release\KyoeiSystem.Framework.Common.pdb
+C:\MRSN\MRSN\Framework\Core\obj\Release\KyoeiSystem.Framework.Core.csprojResolveAssemblyReference.cache
+C:\MRSN\MRSN\Framework\Core\obj\Release\KyoeiSystem.Framework.Core.dll
+C:\MRSN\MRSN\Framework\Core\obj\Release\KyoeiSystem.Framework.Core.pdb

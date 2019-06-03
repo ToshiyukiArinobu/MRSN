@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f508eb20-4739-452f-b609-42e342a3e057" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50383/M04.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="M04.xsd" MetadataType="Schema" ID="2479a2f6-12ac-4bf3-aaea-4e03e4cf8176" SourceId="1" SourceUrl="http://localhost:50383/M04.svc?xsd=xsd0" />
+    <MetadataFile FileName="M04.wsdl" MetadataType="Wsdl" ID="a9a537db-f3f3-425d-815a-5375c8594fb4" SourceId="1" SourceUrl="http://localhost:50383/M04.svc?wsdl" />
+    <MetadataFile FileName="M04.disco" MetadataType="Disco" ID="a81eb4ca-e2a0-4e44-89b3-09139856b6b3" SourceId="1" SourceUrl="http://localhost:50383/M04.svc?disco" />
+    <MetadataFile FileName="M041.xsd" MetadataType="Schema" ID="365b0f4e-0fbd-416c-93a6-497a9e5c94a7" SourceId="1" SourceUrl="http://localhost:50383/M04.svc?xsd=xsd1" />
+    <MetadataFile FileName="M042.xsd" MetadataType="Schema" ID="cb7d737a-a7e8-45f4-9063-8dce733306d1" SourceId="1" SourceUrl="http://localhost:50383/M04.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

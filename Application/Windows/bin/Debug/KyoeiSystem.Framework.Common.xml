@@ -1,0 +1,669 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KyoeiSystem.Framework.Common</name>
+    </assembly>
+    <members>
+        <member name="T:KyoeiSystem.Framework.Common.WCFDataAccessConfig">
+            <summary>
+            データアクセスライブラリの定義情報
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.WCFDataAccessConfig.Name">
+            <summary>
+            定義名：定義ファイル全体でユニークであることが必要
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.WCFDataAccessConfig.Descprition">
+            <summary>
+            説明：省略可能
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.WCFDataAccessConfig.Namespace">
+            <summary>
+            実行するクラスの所属する名前空間
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.WCFDataAccessConfig.ServiceClass">
+            <summary>
+            実行するメソッドの所属するクラス名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.WCFDataAccessConfig.MethodName">
+            <summary>
+            実行するメソッド名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.WCFDataAccessConfig.Dll">
+            <summary>
+            DLLファイル名：フルパス・相対パス指定またはDLL参照可能なフォルダに配置されていること
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.DataAccessConfig">
+            <summary>
+            データアクセスライブラリの定義情報を操作するためのクラス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.DataAccessConfig.WCFDataAccessConfigs">
+            <summary>
+            定義情報のコレクション
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DataAccessConfig.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DataAccessConfig.GetConfig(System.String)">
+            <summary>
+            指定された定義名に該当する定義情報を取得する
+            </summary>
+            <param name="name">定義名</param>
+            <returns>指定された定義名に合致する定義情報</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.AppLogger">
+            <summary>
+            アプリケーションログクラス
+            <para>
+            ログの出力を取りまとめる機能として利用できます。詳細はlog4net(NuGetから取得したパッケージ)の機能を参照してください。
+            </para>
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Fatal(System.String)">
+            <summary>
+            ログ出力（FATAL）
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Fatal(System.String,System.Exception)">
+            <summary>
+            ログ出力（FATAL）
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">継承例外</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Fatal(System.String,System.Object[])">
+            <summary>
+            ログ出力（FATAL）
+            </summary>
+            <param name="fmt">編集フォーマット</param>
+            <param name="args">編集パラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Error(System.String)">
+            <summary>
+            ログ出力（ERROR）
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Error(System.String,System.Exception)">
+            <summary>
+            ログ出力（ERROR）
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">継承例外</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Error(System.String,System.Object[])">
+            <summary>
+            ログ出力（ERROR）
+            </summary>
+            <param name="fmt">編集フォーマット</param>
+            <param name="args">編集パラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Warn(System.String)">
+            <summary>
+            ログ出力（WARN）
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Warn(System.String,System.Exception)">
+            <summary>
+            ログ出力（WARN）
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">継承例外</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Warn(System.String,System.Object[])">
+            <summary>
+            ログ出力（WARN）
+            </summary>
+            <param name="fmt">編集フォーマット</param>
+            <param name="args">編集パラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Info(System.String)">
+            <summary>
+            ログ出力（INFO）
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Info(System.String,System.Exception)">
+            <summary>
+            ログ出力（INFO）
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">継承例外</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Info(System.String,System.Object[])">
+            <summary>
+            ログ出力（INFO）
+            </summary>
+            <param name="fmt">編集フォーマット</param>
+            <param name="args">編集パラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Debug(System.String)">
+            <summary>
+            ログ出力（DEBUG）
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Debug(System.String,System.Exception)">
+            <summary>
+            ログ出力（DEBUG）
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">継承例外</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.Debug(System.String,System.Object[])">
+            <summary>
+            ログ出力（DEBUG）
+            </summary>
+            <param name="fmt">編集フォーマット</param>
+            <param name="args">編集パラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.LogFilePath">
+            <summary>
+            ログファイルパス取得
+            </summary>
+            <returns>ログファイルパス</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.AppLogger.CleanUp">
+            <summary>
+            保存期限を過ぎたログファイルを削除します。
+            <para>Appenderは、日付毎にファイル名を切り替えるモードであることが前提であり、当該フォルダにあるファイル全てを対象として削除します。
+            保存期限は、App.config等に記述したlog4netの設定でAppenderのMaxSizeRollBackupsの値によります。</para>
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.CommonConst">
+            <summary>
+            共通定数定義クラス（リソース定義に移行する可能性があります）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.CommonConst.ErrReportObjectNotReady">
+            <summary>
+            エラーメッセージ：レポート定義ファイルがない
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.CommonConst.ErrCSVFile">
+            <summary>
+            エラーメッセージ：CSVファイルアクセスエラー
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.CommonConst.ReportFieldFiller">
+            <summary>
+            レポートプレビュー表示用埋め込み文字
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.CommonConst.DBOpenError">
+            <summary>
+            エラーメッセージ：データベース接続エラー
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.CommonConst.DBAccessError">
+            <summary>
+            エラーメッセージ：データベースアクセスエラー
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.CommonConst.WithoutLicenceDBMode">
+            <summary>
+            ライセンスDBを必要としないモード（LAN内専用モード固定）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.CommonConst.LocalDBMode">
+            <summary>
+            LAN内専用モード（ライセンスDBあり：WCF稼動版の社内開発時）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.CSVData">
+            <summary>
+            CSVアクセスクラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.CSVData.LoadTableData(System.Data.DataTable,System.String)">
+            <summary>
+            CSVファイルからDataTableにロードします。
+            <para>・事前にDataTableのインスタンスを生成されている必要があります。</para>
+            <para>・CSVファイルはShift-JISコードのみ対応します。</para>
+            </summary>
+            <param name="tbl">DataTableのインスタンス</param>
+            <param name="filename">読込むCSVファイル名</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.CSVData.LoadTable(System.String,System.String,System.Boolean)">
+            <summary>
+            CSVファイルからDataTableにロードします。
+            カラム名はCSVファイルの1行目から取得または自動生成します。
+            </summary>
+            <param name="filename">CSVファイル名</param>
+            <param name="tablename">テーブル名</param>
+            <param name="columnsLine">1行目を項目名として取得するかどうかを指定するフラグ</param>
+            <returns>取得したCSVデータをDataTableに変換した結果データ</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.CSVData.SaveCSV(System.Data.DataTable,System.String,System.Boolean,System.Boolean,System.Boolean,System.Char,System.Boolean)">
+            <summary>
+            DataTableの各RowをCSVファイルに出力します。
+            </summary>
+            <param name="data">出力するデータを保持したDataTable</param>
+            <param name="filename">出力するCSVファイル名</param>
+            <param name="columnsLine">1行目にカラム名を出力するかどうかを指定</param>
+            <param name="quate">引用符で囲むかどうかを指定</param>
+            <param name="numberquate">数値項目を引用符で囲むかどうかを指定</param>
+            <param name="delimiter">区切り文字</param>
+            <param name="datetimeSpecial">日時項目の時刻部分出力フラグ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.CSVData.ReadCsv(System.String,System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            CSVファイルを読み込み、DataTableで返す
+            </summary>
+            <param name="csvFileName">CSVファイル名</param>
+            <param name="delimiter">区切り文字</param>
+            <param name="hasHeaderRow">ヘッダー行の有無</param>
+            <param name="hasFieldsEnclosedInQuotes">フィールドを"で囲み、改行文字、区切り文字を含めることができるか</param>
+            <param name="trimWhiteSpace">フィールドの前後からスペースを削除か</param>
+            <returns></returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.DBOpenException">
+            <summary>
+            データベース接続例外クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBOpenException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBOpenException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBOpenException.#ctor(System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBOpenException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.DBDataNotFoundException">
+            <summary>
+            該当データが存在しない場合の例外クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBDataNotFoundException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBDataNotFoundException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBDataNotFoundException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.DBGetException">
+            <summary>
+            データ取得例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBGetException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBGetException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBGetException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.DBPutException">
+            <summary>
+            データ更新例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBPutException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBPutException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBPutException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.DBUpdateConflictException">
+            <summary>
+            データ更新例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBUpdateConflictException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBUpdateConflictException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBUpdateConflictException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.DBAccessException">
+            <summary>
+            データアクセス例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBAccessException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBAccessException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBAccessException.#ctor(System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.DBAccessException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.FWThreadManagerException">
+            <summary>
+            データアクセス制御例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.FWThreadManagerException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.FWThreadManagerException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.FWThreadManagerException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.FWThreadCoreDataException">
+            <summary>
+            データアクセス実行例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.FWThreadCoreDataException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.FWThreadCoreDataException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.FWThreadCoreDataException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.CSVException">
+            <summary>
+            CSVファイルアクセス例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.CSVException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.CSVException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.CSVException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.LinqSub">
+            <summary>
+            Linq関連機能
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.LinqSub.時間集計(System.Collections.Generic.IEnumerable{System.Nullable{System.Decimal}})">
+            <summary>
+            時間のコレクションを全て合計した値を返す
+            </summary>
+            <param name="source">時間の値の配列</param>
+            <returns>合計時間</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.LinqSub.時間加算(System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
+            <summary>
+            ２つの時間を加算した結果を返す
+            </summary>
+            <param name="d1">時間値１</param>
+            <param name="d2">時間値２</param>
+            <returns>合計時間値</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.LinqSub.時間TO分(System.Nullable{System.Decimal})">
+            <summary>
+            時間単位を分単位(hh.mm)に変換する。
+            <remarks>
+            例）1時間15分 の場合 引数：1.25(時間) => 戻り値：1.15
+            </remarks>
+            </summary>
+            <param name="hhmm">時間単位の値</param>
+            <returns>分単位の値</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.LinqSub.分TO時間(System.Nullable{System.Decimal})">
+            <summary>
+            分単位(hh.mm)の時間を時間単位に変換する。
+            <remarks>
+            例）1時間15分 の場合 引数：1.15(時間) => 戻り値：1.25
+            </remarks>
+            </summary>
+            <param name="mm">分単位の値</param>
+            <returns>時間単位の値</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.ReportConfig">
+            <summary>
+            印刷用設定情報（現在未使用）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.ReportName">
+            <summary>
+            設定名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.ReportTitle">
+            <summary>
+            帳票タイトル
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.ReportFileName">
+            <summary>
+            帳票定義ファイル名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.PrinterName">
+            <summary>
+            プリンター名
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.PaperSize">
+            <summary>
+            用紙サイズ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.PaperKind">
+            <summary>
+            用紙種別
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.PaperSource">
+            <summary>
+            用紙トレイ情報
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ReportConfig.Margin">
+            <summary>
+            余白情報
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.Utility">
+            <summary>
+            ユーティリティクラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.Utility.Encrypt(System.String,System.String)">
+            <summary>
+            文字列をAESで暗号化する
+            </summary>
+            <param name="text">暗号化対象文字列（平分）</param>
+            <param name="key">暗号化キー</param>
+            <returns>暗号化した文字列</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.Utility.Decrypt(System.String,System.String)">
+            <summary>
+            文字列をAESで復号化
+            </summary>
+            <param name="text">暗号化された文字列</param>
+            <param name="key">暗号化キー</param>
+            <returns>複合化した文字列</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Common.ViewsCommon">
+            <summary>
+            画面モジュール間で共有するオブジェクト
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ViewsCommon.WithLicenseDB">
+            <summary>
+            ライセンスDBの有無を指示するフラグ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ViewsCommon.version">
+            <summary>
+            データアクセス定義情報バージョン（未使用）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Common.ViewsCommon.DacConf">
+            <summary>
+            データアクセス定義情報
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.ViewsCommon.#ctor(System.Object)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="appdata">アプリケーション共有オブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.ViewsCommon.Initialize(System.Version)">
+            <summary>
+            データベースアクセス定義情報をロードする
+            </summary>
+            <param name="ver">データアクセス定義情報バージョン（未実装のため不要）</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.ViewsCommon.SetupMessageList(System.Data.DataTable)">
+            <summary>
+            メッセージリストを共有オブジェクトにセットアップします。
+            </summary>
+            <remarks>
+            引数として渡すDataTableの内容は以下の項目が必要です。
+            <para>・種別（文字列）："E", "W" など、メッセージの種別を示す文字列</para>
+            <para>・コード（数値）：メッセージのコード</para>
+            <para>・メッセージ（文字列）：メッセージの主文</para>
+            <para>・サブメッセージ（文字列）：メッセージの副文</para>
+            GetMessage()メソッドにより、種別とコードの組合せからメッセージの主文と副文を結合した文字列が取得されます。
+            </remarks>
+            <param name="table">画面モジュールにて使用するメッセージリスト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.ViewsCommon.GetMessage(System.String)">
+            <summary>
+            指定されたメッセージコードに対応するメッセージを取得する
+            </summary>
+            <param name="messagecode">メッセージコード（種別＋コード）</param>
+            <returns>メッセージ文</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Common.ViewsCommon.GetMessage(System.String,System.Int32)">
+            <summary>
+            指定されたメッセージコードに対応するメッセージを取得する
+            </summary>
+            <param name="kind">種別</param>
+            <param name="code">コード</param>
+            <returns>メッセージ文</returns>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Common.ViewsCommon.AppData">
+            <summary>
+            アプリケーションによる共有オブジェクト
+            </summary>
+        </member>
+    </members>
+</doc>

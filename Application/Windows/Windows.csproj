@@ -1,0 +1,1054 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{61E2BB33-77AE-487A-BAC3-216A146B1796}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KyoeiSystem.Application.Windows</RootNamespace>
+    <AssemblyName>KyoeiSystem.Application.Windows</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="GrapeCity.WPF.SpreadGrid, Version=1.0.2015.1109, Culture=neutral, PublicKeyToken=5c5c8ff7a6858ccc, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LicenseLogin.xaml.cs">
+      <DependentUpon>LicenseLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LOGIN.xaml.cs">
+      <DependentUpon>LOGIN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\BSK\BSK01010.xaml.cs">
+      <DependentUpon>BSK01010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BSK\BSK02010.xaml.cs">
+      <DependentUpon>BSK02010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BSK\BSK03010.xaml.cs">
+      <DependentUpon>BSK03010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BSK\BSK05010.xaml.cs">
+      <DependentUpon>BSK05010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BSK\BSK09010.xaml.cs">
+      <DependentUpon>BSK09010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\AppCommon.cs" />
+    <Compile Include="Views\Common\AppCommonData.cs" />
+    <Compile Include="Views\Common\CodeList.cs" />
+    <Compile Include="Views\Common\CommonConfig.cs" />
+    <Compile Include="Views\Common\DriveTime.cs" />
+    <Compile Include="Views\Common\GcSpreadGridController.cs" />
+    <Compile Include="Views\Common\TaxCalculator.cs" />
+    <Compile Include="Views\Common\UserConfig.cs" />
+    <Compile Include="Views\DLY\DLY01010.xaml.cs">
+      <DependentUpon>DLY01010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY01020.xaml.cs">
+      <DependentUpon>DLY01020.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY02010.xaml.cs">
+      <DependentUpon>DLY02010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY03010.xaml.cs">
+      <DependentUpon>DLY03010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY03020.xaml.cs">
+      <DependentUpon>DLY03020.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY04010.xaml.cs">
+      <DependentUpon>DLY04010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY05010.xaml.cs">
+      <DependentUpon>DLY05010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY06010.xaml.cs">
+      <DependentUpon>DLY06010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY07010.xaml.cs">
+      <DependentUpon>DLY07010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DLY\DLY11010.xaml.cs">
+      <DependentUpon>DLY11010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHS03_STOK.xaml.cs">
+      <DependentUpon>SCHS03_STOK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SHR\SHR03010.xaml.cs">
+      <DependentUpon>SHR03010.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SHR\SHR05010.xaml.cs">
+      <DependentUpon>SHR05010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SHR\SHR06010.xaml.cs">
+      <DependentUpon>SHR06010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TKS\TKS01020.xaml.cs">
+      <DependentUpon>TKS01020.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\DialogWindow.cs" />
+    <Compile Include="Views\MST\MST02010.xaml.cs">
+      <DependentUpon>MST02010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST04022_1.xaml.cs">
+      <DependentUpon>MST04022_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST05010_1.xaml.cs">
+      <DependentUpon>MST05010_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST08010.xaml.cs">
+      <DependentUpon>MST08010.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MST\MST08020.xaml.cs">
+      <DependentUpon>MST08020.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MST\MST13020.xaml.cs">
+      <DependentUpon>MST13020.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MST\MST16010.xaml.cs">
+      <DependentUpon>MST16010.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MST\MST17010.xaml.cs">
+      <DependentUpon>MST17010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST18010.xaml.cs">
+      <DependentUpon>MST18010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST19010.xaml.cs">
+      <DependentUpon>MST19010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST20010.xaml.cs">
+      <DependentUpon>MST20010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST23020.xaml.cs">
+      <DependentUpon>MST23020.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MST\MST01010.xaml.cs">
+      <DependentUpon>MST01010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST04010.xaml.cs">
+      <DependentUpon>MST04010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST04021.xaml.cs">
+      <DependentUpon>MST04021.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST04022.xaml.cs">
+      <DependentUpon>MST04022.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST04020.xaml.cs">
+      <DependentUpon>MST04020.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST03010.xaml.cs">
+      <DependentUpon>MST03010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST04021_1.xaml.cs">
+      <DependentUpon>MST04021_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST04020_1.xaml.cs">
+      <DependentUpon>MST04020_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST12020.xaml.cs">
+      <DependentUpon>MST12020.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST12020_1.xaml.cs">
+      <DependentUpon>MST12020_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST01020.xaml.cs">
+      <DependentUpon>MST01020.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST01020_1.xaml.cs">
+      <DependentUpon>MST01020_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST90100.xaml.cs">
+      <DependentUpon>MST90100.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM10_TOKHIN.xaml.cs">
+      <DependentUpon>SCHM10_TOKHIN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM72_TNT.xaml.cs">
+      <DependentUpon>SCHM72_TNT.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM01_TOK.xaml.cs">
+      <DependentUpon>SCHM01_TOK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM09_HIN.xaml.cs">
+      <DependentUpon>SCHM09_HIN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM09_MYHIN.xaml.cs">
+      <DependentUpon>SCHM09_MYHIN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM12_DAIBUNRUI.xaml.cs">
+      <DependentUpon>SCHM12_DAIBUNRUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM13_TYUBUNRUI.xaml.cs">
+      <DependentUpon>SCHM13_TYUBUNRUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM15_SERIES.xaml.cs">
+      <DependentUpon>SCHM15_SERIES.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM14_BRAND.xaml.cs">
+      <DependentUpon>SCHM14_BRAND.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM16_HINGUN.xaml.cs">
+      <DependentUpon>SCHM16_HINGUN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM06_IRO.xaml.cs">
+      <DependentUpon>SCHM06_IRO.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM70_JIS.xaml.cs">
+      <DependentUpon>SCHM70_JIS.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM22_SOUK.xaml.cs">
+      <DependentUpon>SCHM22_SOUK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM21_SYUK.xaml.cs">
+      <DependentUpon>SCHM21_SYUK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST05010.xaml.cs">
+      <DependentUpon>MST05010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST13010.xaml.cs">
+      <DependentUpon>MST13010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST23010.xaml.cs">
+      <DependentUpon>MST23010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM11_TEK.xaml.cs">
+      <DependentUpon>SCHM11_TEK.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SCH\SCHM74_KGRPNAME.xaml.cs">
+      <DependentUpon>SCHM74_KGRPNAME.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TKS\TKS01010.xaml.cs">
+      <DependentUpon>TKS01010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TKS\TKS03010.xaml.cs">
+      <DependentUpon>TKS03010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TKS\TKS07010.xaml.cs">
+      <DependentUpon>TKS07010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TKS\TKS08010.xaml.cs">
+      <DependentUpon>TKS08010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TKS\TKS09010.xaml.cs">
+      <DependentUpon>TKS09010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControl\M01_TOK_TextBox.xaml.cs">
+      <DependentUpon>M01_TOK_TextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ01010.xaml.cs">
+      <DependentUpon>ZIJ01010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ02010.xaml.cs">
+      <DependentUpon>ZIJ02010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ03010.xaml.cs">
+      <DependentUpon>ZIJ03010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ04010.xaml.cs">
+      <DependentUpon>ZIJ04010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ05010.xaml.cs">
+      <DependentUpon>ZIJ05010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ06010.xaml.cs">
+      <DependentUpon>ZIJ06010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ07010.xaml.cs">
+      <DependentUpon>ZIJ07010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIJ\ZIJ09010.xaml.cs">
+      <DependentUpon>ZIJ09010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIK\ZIK01010.xaml.cs">
+      <DependentUpon>ZIK01010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowControler.xaml.cs">
+      <DependentUpon>WindowControler.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAINMANU.xaml.cs">
+      <DependentUpon>MAINMANU.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DBSetup.xaml.cs">
+      <DependentUpon>DBSetup.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\BSK\BSK05010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <None Include="Views\TKS\TKS09010G1.sgxml" />
+    <None Include="Views\ZIK\ZIK01010G1.sgxml" />
+    <Resource Include="Views\DLY\DLY07010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ07010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ05010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ06010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ01010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\SHR\SHR03010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ02010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ04010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ03010G1.sgxml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIJ\ZIJ09010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\TKS\TKS01010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\TKS\TKS01020G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\DLY\DLY03020G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Views\DLY\DLY01020G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Views\DLY\DLY06010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\DLY\DLY05010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\DLY\DLY04010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Views\MST\MST90100G1.sgxml" />
+    <Resource Include="Views\DLY\DLY03010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Views\DLY\DLY02010G2.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\DLY\DLY02010G1.sgxml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\DLY\DLY01010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Views\MST\MST03010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <None Include="packages.config" />
+    <None Include="Resources\WindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\在庫管理.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Common\KyoeiSystem.Framework.Common.csproj">
+      <Project>{69eed3ca-6248-4dfe-84dc-d4d7b0ea54ed}</Project>
+      <Name>KyoeiSystem.Framework.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Core\KyoeiSystem.Framework.Core.csproj">
+      <Project>{f8147bcc-c764-49e4-90f3-015bfdb584d9}</Project>
+      <Name>KyoeiSystem.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Net\KyoeiSystem.Framework.Net.csproj">
+      <Project>{6f4babae-8ece-4c51-8092-fadef25c43ad}</Project>
+      <Name>KyoeiSystem.Framework.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Reports\KyoeiSystem.Framework.Reports.csproj">
+      <Project>{716482c7-d8ff-481e-89fa-a0550158d123}</Project>
+      <Name>KyoeiSystem.Framework.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Windows.Controls\KyoeiSystem.Framework.Windows.Controls.csproj">
+      <Project>{8a099efb-eba4-4dcc-abef-12114553b1f2}</Project>
+      <Name>KyoeiSystem.Framework.Windows.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Windows\KyoeiSystem.Framework.Windows.csproj">
+      <Project>{d16ced76-0224-4fa7-a7a6-65b8c3ee4c01}</Project>
+      <Name>KyoeiSystem.Framework.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="LicenseLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LOGIN.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BSK\BSK01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BSK\BSK02010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BSK\BSK03010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BSK\BSK05010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BSK\BSK09010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY01020.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY02010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY03010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY03020.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY04010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY05010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY06010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY07010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY11010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHS03_STOK.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SHR\SHR03010.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SHR\SHR05010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SHR\SHR06010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS01020.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST02010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST04022_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST05010_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST08010.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MST\MST08020.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MST\MST13020.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MST\MST16010.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MST\MST17010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST18010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST19010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST20010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST23020.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MST\MST01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST04010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST04021.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST04022.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST04020.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST03010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST04021_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST04020_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST12020.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST12020_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST01020.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST01020_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST90100.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM10_TOKHIN.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM72_TNT.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM01_TOK.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM09_HIN.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM09_MYHIN.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM12_DAIBUNRUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM13_TYUBUNRUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM06_IRO.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM15_SERIES.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM14_BRAND.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM16_HINGUN.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM70_JIS.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM22_SOUK.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM21_SYUK.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST05010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST13010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST23010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM11_TEK.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM74_KGRPNAME.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS03010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS07010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS08010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS09010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControl\M01_TOK_TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ02010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ03010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ04010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ05010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ06010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ07010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ09010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIK\ZIK01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowControler.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MAINMANU.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DBSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\appbar.app.remove.white.png" />
+    <Resource Include="Views\Images\Input.png" />
+    <Resource Include="Views\Images\InputTure.png" />
+    <Resource Include="Views\Images\KaoSample.png" />
+    <Resource Include="Views\Images\KyoueiIcon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ATLLib">
+      <Guid>{44EC0535-400F-11D0-9DCD-00A0C90391D3}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\DLY01010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY02010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY03010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY07010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY08010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY09010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY10010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY11010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY12010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY13010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY14010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY15010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY16010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY19010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\DLY23010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI01010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI02010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI03010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI04010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI05010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI06010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI07010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI08010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI09010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI10010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI11010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI12010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\JMI13010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST01010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST02010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST03010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST04010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST04020.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST05010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST06010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST06030.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST07010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST08010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST09010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST10010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST12010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST13010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST14010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST16010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST17010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST18010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST19010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST20010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST21010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST22010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST23010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST25010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST26010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST27010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST28010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST29010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST30010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST31010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST90010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST90020.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST90030.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST90050.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG01010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG02010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG03010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG04010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG05010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG06010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG07010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\NNG08010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR02010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR03010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR04010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR05010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR06010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR07010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR08010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR09010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR10010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR12010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SHR13010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY01010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY02010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY03010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY04010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY05010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY06010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY07010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY08010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY09010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY10010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY11010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY12010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY13010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY14010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY17010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY19010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY21010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY22010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\SRY23010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS01010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS03010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS04010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS05010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS06010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS07010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS08010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS09010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS10010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS11010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS12010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS14010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\TKS18010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS19010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS20010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\TKS21010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\SRY24010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\MST32010.jpg" />
+    <Resource Include="DisplayImage\ScreenImage\MST33010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\SRY20010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\12ログイン画像.png" />
+    <Resource Include="Views\Images\13共栄Webリンク.png" />
+    <Resource Include="Views\Images\14ログアウト.png" />
+    <Resource Include="Views\Images\15マスタ照会.png" />
+    <Resource Include="Views\Images\16マスタ入力.png" />
+    <Resource Include="Views\Images\17経費追加.png" />
+    <Resource Include="Views\Images\18詳細表示.png" />
+    <Resource Include="Views\Images\19CSV出力.png" />
+    <Resource Include="Views\Images\20エクセル出力.png" />
+    <Resource Include="Views\Images\21社員台帳.png" />
+    <Resource Include="Views\Images\22リスト.png" />
+    <Resource Include="Views\Images\23印刷.png" />
+    <Resource Include="Views\Images\24登録.png" />
+    <Resource Include="Views\Images\25集計開始.png" />
+    <Resource Include="Views\Images\26クリア.png" />
+    <Resource Include="Views\Images\27終了.png" />
+    <Resource Include="Views\Images\28削除.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\ライセンス認証.png" />
+    <Resource Include="Views\Images\担当者ログイン.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\検索実行ボタン.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\01日次処理.png" />
+    <Resource Include="Views\Images\02随時処理.png" />
+    <Resource Include="Views\Images\03得意先管理.png" />
+    <Resource Include="Views\Images\04支払先管理.png" />
+    <Resource Include="Views\Images\05乗務員管理.png" />
+    <Resource Include="Views\Images\06車両管理.png" />
+    <Resource Include="Views\Images\07車種管理.png" />
+    <Resource Include="Views\Images\08マスタ管理1.png" />
+    <Resource Include="Views\Images\09マスタ管理2.png" />
+    <Resource Include="Views\Images\10年次処理.png" />
+    <Resource Include="Views\Images\11その他.png" />
+    <Resource Include="Views\Images\29遠隔サポート.png" />
+    <Resource Include="Views\Images\30マニュアル.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\昇順.png" />
+    <Resource Include="Views\Images\降順.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\HAKOBO_logo02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\終了.png" />
+    <Resource Include="Views\Images\選択.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\雲坊logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\QandA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\appbar.checkmark.pencil.top.white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\Menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\LogOut.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\MST01015.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\DLY02015.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\DLY24010.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\行追加.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DisplayImage\ScreenImage\MST04022.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

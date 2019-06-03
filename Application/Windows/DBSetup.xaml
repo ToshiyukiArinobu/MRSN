@@ -1,0 +1,104 @@
+﻿<fw:WindowGeneralBase
+        xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+        x:Class="KyoeiSystem.Application.Windows.Views.DBSetup"
+        WindowStyle="None"
+        Title="DB接続情報設定" MinWidth="350" Width="360" MinHeight="320" Height="320" ShowInTaskbar="True" WindowStartupLocation="CenterScreen"
+        Style="{Binding Source={StaticResource LoginWindow}}" 
+        Loaded="Window_Loaded"
+  >
+
+  <Window.Resources>
+    <Style x:Key="ButtonFocusVisual" TargetType="Button">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#F3F3F3" Offset="0"/>
+      <GradientStop Color="#EBEBEB" Offset="0.5"/>
+      <GradientStop Color="#DDDDDD" Offset="0.5"/>
+      <GradientStop Color="#CDCDCD" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+  </Window.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!-- 画面本体 -->
+    <Border Margin="5" BorderBrush="Black" BorderThickness="1" Background="white" Grid.RowSpan="2">
+      <Grid  Margin="5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="40"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="30"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="{Binding NaviMessage, UpdateSourceTrigger=PropertyChanged}"/>
+        <ctls:UcLabelTextBox Name="txtServer" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,4,0,0"
+                             Label_Context="SQLサーバー" Label_Width="100" cMaxLength="60" 
+                             Text="{Binding DBServer, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                             />
+
+        <ctls:UcLabelTextBox Name="txtDBName" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,4,0,0"
+                             Label_Context="DB名" Label_Width="100" cMaxLength="60" 
+                             Text="{Binding DBName, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                             />
+
+        <ctls:UcLabelTextBox Name="txtUserID" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,4,0,0"
+                             Label_Context="ユーザ名" Label_Width="100" cMaxLength="60" 
+                             Text="{Binding UserName, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                             />
+
+        <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,4,0,0" >
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <ctls:UcLabel Grid.Column="0" cContent="パスワード" Width="100" />
+          <ctls:UcPasswordBox Name="txtPasswd" Grid.Column="1" Margin="2,0,0,0"
+                              PasswordText="{Binding Password, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                              PreviewKeyDown="txtPasswd_PreviewKeyDown"
+                             />
+        </Grid>
+
+        <StackPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" >
+          <Button Name="BtnSave" Width="90" Content="設定保存" Background="#3b5998" Foreground="White" Margin="0,0,10,0"
+                  Click="Save_Click"/>
+          <Button Name="BtnLogout" Width="90" Content="キャンセル" Background="#3b5998" Foreground="White" Margin="0,0,0,0"
+                  Click="Cancel_Click" />
+        </StackPanel>
+        <!-- エラーメッセージ領域 -->
+        <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+        <Label Grid.Row="9" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+      </Grid>
+
+    </Border>
+  </Grid>
+</fw:WindowGeneralBase>

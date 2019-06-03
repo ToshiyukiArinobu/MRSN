@@ -1,0 +1,18 @@
+乗務員指定	String	20	乗務員指定サンプル
+表示区分	String	15	（売上あり乗務員のみ）
+表示順序	String	15	コード順
+対象日	Date	2011/01/01
+費用算出年月From	Date	2011/01/01
+費用算出年月To	Date	2011/12/31
+乗務員コード	Number		10401
+乗務員名	String	20	乗務員名太郎
+売上金額	Number		35000
+数量	Number		603
+重量	Number		15
+走行KM	Number		228
+水揚金額	Number		35000
+燃料費	Number		0
+修理費	Number		0
+タイヤ費	Number		0
+変動費	Number		0
+固定費	Number		0

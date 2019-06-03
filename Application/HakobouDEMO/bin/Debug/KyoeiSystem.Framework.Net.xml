@@ -1,0 +1,694 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KyoeiSystem.Framework.Net</name>
+    </assembly>
+    <members>
+        <member name="T:KyoeiSystem.Framework.Net.Cert">
+            <summary>
+            証明書制御クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Cert.GetCertCollection">
+            <summary>
+            インストール済みの証明書リストを取得する
+            </summary>
+            <returns>証明書リスト</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Cert.GetCert(System.String)">
+            <summary>
+            シリアル番号をもとに証明書のインスタンスを取得する
+            </summary>
+            <param name="serialno">シリアル番号</param>
+            <returns>証明書インスタンス</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.HttpResult">
+            <summary>
+            HTTP通信の応答クラス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.uri">
+            <summary>
+            要求したURI
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.status">
+            <summary>
+            通信結果（HTTPステータスコードの文字列）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.statusCode">
+            <summary>
+            HTTPステータスコード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.errors">
+            <summary>
+            通信エラー発生時のエラーメッセージ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.header">
+            <summary>
+            応答メッセージのヘッダ部
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.contentType1">
+            <summary>
+            応答メッセージのコンテンツタイプ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.contentSubType">
+            <summary>
+            応答メッセージのコンテンツサブタイプ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.contentTypeOption">
+            <summary>
+            応答メッセージのコンテンツタイプのオプション
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.contntsBin">
+            <summary>
+            バイナリストリームとして受信した応答のコンテンツボディ
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.enc">
+            <summary>
+            テキストとして受信した応答メッセージのエンコード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.HttpResult.contentsText">
+            <summary>
+            テキストとして受信した応答メッセージのコンテンツボディ
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.Http">
+            <summary>
+            HTTP通信クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.SetServerCertValidate(System.Boolean)">
+            <summary>
+            サーバー証明書に対する処置の有効化または無効化を制御する
+            </summary>
+            <param name="onoff">true:チェックする／false:チェックしない</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.SetDefaultCharset(System.String)">
+            <summary>
+            エンコードする際のデフォルトの文字コードを指定する
+            </summary>
+            <param name="charset"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.OnRemoteCertificateValidationCallback(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            証明書チェックコールバック処理
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="sslPolicyErrors"></param>
+            <returns>判定結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.GetContents(System.String,System.String[],System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String)">
+            <summary>
+            指定URIのコンテンツを取得する。（ファイル受信機能兼用）
+            </summary>
+            <param name="URI">URI文字列</param>
+            <param name="paramlist">URLパラメータ配列</param>
+            <param name="headers">送信ヘッダ配列</param>
+            <param name="certname">クライアント証明書シリアル番号</param>
+            <param name="userid">Basic認証用ユーザID</param>
+            <param name="passwd">Basic認証用パスワード</param>
+            <returns>通信結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.Upload(System.String,System.String,System.String[],System.String,System.String,System.String)">
+            <summary>
+            指定されたアップロード用スクリプトを介して、ファイルをサーバに転送(アップロード)する。
+            </summary>
+            <param name="URI">URI文字列</param>
+            <param name="localfile">アップロードファイル名</param>
+            <param name="paramlist">URLパラメータ配列</param>
+            <param name="certname">クライアント証明書シリアル番号</param>
+            <param name="userid">Basic認証用ユーザID</param>
+            <param name="passwd">Basic認証用パスワード</param>
+            <returns>通信結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.UploadByPOST(System.String,System.String,System.String[],System.String,System.String,System.String)">
+            <summary>
+            指定されたアップロード用スクリプトに対してPOSTメッセージを介して、ファイルをサーバに転送(アップロード)する。
+            </summary>
+            <param name="URI">URI文字列</param>
+            <param name="localfile">アップロードファイル名</param>
+            <param name="paramlist">URLパラメータ配列</param>
+            <param name="certname">クライアント証明書シリアル番号</param>
+            <param name="userid">Basic認証用ユーザID</param>
+            <param name="passwd">Basic認証用パスワード</param>
+            <returns>通信結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.CallPut(System.String,System.String[],System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String)">
+            <summary>
+            指定URIのコンテンツをPUTメッセージにて取得する。
+            </summary>
+            <param name="URI">URI文字列</param>
+            <param name="paramlist">URLパラメータ配列</param>
+            <param name="headers">送信ヘッダ配列</param>
+            <param name="putMsg">POSTで送信するメッセージボディ</param>
+            <param name="certname">クライアント証明書シリアル番号</param>
+            <param name="userid">Basic認証用ユーザID</param>
+            <param name="passwd">Basic認証用パスワード</param>
+            <returns>通信結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.CallPost(System.String,System.String[],System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String)">
+            <summary>
+            指定URIのコンテンツをPOSTメッセージにて取得する。
+            </summary>
+            <param name="URI">URI文字列</param>
+            <param name="paramlist">URLパラメータ配列</param>
+            <param name="headers">送信ヘッダ配列</param>
+            <param name="postMsg">POSTで送信するメッセージボディ</param>
+            <param name="certname">クライアント証明書シリアル番号</param>
+            <param name="userid">Basic認証用ユーザID</param>
+            <param name="passwd">Basic認証用パスワード</param>
+            <returns>通信結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.CallDelete(System.String,System.String[],System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String,System.String,System.String)">
+            <summary>
+            指定URIのコンテンツをDELETEメッセージにて取得する。
+            </summary>
+            <param name="URI">URI文字列</param>
+            <param name="paramlist">URLパラメータ配列</param>
+            <param name="headers">送信ヘッダ配列</param>
+            <param name="postMsg">POSTで送信するメッセージボディ</param>
+            <param name="certname">クライアント証明書シリアル番号</param>
+            <param name="userid">Basic認証用ユーザID</param>
+            <param name="passwd">Basic認証用パスワード</param>
+            <returns>通信結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Http.Dispose">
+            <summary>
+            インスタンス解放
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.SecureMode">
+            <summary>
+            通信時のセキュリティモード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SecureMode.None">
+            <summary>
+            なし
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SecureMode.SSL2">
+            <summary>
+            SSL 2.x
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SecureMode.SSL3">
+            <summary>
+            SSL 3.x
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SecureMode.TLS">
+            <summary>
+            TLS 1.x
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SecureMode.STARTTLS">
+            <summary>
+            STARTTLS
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.SmtpAuthMethod">
+            <summary>
+            SMTPの認証方法を表す列挙体
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SmtpAuthMethod.None">
+            <summary>
+            認証を行わない
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SmtpAuthMethod.Plain">
+            <summary>
+            AUTH PLAIN
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SmtpAuthMethod.Login">
+            <summary>
+            AUTH LOGIN
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.SmtpAuthMethod.CramMd5">
+            <summary>
+            AUTH CRAM-MD5
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.PopProtocol">
+            <summary>
+            POP通信プロトコル
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.PopProtocol.POP3">
+            <summary>
+            POP3
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.PopProtocol.IMAP">
+            <summary>
+            IMAP（サポート対象外）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.PopAuthMethod">
+            <summary>
+            POP3の認証方法を表す列挙体
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.PopAuthMethod.Standard">
+            <summary>
+            標準
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.PopAuthMethod.APOP">
+            <summary>
+            AUTH PLAIN
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.PopAuthMethod.CramMd5">
+            <summary>
+            AUTH CRAM-MD5
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.PopAuthMethod.NTLM">
+            <summary>
+            NTLM（Windowsログイン）
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.MailParameters">
+            <summary>
+            メール送信機能用パラメータクラス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.SmtpServer">
+            <summary>
+            SMTPサーバー名またはIPアドレス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.SmtpPort">
+            <summary>
+            SMTPサーバーポート番号
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.SmtpSecureMode">
+            <summary>
+            SMTPセキュリティモード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.SmtpUserId">
+            <summary>
+            SMTPログインユーザID
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.SmtpPasswd">
+            <summary>
+            SMTPログインパスワード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.SmtpAuth">
+            <summary>
+            SMTP認証プロトコル
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.IsServerCertValidate">
+            <summary>
+            サーバー証明書の有効性チェックするかどうか
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.IsClientCertValidate">
+            <summary>
+            クライアント証明書を使用するかどうか
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.ClientCertSerialNo">
+            <summary>
+            クライアント証明書シリアルNo
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.IsPopBeforeSmtp">
+            <summary>
+            POP before SMTP の有無
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopServer">
+            <summary>
+            POPサーバー名またはIPアドレス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopPort">
+            <summary>
+            POPサーバーポート番号
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopSecureMode">
+            <summary>
+            POPセキュリティモード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopProtocol">
+            <summary>
+            POP通信プロトコル
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopUserId">
+            <summary>
+            POPログインユーザID
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopPasswd">
+            <summary>
+            POPログインパスワード
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopAuth">
+            <summary>
+            認証プロトコル
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.PopDelayTime">
+            <summary>
+            POP接続後の待ち時間
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.To">
+            <summary>
+            Toフィールド配列
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.Cc">
+            <summary>
+            Ccフィールド配列
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.Bcc">
+            <summary>
+            Bccフィールド配列
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.From">
+            <summary>
+            Fromフィールド
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.Sender">
+            <summary>
+            Senderフィールド
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.ReplyTo">
+            <summary>
+            ReplyToフィールド
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.Subject">
+            <summary>
+            Subjectフィールド
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.ExtHeaders">
+            <summary>
+            追加ヘッダ配列（接頭子 X- のみ）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.Files">
+            <summary>
+            添付ファイル名配列
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.Body">
+            <summary>
+            本文
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.status">
+            <summary>
+            送信結果ステータス
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Net.MailParameters.logs">
+            <summary>
+            通信ログ
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.Mail">
+            <summary>
+            メール送信機能
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.Dispose">
+            <summary>
+            インスタンス解放
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.SendMail(KyoeiSystem.Framework.Net.MailParameters)">
+            <summary>
+            指定されたパラメータの内容でメールを送信する（エンコードはISO-2022-JPのみをサポート）
+            </summary>
+            <param name="mailParams">メール送信パラメータ</param>
+            <returns>送信結果（true：正常、false：失敗）</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.SmtpConnect(KyoeiSystem.Framework.Net.MailParameters)">
+            <summary>
+            SMTPサーバーと接続する
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.ServerCertificateValidation(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="sslPolicyErrors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.SmtpSendAndReceive(System.String)">
+            <summary>
+            SMTPサーバーに文字列を送信し、応答を受信する
+            </summary>
+            <param name="message">送信する文字列</param>
+            <returns>受信した応答</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.CreateSendStringDataFromMessage(KyoeiSystem.Framework.Net.MailParameters)">
+            <summary>
+            メール送信データ編集（ヘッダ＆ボディ）
+            </summary>
+            <param name="mailParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Mail.PopWriteAndRead(System.IO.Stream,System.String)">
+            <summary>
+            POPサーバ送受信
+            </summary>
+            <param name="stream">ストリーム</param>
+            <param name="req">リクエスト</param>
+            <returns>レスポンス</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.TcpException">
+            <summary>
+            TCP通信例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.TcpException.#ctor">
+            <summary>
+            コンストラクタ（引数なし）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.TcpException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.TcpException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.SmtpException">
+            <summary>
+            SMTP通信例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.SmtpException.#ctor">
+            <summary>
+            コンストラクタ（引数なし）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.SmtpException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.SmtpException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.PopException">
+            <summary>
+            POP通信例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.PopException.#ctor">
+            <summary>
+            コンストラクタ（引数なし）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.PopException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.PopException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.WebAPIFormatException">
+            <summary>
+            WebAPI通信例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.WebAPIFormatException.#ctor">
+            <summary>
+            コンストラクタ（引数なし）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.WebAPIFormatException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.WebAPIFormatException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.MyNumberAPIException">
+            <summary>
+            マイナンバーAPI通信例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPIException.#ctor">
+            <summary>
+            コンストラクタ（引数なし）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPIException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPIException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.MyNumberAPIConfigException">
+            <summary>
+            マイナンバー通信設定例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPIConfigException.#ctor">
+            <summary>
+            コンストラクタ（引数なし）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPIConfigException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPIConfigException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.MyNumberAPICertException">
+            <summary>
+            マイナンバー通信証明書例外
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPICertException.#ctor">
+            <summary>
+            コンストラクタ（引数なし）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPICertException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.MyNumberAPICertException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="msg">メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.IJsonData">
+            <summary>
+            Jsonデータのシリアライザ利用のためのインターフェース
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Net.Json">
+            <summary>
+            Json形式のデータ変換機能（シリアライザによる）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Json.ToData``1(System.String)">
+            <summary>
+            Json形式の文字列からC#で扱うデータに変換する
+            </summary>
+            <typeparam name="T">内部データ型</typeparam>
+            <param name="jsontext">Json形式文字列</param>
+            <returns>デシリアライズした内部データ型のコレクション</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Net.Json.FromData``1(``0)">
+            <summary>
+            C#のデータからJson形式の文字列に変換する
+            </summary>
+            <typeparam name="T">内部データ型</typeparam>
+            <param name="data">シリアライズ化対象の内部データ型データコレクション</param>
+            <returns>Json形式の文字列</returns>
+        </member>
+    </members>
+</doc>

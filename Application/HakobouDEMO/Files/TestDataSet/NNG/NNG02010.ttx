@@ -1,0 +1,23 @@
+年月度From	Date		2011/01/01
+年月度To	Date		2011/12/31
+締日	String	5	全締日
+支払先指定	String	15	(ピックアップ指定有)
+表示区分	String	15	(支払あり支払先のみ)
+表示順序	String	10	コード順
+支払先ID	Number		3001
+支払先名	String	15	三宮物流
+1月	Number		96
+2月	Number		51
+3月	Number		
+4月	Number		
+5月	Number		
+6月	Number		
+7月	Number		
+8月	Number		
+9月	Number		
+10月	Number		
+11月	Number		
+12月	Number		
+年合計	Number		147
+平均	Number		73
+構成比	Number		10.56

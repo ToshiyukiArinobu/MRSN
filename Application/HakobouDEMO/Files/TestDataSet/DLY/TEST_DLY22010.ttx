@@ -1,0 +1,11 @@
+支払先指定	String	20	支払先指定サンプル
+表示区分	String	15	（支払あり支払先のみ）
+表示順序	String	15	コード順
+対象日	Date	2013/01/01
+支払先コード	Number		3001
+支払先名	String	20	支払先名のサンプルデータ
+支払金額	Number		50000
+支払通行料	Number		0
+走行ＫＭ	Number		35
+売上金額	Number		60000
+収益金額	Number		10000

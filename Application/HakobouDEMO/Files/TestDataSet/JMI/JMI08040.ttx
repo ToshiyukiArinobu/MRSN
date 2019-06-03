@@ -1,0 +1,9 @@
+年From	String	5	2011年
+年To	String	5	2013年
+表示順序	String	5	コード順
+対象年	String	5	2011年
+乗務員コード	Number		101
+乗務員名	String	20	乗務員名サンプルデータ
+実施年月日	Date		2013/09/25
+教育内容	String	30	特別教育サンプルデータ
+区分	String	2	新任

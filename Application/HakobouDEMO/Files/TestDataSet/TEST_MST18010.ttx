@@ -1,0 +1,10 @@
+得意先ID	Number		1
+得意先名１	String	40	得意先名１のサンプルデータ
+得意先名２	String	40	得意先名２のサンプルデータ
+重量	Number		1000
+個数	Number		123
+着地ID	Number		1
+着地名	String	40	着地名のサンプルデータ
+個建単価	Number		100
+個建金額	Number		12300
+C:\Projects\HBMS\Application\HakobouDEMO\Files\TestDataSet\TEST_MST18010.ttx

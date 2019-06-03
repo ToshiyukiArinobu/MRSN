@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ZIJ" targetNamespace="http://tempuri.org/ZIJ.xsd" xmlns:mstns="http://tempuri.org/ZIJ.xsd" xmlns="http://tempuri.org/ZIJ.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ZIJ" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ZIJ" msprop:Generator_UserDSName="ZIJ">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="商品在庫問合せ" msprop:Generator_TableClassName="商品在庫問合せDataTable" msprop:Generator_TableVarName="table商品在庫問合せ" msprop:Generator_TablePropName="商品在庫問合せ" msprop:Generator_RowDeletingName="商品在庫問合せRowDeleting" msprop:Generator_RowChangingName="商品在庫問合せRowChanging" msprop:Generator_RowEvHandlerName="商品在庫問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品在庫問合せRowDeleted" msprop:Generator_UserTableName="商品在庫問合せ" msprop:Generator_RowChangedName="商品在庫問合せRowChanged" msprop:Generator_RowEvArgName="商品在庫問合せRowChangeEvent" msprop:Generator_RowClassName="商品在庫問合せRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="倉庫コード" msprop:Generator_ColumnVarNameInTable="column倉庫コード" msprop:Generator_ColumnPropNameInRow="倉庫コード" msprop:Generator_ColumnPropNameInTable="倉庫コードColumn" msprop:Generator_UserColumnName="倉庫コード" type="xs:string" minOccurs="0" />
+              <xs:element name="倉庫名称" msprop:Generator_ColumnVarNameInTable="column倉庫名称" msprop:Generator_ColumnPropNameInRow="倉庫名称" msprop:Generator_ColumnPropNameInTable="倉庫名称Column" msprop:Generator_UserColumnName="倉庫名称" type="xs:string" minOccurs="0" />
+              <xs:element name="品番コード" msprop:Generator_ColumnVarNameInTable="column品番コード" msprop:Generator_ColumnPropNameInRow="品番コード" msprop:Generator_ColumnPropNameInTable="品番コードColumn" msprop:Generator_UserColumnName="品番コード" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品番コード" msprop:Generator_ColumnVarNameInTable="column自社品番コード" msprop:Generator_ColumnPropNameInRow="自社品番コード" msprop:Generator_ColumnPropNameInTable="自社品番コードColumn" msprop:Generator_UserColumnName="自社品番コード" type="xs:string" minOccurs="0" />
+              <xs:element name="自社色コード" msprop:Generator_ColumnVarNameInTable="column自社色コード" msprop:Generator_ColumnPropNameInRow="自社色コード" msprop:Generator_ColumnPropNameInTable="自社色コードColumn" msprop:Generator_UserColumnName="自社色コード" type="xs:string" minOccurs="0" />
+              <xs:element name="品番名称" msprop:Generator_ColumnVarNameInTable="column品番名称" msprop:Generator_ColumnPropNameInRow="品番名称" msprop:Generator_ColumnPropNameInTable="品番名称Column" msprop:Generator_UserColumnName="品番名称" type="xs:string" minOccurs="0" />
+              <xs:element name="色名称" msprop:Generator_ColumnVarNameInTable="column色名称" msprop:Generator_ColumnPropNameInRow="色名称" msprop:Generator_ColumnPropNameInTable="色名称Column" msprop:Generator_UserColumnName="色名称" type="xs:string" minOccurs="0" />
+              <xs:element name="賞味期限" msprop:Generator_ColumnVarNameInTable="column賞味期限" msprop:Generator_ColumnPropNameInRow="賞味期限" msprop:Generator_ColumnPropNameInTable="賞味期限Column" msprop:Generator_UserColumnName="賞味期限" type="xs:string" minOccurs="0" />
+              <xs:element name="在庫数量" msprop:Generator_ColumnVarNameInTable="column在庫数量" msprop:Generator_ColumnPropNameInRow="在庫数量" msprop:Generator_ColumnPropNameInTable="在庫数量Column" msprop:Generator_UserColumnName="在庫数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="単位" msprop:Generator_ColumnVarNameInTable="column単位" msprop:Generator_ColumnPropNameInRow="単位" msprop:Generator_ColumnPropNameInTable="単位Column" msprop:Generator_UserColumnName="単位" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="入金問合せ" msprop:Generator_TableClassName="入金問合せDataTable" msprop:Generator_TableVarName="table入金問合せ" msprop:Generator_RowChangedName="入金問合せRowChanged" msprop:Generator_TablePropName="入金問合せ" msprop:Generator_RowDeletingName="入金問合せRowDeleting" msprop:Generator_RowChangingName="入金問合せRowChanging" msprop:Generator_RowEvHandlerName="入金問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="入金問合せRowDeleted" msprop:Generator_RowClassName="入金問合せRow" msprop:Generator_UserTableName="入金問合せ" msprop:Generator_RowEvArgName="入金問合せRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="入金先自社名" msprop:Generator_ColumnVarNameInTable="column入金先自社名" msprop:Generator_ColumnPropNameInRow="入金先自社名" msprop:Generator_ColumnPropNameInTable="入金先自社名Column" msprop:Generator_UserColumnName="入金先自社名" type="xs:string" minOccurs="0" />
+              <xs:element name="入金日" msprop:Generator_ColumnVarNameInTable="column入金日" msprop:Generator_ColumnPropNameInRow="入金日" msprop:Generator_ColumnPropNameInTable="入金日Column" msprop:Generator_UserColumnName="入金日" type="xs:string" minOccurs="0" />
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="得意先名" msprop:Generator_ColumnVarNameInTable="column得意先名" msprop:Generator_ColumnPropNameInRow="得意先名" msprop:Generator_ColumnPropNameInTable="得意先名Column" msprop:Generator_UserColumnName="得意先名" type="xs:string" minOccurs="0" />
+              <xs:element name="入金元販社名" msprop:Generator_ColumnVarNameInTable="column入金元販社名" msprop:Generator_ColumnPropNameInRow="入金元販社名" msprop:Generator_ColumnPropNameInTable="入金元販社名Column" msprop:Generator_UserColumnName="入金元販社名" type="xs:string" minOccurs="0" />
+              <xs:element name="金種名" msprop:Generator_ColumnVarNameInTable="column金種名" msprop:Generator_ColumnPropNameInRow="金種名" msprop:Generator_ColumnPropNameInTable="金種名Column" msprop:Generator_UserColumnName="金種名" type="xs:string" minOccurs="0" />
+              <xs:element name="期日" msprop:Generator_ColumnVarNameInTable="column期日" msprop:Generator_ColumnPropNameInRow="期日" msprop:Generator_ColumnPropNameInTable="期日Column" msprop:Generator_UserColumnName="期日" type="xs:string" minOccurs="0" />
+              <xs:element name="金額" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="金額" msprop:Generator_ColumnVarNameInTable="column金額" msprop:Generator_ColumnPropNameInTable="金額Column" msprop:Generator_UserColumnName="金額" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="摘要" msprop:Generator_ColumnVarNameInTable="column摘要" msprop:Generator_ColumnPropNameInRow="摘要" msprop:Generator_ColumnPropNameInTable="摘要Column" msprop:Generator_UserColumnName="摘要" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="出金問合せ" msprop:Generator_TableClassName="出金問合せDataTable" msprop:Generator_TableVarName="table出金問合せ" msprop:Generator_RowChangedName="出金問合せRowChanged" msprop:Generator_TablePropName="出金問合せ" msprop:Generator_RowDeletingName="出金問合せRowDeleting" msprop:Generator_RowChangingName="出金問合せRowChanging" msprop:Generator_RowEvHandlerName="出金問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="出金問合せRowDeleted" msprop:Generator_RowClassName="出金問合せRow" msprop:Generator_UserTableName="出金問合せ" msprop:Generator_RowEvArgName="出金問合せRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="出金元自社名" msdata:Caption="入金先自社名" msprop:Generator_ColumnVarNameInTable="column出金元自社名" msprop:Generator_ColumnPropNameInRow="出金元自社名" msprop:Generator_ColumnPropNameInTable="出金元自社名Column" msprop:Generator_UserColumnName="出金元自社名" type="xs:string" minOccurs="0" />
+              <xs:element name="出金日" msdata:Caption="入金日" msprop:Generator_ColumnVarNameInTable="column出金日" msprop:Generator_ColumnPropNameInRow="出金日" msprop:Generator_ColumnPropNameInTable="出金日Column" msprop:Generator_UserColumnName="出金日" type="xs:string" minOccurs="0" />
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="得意先名" msprop:Generator_ColumnVarNameInTable="column得意先名" msprop:Generator_ColumnPropNameInRow="得意先名" msprop:Generator_ColumnPropNameInTable="得意先名Column" msprop:Generator_UserColumnName="得意先名" type="xs:string" minOccurs="0" />
+              <xs:element name="出金先販社名" msdata:Caption="入金元販社名" msprop:Generator_ColumnVarNameInTable="column出金先販社名" msprop:Generator_ColumnPropNameInRow="出金先販社名" msprop:Generator_ColumnPropNameInTable="出金先販社名Column" msprop:Generator_UserColumnName="出金先販社名" type="xs:string" minOccurs="0" />
+              <xs:element name="金種名" msprop:Generator_ColumnVarNameInTable="column金種名" msprop:Generator_ColumnPropNameInRow="金種名" msprop:Generator_ColumnPropNameInTable="金種名Column" msprop:Generator_UserColumnName="金種名" type="xs:string" minOccurs="0" />
+              <xs:element name="期日" msprop:Generator_ColumnVarNameInTable="column期日" msprop:Generator_ColumnPropNameInRow="期日" msprop:Generator_ColumnPropNameInTable="期日Column" msprop:Generator_UserColumnName="期日" type="xs:string" minOccurs="0" />
+              <xs:element name="金額" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="金額" msprop:Generator_ColumnVarNameInTable="column金額" msprop:Generator_ColumnPropNameInTable="金額Column" msprop:Generator_UserColumnName="金額" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="摘要" msprop:Generator_ColumnVarNameInTable="column摘要" msprop:Generator_ColumnPropNameInRow="摘要" msprop:Generator_ColumnPropNameInTable="摘要Column" msprop:Generator_UserColumnName="摘要" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="仕入問合せ" msprop:Generator_TableClassName="仕入問合せDataTable" msprop:Generator_TableVarName="table仕入問合せ" msprop:Generator_TablePropName="仕入問合せ" msprop:Generator_RowDeletingName="仕入問合せRowDeleting" msprop:Generator_RowChangingName="仕入問合せRowChanging" msprop:Generator_RowEvHandlerName="仕入問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="仕入問合せRowDeleted" msprop:Generator_UserTableName="仕入問合せ" msprop:Generator_RowChangedName="仕入問合せRowChanged" msprop:Generator_RowEvArgName="仕入問合せRowChangeEvent" msprop:Generator_RowClassName="仕入問合せRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="返品伝票番号" msprop:Generator_ColumnVarNameInTable="column返品伝票番号" msprop:Generator_ColumnPropNameInRow="返品伝票番号" msprop:Generator_ColumnPropNameInTable="返品伝票番号Column" msprop:Generator_UserColumnName="返品伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="自社名" msprop:Generator_ColumnVarNameInTable="column自社名" msprop:Generator_ColumnPropNameInRow="自社名" msprop:Generator_ColumnPropNameInTable="自社名Column" msprop:Generator_UserColumnName="自社名" type="xs:string" minOccurs="0" />
+              <xs:element name="仕入日" msprop:Generator_ColumnVarNameInTable="column仕入日" msprop:Generator_ColumnPropNameInRow="仕入日" msprop:Generator_ColumnPropNameInTable="仕入日Column" msprop:Generator_UserColumnName="仕入日" type="xs:string" minOccurs="0" />
+              <xs:element name="支払日" msprop:Generator_ColumnVarNameInTable="column支払日" msprop:Generator_ColumnPropNameInRow="支払日" msprop:Generator_ColumnPropNameInTable="支払日Column" msprop:Generator_UserColumnName="支払日" type="xs:string" minOccurs="0" />
+              <xs:element name="入力区分名" msprop:Generator_ColumnVarNameInTable="column入力区分名" msprop:Generator_ColumnPropNameInRow="入力区分名" msprop:Generator_ColumnPropNameInTable="入力区分名Column" msprop:Generator_UserColumnName="入力区分名" type="xs:string" minOccurs="0" />
+              <xs:element name="仕入先名" msprop:Generator_ColumnVarNameInTable="column仕入先名" msprop:Generator_ColumnPropNameInRow="仕入先名" msprop:Generator_ColumnPropNameInTable="仕入先名Column" msprop:Generator_UserColumnName="仕入先名" type="xs:string" minOccurs="0" />
+              <xs:element name="入荷先名" msprop:Generator_ColumnVarNameInTable="column入荷先名" msprop:Generator_ColumnPropNameInRow="入荷先名" msprop:Generator_ColumnPropNameInTable="入荷先名Column" msprop:Generator_UserColumnName="入荷先名" type="xs:string" minOccurs="0" />
+              <xs:element name="発注番号" msprop:Generator_ColumnVarNameInTable="column発注番号" msprop:Generator_ColumnPropNameInRow="発注番号" msprop:Generator_ColumnPropNameInTable="発注番号Column" msprop:Generator_UserColumnName="発注番号" type="xs:string" minOccurs="0" />
+              <xs:element name="備考" msprop:Generator_ColumnVarNameInTable="column備考" msprop:Generator_ColumnPropNameInRow="備考" msprop:Generator_ColumnPropNameInTable="備考Column" msprop:Generator_UserColumnName="備考" type="xs:string" minOccurs="0" />
+              <xs:element name="合計金額" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="合計金額" msprop:Generator_ColumnVarNameInTable="column合計金額" msprop:Generator_ColumnPropNameInTable="合計金額Column" msprop:Generator_UserColumnName="合計金額" type="xs:long" default="0" minOccurs="0" />
+              <xs:element name="消費税" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="消費税" msprop:Generator_ColumnVarNameInTable="column消費税" msprop:Generator_ColumnPropNameInTable="消費税Column" msprop:Generator_UserColumnName="消費税" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="返品合計金額" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="返品合計金額" msprop:Generator_ColumnVarNameInTable="column返品合計金額" msprop:Generator_ColumnPropNameInTable="返品合計金額Column" msprop:Generator_UserColumnName="返品合計金額" type="xs:long" default="0" minOccurs="0" />
+              <xs:element name="返品消費税" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="返品消費税" msprop:Generator_ColumnVarNameInTable="column返品消費税" msprop:Generator_ColumnPropNameInTable="返品消費税Column" msprop:Generator_UserColumnName="返品消費税" type="xs:int" default="0" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="支払明細問合せ" msprop:Generator_TableClassName="支払明細問合せDataTable" msprop:Generator_TableVarName="table支払明細問合せ" msprop:Generator_RowChangedName="支払明細問合せRowChanged" msprop:Generator_TablePropName="支払明細問合せ" msprop:Generator_RowDeletingName="支払明細問合せRowDeleting" msprop:Generator_RowChangingName="支払明細問合せRowChanging" msprop:Generator_RowEvHandlerName="支払明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="支払明細問合せRowDeleted" msprop:Generator_RowClassName="支払明細問合せRow" msprop:Generator_UserTableName="支払明細問合せ" msprop:Generator_RowEvArgName="支払明細問合せRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="仕入日" msprop:Generator_ColumnVarNameInTable="column仕入日" msprop:Generator_ColumnPropNameInRow="仕入日" msprop:Generator_ColumnPropNameInTable="仕入日Column" msprop:Generator_UserColumnName="仕入日" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="支払日" msprop:Generator_ColumnVarNameInTable="column支払日" msprop:Generator_ColumnPropNameInRow="支払日" msprop:Generator_ColumnPropNameInTable="支払日Column" msprop:Generator_UserColumnName="支払日" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="元伝票番号" msprop:Generator_ColumnVarNameInTable="column元伝票番号" msprop:Generator_ColumnPropNameInRow="元伝票番号" msprop:Generator_ColumnPropNameInTable="元伝票番号Column" msprop:Generator_UserColumnName="元伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="仕入先名" msprop:Generator_ColumnVarNameInTable="column仕入先名" msprop:Generator_ColumnPropNameInRow="仕入先名" msprop:Generator_ColumnPropNameInTable="仕入先名Column" msprop:Generator_UserColumnName="仕入先名" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品番" msprop:Generator_ColumnVarNameInTable="column自社品番" msprop:Generator_ColumnPropNameInRow="自社品番" msprop:Generator_ColumnPropNameInTable="自社品番Column" msprop:Generator_UserColumnName="自社品番" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品名" msprop:Generator_ColumnVarNameInTable="column自社品名" msprop:Generator_ColumnPropNameInRow="自社品名" msprop:Generator_ColumnPropNameInTable="自社品名Column" msprop:Generator_UserColumnName="自社品名" type="xs:string" minOccurs="0" />
+              <xs:element name="自社色" msprop:Generator_ColumnVarNameInTable="column自社色" msprop:Generator_ColumnPropNameInRow="自社色" msprop:Generator_ColumnPropNameInTable="自社色Column" msprop:Generator_UserColumnName="自社色" type="xs:string" minOccurs="0" />
+              <xs:element name="賞味期限" msprop:Generator_ColumnVarNameInTable="column賞味期限" msprop:Generator_ColumnPropNameInRow="賞味期限" msprop:Generator_ColumnPropNameInTable="賞味期限Column" msprop:Generator_UserColumnName="賞味期限" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="単価" msprop:Generator_ColumnVarNameInTable="column単価" msprop:Generator_ColumnPropNameInRow="単価" msprop:Generator_ColumnPropNameInTable="単価Column" msprop:Generator_UserColumnName="単価" type="xs:decimal" minOccurs="0" />
+              <xs:element name="数量" msprop:Generator_ColumnVarNameInTable="column数量" msprop:Generator_ColumnPropNameInRow="数量" msprop:Generator_ColumnPropNameInTable="数量Column" msprop:Generator_UserColumnName="数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="単位" msprop:Generator_ColumnVarNameInTable="column単位" msprop:Generator_ColumnPropNameInRow="単位" msprop:Generator_ColumnPropNameInTable="単位Column" msprop:Generator_UserColumnName="単位" type="xs:string" minOccurs="0" />
+              <xs:element name="金額" msprop:Generator_ColumnVarNameInTable="column金額" msprop:Generator_ColumnPropNameInRow="金額" msprop:Generator_ColumnPropNameInTable="金額Column" msprop:Generator_UserColumnName="金額" type="xs:int" minOccurs="0" />
+              <xs:element name="発注番号" msprop:Generator_ColumnVarNameInTable="column発注番号" msprop:Generator_ColumnPropNameInRow="発注番号" msprop:Generator_ColumnPropNameInTable="発注番号Column" msprop:Generator_UserColumnName="発注番号" type="xs:int" minOccurs="0" />
+              <xs:element name="摘要" msprop:Generator_ColumnVarNameInTable="column摘要" msprop:Generator_ColumnPropNameInRow="摘要" msprop:Generator_ColumnPropNameInTable="摘要Column" msprop:Generator_UserColumnName="摘要" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="商品移動振替問合せ" msprop:Generator_TableClassName="商品移動振替問合せDataTable" msprop:Generator_TableVarName="table商品移動振替問合せ" msprop:Generator_TablePropName="商品移動振替問合せ" msprop:Generator_RowDeletingName="商品移動振替問合せRowDeleting" msprop:Generator_RowChangingName="商品移動振替問合せRowChanging" msprop:Generator_RowEvHandlerName="商品移動振替問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品移動振替問合せRowDeleted" msprop:Generator_UserTableName="商品移動振替問合せ" msprop:Generator_RowChangedName="商品移動振替問合せRowChanged" msprop:Generator_RowEvArgName="商品移動振替問合せRowChangeEvent" msprop:Generator_RowClassName="商品移動振替問合せRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="移動日" msprop:Generator_ColumnVarNameInTable="column移動日" msprop:Generator_ColumnPropNameInRow="移動日" msprop:Generator_ColumnPropNameInTable="移動日Column" msprop:Generator_UserColumnName="移動日" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="自社名" msprop:Generator_ColumnVarNameInTable="column自社名" msprop:Generator_ColumnPropNameInRow="自社名" msprop:Generator_ColumnPropNameInTable="自社名Column" msprop:Generator_UserColumnName="自社名" type="xs:string" minOccurs="0" />
+              <xs:element name="移動区分" msprop:Generator_ColumnVarNameInTable="column移動区分" msprop:Generator_ColumnPropNameInRow="移動区分" msprop:Generator_ColumnPropNameInTable="移動区分Column" msprop:Generator_UserColumnName="移動区分" type="xs:string" minOccurs="0" />
+              <xs:element name="移動元倉庫" msprop:Generator_ColumnVarNameInTable="column移動元倉庫" msprop:Generator_ColumnPropNameInRow="移動元倉庫" msprop:Generator_ColumnPropNameInTable="移動元倉庫Column" msprop:Generator_UserColumnName="移動元倉庫" type="xs:string" minOccurs="0" />
+              <xs:element name="移動先倉庫" msprop:Generator_ColumnVarNameInTable="column移動先倉庫" msprop:Generator_ColumnPropNameInRow="移動先倉庫" msprop:Generator_ColumnPropNameInTable="移動先倉庫Column" msprop:Generator_UserColumnName="移動先倉庫" type="xs:string" minOccurs="0" />
+              <xs:element name="品番コード" msprop:Generator_ColumnVarNameInTable="column品番コード" msprop:Generator_ColumnPropNameInRow="品番コード" msprop:Generator_ColumnPropNameInTable="品番コードColumn" msprop:Generator_UserColumnName="品番コード" type="xs:int" minOccurs="0" />
+              <xs:element name="自社品番" msprop:Generator_ColumnVarNameInTable="column自社品番" msprop:Generator_ColumnPropNameInRow="自社品番" msprop:Generator_ColumnPropNameInTable="自社品番Column" msprop:Generator_UserColumnName="自社品番" type="xs:string" minOccurs="0" />
+              <xs:element name="商品名" msprop:Generator_ColumnVarNameInTable="column商品名" msprop:Generator_ColumnPropNameInRow="商品名" msprop:Generator_ColumnPropNameInTable="商品名Column" msprop:Generator_UserColumnName="商品名" type="xs:string" minOccurs="0" />
+              <xs:element name="賞味期限" msprop:Generator_ColumnVarNameInTable="column賞味期限" msprop:Generator_ColumnPropNameInRow="賞味期限" msprop:Generator_ColumnPropNameInTable="賞味期限Column" msprop:Generator_UserColumnName="賞味期限" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="数量" msprop:Generator_ColumnVarNameInTable="column数量" msprop:Generator_ColumnPropNameInRow="数量" msprop:Generator_ColumnPropNameInTable="数量Column" msprop:Generator_UserColumnName="数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="単位" msprop:Generator_ColumnVarNameInTable="column単位" msprop:Generator_ColumnPropNameInRow="単位" msprop:Generator_ColumnPropNameInTable="単位Column" msprop:Generator_UserColumnName="単位" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="請求明細問合せ" msprop:Generator_TableClassName="請求明細問合せDataTable" msprop:Generator_TableVarName="table請求明細問合せ" msprop:Generator_RowChangedName="請求明細問合せRowChanged" msprop:Generator_TablePropName="請求明細問合せ" msprop:Generator_RowDeletingName="請求明細問合せRowDeleting" msprop:Generator_RowChangingName="請求明細問合せRowChanging" msprop:Generator_RowEvHandlerName="請求明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="請求明細問合せRowDeleted" msprop:Generator_RowClassName="請求明細問合せRow" msprop:Generator_UserTableName="請求明細問合せ" msprop:Generator_RowEvArgName="請求明細問合せRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="売上日" msprop:Generator_ColumnVarNameInTable="column売上日" msprop:Generator_ColumnPropNameInRow="売上日" msprop:Generator_ColumnPropNameInTable="売上日Column" msprop:Generator_UserColumnName="売上日" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="請求日" msprop:Generator_ColumnVarNameInTable="column請求日" msprop:Generator_ColumnPropNameInRow="請求日" msprop:Generator_ColumnPropNameInTable="請求日Column" msprop:Generator_UserColumnName="請求日" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="元伝票番号" msprop:Generator_ColumnVarNameInTable="column元伝票番号" msprop:Generator_ColumnPropNameInRow="元伝票番号" msprop:Generator_ColumnPropNameInTable="元伝票番号Column" msprop:Generator_UserColumnName="元伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="得意先" msprop:Generator_ColumnVarNameInTable="column得意先" msprop:Generator_ColumnPropNameInRow="得意先" msprop:Generator_ColumnPropNameInTable="得意先Column" msprop:Generator_UserColumnName="得意先" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品番" msprop:Generator_ColumnVarNameInTable="column自社品番" msprop:Generator_ColumnPropNameInRow="自社品番" msprop:Generator_ColumnPropNameInTable="自社品番Column" msprop:Generator_UserColumnName="自社品番" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品名" msprop:Generator_ColumnVarNameInTable="column自社品名" msprop:Generator_ColumnPropNameInRow="自社品名" msprop:Generator_ColumnPropNameInTable="自社品名Column" msprop:Generator_UserColumnName="自社品名" type="xs:string" minOccurs="0" />
+              <xs:element name="自社色" msprop:Generator_ColumnVarNameInTable="column自社色" msprop:Generator_ColumnPropNameInRow="自社色" msprop:Generator_ColumnPropNameInTable="自社色Column" msprop:Generator_UserColumnName="自社色" type="xs:string" minOccurs="0" />
+              <xs:element name="賞味期限" msprop:Generator_ColumnVarNameInTable="column賞味期限" msprop:Generator_ColumnPropNameInRow="賞味期限" msprop:Generator_ColumnPropNameInTable="賞味期限Column" msprop:Generator_UserColumnName="賞味期限" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="単価" msprop:Generator_ColumnVarNameInTable="column単価" msprop:Generator_ColumnPropNameInRow="単価" msprop:Generator_ColumnPropNameInTable="単価Column" msprop:Generator_UserColumnName="単価" type="xs:decimal" minOccurs="0" />
+              <xs:element name="数量" msprop:Generator_ColumnVarNameInTable="column数量" msprop:Generator_ColumnPropNameInRow="数量" msprop:Generator_ColumnPropNameInTable="数量Column" msprop:Generator_UserColumnName="数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="単位" msprop:Generator_ColumnVarNameInTable="column単位" msprop:Generator_ColumnPropNameInRow="単位" msprop:Generator_ColumnPropNameInTable="単位Column" msprop:Generator_UserColumnName="単位" type="xs:string" minOccurs="0" />
+              <xs:element name="金額" msprop:Generator_ColumnVarNameInTable="column金額" msprop:Generator_ColumnPropNameInRow="金額" msprop:Generator_ColumnPropNameInTable="金額Column" msprop:Generator_UserColumnName="金額" type="xs:int" minOccurs="0" />
+              <xs:element name="受注番号" msprop:Generator_ColumnVarNameInTable="column受注番号" msprop:Generator_ColumnPropNameInRow="受注番号" msprop:Generator_ColumnPropNameInTable="受注番号Column" msprop:Generator_UserColumnName="受注番号" type="xs:string" minOccurs="0" />
+              <xs:element name="納品伝票番号" msprop:Generator_ColumnVarNameInTable="column納品伝票番号" msprop:Generator_ColumnPropNameInRow="納品伝票番号" msprop:Generator_ColumnPropNameInTable="納品伝票番号Column" msprop:Generator_UserColumnName="納品伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="摘要" msprop:Generator_ColumnVarNameInTable="column摘要" msprop:Generator_ColumnPropNameInRow="摘要" msprop:Generator_ColumnPropNameInTable="摘要Column" msprop:Generator_UserColumnName="摘要" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="商品入出荷問合せ" msprop:Generator_TableClassName="商品入出荷問合せDataTable" msprop:Generator_TableVarName="table商品入出荷問合せ" msprop:Generator_TablePropName="商品入出荷問合せ" msprop:Generator_RowDeletingName="商品入出荷問合せRowDeleting" msprop:Generator_RowChangingName="商品入出荷問合せRowChanging" msprop:Generator_RowEvHandlerName="商品入出荷問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品入出荷問合せRowDeleted" msprop:Generator_UserTableName="商品入出荷問合せ" msprop:Generator_RowChangedName="商品入出荷問合せRowChanged" msprop:Generator_RowEvArgName="商品入出荷問合せRowChangeEvent" msprop:Generator_RowClassName="商品入出荷問合せRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="入出庫日" msprop:Generator_ColumnVarNameInTable="column入出庫日" msprop:Generator_ColumnPropNameInRow="入出庫日" msprop:Generator_ColumnPropNameInTable="入出庫日Column" msprop:Generator_UserColumnName="入出庫日" type="xs:string" minOccurs="0" />
+              <xs:element name="入出庫区分" msprop:Generator_ColumnVarNameInTable="column入出庫区分" msprop:Generator_ColumnPropNameInRow="入出庫区分" msprop:Generator_ColumnPropNameInTable="入出庫区分Column" msprop:Generator_UserColumnName="入出庫区分" type="xs:string" minOccurs="0" />
+              <xs:element name="倉庫" msprop:Generator_ColumnVarNameInTable="column倉庫" msprop:Generator_ColumnPropNameInRow="倉庫" msprop:Generator_ColumnPropNameInTable="倉庫Column" msprop:Generator_UserColumnName="倉庫" type="xs:string" minOccurs="0" />
+              <xs:element name="品番コード" msprop:Generator_ColumnVarNameInTable="column品番コード" msprop:Generator_ColumnPropNameInRow="品番コード" msprop:Generator_ColumnPropNameInTable="品番コードColumn" msprop:Generator_UserColumnName="品番コード" type="xs:int" minOccurs="0" />
+              <xs:element name="自社品番" msprop:Generator_ColumnVarNameInTable="column自社品番" msprop:Generator_ColumnPropNameInRow="自社品番" msprop:Generator_ColumnPropNameInTable="自社品番Column" msprop:Generator_UserColumnName="自社品番" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品名" msprop:Generator_ColumnVarNameInTable="column自社品名" msprop:Generator_ColumnPropNameInRow="自社品名" msprop:Generator_ColumnPropNameInTable="自社品名Column" msprop:Generator_UserColumnName="自社品名" type="xs:string" minOccurs="0" />
+              <xs:element name="自社色" msprop:Generator_ColumnVarNameInTable="column自社色" msprop:Generator_ColumnPropNameInRow="自社色" msprop:Generator_ColumnPropNameInTable="自社色Column" msprop:Generator_UserColumnName="自社色" type="xs:string" minOccurs="0" />
+              <xs:element name="賞味期限" msprop:Generator_ColumnVarNameInTable="column賞味期限" msprop:Generator_ColumnPropNameInRow="賞味期限" msprop:Generator_ColumnPropNameInTable="賞味期限Column" msprop:Generator_UserColumnName="賞味期限" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="数量" msprop:Generator_ColumnVarNameInTable="column数量" msprop:Generator_ColumnPropNameInRow="数量" msprop:Generator_ColumnPropNameInTable="数量Column" msprop:Generator_UserColumnName="数量" type="xs:int" minOccurs="0" />
+              <xs:element name="単位" msprop:Generator_ColumnVarNameInTable="column単位" msprop:Generator_ColumnPropNameInRow="単位" msprop:Generator_ColumnPropNameInTable="単位Column" msprop:Generator_UserColumnName="単位" type="xs:string" minOccurs="0" />
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="作成機能" msprop:Generator_ColumnVarNameInTable="column作成機能" msprop:Generator_ColumnPropNameInRow="作成機能" msprop:Generator_ColumnPropNameInTable="作成機能Column" msprop:Generator_UserColumnName="作成機能" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

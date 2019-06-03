@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ZIK" targetNamespace="http://tempuri.org/ZIK.xsd" xmlns:mstns="http://tempuri.org/ZIK.xsd" xmlns="http://tempuri.org/ZIK.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ZIK" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ZIK" msprop:Generator_UserDSName="ZIK">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ZIK01010_在庫締集計表" msprop:Generator_TableClassName="ZIK01010_在庫締集計表DataTable" msprop:Generator_TableVarName="tableZIK01010_在庫締集計表" msprop:Generator_RowChangedName="ZIK01010_在庫締集計表RowChanged" msprop:Generator_TablePropName="ZIK01010_在庫締集計表" msprop:Generator_RowDeletingName="ZIK01010_在庫締集計表RowDeleting" msprop:Generator_RowChangingName="ZIK01010_在庫締集計表RowChanging" msprop:Generator_RowEvHandlerName="ZIK01010_在庫締集計表RowChangeEventHandler" msprop:Generator_RowDeletedName="ZIK01010_在庫締集計表RowDeleted" msprop:Generator_RowClassName="ZIK01010_在庫締集計表Row" msprop:Generator_UserTableName="ZIK01010_在庫締集計表" msprop:Generator_RowEvArgName="ZIK01010_在庫締集計表RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="品番コード" msprop:Generator_ColumnVarNameInTable="column品番コード" msprop:Generator_ColumnPropNameInRow="品番コード" msprop:Generator_ColumnPropNameInTable="品番コードColumn" msprop:Generator_UserColumnName="品番コード" type="xs:int" minOccurs="0" />
+              <xs:element name="倉庫コード" msprop:Generator_ColumnVarNameInTable="column倉庫コード" msprop:Generator_ColumnPropNameInRow="倉庫コード" msprop:Generator_ColumnPropNameInTable="倉庫コードColumn" msprop:Generator_UserColumnName="倉庫コード" type="xs:int" minOccurs="0" />
+              <xs:element name="賞味期限" msprop:Generator_ColumnVarNameInTable="column賞味期限" msprop:Generator_ColumnPropNameInRow="賞味期限" msprop:Generator_ColumnPropNameInTable="賞味期限Column" msprop:Generator_UserColumnName="賞味期限" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="自社品番" msprop:Generator_ColumnVarNameInTable="column自社品番" msprop:Generator_ColumnPropNameInRow="自社品番" msprop:Generator_ColumnPropNameInTable="自社品番Column" msprop:Generator_UserColumnName="自社品番" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品名" msprop:Generator_ColumnVarNameInTable="column自社品名" msprop:Generator_ColumnPropNameInRow="自社品名" msprop:Generator_ColumnPropNameInTable="自社品名Column" msprop:Generator_UserColumnName="自社品名" type="xs:string" minOccurs="0" />
+              <xs:element name="倉庫名" msprop:Generator_ColumnVarNameInTable="column倉庫名" msprop:Generator_ColumnPropNameInRow="倉庫名" msprop:Generator_ColumnPropNameInTable="倉庫名Column" msprop:Generator_UserColumnName="倉庫名" type="xs:string" minOccurs="0" />
+              <xs:element name="在庫数量" msprop:Generator_ColumnVarNameInTable="column在庫数量" msprop:Generator_ColumnPropNameInRow="在庫数量" msprop:Generator_ColumnPropNameInTable="在庫数量Column" msprop:Generator_UserColumnName="在庫数量" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

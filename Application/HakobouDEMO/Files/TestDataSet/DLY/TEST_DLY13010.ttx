@@ -1,0 +1,36 @@
+明細番号	Number		123456
+検索日付From	Date		2013/09/20
+検索日付To	Date		2013/10/20
+車輌指定	String	50	1081
+部門指定	String	50	３
+表示順序	String	50	指定日付　　支払先　　発地名　　着地名
+出庫日	Date		2013/09/20
+帰庫日	Date		2013/09/20
+出庫H	String	6	9:00
+帰庫H	String	6	17:00
+出庫KM	Number		3323
+帰庫KM	Number		3555
+乗務員名	String	20	乗務員名サンプルデータ
+車輌番号	String	6	3369
+出勤区分	String	2	出勤
+拘束H	String	6	8:00
+運転H	String	6	4:30
+高速H	String	6	0:30
+作業H	String	6	0:30
+待機H	String	6	0:30
+休憩H	String	6	0:30
+残業H	String	6	0:30
+深夜H	String	6	0:30
+走行KM	Number		232
+実車KM	Number		210
+輸送屯数	Number		10
+数量	Number		10
+金額	Number		10000
+拘束H合計	String	6	8:00
+運転H合計	String	6	4:30
+高速H合計	String	6	0:30
+作業H合計	String	6	0:30
+待機H合計	String	6	0:30
+休憩H合計	String	6	0:30
+残業H合計	String	6	0:30
+深夜H合計	String	6	0:30

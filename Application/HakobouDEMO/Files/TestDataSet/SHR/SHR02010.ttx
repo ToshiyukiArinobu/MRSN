@@ -1,0 +1,19 @@
+支払先名_1	String	20	支払先名サンプルデータ１２３４５６７８９
+支払先名_2	String	20	支払先名サンプルデータ２３４５６７８９０
+支払先コード	Number		3001
+作成月度	Date		2011/01/01
+締日	String	2	20
+日付	Date		2011/01/05
+発地名	String	15	京都府京都市
+着地名	String	15	大阪府四条畷市
+品名	String	15	建築資材サンプルデータ
+車番	String	6	1111
+支払金額	Number		48000
+支払消費税	Number		0
+支払通行料	Number		0
+得意先名	String	15	得意先名サンプルデータ
+数量	Number		0
+重量	Number		15
+支払単価	Number		0
+摘要	String	20	摘要サンプルデータ
+売上金額	Number		60000

@@ -1,0 +1,11 @@
+年From	String	5	2011年
+年To	String	5	2013年
+表示順序	String	5	コード順
+対象年	String	5	2011年
+乗務員コード	Number		101
+乗務員名	String	20	乗務員名サンプルデータ
+種別	String	12	適性診断（６５歳以上）
+実施年月日	Date		2013/09/25
+実施機関名	String	20	○○クリニック
+所見摘要	String	30	高血圧　要観察
+C:\Projects\HBMS\Application\HakobouDEMO\Files\TestDataSet\JMI\JMI08010.ttx

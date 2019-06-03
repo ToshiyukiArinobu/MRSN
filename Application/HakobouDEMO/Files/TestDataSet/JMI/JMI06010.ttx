@@ -1,0 +1,31 @@
+乗務員コード	Number		101
+乗務員名	String	15	乗務員名サンプルデータ
+歩合率	Number		20
+対象日付From	Date		2013/09/01
+対象日付To	Date		2013/09/30
+日付	Date		2013/09/01
+曜日	String	1	日
+売上金額	Number		35000
+通行料	Number		
+売上合計	Number		35000
+水揚金額	Number		35000
+歩合金額	Number		
+経費合計	Number		23718
+拘束H	String	5	9:00
+運転H	String	5	4:00
+高速H	String	5	0:00
+作業H	String	5	4:00
+待機H	String	5	0:00
+休憩H	String	5	1:00
+残業H	String	5	0:00
+深夜H	String	5	0:00
+走行Km	Number		127
+実車Km	Number		90
+拘束H合計	String	5	9:00
+運転H合計	String	5	4:00
+高速H合計	String	5	0:00
+作業H合計	String	5	4:00
+待機H合計	String	5	0:00
+休憩H合計	String	5	1:00
+残業H合計	String	5	0:00
+深夜H合計	String	5	0:00

@@ -1,0 +1,540 @@
+﻿<fw:RibbonWindowViewBase
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+    xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+    xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
+    xmlns:Data="clr-namespace:System.Data;assembly=System.Data"
+    x:Class="KyoeiSystem.Application.Windows.Views.DLY02010"
+    mc:Ignorable="d"
+    d:DesignWidth="300" 
+    MinHeight="728" MinWidth="1024" Height="768" Width="1024" Left="0" Top="0"
+    WindowStartupLocation="Manual" AllowsTransparency="False" Language="ja-JP"
+    Title="揚り入力(DLY02010)"
+    Loaded="Window_Loaded" Closed="Window_Closed">
+
+  <Window.Resources>
+    <!-- DataGridのHeader背景色 -->
+    <LinearGradientBrush x:Key="DataGridHeaderBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#3b5998" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="DataGridSummaryBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#f0e68c" Offset="0"/>
+    </LinearGradientBrush>
+  </Window.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!--リボン-->
+    <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+      <!--タブ-->
+      <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+        <RibbonGroup Width="90" >
+          <!-- 処理モード表示用に空けておく -->
+        </RibbonGroup>
+
+        <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,0,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
+        </RibbonGroup>
+        <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/16マスタ入力.png" Margin="0,0,0,0"
+                        Label="ﾏｽﾀ入力" Click="RibbonButton_Click" KeyTip="F2" Height="50"
+                        ToolTipTitle="マスタ入力(F2)" ToolTipDescription="マスタの入力画面を開きます"  ToolTipImageSource="../Images/16マスタ入力.png"/>
+        </RibbonGroup>
+        <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/行追加.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
+                        Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="リストに新規行を追加します。" ToolTipImageSource="../Images/行追加.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F6" Height="50"
+                        Label="行削除" ToolTipTitle="行削除(F6)" ToolTipDescription="選択中のリスト行を削除します" ToolTipImageSource="../Images/28削除.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        </RibbonGroup>
+        <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                        Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+                        Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+                        Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png" />
+        </RibbonGroup>
+        <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+          <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+                        Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="表示中のデータを削除します" ToolTipImageSource="../Images/28削除.png" />
+        </RibbonGroup>
+
+      </RibbonTab>
+
+      <RibbonTab Header="ヘルプ" Background="Gray">
+        <RibbonGroup Header="サポート">
+          <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+                        Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
+          <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+                        Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+                        Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+                        Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます" />
+        </RibbonGroup>
+      </RibbonTab>
+    </Ribbon>
+
+    <!-- リボン描画 -->
+    <Grid Grid.Row="0" VerticalAlignment="Bottom">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="74"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="90" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <!-- 編集モード領域  -->
+      <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+                 Background="{Binding MaintenanceModeBackground}">
+        <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+               FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
+               HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+      </DockPanel>
+      <!-- エラーメッセージ領域 -->
+      <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+      <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+
+    </Grid>
+
+    <Grid Name="grdHeader" Grid.Row="1" Background="AliceBlue"
+          HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="30" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto" />
+      </Grid.ColumnDefinitions>
+
+      <!-- ヘッダ部 -->
+      <Grid Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20,10,0,5">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="10" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="200" />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="FuncTitle" Text="揚り入力" Grid.Row="0" Grid.Column="0" FontSize="16" Margin="30,0,0,0" />
+        <ctls:UcLabelTwinTextBox
+            x:Name="txt会社名" Label_Context="会社名" Grid.Column="1" Width="350"
+            DataAccessName="M70_JIS" DataAccessMode="On" IsKeyItem="True"
+            Label_Width="100"
+            Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+            Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+            Text2BorderBrush="Transparent" Text2Background="Transparent" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
+        />
+        <ctls:UcLabelComboBox
+            x:Name="cmb加工区分" Grid.Row="0" Grid.Column="2"
+            Label_Context="加工区分" Label_Width="100" Width="250"
+            ComboListingParams="日次,揚り入力,加工区分"
+            SelectedValue="{Binding SearchHeader[加工区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+            SelectionChanged="cmb加工区分_SelectionChanged"
+        />
+
+        <Grid x:Name="gHeader" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="150,0,0,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="27" />
+            <RowDefinition Height="27" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+
+          <TextBlock Text="伝票番号" Grid.Row="0" Grid.Column="0" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                     TextAlignment="Center" Padding="0,5,0,0"
+          />
+          <Button Name="PrevSlip" Grid.Row="0" Grid.Column="0" Panel.ZIndex="1" HorizontalAlignment="Left"
+                  Background="{StaticResource DataGridHeaderBackground}" Foreground="White" BorderThickness="0"
+                  Content="◀" Width="16" VerticalContentAlignment="Center"
+                  Click="PagingButton_Click" Visibility="Hidden"
+            />
+          <Button Name="NextSlip" Grid.Row="0" Grid.Column="0" Panel.ZIndex="1" HorizontalAlignment="Right"
+                  Background="{StaticResource DataGridHeaderBackground}" Foreground="White" BorderThickness="0"
+                  Content="▶" Width="16" VerticalContentAlignment="Center"
+                  Click="PagingButton_Click" Visibility="Hidden"
+            />
+          <ctls:UcTextBox
+              x:Name="txt伝票番号" Grid.Row="1" Grid.Column="0" ImeType="Off" ValidationType="Integer" IsKeyItem="True"
+              cMaxLength="7" cTextAlignment="Center" cVerticalContentAlignment="Center"
+              Text="{Binding SearchHeader[伝票番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+              PreviewKeyDown="txt伝票番号_PreviewKeyDown"
+          />
+
+          <TextBlock Text="仕上り日" Grid.Row="0" Grid.Column="1" TextAlignment="Center" Padding="0,5,0,0"
+                     Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+          />
+          <ctls:UcLabelTextBox
+              Name="txt仕上り日" Grid.Column="1" Grid.Row="1" cMaxLength="10" cTextAlignment="Center" cVerticalContentAlignment="Center" IsKeyItem="False"
+              Mask="yyyy/MM/dd" cValidationType="Date" Label_Width="0" Margin="-1,-1,-2,-2"
+              Text="{Binding Path=SearchHeader[仕上り日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+          />
+
+          <TextBlock Text="外注先名称" Grid.Row="0" Grid.Column="2" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                     TextAlignment="Center" Padding="0,5,0,0"
+          />
+          <ctls:UcLabelTwinTextBox
+              x:Name="txt外注先" Grid.Row="1" Grid.Column="2" DataAccessName="M01_TOK" DataAccessMode="Off" LinkItem="2,3"
+              HorizontalAlignment="Left" Margin="2,0,0,0" IsKeyItem="False"
+              Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+              Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+              Label1Text="－"
+              Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
+              Label2Text=""
+              Text1="{Binding SearchHeader[外注先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+              Text2="{Binding SearchHeader[外注先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+              cText1Changed="txt外注先_cTextChanged" cText2Changed="txt外注先_cTextChanged"
+          />
+          
+          <TextBlock Text="入荷先名称" Grid.Row="0" Grid.Column="3" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                     TextAlignment="Center" Padding="0,5,0,0"
+          />
+          <ctls:UcLabelTwinTextBox
+              x:Name="txt入荷先" Grid.Row="1" Grid.Column="3" DataAccessName="M70_JIS" DataAccessMode="On"
+              HorizontalAlignment="Left" Margin="2,0,0,0" IsKeyItem="False"
+              Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+              Text1Width="30" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+              Text2Width="150" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center"
+              Label2Text=""
+              Text1="{Binding SearchHeader[入荷先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+              cText1Changed="txt入荷先_cText1Changed"
+          />
+
+          <!-- 枠線描画 -->
+          <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" Panel.ZIndex="9" />
+          <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" Panel.ZIndex="9" />
+          <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" Panel.ZIndex="9" />
+          <Border Grid.Column="3" Grid.Row="0" BorderThickness="1,1,1,0" BorderBrush="Black" Panel.ZIndex="9" />
+          <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" Panel.ZIndex="9" />
+          <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" Panel.ZIndex="9" />
+          <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" Panel.ZIndex="9" />
+          <Border Grid.Column="3" Grid.Row="1" BorderThickness="1,1,1,1" BorderBrush="Black" Panel.ZIndex="9" />
+
+        </Grid>
+
+      </Grid>
+
+      <!-- 揚り明細 -->
+      <sg:GcSpreadGrid
+          Name="gcSpreadGrid" Grid.Row="3" HorizontalAlignment="Left" AutoFitType="CellWithHeader" LayoutMode="Cell"
+          AutoGenerateColumns="False" HighlightHeader="None" RowCount="10" OperationMode="Normal"
+          Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" Height="150" MaxWidth="950" MaxHeight="150" Margin="80,5,0,0"
+          DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY02010G1.sgxml"
+          ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+          CellEditEnded="gcSpredGrid_CellEditEnded" SelectionChanged="gcSpreadGrid_SelectionChanged">
+
+        <!--カーソル色変更-->
+        <sg:GcSpreadGrid.SelectionBorderUnfocused>
+          <sg:BorderLine Color="Orange" Style="Thick"/>
+        </sg:GcSpreadGrid.SelectionBorderUnfocused>
+        <sg:GcSpreadGrid.SelectionBorder>
+          <sg:BorderLine Color="Orange" Style="Thick"/>
+        </sg:GcSpreadGrid.SelectionBorder>
+
+        <sg:GcSpreadGrid.Columns>
+          <sg:Column Locked="False" Focusable="True" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off"/>
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:TextCellType IsReadOnly="True" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column Locked="False" Focusable="True" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 賞味期限, TargetNullValue='', StringFormat='yyyy/MM/dd', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column Locked="True" Focusable="False" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:TextCellType MaxLength="2" MaxLengthUnit="Byte" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 単位, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.##,,,-,"/>
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 単価, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column HorizontalAlignment="Right" Locked="True" Focusable="False" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column Locked="False" Focusable="True" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 摘要, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column Locked="True" Focusable="False" IsVisible="False" Width="0">
+            <sg:Column.CellType>
+              <sg:TextCellType IsReadOnly="True" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 品番コード}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column Locked="True" Focusable="False" Width="0">
+            <sg:Column.CellType>
+              <sg:TextCellType IsReadOnly="True" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 消費税区分}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column Locked="True" Focusable="False" Width="0">
+            <sg:Column.CellType>
+              <sg:TextCellType IsReadOnly="True" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 商品分類}" />
+            </sg:Column.DataField>
+          </sg:Column>
+        </sg:GcSpreadGrid.Columns>
+
+      </sg:GcSpreadGrid>
+
+      <!-- フッター部(合計表示領域) -->
+      <Grid x:Name="FooterArea" Grid.Row="4" Margin="80,0,0,0">
+        <Grid.Resources>
+          <Style TargetType="{x:Type Border}" >
+            <Setter Property="BorderBrush" Value="Black" />
+          </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="30" />
+          <RowDefinition Height="30" />
+          <RowDefinition Height="30" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="477" />
+          <ColumnDefinition Width="84" />
+          <ColumnDefinition Width="82" />
+          <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <ctls:UcLabel Content="備　　考" Grid.Row="0" Grid.Column="0" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                      Background="{StaticResource DataGridSummaryBackground}"
+        />
+        <ctls:UcLabelTwinTextBox x:Name="txt備考" Grid.Row="1" Grid.Column="0" Margin="2" DataAccessName="M11_TEK" DataAccessMode="On"
+                                 Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                 Text1Width="40" Text1MaxLength="5"
+                                 Text2MaxLength="40" Text2IMEType="Native"
+                                 Text2="{Binding SearchHeader[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+        />
+        <ctls:UcLabel Content="最大10行伝票" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+
+        <ctls:UcLabel Content="小　計" Grid.Row="0" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                      Background="{StaticResource DataGridSummaryBackground}"
+        />
+        <ctls:UcLabel Content="消費税" Grid.Row="1" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                      Background="{StaticResource DataGridSummaryBackground}"
+        />
+        <ctls:UcLabel Content="総合計" Grid.Row="2" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                      Background="{StaticResource DataGridSummaryBackground}"
+        />
+
+        <Label x:Name="lbl小計" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
+        <Label x:Name="lbl消費税" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
+        <Label x:Name="lbl総合計" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
+
+        <!-- 枠線描画 -->
+        <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,1" />
+        <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,1,0,1" />
+        <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,1,1" />
+        <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,0,0,1" />
+        <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,0,0,1" />
+        <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,0,1,1" />
+        <Border Grid.Column="1" Grid.Row="2" BorderThickness="1,0,0,1" />
+        <Border Grid.Column="2" Grid.Row="2" BorderThickness="1,0,1,1" />
+
+      </Grid>
+
+      <!-- 分割線 -->
+      <Border Grid.Row="5" BorderThickness="0,1.5,0,0" BorderBrush="LightSlateGray" Width="950" HorizontalAlignment="Left" Margin="20,5,0,0" />
+
+      <!-- 構成品(部材)明細 -->
+      <GroupBox Header="構成品明細" Grid.Row="5" BorderThickness="2" Margin="40,5,0,0" MaxWidth="850" MaxHeight="230" Height="230">
+        <sg:GcSpreadGrid Name="sgInnerDetail" HorizontalAlignment="Left" AutoFitType="CellWithHeader" LayoutMode="Template"
+                         AutoGenerateColumns="False" HighlightHeader="None" RowCount="5" OperationMode="Normal" SelectionUnit="Row"
+                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" Margin="5"
+                         DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY02010G2.sgxml"
+                         ItemsSource="{Binding InnerDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                         >
+
+          <!--カーソル色変更-->
+          <sg:GcSpreadGrid.SelectionBorderUnfocused>
+            <sg:BorderLine Color="Orange" Style="Thick"/>
+          </sg:GcSpreadGrid.SelectionBorderUnfocused>
+          <sg:GcSpreadGrid.SelectionBorder>
+            <sg:BorderLine Color="Orange" Style="Thick"/>
+          </sg:GcSpreadGrid.SelectionBorder>
+
+          <!-- 列定義 -->
+          <sg:GcSpreadGrid.Columns>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:TextCellType MaxLength="3" MaxLengthUnit="Byte" ImeState="Off" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:TextCellType IsReadOnly="True" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:TextCellType IsReadOnly="True" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False" HorizontalAlignment="Center">
+              <sg:Column.CellType>
+                <sg:TextCellType IsReadOnly="True" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 品番コード, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False" HorizontalAlignment="Center">
+              <sg:Column.CellType>
+                <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 賞味期限, TargetNullValue='', StringFormat='yyyy/MM/dd', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column HorizontalAlignment="Right" Locked="true" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:TextCellType MaxLength="2" MaxLengthUnit="Byte" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 単位, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 必要数量, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 在庫数量, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+
+          </sg:GcSpreadGrid.Columns>
+
+        </sg:GcSpreadGrid>
+
+      </GroupBox>
+
+    </Grid>
+  </Grid>
+</fw:RibbonWindowViewBase>

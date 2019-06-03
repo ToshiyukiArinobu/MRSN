@@ -1,0 +1,1295 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KyoeiSystem.Framework.Windows</name>
+    </assembly>
+    <members>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.LogView">
+            <summary>
+            ログ表示画面
+            </summary>
+            <summary>
+            LogView
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.WindowGeneralBase">
+            <summary>
+            汎用画面基底クラス
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase">
+            <summary>
+            画面基底クラス
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase">
+            <summary>
+            画面基底クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.TimerLoopStart(System.Int32)">
+            <summary>
+            タイマーループの開始
+            </summary>
+            <param name="time"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.SendRequest(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            データ処理要求を送信する
+            </summary>
+            <param name="comobj"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.OnReceived(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            データ受信イベント
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.OnReceivedTimer(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            タイマーイベント受信時の処理
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.OnReveivedError(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            エラー受信時の処理
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.OnReceivedResponseData(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            取得データの取り込み
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.OnReceivedResponseStored(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            ストアドの実行結果受信処理
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.SetFocusToTopControl">
+            <summary>
+            フォーカスを先頭のコントロールに移動する
+            </summary>
+            <returns>true:移動した、false:移動していない</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.ChangeKeyItemChangeable(System.Boolean)">
+            <summary>
+            キー項目としてマークされた項目の入力可否を切り替える
+            </summary>
+            <param name="flag">true:入力可、false:入力不可</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.CheckAllValidation(System.Boolean)">
+            <summary>
+            Window内のValidatorプロパティを持つ全項目をチェックする
+            </summary>
+            <returns>true:全項目OK、false:チェックNG項目あり</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.SetBusyForInput">
+            <summary>
+            Windowを入力不可にする（マウスカーソルを砂時計にする）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.SetFreeForInput">
+            <summary>
+            Windowを入力可能にする（マウスカーソルを戻す）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.GetDataGridRow(System.Object)">
+            <summary>
+            指定されたコントロールの内側に存在するDataGridを探し、そのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.GetCurrentDataGridRow(System.Object)">
+            <summary>
+            現在フォーカスのあるDataGridのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.GetCurrentDataGrid(System.Object)">
+            <summary>
+            現在フォーカスのあるDataGridを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns></returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.DataGridCell_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            DataGridCellのマウスクリックイベントのハンドラを定義する
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.IsClosing">
+            <summary>
+            画面クローズ処理開始状態
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.ConnString">
+            <summary>
+            DB接続用
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase.viewsCommData">
+            <summary>
+            画面共有オブジェクト
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.threadmgr">
+            <summary>
+            スレッド管理機能
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.MasterMaintenanceWindowList">
+            <summary>
+            マスターメンテナンス画面呼出用ハンドラのコレクション
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.appLog">
+            <summary>
+            Log出力用インスタンス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.#ctor(System.Object)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="appdata">アプリケーション共有オブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.WindowViewBase_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            画面がロードされたときに発生するイベント
+            </summary>
+            <param name="sender">イベント送信元</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.Show(System.Windows.Window)">
+            <summary>
+            画面を表示する
+            </summary>
+            <param name="wnd"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.ShowDialog(System.Windows.Window)">
+            <summary>
+            画面を表示する（ダイアログモード）
+            </summary>
+            <param name="wnd">呼び出し元Window</param>
+            <returns>ダイアログ処理結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.WindowClosing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            画面を閉じる時のイベント
+            </summary>
+            <param name="sender">イベント送信オブジェクト</param>
+            <param name="e">イベントパラメータ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.WindowViewBase_Closed(System.Object,System.EventArgs)">
+            <summary>
+            画面閉じるときの最終イベント
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.TimerLoopStart(System.Int32)">
+            <summary>
+            タイマーループを開始する
+            </summary>
+            <param name="time"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.TimerLoopStop">
+            <summary>
+            タイマーループを停止する
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SendRequest(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            データ処理要求を送信する
+            </summary>
+            <param name="comobj"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SendRequest(KyoeiSystem.Framework.Core.CommunicationObject[])">
+            <summary>
+            データ処理要求を送信する（複数の要求一括）
+            </summary>
+            <param name="comobjlist"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnReceived(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            データ受信イベント
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnReceivedTimer(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            タイマーイベント受信時の処理
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnReveivedError(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            エラー受信時の処理
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnReceivedResponseData(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            データアクセスの結果受信
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnReceivedResponseStored(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            ストアドの実行結果受信処理
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SetFocusToTopControl">
+            <summary>
+            フォーカスを先頭のコントロールに移動する
+            </summary>
+            <returns>true:移動した、false:移動していない</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.ChangePanelVisibility">
+            <summary>
+            親Panelが非表示の場合、子コントロールを非表示にする
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.ChangeKeyItemChangeable(System.Boolean)">
+            <summary>
+            キー項目としてマークされた項目の入力可否を切り替える
+            </summary>
+            <param name="flag">true:入力可、false:入力不可</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.CheckAllValidation(System.Boolean)">
+            <summary>
+            Window内のValidatorプロパティを持つ全項目をチェックする。
+            </summary>
+            <returns>true:全項目OK、false:チェックNG項目あり</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.ResetAllValidation">
+            <summary>
+            Window内のValidationのチェック結果を全てリセットする。
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SetBusyForInput">
+            <summary>
+            Windowを入力不可にする（マウスカーソルを砂時計にする）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SetFreeForInput">
+            <summary>
+            Windowを入力可能にする（マウスカーソルを戻す）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.Window_PreviewKeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF1Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F1キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF2Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F2キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF3Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F3キー処理用メソッド
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF4Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F4キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF5Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F5キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF6Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F6キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF7Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F7キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF8Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F8キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF9Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F9キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF10Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F10キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF11Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F11キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.OnF12Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F12キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.GetDataGridRow(System.Object)">
+            <summary>
+            指定されたコントロールの内側に存在するDataGridを探し、そのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.GetDataGridCell(System.Windows.Controls.DataGridColumn,System.Windows.Controls.DataGridRow)">
+            <summary>
+            指定されたカラム及びRowの情報からDataGridのCellを取得する
+            </summary>
+            <param name="col">DataGridのColumn情報</param>
+            <param name="grow">DataGridのRowオブジェクト</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.GetCurrentDataGridRow(System.Object)">
+            <summary>
+            現在フォーカスのあるDataGridのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.GetCurrentDataGrid(System.Object)">
+            <summary>
+            現在フォーカスのあるDataGridを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.FindUIElementInDataGridCell``1(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridから指定されたタイプの要素をもつCellを検索する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="cell">DataGridのCellオブジェクト</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.FindUIElementListInDataGridCell``1(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridから指定されたタイプの要素をもつCellを検索する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="cell">DataGridのCellオブジェクト</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.DataGridCell_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            DataGridCellのマウスクリックイベントの処理（Cellのフォーカス移動を強制する）
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SetValidDataGridCell(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridのCellの値チェック結果（OK）をセットする
+            </summary>
+            <param name="cell">DataGridのCellオブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SetInvalidDataGridCell(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridのCellの値チェック結果（NG）をセットする
+            </summary>
+            <param name="cell"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.SetupConnectStringuserDB(System.String,System.String,System.String,System.String)">
+            <summary>
+            接続文字列のセットアップ
+            </summary>
+            <param name="server">サーバー名</param>
+            <param name="db">Database名</param>
+            <param name="user">ユーザ名</param>
+            <param name="passwd">パスワード</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.NotifyPropertyChanged(System.String)">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント送信）
+            </summary>
+            <param name="propertyName">プロパティ名</param>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.IsClosing">
+            <summary>
+            現在Close中かどうかを示すフラグ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.ConnString">
+            <summary>
+            DB接続用
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.viewsCommData">
+            <summary>
+            画面共有オブジェクト
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.WindowTitle">
+            <summary>
+            画面タイトル
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.Message">
+            <summary>
+            画面に定義されたメッセージ領域に表示するメッセージ（エラーメッセージ以外の用途）
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.ErrorMessageVisibility">
+            <summary>
+            画面に定義されたエラーメッセージ領域のコントロールの表示・非表示のフラグ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.ErrorMessage">
+            <summary>
+            画面に定義されたエラーメッセージ領域に表示するメッセージ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.MaintenanceModeVisibility">
+            <summary>
+            画面処理モードの表示・非表示のフラグ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.MaintenanceMode">
+            <summary>
+            画面処理モード（追加・編集等）
+            </summary>
+        </member>
+        <member name="E:KyoeiSystem.Framework.Windows.ViewBase.WindowViewBase.PropertyChanged">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowGeneralBase.WindowViewBase_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            ロード時のイベント処理
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.LogView.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.LogView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.LogView.LogFilePath">
+            <summary>
+            ログファイル名
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.LogView.LogDocument">
+            <summary>
+            ログファイルドキュメント
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseException">
+            <summary>
+            画面基底クラス用例外クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseException.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseException.#ctor(System.String)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseException.#ctor(System.String,System.Exception)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="message">例外メッセージ</param>
+            <param name="ex">内部例外</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.WindowMasterSearchBase">
+            <summary>
+            マスタ検索時の子画面用基底クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowMasterSearchBase.OnChangedTargetMaster">
+            <summary>
+            未使用：廃止されたメソッドです。
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowMasterSearchBase.OnInitialized(System.EventArgs)">
+            <summary>
+            画面初期化完了時に発生するイベント
+            </summary>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.WindowMasterSearchBase.TwinTextBox">
+            <summary>
+            Fキー呼出時のインタフェースコントロール
+            </summary>
+            <remarks>
+            親画面のTwinTextboxと連携する場合、このプロパティに親画面のコントロールをセットしてから子画面を表示する。
+            </remarks>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.ReceivedDelegate">
+            <summary>
+            メッセージ受信通知用デリゲート
+            </summary>
+            <param name="data">受信データ</param>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon">
+            <summary>
+            画面規定クラス用共通機能
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.SetConfigToControls(System.Windows.DependencyObject,KyoeiSystem.Framework.Common.ViewsCommon)">
+            <summary>
+            画面クラスが取得済みのConfigの内容を配下の子コントロールに引き継ぐ
+            </summary>
+            <param name="target">Configを設定済みの親コントロール（主に画面クラス）</param>
+            <param name="cfg">引継ぎ元のConfigのインスタンス</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.SetFocusToTopControl(System.Windows.DependencyObject)">
+            <summary>
+            フォーカスを先頭のコントロールに移動する
+            </summary>
+            <param name="target">Windowインスタンス</param>
+            <returns>true:移動した、false:移動していない</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.ChangePanelVisibility(System.Windows.DependencyObject,System.Windows.Visibility)">
+            <summary>
+            親コントロールが非表示の場合、子コントロールの状態を非表示にする
+            </summary>
+            <param name="target">親コントロール</param>
+            <param name="flg">親コントロールのVisibility</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.ChangeKeyItemChangeable(System.Boolean,System.Windows.DependencyObject)">
+            <summary>
+            キー項目としてマークされた項目の入力可否を切り替える
+            </summary>
+            <param name="flag">true:入力可、false:入力不可</param>
+            <param name="target">Windowインスタンス</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.CheckKeyItemValidation(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            キー項目としてマークされたコントロールの値チェック結果を取得する
+            </summary>
+            <param name="target">親コントロール（主に画面）</param>
+            <param name="checkOnly">チェックのみを行う(true)か、エラー時にフォーカスを移動する(false)かどうかを指定するフラグ</param>
+            <returns></returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.CheckAllValidation(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            指定されたコントロールの値チェック結果を取得する
+            </summary>
+            <param name="target">値チェック対象のコントロール</param>
+            <param name="setfocustop">チェック後にフォーカスを画面先頭フィールドに移動するかどうかの指定</param>
+            <returns>チェック結果：true=OK、false=NG</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.ResetAllValidation(System.Windows.DependencyObject)">
+            <summary>
+            指定されたコントロールに所属するコントロールの値チェック結果をリセットする
+            </summary>
+            <param name="target">値チェック結果のリセット対象コントロール</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.SetBusyForInput(System.Windows.Window)">
+            <summary>
+            Windowを入力不可にする（マウスカーソルを砂時計にする）
+            </summary>
+            <param name="wnd">制御対象のWindow</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.SetFreeForInput(System.Windows.Window)">
+            <summary>
+            Windowを入力可能にする（マウスカーソルを戻す）
+            </summary>
+            <param name="wnd">制御対象のWindow</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.OnReceived(KyoeiSystem.Framework.Core.CommunicationObject,System.Windows.Threading.Dispatcher,System.Collections.Generic.Dictionary{KyoeiSystem.Framework.Core.MessageType,System.Action{KyoeiSystem.Framework.Core.CommunicationObject}})">
+            <summary>
+            データ処理要求の結果受信イベントの処理
+            </summary>
+            <param name="message">データ処理要求に対する結果オブジェクト</param>
+            <param name="disp">呼び出し元スレッドのDispatcher</param>
+            <param name="functionList">データ処理実行中スレッドのコレクション</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.OnReveivedError(KyoeiSystem.Framework.Core.CommunicationObject,KyoeiSystem.Framework.Common.ViewsCommon)">
+            <summary>
+            データ処理要求のエラー結果受信イベントの処理（エラーメッセージの取得）
+            </summary>
+            <param name="message">データ処理要求に対する結果オブジェクト</param>
+            <param name="viewcomm">画面共有オブジェクト（エラーメッセージ取得用）</param>
+            <returns>エラーメッセージ</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.CallFunctionKeyMethod(System.Windows.Window,System.Object,System.Windows.Input.KeyEventArgs,System.Collections.Generic.Dictionary{System.Windows.Input.Key,System.Action{System.Object,System.Windows.Input.KeyEventArgs}})">
+            <summary>
+            Fキーに対応する処理を呼び出す。
+            </summary>
+            <param name="wnd">Windowオブジェクト</param>
+            <param name="sender">イベント発生コントロール</param>
+            <param name="e">イベント引数</param>
+            <param name="funclist">Fキー機能リスト</param>
+            <returns>ファンクションキーとして処理したかどうかのフラグ</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.ShowVersion">
+            <summary>
+            バージョン表示
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetVersion">
+            <summary>
+            バージョン取得用メソッド
+            </summary>
+            <returns>バージョン番号文字列</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.CallMasterSearch(System.Windows.Window,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.Type}})">
+            <summary>
+            マスター検索画面の呼び出しを行う
+            </summary>
+            <param name="wnd">呼び出し元Window</param>
+            <param name="srchwndTypeList">マスター種別の一覧</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.CallMasterMainte(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.Type}})">
+            <summary>
+            マスターメンテナンス画面の呼び出しを行う
+            </summary>
+            <param name="mntwndTypes">マスター種別の一覧</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetCurrentDataGrid(System.Windows.DependencyObject)">
+            <summary>
+            指定されたコントロールが所属するDataGridを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetCurrentDataGridCell(System.Windows.DependencyObject)">
+            <summary>
+            フォーカスのあるコントロールがDataGridである場合、選択されているCellを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetCurrentDataGridRow(System.Windows.DependencyObject)">
+            <summary>
+            フォーカスのあるDataGridのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetDataGridRow(System.Windows.DependencyObject)">
+            <summary>
+            現在フォーカスのあるDataGridのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.FindVisualParent``1(System.Windows.DependencyObject)">
+            <summary>
+            引数のオブジェクトの指定した型の親コントロールを探す。
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="child">検索開始コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.FindVisualChild``1(System.Windows.DependencyObject)">
+            <summary>
+            指定されたタイプの子コントロールを検索する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="parent">検索開始コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.FindLogicalChildList``1(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            指定されたタイプの子コントロールのコレクションを取得する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="parent">検索開始コントロール</param>
+            <param name="enablledOnly">検索対象をIsEnabledのみとするかどうか</param>
+            <returns>検索結果コレクション</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetCurrentTwinText">
+            <summary>
+            フォーカスのあるTwinTextBoxのコントロールを取得する
+            </summary>
+            <returns>TwinTextboxのオブジェクト</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.DataGridCell_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            DataGridCellのマウスクリックイベントの処理（Cellのフォーカス移動を強制する）
+            </summary>
+            <param name="sender">イベント発生コントロール</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.FindUIElementInDataGridCell``1(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの中から指定されたタイプのコントロールを取得する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="cell">検索開始コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.FindUIElementListInDataGridCell``1(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの中から指定されたタイプのコントロールを取得する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="cell">検索開始コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetDataGridCell(System.Windows.Controls.DataGridColumn,System.Windows.Controls.DataGridRow)">
+            <summary>
+            指定されたカラム及びRowの情報からDataGridのCellを取得する
+            </summary>
+            <param name="col">DataGridのColumn情報</param>
+            <param name="grow">DataGridのRowオブジェクト</param>
+            <returns></returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.SetValidDataGridCell(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの指定セルの枠線を正常値色にする
+            </summary>
+            <param name="cell">DataGridのCellオブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.SetInvalidDataGridCell(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの指定セルの枠線を異常値色にする
+            </summary>
+            <param name="cell">DataGridのCellオブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.WindowClosing(System.Windows.DependencyObject)">
+            <summary>
+            画面が閉じられようとしたときに各子要素に通知します。
+            </summary>
+            <param name="target">画面</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.GetConnectString(System.Windows.Window)">
+            <summary>
+            接続文字列取得
+            </summary>
+            <param name="wnd">画面</param>
+            <returns>接続文字列</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.SetupConnectStringuserDB(KyoeiSystem.Framework.Windows.ViewBase.IWindowViewBase,System.String,System.String,System.String,System.String)">
+            <summary>
+            画面の接続文字列フィールドに引数で指定された接続文字列をセットアップする
+            </summary>
+            <param name="wnd">画面</param>
+            <param name="server">サーバー名</param>
+            <param name="db">Database名</param>
+            <param name="user">ユーザ名</param>
+            <param name="passwd">パスワード</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.ViewBaseCommon.MakeConnectString(System.String,System.String,System.String,System.String)">
+            <summary>
+            引数で指定された値から接続文字列を生成する。
+            </summary>
+            <param name="server">サーバー名</param>
+            <param name="db">Database名</param>
+            <param name="user">ユーザ名</param>
+            <param name="passwd">パスワード</param>
+            <returns>接続文字列</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.FontFamilyToNameConverter">
+            <summary>
+            フォントサイズ自動変換用コンバータ（現在未使用）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.FontFamilyToNameConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            変換メソッド（現在未使用）
+            </summary>
+            <param name="value">値</param>
+            <param name="targetType">ターゲット型</param>
+            <param name="parameter">変換パラメータ</param>
+            <param name="culture">カルチャー</param>
+            <returns>変換結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.FontFamilyToNameConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            変換メソッドコールバック（現在未使用）
+            </summary>
+            <param name="value">値</param>
+            <param name="targetType">ターゲット型</param>
+            <param name="parameter">変換パラメータ</param>
+            <param name="culture">カルチャー</param>
+            <returns>変換結果</returns>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.WindowMasterMainteBase">
+            <summary>
+            マスタメンテ画面用基底クラス
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase">
+            <summary>
+            画面基底クラス（Ribbonあり）
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.threadmgr">
+            <summary>
+            スレッド管理機能
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.MasterMaintenanceWindowList">
+            <summary>
+            マスターメンテナンス画面呼出用ハンドラのコレクション
+            </summary>
+        </member>
+        <member name="F:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.appLog">
+            <summary>
+            ログ出力クラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.#ctor(System.Object)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="appdata">アプリケーション共有オブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.Show(System.Windows.Window)">
+            <summary>
+            画面を表示する
+            </summary>
+            <param name="wnd">呼び出し元Window</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.ShowDialog(System.Windows.Window)">
+            <summary>
+            画面を表示する（ダイアログモード）
+            </summary>
+            <param name="wnd">呼び出し元Window</param>
+            <returns>ダイアログ処理結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.RibbonWindowViewBase_Closed(System.Object,System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.TimerLoopStart(System.Int32)">
+            <summary>
+            タイマーループを開始する
+            </summary>
+            <param name="time">イベント周期時間</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.TimerLoopStop">
+            <summary>
+            タイマーループを停止する
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SendRequest(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            データ処理要求を送信する
+            </summary>
+            <param name="comobj">データアクセス要求オブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SendRequest(KyoeiSystem.Framework.Core.CommunicationObject[])">
+            <summary>
+            データ処理要求の配列をまとめて送信する
+            </summary>
+            <param name="comobjlist">データアクセス要求オブジェクトの配列</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnReceived(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            データ受信イベント
+            </summary>
+            <param name="message">データアクセス結果オブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnReceivedTimer(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            タイマーイベント受信時の処理
+            </summary>
+            <param name="message">タイマーイベントオブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnReveivedError(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            エラー受信時の処理
+            </summary>
+            <param name="message">データアクセス結果オブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnReceivedResponseData(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            取得データの取り込み
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnReceivedResponseStored(KyoeiSystem.Framework.Core.CommunicationObject)">
+            <summary>
+            ストアドの実行結果受信処理
+            </summary>
+            <param name="message">受信データ</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SetFocusToTopControl">
+            <summary>
+            フォーカスを先頭のコントロールに移動する
+            </summary>
+            <returns>true:移動した、false:移動していない</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.ChangeKeyItemChangeable(System.Boolean)">
+            <summary>
+            キー項目としてマークされた項目の入力可否を切り替える
+            </summary>
+            <param name="flag">true:入力可、false:入力不可</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.CheckAllValidation(System.Boolean)">
+            <summary>
+            Window内のValidatorプロパティを持つ全項目をチェックする。
+            </summary>
+            <returns>true:全項目OK、false:チェックNG項目あり</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.CheckKeyItemValidation(System.Boolean)">
+            <summary>
+            キー項目としてマークされたコントロールの値チェックを実行し、結果を取得する
+            </summary>
+            <param name="checkOnly">true指定の場合、エラーフィールドにフォーカスを移動しない</param>
+            <returns>チェック結果：true=OK、false=NG</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.ResetAllValidation">
+            <summary>
+            Window内のValidationのチェック結果を全てリセットする。
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SetBusyForInput">
+            <summary>
+            Windowを入力不可にする（マウスカーソルを砂時計にする）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SetFreeForInput">
+            <summary>
+            Windowを入力可能にする（マウスカーソルを戻す）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF1Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F1キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF2Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F2キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF3Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F3キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF4Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F4キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF5Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F5キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF6Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F6キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF7Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F7キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF8Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F8キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF9Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F9キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF10Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F10キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF11Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F11キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.OnF12Key(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            F12キー処理用メソッド
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.RibbonButton_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            リボンボタンクリック
+            </summary>
+            <param name="sender">イベント発生オブジェクト</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.GetDataGridRow(System.Object)">
+            <summary>
+            指定されたコントロールの内側に存在するDataGridを探し、そのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.GetDataGridCell(System.Windows.Controls.DataGridColumn,System.Windows.Controls.DataGridRow)">
+            <summary>
+            指定されたカラム及びRowの情報からDataGridのCellを取得する
+            </summary>
+            <param name="col">DataGridのColumn情報</param>
+            <param name="grow">DataGridのRowオブジェクト</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.GetCurrentDataGridRow(System.Object)">
+            <summary>
+            現在フォーカスのあるDataGridのDataGridRowを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.GetCurrentDataGrid(System.Object)">
+            <summary>
+            現在フォーカスのあるDataGridを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.GetCurrentDataGridCell(System.Object)">
+            <summary>
+            フォーカスのあるコントロールがDataGridである場合、選択されているCellを取得する
+            </summary>
+            <param name="curctl">検索対象コントロール</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.DataGridCell_PreviewMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            DataGridCellのマウスクリックイベントの処理（Cellのフォーカス移動を強制する）
+            </summary>
+            <param name="sender">イベント発生コントロール</param>
+            <param name="e">イベント引数</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.FindUIElementInDataGridCell``1(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの中から指定されたタイプのコントロールを取得する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="cell">DataGridのCellオブジェクト</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.FindUIElementListInDataGridCell``1(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの中から指定されたタイプのコントロールのコレクションを取得する
+            </summary>
+            <typeparam name="T">検索対象のコントロールタイプ</typeparam>
+            <param name="cell">DataGridのCellオブジェクト</param>
+            <returns>検索結果</returns>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SetValidDataGridCell(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの指定セルの枠線を正常値色にする
+            </summary>
+            <param name="cell">DataGridのCellオブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SetInvalidDataGridCell(System.Windows.Controls.DataGridCell)">
+            <summary>
+            DataGridの指定セルの枠線を異常値色にする
+            </summary>
+            <param name="cell">DataGridのCellオブジェクト</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.SetupConnectStringuserDB(System.String,System.String,System.String,System.String)">
+            <summary>
+            引数で指定された接続文字列をセットアップする
+            </summary>
+            <param name="server">サーバー名</param>
+            <param name="db">Database名</param>
+            <param name="user">ユーザ名</param>
+            <param name="passwd">パスワード</param>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.NotifyPropertyChanged(System.String)">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント送信）
+            </summary>
+            <param name="propertyName">Bindingプロパティ名</param>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.IsClosing">
+            <summary>
+            現在閉じられようとしているかどうかを示すフラグ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.ConnString">
+            <summary>
+            DB接続用
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.viewsCommData">
+            <summary>
+            画面共有オブジェクト
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.Message">
+            <summary>
+            画面に定義されたメッセージ領域に表示するメッセージ（エラーメッセージ以外の用途）
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.ErrorMessageVisibility">
+            <summary>
+            画面に定義されたエラーメッセージ領域のコントロールの表示・非表示のフラグ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.ErrorMessage">
+            <summary>
+            画面に定義されたエラーメッセージ領域に表示するメッセージ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.MaintenanceModeVisibility">
+            <summary>
+            画面処理モードの表示・非表示のフラグ
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.MaintenanceMode">
+            <summary>
+            画面処理モード（追加・編集等）
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.MaintenanceModeForeground">
+            <summary>
+            メンテナンスモードの文字表示色
+            </summary>
+        </member>
+        <member name="P:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.MaintenanceModeBackground">
+            <summary>
+            メンテナンスモードの背景表示色
+            </summary>
+        </member>
+        <member name="E:KyoeiSystem.Framework.Windows.ViewBase.RibbonWindowViewBase.PropertyChanged">
+            <summary>
+            Binding機能対応（プロパティの変更通知イベント）
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowMasterMainteBase.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.WindowReportBase">
+            <summary>
+            帳票画面用モデルクラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowReportBase.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="T:KyoeiSystem.Framework.Windows.ViewBase.WindowMenuBase">
+            <summary>
+            メニュー画面用モデルクラス
+            </summary>
+        </member>
+        <member name="M:KyoeiSystem.Framework.Windows.ViewBase.WindowMenuBase.#ctor">
+            <summary>
+            デフォルトコンストラクタ
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

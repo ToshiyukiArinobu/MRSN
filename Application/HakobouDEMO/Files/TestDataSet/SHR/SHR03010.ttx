@@ -1,0 +1,16 @@
+支払先コード	Number		9005
+支払先名	String	15	AAAカード
+対象月	Date		2011/01/01
+日付	Date		2011/01/12
+車番	String	6	2082
+乗務員名	String	15	乗務員名サンプルコード
+経費名称	String	10	ＥＴＣ
+経費補助名称	String	15	経費補助名称サンプルデータ
+単価	Number		0
+内軽油税	Number		0
+数量	Number		0
+金額	Number		8170
+摘要	String	15	摘要サンプルデータ
+明細番号	Number		22036
+明細行	Number		2
+収支対象	String	6	対象

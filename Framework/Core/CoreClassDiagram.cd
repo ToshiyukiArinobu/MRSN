@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KyoeiSystem.Core.CommunicationObject">
+    <Position X="3" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAACAQAAAAAAA=</HashCode>
+      <FileName>CommunicationObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KyoeiSystem.Core.ThreadManeger">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAACACBAASAAAAAAAAAIAAAAQAKAAA=</HashCode>
+      <FileName>ThreadManeger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="KyoeiSystem.Core.MessageType">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEQAAAAAAAAAAAAAAAEAAAAAAAAAgAAEAAAA=</HashCode>
+      <FileName>Common.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="KyoeiSystem.Core.MessageReceiveHandler">
+    <Position X="3" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>ThreadManeger.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="メイリオ" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,14 @@
+対象年月度	Date		2011/11/01
+対象日From	Date		2011/11/01
+対象日To	Date		2011/11/30
+部門指定	String	15	（ピックアップ指定有）
+表示順序	String	10	コード順
+部門ID	Number		1
+部門名	String	20	一般
+売上金額	Number		2738594
+通行料（課税売上）	Number		2213234
+当月売上額	Number		2738594
+傭車使用売上	Number		120000
+支払金額	Number		96000
+支払通行料	Number		1000
+件数	Number		79

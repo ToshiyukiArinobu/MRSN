@@ -1,0 +1,203 @@
+﻿<fw:WindowReportBase
+        xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+        x:Class="KyoeiSystem.Application.Windows.Views.SRY14010"
+        mc:Ignorable="d" d:DesignWidth="300" Name="MainWindow" Loaded="MainWindow_Loaded"
+ 		    WindowStyle="SingleBorderWindow" AllowsTransparency="False" PreviewKeyDown="Window_PreviewKeyDown"
+		    Title="輸送実績報告書(SRY14010)" MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!--リボン-->
+    <Ribbon Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <!--アプリケーションメニュー-->
+      <Ribbon.ApplicationMenu>
+        <RibbonApplicationMenu SmallImageSource="../Images/Menu.png">
+          <RibbonApplicationMenuItem Header="マスタ照会" ImageSource="../Images/F1_MasterVerification.png"/>
+          <RibbonApplicationMenuItem Header="マスタ入力" ImageSource="../Images/F2_MasterInput.png"/>
+          <RibbonApplicationSplitMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp">
+            <RibbonApplicationMenuItem Header="印刷" ImageSource="../Images/Insatu.bmp"/>
+            <RibbonApplicationMenuItem Header="ページ設定" ImageSource="../Images/Insatu_pure.bmp"/>
+            <RibbonApplicationMenuItem Header="印刷プレビュー" ImageSource="../Images/Insatu_pure.bmp"/>
+          </RibbonApplicationSplitMenuItem>
+          <RibbonApplicationMenuItem Header="終了" ImageSource="../Images/LogOut.bmp"/>
+        </RibbonApplicationMenu>
+      </Ribbon.ApplicationMenu>
+
+      <!--タブ-->
+      <RibbonTab Name="RibbonTabHome" Header="ホーム" KeyTip="h">
+
+                <RibbonGroup  KeyTip="M" Header="マスタ">
+                    <RibbonGroup.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Transparent" Offset="0.3"/>
+                            <GradientStop Color="Orange" Offset="0.99"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </LinearGradientBrush>
+                    </RibbonGroup.Background>
+                    <RibbonButton Name="RibbonKensaku" LargeImageSource="../Images/F1_MasterVerification.png" Label="照会" Click="RibbonKensaku_Click_1" KeyTip="a"/>
+                </RibbonGroup>
+                <RibbonGroup Header="マスタ出力" KeyTip="t">
+                    <RibbonGroup.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Transparent" Offset="0.3"/>
+                            <GradientStop Color="Orange" Offset="0.99"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </LinearGradientBrush>
+                    </RibbonGroup.Background>
+                    <RibbonButton  Name="CsvSyuturyoku" LargeImageSource="../Images/CsvImage.png" Click="CsvSyuturyoku_Click_1" KeyTip="e"
+							Label="CSV出力" ToolTipTitle="CSV出力(F5)" ToolTipDescription="CSV形式で出力します" ToolTipImageSource="../Images/CsvImage.png"/>
+                    <RibbonButton Name="PreView" LargeImageSource="../Images/Insatu_pure.bmp" Click="PreView_Click_1" KeyTip="e"
+							Label="プレビュー" ToolTipTitle="プレビュー(F7)" ToolTipDescription="印刷プレビューを表示します" ToolTipImageSource="../Images/Insatu_pure.bmp"/>
+                    <RibbonButton Name="Insatu" LargeImageSource="../Images/Insatu.bmp" Click="Insatu_Click_1" KeyTip="d"
+	    				    Label="印刷" ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します" ToolTipImageSource="../Images/Insatu.bmp"/>
+                </RibbonGroup>
+                <RibbonGroup >
+                    <RibbonGroup.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Transparent" Offset="0.3"/>
+                            <GradientStop Color="Orange" Offset="0.99"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </LinearGradientBrush>
+                    </RibbonGroup.Background>
+                    <RibbonButton   Name="Syuuryou" LargeImageSource="../Images/F11_End.png" Click="Syuuryou_Click_1" KeyTip="h"
+								Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/F11_End.png"/>
+                </RibbonGroup>
+
+                <RibbonGroup Header="その他">
+                    <RibbonButton Name="RibbonButton_WebHome" LargeImageSource="../Images/IE.bmp" Click="RibbonButton_WebHome_Click_1"
+								  Label="Webホーム" ToolTipTitle="インターネット" ToolTipDescription="Webブラウザを起動します" />
+                    <RibbonButton Name="RibbonButton_Meil" LargeImageSource="../Images/Mail.bmp" Click="RibbonButton_Meil_Click_1"
+								  Label="メール" ToolTipTitle="メール" ToolTipDescription="メールソフトを起動します"/>
+                    <RibbonButton Name="RibbonButton_Dentaku" LargeImageSource="../Images/Dentaku.bmp" Click="RibbonButton_Dentaku_Click_1"
+								  Label="電卓" ToolTipTitle="電子式卓上計算機" ToolTipDescription="電卓を表示します"/>
+                </RibbonGroup>
+
+                <RibbonGroup Name="Ribbontest1" AllowDrop="True" Header="便利リンク" >
+                    <RibbonButton Name="Kensaku_RibbonHomeBenri" LargeImageSource="../Images/Yahoo.bmp" Click="Kensaku_RibbonHomeBenri_Click_1"
+								  Label="検索" ToolTipTitle="Yahoo!JAPAN" ToolTipDescription="Yahoo!JAPANのページに遷移します" />
+                    <RibbonButton Name="DouroJyouhou_RibbonHomeBenri" LargeImageSource="../Images/KousokuJyouhou.bmp" Click="DouroJyouhou_RibbonHomeBenri_Click_1"
+								  Label="道路情報" ToolTipTitle="高速道路交通情報" ToolTipDescription="高速道路交通情報のページに遷移します"/>
+                    <RibbonButton Name="DouroNabi_RibbonHomeBenri" LargeImageSource="../Images/HaiuleiNabi.bmp" Click="DouroNabi_RibbonHomeBenri_Click_1"
+								  Label="道路ナビ" ToolTipTitle="ハイウェイナビゲータ" ToolTipDescription="ハイウェイナビゲータのページに遷移します"/>
+                    <RibbonButton Name="JyuutaiJyouhou_RibbonHomeBenri" LargeImageSource="../Images/SeikatuTizu.bmp" Click="JyuutaiJyouhou_RibbonHomeBenri_Click_1"
+								  Label="渋滞情報" ToolTipTitle="生活地図サイト MapFan Web" ToolTipDescription="生活地図サイト MapFan Webのページに遷移します" />
+                    <RibbonButton Name="Tenki_RibbonHomeBenri" LargeImageSource="../Images/Tenki.bmp" HorizontalAlignment="Right" Click="Tenki_RibbonHomeBenri_Click_1"
+								  Label="天気" ToolTipTitle="天気予報ウェザーニュース" ToolTipDescription="天気予報ウェザーニュースのページに遷移します"/>
+                </RibbonGroup>
+            </RibbonTab>
+      <RibbonTab Background="Gray">
+        <RibbonGroup Name="RibbonOpusyonKinou" Header="機能" AllowDrop="True" />
+        <RibbonGroup Header="追加"/>
+      </RibbonTab>
+      <RibbonTab Header="ヘルプ" Background="Gray">
+        <RibbonGroup Header="サポート">
+          <RibbonButton LargeImageSource="../Images/Toiawase.bmp"
+								  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+          <RibbonButton LargeImageSource="../Images/QandA.bmp"
+								  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+          <RibbonButton LargeImageSource="../Images/KyoueiIcon.bmp"
+								  Label="企業HP" ToolTipTitle="カレンダー" ToolTipDescription="共栄システムHPに遷移します"/>
+        </RibbonGroup>
+      </RibbonTab>
+
+      <!--クイックアクセスツールバー-->
+      <Ribbon.QuickAccessToolBar>
+        <RibbonQuickAccessToolBar>
+          <RibbonButton Name="M_Sansyou" SmallImageSource="../Images/F1_MasterVerification.png" KeyTip="a" Click="RibbonKensaku_Click_1"
+								  ToolTipTitle="マスタ照会" ToolTipDescription="マスタの紹介を行います" />
+          <RibbonButton SmallImageSource="../Images/F2_MasterInput.png"
+								   ToolTipTitle="マスタ入力" ToolTipDescription="マスタの入力を行います" />
+          <RibbonButton SmallImageSource="../Images/Modoru.png"
+								  ToolTipTitle="マスタ照会" ToolTipDescription="マスタの紹介を行います" />
+          <RibbonButton SmallImageSource="../Images/Susumu.png"
+								   ToolTipTitle="マスタ入力" ToolTipDescription="マスタの入力を行います" />
+          <RibbonButton SmallImageSource="../Images/F11_End.png"
+								  ToolTipTitle="終了" ToolTipDescription="作業を終了します" />
+        </RibbonQuickAccessToolBar>
+      </Ribbon.QuickAccessToolBar>
+    </Ribbon>
+
+    <!-- エラーメッセージ領域 -->
+    <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+    <Label Grid.Row="0" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
+
+    <!-- 画面本体 -->
+        <Border Grid.Row="1" Margin="5" BorderBrush="Black" BorderThickness="1" Background="#FFB6D8D3">
+            <Grid  Margin="5">
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <ctls:UcLabel LabelText="車輌指定" cWidth="100"  Margin="5,0"/>
+                    <ctls:UcLabelTextBox Label_Context="ﾋﾟｯｸｱｯﾌﾟ指定"  cBackground="#f6b417" 
+                                         Text="{Binding 車輌ピックアップ, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Grid.Column="1" Label_Width="100"/>
+                    <ctls:UcLabelTwinTextBox Label_Context="範囲指定" Label_Width="98" Label1Text="～" Grid.Column="1" Grid.Row="1" Text1Width="150" Text2Background="#f6b417" Label2Visibility="Collapsed"
+                                             Text1="{Binding 車輌From, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                             Text2="{Binding 車輌To, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                </Grid>
+
+                <ctls:UcLabelTwinTextBox Name="SakuseiNengetu" Label_Context="作成年月" Label_Width="100" Grid.Column="0" Grid.Row="2" Margin="5,0,645,0"
+                                         Label1Text="～" Text1Width="100" Text1Background="White" Text2Width="100"
+                                         Text1="{Binding 作成年月From, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                                         Text2="{Binding 作成年月To, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                <ctls:UcLabelComboBox Grid.Row="4" Grid.Column="0" Label_Context="提出陸運局" Label_Width="100" 
+                                      Text="{Binding 提出陸運局,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Margin="5,0,775,0"/>
+
+                <ctls:UcLabelTwinTextBox Grid.Column="0" Grid.Row="6"  Label_Context="自社コード" Label_Width="100" Label1Visibility="Collapsed" Text1Width="85" Margin="5,0,500,0"
+                                             Text1="{Binding 自社コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                             Text2="{Binding 自社名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+
+                <ctls:UcLabelTextBox Grid.Row="8" Label_Context="自動車数" Label_Width="100" Margin="5,0,775,0"
+                                         Text="{Binding 自動車数, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                <ctls:UcLabelTextBox Grid.Row="10" Label_Context="従業員数" Label_Width="100" Margin="5,0,775,0"
+                                         Text="{Binding 従業員数, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                <ctls:UcLabelTextBox Grid.Row="12" Label_Context="運転者数" Label_Width="100" Margin="5,0,775,0"
+                                         Text="{Binding 運転者数, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+
+                <ctls:UcLabel Grid.Row="14"  Content="(注１)営業収入については、自社売上と傭車売上を含めた全ての売上が提出陸運局欄へ集計されます。"/>
+                <ctls:UcLabel Grid.Row="16"  Content="(注２)輸送屯数の利用運送分は、傭車運送明細の＜重量＞欄を集計しています。"/>
+                <ctls:UcLabel Grid.Row="18"  Content="(注３)走行Kmと実車Kmは、自社運送の距離数のみ集計しています。傭車運送距離数は含まれません。"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</fw:WindowReportBase>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="XAML定義でWindowMenuModelを参照する">
+    <Position X="5.15" Y="8.914" Height="0.58" Width="2.509" />
+  </Comment>
+  <Comment CommentText="XAML定義でWindowMasterModelを参照する">
+    <Position X="0.5" Y="8.914" Height="0.58" Width="2.509" />
+  </Comment>
+  <Class Name="KyoeiSystem.Windows.ViewModel.WindowMasterModel">
+    <Position X="0.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\WindowMasterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KyoeiSystem.Windows.ViewModel.WindowMenuModel">
+    <Position X="5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>ViewModel\WindowMenuModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KyoeiSystem.Windows.ViewModel.WindowReportModel">
+    <Position X="7.25" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\WindowReportModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KyoeiSystem.Windows.ViewModel.WindowSearchModel">
+    <Position X="2.75" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\WindowSearchModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KyoeiSystem.Windows.ViewModel.WindowViewModelBase">
+    <Position X="1.25" Y="0.5" Width="3" />
+    <NestedTypes>
+      <Delegate Name="KyoeiSystem.Windows.ViewModel.WindowViewModelBase.ReceivedDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ViewModel\WindowViewModelBase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAkA=</HashCode>
+      <FileName>ViewModel\WindowViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="threadmgr" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="KyoeiSystem.Windows.Views.MCustomer">
+    <Position X="0.5" Y="7.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MCustomer.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KyoeiSystem.Windows.Views.WindowMenu">
+    <Position X="5" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\WindowMenu.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KyoeiSystem.Core.ThreadManeger">
+    <Position X="6.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Windows.Window" Collapsed="true">
+    <Position X="10.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="メイリオ" Size="9" />
+</ClassDiagram>

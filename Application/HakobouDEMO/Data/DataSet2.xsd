@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet2" targetNamespace="http://tempuri.org/DataSet2.xsd" xmlns:mstns="http://tempuri.org/DataSet2.xsd" xmlns="http://tempuri.org/DataSet2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="HAKOBOConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="HAKOBOConnectionString1 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Hakobou.Properties.Settings.GlobalReference.Default.HAKOBOConnectionString1" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet2" msprop:Generator_UserDSName="DataSet2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="得意先マスタ一覧データ" msprop:Generator_TableClassName="得意先マスタ一覧データDataTable" msprop:Generator_TableVarName="table得意先マスタ一覧データ" msprop:Generator_TablePropName="得意先マスタ一覧データ" msprop:Generator_RowDeletingName="得意先マスタ一覧データRowDeleting" msprop:Generator_RowChangingName="得意先マスタ一覧データRowChanging" msprop:Generator_RowEvHandlerName="得意先マスタ一覧データRowChangeEventHandler" msprop:Generator_RowDeletedName="得意先マスタ一覧データRowDeleted" msprop:Generator_UserTableName="得意先マスタ一覧データ" msprop:Generator_RowChangedName="得意先マスタ一覧データRowChanged" msprop:Generator_RowEvArgName="得意先マスタ一覧データRowChangeEvent" msprop:Generator_RowClassName="得意先マスタ一覧データRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="得意先名_xFF11_" msprop:Generator_ColumnVarNameInTable="column得意先名１" msprop:Generator_ColumnPropNameInRow="得意先名１" msprop:Generator_ColumnPropNameInTable="得意先名１Column" msprop:Generator_UserColumnName="得意先名１" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="得意先名_xFF12_" msprop:Generator_ColumnVarNameInTable="column得意先名２" msprop:Generator_ColumnPropNameInRow="得意先名２" msprop:Generator_ColumnPropNameInTable="得意先名２Column" msprop:Generator_UserColumnName="得意先名２" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="略称名" msprop:Generator_ColumnVarNameInTable="column略称名" msprop:Generator_ColumnPropNameInRow="略称名" msprop:Generator_ColumnPropNameInTable="略称名Column" msprop:Generator_UserColumnName="略称名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="24" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="取引区分" msprop:Generator_ColumnVarNameInTable="column取引区分" msprop:Generator_ColumnPropNameInRow="取引区分" msprop:Generator_ColumnPropNameInTable="取引区分Column" msprop:Generator_UserColumnName="取引区分" type="xs:int" />
+              <xs:element name="_xFF34_締日" msprop:Generator_ColumnVarNameInTable="columnＴ締日" msprop:Generator_ColumnPropNameInRow="Ｔ締日" msprop:Generator_ColumnPropNameInTable="Ｔ締日Column" msprop:Generator_UserColumnName="Ｔ締日" type="xs:int" />
+              <xs:element name="_xFF33_締日" msprop:Generator_ColumnVarNameInTable="columnＳ締日" msprop:Generator_ColumnPropNameInRow="Ｓ締日" msprop:Generator_ColumnPropNameInTable="Ｓ締日Column" msprop:Generator_UserColumnName="Ｓ締日" type="xs:int" />
+              <xs:element name="かな読み" msprop:Generator_ColumnVarNameInTable="columnかな読み" msprop:Generator_ColumnPropNameInRow="かな読み" msprop:Generator_ColumnPropNameInTable="かな読みColumn" msprop:Generator_UserColumnName="かな読み" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="郵便番号" msprop:Generator_ColumnVarNameInTable="column郵便番号" msprop:Generator_ColumnPropNameInRow="郵便番号" msprop:Generator_ColumnPropNameInTable="郵便番号Column" msprop:Generator_UserColumnName="郵便番号" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="住所_xFF11_" msprop:Generator_ColumnVarNameInTable="column住所１" msprop:Generator_ColumnPropNameInRow="住所１" msprop:Generator_ColumnPropNameInTable="住所１Column" msprop:Generator_UserColumnName="住所１" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="住所_xFF12_" msprop:Generator_ColumnVarNameInTable="column住所２" msprop:Generator_ColumnPropNameInRow="住所２" msprop:Generator_ColumnPropNameInTable="住所２Column" msprop:Generator_UserColumnName="住所２" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="電話番号" msprop:Generator_ColumnVarNameInTable="column電話番号" msprop:Generator_ColumnPropNameInRow="電話番号" msprop:Generator_ColumnPropNameInTable="電話番号Column" msprop:Generator_UserColumnName="電話番号" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="_xFF26__xFF21__xFF38_" msprop:Generator_ColumnVarNameInTable="columnＦＡＸ" msprop:Generator_ColumnPropNameInRow="ＦＡＸ" msprop:Generator_ColumnPropNameInTable="ＦＡＸColumn" msprop:Generator_UserColumnName="ＦＡＸ" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="_xFF34_集金日" msprop:Generator_ColumnVarNameInTable="columnＴ集金日" msprop:Generator_ColumnPropNameInRow="Ｔ集金日" msprop:Generator_ColumnPropNameInTable="Ｔ集金日Column" msprop:Generator_UserColumnName="Ｔ集金日" type="xs:int" />
+              <xs:element name="_xFF34_サイト日" msprop:Generator_ColumnVarNameInTable="columnＴサイト日" msprop:Generator_ColumnPropNameInRow="Ｔサイト日" msprop:Generator_ColumnPropNameInTable="Ｔサイト日Column" msprop:Generator_UserColumnName="Ｔサイト日" type="xs:int" />
+              <xs:element name="_xFF34_税区分ID" msprop:Generator_ColumnVarNameInTable="columnＴ税区分ID" msprop:Generator_ColumnPropNameInRow="Ｔ税区分ID" msprop:Generator_ColumnPropNameInTable="Ｔ税区分IDColumn" msprop:Generator_UserColumnName="Ｔ税区分ID" type="xs:int" />
+              <xs:element name="_xFF34_締日期首残" msprop:Generator_ColumnVarNameInTable="columnＴ締日期首残" msprop:Generator_ColumnPropNameInRow="Ｔ締日期首残" msprop:Generator_ColumnPropNameInTable="Ｔ締日期首残Column" msprop:Generator_UserColumnName="Ｔ締日期首残" type="xs:int" />
+              <xs:element name="_xFF34_月次期首残" msprop:Generator_ColumnVarNameInTable="columnＴ月次期首残" msprop:Generator_ColumnPropNameInRow="Ｔ月次期首残" msprop:Generator_ColumnPropNameInTable="Ｔ月次期首残Column" msprop:Generator_UserColumnName="Ｔ月次期首残" type="xs:int" />
+              <xs:element name="_xFF34_路線計算年度" msprop:Generator_ColumnVarNameInTable="columnＴ路線計算年度" msprop:Generator_ColumnPropNameInRow="Ｔ路線計算年度" msprop:Generator_ColumnPropNameInTable="Ｔ路線計算年度Column" msprop:Generator_UserColumnName="Ｔ路線計算年度" type="xs:int" />
+              <xs:element name="_xFF34_路線計算率" msprop:Generator_ColumnVarNameInTable="columnＴ路線計算率" msprop:Generator_ColumnPropNameInRow="Ｔ路線計算率" msprop:Generator_ColumnPropNameInTable="Ｔ路線計算率Column" msprop:Generator_UserColumnName="Ｔ路線計算率" type="xs:int" />
+              <xs:element name="_xFF34_路線計算まるめ" msprop:Generator_ColumnVarNameInTable="columnＴ路線計算まるめ" msprop:Generator_ColumnPropNameInRow="Ｔ路線計算まるめ" msprop:Generator_ColumnPropNameInTable="Ｔ路線計算まるめColumn" msprop:Generator_UserColumnName="Ｔ路線計算まるめ" type="xs:int" />
+              <xs:element name="_xFF33_集金日" msprop:Generator_ColumnVarNameInTable="columnＳ集金日" msprop:Generator_ColumnPropNameInRow="Ｓ集金日" msprop:Generator_ColumnPropNameInTable="Ｓ集金日Column" msprop:Generator_UserColumnName="Ｓ集金日" type="xs:int" />
+              <xs:element name="_xFF33_サイト日" msprop:Generator_ColumnVarNameInTable="columnＳサイト日" msprop:Generator_ColumnPropNameInRow="Ｓサイト日" msprop:Generator_ColumnPropNameInTable="Ｓサイト日Column" msprop:Generator_UserColumnName="Ｓサイト日" type="xs:int" />
+              <xs:element name="_xFF33_税区分ID" msprop:Generator_ColumnVarNameInTable="columnＳ税区分ID" msprop:Generator_ColumnPropNameInRow="Ｓ税区分ID" msprop:Generator_ColumnPropNameInTable="Ｓ税区分IDColumn" msprop:Generator_UserColumnName="Ｓ税区分ID" type="xs:int" />
+              <xs:element name="_xFF33_締日期首残" msprop:Generator_ColumnVarNameInTable="columnＳ締日期首残" msprop:Generator_ColumnPropNameInRow="Ｓ締日期首残" msprop:Generator_ColumnPropNameInTable="Ｓ締日期首残Column" msprop:Generator_UserColumnName="Ｓ締日期首残" type="xs:int" />
+              <xs:element name="_xFF33_月次期首残" msprop:Generator_ColumnVarNameInTable="columnＳ月次期首残" msprop:Generator_ColumnPropNameInRow="Ｓ月次期首残" msprop:Generator_ColumnPropNameInTable="Ｓ月次期首残Column" msprop:Generator_UserColumnName="Ｓ月次期首残" type="xs:int" />
+              <xs:element name="_xFF33_路線計算年度" msprop:Generator_ColumnVarNameInTable="columnＳ路線計算年度" msprop:Generator_ColumnPropNameInRow="Ｓ路線計算年度" msprop:Generator_ColumnPropNameInTable="Ｓ路線計算年度Column" msprop:Generator_UserColumnName="Ｓ路線計算年度" type="xs:int" />
+              <xs:element name="_xFF33_路線計算率" msprop:Generator_ColumnVarNameInTable="columnＳ路線計算率" msprop:Generator_ColumnPropNameInRow="Ｓ路線計算率" msprop:Generator_ColumnPropNameInTable="Ｓ路線計算率Column" msprop:Generator_UserColumnName="Ｓ路線計算率" type="xs:int" />
+              <xs:element name="_xFF33_路線計算まるめ" msprop:Generator_ColumnVarNameInTable="columnＳ路線計算まるめ" msprop:Generator_ColumnPropNameInRow="Ｓ路線計算まるめ" msprop:Generator_ColumnPropNameInTable="Ｓ路線計算まるめColumn" msprop:Generator_UserColumnName="Ｓ路線計算まるめ" type="xs:int" />
+              <xs:element name="ラベル区分" msprop:Generator_ColumnVarNameInTable="columnラベル区分" msprop:Generator_ColumnPropNameInRow="ラベル区分" msprop:Generator_ColumnPropNameInTable="ラベル区分Column" msprop:Generator_UserColumnName="ラベル区分" type="xs:int" />
+              <xs:element name="親子区分ID" msprop:Generator_ColumnVarNameInTable="column親子区分ID" msprop:Generator_ColumnPropNameInRow="親子区分ID" msprop:Generator_ColumnPropNameInTable="親子区分IDColumn" msprop:Generator_UserColumnName="親子区分ID" type="xs:int" minOccurs="0" />
+              <xs:element name="親ID" msprop:Generator_ColumnVarNameInTable="column親ID" msprop:Generator_ColumnPropNameInRow="親ID" msprop:Generator_ColumnPropNameInTable="親IDColumn" msprop:Generator_UserColumnName="親ID" type="xs:int" minOccurs="0" />
+              <xs:element name="請求内訳管理区分" msprop:Generator_ColumnVarNameInTable="column請求内訳管理区分" msprop:Generator_ColumnPropNameInRow="請求内訳管理区分" msprop:Generator_ColumnPropNameInTable="請求内訳管理区分Column" msprop:Generator_UserColumnName="請求内訳管理区分" type="xs:int" />
+              <xs:element name="自社部門ID" msprop:Generator_ColumnVarNameInTable="column自社部門ID" msprop:Generator_ColumnPropNameInRow="自社部門ID" msprop:Generator_ColumnPropNameInTable="自社部門IDColumn" msprop:Generator_UserColumnName="自社部門ID" type="xs:int" minOccurs="0" />
+              <xs:element name="請求運賃計算区分ID" msprop:Generator_ColumnVarNameInTable="column請求運賃計算区分ID" msprop:Generator_ColumnPropNameInRow="請求運賃計算区分ID" msprop:Generator_ColumnPropNameInTable="請求運賃計算区分IDColumn" msprop:Generator_UserColumnName="請求運賃計算区分ID" type="xs:int" />
+              <xs:element name="支払運賃計算区分ID" msprop:Generator_ColumnVarNameInTable="column支払運賃計算区分ID" msprop:Generator_ColumnPropNameInRow="支払運賃計算区分ID" msprop:Generator_ColumnPropNameInTable="支払運賃計算区分IDColumn" msprop:Generator_UserColumnName="支払運賃計算区分ID" type="xs:int" />
+              <xs:element name="請求書区分ID" msprop:Generator_ColumnVarNameInTable="column請求書区分ID" msprop:Generator_ColumnPropNameInRow="請求書区分ID" msprop:Generator_ColumnPropNameInTable="請求書区分IDColumn" msprop:Generator_UserColumnName="請求書区分ID" type="xs:int" />
+              <xs:element name="請求書発行元ID" msprop:Generator_ColumnVarNameInTable="column請求書発行元ID" msprop:Generator_ColumnPropNameInRow="請求書発行元ID" msprop:Generator_ColumnPropNameInTable="請求書発行元IDColumn" msprop:Generator_UserColumnName="請求書発行元ID" type="xs:int" minOccurs="0" />
+              <xs:element name="得意先ID" msprop:Generator_ColumnVarNameInTable="column得意先ID" msprop:Generator_ColumnPropNameInRow="得意先ID" msprop:Generator_ColumnPropNameInTable="得意先IDColumn" msprop:Generator_UserColumnName="得意先ID" type="xs:int" />
+              <xs:element name="_xFF34_税区分名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnＴ税区分名" msprop:Generator_ColumnPropNameInRow="Ｔ税区分名" msprop:Generator_ColumnPropNameInTable="Ｔ税区分名Column" msprop:Generator_UserColumnName="Ｔ税区分名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="_xFF33_税区分名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnＳ税区分名" msprop:Generator_ColumnPropNameInRow="Ｓ税区分名" msprop:Generator_ColumnPropNameInTable="Ｓ税区分名Column" msprop:Generator_UserColumnName="Ｓ税区分名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="親子区分名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="column親子区分名" msprop:Generator_ColumnPropNameInRow="親子区分名" msprop:Generator_ColumnPropNameInTable="親子区分名Column" msprop:Generator_UserColumnName="親子区分名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ラベル区分名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnラベル区分名" msprop:Generator_ColumnPropNameInRow="ラベル区分名" msprop:Generator_ColumnPropNameInTable="ラベル区分名Column" msprop:Generator_UserColumnName="ラベル区分名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="内訳管理区分名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="column内訳管理区分名" msprop:Generator_ColumnPropNameInRow="内訳管理区分名" msprop:Generator_ColumnPropNameInTable="内訳管理区分名Column" msprop:Generator_UserColumnName="内訳管理区分名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="請求書区分名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="column請求書区分名" msprop:Generator_ColumnPropNameInRow="請求書区分名" msprop:Generator_ColumnPropNameInTable="請求書区分名Column" msprop:Generator_UserColumnName="請求書区分名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="請求書発行元名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="column請求書発行元名" msprop:Generator_ColumnPropNameInRow="請求書発行元名" msprop:Generator_ColumnPropNameInTable="請求書発行元名Column" msprop:Generator_UserColumnName="請求書発行元名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="部門名" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="column部門名" msprop:Generator_ColumnPropNameInRow="部門名" msprop:Generator_ColumnPropNameInTable="部門名Column" msprop:Generator_UserColumnName="部門名" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:得意先マスタ一覧データ" />
+      <xs:field xpath="mstns:得意先ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

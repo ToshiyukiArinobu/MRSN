@@ -1,0 +1,1168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TRAC3Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TRAC3Entities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="M01_TOK" EntityType="TRAC3Model.M01_TOK" />
+    <EntitySet Name="M02_BAIKA" EntityType="TRAC3Model.M02_BAIKA" />
+    <EntitySet Name="M03_BAIKA" EntityType="TRAC3Model.M03_BAIKA" />
+    <EntitySet Name="M04_BAIKA" EntityType="TRAC3Model.M04_BAIKA" />
+    <EntitySet Name="M06_IRO" EntityType="TRAC3Model.M06_IRO" />
+    <EntitySet Name="M10_SHIN" EntityType="TRAC3Model.M10_SHIN" />
+    <EntitySet Name="M10_TOKHIN" EntityType="TRAC3Model.M10_TOKHIN" />
+    <EntitySet Name="M11_TEK" EntityType="TRAC3Model.M11_TEK" />
+    <EntitySet Name="M12_DAIBUNRUI" EntityType="TRAC3Model.M12_DAIBUNRUI" />
+    <EntitySet Name="M13_TYUBUNRUI" EntityType="TRAC3Model.M13_TYUBUNRUI" />
+    <EntitySet Name="M14_BRAND" EntityType="TRAC3Model.M14_BRAND" />
+    <EntitySet Name="M15_SERIES" EntityType="TRAC3Model.M15_SERIES" />
+    <EntitySet Name="M16_HINGUN" EntityType="TRAC3Model.M16_HINGUN" />
+    <EntitySet Name="M21_SYUK" EntityType="TRAC3Model.M21_SYUK" />
+    <EntitySet Name="M22_SOUK" EntityType="TRAC3Model.M22_SOUK" />
+    <EntitySet Name="M70_JIS" EntityType="TRAC3Model.M70_JIS" />
+    <EntitySet Name="M72_TNT" EntityType="TRAC3Model.M72_TNT" />
+    <EntitySet Name="M73_ZEI" EntityType="TRAC3Model.M73_ZEI" />
+    <EntitySet Name="M74_KGRP_NAME" EntityType="TRAC3Model.M74_KGRP_NAME" />
+    <EntitySet Name="M88_SEQ" EntityType="TRAC3Model.M88_SEQ" />
+    <EntitySet Name="M89_KENALL" EntityType="TRAC3Model.M89_KENALL" />
+    <EntitySet Name="M90_GRID" EntityType="TRAC3Model.M90_GRID" />
+    <EntitySet Name="M99_COMBOLIST" EntityType="TRAC3Model.M99_COMBOLIST" />
+    <EntitySet Name="M99_MSG" EntityType="TRAC3Model.M99_MSG" />
+    <EntitySet Name="M99_ZIP" EntityType="TRAC3Model.M99_ZIP" />
+    <EntitySet Name="T02_URDTL" EntityType="TRAC3Model.T02_URDTL" />
+    <EntitySet Name="T03_SRDTL" EntityType="TRAC3Model.T03_SRDTL" />
+    <EntitySet Name="T03_SRDTL_HAN" EntityType="TRAC3Model.T03_SRDTL_HAN" />
+    <EntitySet Name="T04_AGRDTB" EntityType="TRAC3Model.T04_AGRDTB" />
+    <EntitySet Name="T04_AGRDTL" EntityType="TRAC3Model.T04_AGRDTL" />
+    <EntitySet Name="T04_AGRHD" EntityType="TRAC3Model.T04_AGRHD" />
+    <EntitySet Name="T05_IDODTL" EntityType="TRAC3Model.T05_IDODTL" />
+    <EntitySet Name="S03_STOK" EntityType="TRAC3Model.S03_STOK" />
+    <EntitySet Name="T05_IDOHD" EntityType="TRAC3Model.T05_IDOHD" />
+    <EntitySet Name="T11_NYKNDTL" EntityType="TRAC3Model.T11_NYKNDTL" />
+    <EntitySet Name="T11_NYKNHD" EntityType="TRAC3Model.T11_NYKNHD" />
+    <EntitySet Name="T03_SRHD_HAN" EntityType="TRAC3Model.T03_SRHD_HAN" />
+    <EntitySet Name="T03_SRHD" EntityType="TRAC3Model.T03_SRHD" />
+    <EntitySet Name="T02_URHD" EntityType="TRAC3Model.T02_URHD" />
+    <EntitySet Name="S01_SEIDTL" EntityType="TRAC3Model.S01_SEIDTL" />
+    <EntitySet Name="V_TKS08010" EntityType="TRAC3Model.V_TKS08010" />
+    <EntitySet Name="T12_PAYDTL" EntityType="TRAC3Model.T12_PAYDTL" />
+    <EntitySet Name="T12_PAYHD" EntityType="TRAC3Model.T12_PAYHD" />
+    <EntitySet Name="S02_SHRDTL" EntityType="TRAC3Model.S02_SHRDTL" />
+    <EntitySet Name="S02_SHRHD" EntityType="TRAC3Model.S02_SHRHD" />
+    <EntitySet Name="V_SHR06010" EntityType="TRAC3Model.V_SHR06010" />
+    <EntitySet Name="S04_HISTORY" EntityType="TRAC3Model.S04_HISTORY" />
+    <EntitySet Name="T04_AGRWK" EntityType="TRAC3Model.T04_AGRWK" />
+    <EntitySet Name="S05_STOK_MONTH" EntityType="TRAC3Model.S05_STOK_MONTH" />
+    <EntitySet Name="S01_SEIHD" EntityType="TRAC3Model.S01_SEIHD" />
+    <EntitySet Name="T02_URDTL_HAN" EntityType="TRAC3Model.T02_URDTL_HAN" />
+    <EntitySet Name="T02_URHD_HAN" EntityType="TRAC3Model.T02_URHD_HAN" />
+    <EntitySet Name="M09_HIN" EntityType="TRAC3Model.M09_HIN" />
+    <EntitySet Name="V_M09_HIN" EntityType="TRAC3Model.V_M09_HIN" />
+    <EntitySet Name="M74_KGRP" EntityType="TRAC3Model.M74_KGRP" />
+  </EntityContainer>
+  <ComplexType Name="ComplexType1" />
+  <EntityType Name="M01_TOK">
+    <Key>
+      <PropertyRef Name="取引先コード" />
+      <PropertyRef Name="枝番" />
+    </Key>
+    <Property Type="Int32" Name="取引先コード" Nullable="false" />
+    <Property Type="Int32" Name="枝番" Nullable="false" />
+    <Property Type="Int32" Name="取引区分" Nullable="false" />
+    <Property Type="String" Name="得意先名１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="得意先名２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="部課名称" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="略称名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ＦＡＸ" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="担当会社コード" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ消費税区分" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ税区分ID" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ締日" />
+    <Property Type="Int32" Name="Ｔ請求条件" />
+    <Property Type="Int32" Name="Ｔ請求区分" Nullable="false" />
+    <Property Type="Int32" Name="Ｔサイト１" />
+    <Property Type="Int32" Name="Ｔサイト２" />
+    <Property Type="Int32" Name="Ｔ入金日１" />
+    <Property Type="Int32" Name="Ｔ入金日２" />
+    <Property Type="Int32" Name="Ｓ支払消費税区分" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ税区分ID" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ締日" />
+    <Property Type="Int32" Name="Ｓ支払条件" />
+    <Property Type="Int32" Name="Ｓ支払区分" Nullable="false" />
+    <Property Type="Int32" Name="Ｓサイト１" />
+    <Property Type="Int32" Name="Ｓサイト２" />
+    <Property Type="Int32" Name="Ｓ入金日１" />
+    <Property Type="Int32" Name="Ｓ入金日２" />
+    <Property Type="Int32" Name="与信枠" />
+    <Property Type="Int32" Name="Ｔ担当者コード" />
+    <Property Type="Int32" Name="Ｓ担当者コード" />
+    <Property Type="String" Name="自社備考１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="自社備考２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="集約取引先コード" />
+    <Property Type="Int32" Name="集約取引先枝番" />
+    <Property Type="Int32" Name="参照取引先コード１" />
+    <Property Type="Int32" Name="参照取引先枝番１" />
+    <Property Type="Int32" Name="参照取引先コード２" />
+    <Property Type="Int32" Name="参照取引先枝番２" />
+    <Property Type="Int32" Name="参照取引先コード３" />
+    <Property Type="Int32" Name="参照取引先枝番３" />
+    <Property Type="Int32" Name="集計コード１" />
+    <Property Type="Int32" Name="集計コード２" />
+    <Property Type="Int32" Name="集計コード３" />
+    <Property Type="Int32" Name="論理削除" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M02_BAIKA">
+    <Key>
+      <PropertyRef Name="得意先コード" />
+      <PropertyRef Name="枝番" />
+      <PropertyRef Name="品番コード" />
+    </Key>
+    <Property Type="Int32" Name="得意先コード" Nullable="false" />
+    <Property Type="Int32" Name="枝番" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Decimal" Name="単価" Precision="9" Scale="2" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M03_BAIKA">
+    <Key>
+      <PropertyRef Name="仕入先コード" />
+      <PropertyRef Name="枝番" />
+      <PropertyRef Name="品番コード" />
+    </Key>
+    <Property Type="Int32" Name="仕入先コード" Nullable="false" />
+    <Property Type="Int32" Name="枝番" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Decimal" Name="単価" Precision="9" Scale="2" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M04_BAIKA">
+    <Key>
+      <PropertyRef Name="外注先コード" />
+      <PropertyRef Name="枝番" />
+      <PropertyRef Name="品番コード" />
+    </Key>
+    <Property Type="Int32" Name="外注先コード" Nullable="false" />
+    <Property Type="Int32" Name="枝番" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Decimal" Name="単価" Precision="9" Scale="2" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M06_IRO">
+    <Key>
+      <PropertyRef Name="色コード" />
+    </Key>
+    <Property Type="String" Name="色コード" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="色名称" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M10_SHIN">
+    <Key>
+      <PropertyRef Name="品番コード" />
+      <PropertyRef Name="部品行" />
+    </Key>
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Int32" Name="部品行" Nullable="false" />
+    <Property Type="Int32" Name="構成品番コード" Nullable="false" />
+    <Property Type="Int32" Name="使用数量" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M10_TOKHIN">
+    <Key>
+      <PropertyRef Name="品番コード" />
+      <PropertyRef Name="取引先コード" />
+      <PropertyRef Name="枝番" />
+    </Key>
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Int32" Name="取引先コード" Nullable="false" />
+    <Property Type="Int32" Name="枝番" Nullable="false" />
+    <Property Type="String" Name="得意先品番コード" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M11_TEK">
+    <Key>
+      <PropertyRef Name="摘要ID" />
+    </Key>
+    <Property Type="Int32" Name="摘要ID" Nullable="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="摘要名" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M12_DAIBUNRUI">
+    <Key>
+      <PropertyRef Name="大分類コード" />
+    </Key>
+    <Property Type="Int32" Name="大分類コード" Nullable="false" />
+    <Property Type="String" Name="大分類名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M13_TYUBUNRUI">
+    <Key>
+      <PropertyRef Name="大分類コード" />
+      <PropertyRef Name="中分類コード" />
+    </Key>
+    <Property Type="Int32" Name="大分類コード" Nullable="false" />
+    <Property Type="Int32" Name="中分類コード" Nullable="false" />
+    <Property Type="String" Name="中分類名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M14_BRAND">
+    <Key>
+      <PropertyRef Name="ブランドコード" />
+    </Key>
+    <Property Type="String" Name="ブランドコード" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ブランド名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M15_SERIES">
+    <Key>
+      <PropertyRef Name="シリーズコード" />
+    </Key>
+    <Property Type="String" Name="シリーズコード" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="シリーズ名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M16_HINGUN">
+    <Key>
+      <PropertyRef Name="品群コード" />
+    </Key>
+    <Property Type="String" Name="品群コード" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="品群名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M21_SYUK">
+    <Key>
+      <PropertyRef Name="出荷先コード" />
+    </Key>
+    <Property Type="String" Name="出荷先コード" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="出荷先名１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="出荷先名２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="出荷先カナ" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="出荷先郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="出荷先住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="出荷先住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="出荷先電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="備考１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="備考２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M22_SOUK">
+    <Key>
+      <PropertyRef Name="倉庫コード" />
+    </Key>
+    <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+    <Property Type="String" Name="倉庫名" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="倉庫略称名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="場所会社コード" Nullable="false" />
+    <Property Type="Int32" Name="寄託会社コード" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M70_JIS">
+    <Key>
+      <PropertyRef Name="自社コード" />
+    </Key>
+    <Property Type="Int32" Name="自社コード" Nullable="false" />
+    <Property Type="String" Name="自社名" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="カナ" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="代表者名" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ＦＡＸ" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="振込銀行１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="振込銀行２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="振込銀行３" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="ロゴ画像" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="法人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="自社区分" Nullable="false" />
+    <Property Type="Int32" Name="取引先コード" />
+    <Property Type="Int32" Name="枝番" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+    <Property Type="Int32" Name="決算月" />
+  </EntityType>
+  <EntityType Name="M72_TNT">
+    <Key>
+      <PropertyRef Name="担当者ID" />
+    </Key>
+    <Property Type="Int32" Name="担当者ID" Nullable="false" />
+    <Property Type="String" Name="担当者名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="パスワード" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+    <Property Type="String" Name="個人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="設定項目" MaxLength="Max" FixedLength="false" />
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+    <Property Type="Int32" Name="利用者コード" />
+    <Property Type="Int32" Name="自社コード" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M73_ZEI">
+    <Key>
+      <PropertyRef Name="適用開始日付" />
+    </Key>
+    <Property Type="DateTime" Name="適用開始日付" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="消費税率" />
+    <Property Type="Int32" Name="軽減税率" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M74_KGRP_NAME">
+    <Key>
+      <PropertyRef Name="グループ権限ID" />
+    </Key>
+    <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+    <Property Type="String" Name="グループ権限名" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="M88_SEQ">
+    <Key>
+      <PropertyRef Name="明細番号ID" />
+    </Key>
+    <Property Type="Int32" Name="明細番号ID" Nullable="false" />
+    <Property Type="Int32" Name="現在明細番号" Nullable="false" />
+    <Property Type="Int32" Name="最大明細番号" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M89_KENALL">
+    <Key>
+      <PropertyRef Name="郵便番号ID" />
+    </Key>
+    <Property Type="Int32" Name="郵便番号ID" Nullable="false" />
+    <Property Type="String" Name="郵便番号" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所かな１" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所かな２" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所かな３" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所１" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所２" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所３" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M90_GRID">
+    <Key>
+      <PropertyRef Name="担当者ID" />
+      <PropertyRef Name="画面ID" />
+      <PropertyRef Name="GRIDID" />
+      <PropertyRef Name="列名" />
+    </Key>
+    <Property Type="Int32" Name="担当者ID" Nullable="false" />
+    <Property Type="String" Name="画面ID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="GRIDID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="列名" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="表示順" />
+    <Property Type="Int32" Name="表示フラグ" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M99_COMBOLIST">
+    <Key>
+      <PropertyRef Name="分類" />
+      <PropertyRef Name="機能" />
+      <PropertyRef Name="カテゴリ" />
+      <PropertyRef Name="コード" />
+    </Key>
+    <Property Type="String" Name="分類" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="機能" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="カテゴリ" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="コード" Nullable="false" />
+    <Property Type="Int32" Name="表示順" Nullable="false" />
+    <Property Type="String" Name="表示名" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="M99_MSG">
+    <Key>
+      <PropertyRef Name="種別" />
+      <PropertyRef Name="コード" />
+    </Key>
+    <Property Type="String" Name="種別" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="コード" Nullable="false" />
+    <Property Type="String" Name="メッセージ" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="サブメッセージ" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M99_ZIP">
+    <Key>
+      <PropertyRef Name="キー" />
+    </Key>
+    <Property Type="Int32" Name="キー" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="地区コード" Nullable="false" />
+    <Property Type="String" Name="郵便番号" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所かな" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所漢字" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T02_URDTL">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="金額" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T03_SRDTL">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="金額" Nullable="false" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T03_SRDTL_HAN">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="金額" Nullable="false" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T04_AGRDTB">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+      <PropertyRef Name="部材行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="部材行番号" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Decimal" Name="数量" Precision="8" Scale="2" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+  </EntityType>
+  <EntityType Name="T04_AGRDTL">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Decimal" Name="数量" Precision="8" Scale="2" />
+    <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="単価" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="金額" />
+    <Property Type="String" Name="摘要" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+  </EntityType>
+  <EntityType Name="T04_AGRHD">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="会社名コード" Nullable="false" />
+    <Property Type="DateTime" Name="仕上り日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="加工区分" Nullable="false" />
+    <Property Type="Int32" Name="外注先コード" Nullable="false" />
+    <Property Type="Int32" Name="外注先枝番" Nullable="false" />
+    <Property Type="Int32" Name="入荷先コード" Nullable="false" />
+    <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="小計" />
+    <Property Type="Int32" Name="消費税" />
+    <Property Type="Int32" Name="総合計" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+  </EntityType>
+  <EntityType Name="T05_IDODTL">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="S03_STOK">
+    <Key>
+      <PropertyRef Name="倉庫コード" />
+      <PropertyRef Name="品番コード" />
+      <PropertyRef Name="賞味期限" />
+    </Key>
+    <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="0" />
+    <Property Type="Decimal" Name="在庫数" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T05_IDOHD">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="会社名コード" Nullable="false" />
+    <Property Type="DateTime" Name="日付" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="移動区分" Nullable="false" />
+    <Property Type="Int32" Name="出荷元倉庫コード" />
+    <Property Type="Int32" Name="出荷先倉庫コード" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T11_NYKNDTL">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="金種コード" Nullable="false" />
+    <Property Type="Int32" Name="金額" Nullable="false" />
+    <Property Type="DateTime" Name="期日" Precision="0" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T11_NYKNHD">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="入金先自社コード" Nullable="false" />
+    <Property Type="DateTime" Name="入金日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="入金元販社コード" />
+    <Property Type="Int32" Name="得意先コード" />
+    <Property Type="Int32" Name="得意先枝番" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T03_SRHD_HAN">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="会社名コード" Nullable="false" />
+    <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="仕入区分" Nullable="false" />
+    <Property Type="Int32" Name="仕入先コード" Nullable="false" />
+    <Property Type="Int32" Name="入荷先コード" Nullable="false" />
+    <Property Type="Int32" Name="発注番号" />
+    <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="小計" />
+    <Property Type="Int32" Name="消費税" />
+    <Property Type="Int32" Name="総合計" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T03_SRHD">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="会社名コード" Nullable="false" />
+    <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="入力区分" Nullable="false" />
+    <Property Type="Int32" Name="仕入区分" Nullable="false" />
+    <Property Type="Int32" Name="仕入先コード" Nullable="false" />
+    <Property Type="Int32" Name="仕入先枝番" Nullable="false" />
+    <Property Type="Int32" Name="入荷先コード" Nullable="false" />
+    <Property Type="Int32" Name="発注番号" />
+    <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="元伝票番号" />
+    <Property Type="Int32" Name="消費税" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T02_URHD">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="会社名コード" Nullable="false" />
+    <Property Type="Int32" Name="伝票要否" Nullable="false" />
+    <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="売上区分" Nullable="false" />
+    <Property Type="Int32" Name="得意先コード" Nullable="false" />
+    <Property Type="Int32" Name="得意先枝番" Nullable="false" />
+    <Property Type="Int32" Name="在庫倉庫コード" Nullable="false" />
+    <Property Type="Int32" Name="納品伝票番号" />
+    <Property Type="DateTime" Name="出荷日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="受注番号" />
+    <Property Type="Int32" Name="出荷元コード" />
+    <Property Type="String" Name="出荷先コード" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="仕入先コード" />
+    <Property Type="Int32" Name="仕入先枝番" />
+    <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="元伝票番号" />
+    <Property Type="Int32" Name="小計" />
+    <Property Type="Int32" Name="消費税" Nullable="false" />
+    <Property Type="Int32" Name="総合計" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="S01_SEIDTL">
+    <Key>
+      <PropertyRef Name="自社コード" />
+      <PropertyRef Name="請求年月" />
+      <PropertyRef Name="請求締日" />
+      <PropertyRef Name="請求先コード" />
+      <PropertyRef Name="請求先枝番" />
+      <PropertyRef Name="入金日" />
+      <PropertyRef Name="回数" />
+      <PropertyRef Name="行" />
+    </Key>
+    <Property Type="Int32" Name="自社コード" Nullable="false" />
+    <Property Type="Int32" Name="請求年月" Nullable="false" />
+    <Property Type="Int32" Name="請求締日" Nullable="false" />
+    <Property Type="Int32" Name="請求先コード" Nullable="false" />
+    <Property Type="Int32" Name="請求先枝番" Nullable="false" />
+    <Property Type="Int32" Name="入金日" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="Int32" Name="行" Nullable="false" />
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="単価" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Int32" Name="金額" Nullable="false" />
+    <Property Type="Int32" Name="消費税" Nullable="false" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="V_TKS08010">
+    <Key>
+      <PropertyRef Name="K自社コード" />
+      <PropertyRef Name="K得意先コード" />
+      <PropertyRef Name="K得意先枝番" />
+      <PropertyRef Name="得意先コード" />
+      <PropertyRef Name="締日" />
+    </Key>
+    <Property Type="Int32" Name="K自社コード" Nullable="false" />
+    <Property Type="Int32" Name="K入金年月" />
+    <Property Type="Int32" Name="K入金日" />
+    <Property Type="Int32" Name="K得意先コード" Nullable="false" />
+    <Property Type="Int32" Name="K得意先枝番" Nullable="false" />
+    <Property Type="String" Name="得意先コード" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="得意先名" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="入金日付" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="売上額" />
+    <Property Type="Int64" Name="消費税" />
+    <Property Type="Int64" Name="回収予定額" />
+    <Property Type="String" Name="請求年月" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+    <Property Type="Int32" Name="当月入金額" />
+  </EntityType>
+  <EntityType Name="T12_PAYDTL">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="金種コード" Nullable="false" />
+    <Property Type="Int32" Name="金額" Nullable="false" />
+    <Property Type="DateTime" Name="期日" Precision="0" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T12_PAYHD">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="出金元自社コード" Nullable="false" />
+    <Property Type="DateTime" Name="出金日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="出金先販社コード" />
+    <Property Type="Int32" Name="得意先コード" />
+    <Property Type="Int32" Name="得意先枝番" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="S02_SHRDTL">
+    <Key>
+      <PropertyRef Name="自社コード" />
+      <PropertyRef Name="支払年月" />
+      <PropertyRef Name="支払締日" />
+      <PropertyRef Name="支払先コード" />
+      <PropertyRef Name="支払先枝番" />
+      <PropertyRef Name="支払日" />
+      <PropertyRef Name="回数" />
+      <PropertyRef Name="行" />
+    </Key>
+    <Property Type="Int32" Name="自社コード" Nullable="false" />
+    <Property Type="Int32" Name="支払年月" Nullable="false" />
+    <Property Type="Int32" Name="支払締日" Nullable="false" />
+    <Property Type="Int32" Name="支払先コード" Nullable="false" />
+    <Property Type="Int32" Name="支払先枝番" Nullable="false" />
+    <Property Type="Int32" Name="支払日" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="Int32" Name="行" Nullable="false" />
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="単価" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Int32" Name="金額" Nullable="false" />
+    <Property Type="Int32" Name="消費税" Nullable="false" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="S02_SHRHD">
+    <Key>
+      <PropertyRef Name="自社コード" />
+      <PropertyRef Name="支払年月" />
+      <PropertyRef Name="支払締日" />
+      <PropertyRef Name="支払先コード" />
+      <PropertyRef Name="支払先枝番" />
+      <PropertyRef Name="支払日" />
+      <PropertyRef Name="回数" />
+    </Key>
+    <Property Type="Int32" Name="自社コード" Nullable="false" />
+    <Property Type="Int32" Name="支払年月" Nullable="false" />
+    <Property Type="Int32" Name="支払締日" Nullable="false" />
+    <Property Type="Int32" Name="支払先コード" Nullable="false" />
+    <Property Type="Int32" Name="支払先枝番" Nullable="false" />
+    <Property Type="Int32" Name="支払日" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="DateTime" Name="支払年月日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="集計最終日" Precision="0" />
+    <Property Type="Int64" Name="前月残高" Nullable="false" />
+    <Property Type="Int64" Name="支払額" Nullable="false" />
+    <Property Type="Int64" Name="値引額" Nullable="false" />
+    <Property Type="Int64" Name="非課税支払額" Nullable="false" />
+    <Property Type="Int64" Name="消費税" Nullable="false" />
+    <Property Type="Int64" Name="当月支払額" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="V_SHR06010">
+    <Key>
+      <PropertyRef Name="K自社コード" />
+      <PropertyRef Name="K支払年月" />
+      <PropertyRef Name="K支払先コード" />
+      <PropertyRef Name="K支払先枝番" />
+      <PropertyRef Name="支払先コード" />
+      <PropertyRef Name="締日" />
+    </Key>
+    <Property Type="Int32" Name="K自社コード" Nullable="false" />
+    <Property Type="Int32" Name="K支払年月" Nullable="false" />
+    <Property Type="Int32" Name="K入金日" />
+    <Property Type="Int32" Name="K支払先コード" Nullable="false" />
+    <Property Type="Int32" Name="K支払先枝番" Nullable="false" />
+    <Property Type="String" Name="支払先コード" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="支払先名" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="支払日付" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="支払額" />
+    <Property Type="Int64" Name="消費税" />
+    <Property Type="Int64" Name="支払予定額" />
+    <Property Type="String" Name="支払年月" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+    <Property Type="Int32" Name="当月支払額" />
+  </EntityType>
+  <EntityType Name="S04_HISTORY">
+    <Key>
+      <PropertyRef Name="SEQ" />
+    </Key>
+    <Property Type="Int64" Name="SEQ" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="入出庫日" Nullable="false" Precision="0" />
+    <Property Type="Time" Name="入出庫時刻" Nullable="false" Precision="7" />
+    <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+    <Property Type="Int32" Name="入出庫区分" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Int32" Name="数量" />
+    <Property Type="Int32" Name="伝票番号" />
+    <Property Type="Int32" Name="作成機能ID" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T04_AGRWK">
+    <Key>
+      <PropertyRef Name="SEQ" />
+    </Key>
+    <Property Type="Int64" Name="SEQ" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="依頼日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="取引先コード" Nullable="false" />
+    <Property Type="Int32" Name="枝番" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="Int32" Name="依頼数" Nullable="false" />
+    <Property Type="Int32" Name="仕上数" Nullable="false" />
+    <Property Type="Int32" Name="登録者" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="S05_STOK_MONTH">
+    <Key>
+      <PropertyRef Name="締年月" />
+      <PropertyRef Name="倉庫コード" />
+      <PropertyRef Name="品番コード" />
+      <PropertyRef Name="賞味期限" />
+    </Key>
+    <Property Type="Int32" Name="締年月" Nullable="false" />
+    <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="在庫数量" Nullable="false" />
+    <Property Type="Int32" Name="登録者" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="S01_SEIHD">
+    <Key>
+      <PropertyRef Name="自社コード" />
+      <PropertyRef Name="請求年月" />
+      <PropertyRef Name="請求締日" />
+      <PropertyRef Name="請求先コード" />
+      <PropertyRef Name="請求先枝番" />
+      <PropertyRef Name="入金日" />
+      <PropertyRef Name="回数" />
+    </Key>
+    <Property Type="Int32" Name="自社コード" Nullable="false" />
+    <Property Type="Int32" Name="請求年月" Nullable="false" />
+    <Property Type="Int32" Name="請求締日" Nullable="false" />
+    <Property Type="Int32" Name="請求先コード" Nullable="false" />
+    <Property Type="Int32" Name="請求先枝番" Nullable="false" />
+    <Property Type="Int32" Name="入金日" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="DateTime" Name="請求年月日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="集計最終日" Precision="0" />
+    <Property Type="Int64" Name="前月残高" Nullable="false" />
+    <Property Type="Int64" Name="売上額" Nullable="false" />
+    <Property Type="Int64" Name="値引額" Nullable="false" />
+    <Property Type="Int64" Name="非税売上額" Nullable="false" />
+    <Property Type="Int64" Name="消費税" Nullable="false" />
+    <Property Type="Int64" Name="当月請求額" Nullable="false" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="T02_URDTL_HAN">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+      <PropertyRef Name="行番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="行番号" Nullable="false" />
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="DateTime" Name="賞味期限" Precision="0" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="金額" />
+    <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="調整単価" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="調整金額" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="T02_URHD_HAN">
+    <Key>
+      <PropertyRef Name="伝票番号" />
+    </Key>
+    <Property Type="Int32" Name="伝票番号" Nullable="false" />
+    <Property Type="Int32" Name="会社名コード" Nullable="false" />
+    <Property Type="Int32" Name="伝票要否" Nullable="false" />
+    <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="売上区分" Nullable="false" />
+    <Property Type="Int32" Name="販社コード" Nullable="false" />
+    <Property Type="Int32" Name="在庫倉庫コード" Nullable="false" />
+    <Property Type="Int32" Name="納品伝票番号" />
+    <Property Type="DateTime" Name="出荷日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="受注番号" />
+    <Property Type="Int32" Name="出荷元コード" />
+    <Property Type="String" Name="出荷先コード" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="仕入先コード" />
+    <Property Type="Int32" Name="仕入先枝番" />
+    <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="消費税" Nullable="false" />
+    <Property Type="Int32" Name="調整消費税" />
+    <Property Type="Decimal" Name="調整比率" Precision="6" Scale="3" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M09_HIN">
+    <Key>
+      <PropertyRef Name="品番コード" />
+    </Key>
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="String" Name="自社品番" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="自社色" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="商品形態分類" />
+    <Property Type="Int32" Name="商品分類" />
+    <Property Type="Int32" Name="大分類" />
+    <Property Type="Int32" Name="中分類" />
+    <Property Type="String" Name="ブランド" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="シリーズ" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="品群" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="単位" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="原価" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="加工原価" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="卸値" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="売価" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="掛率" Precision="4" Scale="1" />
+    <Property Type="Int32" Name="消費税区分" />
+    <Property Type="String" Name="備考１" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="備考２" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="返却可能期限" />
+    <Property Type="String" Name="ＪＡＮコード" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="論理削除" />
+    <Property Type="Int32" Name="登録者" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="Int32" Name="最終更新者" />
+    <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+    <Property Type="Int32" Name="削除者" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="V_M09_HIN">
+    <Key>
+      <PropertyRef Name="品番コード" />
+    </Key>
+    <Property Type="Int32" Name="品番コード" Nullable="false" />
+    <Property Type="String" Name="自社品番" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="自社色" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="自社色名" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="商品形態分類" />
+    <Property Type="String" Name="商品形態分類名" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="商品分類" />
+    <Property Type="String" Name="商品分類名" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="大分類" />
+    <Property Type="String" Name="大分類名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="中分類" />
+    <Property Type="String" Name="中分類名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ブランド" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ブランド名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="シリーズ" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="シリーズ名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="品群" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="品群名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="単位" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="原価" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="加工原価" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="卸値" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="売価" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="掛率" Precision="4" Scale="1" />
+    <Property Type="Int32" Name="消費税区分" />
+    <Property Type="String" Name="消費税区分名" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="備考１" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="備考２" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="返却可能期限" />
+    <Property Type="String" Name="ＪＡＮコード" MaxLength="13" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="M74_KGRP">
+    <Key>
+      <PropertyRef Name="グループ権限ID" />
+      <PropertyRef Name="プログラムID" />
+    </Key>
+    <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+    <Property Type="String" Name="プログラムID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="タブグループ番号" />
+    <Property Type="Int32" Name="使用可能FLG" />
+    <Property Type="Int32" Name="データ更新FLG" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+</Schema>

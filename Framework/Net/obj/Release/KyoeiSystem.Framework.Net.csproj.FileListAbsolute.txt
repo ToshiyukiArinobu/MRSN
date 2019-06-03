@@ -1,0 +1,9 @@
+C:\HBMS\Framework\Net\bin\Release\KyoeiSystem.Framework.Net.dll
+C:\HBMS\Framework\Net\bin\Release\KyoeiSystem.Framework.Net.pdb
+C:\HBMS\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.dll
+C:\HBMS\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.pdb
+C:\MRSN\MRSN\Framework\Net\bin\Release\KyoeiSystem.Framework.Net.dll
+C:\MRSN\MRSN\Framework\Net\bin\Release\KyoeiSystem.Framework.Net.pdb
+C:\MRSN\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.dll
+C:\MRSN\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.pdb
+C:\MRSN\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.csprojResolveAssemblyReference.cache

@@ -1,0 +1,2627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TRAC3Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TRAC3Entities" p1:LazyLoadingEnabled="true">
+    <FunctionImport Name="DLY16010">
+      <Parameter Name="serviceDate" Mode="In" Type="String" />
+      <Parameter Name="startCrewID" Mode="In" Type="Int32" />
+      <Parameter Name="endCrewID" Mode="In" Type="Int32" />
+      <Parameter Name="startCarModelID" Mode="In" Type="Int32" />
+      <Parameter Name="endCarModelID" Mode="In" Type="Int32" />
+      <Parameter Name="startVehicleID" Mode="In" Type="Int32" />
+      <Parameter Name="endVehicleID" Mode="In" Type="Int32" />
+      <Parameter Name="CrewPickup" Mode="In" Type="String" />
+      <Parameter Name="carModelPickup" Mode="In" Type="String" />
+      <Parameter Name="vehiclePickup" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="JMI11010">
+      <Parameter Name="paramYear" Mode="In" Type="Int32" />
+      <Parameter Name="paramMonth" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="TKS01010">
+      <Parameter Name="paramPcID" Mode="In" Type="String" />
+      <Parameter Name="paramPickup" Mode="In" Type="String" />
+      <Parameter Name="paramStartID" Mode="In" Type="Int32" />
+      <Parameter Name="paramEndID" Mode="In" Type="Int32" />
+      <Parameter Name="paramClosingDate" Mode="In" Type="Int32" />
+      <Parameter Name="paramCreateYM" Mode="In" Type="DateTime" />
+      <Parameter Name="paramStartBilling" Mode="In" Type="DateTime" />
+      <Parameter Name="paramEndBilling" Mode="In" Type="DateTime" />
+      <Parameter Name="paramOutput" Mode="In" Type="Int32" />
+      <Parameter Name="paramBillingClass" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="M01_TOK" EntityType="TRAC3Model.M01_TOK" />
+    <EntitySet Name="M01_TORI" EntityType="TRAC3Model.M01_TORI" />
+    <EntitySet Name="M02_TTAN1" EntityType="TRAC3Model.M02_TTAN1" />
+    <EntitySet Name="M02_TTAN2" EntityType="TRAC3Model.M02_TTAN2" />
+    <EntitySet Name="M02_TTAN3" EntityType="TRAC3Model.M02_TTAN3" />
+    <EntitySet Name="M02_TTAN4" EntityType="TRAC3Model.M02_TTAN4" />
+    <EntitySet Name="M03_YNEN" EntityType="TRAC3Model.M03_YNEN" />
+    <EntitySet Name="M03_YTAN1" EntityType="TRAC3Model.M03_YTAN1" />
+    <EntitySet Name="M03_YTAN2" EntityType="TRAC3Model.M03_YTAN2" />
+    <EntitySet Name="M03_YTAN3" EntityType="TRAC3Model.M03_YTAN3" />
+    <EntitySet Name="M03_YTAN4" EntityType="TRAC3Model.M03_YTAN4" />
+    <EntitySet Name="M04_DDT1" EntityType="TRAC3Model.M04_DDT1" />
+    <EntitySet Name="M04_DDT2" EntityType="TRAC3Model.M04_DDT2" />
+    <EntitySet Name="M04_DDT3" EntityType="TRAC3Model.M04_DDT3" />
+    <EntitySet Name="M04_DRD" EntityType="TRAC3Model.M04_DRD" />
+    <EntitySet Name="M04_DRSB" EntityType="TRAC3Model.M04_DRSB" />
+    <EntitySet Name="M04_DRV" EntityType="TRAC3Model.M04_DRV" />
+    <EntitySet Name="M04_DRVPIC" EntityType="TRAC3Model.M04_DRVPIC" />
+    <EntitySet Name="M05_CAR" EntityType="TRAC3Model.M05_CAR" />
+    <EntitySet Name="M05_CDT1" EntityType="TRAC3Model.M05_CDT1" />
+    <EntitySet Name="M05_CDT2" EntityType="TRAC3Model.M05_CDT2" />
+    <EntitySet Name="M05_CDT3" EntityType="TRAC3Model.M05_CDT3" />
+    <EntitySet Name="M05_CDT4" EntityType="TRAC3Model.M05_CDT4" />
+    <EntitySet Name="M05_TEN" EntityType="TRAC3Model.M05_TEN" />
+    <EntitySet Name="M06_SYA" EntityType="TRAC3Model.M06_SYA" />
+    <EntitySet Name="M07_KEI" EntityType="TRAC3Model.M07_KEI" />
+    <EntitySet Name="M07_KOU" EntityType="TRAC3Model.M07_KOU" />
+    <EntitySet Name="M08_TIK" EntityType="TRAC3Model.M08_TIK" />
+    <EntitySet Name="M09_HIN" EntityType="TRAC3Model.M09_HIN" />
+    <EntitySet Name="M10_UHK" EntityType="TRAC3Model.M10_UHK" />
+    <EntitySet Name="M11_TEK" EntityType="TRAC3Model.M11_TEK" />
+    <EntitySet Name="M12_KIS" EntityType="TRAC3Model.M12_KIS" />
+    <EntitySet Name="M13_MOK" EntityType="TRAC3Model.M13_MOK" />
+    <EntitySet Name="M14_GSYA" EntityType="TRAC3Model.M14_GSYA" />
+    <EntitySet Name="M15_KOM" EntityType="TRAC3Model.M15_KOM" />
+    <EntitySet Name="M16_BYSN" EntityType="TRAC3Model.M16_BYSN" />
+    <EntitySet Name="M17_CYSN" EntityType="TRAC3Model.M17_CYSN" />
+    <EntitySet Name="M50_RTBL" EntityType="TRAC3Model.M50_RTBL" />
+    <EntitySet Name="M70_JIS" EntityType="TRAC3Model.M70_JIS" />
+    <EntitySet Name="M71_BUM" EntityType="TRAC3Model.M71_BUM" />
+    <EntitySet Name="M72_TNT" EntityType="TRAC3Model.M72_TNT" />
+    <EntitySet Name="M73_ZEI" EntityType="TRAC3Model.M73_ZEI" />
+    <EntitySet Name="M74_KGRP" EntityType="TRAC3Model.M74_KGRP" />
+    <EntitySet Name="M75_SKK" EntityType="TRAC3Model.M75_SKK" />
+    <EntitySet Name="M76_DBU" EntityType="TRAC3Model.M76_DBU" />
+    <EntitySet Name="M77_TRH" EntityType="TRAC3Model.M77_TRH" />
+    <EntitySet Name="M78_SYK" EntityType="TRAC3Model.M78_SYK" />
+    <EntitySet Name="M79_ZKB" EntityType="TRAC3Model.M79_ZKB" />
+    <EntitySet Name="M81_OYK" EntityType="TRAC3Model.M81_OYK" />
+    <EntitySet Name="M82_SEI" EntityType="TRAC3Model.M82_SEI" />
+    <EntitySet Name="M83_UKE" EntityType="TRAC3Model.M83_UKE" />
+    <EntitySet Name="M84_RIK" EntityType="TRAC3Model.M84_RIK" />
+    <EntitySet Name="M87_CNTL" EntityType="TRAC3Model.M87_CNTL" />
+    <EntitySet Name="M88_SEQ" EntityType="TRAC3Model.M88_SEQ" />
+    <EntitySet Name="M89_KENALL" EntityType="TRAC3Model.M89_KENALL" />
+    <EntitySet Name="M90_GRID" EntityType="TRAC3Model.M90_GRID" />
+    <EntitySet Name="M91_OTAN" EntityType="TRAC3Model.M91_OTAN" />
+    <EntitySet Name="M92_KZEI" EntityType="TRAC3Model.M92_KZEI" />
+    <EntitySet Name="M97_RKNG" EntityType="TRAC3Model.M97_RKNG" />
+    <EntitySet Name="M97_SKNG" EntityType="TRAC3Model.M97_SKNG" />
+    <EntitySet Name="M98_PRG" EntityType="TRAC3Model.M98_PRG" />
+    <EntitySet Name="M99_COMBOLIST" EntityType="TRAC3Model.M99_COMBOLIST" />
+    <EntitySet Name="M99_MSG" EntityType="TRAC3Model.M99_MSG" />
+    <EntitySet Name="M99_RPT" EntityType="TRAC3Model.M99_RPT" />
+    <EntitySet Name="M99_ZIP" EntityType="TRAC3Model.M99_ZIP" />
+    <EntitySet Name="S01_TOKS" EntityType="TRAC3Model.S01_TOKS" />
+    <EntitySet Name="S02_YOSS" EntityType="TRAC3Model.S02_YOSS" />
+    <EntitySet Name="S11_TOKG" EntityType="TRAC3Model.S11_TOKG" />
+    <EntitySet Name="S12_YOSG" EntityType="TRAC3Model.S12_YOSG" />
+    <EntitySet Name="S13_DRV" EntityType="TRAC3Model.S13_DRV" />
+    <EntitySet Name="S13_DRVSB" EntityType="TRAC3Model.S13_DRVSB" />
+    <EntitySet Name="S14_CAR" EntityType="TRAC3Model.S14_CAR" />
+    <EntitySet Name="S14_CARSB" EntityType="TRAC3Model.S14_CARSB" />
+    <EntitySet Name="T01_TRN" EntityType="TRAC3Model.T01_TRN" />
+    <EntitySet Name="T01_TSB" EntityType="TRAC3Model.T01_TSB" />
+    <EntitySet Name="T02_UTRN" EntityType="TRAC3Model.T02_UTRN" />
+    <EntitySet Name="T03_KTRN" EntityType="TRAC3Model.T03_KTRN" />
+    <EntitySet Name="T04_NYUK" EntityType="TRAC3Model.T04_NYUK" />
+    <EntitySet Name="T05_TTRN" EntityType="TRAC3Model.T05_TTRN" />
+    <EntitySet Name="T06_KYUS" EntityType="TRAC3Model.T06_KYUS" />
+    <EntitySet Name="W_DLY16010" EntityType="TRAC3Model.W_DLY16010" />
+    <EntitySet Name="W_JMI11010" EntityType="TRAC3Model.W_JMI11010" />
+    <EntitySet Name="W_TKS01010_01" EntityType="TRAC3Model.W_TKS01010_01" />
+    <EntitySet Name="W_TKS01010_02" EntityType="TRAC3Model.W_TKS01010_02" />
+    <EntitySet Name="V_S14_CAR" EntityType="TRAC3Model.V_S14_CAR" />
+    <EntitySet Name="V_T02_UTRN" EntityType="TRAC3Model.V_T02_UTRN" />
+    <EntitySet Name="V_TKS13010" EntityType="TRAC3Model.V_TKS13010" />
+    <EntitySet Name="V_TRN明細消費税付" EntityType="TRAC3Model.V_TRN明細消費税付" />
+    <EntitySet Name="V_支払月次" EntityType="TRAC3Model.V_支払月次" />
+    <EntitySet Name="V_支払先一覧表1" EntityType="TRAC3Model.V_支払先一覧表1" />
+    <EntitySet Name="V_支払先一覧表2" EntityType="TRAC3Model.V_支払先一覧表2" />
+    <EntitySet Name="V_支払締日" EntityType="TRAC3Model.V_支払締日" />
+    <EntitySet Name="V_車種月次サブ" EntityType="TRAC3Model.V_車種月次サブ" />
+    <EntitySet Name="V_車種月別売上合計表" EntityType="TRAC3Model.V_車種月別売上合計表" />
+    <EntitySet Name="V_車輌月別売上合計表" EntityType="TRAC3Model.V_車輌月別売上合計表" />
+    <EntitySet Name="V_乗務員月別売上合計表" EntityType="TRAC3Model.V_乗務員月別売上合計表" />
+    <EntitySet Name="V_得意先月次" EntityType="TRAC3Model.V_得意先月次" />
+    <EntitySet Name="V_得意先締日" EntityType="TRAC3Model.V_得意先締日" />
+    <EntitySet Name="得意先月次集計" EntityType="TRAC3Model.得意先月次集計" />
+  </EntityContainer>
+  <ComplexType Name="ComplexType1" />
+  <EntityType Name="M01_TOK">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+    </Key>
+    <Property Type="Int32" Name="得意先ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="得意先名１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="得意先名２" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="略称名" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="取引区分" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ締日" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ締日" Nullable="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ＦＡＸ" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Ｔ集金日" Nullable="false" />
+    <Property Type="Int32" Name="Ｔサイト日" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ税区分ID" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ締日期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ月次期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ路線計算年度" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ路線計算率" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ路線計算まるめ" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ集金日" Nullable="false" />
+    <Property Type="Int32" Name="Ｓサイト日" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ税区分ID" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ締日期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ月次期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ路線計算年度" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ路線計算率" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ路線計算まるめ" Nullable="false" />
+    <Property Type="Int32" Name="ラベル区分" Nullable="false" />
+    <Property Type="Int32" Name="親子区分ID" />
+    <Property Type="Int32" Name="親ID" />
+    <Property Type="Int32" Name="請求内訳管理区分" Nullable="false" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Int32" Name="請求運賃計算区分ID" Nullable="false" />
+    <Property Type="Int32" Name="支払運賃計算区分ID" Nullable="false" />
+    <Property Type="Int32" Name="請求書区分ID" Nullable="false" />
+    <Property Type="Int32" Name="請求書発行元ID" />
+    <Property Type="String" Name="法人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="取引停止区分" />
+  </EntityType>
+  <EntityType Name="M01_TORI">
+    <Key>
+      <PropertyRef Name="取引先ID" />
+    </Key>
+    <Property Type="Int32" Name="取引先ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="得意先名１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="得意先名２" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="略称名" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="取引区分" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ締日" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ締日" Nullable="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ＦＡＸ" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Ｔ集金日" Nullable="false" />
+    <Property Type="Int32" Name="Ｔサイト日" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ税区分ID" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ締日期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ月次期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ路線計算年度" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ路線計算率" Nullable="false" />
+    <Property Type="Int32" Name="Ｔ路線計算まるめ" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ集金日" Nullable="false" />
+    <Property Type="Int32" Name="Ｓサイト日" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ税区分ID" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ締日期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ月次期首残" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ路線計算年度" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ路線計算率" Nullable="false" />
+    <Property Type="Int32" Name="Ｓ路線計算まるめ" Nullable="false" />
+    <Property Type="Int32" Name="ラベル区分" Nullable="false" />
+    <Property Type="Int32" Name="親子区分ID" />
+    <Property Type="Int32" Name="親ID" />
+    <Property Type="Int32" Name="請求内訳管理区分" Nullable="false" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Int32" Name="請求運賃計算区分ID" Nullable="false" />
+    <Property Type="Int32" Name="支払運賃計算区分ID" Nullable="false" />
+    <Property Type="Int32" Name="請求書区分ID" Nullable="false" />
+    <Property Type="Int32" Name="請求書発行元ID" />
+    <Property Type="Int32" Name="逆請求発行先ID" />
+    <Property Type="Int32" Name="請求日区分" Nullable="false" />
+  </EntityType>
+  <EntityType Name="M02_TTAN1">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="発地ID" />
+      <PropertyRef Name="着地ID" />
+      <PropertyRef Name="商品ID" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Int32" Name="発地ID" Nullable="false" />
+    <Property Type="Int32" Name="着地ID" Nullable="false" />
+    <Property Type="Int32" Name="商品ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="売上単価" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="計算区分" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M02_TTAN2">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="車種ID" />
+      <PropertyRef Name="発地ID" />
+      <PropertyRef Name="着地ID" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Int32" Name="車種ID" Nullable="false" />
+    <Property Type="Int32" Name="発地ID" Nullable="false" />
+    <Property Type="Int32" Name="着地ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="売上単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M02_TTAN3">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="距離" />
+      <PropertyRef Name="重量" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Int32" Name="距離" Nullable="false" />
+    <Property Type="Decimal" Name="重量" Nullable="false" Precision="9" Scale="3" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="運賃" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M02_TTAN4">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="重量" />
+      <PropertyRef Name="個数" />
+      <PropertyRef Name="着地ID" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Decimal" Name="重量" Nullable="false" Precision="9" Scale="3" />
+    <Property Type="Decimal" Name="個数" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="Int32" Name="着地ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="個建単価" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Int32" Name="個建金額" Nullable="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M03_YNEN">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="適用開始日" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="DateTime" Name="適用開始日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="軽油単価" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="軽油税単価" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M03_YTAN1">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="発地ID" />
+      <PropertyRef Name="着地ID" />
+      <PropertyRef Name="商品ID" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Int32" Name="発地ID" Nullable="false" />
+    <Property Type="Int32" Name="着地ID" Nullable="false" />
+    <Property Type="Int32" Name="商品ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="支払単価" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="計算区分" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M03_YTAN2">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="車種ID" />
+      <PropertyRef Name="発地ID" />
+      <PropertyRef Name="着地ID" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Int32" Name="車種ID" Nullable="false" />
+    <Property Type="Int32" Name="発地ID" Nullable="false" />
+    <Property Type="Int32" Name="着地ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="支払単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M03_YTAN3">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="距離" />
+      <PropertyRef Name="重量" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Int32" Name="距離" Nullable="false" />
+    <Property Type="Decimal" Name="重量" Nullable="false" Precision="9" Scale="3" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="運賃" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M03_YTAN4">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="重量" />
+      <PropertyRef Name="個数" />
+      <PropertyRef Name="着地ID" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Decimal" Name="重量" Nullable="false" Precision="9" Scale="3" />
+    <Property Type="Decimal" Name="個数" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="Int32" Name="着地ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="個建単価" Precision="9" Scale="2" />
+    <Property Type="Int32" Name="個建金額" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M04_DDT1">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="実施年月日" Precision="0" />
+    <Property Type="Int32" Name="対象種類" />
+    <Property Type="String" Name="実施機関名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="所見摘要" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M04_DDT2">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="発生年月日" Precision="0" />
+    <Property Type="String" Name="概要処置" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M04_DDT3">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="実施年月日" Precision="0" />
+    <Property Type="Int32" Name="教育種類" />
+    <Property Type="String" Name="教育内容" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M04_DRD">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="集計年月" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+    <Property Type="Int32" Name="車種ID" Nullable="false" />
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="営業日数" Nullable="false" />
+    <Property Type="Int32" Name="稼働日数" Nullable="false" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="輸送屯数" Nullable="false" Precision="10" Scale="1" />
+    <Property Type="Int32" Name="運送収入" Nullable="false" />
+    <Property Type="Int32" Name="燃料Ｌ" Nullable="false" />
+    <Property Type="Int32" Name="一般管理費" Nullable="false" />
+    <Property Type="Decimal" Name="拘束時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="運転時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="高速時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="作業時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="待機時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="休憩時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="残業時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="深夜時間" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M04_DRSB">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="経費項目ID" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Int32" Name="経費項目ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="経費項目名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="固定変動区分" Nullable="false" />
+    <Property Type="Int32" Name="金額" Nullable="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M04_DRV">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+    </Key>
+    <Property Type="Int32" Name="乗務員ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="乗務員名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="自傭区分" Nullable="false" />
+    <Property Type="Int32" Name="就労区分" Nullable="false" />
+    <Property Type="String" Name="かな読み" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="生年月日" Precision="0" />
+    <Property Type="DateTime" Name="入社日" Precision="0" />
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+    <Property Type="Decimal" Name="歩合率" Nullable="false" Precision="5" Scale="2" />
+    <Property Type="Int32" Name="デジタコCD" />
+    <Property Type="Int32" Name="性別区分" Nullable="false" />
+    <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="携帯電話" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="業務種類" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="選任年月日" Precision="0" />
+    <Property Type="Int32" Name="血液型" />
+    <Property Type="String" Name="免許証番号" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="免許証取得年月日" Precision="0" />
+    <Property Type="Int32" Name="免許種類1" />
+    <Property Type="Int32" Name="免許種類2" />
+    <Property Type="Int32" Name="免許種類3" />
+    <Property Type="Int32" Name="免許種類4" />
+    <Property Type="Int32" Name="免許種類5" />
+    <Property Type="Int32" Name="免許種類6" />
+    <Property Type="Int32" Name="免許種類7" />
+    <Property Type="Int32" Name="免許種類8" />
+    <Property Type="Int32" Name="免許種類9" />
+    <Property Type="Int32" Name="免許種類10" />
+    <Property Type="String" Name="免許証条件" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="職種分類区分" />
+    <Property Type="String" Name="職種分類" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="作成番号" />
+    <Property Type="Int32" Name="撮影年" />
+    <Property Type="Int32" Name="撮影月" />
+    <Property Type="DateTime" Name="免許有効年月日1" Precision="0" />
+    <Property Type="String" Name="免許有効番号1" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="免許有効年月日2" Precision="0" />
+    <Property Type="String" Name="免許有効番号2" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="免許有効年月日3" Precision="0" />
+    <Property Type="String" Name="免許有効番号3" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="免許有効年月日4" Precision="0" />
+    <Property Type="String" Name="免許有効番号4" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="履歴年月日1" Precision="0" />
+    <Property Type="String" Name="履歴1" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="履歴年月日2" Precision="0" />
+    <Property Type="String" Name="履歴2" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="履歴年月日3" Precision="0" />
+    <Property Type="String" Name="履歴3" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="履歴年月日4" Precision="0" />
+    <Property Type="String" Name="履歴4" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="履歴年月日5" Precision="0" />
+    <Property Type="String" Name="履歴5" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="履歴年月日6" Precision="0" />
+    <Property Type="String" Name="履歴6" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="履歴年月日7" Precision="0" />
+    <Property Type="String" Name="履歴7" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="経験種類1" />
+    <Property Type="Int32" Name="経験定員1" />
+    <Property Type="Decimal" Name="経験積載量1" Precision="8" Scale="1" />
+    <Property Type="Int32" Name="経験年1" />
+    <Property Type="Int32" Name="経験月1" />
+    <Property Type="String" Name="経験事業所1" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="経験種類2" />
+    <Property Type="Int32" Name="経験定員2" />
+    <Property Type="Decimal" Name="経験積載量2" Precision="8" Scale="1" />
+    <Property Type="Int32" Name="経験年2" />
+    <Property Type="Int32" Name="経験月2" />
+    <Property Type="String" Name="経験事業所2" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="経験種類3" />
+    <Property Type="Int32" Name="経験定員3" />
+    <Property Type="Decimal" Name="経験積載量3" Precision="8" Scale="1" />
+    <Property Type="Int32" Name="経験年3" />
+    <Property Type="Int32" Name="経験月3" />
+    <Property Type="String" Name="経験事業所3" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="資格賞罰年月日1" Precision="0" />
+    <Property Type="String" Name="資格賞罰名1" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="資格賞罰内容1" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="資格賞罰年月日2" Precision="0" />
+    <Property Type="String" Name="資格賞罰名2" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="資格賞罰内容2" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="資格賞罰年月日3" Precision="0" />
+    <Property Type="String" Name="資格賞罰名3" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="資格賞罰内容3" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="資格賞罰年月日4" Precision="0" />
+    <Property Type="String" Name="資格賞罰名4" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="資格賞罰内容4" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="資格賞罰年月日5" Precision="0" />
+    <Property Type="String" Name="資格賞罰名5" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="資格賞罰内容5" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="事業者コード" />
+    <Property Type="DateTime" Name="健康保険加入日" Precision="0" />
+    <Property Type="String" Name="健康保険番号" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="厚生年金加入日" Precision="0" />
+    <Property Type="String" Name="厚生年金番号" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="雇用保険加入日" Precision="0" />
+    <Property Type="String" Name="雇用保険番号" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="労災保険加入日" Precision="0" />
+    <Property Type="String" Name="労災保険番号" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="厚生年金基金加入日" Precision="0" />
+    <Property Type="String" Name="厚生年金基金番号" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="通勤時間" />
+    <Property Type="Int32" Name="通勤分" />
+    <Property Type="String" Name="家族連絡" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="住居の種類" />
+    <Property Type="String" Name="通勤方法" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="家族氏名1" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="家族生年月日1" Precision="0" />
+    <Property Type="String" Name="家族続柄1" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="家族血液型1" />
+    <Property Type="String" Name="家族その他1" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="家族氏名2" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="家族生年月日2" Precision="0" />
+    <Property Type="String" Name="家族続柄2" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="家族血液型2" />
+    <Property Type="String" Name="家族その他2" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="家族氏名3" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="家族生年月日3" Precision="0" />
+    <Property Type="String" Name="家族続柄3" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="家族血液型3" />
+    <Property Type="String" Name="家族その他3" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="家族氏名4" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="家族生年月日4" Precision="0" />
+    <Property Type="String" Name="家族続柄4" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="家族血液型4" />
+    <Property Type="String" Name="家族その他4" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="家族氏名5" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="家族生年月日5" Precision="0" />
+    <Property Type="String" Name="家族続柄5" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="家族血液型5" />
+    <Property Type="String" Name="家族その他5" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="退職年月日" Precision="0" />
+    <Property Type="String" Name="退職理由" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="特記事項1" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="特記事項2" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="特記事項3" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="特記事項4" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="特記事項5" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="健康診断年月日1" Precision="0" />
+    <Property Type="DateTime" Name="健康診断年月日2" Precision="0" />
+    <Property Type="DateTime" Name="健康診断年月日3" Precision="0" />
+    <Property Type="DateTime" Name="健康診断年月日4" Precision="0" />
+    <Property Type="DateTime" Name="健康診断年月日5" Precision="0" />
+    <Property Type="String" Name="健康状態" MaxLength="240" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="水揚連動区分" Nullable="false" />
+    <Property Type="Int32" Name="自社ID" />
+    <Property Type="Int32" Name="固定給与" />
+    <Property Type="Int32" Name="固定賞与積立金" />
+    <Property Type="Int32" Name="固定福利厚生費" />
+    <Property Type="Int32" Name="固定法定福利費" />
+    <Property Type="Int32" Name="固定退職引当金" />
+    <Property Type="Int32" Name="固定労働保険" />
+    <Property Type="String" Name="個人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="M04_DRVPIC">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Binary" Name="画像" MaxLength="Max" FixedLength="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M05_CAR">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+    </Key>
+    <Property Type="Int32" Name="車輌ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="車輌番号" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="運輸局ID" Nullable="false" />
+    <Property Type="Int32" Name="自傭区分" Nullable="false" />
+    <Property Type="Int32" Name="廃車区分" Nullable="false" />
+    <Property Type="DateTime" Name="廃車日" Precision="0" />
+    <Property Type="DateTime" Name="次回車検日" Precision="0" />
+    <Property Type="String" Name="車輌登録番号" MaxLength="28" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="登録日" Precision="0" />
+    <Property Type="Int32" Name="初年度登録年" Nullable="false" />
+    <Property Type="Int32" Name="初年度登録月" Nullable="false" />
+    <Property Type="String" Name="自動車種別" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="用途" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="自家用事業用" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="車体形状" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="車名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="型式" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="乗車定員" Nullable="false" />
+    <Property Type="Int32" Name="車輌重量" Nullable="false" />
+    <Property Type="Int32" Name="車輌最大積載量" Nullable="false" />
+    <Property Type="Int32" Name="車輌総重量" Nullable="false" />
+    <Property Type="Int32" Name="車輌実積載量" Nullable="false" />
+    <Property Type="String" Name="車台番号" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="原動機型式" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="長さ" Nullable="false" />
+    <Property Type="Int32" Name="幅" Nullable="false" />
+    <Property Type="Int32" Name="高さ" Nullable="false" />
+    <Property Type="Int32" Name="総排気量" Nullable="false" />
+    <Property Type="String" Name="燃料種類" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="現在メーター" Nullable="false" />
+    <Property Type="Int32" Name="デジタコCD" Nullable="false" />
+    <Property Type="String" Name="所有者名" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="所有者住所" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="使用者名" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="使用者住所" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="使用本拠位置" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="備考" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="型式指定番号" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="前前軸重" Nullable="false" />
+    <Property Type="Int32" Name="前後軸重" Nullable="false" />
+    <Property Type="Int32" Name="後前軸重" Nullable="false" />
+    <Property Type="Int32" Name="後後軸重" Nullable="false" />
+    <Property Type="Decimal" Name="燃料費単価" Nullable="false" Precision="7" Scale="3" />
+    <Property Type="Decimal" Name="油脂費単価" Nullable="false" Precision="7" Scale="3" />
+    <Property Type="Decimal" Name="タイヤ費単価" Nullable="false" Precision="7" Scale="3" />
+    <Property Type="Decimal" Name="修繕費単価" Nullable="false" Precision="7" Scale="3" />
+    <Property Type="Decimal" Name="車検費単価" Nullable="false" Precision="7" Scale="3" />
+    <Property Type="Int32" Name="CO2区分" Nullable="false" />
+    <Property Type="Decimal" Name="基準燃費" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="黒煙規制値" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Int32" Name="G車種ID" />
+    <Property Type="Int32" Name="規制区分ID" />
+    <Property Type="Int32" Name="固定自動車税" />
+    <Property Type="Int32" Name="固定重量税" />
+    <Property Type="Int32" Name="固定取得税" />
+    <Property Type="Int32" Name="固定自賠責保険" />
+    <Property Type="Int32" Name="固定車輌保険" />
+    <Property Type="Int32" Name="固定対人保険" />
+    <Property Type="Int32" Name="固定対物保険" />
+    <Property Type="Int32" Name="固定貨物保険" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="M05_CDT1">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="配置年月日" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="DateTime" Name="配置年月日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="営業所名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="転出先" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M05_CDT2">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="加入年月日" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="DateTime" Name="加入年月日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="期限" Nullable="false" Precision="0" />
+    <Property Type="String" Name="契約先" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="保険証番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="月数" Nullable="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M05_CDT3">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="加入年月日" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="DateTime" Name="加入年月日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="期限" Nullable="false" Precision="0" />
+    <Property Type="String" Name="契約先" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="保険証番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="月数" Nullable="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M05_CDT4">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="年度" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="年度" Nullable="false" />
+    <Property Type="Int32" Name="自動車税年月" />
+    <Property Type="Int32" Name="自動車税" />
+    <Property Type="Int32" Name="重量税年月" />
+    <Property Type="Int32" Name="重量税" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M05_TEN">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="年月" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="年月" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="点検日" Nullable="false" />
+    <Property Type="String" Name="チェック" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="エアコン区分" />
+    <Property Type="String" Name="エアコン備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="異音区分" />
+    <Property Type="String" Name="異音備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="排気区分" />
+    <Property Type="String" Name="排気備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="燃費区分" />
+    <Property Type="String" Name="燃費備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="その他区分" />
+    <Property Type="String" Name="その他備考" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="String" Name="乗務員名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="整備指示" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="指示日付" Precision="0" />
+    <Property Type="String" Name="整備部品" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="部品日付" Precision="0" />
+    <Property Type="String" Name="整備結果" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="結果日付" Precision="0" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M06_SYA">
+    <Key>
+      <PropertyRef Name="車種ID" />
+    </Key>
+    <Property Type="Int32" Name="車種ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="積載重量" Precision="7" Scale="3" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M07_KEI">
+    <Key>
+      <PropertyRef Name="経費項目ID" />
+    </Key>
+    <Property Type="Int32" Name="経費項目ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="経費項目名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="固定変動区分" Nullable="false" />
+    <Property Type="Int32" Name="編集区分" />
+    <Property Type="Int32" Name="グリーン区分" />
+    <Property Type="Int32" Name="経費区分" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M07_KOU">
+    <Key>
+      <PropertyRef Name="経費項目ID" />
+      <PropertyRef Name="車輌KEY" />
+    </Key>
+    <Property Type="Int32" Name="経費項目ID" Nullable="false" />
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="交換期間" />
+    <Property Type="Int32" Name="交換距離" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M08_TIK">
+    <Key>
+      <PropertyRef Name="発着地ID" />
+    </Key>
+    <Property Type="Int32" Name="発着地ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="発着地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="タリフ距離" />
+    <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ＦＡＸ番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="配送エリアID" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M09_HIN">
+    <Key>
+      <PropertyRef Name="商品ID" />
+    </Key>
+    <Property Type="Int32" Name="商品ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="商品名" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="単位" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="商品重量" Precision="12" Scale="3" />
+    <Property Type="Decimal" Name="商品才数" Precision="12" Scale="3" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M10_UHK">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="請求内訳ID" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Int32" Name="請求内訳ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="請求内訳名" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M11_TEK">
+    <Key>
+      <PropertyRef Name="摘要ID" />
+    </Key>
+    <Property Type="Int32" Name="摘要ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="摘要名" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M12_KIS">
+    <Key>
+      <PropertyRef Name="規制区分ID" />
+    </Key>
+    <Property Type="Int32" Name="規制区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="規制名" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M13_MOK">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="年月" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="年月" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="目標燃費" Precision="7" Scale="2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M14_GSYA">
+    <Key>
+      <PropertyRef Name="G車種ID" />
+    </Key>
+    <Property Type="Int32" Name="G車種ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="G車種名" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="略称名" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="CO2排出係数１" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="CO2排出係数２" Precision="9" Scale="2" />
+    <Property Type="Int32" Name="事業用区分" />
+    <Property Type="Int32" Name="ディーゼル区分" />
+    <Property Type="Int32" Name="小型普通区分" />
+    <Property Type="Int32" Name="低公害区分" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M15_KOM">
+    <Key>
+      <PropertyRef Name="プログラムID" />
+      <PropertyRef Name="項目ID" />
+      <PropertyRef Name="明細区分" />
+    </Key>
+    <Property Type="String" Name="プログラムID" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="項目ID" Nullable="false" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="String" Name="項目名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="項目変数名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="H" />
+    <Property Type="Int32" Name="A1" />
+    <Property Type="Int32" Name="A2" />
+    <Property Type="Int32" Name="B1" />
+    <Property Type="Int32" Name="B2" />
+    <Property Type="Int32" Name="T1" />
+    <Property Type="Int32" Name="T2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M16_BYSN">
+    <Key>
+      <PropertyRef Name="部門ID" />
+      <PropertyRef Name="年月" />
+    </Key>
+    <Property Type="Int32" Name="部門ID" Nullable="false" />
+    <Property Type="Int32" Name="年月" Nullable="false" />
+    <Property Type="Decimal" Name="売上予算" Nullable="false" Precision="11" Scale="0" />
+    <Property Type="Decimal" Name="粗利予算" Nullable="false" Precision="11" Scale="0" />
+  </EntityType>
+  <EntityType Name="M17_CYSN">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="年月" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="年月" Nullable="false" />
+    <Property Type="Decimal" Name="売上予算" Nullable="false" Precision="11" Scale="0" />
+    <Property Type="Decimal" Name="粗利予算" Nullable="false" Precision="11" Scale="0" />
+  </EntityType>
+  <EntityType Name="M50_RTBL">
+    <Key>
+      <PropertyRef Name="タリフコード" />
+      <PropertyRef Name="距離" />
+      <PropertyRef Name="重量" />
+    </Key>
+    <Property Type="Int32" Name="タリフコード" Nullable="false" />
+    <Property Type="Int32" Name="距離" Nullable="false" />
+    <Property Type="Int32" Name="重量" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="運賃" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M70_JIS">
+    <Key>
+      <PropertyRef Name="自社ID" />
+    </Key>
+    <Property Type="Int32" Name="自社ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="自社名" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="代表者名" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="郵便番号" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ＦＡＸ" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="振込銀行１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="振込銀行２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="振込銀行３" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="ロゴ画像" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="法人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M71_BUM">
+    <Key>
+      <PropertyRef Name="自社部門ID" />
+    </Key>
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="自社部門名" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="法人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M72_TNT">
+    <Key>
+      <PropertyRef Name="担当者ID" />
+    </Key>
+    <Property Type="Int32" Name="担当者ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="担当者名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="パスワード" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+    <Property Type="String" Name="個人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="設定項目" MaxLength="Max" FixedLength="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="0" />
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+    <Property Type="Int32" Name="利用者コード" />
+    <Property Type="String" Name="PGM_ID" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="端末ID" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="M73_ZEI">
+    <Key>
+      <PropertyRef Name="適用開始日付" />
+    </Key>
+    <Property Type="DateTime" Name="適用開始日付" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="消費税率" />
+    <Property Type="DateTime" Name="削除日時" Precision="3" />
+  </EntityType>
+  <EntityType Name="M74_KGRP">
+    <Key>
+      <PropertyRef Name="グループ権限ID" />
+      <PropertyRef Name="プログラムID" />
+    </Key>
+    <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+    <Property Type="String" Name="プログラムID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="使用可能FLG" />
+    <Property Type="Int32" Name="データ更新FLG" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M75_SKK">
+    <Key>
+      <PropertyRef Name="表示順ID" />
+    </Key>
+    <Property Type="Int32" Name="表示順ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="経費項目ID" />
+    <Property Type="Int32" Name="支払先ID" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M76_DBU">
+    <Key>
+      <PropertyRef Name="歩合計算区分ID" />
+    </Key>
+    <Property Type="Int32" Name="歩合計算区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="歩合計算名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M77_TRH">
+    <Key>
+      <PropertyRef Name="取引区分ID" />
+    </Key>
+    <Property Type="Int32" Name="取引区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="取引区分名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M78_SYK">
+    <Key>
+      <PropertyRef Name="出勤区分ID" />
+    </Key>
+    <Property Type="Int32" Name="出勤区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="出勤区分名" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M79_ZKB">
+    <Key>
+      <PropertyRef Name="税区分ID" />
+    </Key>
+    <Property Type="Int32" Name="税区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="税区分名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M81_OYK">
+    <Key>
+      <PropertyRef Name="親子区分ID" />
+    </Key>
+    <Property Type="Int32" Name="親子区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="親子区分名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M82_SEI">
+    <Key>
+      <PropertyRef Name="請求書区分ID" />
+    </Key>
+    <Property Type="Int32" Name="請求書区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="請求書名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M83_UKE">
+    <Key>
+      <PropertyRef Name="運賃計算区分ID" />
+    </Key>
+    <Property Type="Int32" Name="運賃計算区分ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="運賃計算区分" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M84_RIK">
+    <Key>
+      <PropertyRef Name="運輸局ID" />
+    </Key>
+    <Property Type="Int32" Name="運輸局ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="運輸局名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="法人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M87_CNTL">
+    <Key>
+      <PropertyRef Name="管理ID" />
+    </Key>
+    <Property Type="Int32" Name="管理ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="得意先管理処理年月" />
+    <Property Type="Int32" Name="支払先管理処理年月" />
+    <Property Type="Int32" Name="車輌管理処理年月" />
+    <Property Type="Int32" Name="運転者管理処理年月" />
+    <Property Type="Int32" Name="更新年月" />
+    <Property Type="Int32" Name="決算月" />
+    <Property Type="Int32" Name="得意先自社締日" />
+    <Property Type="Int32" Name="支払先自社締日" />
+    <Property Type="Int32" Name="運転者自社締日" />
+    <Property Type="Int32" Name="車輌自社締日" />
+    <Property Type="Int32" Name="自社支払日" />
+    <Property Type="Int32" Name="自社サイト" />
+    <Property Type="Int32" Name="未定区分" />
+    <Property Type="Int32" Name="部門管理区分" />
+    <Property Type="String" Name="割増料金名１" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="割増料金名２" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="確認名称" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="得意先ID区分" />
+    <Property Type="Int32" Name="支払先ID区分" />
+    <Property Type="Int32" Name="乗務員ID区分" />
+    <Property Type="Int32" Name="車輌ID区分" />
+    <Property Type="Int32" Name="車種ID区分" />
+    <Property Type="Int32" Name="発着地ID区分" />
+    <Property Type="Int32" Name="品名ID区分" />
+    <Property Type="Int32" Name="摘要ID区分" />
+    <Property Type="Int32" Name="期首年月" />
+    <Property Type="Int32" Name="売上消費税端数区分" />
+    <Property Type="Int32" Name="支払消費税端数区分" />
+    <Property Type="Int32" Name="金額計算端数区分" />
+    <Property Type="Int32" Name="出力プリンター設定" />
+    <Property Type="Int32" Name="自動学習区分" />
+    <Property Type="Int32" Name="月次集計区分" />
+    <Property Type="Int32" Name="距離転送区分" />
+    <Property Type="Int32" Name="番号通知区分" />
+    <Property Type="Int32" Name="通行料転送区分" />
+    <Property Type="Int32" Name="路線計算区分" />
+    <Property Type="Int32" Name="Ｇ期首月日" />
+    <Property Type="Int32" Name="Ｇ期末月日" />
+    <Property Type="Int32" Name="請求書区分" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M88_SEQ">
+    <Key>
+      <PropertyRef Name="明細番号ID" />
+    </Key>
+    <Property Type="Int32" Name="明細番号ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="現在明細番号" Nullable="false" />
+    <Property Type="Int32" Name="最大明細番号" Nullable="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M89_KENALL">
+    <Key>
+      <PropertyRef Name="郵便番号ID" />
+    </Key>
+    <Property Type="Int32" Name="郵便番号ID" Nullable="false" />
+    <Property Type="String" Name="郵便番号" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所かな１" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所かな２" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所かな３" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所１" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所２" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="住所３" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M90_GRID">
+    <Key>
+      <PropertyRef Name="担当者ID" />
+      <PropertyRef Name="画面ID" />
+      <PropertyRef Name="GRIDID" />
+      <PropertyRef Name="列名" />
+    </Key>
+    <Property Type="Int32" Name="担当者ID" Nullable="false" />
+    <Property Type="String" Name="画面ID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="GRIDID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="列名" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="表示順" />
+    <Property Type="Int32" Name="表示フラグ" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M91_OTAN">
+    <Key>
+      <PropertyRef Name="適用開始年月日" />
+      <PropertyRef Name="支払先KEY" />
+    </Key>
+    <Property Type="DateTime" Name="適用開始年月日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="燃料単価" Precision="9" Scale="2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M92_KZEI">
+    <Key>
+      <PropertyRef Name="適用開始年月日" />
+    </Key>
+    <Property Type="DateTime" Name="適用開始年月日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Decimal" Name="軽油引取税率" Precision="9" Scale="2" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M97_RKNG">
+    <Key>
+      <PropertyRef Name="グループ権限ID" />
+    </Key>
+    <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="PRG01" />
+    <Property Type="Int32" Name="PRG02" />
+    <Property Type="Int32" Name="PRG03" />
+    <Property Type="Int32" Name="PRG04" />
+    <Property Type="Int32" Name="PRG05" />
+    <Property Type="Int32" Name="PRG06" />
+    <Property Type="Int32" Name="PRG07" />
+    <Property Type="Int32" Name="PRG08" />
+    <Property Type="Int32" Name="PRG09" />
+    <Property Type="Int32" Name="PRG10" />
+    <Property Type="Int32" Name="PRG11" />
+    <Property Type="Int32" Name="PRG12" />
+    <Property Type="Int32" Name="PRG13" />
+    <Property Type="Int32" Name="PRG14" />
+    <Property Type="Int32" Name="PRG15" />
+    <Property Type="Int32" Name="PRG16" />
+    <Property Type="Int32" Name="PRG17" />
+    <Property Type="Int32" Name="PRG18" />
+    <Property Type="Int32" Name="PRG19" />
+    <Property Type="Int32" Name="PRG20" />
+    <Property Type="Int32" Name="PRG21" />
+    <Property Type="Int32" Name="PRG22" />
+    <Property Type="Int32" Name="PRG23" />
+    <Property Type="Int32" Name="PRG24" />
+    <Property Type="Int32" Name="PRG25" />
+    <Property Type="Int32" Name="PRG26" />
+    <Property Type="Int32" Name="PRG27" />
+    <Property Type="Int32" Name="PRG28" />
+    <Property Type="Int32" Name="PRG29" />
+    <Property Type="Int32" Name="PRG30" />
+    <Property Type="Int32" Name="PRG31" />
+    <Property Type="Int32" Name="PRG32" />
+    <Property Type="Int32" Name="PRG33" />
+    <Property Type="Int32" Name="PRG34" />
+    <Property Type="Int32" Name="PRG35" />
+    <Property Type="Int32" Name="PRG36" />
+    <Property Type="Int32" Name="PRG37" />
+    <Property Type="Int32" Name="PRG38" />
+    <Property Type="Int32" Name="PRG39" />
+    <Property Type="Int32" Name="PRG40" />
+    <Property Type="Int32" Name="PRG41" />
+    <Property Type="Int32" Name="PRG42" />
+    <Property Type="Int32" Name="PRG43" />
+    <Property Type="Int32" Name="PRG44" />
+    <Property Type="Int32" Name="PRG45" />
+    <Property Type="Int32" Name="PRG46" />
+    <Property Type="Int32" Name="PRG47" />
+    <Property Type="Int32" Name="PRG48" />
+    <Property Type="Int32" Name="PRG49" />
+    <Property Type="Int32" Name="PRG50" />
+    <Property Type="Int32" Name="PRG51" />
+    <Property Type="Int32" Name="PRG52" />
+    <Property Type="Int32" Name="PRG53" />
+    <Property Type="Int32" Name="PRG54" />
+    <Property Type="Int32" Name="PRG55" />
+    <Property Type="Int32" Name="PRG56" />
+    <Property Type="Int32" Name="PRG57" />
+    <Property Type="Int32" Name="PRG58" />
+    <Property Type="Int32" Name="PRG59" />
+    <Property Type="Int32" Name="PRG60" />
+    <Property Type="Int32" Name="PRG61" />
+    <Property Type="Int32" Name="PRG62" />
+    <Property Type="Int32" Name="PRG63" />
+    <Property Type="Int32" Name="PRG64" />
+    <Property Type="Int32" Name="PRG65" />
+    <Property Type="Int32" Name="PRG66" />
+    <Property Type="Int32" Name="PRG67" />
+    <Property Type="Int32" Name="PRG68" />
+    <Property Type="Int32" Name="PRG69" />
+    <Property Type="Int32" Name="PRG70" />
+    <Property Type="Int32" Name="PRG71" />
+    <Property Type="Int32" Name="PRG72" />
+    <Property Type="Int32" Name="PRG73" />
+    <Property Type="Int32" Name="PRG74" />
+    <Property Type="Int32" Name="PRG75" />
+    <Property Type="Int32" Name="PRG76" />
+    <Property Type="Int32" Name="PRG77" />
+    <Property Type="Int32" Name="PRG78" />
+    <Property Type="Int32" Name="PRG79" />
+    <Property Type="Int32" Name="PRG80" />
+    <Property Type="Int32" Name="PRG81" />
+    <Property Type="Int32" Name="PRG82" />
+    <Property Type="Int32" Name="PRG83" />
+    <Property Type="Int32" Name="PRG84" />
+    <Property Type="Int32" Name="PRG85" />
+    <Property Type="Int32" Name="PRG86" />
+    <Property Type="Int32" Name="PRG87" />
+    <Property Type="Int32" Name="PRG88" />
+    <Property Type="Int32" Name="PRG89" />
+    <Property Type="Int32" Name="PRG90" />
+    <Property Type="Int32" Name="PRG91" />
+    <Property Type="Int32" Name="PRG92" />
+    <Property Type="Int32" Name="PRG93" />
+    <Property Type="Int32" Name="PRG94" />
+    <Property Type="Int32" Name="PRG95" />
+    <Property Type="Int32" Name="PRG96" />
+    <Property Type="Int32" Name="PRG97" />
+    <Property Type="Int32" Name="PRG98" />
+    <Property Type="Int32" Name="PRG99" />
+    <Property Type="Int32" Name="PRG100" />
+  </EntityType>
+  <EntityType Name="M97_SKNG">
+    <Key>
+      <PropertyRef Name="グループ権限ID" />
+    </Key>
+    <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="PRG01" />
+    <Property Type="Int32" Name="PRG02" />
+    <Property Type="Int32" Name="PRG03" />
+    <Property Type="Int32" Name="PRG04" />
+    <Property Type="Int32" Name="PRG05" />
+    <Property Type="Int32" Name="PRG06" />
+    <Property Type="Int32" Name="PRG07" />
+    <Property Type="Int32" Name="PRG08" />
+    <Property Type="Int32" Name="PRG09" />
+    <Property Type="Int32" Name="PRG10" />
+    <Property Type="Int32" Name="PRG11" />
+    <Property Type="Int32" Name="PRG12" />
+    <Property Type="Int32" Name="PRG13" />
+    <Property Type="Int32" Name="PRG14" />
+    <Property Type="Int32" Name="PRG15" />
+    <Property Type="Int32" Name="PRG16" />
+    <Property Type="Int32" Name="PRG17" />
+    <Property Type="Int32" Name="PRG18" />
+    <Property Type="Int32" Name="PRG19" />
+    <Property Type="Int32" Name="PRG20" />
+    <Property Type="Int32" Name="PRG21" />
+    <Property Type="Int32" Name="PRG22" />
+    <Property Type="Int32" Name="PRG23" />
+    <Property Type="Int32" Name="PRG24" />
+    <Property Type="Int32" Name="PRG25" />
+    <Property Type="Int32" Name="PRG26" />
+    <Property Type="Int32" Name="PRG27" />
+    <Property Type="Int32" Name="PRG28" />
+    <Property Type="Int32" Name="PRG29" />
+    <Property Type="Int32" Name="PRG30" />
+    <Property Type="Int32" Name="PRG31" />
+    <Property Type="Int32" Name="PRG32" />
+    <Property Type="Int32" Name="PRG33" />
+    <Property Type="Int32" Name="PRG34" />
+    <Property Type="Int32" Name="PRG35" />
+    <Property Type="Int32" Name="PRG36" />
+    <Property Type="Int32" Name="PRG37" />
+    <Property Type="Int32" Name="PRG38" />
+    <Property Type="Int32" Name="PRG39" />
+    <Property Type="Int32" Name="PRG40" />
+    <Property Type="Int32" Name="PRG41" />
+    <Property Type="Int32" Name="PRG42" />
+    <Property Type="Int32" Name="PRG43" />
+    <Property Type="Int32" Name="PRG44" />
+    <Property Type="Int32" Name="PRG45" />
+    <Property Type="Int32" Name="PRG46" />
+    <Property Type="Int32" Name="PRG47" />
+    <Property Type="Int32" Name="PRG48" />
+    <Property Type="Int32" Name="PRG49" />
+    <Property Type="Int32" Name="PRG50" />
+    <Property Type="Int32" Name="PRG51" />
+    <Property Type="Int32" Name="PRG52" />
+    <Property Type="Int32" Name="PRG53" />
+    <Property Type="Int32" Name="PRG54" />
+    <Property Type="Int32" Name="PRG55" />
+    <Property Type="Int32" Name="PRG56" />
+    <Property Type="Int32" Name="PRG57" />
+    <Property Type="Int32" Name="PRG58" />
+    <Property Type="Int32" Name="PRG59" />
+    <Property Type="Int32" Name="PRG60" />
+    <Property Type="Int32" Name="PRG61" />
+    <Property Type="Int32" Name="PRG62" />
+    <Property Type="Int32" Name="PRG63" />
+    <Property Type="Int32" Name="PRG64" />
+    <Property Type="Int32" Name="PRG65" />
+    <Property Type="Int32" Name="PRG66" />
+    <Property Type="Int32" Name="PRG67" />
+    <Property Type="Int32" Name="PRG68" />
+    <Property Type="Int32" Name="PRG69" />
+    <Property Type="Int32" Name="PRG70" />
+    <Property Type="Int32" Name="PRG71" />
+    <Property Type="Int32" Name="PRG72" />
+    <Property Type="Int32" Name="PRG73" />
+    <Property Type="Int32" Name="PRG74" />
+    <Property Type="Int32" Name="PRG75" />
+    <Property Type="Int32" Name="PRG76" />
+    <Property Type="Int32" Name="PRG77" />
+    <Property Type="Int32" Name="PRG78" />
+    <Property Type="Int32" Name="PRG79" />
+    <Property Type="Int32" Name="PRG80" />
+    <Property Type="Int32" Name="PRG81" />
+    <Property Type="Int32" Name="PRG82" />
+    <Property Type="Int32" Name="PRG83" />
+    <Property Type="Int32" Name="PRG84" />
+    <Property Type="Int32" Name="PRG85" />
+    <Property Type="Int32" Name="PRG86" />
+    <Property Type="Int32" Name="PRG87" />
+    <Property Type="Int32" Name="PRG88" />
+    <Property Type="Int32" Name="PRG89" />
+    <Property Type="Int32" Name="PRG90" />
+    <Property Type="Int32" Name="PRG91" />
+    <Property Type="Int32" Name="PRG92" />
+    <Property Type="Int32" Name="PRG93" />
+    <Property Type="Int32" Name="PRG94" />
+    <Property Type="Int32" Name="PRG95" />
+    <Property Type="Int32" Name="PRG96" />
+    <Property Type="Int32" Name="PRG97" />
+    <Property Type="Int32" Name="PRG98" />
+    <Property Type="Int32" Name="PRG99" />
+    <Property Type="Int32" Name="PRG100" />
+  </EntityType>
+  <EntityType Name="M98_PRG">
+    <Key>
+      <PropertyRef Name="SEQ" />
+    </Key>
+    <Property Type="String" Name="PRGID" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="プログラム名" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="SEQ" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="M99_COMBOLIST">
+    <Key>
+      <PropertyRef Name="分類" />
+      <PropertyRef Name="機能" />
+      <PropertyRef Name="カテゴリ" />
+      <PropertyRef Name="コード" />
+    </Key>
+    <Property Type="String" Name="分類" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="機能" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="カテゴリ" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="コード" Nullable="false" />
+    <Property Type="Int32" Name="表示順" Nullable="false" />
+    <Property Type="String" Name="表示名" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="M99_MSG">
+    <Key>
+      <PropertyRef Name="種別" />
+      <PropertyRef Name="コード" />
+    </Key>
+    <Property Type="String" Name="種別" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="コード" Nullable="false" />
+    <Property Type="String" Name="メッセージ" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="サブメッセージ" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="M99_RPT">
+    <Key>
+      <PropertyRef Name="帳票ID" />
+    </Key>
+    <Property Type="String" Name="帳票ID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="帳票名" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Binary" Name="レポート定義データ" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="M99_ZIP">
+    <Key>
+      <PropertyRef Name="キー" />
+    </Key>
+    <Property Type="Int32" Name="キー" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="地区コード" Nullable="false" />
+    <Property Type="String" Name="郵便番号" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所かな" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所漢字" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="S01_TOKS">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="回数" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="締集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="締集計終了日" Precision="0" />
+    <Property Type="Decimal" Name="締日前月残高" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日入金現金" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日入金手形" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日入金その他" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日売上金額" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日通行料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日非課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日消費税" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日未定件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+  </EntityType>
+  <EntityType Name="S02_YOSS">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="回数" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="締集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="締集計終了日" Precision="0" />
+    <Property Type="Decimal" Name="締日前月残高" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日入金現金" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日入金手形" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日入金その他" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日売上金額" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日通行料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日非課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日消費税" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日未定件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="締日件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+  </EntityType>
+  <EntityType Name="S11_TOKG">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="回数" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="月集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="月集計終了日" Precision="0" />
+    <Property Type="Decimal" Name="月次前月残高" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次入金現金" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次入金手形" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次入金その他" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次売上金額" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次通行料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次非課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次消費税" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次未定件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+  </EntityType>
+  <EntityType Name="S12_YOSG">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="回数" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Int32" Name="回数" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="DateTime" Name="月集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="月集計終了日" Precision="0" />
+    <Property Type="Decimal" Name="月次前月残高" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次入金現金" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次入金手形" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次入金その他" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次売上金額" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次通行料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次非課税売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次消費税" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車売上" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車料" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次未定件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="月次件数" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+  </EntityType>
+  <EntityType Name="S13_DRV">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="集計年月" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="Int32" Name="車輌KEY" />
+    <Property Type="Int32" Name="営業日数" Nullable="false" />
+    <Property Type="Int32" Name="稼動日数" Nullable="false" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="輸送屯数" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="運送収入" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="燃料Ｌ" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="一般管理費" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="拘束時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="運転時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="高速時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="作業時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="待機時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="休憩時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="残業時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="深夜時間" Nullable="false" Precision="7" Scale="2" />
+  </EntityType>
+  <EntityType Name="S13_DRVSB">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="経費項目ID" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Int32" Name="経費項目ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="経費項目名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="固定変動区分" />
+    <Property Type="Decimal" Name="金額" Nullable="false" Precision="10" Scale="0" />
+  </EntityType>
+  <EntityType Name="S14_CAR">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="集計年月" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="営業日数" Nullable="false" />
+    <Property Type="Int32" Name="稼動日数" Nullable="false" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="輸送屯数" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="運送収入" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="燃料Ｌ" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="一般管理費" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="拘束時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="運転時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="高速時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="作業時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="待機時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="休憩時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="残業時間" Nullable="false" Precision="7" Scale="2" />
+    <Property Type="Decimal" Name="深夜時間" Nullable="false" Precision="7" Scale="2" />
+  </EntityType>
+  <EntityType Name="S14_CARSB">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="経費項目ID" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Int32" Name="経費項目ID" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="String" Name="経費項目名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="固定変動区分" />
+    <Property Type="Decimal" Name="金額" Nullable="false" Precision="10" Scale="0" />
+  </EntityType>
+  <EntityType Name="T01_TRN">
+    <Key>
+      <PropertyRef Name="明細番号" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="明細番号" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="Int32" Name="入力区分" Nullable="false" />
+    <Property Type="DateTime" Name="請求日付" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="支払日付" Precision="0" />
+    <Property Type="DateTime" Name="配送日付" Nullable="false" Precision="0" />
+    <Property Type="Decimal" Name="配送時間" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="得意先KEY" />
+    <Property Type="Int32" Name="請求内訳ID" />
+    <Property Type="Int32" Name="車輌KEY" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="Int32" Name="支払先KEY" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+    <Property Type="String" Name="車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="支払先名２次" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="実運送乗務員" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="乗務員連絡先" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="請求運賃計算区分ID" Nullable="false" />
+    <Property Type="Int32" Name="支払運賃計算区分ID" Nullable="false" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="String" Name="単位" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="重量" Nullable="false" Precision="9" Scale="3" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="待機時間" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="売上単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="売上金額" Nullable="false" />
+    <Property Type="Int32" Name="通行料" Nullable="false" />
+    <Property Type="Int32" Name="請求割増１" Nullable="false" />
+    <Property Type="Int32" Name="請求割増２" Nullable="false" />
+    <Property Type="Int32" Name="請求消費税" Nullable="false" />
+    <Property Type="Decimal" Name="支払単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="支払金額" Nullable="false" />
+    <Property Type="Int32" Name="支払通行料" Nullable="false" />
+    <Property Type="Int32" Name="支払割増１" Nullable="false" />
+    <Property Type="Int32" Name="支払割増２" Nullable="false" />
+    <Property Type="Int32" Name="支払消費税" Nullable="false" />
+    <Property Type="Int32" Name="水揚金額" Nullable="false" />
+    <Property Type="Int32" Name="社内区分" Nullable="false" />
+    <Property Type="Int32" Name="請求税区分" Nullable="false" />
+    <Property Type="Int32" Name="支払税区分" Nullable="false" />
+    <Property Type="Int32" Name="売上未定区分" Nullable="false" />
+    <Property Type="Int32" Name="支払未定区分" Nullable="false" />
+    <Property Type="Int32" Name="商品ID" />
+    <Property Type="String" Name="商品名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="発地ID" />
+    <Property Type="String" Name="発地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="着地ID" />
+    <Property Type="String" Name="着地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="請求摘要ID" />
+    <Property Type="String" Name="請求摘要" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="社内備考ID" />
+    <Property Type="String" Name="社内備考" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="入力者ID" />
+    <Property Type="Int32" Name="確認名称区分" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T01_TSB">
+    <Key>
+      <PropertyRef Name="明細番号" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="明細番号" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="自社ID" Nullable="false" />
+    <Property Type="Int32" Name="担当者ID" Nullable="false" />
+    <Property Type="String" Name="自社担当者" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="積地時間" Precision="6" Scale="2" />
+    <Property Type="String" Name="積地住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="積地住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="積地電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="積地ＦＡＸ番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="積地メモ" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="降地時間" Precision="6" Scale="2" />
+    <Property Type="String" Name="降地住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="降地住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="降地電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="降地ＦＡＸ番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="降地メモ" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="連絡区分１" Nullable="false" />
+    <Property Type="Int32" Name="連絡区分２" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T02_UTRN">
+    <Key>
+      <PropertyRef Name="明細番号" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="明細番号" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="Int32" Name="入力区分" Nullable="false" />
+    <Property Type="DateTime" Name="実運行日開始" Precision="0" />
+    <Property Type="DateTime" Name="実運行日終了" Precision="0" />
+    <Property Type="Int32" Name="車輌KEY" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="String" Name="車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Decimal" Name="出庫時間" Precision="6" Scale="2" />
+    <Property Type="Decimal" Name="帰庫時間" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="出勤区分ID" Nullable="false" />
+    <Property Type="Decimal" Name="拘束時間" Precision="6" Scale="2" />
+    <Property Type="Decimal" Name="運転時間" Precision="6" Scale="2" />
+    <Property Type="Decimal" Name="高速時間" Precision="4" Scale="2" />
+    <Property Type="Decimal" Name="作業時間" Precision="4" Scale="2" />
+    <Property Type="Decimal" Name="待機時間" Precision="4" Scale="2" />
+    <Property Type="Decimal" Name="休憩時間" Precision="4" Scale="2" />
+    <Property Type="Decimal" Name="残業時間" Precision="6" Scale="2" />
+    <Property Type="Decimal" Name="深夜時間" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="輸送屯数" Nullable="false" Precision="8" Scale="1" />
+    <Property Type="Int32" Name="出庫ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="帰庫ＫＭ" Nullable="false" />
+    <Property Type="String" Name="備考" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="勤務開始日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="勤務終了日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="労務日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="入力者ID" />
+  </EntityType>
+  <EntityType Name="T03_KTRN">
+    <Key>
+      <PropertyRef Name="明細番号" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="明細番号" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="Int32" Name="入力区分" Nullable="false" />
+    <Property Type="DateTime" Name="経費発生日" Precision="0" />
+    <Property Type="Int32" Name="車輌ID" />
+    <Property Type="String" Name="車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="メーター" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="支払先KEY" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Int32" Name="経費項目ID" />
+    <Property Type="String" Name="経費補助名称" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="単価" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="内軽油税分" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="数量" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="金額" />
+    <Property Type="Int32" Name="収支区分" />
+    <Property Type="Int32" Name="摘要ID" />
+    <Property Type="String" Name="摘要名" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="入力者ID" />
+  </EntityType>
+  <EntityType Name="T04_NYUK">
+    <Key>
+      <PropertyRef Name="明細番号" />
+      <PropertyRef Name="明細行" />
+    </Key>
+    <Property Type="Int32" Name="明細番号" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="DateTime" Name="入出金日付" Precision="0" />
+    <Property Type="Int32" Name="取引先KEY" Nullable="false" />
+    <Property Type="Int32" Name="入出金区分" Nullable="false" />
+    <Property Type="Int32" Name="入出金金額" Nullable="false" />
+    <Property Type="Int32" Name="摘要ID" />
+    <Property Type="String" Name="摘要名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="手形日付" Precision="0" />
+    <Property Type="Int32" Name="入力者ID" />
+  </EntityType>
+  <EntityType Name="T05_TTRN">
+    <Key>
+      <PropertyRef Name="乗務員KEY" />
+      <PropertyRef Name="配車日付" />
+    </Key>
+    <Property Type="Int32" Name="乗務員KEY" Nullable="false" />
+    <Property Type="DateTime" Name="配車日付" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="Int32" Name="車輌ID" />
+    <Property Type="String" Name="車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="行先" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="指示項目" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T06_KYUS">
+    <Key>
+      <PropertyRef Name="車輌ID" />
+      <PropertyRef Name="休車開始日付" />
+    </Key>
+    <Property Type="Int32" Name="車輌ID" Nullable="false" />
+    <Property Type="DateTime" Name="休車開始日付" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="休車終了日付" Precision="0" />
+    <Property Type="Int32" Name="明細区分" />
+    <Property Type="String" Name="車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="休車事由" />
+  </EntityType>
+  <EntityType Name="W_DLY16010">
+    <Key>
+      <PropertyRef Name="H_運行日付" />
+      <PropertyRef Name="D_乗務員ID" />
+    </Key>
+    <Property Type="DateTime" Name="H_運行日付" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="D_乗務員ID" Nullable="false" />
+    <Property Type="String" Name="D_乗務員名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_車種ID" />
+    <Property Type="String" Name="D_車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_車輌ID" />
+    <Property Type="String" Name="D_車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_得意先ID1" />
+    <Property Type="String" Name="D_得意先名1" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_商品名1" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_発地名1" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_着地名1" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_数量1" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="D_重量1" Precision="9" Scale="3" />
+    <Property Type="Decimal" Name="D_配送時間1" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="D_得意先ID2" />
+    <Property Type="String" Name="D_得意先名2" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_商品名2" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_発地名2" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_着地名2" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_数量2" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="D_重量2" Precision="9" Scale="3" />
+    <Property Type="Decimal" Name="D_配送時間2" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="D_得意先ID3" />
+    <Property Type="String" Name="D_得意先名3" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_商品名3" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_発地名3" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_着地名3" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_数量3" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="D_重量3" Precision="9" Scale="3" />
+    <Property Type="Decimal" Name="D_配送時間3" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="D_得意先ID4" />
+    <Property Type="String" Name="D_得意先名4" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_商品名4" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_発地名4" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_着地名4" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_数量4" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="D_重量4" Precision="9" Scale="3" />
+    <Property Type="Decimal" Name="D_配送時間4" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="D_得意先ID5" />
+    <Property Type="String" Name="D_得意先名5" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_商品名5" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_発地名5" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_着地名5" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_数量5" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="D_重量5" Precision="9" Scale="3" />
+    <Property Type="Decimal" Name="D_配送時間5" Precision="6" Scale="2" />
+  </EntityType>
+  <EntityType Name="W_JMI11010">
+    <Key>
+      <PropertyRef Name="H_集計年月" />
+      <PropertyRef Name="D_合計区分" />
+    </Key>
+    <Property Type="Int32" Name="H_集計年月" Nullable="false" />
+    <Property Type="Boolean" Name="D_合計区分" Nullable="false" />
+    <Property Type="Int32" Name="D_乗務員ID" />
+    <Property Type="String" Name="D_乗務員名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_運送収入" />
+    <Property Type="Int32" Name="D_燃料代軽油" />
+    <Property Type="Int32" Name="D_燃料代ガソリン" />
+    <Property Type="Int32" Name="D_油脂費" />
+    <Property Type="Int32" Name="D_外注" />
+    <Property Type="Int32" Name="D_タイヤ費" />
+    <Property Type="Int32" Name="D_修理費" />
+    <Property Type="Int32" Name="D_部品代" />
+    <Property Type="Int32" Name="D_現金高速代" />
+    <Property Type="Int32" Name="D_ETC" />
+    <Property Type="Int32" Name="D_その他1" />
+    <Property Type="Int32" Name="D_その他2" />
+    <Property Type="Int32" Name="D_諸口1" />
+    <Property Type="Int32" Name="D_諸口2" />
+    <Property Type="Int32" Name="D_諸口3" />
+    <Property Type="Int32" Name="D_給与固定" />
+    <Property Type="Int32" Name="D_給与変動" />
+    <Property Type="Int32" Name="D_賞与積立" />
+    <Property Type="Int32" Name="D_福利厚生費" />
+    <Property Type="Int32" Name="D_法定福利費" />
+    <Property Type="Int32" Name="D_退職引当金" />
+    <Property Type="Int32" Name="D_労働保険" />
+    <Property Type="Int32" Name="D_減価償却費" />
+    <Property Type="Int32" Name="D_自動車税" />
+    <Property Type="Int32" Name="D_重量税" />
+    <Property Type="Int32" Name="D_取得税" />
+    <Property Type="Int32" Name="D_自賠責保険" />
+    <Property Type="Int32" Name="D_車輌保険" />
+    <Property Type="Int32" Name="D_対人保険" />
+    <Property Type="Int32" Name="D_対物保険" />
+    <Property Type="Int32" Name="D_荷物保険" />
+    <Property Type="Int32" Name="D_一般管理費" />
+    <Property Type="Int32" Name="D_稼働日数" />
+    <Property Type="Int32" Name="D_実車km" />
+    <Property Type="Int32" Name="D_空車km" />
+    <Property Type="Int32" Name="D_走行km" />
+    <Property Type="Int32" Name="D_燃料L" />
+  </EntityType>
+  <EntityType Name="W_TKS01010_01">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="端末ID" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="印刷区分" />
+    <Property Type="Int32" Name="請求書発行区分" />
+    <Property Type="Int32" Name="取引先ID" Nullable="false" />
+    <Property Type="String" Name="取引先名" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="内訳ID" />
+    <Property Type="String" Name="内訳名" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="当月請求合計" />
+  </EntityType>
+  <EntityType Name="W_TKS01010_02">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="端末ID" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="連番" Nullable="false" />
+    <Property Type="Int32" Name="請求書区分ID" Nullable="false" />
+    <Property Type="Int32" Name="H_得意先ID" Nullable="false" />
+    <Property Type="String" Name="H_取引先名1" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_取引先名2" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="H_T締日" />
+    <Property Type="String" Name="H_郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_住所1" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_住所2" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_FAX" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="H_自社ID" />
+    <Property Type="String" Name="H_自社名" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_代表者名" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_自社郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_自社住所1" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_自社住所2" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_自社電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_自社FAX" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="H_当月請求合計" />
+    <Property Type="Int32" Name="H_当月売上額" />
+    <Property Type="Int32" Name="H_当月通行料" />
+    <Property Type="Int32" Name="H_当月課税金額" />
+    <Property Type="Int32" Name="H_当月非課税金額" />
+    <Property Type="Int32" Name="H_当月消費税" />
+    <Property Type="Int32" Name="H_前月繰越額" />
+    <Property Type="Int32" Name="H_当月入金額" />
+    <Property Type="Int32" Name="H_当月入金調整額" />
+    <Property Type="Int32" Name="H_差引繰越額" />
+    <Property Type="String" Name="H_振込銀行1" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_振込銀行2" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_振込銀行3" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="D_請求日付" Precision="0" />
+    <Property Type="Decimal" Name="D_配送時間" Precision="6" Scale="2" />
+    <Property Type="String" Name="D_得意先略称名" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_請求内訳ID" />
+    <Property Type="String" Name="D_請求内訳名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_車輌ID" />
+    <Property Type="String" Name="D_車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_支払先略称名" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_乗務員名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_支払先名2次" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_実運送乗務員" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_乗務員連絡先" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_数量" Precision="9" Scale="1" />
+    <Property Type="String" Name="D_単位" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_重量" Precision="9" Scale="3" />
+    <Property Type="Int32" Name="D_走行KM" />
+    <Property Type="Int32" Name="D_実車KM" />
+    <Property Type="Decimal" Name="D_売上単価" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="D_売上金額" />
+    <Property Type="Int32" Name="D_通行料" />
+    <Property Type="Int32" Name="D_請求割増1" />
+    <Property Type="Int32" Name="D_請求割増2" />
+    <Property Type="Int32" Name="D_請求消費税" />
+    <Property Type="Int32" Name="D_売上金額計1" />
+    <Property Type="Int32" Name="D_売上金額計2" />
+    <Property Type="Int32" Name="D_売上金額計3" />
+    <Property Type="Int32" Name="D_社内区分" />
+    <Property Type="Int32" Name="D_請求税区分" />
+    <Property Type="Int32" Name="D_商品ID" />
+    <Property Type="String" Name="D_商品名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_発地ID" />
+    <Property Type="String" Name="D_発地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_着地ID" />
+    <Property Type="String" Name="D_着地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_請求摘要ID" />
+    <Property Type="String" Name="D_請求摘要" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_社内備考ID" />
+    <Property Type="String" Name="D_社内備考" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_S14_CAR">
+    <Key>
+      <PropertyRef Name="車輌KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="営業日数" />
+      <PropertyRef Name="稼動日数" />
+      <PropertyRef Name="走行ＫＭ" />
+      <PropertyRef Name="実車ＫＭ" />
+      <PropertyRef Name="輸送屯数" />
+      <PropertyRef Name="運送収入" />
+      <PropertyRef Name="燃料Ｌ" />
+      <PropertyRef Name="一般管理費" />
+    </Key>
+    <Property Type="Int32" Name="車輌KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="営業日数" Nullable="false" />
+    <Property Type="Int32" Name="稼動日数" Nullable="false" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="輸送屯数" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="Decimal" Name="運送収入" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="燃料Ｌ" Nullable="false" Precision="9" Scale="2" />
+    <Property Type="Decimal" Name="一般管理費" Nullable="false" Precision="10" Scale="0" />
+    <Property Type="Decimal" Name="拘束時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="運転時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="高速時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="作業時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="待機時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="休憩時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="残業時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="深夜時間" Precision="8" Scale="2" />
+  </EntityType>
+  <EntityType Name="V_T02_UTRN">
+    <Key>
+      <PropertyRef Name="明細番号" />
+      <PropertyRef Name="明細行" />
+      <PropertyRef Name="明細区分" />
+      <PropertyRef Name="入力区分" />
+      <PropertyRef Name="出勤区分ID" />
+      <PropertyRef Name="走行ＫＭ" />
+      <PropertyRef Name="実車ＫＭ" />
+      <PropertyRef Name="輸送屯数" />
+      <PropertyRef Name="出庫ＫＭ" />
+      <PropertyRef Name="帰庫ＫＭ" />
+      <PropertyRef Name="勤務開始日" />
+      <PropertyRef Name="勤務終了日" />
+      <PropertyRef Name="労務日" />
+    </Key>
+    <Property Type="Int32" Name="明細番号" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="Int32" Name="入力区分" Nullable="false" />
+    <Property Type="DateTime" Name="実運行日開始" Precision="0" />
+    <Property Type="DateTime" Name="実運行日終了" Precision="0" />
+    <Property Type="Int32" Name="車輌KEY" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="String" Name="車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="自社部門ID" />
+    <Property Type="Decimal" Name="出庫時間" Precision="6" Scale="2" />
+    <Property Type="Decimal" Name="帰庫時間" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="出勤区分ID" Nullable="false" />
+    <Property Type="Decimal" Name="拘束時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="運転時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="高速時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="作業時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="待機時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="休憩時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="残業時間" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="深夜時間" Precision="8" Scale="2" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="輸送屯数" Nullable="false" Precision="8" Scale="1" />
+    <Property Type="Int32" Name="出庫ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="帰庫ＫＭ" Nullable="false" />
+    <Property Type="String" Name="備考" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="勤務開始日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="勤務終了日" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="労務日" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="入力者ID" />
+  </EntityType>
+  <EntityType Name="V_TKS13010">
+    <Key>
+      <PropertyRef Name="D_請求日付" />
+      <PropertyRef Name="D_配送日付" />
+      <PropertyRef Name="D_自社部門ID" />
+      <PropertyRef Name="D_数量" />
+      <PropertyRef Name="D_重量" />
+      <PropertyRef Name="D_走行ＫＭ" />
+      <PropertyRef Name="D_実車ＫＭ" />
+      <PropertyRef Name="D_売上単価" />
+      <PropertyRef Name="D_売上金額" />
+      <PropertyRef Name="D_通行料" />
+      <PropertyRef Name="D_請求割増１" />
+      <PropertyRef Name="D_請求割増２" />
+      <PropertyRef Name="D_請求消費税" />
+      <PropertyRef Name="D_支払単価" />
+      <PropertyRef Name="D_支払金額" />
+      <PropertyRef Name="D_支払通行料" />
+      <PropertyRef Name="D_支払割増１" />
+      <PropertyRef Name="D_支払割増２" />
+      <PropertyRef Name="D_支払消費税" />
+      <PropertyRef Name="D_水揚金額" />
+      <PropertyRef Name="D_社内区分" />
+      <PropertyRef Name="D_請求税区分" />
+      <PropertyRef Name="D_支払未定区分" />
+    </Key>
+    <Property Type="Int32" Name="H_得意先ID" />
+    <Property Type="String" Name="H_取引先名１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="H_取引先名２" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="H_Ｔ締日" />
+    <Property Type="DateTime" Name="D_請求日付" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="D_支払日付" Precision="0" />
+    <Property Type="DateTime" Name="D_配送日付" Nullable="false" Precision="0" />
+    <Property Type="Decimal" Name="D_配送時間" Precision="6" Scale="2" />
+    <Property Type="String" Name="D_得意先略称名" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_請求内訳名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_車輌ID" />
+    <Property Type="String" Name="D_車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_支払先略称名" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_乗務員名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="D_自社部門ID" Nullable="false" />
+    <Property Type="String" Name="D_車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_支払先名２次" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_実運送乗務員" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_乗務員連絡先" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_数量" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="String" Name="D_単位" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="D_重量" Nullable="false" Precision="9" Scale="3" />
+    <Property Type="Int32" Name="D_走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="D_実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="D_売上単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="D_売上金額" Nullable="false" />
+    <Property Type="Int32" Name="D_通行料" Nullable="false" />
+    <Property Type="Int32" Name="D_請求割増１" Nullable="false" />
+    <Property Type="Int32" Name="D_請求割増２" Nullable="false" />
+    <Property Type="Int32" Name="D_請求消費税" Nullable="false" />
+    <Property Type="Int32" Name="D_売上合計" />
+    <Property Type="Decimal" Name="D_支払単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="D_支払金額" Nullable="false" />
+    <Property Type="Int32" Name="D_支払通行料" Nullable="false" />
+    <Property Type="Int32" Name="D_支払割増１" Nullable="false" />
+    <Property Type="Int32" Name="D_支払割増２" Nullable="false" />
+    <Property Type="Int32" Name="D_支払消費税" Nullable="false" />
+    <Property Type="Int32" Name="D_水揚金額" Nullable="false" />
+    <Property Type="Int32" Name="D_社内区分" Nullable="false" />
+    <Property Type="Int32" Name="D_請求税区分" Nullable="false" />
+    <Property Type="Int32" Name="D_支払未定区分" Nullable="false" />
+    <Property Type="String" Name="D_商品名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_発地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_着地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_請求摘要" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="D_社内備考" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_TRN明細消費税付">
+    <Key>
+      <PropertyRef Name="明細番号" />
+      <PropertyRef Name="明細行" />
+      <PropertyRef Name="明細区分" />
+      <PropertyRef Name="入力区分" />
+      <PropertyRef Name="請求日付" />
+      <PropertyRef Name="配送日付" />
+      <PropertyRef Name="自社部門ID" />
+      <PropertyRef Name="請求運賃計算区分ID" />
+      <PropertyRef Name="支払運賃計算区分ID" />
+      <PropertyRef Name="数量" />
+      <PropertyRef Name="重量" />
+      <PropertyRef Name="走行ＫＭ" />
+      <PropertyRef Name="実車ＫＭ" />
+      <PropertyRef Name="待機時間" />
+      <PropertyRef Name="売上単価" />
+      <PropertyRef Name="売上金額" />
+      <PropertyRef Name="通行料" />
+      <PropertyRef Name="請求割増１" />
+      <PropertyRef Name="請求割増２" />
+      <PropertyRef Name="請求消費税" />
+      <PropertyRef Name="支払単価" />
+      <PropertyRef Name="支払金額" />
+      <PropertyRef Name="支払通行料" />
+      <PropertyRef Name="支払割増１" />
+      <PropertyRef Name="支払割増２" />
+      <PropertyRef Name="支払消費税" />
+      <PropertyRef Name="水揚金額" />
+      <PropertyRef Name="社内区分" />
+      <PropertyRef Name="請求税区分" />
+      <PropertyRef Name="支払税区分" />
+      <PropertyRef Name="売上未定区分" />
+      <PropertyRef Name="支払未定区分" />
+    </Key>
+    <Property Type="Int32" Name="明細番号" Nullable="false" />
+    <Property Type="Int32" Name="明細行" Nullable="false" />
+    <Property Type="DateTime" Name="登録日時" Precision="3" />
+    <Property Type="DateTime" Name="更新日時" Precision="3" />
+    <Property Type="Int32" Name="明細区分" Nullable="false" />
+    <Property Type="Int32" Name="入力区分" Nullable="false" />
+    <Property Type="DateTime" Name="請求日付" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="支払日付" Precision="0" />
+    <Property Type="DateTime" Name="配送日付" Nullable="false" Precision="0" />
+    <Property Type="Decimal" Name="配送時間" Precision="6" Scale="2" />
+    <Property Type="Int32" Name="得意先KEY" />
+    <Property Type="Int32" Name="請求内訳ID" />
+    <Property Type="Int32" Name="車輌KEY" />
+    <Property Type="Int32" Name="車種ID" />
+    <Property Type="Int32" Name="支払先KEY" />
+    <Property Type="Int32" Name="乗務員KEY" />
+    <Property Type="Int32" Name="自社部門ID" Nullable="false" />
+    <Property Type="String" Name="車輌番号" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="支払先名２次" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="実運送乗務員" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="乗務員連絡先" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="請求運賃計算区分ID" Nullable="false" />
+    <Property Type="Int32" Name="支払運賃計算区分ID" Nullable="false" />
+    <Property Type="Decimal" Name="数量" Nullable="false" Precision="9" Scale="1" />
+    <Property Type="String" Name="単位" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="重量" Nullable="false" Precision="9" Scale="3" />
+    <Property Type="Int32" Name="走行ＫＭ" Nullable="false" />
+    <Property Type="Int32" Name="実車ＫＭ" Nullable="false" />
+    <Property Type="Decimal" Name="待機時間" Nullable="false" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="売上単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="売上金額" Nullable="false" />
+    <Property Type="Int32" Name="通行料" Nullable="false" />
+    <Property Type="Int32" Name="請求割増１" Nullable="false" />
+    <Property Type="Int32" Name="請求割増２" Nullable="false" />
+    <Property Type="Int32" Name="請求消費税" Nullable="false" />
+    <Property Type="Decimal" Name="支払単価" Nullable="false" Precision="11" Scale="2" />
+    <Property Type="Int32" Name="支払金額" Nullable="false" />
+    <Property Type="Int32" Name="支払通行料" Nullable="false" />
+    <Property Type="Int32" Name="支払割増１" Nullable="false" />
+    <Property Type="Int32" Name="支払割増２" Nullable="false" />
+    <Property Type="Int32" Name="支払消費税" Nullable="false" />
+    <Property Type="Int32" Name="水揚金額" Nullable="false" />
+    <Property Type="Int32" Name="社内区分" Nullable="false" />
+    <Property Type="Int32" Name="請求税区分" Nullable="false" />
+    <Property Type="Int32" Name="支払税区分" Nullable="false" />
+    <Property Type="Int32" Name="売上未定区分" Nullable="false" />
+    <Property Type="Int32" Name="支払未定区分" Nullable="false" />
+    <Property Type="Int32" Name="商品ID" />
+    <Property Type="String" Name="商品名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="発地ID" />
+    <Property Type="String" Name="発地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="着地ID" />
+    <Property Type="String" Name="着地名" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="請求摘要ID" />
+    <Property Type="String" Name="請求摘要" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="社内備考ID" />
+    <Property Type="String" Name="社内備考" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="入力者ID" />
+    <Property Type="DateTime" Name="適用開始日付" Precision="0" />
+    <Property Type="Int32" Name="消費税率" />
+  </EntityType>
+  <EntityType Name="V_支払月次">
+    <Key>
+      <PropertyRef Name="得意先ID" />
+      <PropertyRef Name="Ｓ締日" />
+      <PropertyRef Name="取引区分" />
+    </Key>
+    <Property Type="Int32" Name="得意先ID" Nullable="false" />
+    <Property Type="String" Name="得意先名１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="集計年月" />
+    <Property Type="Decimal" Name="月次前月残高" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次入金現金" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次入金手形" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次入金その他" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次売上金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次通行料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次非課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="当月支払額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次消費税" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差益" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差益率" Precision="38" Scale="8" />
+    <Property Type="Decimal" Name="月次未定件数" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次件数" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="Ｓ締日" Nullable="false" />
+    <Property Type="Int32" Name="取引区分" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_支払先一覧表1">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="締日" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Decimal" Name="前月残高" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="出金金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="出金調整額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差引金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="当月支払" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="内課税額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="消費税" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="通行料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="当月合計額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="繰越金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="件数" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_支払先一覧表2">
+    <Key>
+      <PropertyRef Name="支払先KEY" />
+      <PropertyRef Name="集計年月" />
+      <PropertyRef Name="締日" />
+    </Key>
+    <Property Type="Int32" Name="支払先KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Decimal" Name="前月残高" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="出金金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="出金調整額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差引金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="当月支払" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="内課税額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="消費税" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="通行料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="当月合計額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="繰越金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="件数" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="締日" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_支払締日">
+    <Key>
+      <PropertyRef Name="得意先ID" />
+      <PropertyRef Name="Ｓ締日" />
+      <PropertyRef Name="取引区分" />
+      <PropertyRef Name="Ｓ集金日" />
+      <PropertyRef Name="Ｓサイト日" />
+    </Key>
+    <Property Type="Int32" Name="得意先ID" Nullable="false" />
+    <Property Type="String" Name="得意先名１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="集計年月" />
+    <Property Type="Decimal" Name="締日前月残高" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日入金現金" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日入金手形" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日入金その他" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日売上金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日通行料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日非課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="当月支払額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日消費税" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差益" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差益率" Precision="38" Scale="12" />
+    <Property Type="Decimal" Name="締日未定件数" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日件数" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="Ｓ締日" Nullable="false" />
+    <Property Type="Int32" Name="取引区分" Nullable="false" />
+    <Property Type="Int32" Name="支払先KEY" />
+    <Property Type="Int32" Name="Ｓ集金日" Nullable="false" />
+    <Property Type="Int32" Name="Ｓサイト日" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_車種月次サブ">
+    <Key>
+      <PropertyRef Name="車種ID" />
+    </Key>
+    <Property Type="Int32" Name="車種ID" Nullable="false" />
+    <Property Type="String" Name="車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="集計年月" />
+    <Property Type="Int32" Name="経費項目ID" />
+    <Property Type="String" Name="経費項目名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="固定変動区分" />
+    <Property Type="Decimal" Name="金額" Precision="38" Scale="0" />
+  </EntityType>
+  <EntityType Name="V_車種月別売上合計表">
+    <Key>
+      <PropertyRef Name="車種ID" />
+    </Key>
+    <Property Type="Int32" Name="車種ID" Nullable="false" />
+    <Property Type="String" Name="車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="集計年月" />
+    <Property Type="Int32" Name="営業日数" />
+    <Property Type="Int32" Name="稼動日数" />
+    <Property Type="Int32" Name="走行ＫＭ" />
+    <Property Type="Int32" Name="実車ＫＭ" />
+    <Property Type="Decimal" Name="輸送屯数" Precision="38" Scale="1" />
+    <Property Type="Decimal" Name="運送収入" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="燃料Ｌ" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="一般管理費" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="拘束時間" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="運転時間" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="高速時間" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="作業時間" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="待機時間" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="休憩時間" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="残業時間" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="深夜時間" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="V_車輌月別売上合計表">
+    <Key>
+      <PropertyRef Name="車輌ID" />
+      <PropertyRef Name="集計年月" />
+    </Key>
+    <Property Type="Int32" Name="車輌ID" Nullable="false" />
+    <Property Type="String" Name="車種名" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Decimal" Name="運送収入" Precision="38" Scale="0" />
+  </EntityType>
+  <EntityType Name="V_乗務員月別売上合計表">
+    <Key>
+      <PropertyRef Name="乗務員ID" />
+      <PropertyRef Name="乗務員名" />
+      <PropertyRef Name="集計年月" />
+    </Key>
+    <Property Type="Int32" Name="乗務員ID" Nullable="false" />
+    <Property Type="String" Name="乗務員名" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Decimal" Name="売上金額" Precision="38" Scale="0" />
+  </EntityType>
+  <EntityType Name="V_得意先月次">
+    <Key>
+      <PropertyRef Name="得意先ID" />
+      <PropertyRef Name="Ｔ締日" />
+      <PropertyRef Name="取引区分" />
+    </Key>
+    <Property Type="Int32" Name="得意先ID" Nullable="false" />
+    <Property Type="String" Name="得意先名１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="親子区分ID" />
+    <Property Type="Int32" Name="Ｔ締日" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" />
+    <Property Type="Decimal" Name="月次前月残高" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次入金現金" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次入金手形" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次入金その他" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次売上金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次通行料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次非課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次消費税" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次内傭車料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次未定件数" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="月次件数" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="締日" />
+    <Property Type="DateTime" Name="月集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="月集計終了日" Precision="0" />
+    <Property Type="Decimal" Name="差益" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差益率" Precision="38" Scale="12" />
+    <Property Type="Decimal" Name="当月支払額" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="取引区分" Nullable="false" />
+    <Property Type="Int32" Name="得意先KEY" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="V_得意先締日">
+    <Key>
+      <PropertyRef Name="得意先ID" />
+      <PropertyRef Name="Ｔ締日" />
+      <PropertyRef Name="Ｔ集金日" />
+      <PropertyRef Name="Ｔサイト日" />
+    </Key>
+    <Property Type="Int32" Name="得意先ID" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" />
+    <Property Type="String" Name="得意先名１" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="かな読み" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="親子区分ID" />
+    <Property Type="Decimal" Name="締日前月残高" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日入金現金" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日入金手形" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日入金その他" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日売上金額" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日通行料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日非課税売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日消費税" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車売上" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日内傭車料" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日未定件数" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="締日件数" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="締日" />
+    <Property Type="Int32" Name="Ｔ締日" Nullable="false" />
+    <Property Type="DateTime" Name="締集計開始日" Precision="0" />
+    <Property Type="DateTime" Name="締集計終了日" Precision="0" />
+    <Property Type="Decimal" Name="差益" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="差益率" Precision="38" Scale="12" />
+    <Property Type="Decimal" Name="当月支払額" Precision="38" Scale="0" />
+    <Property Type="Int32" Name="得意先KEY" />
+    <Property Type="Int32" Name="Ｔ集金日" Nullable="false" />
+    <Property Type="Int32" Name="Ｔサイト日" Nullable="false" />
+    <Property Type="DateTime" Name="削除日付" Precision="3" />
+  </EntityType>
+  <EntityType Name="得意先月次集計">
+    <Key>
+      <PropertyRef Name="得意先KEY" />
+      <PropertyRef Name="集計年月" />
+    </Key>
+    <Property Type="Int32" Name="得意先KEY" Nullable="false" />
+    <Property Type="Int32" Name="集計年月" Nullable="false" />
+    <Property Type="Decimal" Name="Expr5" Precision="38" Scale="0" />
+  </EntityType>
+</Schema>

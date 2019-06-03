@@ -1,0 +1,16 @@
+対象月	Date		2011/01/01
+支払先指定	String	15	
+集計区分	String	15	（締日データを集計）
+締日	String	4	全締日
+表示順序	String	8	コード順
+支払先コード	Number		3001
+支払先名	String	15	支払先名サンプルデータ
+支払金額	Number		96000
+支払通行料	Number		0
+課税支払額	Number		96000
+支払消費税	Number		4800
+当月支払額	Number		100800
+請求金額	Number		120000
+請求通行料	Number		0
+件数	Number		2
+未定	String	4	

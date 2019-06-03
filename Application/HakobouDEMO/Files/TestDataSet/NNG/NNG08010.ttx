@@ -1,0 +1,21 @@
+年月度From	Date		2011/01/01
+年月度To	Date		2011/12/31
+部門指定	String	15	(ピックアップ指定有)
+表示区分	String	15	(売上あり部門のみ)
+表示順序	String	10	コード順
+部門ID	Number		1
+自社部門名	String	15	一般
+1月	Number		100000
+2月	Number		965
+3月	Number		
+4月	Number		
+5月	Number		
+6月	Number		
+7月	Number		
+8月	Number		
+9月	Number		
+10月	Number		
+11月	Number		
+12月	Number		
+年合計	Number		4891
+平均	Number		1222

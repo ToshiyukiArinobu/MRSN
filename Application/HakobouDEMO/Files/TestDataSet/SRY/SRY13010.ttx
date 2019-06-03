@@ -1,0 +1,14 @@
+年月From	Date		2013/11/01
+年月To	Date		2013/11/01
+車種指定	String	15	（ピックアップ指定有）
+車種ID	Number		10401
+車種名	String	15	２ｔ　冷凍冷蔵車
+台数	Number		3
+実働日数	Number		261
+実働時間	Number		261
+走行Km	Number		3767
+輸送屯数	Number		236
+運送収入	Number		1012000
+燃料Ｌ	Number		1569
+固定費計	Number		500000
+変動費計	Number		501510

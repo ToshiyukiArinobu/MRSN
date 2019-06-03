@@ -1,0 +1,16 @@
+﻿<fw:FrameworkControl x:Class="KyoeiSystem.Framework.Windows.Controls.UcCheckBox"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       			         xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.Controls"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                     x:Name="Root"
+                     Loaded="Root_Loaded"
+                     mc:Ignorable="d" 
+                     d:DesignHeight="30" d:DesignWidth="300">
+    <CheckBox Name="cCheckBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Stretch" IsEnabled="True" Content="checkbox"
+              Checked="cb_Checked" Unchecked="cb_UnChecked" Click="cb_Click" KeyDown="CheckBox_KeyDown" PreviewKeyDown="cCheckBox_PreviewKeyDown"
+              IsChecked="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+              />
+</fw:FrameworkControl>

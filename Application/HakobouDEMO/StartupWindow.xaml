@@ -1,0 +1,44 @@
+﻿<fw:WindowGeneralBase
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+        x:Class="Hakobo.StartupWindow" 
+        Title="■スタートアップ"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Width="368.834" Height="364.417" ShowInTaskbar="True" WindowStyle="None" Topmost="True" ResizeMode="NoResize"
+        Loaded="Window_Loaded"
+        Style="{Binding Source={StaticResource StartupWindow}}">
+
+  <Window.Resources>
+    <Style x:Key="ButtonFocusVisual" TargetType="Button">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+      <GradientStop Color="#F3F3F3" Offset="0"/>
+      <GradientStop Color="#EBEBEB" Offset="0.5"/>
+      <GradientStop Color="#DDDDDD" Offset="0.5"/>
+      <GradientStop Color="#CDCDCD" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+  </Window.Resources>
+
+  <StackPanel Margin="10">
+    <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,10" TextWrapping="Wrap" Text="アプリケーション準備中..." />
+    <ProgressBar Height="20" Margin="20,0,20,10" Value="{Binding Progress}" Visibility="{Binding ProgressVisibility}" Background="BlanchedAlmond" Foreground="BurlyWood" IsIndeterminate="True" />
+    <TextBlock HorizontalAlignment="Left" Height="160" Margin="10" TextWrapping="Wrap" Text="{Binding Message}" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+      <Button Name="btnSetup" Width="Auto" Content=" データベース設定 " Margin="0,0,0,0" Visibility="{Binding DBSetupButtonVisibility}" Click="DBSetup_Click" Background="Brown" Focusable="False" Foreground="White" />
+      <Button Width="60" Content="中止"  Margin="20,0,0,0" Click="Cancel_Click" Background="Brown" Focusable="False" Foreground="White" />
+    </StackPanel>
+  </StackPanel>
+</fw:WindowGeneralBase>

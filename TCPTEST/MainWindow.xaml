@@ -1,0 +1,397 @@
+﻿<Window x:Class="TCPTEST.MainWindow"
+        xmlns:net="clr-namespace:KyoeiSystem.Framework.Net;assembly=KyoeiSystem.Framework.Net"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="HTTP通信テスト" Height="700" Width="1045.642"
+        Loaded="Window_Loaded">
+  <Window.Resources>
+    <ObjectDataProvider x:Key="SecureModeList" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+      <ObjectDataProvider.MethodParameters>
+        <x:Type TypeName="net:SecureMode"/>
+      </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+  </Window.Resources>
+  <TabControl>
+    <TabItem Header="HTTP通信">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="100" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+          <Button Content="Brows" Width="60" Click="Brows_Click"/>
+          <Button Content="FileGet" Width="70" Click="FileGet_Click"/>
+          <Button Content="FilePut" Width="70" Click="FilePut_Click"/>
+          <Button Content="POST" Width="70" Click="POST_Click"/>
+          <Button Content="テストURI" Click="HTTPTEST_Click"/>
+          <Button Content="MyNumTest1" Click="NyNumTest1_Click"/>
+          <Button Content="MyNumTest2" Click="NyNumTest2_Click"/>
+          <Button Content="MyNumTest3" Click="NyNumTest3_Click"/>
+          <Label Content="{Binding ptime, UpdateSourceTrigger=PropertyChanged}" Width="70" />
+        </StackPanel>
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Label Grid.Column="0" Content="URI" />
+          <TextBox Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" 
+             Text="{Binding URIString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="140">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+            <Label Content="パラメータ" />
+            <Button Content="追加" Width="40" Click="ParamAdd_Click"/>
+          </StackPanel>
+          <DataGrid Grid.Row="0" Grid.Column="1" AutoGenerateColumns="False" AlternatingRowBackground="LightBlue" SelectionMode="Single"
+                    CanUserAddRows="False" CanUserDeleteRows="False" FrozenColumnCount="1" 
+                    ItemsSource="{Binding HttpUriParameters, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedParameter, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.RowHeaderStyle>
+              <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Content" Value="{Binding INDEX}" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Width" Value="30" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+              </Style>
+            </DataGrid.RowHeaderStyle>
+            <DataGrid.Columns>
+              <DataGridTemplateColumn Header="">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Button Content="削除" Click="ParamDelete_Click" />
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTextColumn Header="Name" Binding="{Binding KEY}" Width="150"/>
+              <DataGridTextColumn Header="Value" Binding="{Binding VALUE}" Width="*"/>
+            </DataGrid.Columns>
+          </DataGrid>
+          <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <Label Content="Reqデータ" />
+            <Button Content="追加" Width="40" Click="ReqParamAdd_Click"/>
+          </StackPanel>
+          <DataGrid Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" AlternatingRowBackground="LightBlue" SelectionMode="Single"
+                    CanUserAddRows="False" CanUserDeleteRows="False" FrozenColumnCount="1" 
+                    ItemsSource="{Binding HttpReqParameters, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedReqParameter, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.RowHeaderStyle>
+              <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Content" Value="{Binding INDEX}" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Width" Value="30" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+              </Style>
+            </DataGrid.RowHeaderStyle>
+            <DataGrid.Columns>
+              <DataGridTemplateColumn Header="">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Button Content="削除" Click="ReqParamDelete_Click" />
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTextColumn Header="Name" Binding="{Binding KEY}" Width="150"/>
+              <DataGridTextColumn Header="Value" Binding="{Binding VALUE}" Width="*"/>
+            </DataGrid.Columns>
+          </DataGrid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" >
+          <CheckBox Name="basicAuth" Content="基本認証：" VerticalAlignment="Center" IsChecked="{Binding IsBasicAuthEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+          <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsBasicAuthEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+            <Label Content="ユーザ" />
+            <TextBox HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Width="200"
+                     Text="{Binding userID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                     />
+            <Label Content="パスワード" />
+            <PasswordBox Name="htmlPasswd" Width="200"/>
+          </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" >
+          <CheckBox Content="サーバー証明書をチェックする" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0"
+                        IsChecked="{Binding IsCheckServerCert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+          <!--<CheckBox Content="クライアント証明書適用" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,10,0"
+                        IsChecked="{Binding IsCheckClientCert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>-->
+          <Label Content="クライアント証明書：" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" />
+          <TextBox HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Width="400"
+             Text="{Binding ClientCertSerialNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+          <Button Content="参照" Click="NyNumCert_Click" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">
+          <Border BorderBrush="Blue" BorderThickness="1"/>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="状態" Grid.Column="0" HorizontalAlignment="Left" />
+            <TextBox Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" 
+                     Text="{Binding status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+          </Grid>
+        </StackPanel>
+        <Label Content="ヘッダ情報" Grid.Column="0" Grid.Row="6" HorizontalContentAlignment="Right"/>
+        <ScrollViewer Grid.Row="6" Grid.Column="1" Background="LightBlue" BorderThickness="2" BorderBrush="AliceBlue">
+          <Border BorderBrush="Gray" BorderThickness="1.5">
+            <TextBlock Text="{Binding HeaderText}" TextWrapping="WrapWithOverflow">
+            </TextBlock>
+          </Border>
+        </ScrollViewer>
+        <GridSplitter Grid.Row="7" Grid.ColumnSpan="2" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" ShowsPreview="True" Background="Orange" ResizeDirection="Rows" />
+        <StackPanel Grid.Row="8" Grid.Column="0" Orientation="Vertical">
+          <Label Content="コンテンツ" HorizontalContentAlignment="Center"/>
+          <RadioButton Content="テキスト" HorizontalAlignment="Left" IsChecked="True" Margin="20,0,0,0" Checked="resText_Checked" Unchecked="resText_UnChecked"/>
+          <RadioButton Content="JSON" HorizontalAlignment="Left" Margin="20,0,0,0" />
+          <Button Content="Copy" Width="40" Click="CopyParam_Click"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="8" Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+          <Border BorderBrush="Gray" BorderThickness="1.5">
+            <TextBlock Text="{Binding ResponseText}" TextWrapping="WrapWithOverflow"
+                       Background="{Binding HttpLogColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+            </TextBlock>
+          </Border>
+        </ScrollViewer>
+        <DataGrid Grid.Row="8" Grid.Column="1" AutoGenerateColumns="False" AlternatingRowBackground="LightBlue" SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserAddRows="False" CanUserDeleteRows="False" FrozenColumnCount="1" Height="auto"
+                  Visibility="{Binding HttpResJsonVisibility, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding HttpResponses, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedResponse, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+          <!--<DataGrid.RowHeaderStyle>
+            <Style TargetType="{x:Type DataGridRowHeader}">
+              <Setter Property="Content" Value="{Binding INDEX}" />
+              <Setter Property="HorizontalAlignment" Value="Right" />
+              <Setter Property="Width" Value="30" />
+              <Setter Property="HorizontalContentAlignment" Value="Right" />
+            </Style>
+          </DataGrid.RowHeaderStyle>-->
+          <DataGrid.Columns>
+            <!--<DataGridTemplateColumn Header="">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Button Content="削除" Click="ReqParamDelete_Click" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>-->
+            <DataGridTextColumn Header="Name" Binding="{Binding KEY}" Width="150"/>
+            <DataGridTextColumn Header="Value" Binding="{Binding VALUE}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+
+      </Grid>
+    </TabItem>
+    <TabItem Header="メール送信" Visibility="Visible">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="100" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="28" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="28" />
+          <RowDefinition Height="28" />
+          <RowDefinition Height="28" />
+          <RowDefinition Height="28" />
+          <RowDefinition Height="28" />
+          <RowDefinition Height="28" />
+          <RowDefinition Height="*" MinHeight="40" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+          <Button Content="送信" Width="60" Click="SendMail_Click"/>
+          <Label Content="{Binding ptime, UpdateSourceTrigger=PropertyChanged}" Width="70" />
+        </StackPanel>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3"
+                BorderBrush="Blue" BorderThickness="1">
+          <Grid >
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto" />
+              <RowDefinition Height="28" />
+              <RowDefinition Height="28" />
+              <RowDefinition Height="28" />
+            </Grid.RowDefinitions>
+            <WrapPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+              <Label Content="SMTPサーバー" HorizontalContentAlignment="Right"/>
+              <TextBox HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Width="200"
+                       Text="{Binding SmtpServer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                       />
+              <Label Content="Port:" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+              <TextBox Width="50" Text="{Binding SmtpPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              <Label Content="接続暗号化:" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+              <ComboBox IsEditable="False" Width="100"
+                        ItemsSource="{Binding Source={StaticResource SecureModeList}}"
+                        SelectedValue="{Binding SmtpSecureMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                        />
+              <CheckBox Content="サーバー証明書をチェックする" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="20,0,10,0"
+                        IsChecked="{Binding IsCheckServerCert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              <StackPanel Orientation="Horizontal">
+                <CheckBox Content="クライアント証明書適用" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,10,0"
+                        IsChecked="{Binding IsCheckClientCert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                <TextBox Width="200" Text="{Binding ClientCertSerialNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                       IsEnabled="{Binding IsCheckClientCert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                <Button Content="参照" Click="btnCertFile_Click" 
+                      IsEnabled="{Binding IsCheckClientCert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              </StackPanel>
+            </WrapPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+              <CheckBox Content="SMTP認証" Margin="10,0,0,0" VerticalAlignment="Center"
+                    IsChecked="{Binding IsSmtpAuth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              <Border BorderThickness="0" BorderBrush="Blue"  Margin="10,0,0,0" VerticalAlignment="Center"
+                    IsEnabled="{Binding IsSmtpAuthEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                  <RadioButton Content="CRAM-MD5" Margin="10,0,0,0" VerticalAlignment="Center"
+                        IsChecked="{Binding IsSmtpAuthCramMd5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                  <RadioButton Content="LOGIN" Margin="10,0,0,0" VerticalAlignment="Center"
+                        IsChecked="{Binding IsSmtpAuthLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                  <RadioButton Content="PLAIN" Margin="10,0,10,0" VerticalAlignment="Center"
+                        IsChecked="{Binding IsSmtpAuthPlain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                  <Label Content="ユーザID" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                  <TextBox Width="80" Text="{Binding SmtpUserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                  <Label Content="パスワード" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                  <PasswordBox Name="smtpPasswd" Grid.Column="1" Grid.Row="3" Width="80" />
+                </StackPanel>
+              </Border>
+              <CheckBox Content="SMTP送信前にPOPログインする" Margin="20,0,0,0" VerticalAlignment="Center"
+                    IsChecked="{Binding IsPopBeforeSmtp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center"
+                        IsEnabled="{Binding IsPopEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+              <Label Content="POPサーバー" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+              <TextBox Width="180" Text="{Binding PopServer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              <Label Content="Port:" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+              <TextBox Width="50" Text="{Binding PopPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              <StackPanel Orientation="Horizontal">
+                <Label Content="プロトコル:" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                <RadioButton Content="POP3" Margin="5,0,0,0" VerticalAlignment="Center"
+                    IsChecked="{Binding IsPOP3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                <RadioButton Content="IMAP" Margin="5,0,0,0" VerticalAlignment="Center"
+                    IsChecked="{Binding IsIMAP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal">
+                <Label Content="POP接続暗号化:" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0"/>
+                <ComboBox IsEditable="False" Width="100"
+                          ItemsSource="{Binding Source={StaticResource SecureModeList}}"
+                          SelectedValue="{Binding PopSecureMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                          />
+              </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center"
+                      IsEnabled="{Binding IsPopEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+              <Label Content="POP認証" />
+              <RadioButton Content="標準" Margin="10,0,0,0" VerticalAlignment="Center"
+                        IsChecked="{Binding IsPopAuthStd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              <RadioButton Content="CRAM-MD5" Margin="10,0,0,0" VerticalAlignment="Center"
+                        IsChecked="{Binding IsPopAuthCramMd5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              <RadioButton Content="APOP" Margin="10,0,0,0" VerticalAlignment="Center"
+                        IsChecked="{Binding IsPopAuthAPOP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              <RadioButton Content="NTLM" Margin="10,0,10,0" VerticalAlignment="Center"
+                        IsChecked="{Binding IsPopAuthNTLM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+              <Label Content="POPユーザID" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+              <TextBox Width="80" Text="{Binding PopUserId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              <Label Content="POPパスワード" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+              <PasswordBox Name="popPasswd" Width="80" />
+              <Label Content="POP後待ち時間(msec)" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+              <TextBox Width="60" Text="{Binding PopDelayTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+            </StackPanel>
+
+          </Grid>
+        </Border>
+        <Label Content="From:" Grid.Column="0" Grid.Row="4" HorizontalContentAlignment="Right"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Width="300" HorizontalAlignment="Left"
+             Text="{Binding MailFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+        <Label Content="To:" Grid.Column="0" Grid.Row="5" HorizontalContentAlignment="Right"/>
+        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" 
+             Text="{Binding MailTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+        <Label Content="Cc:" Grid.Column="0" Grid.Row="6" HorizontalContentAlignment="Right"/>
+        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" 
+             Text="{Binding MailCc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+        <Label Content="Bcc:" Grid.Column="0" Grid.Row="7" HorizontalContentAlignment="Right"/>
+        <TextBox Grid.Column="1" Grid.Row="7"  Width="300" HorizontalAlignment="Left"
+             Text="{Binding MailBcc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+        <Label Content="Reply-To:" Grid.Column="0" Grid.Row="8" HorizontalContentAlignment="Right"/>
+        <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal">
+          <TextBox   Width="300" HorizontalAlignment="Left"
+             Text="{Binding MailReplyTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+          <Label Content="Sender:" Grid.Column="0" Grid.Row="8" HorizontalContentAlignment="Right"/>
+          <TextBox   Width="300" HorizontalAlignment="Left"
+             Text="{Binding MailSender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+        </StackPanel>
+        <Label Content="件名" Grid.Column="0" Grid.Row="9" HorizontalContentAlignment="Right"/>
+        <TextBox Grid.Column="1" Grid.Row="9" HorizontalAlignment="Stretch"
+             Text="{Binding MailSubject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+
+        <Label Content="メール本文" Grid.Column="0" Grid.Row="10" HorizontalContentAlignment="Right"/>
+        <Grid Grid.Column="1" Grid.Row="10">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" MinWidth="100" />
+          </Grid.ColumnDefinitions>
+          <ScrollViewer Grid.Column="0" >
+            <TextBox HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" AcceptsReturn="True" FontFamily="MS Gothic"
+             Text="{Binding MailBodyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+             />
+          </ScrollViewer>
+          <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center" ShowsPreview="True" Background="Orange" ResizeDirection="Columns" />
+          <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+              <Label Content="添付ファイル" Height="26"/>
+              <Button Content="クリア" Click="btnFileClear_Click"/>
+            </StackPanel>
+            <ListView Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" AllowDrop="True"
+                    ItemsSource="{Binding MailFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    PreviewDragEnter="MailFile_PreviewDragEnter" Drop="MailFile_Drop"/>
+          </Grid>
+        </Grid>
+        <GridSplitter Grid.Row="11" Grid.ColumnSpan="2" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" ShowsPreview="True" Background="Orange" ResizeDirection="Rows" />
+        <Label Content="通信ログ" Grid.Column="0" Grid.Row="12" HorizontalContentAlignment="Right"/>
+        <ScrollViewer Grid.Column="1" Grid.Row="12" >
+          <TextBox HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" AcceptsReturn="True" FontFamily="MS Gothic"
+                   Background="{Binding MailLogColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                 Text="{Binding MailLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+        </ScrollViewer>
+      </Grid>
+    </TabItem>
+
+  </TabControl>
+</Window>

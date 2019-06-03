@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="COMMONDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="COMMONDBModelStoreContainer">
+          <EntitySet Name="COMMON_TABLE" EntityType="COMMONDBModel.Store.COMMON_TABLE" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="COMMON_TABLE">
+          <Key>
+            <PropertyRef Name="ユーザーID" />
+          </Key>
+          <Property Name="顧客コード" Type="int" />
+          <Property Name="ユーザーID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="パスワード" Type="varchar" MaxLength="50" />
+          <Property Name="ログインフラグ" Type="int" />
+          <Property Name="アクセス時間" Type="datetime" />
+          <Property Name="DB接続先" Type="varchar" MaxLength="50" />
+          <Property Name="ユーザーDB" Type="varchar" MaxLength="50" />
+          <Property Name="DBログインID" Type="varchar" MaxLength="50" />
+          <Property Name="DBパスワード" Type="varchar" MaxLength="50" />
+          <Property Name="開始日" Type="date" />
+          <Property Name="有効期限" Type="date" />
+          <Property Name="登録日" Type="date" />
+          <Property Name="メッセージ1" Type="varchar" MaxLength="500" />
+          <Property Name="メッセージ2" Type="varchar" MaxLength="500" />
+          <Property Name="メッセージ3" Type="varchar" MaxLength="500" />
+          <Property Name="メッセージ4" Type="varchar" MaxLength="500" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="COMMONDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="COMMONDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="COMMON_TABLE" EntityType="COMMONDBModel.COMMON_TABLE" />
+        </EntityContainer>
+        <ComplexType Name="ComplexType1" />
+        <EntityType Name="COMMON_TABLE">
+          <Key>
+            <PropertyRef Name="ユーザーID" />
+          </Key>
+          <Property Type="Int32" Name="顧客コード" />
+          <Property Type="String" Name="ユーザーID" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="パスワード" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ログインフラグ" />
+          <Property Type="DateTime" Name="アクセス時間" Precision="3" />
+          <Property Type="String" Name="DB接続先" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ユーザーDB" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DBログインID" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DBパスワード" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="開始日" Precision="0" />
+          <Property Type="DateTime" Name="有効期限" Precision="0" />
+          <Property Type="DateTime" Name="登録日" Precision="0" />
+          <Property Type="String" Name="メッセージ1" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="メッセージ2" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="メッセージ3" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="メッセージ4" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="COMMONDBModelStoreContainer" CdmEntityContainer="COMMONDBEntities">
+          <EntitySetMapping Name="COMMON_TABLE">
+            <EntityTypeMapping TypeName="COMMONDBModel.COMMON_TABLE">
+              <MappingFragment StoreEntitySet="COMMON_TABLE">
+                <ScalarProperty Name="メッセージ4" ColumnName="メッセージ4" />
+                <ScalarProperty Name="メッセージ3" ColumnName="メッセージ3" />
+                <ScalarProperty Name="メッセージ2" ColumnName="メッセージ2" />
+                <ScalarProperty Name="メッセージ1" ColumnName="メッセージ1" />
+                <ScalarProperty Name="登録日" ColumnName="登録日" />
+                <ScalarProperty Name="有効期限" ColumnName="有効期限" />
+                <ScalarProperty Name="開始日" ColumnName="開始日" />
+                <ScalarProperty Name="DBパスワード" ColumnName="DBパスワード" />
+                <ScalarProperty Name="DBログインID" ColumnName="DBログインID" />
+                <ScalarProperty Name="ユーザーDB" ColumnName="ユーザーDB" />
+                <ScalarProperty Name="DB接続先" ColumnName="DB接続先" />
+                <ScalarProperty Name="アクセス時間" ColumnName="アクセス時間" />
+                <ScalarProperty Name="ログインフラグ" ColumnName="ログインフラグ" />
+                <ScalarProperty Name="パスワード" ColumnName="パスワード" />
+                <ScalarProperty Name="ユーザーID" ColumnName="ユーザーID" />
+                <ScalarProperty Name="顧客コード" ColumnName="顧客コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

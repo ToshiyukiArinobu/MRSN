@@ -1,0 +1,53 @@
+<publishData>
+  <publishTarget publishUrl="C:\Deploy\hakobo\">
+    <file relUrl="bin/WcfServiceHost.pdb" publishTime="06/06/2018 15:37:37" />
+    <file relUrl="bin/KyoeiSystem.Framework.Core.dll" publishTime="06/06/2018 13:10:26" />
+    <file relUrl="bin/KyoeiSystem.Framework.Core.pdb" publishTime="06/06/2018 13:10:26" />
+    <file relUrl="Web.config" publishTime="04/01/2016 10:29:12" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.dll" publishTime="06/06/2018 15:37:36" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.dll" publishTime="06/06/2018 13:10:25" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.pdb" publishTime="06/06/2018 13:10:25" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.pdb" publishTime="06/06/2018 15:37:36" />
+    <file relUrl="WcfServiceHost.KESService.svc" publishTime="06/06/2018 15:37:38" />
+    <file relUrl="bin/WcfServiceHost.dll.config" publishTime="04/01/2016 10:29:12" />
+    <file relUrl="bin/WcfServiceHost.dll" publishTime="06/06/2018 15:37:37" />
+  </publishTarget>
+  <publishTarget publishUrl="C:\Deploy\hakobo\WCFLIB\">
+    <file relUrl="bin/WcfServiceHost.pdb" publishTime="11/13/2017 11:04:16" />
+    <file relUrl="bin/KyoeiSystem.Framework.Core.dll" publishTime="09/13/2017 16:46:51" />
+    <file relUrl="bin/KyoeiSystem.Framework.Core.pdb" publishTime="09/13/2017 16:46:51" />
+    <file relUrl="Web.config" publishTime="02/20/2017 15:36:24" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.dll" publishTime="11/13/2017 11:01:19" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.dll" publishTime="03/23/2017 11:08:51" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.pdb" publishTime="03/23/2017 11:08:51" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.pdb" publishTime="11/13/2017 11:01:19" />
+    <file relUrl="WcfServiceHost.KESService.svc" publishTime="11/13/2017 11:04:18" />
+    <file relUrl="bin/WcfServiceHost.dll.config" publishTime="02/20/2017 15:36:24" />
+    <file relUrl="bin/WcfServiceHost.dll" publishTime="11/13/2017 11:04:16" />
+  </publishTarget>
+  <publishTarget publishUrl="C:\Deploy\HakoboLIB\">
+    <file relUrl="bin/WcfServiceHost.pdb" publishTime="07/03/2017 11:16:59" />
+    <file relUrl="bin/KyoeiSystem.Framework.Core.dll" publishTime="07/03/2017 11:16:49" />
+    <file relUrl="bin/KyoeiSystem.Framework.Core.pdb" publishTime="07/03/2017 11:16:49" />
+    <file relUrl="Web.config" publishTime="03/16/2017 15:27:04" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.dll" publishTime="07/03/2017 11:16:59" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.dll" publishTime="07/03/2017 11:16:49" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.pdb" publishTime="07/03/2017 11:16:49" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.pdb" publishTime="07/03/2017 11:16:59" />
+    <file relUrl="WcfServiceHost.KESService.svc" publishTime="07/03/2017 11:18:57" />
+    <file relUrl="bin/WcfServiceHost.dll.config" publishTime="03/16/2017 15:27:04" />
+    <file relUrl="bin/WcfServiceHost.dll" publishTime="07/03/2017 11:16:59" />
+  </publishTarget>
+  <publishTarget publishUrl="C:\Deploy\WCFLIB\">
+    <file relUrl="bin/WcfServiceHost.pdb" publishTime="12/10/2015 14:23:40" />
+    <file relUrl="bin/log4net.dll" publishTime="05/07/2013 13:44:15" />
+    <file relUrl="Web.config" publishTime="11/27/2015 17:55:05" />
+    <file relUrl="WcfServiceHost.KESService.svc" publishTime="12/10/2015 14:23:45" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.dll" publishTime="12/04/2015 17:33:20" />
+    <file relUrl="bin/KyoeiSystem.Framework.Common.pdb" publishTime="12/04/2015 17:33:20" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.pdb" publishTime="12/10/2015 14:23:38" />
+    <file relUrl="bin/WcfServiceHost.dll.config" publishTime="11/27/2015 17:55:05" />
+    <file relUrl="bin/KyoeiSystem.Application.WCFService.dll" publishTime="12/10/2015 14:23:38" />
+    <file relUrl="bin/WcfServiceHost.dll" publishTime="12/10/2015 14:23:40" />
+  </publishTarget>
+</publishData>

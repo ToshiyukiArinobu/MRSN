@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MST2" targetNamespace="http://tempuri.org/MST2.xsd" xmlns:mstns="http://tempuri.org/MST2.xsd" xmlns="http://tempuri.org/MST2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MST2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MST2" msprop:Generator_UserDSName="MST2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="担当者マスタリスト" msprop:Generator_TableClassName="担当者マスタリストDataTable" msprop:Generator_TableVarName="table担当者マスタリスト" msprop:Generator_TablePropName="担当者マスタリスト" msprop:Generator_RowDeletingName="担当者マスタリストRowDeleting" msprop:Generator_RowChangingName="担当者マスタリストRowChanging" msprop:Generator_RowEvHandlerName="担当者マスタリストRowChangeEventHandler" msprop:Generator_RowDeletedName="担当者マスタリストRowDeleted" msprop:Generator_UserTableName="担当者マスタリスト" msprop:Generator_RowChangedName="担当者マスタリストRowChanged" msprop:Generator_RowEvArgName="担当者マスタリストRowChangeEvent" msprop:Generator_RowClassName="担当者マスタリストRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="担当者ID" msprop:Generator_ColumnVarNameInTable="column担当者ID" msprop:Generator_ColumnPropNameInRow="担当者ID" msprop:Generator_ColumnPropNameInTable="担当者IDColumn" msprop:Generator_UserColumnName="担当者ID" type="xs:int" minOccurs="0" />
+              <xs:element name="担当者名" msprop:Generator_ColumnVarNameInTable="column担当者名" msprop:Generator_ColumnPropNameInRow="担当者名" msprop:Generator_ColumnPropNameInTable="担当者名Column" msprop:Generator_UserColumnName="担当者名" type="xs:string" minOccurs="0" />
+              <xs:element name="かな読み" msprop:Generator_ColumnVarNameInTable="columnかな読み" msprop:Generator_ColumnPropNameInRow="かな読み" msprop:Generator_ColumnPropNameInTable="かな読みColumn" msprop:Generator_UserColumnName="かな読み" type="xs:string" minOccurs="0" />
+              <xs:element name="グループ権限ID" msprop:Generator_ColumnVarNameInTable="columnグループ権限ID" msprop:Generator_ColumnPropNameInRow="グループ権限ID" msprop:Generator_ColumnPropNameInTable="グループ権限IDColumn" msprop:Generator_UserColumnName="グループ権限ID" type="xs:int" minOccurs="0" />
+              <xs:element name="個人ナンバー" msprop:Generator_ColumnVarNameInTable="column個人ナンバー" msprop:Generator_ColumnPropNameInRow="個人ナンバー" msprop:Generator_ColumnPropNameInTable="個人ナンバーColumn" msprop:Generator_UserColumnName="個人ナンバー" type="xs:string" minOccurs="0" />
+              <xs:element name="自社コード" msprop:Generator_ColumnVarNameInTable="column自社コード" msprop:Generator_ColumnPropNameInRow="自社コード" msprop:Generator_ColumnPropNameInTable="自社コードColumn" msprop:Generator_UserColumnName="自社コード" type="xs:int" minOccurs="0" />
+              <xs:element name="自社区分" msprop:Generator_ColumnVarNameInTable="column自社区分" msprop:Generator_ColumnPropNameInRow="自社区分" msprop:Generator_ColumnPropNameInTable="自社区分Column" msprop:Generator_UserColumnName="自社区分" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="消費税マスタリスト" msprop:Generator_TableClassName="消費税マスタリストDataTable" msprop:Generator_TableVarName="table消費税マスタリスト" msprop:Generator_RowChangedName="消費税マスタリストRowChanged" msprop:Generator_TablePropName="消費税マスタリスト" msprop:Generator_RowDeletingName="消費税マスタリストRowDeleting" msprop:Generator_RowChangingName="消費税マスタリストRowChanging" msprop:Generator_RowEvHandlerName="消費税マスタリストRowChangeEventHandler" msprop:Generator_RowDeletedName="消費税マスタリストRowDeleted" msprop:Generator_RowClassName="消費税マスタリストRow" msprop:Generator_UserTableName="消費税マスタリスト" msprop:Generator_RowEvArgName="消費税マスタリストRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="適用開始日付" msprop:Generator_ColumnVarNameInTable="column適用開始日付" msprop:Generator_ColumnPropNameInRow="適用開始日付" msprop:Generator_ColumnPropNameInTable="適用開始日付Column" msprop:Generator_UserColumnName="適用開始日付" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="消費税率" msprop:Generator_ColumnVarNameInTable="column消費税率" msprop:Generator_ColumnPropNameInRow="消費税率" msprop:Generator_ColumnPropNameInTable="消費税率Column" msprop:Generator_UserColumnName="消費税率" type="xs:int" minOccurs="0" />
+              <xs:element name="軽減税率" msprop:Generator_ColumnVarNameInTable="column軽減税率" msprop:Generator_ColumnPropNameInRow="軽減税率" msprop:Generator_ColumnPropNameInTable="軽減税率Column" msprop:Generator_UserColumnName="軽減税率" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="倉庫マスタ" msprop:Generator_TableClassName="倉庫マスタDataTable" msprop:Generator_TableVarName="table倉庫マスタ" msprop:Generator_TablePropName="倉庫マスタ" msprop:Generator_RowDeletingName="倉庫マスタRowDeleting" msprop:Generator_RowChangingName="倉庫マスタRowChanging" msprop:Generator_RowEvHandlerName="倉庫マスタRowChangeEventHandler" msprop:Generator_RowDeletedName="倉庫マスタRowDeleted" msprop:Generator_UserTableName="倉庫マスタ" msprop:Generator_RowChangedName="倉庫マスタRowChanged" msprop:Generator_RowEvArgName="倉庫マスタRowChangeEvent" msprop:Generator_RowClassName="倉庫マスタRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="倉庫コード" msprop:Generator_ColumnVarNameInTable="column倉庫コード" msprop:Generator_ColumnPropNameInRow="倉庫コード" msprop:Generator_ColumnPropNameInTable="倉庫コードColumn" msprop:Generator_UserColumnName="倉庫コード" type="xs:string" minOccurs="0" />
+              <xs:element name="倉庫名" msprop:Generator_ColumnVarNameInTable="column倉庫名" msprop:Generator_ColumnPropNameInRow="倉庫名" msprop:Generator_ColumnPropNameInTable="倉庫名Column" msprop:Generator_UserColumnName="倉庫名" type="xs:string" minOccurs="0" />
+              <xs:element name="略称名" msprop:Generator_ColumnVarNameInTable="column略称名" msprop:Generator_ColumnPropNameInRow="略称名" msprop:Generator_ColumnPropNameInTable="略称名Column" msprop:Generator_UserColumnName="略称名" type="xs:string" minOccurs="0" />
+              <xs:element name="かな読み" msprop:Generator_ColumnVarNameInTable="columnかな読み" msprop:Generator_ColumnPropNameInRow="かな読み" msprop:Generator_ColumnPropNameInTable="かな読みColumn" msprop:Generator_UserColumnName="かな読み" type="xs:string" minOccurs="0" />
+              <xs:element name="場所会社コード" msprop:Generator_ColumnVarNameInTable="column場所会社コード" msprop:Generator_ColumnPropNameInRow="場所会社コード" msprop:Generator_ColumnPropNameInTable="場所会社コードColumn" msprop:Generator_UserColumnName="場所会社コード" type="xs:string" minOccurs="0" />
+              <xs:element name="寄託会社コード" msprop:Generator_ColumnVarNameInTable="column寄託会社コード" msprop:Generator_ColumnPropNameInRow="寄託会社コード" msprop:Generator_ColumnPropNameInTable="寄託会社コードColumn" msprop:Generator_UserColumnName="寄託会社コード" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="出荷先マスタ" msprop:Generator_TableClassName="出荷先マスタDataTable" msprop:Generator_TableVarName="table出荷先マスタ" msprop:Generator_RowChangedName="出荷先マスタRowChanged" msprop:Generator_TablePropName="出荷先マスタ" msprop:Generator_RowDeletingName="出荷先マスタRowDeleting" msprop:Generator_RowChangingName="出荷先マスタRowChanging" msprop:Generator_RowEvHandlerName="出荷先マスタRowChangeEventHandler" msprop:Generator_RowDeletedName="出荷先マスタRowDeleted" msprop:Generator_RowClassName="出荷先マスタRow" msprop:Generator_UserTableName="出荷先マスタ" msprop:Generator_RowEvArgName="出荷先マスタRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="出荷先コード" msprop:Generator_ColumnVarNameInTable="column出荷先コード" msprop:Generator_ColumnPropNameInRow="出荷先コード" msprop:Generator_ColumnPropNameInTable="出荷先コードColumn" msprop:Generator_UserColumnName="出荷先コード" type="xs:string" />
+              <xs:element name="出荷先名_xFF11_" msprop:Generator_ColumnVarNameInTable="column出荷先名１" msprop:Generator_ColumnPropNameInRow="出荷先名１" msprop:Generator_ColumnPropNameInTable="出荷先名１Column" msprop:Generator_UserColumnName="出荷先名１" type="xs:string" minOccurs="0" />
+              <xs:element name="出荷先名_xFF12_" msprop:Generator_ColumnVarNameInTable="column出荷先名２" msprop:Generator_ColumnPropNameInRow="出荷先名２" msprop:Generator_ColumnPropNameInTable="出荷先名２Column" msprop:Generator_UserColumnName="出荷先名２" type="xs:string" minOccurs="0" />
+              <xs:element name="出荷先カナ" msprop:Generator_ColumnVarNameInTable="column出荷先カナ" msprop:Generator_ColumnPropNameInRow="出荷先カナ" msprop:Generator_ColumnPropNameInTable="出荷先カナColumn" msprop:Generator_UserColumnName="出荷先カナ" type="xs:string" minOccurs="0" />
+              <xs:element name="出荷先郵便番号" msprop:Generator_ColumnVarNameInTable="column出荷先郵便番号" msprop:Generator_ColumnPropNameInRow="出荷先郵便番号" msprop:Generator_ColumnPropNameInTable="出荷先郵便番号Column" msprop:Generator_UserColumnName="出荷先郵便番号" type="xs:string" minOccurs="0" />
+              <xs:element name="出荷先住所_xFF11_" msprop:Generator_ColumnVarNameInTable="column出荷先住所１" msprop:Generator_ColumnPropNameInRow="出荷先住所１" msprop:Generator_ColumnPropNameInTable="出荷先住所１Column" msprop:Generator_UserColumnName="出荷先住所１" type="xs:string" minOccurs="0" />
+              <xs:element name="出荷先住所_xFF12_" msprop:Generator_ColumnVarNameInTable="column出荷先住所２" msprop:Generator_ColumnPropNameInRow="出荷先住所２" msprop:Generator_ColumnPropNameInTable="出荷先住所２Column" msprop:Generator_UserColumnName="出荷先住所２" type="xs:string" minOccurs="0" />
+              <xs:element name="出荷先電話番号" msprop:Generator_ColumnVarNameInTable="column出荷先電話番号" msprop:Generator_ColumnPropNameInRow="出荷先電話番号" msprop:Generator_ColumnPropNameInTable="出荷先電話番号Column" msprop:Generator_UserColumnName="出荷先電話番号" type="xs:string" minOccurs="0" />
+              <xs:element name="備考_xFF11_" msprop:Generator_ColumnVarNameInTable="column備考１" msprop:Generator_ColumnPropNameInRow="備考１" msprop:Generator_ColumnPropNameInTable="備考１Column" msprop:Generator_UserColumnName="備考１" type="xs:string" minOccurs="0" />
+              <xs:element name="備考_xFF12_" msprop:Generator_ColumnVarNameInTable="column備考２" msprop:Generator_ColumnPropNameInRow="備考２" msprop:Generator_ColumnPropNameInTable="備考２Column" msprop:Generator_UserColumnName="備考２" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="担当者マスタリストKey1">
+      <xs:selector xpath=".//mstns:担当者マスタリスト" />
+      <xs:field xpath="mstns:担当者ID" />
+    </xs:unique>
+    <xs:unique name="消費税マスタリストKey1">
+      <xs:selector xpath=".//mstns:消費税マスタリスト" />
+      <xs:field xpath="mstns:適用開始日付" />
+    </xs:unique>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:出荷先マスタ" />
+      <xs:field xpath="mstns:出荷先コード" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
