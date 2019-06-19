@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\MRSN\MRSN\Framework\Windows.Controls\obj\Release\
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Windows.Controls\obj\Release\
 KyoeiSystem.Framework.Windows.Controls
 none
 false
@@ -13,7 +13,7 @@ TRACE
 13-1547296118
 
 24480711798
-18-1141000871
+181020254331
 UcAutoCompleteTextBox.xaml;UcDataGrid.xaml;UcLabel.xaml;UcLabelComboBox.xaml;UcDatePicker.xaml;UcLabelDatePicker.xaml;UcLabelTextRadioButton.xaml;UcTextBox.xaml;UcTreeView.xaml;UcLabelTextBox.xaml;UcLabelTwinTextBox.xaml;UcCheckBox.xaml;UcPasswordBox.xaml;
 
 False

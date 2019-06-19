@@ -7,3 +7,8 @@ C:\MRSN\MRSN\Framework\Common\bin\Release\KyoeiSystem.Framework.Common.pdb
 C:\MRSN\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.dll
 C:\MRSN\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.pdb
 C:\MRSN\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.csprojResolveAssemblyReference.cache
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Common\bin\Release\KyoeiSystem.Framework.Common.dll
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Common\bin\Release\KyoeiSystem.Framework.Common.pdb
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.csprojResolveAssemblyReference.cache
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.dll
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Common\obj\Release\KyoeiSystem.Framework.Common.pdb

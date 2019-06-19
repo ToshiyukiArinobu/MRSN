@@ -7,3 +7,8 @@ C:\MRSN\MRSN\Framework\Net\bin\Release\KyoeiSystem.Framework.Net.pdb
 C:\MRSN\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.dll
 C:\MRSN\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.pdb
 C:\MRSN\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.csprojResolveAssemblyReference.cache
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Net\bin\Release\KyoeiSystem.Framework.Net.dll
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Net\bin\Release\KyoeiSystem.Framework.Net.pdb
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.csprojResolveAssemblyReference.cache
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.dll
+C:\Users\t.arinobu\Documents\GitHub\MRSN\Framework\Net\obj\Release\KyoeiSystem.Framework.Net.pdb
