@@ -564,6 +564,15 @@ namespace KyoeiSystem.Application.Windows.Views
             if (!isFormValidation())
                 return;
 
+            //20190613CB-S
+            if (txt移動元倉庫.Text1 == txt移動先倉庫.Text1) 
+            {
+                this.txt移動先倉庫.Focus();
+                MessageBox.Show("移動元倉庫と移動先倉庫は同一に出来ません。");
+                return;
+            }
+            //20190613CB-E
+
             // 全項目エラーチェック
             if (!base.CheckAllValidation())
             {
@@ -984,8 +993,13 @@ namespace KyoeiSystem.Application.Windows.Views
             if (e.EditAction == SpreadEditAction.Cancel)
                 return;
 
-            switch (e.CellPosition.ColumnName)
+            try
             {
+                switch (e.CellPosition.ColumnName)
+            {
+                
+
+
                 case "自社品番":
                     var target = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Value;
                     if (target == null)
@@ -1005,6 +1019,14 @@ namespace KyoeiSystem.Application.Windows.Views
                     break;
 
             }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+            
+            
 
         }
 

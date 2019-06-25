@@ -174,9 +174,15 @@ namespace KyoeiSystem.Application.WCFService
                             .Where(w => w.削除日時 == null && w.自社コード == hdRow.会社名コード)
                             .FirstOrDefault();
 
-                    var syuk =
-                        context.M21_SYUK
-                            .Where(w => w.削除日時 == null && w.出荷先コード == hdRow.出荷先コード)
+                    //var syuk =
+                    //    context.M21_SYUK
+                    //        .Where(w => w.削除日時 == null)
+                    //        .Where(w => w.削除日時 == null && w.出荷先コード == hdRow.出荷先コード)
+                    //        .FirstOrDefault();
+
+                    var syuk = 
+                        context.M01_TOK
+                            .Where(w => w.削除日時 == null && w.取引先コード == hdRow.出荷先コード && w.枝番 == hdRow.出荷先枝番)
                             .FirstOrDefault();
 
                     // ヘッダ情報を設定
@@ -244,15 +250,16 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="jis_nusi"></param>
         /// <param name="jis"></param>
         /// <param name="syuk"></param>
-        private void setPrintHeaderData(PrintoutMember prtMem, T02_URHD hdRow, M70_JIS jis_nusi, M70_JIS jis, M21_SYUK syuk)
+        private void setPrintHeaderData(PrintoutMember prtMem, T02_URHD hdRow, M70_JIS jis_nusi, M70_JIS jis, M01_TOK syuk)
         {
-            prtMem.出荷主 = jis_nusi == null ? string.Empty : jis_nusi.自社名;
-            prtMem.納品先名１ = syuk.出荷先名１;
-            prtMem.納品先名２ = syuk.出荷先名２;
-            prtMem.納品先郵便番号 = syuk.出荷先郵便番号;
-            prtMem.納品先住所１ = syuk.出荷先住所１;
-            prtMem.納品先住所２ = syuk.出荷先住所２;
-            prtMem.納品先TEL = syuk.出荷先電話番号;
+            //prtMem.出荷主 = jis_nusi == null ? string.Empty : jis_nusi.自社名;
+            prtMem.出荷主 = hdRow.出荷元名;
+            prtMem.納品先名１ = syuk.得意先名１;
+            prtMem.納品先名２ = syuk.得意先名２;
+            prtMem.納品先郵便番号 = syuk.郵便番号;
+            prtMem.納品先住所１ = syuk.住所１;
+            prtMem.納品先住所２ = syuk.住所２;
+            prtMem.納品先TEL = syuk.電話番号;
             prtMem.出荷日 = hdRow.出荷日.ToString("yyyy/MM/dd");
             //prtMem.納品日 = ;// TODO:管理していない為出力内容から除外
             prtMem.自社名 = jis.自社名;

@@ -331,14 +331,17 @@
                   Label2Text=""
                   LostFocus="txt得意先_LostFocus" TextAfterChanged="txt得意先_TextAfterChanged"
               />
-              <ctls:UcLabelTwinTextBox
-                  x:Name="txt出荷先" Grid.Column="4" DataAccessName="M21_SYUK" DataAccessMode="On"
-                  HorizontalAlignment="Left" Margin="-25,0,0,0" IsKeyItem="False" Focusable="False"
+
+              <uc:M01_TOK_TextBox
+                  x:Name="txt出荷先" Grid.Column="4" DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3,4"
+                  HorizontalAlignment="Left" Margin="-30,0,0,0" Focusable="False"
                   Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                  Text1Visibility="Collapsed" Text1Width="0" Text1MaxLength="15" Text1IMEType="Off" Text1VerticalContentAlignment="Center" Text1AcceptsTab="False"
+                  Text1Visibility="Collapsed" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center" Text1AcceptsTab="False" Text1AcceptsReturn="False"
                   Text1="{Binding SearchHeader[出荷先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                  Text2Width="210" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center" Text2Foreground="Black"
-              />
+                  Text2Visibility="Collapsed" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center" Text2AcceptsTab="False" Text2AcceptsReturn="False"
+                  Text2="{Binding SearchHeader[出荷先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                  Label2Text=""
+              />           
 
               <!-- 枠線描画 -->
               <Border Grid.Column="0" BorderThickness="1,0,1,1" BorderBrush="Black" />
@@ -408,15 +411,13 @@
                               cTextAlignment="Center" cMaxLength="10" cBorderThickness="0" cBackground="Transparent" cVerticalContentAlignment="Center" cIsReadOnly="True"
                               Text="{Binding SearchHeader[受注番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
               />
-              <ctls:UcLabelTwinTextBox x:Name="txt出荷元" Grid.Column="3" DataAccessName="M70_JIS" DataAccessMode="On" Focusable="False"
-                                       HorizontalAlignment="Left" Margin="-25,0,0,0" IsKeyItem="False"
-                                       Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                                       Text1Visibility="Collapsed" Text1Width="0" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
-                                       Text1="{Binding SearchHeader[出荷元コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                       Text2Width="210" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center" Text2Foreground="Black"
+
+              <TextBox x:Name="txt出荷元"  Grid.Row="3" Grid.Column="3" IsReadOnly="True" Width="200" Margin="0,0,0,0"
+                            TextAlignment="Left" MaxLength="10" BorderThickness="0" Background="AliceBlue" VerticalContentAlignment="Center" 
+                            Text="{Binding SearchHeader[出荷元名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
               />
               <ctls:UcLabelTwinTextBox x:Name="txt在庫倉庫" Grid.Column="4" DataAccessName="M22_SOUK" DataAccessMode="On" Focusable="False"
-                                       HorizontalAlignment="Left" Margin="-35,0,0,0" IsKeyItem="False"
+                                       HorizontalAlignment="Left" Margin="-40,0,0,0" IsKeyItem="False"
                                        Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                                        Text1Visibility="Collapsed" Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
                                        Text2Width="210" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center" Text2Foreground="Black"
@@ -480,6 +481,25 @@
                 <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
+            <!-- 色コード -->
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+                <sg:Column.CellType>
+                    <sg:TextCellType IsReadOnly="True" />
+                </sg:Column.CellType>
+                <sg:Column.DataField>
+                    <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                </sg:Column.DataField>
+            </sg:Column>
+            <!-- 色名称 -->
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+                <sg:Column.CellType>
+                    <sg:TextCellType IsReadOnly="True" />
+                </sg:Column.CellType>
+                <sg:Column.DataField>
+                    <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                </sg:Column.DataField>
+            </sg:Column>
+
             <!-- 賞味期限 -->
             <sg:Column HorizontalAlignment="Center" Locked="True" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>

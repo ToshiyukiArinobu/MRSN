@@ -33,11 +33,24 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string COLUM_NAME = "倉庫名";
         private const string COLUM_KANA = "かな読み";
 
+        #region 列挙型定義
+        /// <summary>
+        /// 自社区分 内包データ
+        /// </summary>
+        private enum 自社販社区分 : int
+        {
+            自社 = 0,
+            販社 = 1
+        }
+
+        #endregion
+
         #region 画面設定項目
         /// <summary>
         /// ユーザ設定項目
         /// </summary>
         UserConfig ucfg = null;
+        CommonConfig ccfg = null;
 
         //<summary>
         //画面固有設定項目のクラス定義
@@ -122,9 +135,7 @@ namespace KyoeiSystem.Application.Windows.Views
             this.OkButton.Content = "\n\n\n選択(F11)";
             this.CancelButton.FontSize = 9;
             this.CancelButton.Content = "\n\n\n終了(F1)";
-
-            // 初期フォーカスの設定を行う
-            GridOutPut();
+       
             //画面サイズをタスクバーをのぞいた状態で表示させる
             this.Height = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Size.Height;
 
@@ -137,6 +148,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
+            ccfg = (CommonConfig)ucfg.GetConfigValue(typeof(CommonConfig));
             frmcfg = (ConfigSCHM22_SOUK)ucfg.GetConfigValue(typeof(ConfigSCHM22_SOUK));
             if (frmcfg == null)
             {
@@ -164,6 +176,9 @@ namespace KyoeiSystem.Application.Windows.Views
             #endregion
 
             AppCommon.SetutpComboboxList(this.OrderColumn, false);
+
+            // 初期フォーカスの設定を行う
+            GridOutPut();
 
             #region 表示順序
 
@@ -206,8 +221,10 @@ namespace KyoeiSystem.Application.Windows.Views
 
             try
             {
+                int? p自社コード = ccfg.自社販社区分 == (int)自社販社区分.自社 ? (int?)null : ccfg.自社コード;
+
                 //倉庫マスタ
-                base.SendRequest(new CommunicationObject(MessageType.RequestData, TabelNm, new object[] { searchId, 0 }));
+                base.SendRequest(new CommunicationObject(MessageType.RequestData, TabelNm, new object[] { searchId, p自社コード, 0 }));
             }
             catch (Exception)
             {

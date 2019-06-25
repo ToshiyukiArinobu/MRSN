@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace KyoeiSystem.Application.Windows.Views
 {
@@ -33,18 +34,18 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         public class ConfigDLY03010 : FormConfigBase
         {
-		}
+        }
 
         /// ※ 必ず public で定義する。
         public ConfigDLY03010 frmcfg = null;
 
         #endregion
 
-		#region 定数定義
+        #region 定数定義
 
         #region サービスアクセス定義
         /// <summary>売上情報取得</summary>
-		private const string T02_GetData = "T02_GetData";
+        private const string T02_GetData = "T02_GetData";
         /// <summary>売上情報更新</summary>
         private const string T02_Update = "T02_Update";
         /// <summary>売上情報削除</summary>
@@ -52,6 +53,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>在庫数チェック</summary>
         private const string T02_StockCheck = "T02_CheckStock";
+        /// <summary>更新用_在庫数チェック</summary>
+        private const string UpdateData_StockCheck = "UpdateData_CheckStock";
 
         /// <summary>取引先名称取得</summary>
         private const string MasterCode_Supplier = "UcSupplier";
@@ -73,6 +76,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>金額フォーマット定義</summary>
         private const string PRICE_FORMAT_STRING = "{0:#,0}";
 
+        /// <summary>メーカーの売上区分</summary>
+        private List<string> メーカー区分 = new List<string>() { "3", "4" };
+
         #endregion
 
         #region 列挙型定義
@@ -85,16 +91,18 @@ namespace KyoeiSystem.Application.Windows.Views
             自社品番 = 0,
             得意先品番 = 1,
             自社品名 = 2,
-            賞味期限 = 3,
-            数量 = 4,
-            単位 = 5,
-            単価 = 6,
-            金額 = 7,
-            摘要 = 8,
-            マルセン仕入 = 9,
-            品番コード = 10,
-            消費税区分 = 11,
-            商品分類 = 12
+            色コード = 3,
+            色名称 = 4,
+            賞味期限 = 5,
+            数量 = 6,
+            単位 = 7,
+            単価 = 8,
+            金額 = 9,
+            摘要 = 10,
+            マルセン仕入 = 11,
+            品番コード = 12,
+            消費税区分 = 13,
+            商品分類 = 14
         }
 
         /// <summary>
@@ -150,10 +158,22 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        private string _出荷元名;
+        public string 出荷元名
+        {
+            get { return _出荷元名; }
+            set { _出荷元名 = value; NotifyPropertyChanged(); }
+        }
+
         /// <summary>
         /// 検索された自社区分(0:自社、1:販社)
         /// </summary>
         private int _自社区分;
+
+        /// <summary>
+        /// 編集中の行番号
+        /// </summary>
+        private int _編集行;
 
         #endregion
 
@@ -237,7 +257,7 @@ namespace KyoeiSystem.Application.Windows.Views
             base.MasterMaintenanceWindowList.Add("M11_TEK", new List<Type> { typeof(MST08010), typeof(SCHM11_TEK) });
             base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
             base.MasterMaintenanceWindowList.Add("M21_SYUK", new List<Type> { typeof(MST01020), typeof(SCHM21_SYUK) });
-            base.MasterMaintenanceWindowList.Add("M22_SOUK", new List<Type> { typeof(MST12020), typeof(SCHM22_SOUK) });
+            base.MasterMaintenanceWindowList.Add("M22_SOUK_JISC", new List<Type> { typeof(MST12020), typeof(SCHM22_SOUK) });
 
             // コンボデータ取得
             if (ccfg.自社販社区分 == (int)自社販社区分.販社)
@@ -259,6 +279,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
             this.txt伝票番号.Focus();
 
+            // ログインユーザの自社コードにより参照条件の切り替え
+            this.txt在庫倉庫.LinkItem = ccfg.自社販社区分.Equals((int)自社販社区分.自社) ? (int?)null : ccfg.自社コード; 
         }
 
         #endregion
@@ -311,6 +333,11 @@ namespace KyoeiSystem.Application.Windows.Views
                         #region 自社品番・得意先品番 手入力時
                         DataTable ctbl = data as DataTable;
                         int rIdx = gcSpreadGrid.ActiveRowIndex;
+                        string columnName = gcSpreadGrid.ActiveColumn.Name;
+
+                        // 編集セルが異なる場合は処理しない。
+                        if (!(columnName == "自社品番" || columnName == "得意先品番コード")) return;
+                        if (_編集行 != rIdx) return;
 
                         if (ctbl == null || ctbl.Rows.Count == 0)
                         {
@@ -394,34 +421,60 @@ namespace KyoeiSystem.Application.Windows.Views
                         // 在庫数チェック結果受信
                         Dictionary<int, string> resultList = data as Dictionary<int, string>;
 
-                        if (resultList.Count > 0)
+                        // 行の状態（削除）を反映させたデータを取得
+                        var tempSearchDetail = SearchDetail.Copy();
+                        tempSearchDetail.AcceptChanges();
+
+                        foreach (DataRow row in tempSearchDetail.Rows)
                         {
-                            foreach (DataRow row in SearchDetail.Rows)
+                            int rowNum = row.Field<int>("行番号");
+
+                            // 行インデックス取得
+                            int ridx =
+                        tempSearchDetail.Rows.IndexOf(tempSearchDetail.AsEnumerable()
+                            .Where(a => a.Field<int>("行番号") == rowNum)
+                            .FirstOrDefault());
+
+                            gcSpreadGrid.Rows[ridx].ValidationErrors.Clear();
+
+                            //メーカー以外
+                            if (!メーカー区分.Contains(this.cmb売上区分.SelectedValue.ToString()) && resultList.ContainsKey(rowNum))
                             {
-                                int rowNum = row.Field<int>("行番号");
-
-                                if (resultList.ContainsKey(rowNum))
-                                {
-                                    // エラー該当
-                                    // 対象の行インデックス取得
-                                    int ridx =
-                                        SearchDetail.Rows.IndexOf(SearchDetail.AsEnumerable()
-                                            .Where(a => a.Field<int>("行番号") == rowNum)
-                                            .FirstOrDefault());
-                                    // エラーメッセージ追加
-                                    gcSpreadGrid.Rows[ridx]
-                                        .ValidationErrors.Add(new SpreadValidationError(resultList[rowNum], null, ridx, (int)GridColumnsMapping.数量));
-
-                                }
+                                // エラー該当行にエラーメッセージ追加
+                                gcSpreadGrid.Rows[ridx]
+                                    .ValidationErrors.Add(new SpreadValidationError(resultList[rowNum], null, ridx, (int)GridColumnsMapping.数量));
 
                             }
 
-                            return;
+                        }
+                        break;
 
+                    case UpdateData_StockCheck:
+                        // 在庫数チェック結果受信
+                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
+                        var zaiMBImage = MessageBoxImage.Question;
+
+                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
+                        {
+                            int rowNum = row.Field<int>("行番号");
+
+                            //メーカー以外
+                            if (!メーカー区分.Contains(this.cmb売上区分.SelectedValue.ToString()) && updateList.ContainsKey(rowNum))
+                            {
+                                zaiMBImage = MessageBoxImage.Warning;
+                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
+                            }
                         }
 
-                        // ここから登録処理を実行
+                        if (MessageBox.Show(zaiUpdateMessage,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                zaiMBImage,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                            return;
 
+                        Update();
                         break;
 
                     default:
@@ -469,7 +522,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if (spgrid != null)
                 {
-                    #region グリッドファンクションイベント
+                    #region グリッドファンクションイベント                 
                     if (gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.自社品番 ||
                         gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.得意先品番)
                     {
@@ -491,10 +544,15 @@ namespace KyoeiSystem.Application.Windows.Views
                         myhin.TwinTextBox.LinkItem = 0;
                         if (myhin.ShowDialog(this) == true)
                         {
+                            //入力途中のセルを空欄状態に戻す
+                            spgrid.CancelCellEdit();
+
                             gridCtl.SetCellValue((int)GridColumnsMapping.品番コード, myhin.SelectedDataRow["品番コード"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.自社品番, myhin.SelectedDataRow["自社品番"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.得意先品番, myhin.SelectedDataRow["得意先品番コード"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.自社品名, myhin.SelectedDataRow["自社品名"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedDataRow["自社色"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedDataRow["色名称"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, myhin.SelectedDataRow["単位"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, myhin.TwinTextBox.Text3);
@@ -504,7 +562,10 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedDataRow["商品分類"]);
 
                             // 設定自社品番の編集を不可とする
-                            gridCtl.SetCellLocked(gridCtl.ActiveColumnIndex, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            
+                            // 設定得意先品番の編集を不可とする
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
 
                             // 集計計算をおこなう
                             summaryCalculation();
@@ -514,6 +575,9 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
                     else if (gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.摘要)
                     {
+                        //入力途中のセルを空欄状態に戻す
+                        spgrid.CancelCellEdit();
+
                         // TODO:全角６文字を超える可能性アリ
                         SCHM11_TEK tek = new SCHM11_TEK();
                         tek.TwinTextBox = new UcLabelTwinTextBox();
@@ -540,6 +604,14 @@ namespace KyoeiSystem.Application.Windows.Views
                     if (twinText.Name == this.txt得意先.Name)
                     {
                         txt得意先.OpenSearchWindow(this);
+                    }
+                    else if (twinText.Name == this.txt出荷元.Name)
+                    {
+                        txt出荷元.OpenSearchWindow(this);
+                    }
+                    else if (twinText.Name == this.txt出荷先.Name)
+                    {
+                        txt出荷先.OpenSearchWindow(this);
                     }
                     else if (twinText.Name == this.txt仕入先.Name)
                     {
@@ -672,12 +744,21 @@ namespace KyoeiSystem.Application.Windows.Views
 
         public override void OnF4Key(object sender, KeyEventArgs e)
         {
+
+            // 【明細】詳細データが１件もない場合はエラー
+            if (SearchDetail == null || SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable().Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
+            {
+                this.gcSpreadGrid.Focus();
+                base.ErrorMessage = string.Format("明細情報が１件もありません。");
+                return;
+            }
+
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.RequestData,
                     T02_StockCheck,
                     new object[] {
-                            this.txt自社名.Text1,
+                            this.txt在庫倉庫.Text1,
                             SearchDetail.DataSet
                         }));
 
@@ -686,14 +767,14 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region F5 行追加
         /// <summary>
-		/// F05　リボン　行追加
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public override void OnF5Key(object sender, KeyEventArgs e)
-		{
-			if (this.MaintenanceMode == null)
-				return;
+        /// F05　リボン　行追加
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF5Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode == null)
+                return;
 
             int delRowCount = (SearchDetail.GetChanges(DataRowState.Deleted) == null) ? 0 : SearchDetail.GetChanges(DataRowState.Deleted).Rows.Count;
             if (SearchDetail.Rows.Count - delRowCount >= 10)
@@ -707,10 +788,12 @@ namespace KyoeiSystem.Application.Windows.Views
             if (SearchDetail.Rows.Count - delRowCount > 0)
             {
                 dtlRow["行番号"] = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable().Select(a => a.Field<int>("行番号")).Max() + 1;
+                dtlRow["マルセン仕入"] = _自社区分.Equals((int)自社販社区分.販社);
             }
             else
             {
                 dtlRow["行番号"] = 1;
+                dtlRow["マルセン仕入"] = _自社区分.Equals((int)自社販社区分.販社);
             }
 
 
@@ -735,6 +818,11 @@ namespace KyoeiSystem.Application.Windows.Views
             if (this.MaintenanceMode == null)
                 return;
 
+            if (gridCtl.ActiveRowIndex < 0)
+            {
+                this.ErrorMessage = "行を選択してください";
+                return;
+            }
             if (MessageBox.Show(
                     AppConst.CONFIRM_DELETE_ROW,
                     "行削除確認",
@@ -764,7 +852,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public override void OnF9Key(object sender, KeyEventArgs e)
+        public override void OnF9Key(object sender, KeyEventArgs e)
         {
             if (MaintenanceMode == null)
                 return;
@@ -780,14 +868,15 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                return;
-
-            Update();
+            //在庫ﾁｪｯｸ
+            base.SendRequest(
+               new CommunicationObject(
+                   MessageType.RequestData,
+                   UpdateData_StockCheck,
+                   new object[] {
+                            this.txt在庫倉庫.Text1,
+                            SearchDetail.DataSet
+                        }));
 
         }
         #endregion
@@ -825,11 +914,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             else
             {
-				if (DataUpdateVisible != Visibility.Hidden)
-				{
-					var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-					if (yesno == MessageBoxResult.No)
-						return;
+                if (DataUpdateVisible != Visibility.Hidden)
+                {
+                    var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (yesno == MessageBoxResult.No)
+                        return;
 
                 }
 
@@ -908,7 +997,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     row["マルセン仕入"] = _自社区分.Equals((int)自社販社区分.販社);
 
                     SearchDetail.Rows.Add(row);
-                    if(SearchDetail.Rows[i].RowState == DataRowState.Unchanged)
+                    if (SearchDetail.Rows[i].RowState == DataRowState.Unchanged)
                         SearchDetail.Rows[i].SetAdded();
 
                 }
@@ -1051,6 +1140,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
+            string salesKbn = this.cmb売上区分.SelectedValue.ToString();
+
             // 得意先
             if (string.IsNullOrEmpty(this.txt得意先.Text1) || string.IsNullOrEmpty(this.txt得意先.Text2))
             {
@@ -1067,8 +1158,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
-            // 在庫倉庫
-            if (string.IsNullOrEmpty(this.txt在庫倉庫.Text1))
+            // 在庫倉庫チェック（メーカー以外）
+            if (!メーカー区分.Contains(salesKbn) && string.IsNullOrEmpty(this.txt在庫倉庫.Text1))
             {
                 this.txt在庫倉庫.Focus();
                 base.ErrorMessage = string.Format("在庫倉庫が入力されていません。");
@@ -1100,7 +1191,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // 出荷先
-            if (string.IsNullOrEmpty(this.txt出荷先.Text1))
+            if (string.IsNullOrEmpty(this.txt出荷先.Text1) || string.IsNullOrEmpty(this.txt出荷先.Text2))
             {
                 this.txt出荷先.Focus();
                 base.ErrorMessage = string.Format("出荷先が入力されていません。");
@@ -1116,7 +1207,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // 出荷元
-            if (string.IsNullOrEmpty(this.txt出荷元.Text1))
+            if (string.IsNullOrEmpty(this.txt出荷元.Text1)|| string.IsNullOrEmpty(this.txt出荷元.Text2))
             {
                 this.txt出荷元.Focus();
                 base.ErrorMessage = string.Format("出荷元が入力されていません。");
@@ -1128,11 +1219,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 this.txt出荷元.Focus();
                 base.ErrorMessage = string.Format("出荷元の設定内容に誤りがあります。");
                 return isResult;
-                
+
             }
 
-            string salesKbn = this.cmb売上区分.SelectedValue.ToString();
-
+           
             // 4：メーカー販社商流直送で、ログインユーザーが自社以外の場合NG
             if (salesKbn.Equals("4") && ccfg.自社販社区分 != (int)自社販社区分.自社)
             {
@@ -1157,7 +1247,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 base.ErrorMessage = string.Format("売上区分に誤りがあります。");
                 return isResult;
             }
-            
+
             if (salesKbn.Equals("3") || salesKbn.Equals("4"))
             {
                 // 3：メーカー直送または4：メーカー販社商流直送の場合、仕入先は必須
@@ -1178,7 +1268,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
             }
-       
+
 
             #endregion
 
@@ -1194,6 +1284,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // 【明細】品番の商品分類が食品(1)の場合は賞味期限が必須
             int rIdx = 0;
+            bool? 返品数量Flg = null;
             bool isDetailErr = false;
             foreach (DataRow row in SearchDetail.Rows)
             {
@@ -1223,6 +1314,25 @@ namespace KyoeiSystem.Application.Windows.Views
                         gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.数量.GetHashCode());
 
                     isDetailErr = true;
+                }
+            
+                decimal d数量;
+                decimal.TryParse(row["数量"].ToString(), out d数量);
+                
+                if (d数量 != 0)
+                {
+                    bool wk返品数量Flg = d数量 > 0 ? false : true;
+
+                    if (返品数量Flg == null)
+                    {
+                        返品数量Flg = wk返品数量Flg;
+                    }
+                    else if ((bool)返品数量Flg != wk返品数量Flg)
+                    {
+                        this.gcSpreadGrid.Focus();
+                        base.ErrorMessage = string.Format("通常数量と返品数量が混在しています。");
+                        return isResult;
+                    }
                 }
 
                 if (string.IsNullOrEmpty(row["単価"].ToString()))
@@ -1296,8 +1406,9 @@ namespace KyoeiSystem.Application.Windows.Views
             ChangeKeyItemChangeable(true);
             ResetAllValidation();
 
+            this.txt自社名.Text1 = string.IsNullOrEmpty(txt自社名.Text1) ? ccfg.自社コード.ToString() : txt自社名.Text1;
+
             // ログインユーザの自社区分によりコントロール状態切換え
-            this.txt自社名.Text1 = ccfg.自社コード.ToString();
             this.txt自社名.IsEnabled = ccfg.自社販社区分.Equals((int)自社販社区分.自社);
 
             this.txt伝票番号.Focus();
@@ -1386,6 +1497,47 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             // 明細内容・消費税の再計算を実施
             summaryCalculation();
+        }
+
+        /// <summary>
+        /// 出荷元コードが変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷元_cText1Changed(object sender, RoutedEventArgs e)
+        {
+
+            // text1が"9999"の場合、出荷元名変更可能
+            if (txt出荷元.Text1 == "9999")
+            {
+                //出荷元名 = "";
+                txt出荷元名.Background = new SolidColorBrush(Colors.White);
+                txt出荷元名.IsReadOnly = false;
+            }
+            else
+            {
+                //出荷元名 = txt出荷元.Label2Text;
+                txt出荷元名.Background = new SolidColorBrush(Colors.AliceBlue);
+                txt出荷元名.IsReadOnly = true;
+            }
+        }
+
+        /// <summary>
+        /// 出荷元が変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷元_TextAfterChanged(object sender, RoutedEventArgs e)
+        {
+            // 明細内容・消費税の再計算を実施
+            summaryCalculation();
+
+            txt出荷元.Label2Visibility = System.Windows.Visibility.Collapsed;
+           
+            if (txt出荷元.Text1 != "9999")
+            {
+                txt出荷元名.Text = txt出荷元.Label2Text;
+            }
         }
 
         /// <summary>
@@ -1510,8 +1662,11 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             GcSpreadGrid grid = sender as GcSpreadGrid;
 
-            if (e.EditAction == SpreadEditAction.Cancel)
-                return;
+            //明細行が存在しない場合は処理しない
+            if (SearchDetail == null) return;
+            if (SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() == 0) return;
+
+            _編集行 = e.CellPosition.Row;
 
             switch (e.CellPosition.ColumnName)
             {
@@ -1549,6 +1704,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     break;
 
                 default:
+                    if (gridCtl.ActiveRowIndex >= 0)
+                    {
+                        // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                        SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+                    }
                     break;
 
             }
@@ -1583,6 +1743,55 @@ namespace KyoeiSystem.Application.Windows.Views
 
             gcSpreadGrid.Cells[rIdx, column.GetHashCode()].Value = value;
 
+        }
+
+        /// <summary>
+        /// SPREAD セルが編集状態になった時の処理 EditElementShowingイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gcSpredGrid_EditElementShowing(object sender, EditElementShowingEventArgs e)
+        {
+            GcSpreadGrid grid = sender as GcSpreadGrid;
+            if (grid.ActiveCell.InheritedCellType is GrapeCity.Windows.SpreadGrid.CheckBoxCellType)
+            {
+                // チェックボックス型セルのイベントを関連付けます。
+                GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement gcchk = grid.EditElement as GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement;
+                if (gcchk != null)
+                {
+                    gcchk.Checked += checkEdit_Checked;
+                    gcchk.Unchecked += checkEdit_Unchecked;
+                }
+            }
+        }
+
+        /// <summary>
+        /// checkEdit_Checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEdit_Checked(object sender, RoutedEventArgs e)
+        {
+            if (SearchDetail != null && SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() != 0 && gridCtl.ActiveRowIndex >= 0)
+            {
+                // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+            }
+        }
+
+        /// <summary>
+        /// checkEdit_Unchecked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEdit_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+            if (SearchDetail != null && SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() != 0 && gridCtl.ActiveRowIndex >= 0)
+            {
+                // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+            }
         }
 
         #endregion

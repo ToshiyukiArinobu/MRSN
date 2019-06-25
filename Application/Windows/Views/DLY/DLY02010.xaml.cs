@@ -80,6 +80,11 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string MasterCode_Supplier = "UcSupplier";
         /// <summary>自社品番情報取得</summary>
         private const string MasterCode_MyProduct = "UcMyProductSet";
+
+        //20190528CB-S
+        /// <summary>セット品番構成品情報取得</summary>
+        private const string M10_GetCount = "M10_GetCount";
+        //20190528CB-E
         #endregion
 
         #region 使用テーブル名定義
@@ -116,7 +121,12 @@ namespace KyoeiSystem.Application.Windows.Views
             摘要 = 7,
             品番コード = 8,
             消費税区分 = 9,
-            商品分類 = 10
+            商品分類 = 10,
+
+            // 20190606CB-S
+            色コード = 11,
+            色名称 = 12,
+            // 20190606CB-E
         }
 
         /// <summary>
@@ -378,6 +388,13 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.消費税区分, 0);   // [軽減税率対象]0:対象外
                             gridDtl.SetCellValue((int)GridColumnsMapping.商品分類, (int)商品分類.その他);
 
+                            // 20190530CB-S
+
+                            gridDtl.SetCellValue((int)GridColumnsMapping.色コード, string.Empty);
+                            gridDtl.SetCellValue((int)GridColumnsMapping.色名称, string.Empty);
+
+                            // 20190530CB-E
+
                         }
                         else if (tbl.Rows.Count > 1)
                         {
@@ -414,6 +431,11 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridDtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedRowData["消費税区分"]);
                                 gridDtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedRowData["商品分類"]);
 
+                                // 20190530CB-S
+                                gridDtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
+                                gridDtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
+                                // 20190530CB-E
+
                                 // 集計計算をおこなう
                                 summaryCalculation();
 
@@ -437,6 +459,12 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.金額, drow["加工原価"] == null ? 0 : Convert.ToInt32(drow["加工原価"]));
                             gridDtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridDtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
+
+                            // 20190530CB-S
+                            gridDtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
+                            gridDtl.SetCellValue((int)GridColumnsMapping.色名称, drow["自社色名"]);
+                            // 20190530CB-E
+
                             gcSpreadGrid.CommitCellEdit();
                             // 自社品番のセルをロック
                             gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
@@ -453,6 +481,15 @@ namespace KyoeiSystem.Application.Windows.Views
                         #endregion
 
                         break;
+                    // 20190528CB-S
+                    case M10_GetCount:
+
+                        if ((int)data == 0)
+                        {
+                            MessageBox.Show("セット品番の構成品が登録されておりません。構成品の登録を行ってください。");
+                        }
+                        break;
+                    // 20190528CB-E
 
                     default:
                         break;
@@ -494,9 +531,12 @@ namespace KyoeiSystem.Application.Windows.Views
                 row["数量"] = (needQty == 0 ? 1 : needQty) * impQty;
 
                 // 賞味期限が最大値の場合は表示させない
-                if (DateTime.Parse(row["賞味期限"].ToString()).Equals(maxDate))
-                    row["賞味期限"] = DBNull.Value;
-
+                //20190530CB テストのため一時的にlengthのif文を追加
+                if (row["賞味期限"].ToString().Length > 0)
+                {
+                    if (DateTime.Parse(row["賞味期限"].ToString()).Equals(maxDate))
+                        row["賞味期限"] = DBNull.Value;
+                }
             }
 
             return tbl;
@@ -595,6 +635,11 @@ namespace KyoeiSystem.Application.Windows.Views
                                                                                                     0 : decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3));
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Value = myhin.SelectedRowData["消費税区分"];
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Value = myhin.SelectedRowData["商品分類"];
+
+                            // 20190530CB-S
+                            gridDtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
+                            gridDtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
+                            // 20195030CB-E
 
                             // 集計計算をおこなう
                             summaryCalculation();
@@ -1423,6 +1468,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     return;
 
                 }
+
+                // 20190528CB-S
+                // セット品番の構成品が登録されているかチェック
+                base.SendRequest(new CommunicationObject(MessageType.RequestData, M10_GetCount, new object[] { num }));
+                // 20190528CB-E
 
                 if (string.IsNullOrEmpty(this.txt入荷先.Text1))
                 {

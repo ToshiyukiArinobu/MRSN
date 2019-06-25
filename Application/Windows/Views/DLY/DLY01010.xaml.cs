@@ -38,7 +38,12 @@ namespace KyoeiSystem.Application.Windows.Views
             金額 = 8,
             摘要 = 9,
             消費税区分 = 10,
-            商品分類 = 11
+            商品分類 = 11,
+
+            // 20190530CB-S
+            色コード = 12,
+            色名称 = 13,
+            // 20190530CB-E
         }
 
         /// <summary>
@@ -288,6 +293,12 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, 0);
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, 0);    // [軽減税率対象]0:通常税率
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, 3);      // [商品分類]3:その他
+                            // 20190530CB-S
+
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色コード, string.Empty);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色名称, string.Empty);
+
+                            // 20190530CB-E
 
                         }
                         else if (ctbl.Rows.Count > 1)
@@ -325,6 +336,11 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分,  myhin.SelectedRowData["消費税区分"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedRowData["商品分類"]);
 
+                                // 20190530CB-S
+                                gridCtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
+                                gridCtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
+                                // 20190530CB-E
+
                                 // 自社品番のセルをロック
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
 
@@ -351,6 +367,12 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, drow["原価"] == DBNull.Value ? 0 : Convert.ToInt32(drow["原価"]));
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
+
+                            // 20190530CB-S
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色名称, drow["自社色名"]);
+                            // 20190530CB-E
+
                             SearchGrid.CommitCellEdit();
                             // 自社品番のセルをロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
@@ -558,6 +580,11 @@ namespace KyoeiSystem.Application.Windows.Views
                                                                                     0 : decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3)));
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedRowData["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedRowData["商品分類"]);
+
+                            // 20190530CB-S
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
+                            // 20195030CB-E
 
                             // 集計計算をおこなう
                             summaryCalculation();

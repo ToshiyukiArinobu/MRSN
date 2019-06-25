@@ -53,7 +53,10 @@ namespace KyoeiSystem.Application.WCFService
                 urhd.出荷日 = t02Data.出荷日;
                 urhd.受注番号 = t02Data.受注番号;
                 urhd.出荷元コード = t02Data.出荷元コード;
+                urhd.出荷元枝番 = t02Data.出荷元枝番;
+                urhd.出荷元名 = t02Data.出荷元名;
                 urhd.出荷先コード = t02Data.出荷先コード;
+                urhd.出荷先枝番 = t02Data.出荷先枝番;
                 urhd.仕入先コード = t02Data.仕入先コード;
                 urhd.仕入先枝番 = t02Data.仕入先枝番;
                 urhd.備考 = t02Data.備考;
@@ -81,7 +84,10 @@ namespace KyoeiSystem.Application.WCFService
                 hdData.出荷日 = t02Data.出荷日;
                 hdData.受注番号 = t02Data.受注番号;
                 hdData.出荷元コード = t02Data.出荷元コード;
+                hdData.出荷元枝番 = t02Data.出荷元枝番;
+                hdData.出荷元名 = t02Data.出荷元名;
                 hdData.出荷先コード = t02Data.出荷先コード;
+                hdData.出荷先枝番 = t02Data.出荷先枝番;
                 hdData.仕入先コード = t02Data.仕入先コード;
                 hdData.仕入先枝番 = t02Data.仕入先枝番;
                 hdData.備考 = t02Data.備考;
@@ -316,7 +322,32 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 売上ヘッダ論理削除
+        /// <summary>
+        /// 売上ヘッダの論理削除をおこなう
+        /// </summary>
+        /// <param name="number">対象伝票番号</param>
+        public T02_URHD_HAN T02_URHD_HAN_Delete(int number)
+        {
+            // 対象データ取得
+            var hdResult =
+                _context.T02_URHD_HAN
+                    .Where(w => w.伝票番号 == number)
+                    .FirstOrDefault();
 
+            if (hdResult != null)
+            {
+                hdResult.削除者 = _loginUserId;
+                hdResult.削除日時 = com.GetDbDateTime();
+
+                hdResult.AcceptChanges();
+
+            }
+
+            return hdResult;
+
+        }
+        #endregion
 
         #endregion
 
@@ -400,6 +431,36 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 売上明細論理削除
+        /// <summary>
+        /// 売上明細情報の論理削除をおこなう
+        /// </summary>
+        /// <param name="number">対象伝票番号</param>
+        /// <returns>対象の仕入明細リスト</returns>
+        public List<T02_URDTL_HAN> T02_URDTL_HAN_Delete(int number)
+        {
+            var dtlResult =
+                _context.T02_URDTL_HAN
+                    .Where(w => w.伝票番号 == number)
+                    .ToList();
+
+            if (dtlResult != null)
+            {
+                foreach (T02_URDTL_HAN srdtl in dtlResult)
+                {
+                    srdtl.削除者 = _loginUserId;
+                    srdtl.削除日時 = com.GetDbDateTime();
+
+                    srdtl.AcceptChanges();
+
+                }
+
+            }
+
+            return dtlResult;
+
+        }
+        #endregion
 
         #endregion
 

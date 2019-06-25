@@ -207,7 +207,37 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _出荷元コード;
     
         [DataMember]
-        public string 出荷先コード
+        public Nullable<int> 出荷元枝番
+        {
+            get { return _出荷元枝番; }
+            set
+            {
+                if (_出荷元枝番 != value)
+                {
+                    _出荷元枝番 = value;
+                    OnPropertyChanged("出荷元枝番");
+                }
+            }
+        }
+        private Nullable<int> _出荷元枝番;
+    
+        [DataMember]
+        public string 出荷元名
+        {
+            get { return _出荷元名; }
+            set
+            {
+                if (_出荷元名 != value)
+                {
+                    _出荷元名 = value;
+                    OnPropertyChanged("出荷元名");
+                }
+            }
+        }
+        private string _出荷元名;
+    
+        [DataMember]
+        public Nullable<int> 出荷先コード
         {
             get { return _出荷先コード; }
             set
@@ -219,7 +249,22 @@ namespace KyoeiSystem.Application.WCFService
                 }
             }
         }
-        private string _出荷先コード;
+        private Nullable<int> _出荷先コード;
+    
+        [DataMember]
+        public Nullable<int> 出荷先枝番
+        {
+            get { return _出荷先枝番; }
+            set
+            {
+                if (_出荷先枝番 != value)
+                {
+                    _出荷先枝番 = value;
+                    OnPropertyChanged("出荷先枝番");
+                }
+            }
+        }
+        private Nullable<int> _出荷先枝番;
     
         [DataMember]
         public Nullable<int> 仕入先コード

@@ -277,6 +277,7 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "T02_Update", ServiceClass = "DLY03010", MethodName = "Update", Descprition = "売上入力情報登録・更新" },
             new WCFDataAccessConfig() { Name = "T02_Delete", ServiceClass = "DLY03010", MethodName = "Delete", Descprition = "売上入力情報削除" },
             new WCFDataAccessConfig() { Name = "T02_CheckStock", ServiceClass = "DLY03010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
+            new WCFDataAccessConfig() { Name = "UpdateData_CheckStock", ServiceClass = "DLY03010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
 
             // 売上(返品)入力
             new WCFDataAccessConfig() { Name = "T02_GetReturnsData", ServiceClass = "DLY03020", MethodName = "GetRtData", Descprition = "売上返品入力情報取得" },
@@ -297,6 +298,9 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "T04_Delete", ServiceClass = "T04", MethodName = "Delete", Descprition = "揚り入力情報削除" },
             new WCFDataAccessConfig() { Name = "T04_CreateDtb", ServiceClass = "T04", MethodName = "getT04_AGRDTB_Create", Descprition = "揚り部材明細作成(品番指定・単体)" },
             new WCFDataAccessConfig() { Name = "T04_GetDtb", ServiceClass = "T04", MethodName = "getT04_AGRDTB_Extension", Descprition = "揚り部材明細取得(伝票番号指定)" },
+            // 20190528CB-S
+            new WCFDataAccessConfig() { Name = "M10_GetCount", ServiceClass = "T04", MethodName = "M10_GetCount", Descprition = "セット品番構成品の登録件数取得" },
+            // 20190528CB-E
 
             // 移動入力
             new WCFDataAccessConfig() { Name = "T05_GetData", ServiceClass = "DLY04010", MethodName = "GetData", Descprition = "移動入力情報取得" },

@@ -261,12 +261,12 @@
 
       <!-- 揚り明細 -->
       <sg:GcSpreadGrid
-          Name="gcSpreadGrid" Grid.Row="3" HorizontalAlignment="Left" AutoFitType="CellWithHeader" LayoutMode="Cell"
+          Name="gcSpreadGrid" Grid.Row="3" HorizontalAlignment="Left" LayoutMode="Template"
           AutoGenerateColumns="False" HighlightHeader="None" RowCount="10" OperationMode="Normal"
           Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" Height="150" MaxWidth="950" MaxHeight="150" Margin="80,5,0,0"
           DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY02010G1.sgxml"
           ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-          CellEditEnded="gcSpredGrid_CellEditEnded" SelectionChanged="gcSpreadGrid_SelectionChanged">
+          CellEditEnded="gcSpredGrid_CellEditEnded" SelectionChanged="gcSpreadGrid_SelectionChanged" Width="814">
 
         <!--カーソル色変更-->
         <sg:GcSpreadGrid.SelectionBorderUnfocused>

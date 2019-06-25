@@ -367,7 +367,32 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 仕入ヘッダ論理削除
+        /// <summary>
+        /// 仕入ヘッダの論理削除をおこなう
+        /// </summary>
+        /// <param name="number">対象伝票番号</param>
+        public T03_SRHD_HAN T03_SRHD_HAN_Delete(int number)
+        {
+            // 対象データ取得
+            var hdResult =
+                _context.T03_SRHD_HAN
+                    .Where(w => w.伝票番号 == number)
+                    .FirstOrDefault();
 
+            if (hdResult != null)
+            {
+                hdResult.削除者 = _loginUserId;
+                hdResult.削除日時 = com.GetDbDateTime();
+
+                hdResult.AcceptChanges();
+
+            }
+
+            return hdResult;
+
+        }
+        #endregion
 
         #endregion
 
@@ -444,6 +469,37 @@ namespace KyoeiSystem.Application.WCFService
                 dtlData.AcceptChanges();
 
             }
+
+        }
+        #endregion
+
+        #region 仕入明細論理削除
+        /// <summary>
+        /// 仕入明細情報の論理削除をおこなう
+        /// </summary>
+        /// <param name="number">対象伝票番号</param>
+        /// <returns>対象の仕入明細リスト</returns>
+        public List<T03_SRDTL_HAN> T03_SRDTL_HAN_Delete(int number)
+        {
+            var dtlResult =
+                _context.T03_SRDTL_HAN
+                    .Where(w => w.伝票番号 == number)
+                    .ToList();
+
+            if (dtlResult != null)
+            {
+                foreach (T03_SRDTL_HAN srdtl in dtlResult)
+                {
+                    srdtl.削除者 = _loginUserId;
+                    srdtl.削除日時 = com.GetDbDateTime();
+
+                    srdtl.AcceptChanges();
+
+                }
+
+            }
+
+            return dtlResult;
 
         }
         #endregion

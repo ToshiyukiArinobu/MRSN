@@ -305,12 +305,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<T03_SRHD> _t03_SRHD;
     
-        public ObjectSet<T02_URHD> T02_URHD
-        {
-            get { return _t02_URHD  ?? (_t02_URHD = CreateObjectSet<T02_URHD>("T02_URHD")); }
-        }
-        private ObjectSet<T02_URHD> _t02_URHD;
-    
         public ObjectSet<S01_SEIDTL> S01_SEIDTL
         {
             get { return _s01_SEIDTL  ?? (_s01_SEIDTL = CreateObjectSet<S01_SEIDTL>("S01_SEIDTL")); }
@@ -406,6 +400,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _m74_KGRP  ?? (_m74_KGRP = CreateObjectSet<M74_KGRP>("M74_KGRP")); }
         }
         private ObjectSet<M74_KGRP> _m74_KGRP;
+    
+        public ObjectSet<T02_URHD> T02_URHD
+        {
+            get { return _t02_URHD  ?? (_t02_URHD = CreateObjectSet<T02_URHD>("T02_URHD")); }
+        }
+        private ObjectSet<T02_URHD> _t02_URHD;
 
         #endregion
 

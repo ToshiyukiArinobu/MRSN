@@ -78,16 +78,18 @@ namespace KyoeiSystem.Application.Windows.Views
             自社品番 = 0,
             得意先品番 = 1,
             自社品名 = 2,
-            賞味期限 = 3,
-            数量 = 4,
-            単位 = 5,
-            単価 = 6,
-            金額 = 7,
-            摘要 = 8,
-            マルセン仕入 = 9,
-            品番コード = 10,
-            消費税区分 = 11,
-            商品分類 = 12
+            色コード = 3,
+            色名称 = 4,
+            賞味期限 = 5,
+            数量 = 6,
+            単位 = 7,
+            単価 = 8,
+            金額 = 9,
+            摘要 = 10,
+            マルセン仕入 = 11,
+            品番コード = 12,
+            消費税区分 = 13,
+            商品分類 = 14
         }
 
         /// <summary>
@@ -1066,6 +1068,10 @@ namespace KyoeiSystem.Application.Windows.Views
 
             if (e.EditAction == SpreadEditAction.Cancel)
                 return;
+
+            //明細行が存在しない場合は処理しない
+            if (SearchDetail == null) return;
+            if (SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() == 0) return;
 
             switch (e.CellPosition.ColumnName)
             {

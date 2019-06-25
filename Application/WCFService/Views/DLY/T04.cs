@@ -1496,6 +1496,29 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        // 20190528CB-S
+        /// <summary>
+        /// セット品番の構成品登録件数取得
+        /// </summary>
+        /// <param name="p品番コード"></param>
+        /// <returns></returns>
+        public int M10_GetCount(int p品番コード)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                var m10count = context.M10_SHIN
+                    .Where(w => w.品番コード == p品番コード);
+
+
+                return m10count.Count();
+            }
+
+        }
+
+        // 20190528CB-E
+
     }
 
 }

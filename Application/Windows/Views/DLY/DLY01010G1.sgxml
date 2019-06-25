@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SpreadGridDocument AssemblyVersion="#1.0.2015.1109" DataFilter="#2147475453">
   <Workbook ActiveSheetIndex="#0" PrintSettings="#0">
-    <Worksheet LayoutMode="#1" ColumnHeaderRowCount="#1" RowCount="#10" RowHeaderColumnCount="#1" ColumnCount="#12">
-      <Template ColumnCount="#11">
+    <Worksheet LayoutMode="#1" ColumnHeaderRowCount="#1" RowCount="#10" RowHeaderColumnCount="#1" ColumnCount="#14">
+      <Template ColumnCount="#12">
         <ColumnDefinitions>
           <ColumnDefinition CanUserAutoFit="" CanUserResize="" IsPageBreak="#False" IsVisible="#True" Width="#0" />
           <ColumnDefinition CanUserAutoFit="System.Boolean, mscorlib#True" CanUserResize="System.Boolean, mscorlib#True" IsPageBreak="#False" IsVisible="#True" Width="#0" />
           <ColumnDefinition CanUserAutoFit="System.Boolean, mscorlib#True" CanUserResize="System.Boolean, mscorlib#True" IsPageBreak="#False" IsVisible="#True" Width="#225" />
+          <ColumnDefinition CanUserAutoFit="System.Boolean, mscorlib#True" CanUserResize="System.Boolean, mscorlib#True" IsPageBreak="#False" IsVisible="#True" Width="#64" />
           <ColumnDefinition CanUserAutoFit="System.Boolean, mscorlib#True" CanUserResize="System.Boolean, mscorlib#True" IsPageBreak="#False" IsVisible="#True" Width="#86" />
           <ColumnDefinition CanUserAutoFit="System.Boolean, mscorlib#True" CanUserResize="System.Boolean, mscorlib#True" IsPageBreak="#False" IsVisible="#True" Width="#87" />
           <ColumnDefinition CanUserAutoFit="System.Boolean, mscorlib#True" CanUserResize="System.Boolean, mscorlib#True" IsPageBreak="#False" IsVisible="#True" Width="#26" />
@@ -25,13 +26,15 @@
           <Cell RowIndex="#0" ColumnIndex="#1" DataColumnIndex="#1" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
           <Cell RowIndex="#0" ColumnIndex="#2" DataColumnIndex="#2" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
           <Cell RowIndex="#1" ColumnIndex="#2" DataColumnIndex="#3" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#3" DataColumnIndex="#4" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#4" DataColumnIndex="#5" DataColumnName="" RowSpan="#2" ColumnSpan="#2" />
-          <Cell RowIndex="#0" ColumnIndex="#6" DataColumnIndex="#7" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#7" DataColumnIndex="#8" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#8" DataColumnIndex="#9" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#9" DataColumnIndex="#10" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#10" DataColumnIndex="#11" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#3" DataColumnIndex="#12" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#1" ColumnIndex="#3" DataColumnIndex="#13" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#4" DataColumnIndex="#4" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#5" DataColumnIndex="#5" DataColumnName="" RowSpan="#2" ColumnSpan="#2" />
+          <Cell RowIndex="#0" ColumnIndex="#7" DataColumnIndex="#7" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#8" DataColumnIndex="#8" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#9" DataColumnIndex="#9" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#10" DataColumnIndex="#10" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#11" DataColumnIndex="#11" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
         </HeaderTemplate>
         <RowTemplate RowCount="#2">
           <RowDefinitions>
@@ -42,18 +45,20 @@
           <Cell RowIndex="#0" ColumnIndex="#1" DataColumnIndex="#1" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
           <Cell RowIndex="#0" ColumnIndex="#2" DataColumnIndex="#2" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
           <Cell RowIndex="#1" ColumnIndex="#2" DataColumnIndex="#3" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#3" DataColumnIndex="#4" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#4" DataColumnIndex="#5" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#5" DataColumnIndex="#6" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#6" DataColumnIndex="#7" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#7" DataColumnIndex="#8" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#8" DataColumnIndex="#9" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#9" DataColumnIndex="#10" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
-          <Cell RowIndex="#0" ColumnIndex="#10" DataColumnIndex="#11" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#3" DataColumnIndex="#12" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#1" ColumnIndex="#3" DataColumnIndex="#13" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#4" DataColumnIndex="#4" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#5" DataColumnIndex="#5" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#6" DataColumnIndex="#6" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#7" DataColumnIndex="#7" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#8" DataColumnIndex="#8" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#9" DataColumnIndex="#9" DataColumnName="" RowSpan="#2" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#10" DataColumnIndex="#10" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
+          <Cell RowIndex="#0" ColumnIndex="#11" DataColumnIndex="#11" DataColumnName="" RowSpan="#1" ColumnSpan="#1" />
         </RowTemplate>
       </Template>
-      <Data HeaderRowCount="#1" RowCount="#10" HeaderColumnCount="#1" ColumnCount="#12" RangeType="#128">
-        <Sheet ID="" DefaultWidth="#64" DefaultHeight="#22" DefaultHeaderColumnWidth="#40" DefaultHeaderRowHeight="#22" IsColumnHeaderVisible="#True" IsRowHeaderVisible="#True" OperationMode="#1" CanUserResizeColumns="#False" CanUserResizeRows="#False" CanUserAutoFitColumns="#False" CanUserAutoFitRows="#True" ColumnDragMode="#0" CellHorizontalGridLine="#255,213,213,213;Thin;-1" CellVerticalGridLine="#255,213,213,213;Thin;-1" HeaderHorizontalGridLine="#255,229,230,232;Thin;-1" HeaderVerticalGridLine="#255,229,230,232;Thin;-1" FrozenColumnCount="#0" Protected="#True" SheetFocusable="#False" TemplateColumnWidths="#0,0,225,86,87,26,85,98,135,0,0" HorizontalScrollMode="#1" SelectionBorder="#255,0,0,0;Medium;198" NamedStyleInfos="#1" AlternatingRows22="#2" DefaultStyleInfo22="#3" />
+      <Data HeaderRowCount="#1" RowCount="#10" HeaderColumnCount="#1" ColumnCount="#14" RangeType="#128">
+        <Sheet ID="" DefaultWidth="#64" DefaultHeight="#22" DefaultHeaderColumnWidth="#40" DefaultHeaderRowHeight="#22" IsColumnHeaderVisible="#True" IsRowHeaderVisible="#True" OperationMode="#1" CanUserResizeColumns="#False" CanUserResizeRows="#False" CanUserAutoFitColumns="#False" CanUserAutoFitRows="#True" ColumnDragMode="#0" CellHorizontalGridLine="#255,213,213,213;Thin;-1" CellVerticalGridLine="#255,213,213,213;Thin;-1" HeaderHorizontalGridLine="#255,229,230,232;Thin;-1" HeaderVerticalGridLine="#255,229,230,232;Thin;-1" FrozenColumnCount="#0" Protected="#True" SheetFocusable="#False" TemplateColumnWidths="#0,0,225,64,86,87,26,85,98,135,0,0" HorizontalScrollMode="#1" SelectionBorder="#255,0,0,0;Medium;198" NamedStyleInfos="#1" AlternatingRows22="#2" DefaultStyleInfo22="#3" />
         <HeaderRow ID="#0" Tag="" Style="#4" />
         <HeaderColumn ID="#0" Tag="" />
         <Column ID="#0" CellType="#5" IsVisible="#False" HeaderTag="" CanUserAutoFit="System.Boolean, mscorlib#False" CanUserResize="System.Boolean, mscorlib#False" BandFocusable="System.Boolean, mscorlib#False" BandLocked="System.Boolean, mscorlib#True" />
@@ -68,6 +73,8 @@
         <Column ID="#9" CellType="#16" HeaderTag="" CanUserResize="System.Boolean, mscorlib#False" BandFocusable="System.Boolean, mscorlib#True" Style="#17" />
         <Column ID="#10" IsVisible="#False" HeaderTag="" CanUserResize="System.Boolean, mscorlib#False" BandFocusable="System.Boolean, mscorlib#False" BandLocked="System.Boolean, mscorlib#True" />
         <Column ID="#11" IsVisible="#False" HeaderTag="" CanUserResize="System.Boolean, mscorlib#False" BandFocusable="System.Boolean, mscorlib#False" BandLocked="System.Boolean, mscorlib#True" />
+        <Column ID="#12" HeaderTag="" />
+        <Column ID="#13" HeaderTag="" />
         <ColumnHeaderCell ID="#0,0" Value="System.String, mscorlib#伝票番号" Tag="" ShowCellTip="" CellTipContent="" />
         <ColumnHeaderCell ID="#0,1" Value="System.String, mscorlib#品番コード" Tag="" ShowCellTip="" CellTipContent="" />
         <ColumnHeaderCell ID="#0,2" Value="System.String, mscorlib#自社品番" Tag="" ShowCellTip="" CellTipContent="" />
@@ -80,6 +87,8 @@
         <ColumnHeaderCell ID="#0,9" Value="System.String, mscorlib#摘要" Tag="" ShowCellTip="" CellTipContent="" />
         <ColumnHeaderCell ID="#0,10" Value="System.String, mscorlib#消費税区分" Tag="" ShowCellTip="" CellTipContent="" />
         <ColumnHeaderCell ID="#0,11" Value="System.String, mscorlib#商品分類" Tag="" ShowCellTip="" CellTipContent="" />
+        <ColumnHeaderCell ID="#0,12" Value="System.String, mscorlib#色コード" Tag="" ShowCellTip="" CellTipContent="" />
+        <ColumnHeaderCell ID="#0,13" Value="System.String, mscorlib#色名称" Tag="" ShowCellTip="" CellTipContent="" />
         <Cell ID="#0,6" CellType="#18" Locked="System.Boolean, mscorlib#True" Focusable="System.Boolean, mscorlib#False" Style="#19" />
         <Cell ID="#0,8" Value="System.Double, mscorlib#0" />
         <Cell ID="#0,10" Locked="System.Boolean, mscorlib#False" />

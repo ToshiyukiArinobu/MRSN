@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KyoeiSystem.Application.WCFService
@@ -75,14 +76,14 @@ namespace KyoeiSystem.Application.WCFService
 
         #region << 移動明細登録更新 >>
         /// <summary>
-        /// 仕入明細の登録・更新をおこなう
+        /// 移動明細の登録・更新をおこなう
         /// </summary>
         /// <param name="idoDtlData"></param>
         public void T05_IDODTL_Update(T05_IDODTL idoDtlData)
         {
             // 登録済データが存在するか判定
             var dtlData =
-                _context.T03_SRDTL
+                _context.T05_IDODTL
                     .Where(w => w.伝票番号 == idoDtlData.伝票番号 && w.行番号 == idoDtlData.行番号)
                     .FirstOrDefault();
 
@@ -121,6 +122,63 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 移動ヘッダ論理削除
+        /// <summary>
+        /// 移動ヘッダの論理削除をおこなう
+        /// </summary>
+        /// <param name="number">対象伝票番号</param>
+        public T05_IDOHD T05_IDOHD_Delete(int number)
+        {
+            // 対象データ取得
+            var hdResult =
+                _context.T05_IDOHD
+                    .Where(w => w.伝票番号 == number)
+                    .FirstOrDefault();
+
+            if (hdResult != null)
+            {
+                hdResult.削除者 = _loginUserId;
+                hdResult.削除日時 = com.GetDbDateTime();
+
+                hdResult.AcceptChanges();
+
+            }
+
+            return hdResult;
+
+        }
+        #endregion
+
+        #region 移動明細論理削除
+        /// <summary>
+        /// 移動明細の論理削除をおこなう
+        /// </summary>
+        /// <param name="number">対象伝票番号</param>
+        public List<T05_IDODTL> T05_IDODTL_Delete(int number)
+        {
+            var dtlResult =
+                _context.T05_IDODTL
+                    .Where(w => w.伝票番号 == number)
+                    .ToList();
+
+            if (dtlResult != null)
+            {
+                foreach (T05_IDODTL idodtl in dtlResult)
+                {
+                    idodtl.削除者 = _loginUserId;
+                    idodtl.削除日時 = com.GetDbDateTime();
+
+                    idodtl.AcceptChanges();
+
+                }
+
+            }
+
+            return dtlResult;
+
+        }
+        #endregion
+
         #region 指定伝票の仕入明細削除
         /// <summary>
         /// 仕入明細から指定伝票番号の明細データを物理削除する
@@ -151,11 +209,11 @@ namespace KyoeiSystem.Application.WCFService
         /// <returns></returns>
         public int getShippingDestination(T02_URHD t02Data)
         {
-            if (t02Data.出荷元コード == null)
+            if (t02Data.会社名コード == null)
                 return -1;
 
             var code =
-                _context.M70_JIS.Where(w => w.自社コード == t02Data.出荷元コード)
+                _context.M70_JIS.Where(w => w.自社コード == t02Data.会社名コード)
                     .Join(_context.M22_SOUK
                             .Where(w => w.削除日時 == null && w.場所会社コード == w.寄託会社コード),
                         x => x.自社コード,

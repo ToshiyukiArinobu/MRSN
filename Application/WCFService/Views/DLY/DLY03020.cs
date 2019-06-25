@@ -43,7 +43,10 @@ namespace KyoeiSystem.Application.WCFService
             public DateTime? 出荷日 { get; set; }
             public string 受注番号 { get; set; }
             public string 出荷元コード { get; set; }
+            public string 出荷元枝番 { get; set; }
+            public string 出荷元名 { get; set; }
             public string 出荷先コード { get; set; }
+            public string 出荷先枝番 { get; set; }
             public string 仕入先コード { get; set; }
             public string 仕入先枝番 { get; set; }
             public string 備考 { get; set; }
@@ -189,7 +192,10 @@ namespace KyoeiSystem.Application.WCFService
                                 出荷日 = s.URTHD.出荷日,
                                 受注番号 = s.URTHD.受注番号.ToString(),
                                 出荷元コード = s.URTHD.出荷元コード.ToString(),
+                                出荷元枝番 = s.URTHD.出荷元枝番.ToString(),
+                                出荷元名 = s.URTHD.出荷元名.ToString(),
                                 出荷先コード = s.URTHD.出荷先コード.ToString(),
+                                出荷先枝番 = s.URTHD.出荷先枝番.ToString(),
                                 仕入先コード = s.URTHD.仕入先コード.ToString(),
                                 仕入先枝番 = s.URTHD.仕入先枝番.ToString(),
                                 備考 = s.URTHD.備考,
@@ -233,7 +239,10 @@ namespace KyoeiSystem.Application.WCFService
                                 出荷日 = s.URTHD.出荷日,
                                 受注番号 = s.URTHD.受注番号.ToString(),
                                 出荷元コード = s.URTHD.出荷元コード.ToString(),
+                                出荷元枝番 = s.URTHD.出荷元枝番.ToString(),
+                                出荷元名 = s.URTHD.出荷元名.ToString(),
                                 出荷先コード = s.URTHD.出荷先コード.ToString(),
+                                出荷先枝番 = s.URTHD.出荷先枝番.ToString(),
                                 仕入先コード = s.URTHD.仕入先コード.ToString(),
                                 仕入先枝番 = s.URTHD.仕入先枝番.ToString(),
                                 備考 = s.URTHD.備考,
@@ -555,12 +564,9 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="isRegist">データ状態(登録or編集)：登録時）真、編集時）偽</param>
         private void setSalesCompanyReturnsProc(T02_URHD urhd, DataTable dtlTbl, bool isRegist)
         {
-            // 判定に使用する自社区分を取得
-            var kbn = getM70_JISFromM22_SOUK(urhd.在庫倉庫コード).自社区分;
 
-            // 在庫データを作成するか(仕入が発生するか)
-            bool isStokCreate =
-                kbn == CommonConstants.自社区分.自社.GetHashCode() && urhd.出荷元コード != null;
+            // 出荷元と出荷先が異なる場合場合のみ移動処理を行う
+            bool difShip = urhd.在庫倉庫コード != T05Service.getShippingDestination(urhd);
 
             // 1.売上ヘッダの更新
             T02Service.T02_URHD_Update(urhd);
@@ -574,32 +580,33 @@ namespace KyoeiSystem.Application.WCFService
             // 4.入出庫履歴の生成
             setS04_HISTORY_Create(urhd, dtlTbl);
 
-            // 在庫倉庫の自社区分が自社(マルセン)の場合のみ処理をおこなう
-            if (isStokCreate)
+            // 5.販社仕入ヘッダの更新
+            setT03_SRHD_HAN_Update(urhd, dtlTbl, CommonConstants.仕入区分.返品);
+
+            // 6.販社仕入明細の更新
+            setT03_SRDTL_HAN_Update(urhd, dtlTbl);
+
+            // 7.販社売上ヘッダの更新
+            setT02_URHD_HAN_Update(urhd, dtlTbl);
+
+            // 8.販社売上明細の更新
+            setT02_URDTL_HAN_Update(urhd, dtlTbl);
+
+            // 在庫倉庫が自社と異なる場合のみ処理をおこなう
+            if (difShip)
             {
-                // 5.販社仕入ヘッダの更新
-                setT03_SRHD_HAN_Update(urhd, dtlTbl, isStokCreate, CommonConstants.仕入区分.返品);
-
-                // 6.販社仕入明細の更新
-                setT03_SRDTL_HAN_Update(urhd, dtlTbl, isStokCreate);
-
-                // 7.移動ヘッダの更新
+                // 9.移動ヘッダの更新
                 setT05_IDOHD_Returns_Update(urhd);
 
-                // 8.移動明細の更新
-                setT05_IDODTL_Update(urhd, dtlTbl, isStokCreate);
-
-                // 9.販社売上ヘッダの更新
-                setT02_URHD_HAN_Update(urhd, dtlTbl, isStokCreate);
-
-                // 10.販社売上明細の更新
-                setT02_URDTL_HAN_Update(urhd, dtlTbl, isStokCreate);
+                // 10.移動明細の更新
+                setT05_IDODTL_Update(urhd, dtlTbl, true);
 
                 // 11.在庫返品処理(販社⇒マルセン(自社))
-                // Remarks: 3の在庫処理にて元の倉庫に戻されているので処理不要
+                setS03_STOK_Returns_Update(urhd, dtlTbl, true, isRegist);
 
+                // 12.販社の入出庫履歴の生成
+                setS04_HISTORY_HANReturns_Update(urhd, dtlTbl, true);
             }
-
         }
         #endregion
 
@@ -766,57 +773,8 @@ namespace KyoeiSystem.Application.WCFService
             // 3.在庫(売上返品)の更新
             setS03_STOK_Returns_Update(urhd, dtlTbl, false, isRegist);
 
-            #region 4.入出庫履歴の生成(得意先⇒販社の入庫)
-            foreach (DataRow row in dtlTbl.Rows)
-            {
-                // 売上明細データ取得
-                T02_URDTL urdtl = convertDataRowToT02_URDTL_Entity(row);
-
-                // 商品未設定レコードは処理しない
-                if (urdtl.品番コード <= 0)
-                    continue;
-
-                S04_HISTORY history = new S04_HISTORY();
-
-                history.入出庫日 = urhd.売上日;
-                history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
-                history.倉庫コード = get出荷先倉庫コード(urhd.出荷元コード ?? 0);
-                history.入出庫区分 = (int)CommonConstants.入出庫区分.ID01_入庫;
-                history.品番コード = urdtl.品番コード;
-                history.賞味期限 = urdtl.賞味期限;
-                history.数量 = Math.Abs(decimal.ToInt32(urdtl.数量));
-                history.伝票番号 = urhd.伝票番号;
-
-                Dictionary<string, string> hstDic = new Dictionary<string, string>()
-                    {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
-                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
-                        { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
-                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
-                    };
-
-                if (row.RowState == DataRowState.Added)
-                {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(history);
-                }
-                else if (row.RowState == DataRowState.Deleted)
-                {
-                    S04Service.DeleteProductHistory(hstDic);
-                }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
-                else
-                {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
-                }
-
-            }
-            #endregion
+            // 4.入出庫履歴の生成
+            setS04_HISTORY_Create(urhd, dtlTbl);
 
             // 5.移動ヘッダの更新(販社⇒マルセン)
             setT05_IDOHD_Returns_Update(urhd);
@@ -825,111 +783,24 @@ namespace KyoeiSystem.Application.WCFService
             setT05_IDODTL_Update(urhd, dtlTbl, false);
 
             // 7.販社仕入ヘッダの更新(販社⇒マルセン)
-            setT03_SRHD_HAN_Update(urhd, dtlTbl, false, CommonConstants.仕入区分.返品);
+            setT03_SRHD_HAN_Update(urhd, dtlTbl, CommonConstants.仕入区分.返品);
 
             // 8.販社仕入明細の更新
-            setT03_SRDTL_HAN_Update(urhd, dtlTbl, false);
+            setT03_SRDTL_HAN_Update(urhd, dtlTbl);
 
             // 9.販社売上ヘッダの更新
-            setT02_URHD_HAN_Update(urhd, dtlTbl, false);
+            setT02_URHD_HAN_Update(urhd, dtlTbl);
 
             // 10.販社売上明細の更新
-            setT02_URDTL_HAN_Update(urhd, dtlTbl, false);
+            setT02_URDTL_HAN_Update(urhd, dtlTbl);
 
-            #region 11.入出庫履歴の生成(販社⇒自社の入出庫)
-            foreach (DataRow row in dtlTbl.Rows)
-            {
-                // 売上明細データ取得
-                T02_URDTL urdtl = convertDataRowToT02_URDTL_Entity(row);
+            // 11.在庫返品処理(販社⇒マルセン(自社))
+            setS03_STOK_Returns_Update(urhd, dtlTbl, true, isRegist);
 
-                // 商品未設定レコードは処理しない
-                if (urdtl.品番コード <= 0)
-                    continue;
+            // 12.販社の入出庫履歴の生成
+            setS04_HISTORY_HANReturns_Update(urhd, dtlTbl, true);
 
-                #region 販社からの出庫
-                S04_HISTORY history = new S04_HISTORY();
-                history.入出庫日 = urhd.売上日;
-                history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
-                history.倉庫コード = get出荷先倉庫コード(urhd.出荷元コード ?? 0);
-                history.入出庫区分 = (int)CommonConstants.入出庫区分.ID02_出庫;
-                history.品番コード = urdtl.品番コード;
-                history.賞味期限 = urdtl.賞味期限;
-                history.数量 = Math.Abs(decimal.ToInt32(urdtl.数量));
-                history.伝票番号 = urhd.伝票番号;
-
-                Dictionary<string, string> hstDic = new Dictionary<string, string>()
-                    {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
-                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
-                        { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
-                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
-                    };
-
-                if (row.RowState == DataRowState.Added)
-                {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(history);
-                }
-                else if (row.RowState == DataRowState.Deleted)
-                {
-                    S04Service.DeleteProductHistory(hstDic);
-                }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
-                else
-                {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
-                }
-                #endregion
-
-                #region 自社の入庫
-                history = new S04_HISTORY();
-                history.入出庫日 = urhd.売上日;
-                history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
-                history.倉庫コード = urhd.在庫倉庫コード;
-                history.入出庫区分 = (int)CommonConstants.入出庫区分.ID01_入庫;
-                history.品番コード = urdtl.品番コード;
-                history.賞味期限 = urdtl.賞味期限;
-                history.数量 = Math.Abs(decimal.ToInt32(urdtl.数量));
-                history.伝票番号 = urhd.伝票番号;
-
-                hstDic = new Dictionary<string, string>()
-                    {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
-                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
-                        { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
-                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
-                    };
-
-                if (row.RowState == DataRowState.Added)
-                {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(history);
-                }
-                else if (row.RowState == DataRowState.Deleted)
-                {
-                    S04Service.DeleteProductHistory(hstDic);
-                }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
-                else
-                {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
-                }
-                #endregion
-
-            }
-            #endregion
-
-            #region 12.仕入ヘッダの更新(メーカー⇒マルセン)
+            #region 13.仕入ヘッダの更新(メーカー⇒マルセン)
             T03_SRHD srhd = new T03_SRHD();
 
             srhd.伝票番号 = urhd.伝票番号;
@@ -948,10 +819,10 @@ namespace KyoeiSystem.Application.WCFService
             T03Service.T03_SRHD_Update(srhd);
             #endregion
 
-            // 13.仕入明細の更新
+            // 14.仕入明細の更新
             setT03_SRDTL_Update(urhd, dtlTbl, false);
 
-            #region 14.在庫更新(メーカーへの出庫)
+            #region 15.在庫更新(メーカーへの出庫)
             foreach (DataRow row in dtlTbl.Rows)
             {
                 T02_URDTL urdtl = convertDataRowToT02_URDTL_Entity(row);
@@ -1012,7 +883,7 @@ namespace KyoeiSystem.Application.WCFService
             }
             #endregion
 
-            #region 15.入出庫履歴の生成(自社⇒メーカーの出庫)
+            #region 16.入出庫履歴の生成(自社⇒メーカーの出庫)
             foreach (DataRow row in dtlTbl.Rows)
             {
                 // 売上明細データ取得
@@ -1096,15 +967,6 @@ namespace KyoeiSystem.Application.WCFService
                 if (isNonCheckItemWithout && 仕入チェック == false)
                     continue;
 
-                int 返品倉庫コード = 0;
-                if (isNonCheckItemWithout && !仕入チェック && urhd.出荷元コード != null)
-                {
-                    // 判定アリでチェックなしの場合は自倉庫を設定
-                    返品倉庫コード = get出荷先倉庫コード(urhd.出荷元コード ?? 0);
-                }
-                else
-                    返品倉庫コード = urhd.在庫倉庫コード;
-
                 decimal stockQty = 0;
 
                 #region 在庫調整数計算
@@ -1147,18 +1009,140 @@ namespace KyoeiSystem.Application.WCFService
                 }
                 #endregion
 
-                S03_STOK stok = new S03_STOK();
-                stok.倉庫コード = 返品倉庫コード;
-                stok.品番コード = urdtl.品番コード;
-                stok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
-                stok.在庫数 = stockQty;
+                if (isNonCheckItemWithout)
+                {
 
-                S03Service.S03_STOK_Update(stok);
+                    // ⇒販社から出庫処理
+                    S03_STOK outStok = new S03_STOK();
 
+                    int outSouk = getStockpileFromJis(urhd.会社名コード);
+                    outStok.倉庫コード = outSouk;
+                    outStok.品番コード = urdtl.品番コード;
+                    outStok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
+                    outStok.在庫数 = stockQty * -1;
+
+                    S03Service.S03_STOK_Update(outStok);
+
+                   
+                    // ⇒在庫倉庫への入庫処理
+                    S03_STOK inStok = new S03_STOK();
+
+                    int inSouk = urhd.在庫倉庫コード; 
+                    inStok.倉庫コード = inSouk;
+                    inStok.品番コード = urdtl.品番コード;
+                    inStok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
+                    inStok.在庫数 = stockQty;
+                    S03Service.S03_STOK_Update(inStok);
+                }
+                else
+                {
+                    S03_STOK stok = new S03_STOK();
+
+                    switch (urhd.売上区分)
+                    {
+                        case (int)CommonConstants.売上区分.メーカー直送返品:
+                            // マルセン
+                            stok.倉庫コード = getStockpileFromJis();
+                            break;
+                        case (int)CommonConstants.売上区分.販社売上返品:
+                        case (int)CommonConstants.売上区分.メーカー販社商流直送返品:
+                            // 自社名の倉庫
+                            stok.倉庫コード = getStockpileFromJis(urhd.会社名コード);
+                            break;
+                        default:
+                            // 在庫倉庫
+                            stok.倉庫コード = urhd.在庫倉庫コード;
+                            break;
+                    }
+
+                    stok.品番コード = urdtl.品番コード;
+                    stok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
+                    stok.在庫数 = stockQty;
+
+                    S03Service.S03_STOK_Update(stok);
+                }
             }
 
         }
 
+        #endregion
+
+        #region << 入庫履歴更新処理 >>
+        /// <summary>
+        /// 入庫履歴の登録・更新をおこなう
+        /// </summary>
+        /// <param name="hdData">仕入ヘッダデータ</param>
+        /// <param name="dtlTable">仕入明細データテーブル</param>
+        private void setS04_HISTORY_Create(T02_URHD hdData, DataTable dtlTable)
+        {
+            foreach (DataRow row in dtlTable.Rows)
+            {
+                // 売上明細データ取得
+                T02_URDTL urdtl = convertDataRowToT02_URDTL_Entity(row);
+
+                // 商品未設定レコードは処理しない
+                if (urdtl.品番コード <= 0)
+                    continue;
+
+                S04_HISTORY history = new S04_HISTORY();
+
+                switch (hdData.売上区分)
+                {
+                    case (int)CommonConstants.売上区分.メーカー直送返品:
+                        // マルセン
+                        history.倉庫コード = getStockpileFromJis();
+                        break;
+                    case (int)CommonConstants.売上区分.販社売上返品:
+                    case (int)CommonConstants.売上区分.メーカー販社商流直送返品:
+                        // 自社名の倉庫
+                        history.倉庫コード = getStockpileFromJis(hdData.会社名コード);
+                        break;
+                    default:
+                        // 在庫倉庫
+                        history.倉庫コード = hdData.在庫倉庫コード;
+                        break;
+                }
+
+                history.入出庫日 = hdData.売上日;
+                history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
+                //history.入出庫区分 = (int)S04Service.getInboundType(row, "数量", urdtl.数量);
+                history.入出庫区分 = (int)CommonConstants.入出庫区分.ID01_入庫;
+                history.品番コード = urdtl.品番コード;
+                history.賞味期限 = urdtl.賞味期限;
+                history.数量 = decimal.ToInt32(urdtl.数量);
+                history.伝票番号 = hdData.伝票番号;
+
+                Dictionary<string, string> hstDic = new Dictionary<string, string>()
+                    {
+                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
+                        { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
+                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
+                    };
+
+                if (row.RowState == DataRowState.Added)
+                {
+                    // 売上作成の為、履歴作成
+                    S04Service.CreateProductHistory(history);
+                }
+                else if (row.RowState == DataRowState.Deleted)
+                {
+                    S04Service.DeleteProductHistory(hstDic);
+                }
+                else if (row.RowState == DataRowState.Modified)
+                {
+                    // 売上更新の為、履歴更新
+                    S04Service.UpdateProductHistory(history, hstDic);
+                }
+                else
+                {
+                    // 対象なし(DataRowState.Unchanged)
+                    continue;
+                }
+
+            }
+
+        }
         #endregion
 
         #region 移動ヘッダ情報の返品更新
@@ -1179,7 +1163,7 @@ namespace KyoeiSystem.Application.WCFService
             idohd.会社名コード = urhd.会社名コード;
             idohd.日付 = urhd.売上日;
             idohd.移動区分 = (int)CommonConstants.移動区分.売上移動;
-            idohd.出荷元倉庫コード = get出荷先倉庫コード(urhd.出荷元コード ?? 0);
+            idohd.出荷元倉庫コード = getStockpileFromJis(urhd.会社名コード);
             idohd.出荷先倉庫コード = urhd.在庫倉庫コード;
 
             T05Service.T05_IDOHD_Update(idohd);
@@ -1188,6 +1172,116 @@ namespace KyoeiSystem.Application.WCFService
         #endregion
 
 
+        #region 販社の入出庫履歴の生成
+
+        /// <summary>
+        /// 販社の入出庫履歴の登録・更新をおこなう
+        /// </summary>
+        /// <param name="urhd"></param>
+        /// <param name="dtlTbl"></param>
+        /// <param name="isNonCheckItemWithout">マルセン仕入チェックが無いものを除外するか</param>
+        private void setS04_HISTORY_HANReturns_Update(T02_URHD urhd, DataTable dtlTbl, bool isNonCheckItemWithout)
+        {
+
+            foreach (DataRow row in dtlTbl.Rows)
+            {
+                // 売上明細データ取得
+                T02_URDTL urdtl = convertDataRowToT02_URDTL_Entity(row);
+
+                // 商品未設定レコードは処理しない
+                if (urdtl.品番コード <= 0)
+                    continue;
+
+                bool bval,
+                  仕入チェック = bool.TryParse(row["マルセン仕入"].ToString(), out bval) ? bval : false;
+
+                // チェック判定アリかつチェックボックス=オフの場合は登録処理をスキップする
+                if (isNonCheckItemWithout && 仕入チェック == false)
+                    continue;
+
+                #region 販社からの出庫
+                S04_HISTORY history = new S04_HISTORY();
+                history.入出庫日 = urhd.売上日;
+                history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
+                history.倉庫コード = getStockpileFromJis(urhd.会社名コード);
+                history.入出庫区分 = (int)CommonConstants.入出庫区分.ID02_出庫;
+                history.品番コード = urdtl.品番コード;
+                history.賞味期限 = urdtl.賞味期限;
+                history.数量 = Math.Abs(decimal.ToInt32(urdtl.数量));
+                history.伝票番号 = urhd.伝票番号;
+
+                Dictionary<string, string> hstDic = new Dictionary<string, string>()
+                    {
+                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
+                        { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
+                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
+                    };
+
+                if (row.RowState == DataRowState.Added)
+                {
+                    // 売上作成の為、履歴作成
+                    S04Service.CreateProductHistory(history);
+                }
+                else if (row.RowState == DataRowState.Deleted)
+                {
+                    S04Service.DeleteProductHistory(hstDic);
+                }
+                else if (row.RowState == DataRowState.Modified)
+                {
+                    // 売上更新の為、履歴更新
+                    S04Service.UpdateProductHistory(history, hstDic);
+                }
+                else
+                {
+                    // 対象なし(DataRowState.Unchanged)
+                    continue;
+                }
+                #endregion
+
+                #region 自社の入庫
+                history = new S04_HISTORY();
+                history.入出庫日 = urhd.売上日;
+                history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
+                history.倉庫コード = urhd.在庫倉庫コード;
+                history.入出庫区分 = (int)CommonConstants.入出庫区分.ID01_入庫;
+                history.品番コード = urdtl.品番コード;
+                history.賞味期限 = urdtl.賞味期限;
+                history.数量 = Math.Abs(decimal.ToInt32(urdtl.数量));
+                history.伝票番号 = urhd.伝票番号;
+
+                hstDic = new Dictionary<string, string>()
+                    {
+                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
+                        { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
+                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
+                    };
+
+                if (row.RowState == DataRowState.Added)
+                {
+                    // 売上作成の為、履歴作成
+                    S04Service.CreateProductHistory(history);
+                }
+                else if (row.RowState == DataRowState.Deleted)
+                {
+                    S04Service.DeleteProductHistory(hstDic);
+                }
+                else if (row.RowState == DataRowState.Modified)
+                {
+                    // 売上更新の為、履歴更新
+                    S04Service.UpdateProductHistory(history, hstDic);
+                }
+                else
+                {
+                    // 対象なし(DataRowState.Unchanged)
+                    continue;
+                }
+                #endregion
+
+            }
+        }
+        #endregion
 
         #region << 処理関連 >>
 
@@ -1214,6 +1308,52 @@ namespace KyoeiSystem.Application.WCFService
                         .FirstOrDefault();
 
                 return code;
+
+            }
+
+        }
+
+        /// <summary>
+        /// 自社(マルセン)の倉庫コードを取得する
+        /// </summary>
+        /// <returns></returns>
+        private int getStockpileFromJis()
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                var jis =
+                    context.M70_JIS
+                        .Where(w =>
+                            w.削除日時 == null &&
+                            w.自社区分 == (int)CommonConstants.自社区分.自社)
+                        .FirstOrDefault();
+
+                return getStockpileFromJis(jis.自社コード);
+
+            }
+
+        }
+
+        /// <summary>
+        /// 会社名コードから該当の倉庫コードを取得する
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="会社名コード">M70_JIS</param>
+        /// <returns></returns>
+        private int getStockpileFromJis(int 会社名コード)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                var souk =
+                    context.M22_SOUK
+                        .Where(w =>
+                            w.削除日時 == null &&
+                            w.場所会社コード == 会社名コード &&
+                            w.寄託会社コード == 会社名コード)
+                        .Select(s => s.倉庫コード)
+                        .FirstOrDefault();
+
+                return souk;
 
             }
 
