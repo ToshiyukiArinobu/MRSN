@@ -54,17 +54,17 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         public class ConfigDLY04010 : FormConfigBase
         {
-		}
+        }
 
         /// ※ 必ず public で定義する。
         public ConfigDLY04010 frmcfg = null;
 
         #endregion
 
-		#region 定数定義
+        #region 定数定義
 
         /// <summary>移動情報取得</summary>
-		private const string T05_GetData = "T05_GetData";
+        private const string T05_GetData = "T05_GetData";
         /// <summary>移動情報更新</summary>
         private const string T05_Update = "T05_Update";
 
@@ -75,7 +75,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T05_HEADER_TABLE_NAME = "T05_IDOHD";
         /// <summary>移動明細 テーブル名</summary>
         private const string T05_DETAIL_TABLE_NAME = "T05_IDODTL";
-        
+
         #endregion
 
         #region 列挙型定義
@@ -151,6 +151,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 NotifyPropertyChanged();
             }
         }
+
+        #endregion
+
+        #region << クラス変数定義 >>
+        /// <summary>
+        /// 編集中の行番号
+        /// </summary>
+        private int _編集行;
 
         #endregion
 
@@ -382,6 +390,10 @@ namespace KyoeiSystem.Application.Windows.Views
                         #region 自社品番 手入力時
                         DataTable ctbl = data as DataTable;
                         int rIdx = gcSpreadGrid.ActiveRowIndex;
+                        int columnIdx = gcSpreadGrid.ActiveColumnIndex;
+
+                        // フォーカス移動後の項目が異なる場合または編集行が異なる場合は処理しない。
+                        if ((columnIdx != (int)GridColumnsMapping.自社品名) || _編集行 != rIdx) return;
 
                         if (ctbl == null || ctbl.Rows.Count == 0)
                         {
@@ -503,6 +515,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         if (myhin.ShowDialog(this) == true)
                         {
+                            //入力途中のセルを未編集状態に戻す
+                            spgrid.CancelCellEdit();
+
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.品番コード].Value = myhin.SelectedRowData["品番コード"].ToString();
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.自社品番].Value = myhin.SelectedRowData["自社品番"].ToString();
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.自社品名].Value = myhin.SelectedRowData["自社品名"].ToString();
@@ -549,13 +564,51 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region F6 行削除
+        /// <summary>
+        /// F06　リボン　行削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF6Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode == null || MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
+                return;
+
+            if (gcSpreadGrid.ActiveRowIndex < 0)
+            {
+                this.ErrorMessage = "行を選択してください";
+                return;
+            }
+
+            if (MessageBox.Show(
+                    AppConst.CONFIRM_DELETE_ROW,
+                    "行削除確認",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question,
+                    MessageBoxResult.No) == MessageBoxResult.No)
+                return;
+
+            int targetRowIdx = this.gcSpreadGrid.ActiveRowIndex;
+
+            gcSpreadGrid.Rows.Remove(targetRowIdx);
+            DataRow dtlRow = SearchDetail.NewRow();
+            dtlRow["伝票番号"] = this.txt伝票番号.Text;
+            dtlRow["行番号"] = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable().Select(a => a.Field<int>("行番号")).Max() + 1;
+            SearchDetail.Rows.Add(dtlRow);
+
+
+
+        }
+        #endregion
+
         #region F9 登録
         /// <summary>
         /// F09　リボン　登録
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public override void OnF9Key(object sender, KeyEventArgs e)
+        public override void OnF9Key(object sender, KeyEventArgs e)
         {
             if (MaintenanceMode == null)
                 return;
@@ -565,7 +618,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
 
             //20190613CB-S
-            if (txt移動元倉庫.Text1 == txt移動先倉庫.Text1) 
+            if (txt移動元倉庫.Text1 == txt移動先倉庫.Text1)
             {
                 this.txt移動先倉庫.Focus();
                 MessageBox.Show("移動元倉庫と移動先倉庫は同一に出来ません。");
@@ -625,11 +678,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             else
             {
-				if (DataUpdateVisible != Visibility.Hidden)
-				{
-					var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-					if (yesno == MessageBoxResult.No)
-						return;
+                if (DataUpdateVisible != Visibility.Hidden)
+                {
+                    var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (yesno == MessageBoxResult.No)
+                        return;
 
                 }
 
@@ -671,18 +724,19 @@ namespace KyoeiSystem.Application.Windows.Views
                     row["行番号"] = (i + 1);
 
                     SearchDetail.Rows.Add(row);
-                    SearchDetail.Rows[i].SetAdded();
+                    //SearchDetail.Rows[i].SetAdded();
 
                 }
 
                 this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
-
+                F6.IsEnabled = true;
                 this.txt移動日.Focus();
 
             }
             else
             {
                 this.MaintenanceMode = AppConst.MAINTENANCEMODE_EDIT;
+                F6.IsEnabled = false;
 
                 // 取得明細の自社品番をロック(編集不可)に設定
                 foreach (var row in gcSpreadGrid.Rows)
@@ -813,8 +867,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             #region 【明細】入力チェック
 
+            // 現在の明細行を取得
+            var CurrentDetail = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable();
+
             // 【明細】詳細データが１件もない場合はエラー
-            if (SearchDetail == null || SearchDetail.Rows.Count == 0)
+            if (SearchDetail == null || CurrentDetail.Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
             {
                 base.ErrorMessage = string.Format("明細情報が１件もありません。");
                 this.gcSpreadGrid.Focus();
@@ -836,6 +893,19 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // エラー情報をクリア
                 gcSpreadGrid.Rows[rIdx].ValidationErrors.Clear();
+
+                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
+                int? row品番コード = DBNull.Value.Equals(row["品番コード"]) ? (int?)null : Convert.ToInt32(row["品番コード"]);
+                if (CurrentDetail.Where(x => x.Field<int?>("品番コード") == row品番コード && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
+                {
+                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
+                    gcSpreadGrid.Rows[rIdx]
+                       .ValidationErrors.Add(new SpreadValidationError("同じ商品が存在するので、一つに纏めて下さい。", null, rIdx, (int)GridColumnsMapping.品番コード));
+                    if (!isDetailErr)
+                        gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, (int)GridColumnsMapping.品番コード);
+
+                    isDetailErr = true;
+                }
 
                 if (string.IsNullOrEmpty(row["数量"].ToString()))
                 {
@@ -897,6 +967,7 @@ namespace KyoeiSystem.Application.Windows.Views
             ResetAllValidation();
             this.cmb移動区分.SelectedIndex = 0;
             this.txt伝票番号.Focus();
+            F6.IsEnabled = true;
 
         }
         #endregion
@@ -993,40 +1064,48 @@ namespace KyoeiSystem.Application.Windows.Views
             if (e.EditAction == SpreadEditAction.Cancel)
                 return;
 
+            //明細行が存在しない場合は処理しない
+            if (SearchDetail == null) return;
+            if (SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() == 0) return;
+
+            _編集行 = e.CellPosition.Row;
+
             try
             {
                 switch (e.CellPosition.ColumnName)
-            {
-                
+                {
 
 
-                case "自社品番":
-                    var target = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Value;
-                    if (target == null)
-                        return;
 
-                    // 自社品番(または得意先品番)からデータを参照し、取得内容をグリッドに設定
-                    base.SendRequest(
-                        new CommunicationObject(
-                            MessageType.RequestData,
-                            MasterCode_MyProduct,
-                            new object[] {
+                    case "自社品番":
+                        var target = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Value;
+                        if (target == null)
+                            return;
+
+                        // 自社品番(または得意先品番)からデータを参照し、取得内容をグリッドに設定
+                        base.SendRequest(
+                            new CommunicationObject(
+                                MessageType.RequestData,
+                                MasterCode_MyProduct,
+                                new object[] {
                                 target.ToString()
+                                ,null
+                                ,null
                             }));
-                    break;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
 
-            }
+                }
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.ToString());
             }
-            
-            
+
+
 
         }
 

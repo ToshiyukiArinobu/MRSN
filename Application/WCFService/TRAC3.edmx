@@ -841,6 +841,7 @@
           <Property Name="出荷元枝番" Type="int" />
           <Property Name="出荷元名" Type="varchar" MaxLength="30" />
           <Property Name="出荷先コード" Type="int" />
+          <Property Name="出荷先名" Type="varchar" MaxLength="30" />
           <Property Name="出荷先枝番" Type="int" />
           <Property Name="仕入先コード" Type="int" />
           <Property Name="仕入先枝番" Type="int" />
@@ -2409,6 +2410,7 @@
           <Property Type="Int32" Name="出荷元枝番" />
           <Property Type="String" Name="出荷元名" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="出荷先コード" />
+          <Property Type="String" Name="出荷先名" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="出荷先枝番" />
           <Property Type="Int32" Name="仕入先コード" />
           <Property Type="Int32" Name="仕入先枝番" />
@@ -3508,6 +3510,7 @@
                 <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
                 <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
                 <ScalarProperty Name="出荷先枝番" ColumnName="出荷先枝番" />
+                <ScalarProperty Name="出荷先名" ColumnName="出荷先名" />
                 <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
                 <ScalarProperty Name="出荷元名" ColumnName="出荷元名" />
                 <ScalarProperty Name="出荷元枝番" ColumnName="出荷元枝番" />

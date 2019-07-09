@@ -57,6 +57,7 @@ namespace KyoeiSystem.Application.WCFService
                 urhd.出荷元名 = t02Data.出荷元名;
                 urhd.出荷先コード = t02Data.出荷先コード;
                 urhd.出荷先枝番 = t02Data.出荷先枝番;
+                urhd.出荷先名 = t02Data.出荷先名;
                 urhd.仕入先コード = t02Data.仕入先コード;
                 urhd.仕入先枝番 = t02Data.仕入先枝番;
                 urhd.備考 = t02Data.備考;
@@ -88,6 +89,7 @@ namespace KyoeiSystem.Application.WCFService
                 hdData.出荷元名 = t02Data.出荷元名;
                 hdData.出荷先コード = t02Data.出荷先コード;
                 hdData.出荷先枝番 = t02Data.出荷先枝番;
+                hdData.出荷先名 = t02Data.出荷先名;
                 hdData.仕入先コード = t02Data.仕入先コード;
                 hdData.仕入先枝番 = t02Data.仕入先枝番;
                 hdData.備考 = t02Data.備考;

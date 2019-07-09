@@ -7339,6 +7339,20 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column出荷主;
             
+            private global::System.Data.DataColumn column得意先名１;
+            
+            private global::System.Data.DataColumn column得意先名２;
+            
+            private global::System.Data.DataColumn column得意先郵便番号;
+            
+            private global::System.Data.DataColumn column得意先住所１;
+            
+            private global::System.Data.DataColumn column得意先住所２;
+            
+            private global::System.Data.DataColumn column得意先TEL;
+            
+            private global::System.Data.DataColumn columnDataColumn1;
+            
             private global::System.Data.DataColumn column納品先名１;
             
             private global::System.Data.DataColumn column納品先名２;
@@ -7351,9 +7365,25 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column納品先TEL;
             
+            private global::System.Data.DataColumn column納品先FAX;
+            
             private global::System.Data.DataColumn column出荷日;
             
             private global::System.Data.DataColumn column納品日;
+            
+            private global::System.Data.DataColumn column出荷元名１;
+            
+            private global::System.Data.DataColumn column出荷元名２;
+            
+            private global::System.Data.DataColumn column出荷元郵便番号;
+            
+            private global::System.Data.DataColumn column出荷元住所１;
+            
+            private global::System.Data.DataColumn column出荷元住所２;
+            
+            private global::System.Data.DataColumn column出荷元TEL;
+            
+            private global::System.Data.DataColumn column出荷元FAX;
             
             private global::System.Data.DataColumn column自社名;
             
@@ -7381,7 +7411,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位１;
             
+            private global::System.Data.DataColumn column単価１;
+            
+            private global::System.Data.DataColumn column金額１;
+            
             private global::System.Data.DataColumn column摘要１;
+            
+            private global::System.Data.DataColumn column明細品番１;
+            
+            private global::System.Data.DataColumn column明細品名１;
+            
+            private global::System.Data.DataColumn column明細数量１;
+            
+            private global::System.Data.DataColumn column明細単位１;
+            
+            private global::System.Data.DataColumn column明細摘要１;
             
             private global::System.Data.DataColumn column行番号２;
             
@@ -7393,7 +7437,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位２;
             
+            private global::System.Data.DataColumn column単価２;
+            
+            private global::System.Data.DataColumn column金額２;
+            
             private global::System.Data.DataColumn column摘要２;
+            
+            private global::System.Data.DataColumn column明細品番２;
+            
+            private global::System.Data.DataColumn column明細品名２;
+            
+            private global::System.Data.DataColumn column明細数量２;
+            
+            private global::System.Data.DataColumn column明細単位２;
+            
+            private global::System.Data.DataColumn column明細摘要２;
             
             private global::System.Data.DataColumn column行番号３;
             
@@ -7405,7 +7463,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位３;
             
+            private global::System.Data.DataColumn column単価３;
+            
+            private global::System.Data.DataColumn column金額３;
+            
             private global::System.Data.DataColumn column摘要３;
+            
+            private global::System.Data.DataColumn column明細品番３;
+            
+            private global::System.Data.DataColumn column明細品名３;
+            
+            private global::System.Data.DataColumn column明細数量３;
+            
+            private global::System.Data.DataColumn column明細単位３;
+            
+            private global::System.Data.DataColumn column明細摘要３;
             
             private global::System.Data.DataColumn column行番号４;
             
@@ -7417,7 +7489,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位４;
             
+            private global::System.Data.DataColumn column単価４;
+            
+            private global::System.Data.DataColumn column金額４;
+            
             private global::System.Data.DataColumn column摘要４;
+            
+            private global::System.Data.DataColumn column明細品番４;
+            
+            private global::System.Data.DataColumn column明細品名４;
+            
+            private global::System.Data.DataColumn column明細数量４;
+            
+            private global::System.Data.DataColumn column明細単位４;
+            
+            private global::System.Data.DataColumn column明細摘要４;
             
             private global::System.Data.DataColumn column行番号５;
             
@@ -7429,7 +7515,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位５;
             
+            private global::System.Data.DataColumn column単価５;
+            
+            private global::System.Data.DataColumn column金額５;
+            
             private global::System.Data.DataColumn column摘要５;
+            
+            private global::System.Data.DataColumn column明細品番５;
+            
+            private global::System.Data.DataColumn column明細品名５;
+            
+            private global::System.Data.DataColumn column明細数量５;
+            
+            private global::System.Data.DataColumn column明細単位５;
+            
+            private global::System.Data.DataColumn column明細摘要５;
             
             private global::System.Data.DataColumn column行番号６;
             
@@ -7441,7 +7541,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位６;
             
+            private global::System.Data.DataColumn column単価６;
+            
+            private global::System.Data.DataColumn column金額６;
+            
             private global::System.Data.DataColumn column摘要６;
+            
+            private global::System.Data.DataColumn column明細品番６;
+            
+            private global::System.Data.DataColumn column明細品名６;
+            
+            private global::System.Data.DataColumn column明細数量６;
+            
+            private global::System.Data.DataColumn column明細単位６;
+            
+            private global::System.Data.DataColumn column明細摘要６;
             
             private global::System.Data.DataColumn column行番号７;
             
@@ -7453,7 +7567,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位７;
             
+            private global::System.Data.DataColumn column単価７;
+            
+            private global::System.Data.DataColumn column金額７;
+            
             private global::System.Data.DataColumn column摘要７;
+            
+            private global::System.Data.DataColumn column明細品番７;
+            
+            private global::System.Data.DataColumn column明細品名７;
+            
+            private global::System.Data.DataColumn column明細数量７;
+            
+            private global::System.Data.DataColumn column明細単位７;
+            
+            private global::System.Data.DataColumn column明細摘要７;
             
             private global::System.Data.DataColumn column行番号８;
             
@@ -7465,7 +7593,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位８;
             
+            private global::System.Data.DataColumn column単価８;
+            
+            private global::System.Data.DataColumn column金額８;
+            
             private global::System.Data.DataColumn column摘要８;
+            
+            private global::System.Data.DataColumn column明細品番８;
+            
+            private global::System.Data.DataColumn column明細品名８;
+            
+            private global::System.Data.DataColumn column明細数量８;
+            
+            private global::System.Data.DataColumn column明細単位８;
+            
+            private global::System.Data.DataColumn column明細摘要８;
             
             private global::System.Data.DataColumn column行番号９;
             
@@ -7477,7 +7619,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位９;
             
+            private global::System.Data.DataColumn column単価９;
+            
+            private global::System.Data.DataColumn column金額９;
+            
             private global::System.Data.DataColumn column摘要９;
+            
+            private global::System.Data.DataColumn column明細品番９;
+            
+            private global::System.Data.DataColumn column明細品名９;
+            
+            private global::System.Data.DataColumn column明細数量９;
+            
+            private global::System.Data.DataColumn column明細単位９;
+            
+            private global::System.Data.DataColumn column明細摘要９;
             
             private global::System.Data.DataColumn column行番号１０;
             
@@ -7489,7 +7645,21 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column単位１０;
             
+            private global::System.Data.DataColumn column単価１０;
+            
+            private global::System.Data.DataColumn column金額１０;
+            
             private global::System.Data.DataColumn column摘要１０;
+            
+            private global::System.Data.DataColumn column明細品番１０;
+            
+            private global::System.Data.DataColumn column明細品名１０;
+            
+            private global::System.Data.DataColumn column明細数量１０;
+            
+            private global::System.Data.DataColumn column明細単位１０;
+            
+            private global::System.Data.DataColumn column明細摘要１０;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -7529,6 +7699,62 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 出荷主Column {
                 get {
                     return this.column出荷主;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先名１Column {
+                get {
+                    return this.column得意先名１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先名２Column {
+                get {
+                    return this.column得意先名２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先郵便番号Column {
+                get {
+                    return this.column得意先郵便番号;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先住所１Column {
+                get {
+                    return this.column得意先住所１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先住所２Column {
+                get {
+                    return this.column得意先住所２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先TELColumn {
+                get {
+                    return this.column得意先TEL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DataColumn1Column {
+                get {
+                    return this.columnDataColumn1;
                 }
             }
             
@@ -7582,6 +7808,14 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 納品先FAXColumn {
+                get {
+                    return this.column納品先FAX;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 出荷日Column {
                 get {
                     return this.column出荷日;
@@ -7593,6 +7827,62 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 納品日Column {
                 get {
                     return this.column納品日;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 出荷元名１Column {
+                get {
+                    return this.column出荷元名１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 出荷元名２Column {
+                get {
+                    return this.column出荷元名２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 出荷元郵便番号Column {
+                get {
+                    return this.column出荷元郵便番号;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 出荷元住所１Column {
+                get {
+                    return this.column出荷元住所１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 出荷元住所２Column {
+                get {
+                    return this.column出荷元住所２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 出荷元TELColumn {
+                get {
+                    return this.column出荷元TEL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 出荷元FAXColumn {
+                get {
+                    return this.column出荷元FAX;
                 }
             }
             
@@ -7702,9 +7992,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価１Column {
+                get {
+                    return this.column単価１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額１Column {
+                get {
+                    return this.column金額１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要１Column {
                 get {
                     return this.column摘要１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番１Column {
+                get {
+                    return this.column明細品番１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名１Column {
+                get {
+                    return this.column明細品名１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量１Column {
+                get {
+                    return this.column明細数量１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位１Column {
+                get {
+                    return this.column明細単位１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要１Column {
+                get {
+                    return this.column明細摘要１;
                 }
             }
             
@@ -7750,9 +8096,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価２Column {
+                get {
+                    return this.column単価２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額２Column {
+                get {
+                    return this.column金額２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要２Column {
                 get {
                     return this.column摘要２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番２Column {
+                get {
+                    return this.column明細品番２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名２Column {
+                get {
+                    return this.column明細品名２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量２Column {
+                get {
+                    return this.column明細数量２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位２Column {
+                get {
+                    return this.column明細単位２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要２Column {
+                get {
+                    return this.column明細摘要２;
                 }
             }
             
@@ -7798,9 +8200,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価３Column {
+                get {
+                    return this.column単価３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額３Column {
+                get {
+                    return this.column金額３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要３Column {
                 get {
                     return this.column摘要３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番３Column {
+                get {
+                    return this.column明細品番３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名３Column {
+                get {
+                    return this.column明細品名３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量３Column {
+                get {
+                    return this.column明細数量３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位３Column {
+                get {
+                    return this.column明細単位３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要３Column {
+                get {
+                    return this.column明細摘要３;
                 }
             }
             
@@ -7846,9 +8304,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価４Column {
+                get {
+                    return this.column単価４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額４Column {
+                get {
+                    return this.column金額４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要４Column {
                 get {
                     return this.column摘要４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番４Column {
+                get {
+                    return this.column明細品番４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名４Column {
+                get {
+                    return this.column明細品名４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量４Column {
+                get {
+                    return this.column明細数量４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位４Column {
+                get {
+                    return this.column明細単位４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要４Column {
+                get {
+                    return this.column明細摘要４;
                 }
             }
             
@@ -7894,9 +8408,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価５Column {
+                get {
+                    return this.column単価５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額５Column {
+                get {
+                    return this.column金額５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要５Column {
                 get {
                     return this.column摘要５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番５Column {
+                get {
+                    return this.column明細品番５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名５Column {
+                get {
+                    return this.column明細品名５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量５Column {
+                get {
+                    return this.column明細数量５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位５Column {
+                get {
+                    return this.column明細単位５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要５Column {
+                get {
+                    return this.column明細摘要５;
                 }
             }
             
@@ -7942,9 +8512,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価６Column {
+                get {
+                    return this.column単価６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額６Column {
+                get {
+                    return this.column金額６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要６Column {
                 get {
                     return this.column摘要６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番６Column {
+                get {
+                    return this.column明細品番６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名６Column {
+                get {
+                    return this.column明細品名６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量６Column {
+                get {
+                    return this.column明細数量６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位６Column {
+                get {
+                    return this.column明細単位６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要６Column {
+                get {
+                    return this.column明細摘要６;
                 }
             }
             
@@ -7990,9 +8616,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価７Column {
+                get {
+                    return this.column単価７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額７Column {
+                get {
+                    return this.column金額７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要７Column {
                 get {
                     return this.column摘要７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番７Column {
+                get {
+                    return this.column明細品番７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名７Column {
+                get {
+                    return this.column明細品名７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量７Column {
+                get {
+                    return this.column明細数量７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位７Column {
+                get {
+                    return this.column明細単位７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要７Column {
+                get {
+                    return this.column明細摘要７;
                 }
             }
             
@@ -8038,9 +8720,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価８Column {
+                get {
+                    return this.column単価８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額８Column {
+                get {
+                    return this.column金額８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要８Column {
                 get {
                     return this.column摘要８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番８Column {
+                get {
+                    return this.column明細品番８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名８Column {
+                get {
+                    return this.column明細品名８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量８Column {
+                get {
+                    return this.column明細数量８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位８Column {
+                get {
+                    return this.column明細単位８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要８Column {
+                get {
+                    return this.column明細摘要８;
                 }
             }
             
@@ -8086,9 +8824,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価９Column {
+                get {
+                    return this.column単価９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額９Column {
+                get {
+                    return this.column金額９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要９Column {
                 get {
                     return this.column摘要９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番９Column {
+                get {
+                    return this.column明細品番９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名９Column {
+                get {
+                    return this.column明細品名９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量９Column {
+                get {
+                    return this.column明細数量９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位９Column {
+                get {
+                    return this.column明細単位９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要９Column {
+                get {
+                    return this.column明細摘要９;
                 }
             }
             
@@ -8134,9 +8928,65 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価１０Column {
+                get {
+                    return this.column単価１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額１０Column {
+                get {
+                    return this.column金額１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 摘要１０Column {
                 get {
                     return this.column摘要１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品番１０Column {
+                get {
+                    return this.column明細品番１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細品名１０Column {
+                get {
+                    return this.column明細品名１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細数量１０Column {
+                get {
+                    return this.column明細数量１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細単位１０Column {
+                get {
+                    return this.column明細単位１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細摘要１０Column {
+                get {
+                    return this.column明細摘要１０;
                 }
             }
             
@@ -8179,14 +9029,29 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DLY11010_納品書Row AddDLY11010_納品書Row(
                         string 出荷主, 
+                        string 得意先名１, 
+                        string 得意先名２, 
+                        string 得意先郵便番号, 
+                        string 得意先住所１, 
+                        string 得意先住所２, 
+                        string 得意先TEL, 
+                        string DataColumn1, 
                         string 納品先名１, 
                         string 納品先名２, 
                         string 納品先郵便番号, 
                         string 納品先住所１, 
                         string 納品先住所２, 
                         string 納品先TEL, 
+                        string 納品先FAX, 
                         string 出荷日, 
                         string 納品日, 
+                        string 出荷元名１, 
+                        string 出荷元名２, 
+                        string 出荷元郵便番号, 
+                        string 出荷元住所１, 
+                        string 出荷元住所２, 
+                        string 出荷元TEL, 
+                        string 出荷元FAX, 
                         string 自社名, 
                         string 自社郵便番号, 
                         string 自社住所１, 
@@ -8200,72 +9065,157 @@ namespace Hakobou.Data.DLY {
                         string 品名１, 
                         int 数量１, 
                         string 単位１, 
+                        decimal 単価１, 
+                        int 金額１, 
                         string 摘要１, 
+                        string 明細品番１, 
+                        string 明細品名１, 
+                        int 明細数量１, 
+                        string 明細単位１, 
+                        string 明細摘要１, 
                         string 行番号２, 
                         string 品番２, 
                         string 品名２, 
                         int 数量２, 
                         string 単位２, 
+                        decimal 単価２, 
+                        int 金額２, 
                         string 摘要２, 
+                        string 明細品番２, 
+                        string 明細品名２, 
+                        int 明細数量２, 
+                        string 明細単位２, 
+                        string 明細摘要２, 
                         string 行番号３, 
                         string 品番３, 
                         string 品名３, 
                         int 数量３, 
                         string 単位３, 
+                        decimal 単価３, 
+                        int 金額３, 
                         string 摘要３, 
+                        string 明細品番３, 
+                        string 明細品名３, 
+                        int 明細数量３, 
+                        string 明細単位３, 
+                        string 明細摘要３, 
                         string 行番号４, 
                         string 品番４, 
                         string 品名４, 
                         int 数量４, 
                         string 単位４, 
+                        decimal 単価４, 
+                        int 金額４, 
                         string 摘要４, 
+                        string 明細品番４, 
+                        string 明細品名４, 
+                        int 明細数量４, 
+                        string 明細単位４, 
+                        string 明細摘要４, 
                         string 行番号５, 
                         string 品番５, 
                         string 品名５, 
                         int 数量５, 
                         string 単位５, 
+                        decimal 単価５, 
+                        int 金額５, 
                         string 摘要５, 
+                        string 明細品番５, 
+                        string 明細品名５, 
+                        int 明細数量５, 
+                        string 明細単位５, 
+                        string 明細摘要５, 
                         string 行番号６, 
                         string 品番６, 
                         string 品名６, 
                         int 数量６, 
                         string 単位６, 
+                        decimal 単価６, 
+                        int 金額６, 
                         string 摘要６, 
+                        string 明細品番６, 
+                        string 明細品名６, 
+                        int 明細数量６, 
+                        string 明細単位６, 
+                        string 明細摘要６, 
                         string 行番号７, 
                         string 品番７, 
                         string 品名７, 
                         int 数量７, 
                         string 単位７, 
+                        decimal 単価７, 
+                        int 金額７, 
                         string 摘要７, 
+                        string 明細品番７, 
+                        string 明細品名７, 
+                        int 明細数量７, 
+                        string 明細単位７, 
+                        string 明細摘要７, 
                         string 行番号８, 
                         string 品番８, 
                         string 品名８, 
                         int 数量８, 
                         string 単位８, 
+                        decimal 単価８, 
+                        int 金額８, 
                         string 摘要８, 
+                        string 明細品番８, 
+                        string 明細品名８, 
+                        int 明細数量８, 
+                        string 明細単位８, 
+                        string 明細摘要８, 
                         string 行番号９, 
                         string 品番９, 
                         string 品名９, 
                         int 数量９, 
                         string 単位９, 
+                        decimal 単価９, 
+                        int 金額９, 
                         string 摘要９, 
+                        string 明細品番９, 
+                        string 明細品名９, 
+                        int 明細数量９, 
+                        string 明細単位９, 
+                        string 明細摘要９, 
                         string 行番号１０, 
                         string 品番１０, 
                         string 品名１０, 
                         int 数量１０, 
                         string 単位１０, 
-                        string 摘要１０) {
+                        decimal 単価１０, 
+                        int 金額１０, 
+                        string 摘要１０, 
+                        string 明細品番１０, 
+                        string 明細品名１０, 
+                        int 明細数量１０, 
+                        string 明細単位１０, 
+                        string 明細摘要１０) {
                 DLY11010_納品書Row rowDLY11010_納品書Row = ((DLY11010_納品書Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         出荷主,
+                        得意先名１,
+                        得意先名２,
+                        得意先郵便番号,
+                        得意先住所１,
+                        得意先住所２,
+                        得意先TEL,
+                        DataColumn1,
                         納品先名１,
                         納品先名２,
                         納品先郵便番号,
                         納品先住所１,
                         納品先住所２,
                         納品先TEL,
+                        納品先FAX,
                         出荷日,
                         納品日,
+                        出荷元名１,
+                        出荷元名２,
+                        出荷元郵便番号,
+                        出荷元住所１,
+                        出荷元住所２,
+                        出荷元TEL,
+                        出荷元FAX,
                         自社名,
                         自社郵便番号,
                         自社住所１,
@@ -8279,61 +9229,131 @@ namespace Hakobou.Data.DLY {
                         品名１,
                         数量１,
                         単位１,
+                        単価１,
+                        金額１,
                         摘要１,
+                        明細品番１,
+                        明細品名１,
+                        明細数量１,
+                        明細単位１,
+                        明細摘要１,
                         行番号２,
                         品番２,
                         品名２,
                         数量２,
                         単位２,
+                        単価２,
+                        金額２,
                         摘要２,
+                        明細品番２,
+                        明細品名２,
+                        明細数量２,
+                        明細単位２,
+                        明細摘要２,
                         行番号３,
                         品番３,
                         品名３,
                         数量３,
                         単位３,
+                        単価３,
+                        金額３,
                         摘要３,
+                        明細品番３,
+                        明細品名３,
+                        明細数量３,
+                        明細単位３,
+                        明細摘要３,
                         行番号４,
                         品番４,
                         品名４,
                         数量４,
                         単位４,
+                        単価４,
+                        金額４,
                         摘要４,
+                        明細品番４,
+                        明細品名４,
+                        明細数量４,
+                        明細単位４,
+                        明細摘要４,
                         行番号５,
                         品番５,
                         品名５,
                         数量５,
                         単位５,
+                        単価５,
+                        金額５,
                         摘要５,
+                        明細品番５,
+                        明細品名５,
+                        明細数量５,
+                        明細単位５,
+                        明細摘要５,
                         行番号６,
                         品番６,
                         品名６,
                         数量６,
                         単位６,
+                        単価６,
+                        金額６,
                         摘要６,
+                        明細品番６,
+                        明細品名６,
+                        明細数量６,
+                        明細単位６,
+                        明細摘要６,
                         行番号７,
                         品番７,
                         品名７,
                         数量７,
                         単位７,
+                        単価７,
+                        金額７,
                         摘要７,
+                        明細品番７,
+                        明細品名７,
+                        明細数量７,
+                        明細単位７,
+                        明細摘要７,
                         行番号８,
                         品番８,
                         品名８,
                         数量８,
                         単位８,
+                        単価８,
+                        金額８,
                         摘要８,
+                        明細品番８,
+                        明細品名８,
+                        明細数量８,
+                        明細単位８,
+                        明細摘要８,
                         行番号９,
                         品番９,
                         品名９,
                         数量９,
                         単位９,
+                        単価９,
+                        金額９,
                         摘要９,
+                        明細品番９,
+                        明細品名９,
+                        明細数量９,
+                        明細単位９,
+                        明細摘要９,
                         行番号１０,
                         品番１０,
                         品名１０,
                         数量１０,
                         単位１０,
-                        摘要１０};
+                        単価１０,
+                        金額１０,
+                        摘要１０,
+                        明細品番１０,
+                        明細品名１０,
+                        明細数量１０,
+                        明細単位１０,
+                        明細摘要１０};
                 rowDLY11010_納品書Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDLY11010_納品書Row);
                 return rowDLY11010_納品書Row;
@@ -8357,14 +9377,29 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.column出荷主 = base.Columns["出荷主"];
+                this.column得意先名１ = base.Columns["得意先名１"];
+                this.column得意先名２ = base.Columns["得意先名２"];
+                this.column得意先郵便番号 = base.Columns["得意先郵便番号"];
+                this.column得意先住所１ = base.Columns["得意先住所１"];
+                this.column得意先住所２ = base.Columns["得意先住所２"];
+                this.column得意先TEL = base.Columns["得意先TEL"];
+                this.columnDataColumn1 = base.Columns["DataColumn1"];
                 this.column納品先名１ = base.Columns["納品先名１"];
                 this.column納品先名２ = base.Columns["納品先名２"];
                 this.column納品先郵便番号 = base.Columns["納品先郵便番号"];
                 this.column納品先住所１ = base.Columns["納品先住所１"];
                 this.column納品先住所２ = base.Columns["納品先住所２"];
                 this.column納品先TEL = base.Columns["納品先TEL"];
+                this.column納品先FAX = base.Columns["納品先FAX"];
                 this.column出荷日 = base.Columns["出荷日"];
                 this.column納品日 = base.Columns["納品日"];
+                this.column出荷元名１ = base.Columns["出荷元名１"];
+                this.column出荷元名２ = base.Columns["出荷元名２"];
+                this.column出荷元郵便番号 = base.Columns["出荷元郵便番号"];
+                this.column出荷元住所１ = base.Columns["出荷元住所１"];
+                this.column出荷元住所２ = base.Columns["出荷元住所２"];
+                this.column出荷元TEL = base.Columns["出荷元TEL"];
+                this.column出荷元FAX = base.Columns["出荷元FAX"];
                 this.column自社名 = base.Columns["自社名"];
                 this.column自社郵便番号 = base.Columns["自社郵便番号"];
                 this.column自社住所１ = base.Columns["自社住所１"];
@@ -8378,61 +9413,131 @@ namespace Hakobou.Data.DLY {
                 this.column品名１ = base.Columns["品名１"];
                 this.column数量１ = base.Columns["数量１"];
                 this.column単位１ = base.Columns["単位１"];
+                this.column単価１ = base.Columns["単価１"];
+                this.column金額１ = base.Columns["金額１"];
                 this.column摘要１ = base.Columns["摘要１"];
+                this.column明細品番１ = base.Columns["明細品番１"];
+                this.column明細品名１ = base.Columns["明細品名１"];
+                this.column明細数量１ = base.Columns["明細数量１"];
+                this.column明細単位１ = base.Columns["明細単位１"];
+                this.column明細摘要１ = base.Columns["明細摘要１"];
                 this.column行番号２ = base.Columns["行番号２"];
                 this.column品番２ = base.Columns["品番２"];
                 this.column品名２ = base.Columns["品名２"];
                 this.column数量２ = base.Columns["数量２"];
                 this.column単位２ = base.Columns["単位２"];
+                this.column単価２ = base.Columns["単価２"];
+                this.column金額２ = base.Columns["金額２"];
                 this.column摘要２ = base.Columns["摘要２"];
+                this.column明細品番２ = base.Columns["明細品番２"];
+                this.column明細品名２ = base.Columns["明細品名２"];
+                this.column明細数量２ = base.Columns["明細数量２"];
+                this.column明細単位２ = base.Columns["明細単位２"];
+                this.column明細摘要２ = base.Columns["明細摘要２"];
                 this.column行番号３ = base.Columns["行番号３"];
                 this.column品番３ = base.Columns["品番３"];
                 this.column品名３ = base.Columns["品名３"];
                 this.column数量３ = base.Columns["数量３"];
                 this.column単位３ = base.Columns["単位３"];
+                this.column単価３ = base.Columns["単価３"];
+                this.column金額３ = base.Columns["金額３"];
                 this.column摘要３ = base.Columns["摘要３"];
+                this.column明細品番３ = base.Columns["明細品番３"];
+                this.column明細品名３ = base.Columns["明細品名３"];
+                this.column明細数量３ = base.Columns["明細数量３"];
+                this.column明細単位３ = base.Columns["明細単位３"];
+                this.column明細摘要３ = base.Columns["明細摘要３"];
                 this.column行番号４ = base.Columns["行番号４"];
                 this.column品番４ = base.Columns["品番４"];
                 this.column品名４ = base.Columns["品名４"];
                 this.column数量４ = base.Columns["数量４"];
                 this.column単位４ = base.Columns["単位４"];
+                this.column単価４ = base.Columns["単価４"];
+                this.column金額４ = base.Columns["金額４"];
                 this.column摘要４ = base.Columns["摘要４"];
+                this.column明細品番４ = base.Columns["明細品番４"];
+                this.column明細品名４ = base.Columns["明細品名４"];
+                this.column明細数量４ = base.Columns["明細数量４"];
+                this.column明細単位４ = base.Columns["明細単位４"];
+                this.column明細摘要４ = base.Columns["明細摘要４"];
                 this.column行番号５ = base.Columns["行番号５"];
                 this.column品番５ = base.Columns["品番５"];
                 this.column品名５ = base.Columns["品名５"];
                 this.column数量５ = base.Columns["数量５"];
                 this.column単位５ = base.Columns["単位５"];
+                this.column単価５ = base.Columns["単価５"];
+                this.column金額５ = base.Columns["金額５"];
                 this.column摘要５ = base.Columns["摘要５"];
+                this.column明細品番５ = base.Columns["明細品番５"];
+                this.column明細品名５ = base.Columns["明細品名５"];
+                this.column明細数量５ = base.Columns["明細数量５"];
+                this.column明細単位５ = base.Columns["明細単位５"];
+                this.column明細摘要５ = base.Columns["明細摘要５"];
                 this.column行番号６ = base.Columns["行番号６"];
                 this.column品番６ = base.Columns["品番６"];
                 this.column品名６ = base.Columns["品名６"];
                 this.column数量６ = base.Columns["数量６"];
                 this.column単位６ = base.Columns["単位６"];
+                this.column単価６ = base.Columns["単価６"];
+                this.column金額６ = base.Columns["金額６"];
                 this.column摘要６ = base.Columns["摘要６"];
+                this.column明細品番６ = base.Columns["明細品番６"];
+                this.column明細品名６ = base.Columns["明細品名６"];
+                this.column明細数量６ = base.Columns["明細数量６"];
+                this.column明細単位６ = base.Columns["明細単位６"];
+                this.column明細摘要６ = base.Columns["明細摘要６"];
                 this.column行番号７ = base.Columns["行番号７"];
                 this.column品番７ = base.Columns["品番７"];
                 this.column品名７ = base.Columns["品名７"];
                 this.column数量７ = base.Columns["数量７"];
                 this.column単位７ = base.Columns["単位７"];
+                this.column単価７ = base.Columns["単価７"];
+                this.column金額７ = base.Columns["金額７"];
                 this.column摘要７ = base.Columns["摘要７"];
+                this.column明細品番７ = base.Columns["明細品番７"];
+                this.column明細品名７ = base.Columns["明細品名７"];
+                this.column明細数量７ = base.Columns["明細数量７"];
+                this.column明細単位７ = base.Columns["明細単位７"];
+                this.column明細摘要７ = base.Columns["明細摘要７"];
                 this.column行番号８ = base.Columns["行番号８"];
                 this.column品番８ = base.Columns["品番８"];
                 this.column品名８ = base.Columns["品名８"];
                 this.column数量８ = base.Columns["数量８"];
                 this.column単位８ = base.Columns["単位８"];
+                this.column単価８ = base.Columns["単価８"];
+                this.column金額８ = base.Columns["金額８"];
                 this.column摘要８ = base.Columns["摘要８"];
+                this.column明細品番８ = base.Columns["明細品番８"];
+                this.column明細品名８ = base.Columns["明細品名８"];
+                this.column明細数量８ = base.Columns["明細数量８"];
+                this.column明細単位８ = base.Columns["明細単位８"];
+                this.column明細摘要８ = base.Columns["明細摘要８"];
                 this.column行番号９ = base.Columns["行番号９"];
                 this.column品番９ = base.Columns["品番９"];
                 this.column品名９ = base.Columns["品名９"];
                 this.column数量９ = base.Columns["数量９"];
                 this.column単位９ = base.Columns["単位９"];
+                this.column単価９ = base.Columns["単価９"];
+                this.column金額９ = base.Columns["金額９"];
                 this.column摘要９ = base.Columns["摘要９"];
+                this.column明細品番９ = base.Columns["明細品番９"];
+                this.column明細品名９ = base.Columns["明細品名９"];
+                this.column明細数量９ = base.Columns["明細数量９"];
+                this.column明細単位９ = base.Columns["明細単位９"];
+                this.column明細摘要９ = base.Columns["明細摘要９"];
                 this.column行番号１０ = base.Columns["行番号１０"];
                 this.column品番１０ = base.Columns["品番１０"];
                 this.column品名１０ = base.Columns["品名１０"];
                 this.column数量１０ = base.Columns["数量１０"];
                 this.column単位１０ = base.Columns["単位１０"];
+                this.column単価１０ = base.Columns["単価１０"];
+                this.column金額１０ = base.Columns["金額１０"];
                 this.column摘要１０ = base.Columns["摘要１０"];
+                this.column明細品番１０ = base.Columns["明細品番１０"];
+                this.column明細品名１０ = base.Columns["明細品名１０"];
+                this.column明細数量１０ = base.Columns["明細数量１０"];
+                this.column明細単位１０ = base.Columns["明細単位１０"];
+                this.column明細摘要１０ = base.Columns["明細摘要１０"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8440,6 +9545,20 @@ namespace Hakobou.Data.DLY {
             private void InitClass() {
                 this.column出荷主 = new global::System.Data.DataColumn("出荷主", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column出荷主);
+                this.column得意先名１ = new global::System.Data.DataColumn("得意先名１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先名１);
+                this.column得意先名２ = new global::System.Data.DataColumn("得意先名２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先名２);
+                this.column得意先郵便番号 = new global::System.Data.DataColumn("得意先郵便番号", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先郵便番号);
+                this.column得意先住所１ = new global::System.Data.DataColumn("得意先住所１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先住所１);
+                this.column得意先住所２ = new global::System.Data.DataColumn("得意先住所２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先住所２);
+                this.column得意先TEL = new global::System.Data.DataColumn("得意先TEL", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先TEL);
+                this.columnDataColumn1 = new global::System.Data.DataColumn("DataColumn1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDataColumn1);
                 this.column納品先名１ = new global::System.Data.DataColumn("納品先名１", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column納品先名１);
                 this.column納品先名２ = new global::System.Data.DataColumn("納品先名２", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8452,10 +9571,26 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column納品先住所２);
                 this.column納品先TEL = new global::System.Data.DataColumn("納品先TEL", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column納品先TEL);
+                this.column納品先FAX = new global::System.Data.DataColumn("納品先FAX", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column納品先FAX);
                 this.column出荷日 = new global::System.Data.DataColumn("出荷日", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column出荷日);
                 this.column納品日 = new global::System.Data.DataColumn("納品日", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column納品日);
+                this.column出荷元名１ = new global::System.Data.DataColumn("出荷元名１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column出荷元名１);
+                this.column出荷元名２ = new global::System.Data.DataColumn("出荷元名２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column出荷元名２);
+                this.column出荷元郵便番号 = new global::System.Data.DataColumn("出荷元郵便番号", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column出荷元郵便番号);
+                this.column出荷元住所１ = new global::System.Data.DataColumn("出荷元住所１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column出荷元住所１);
+                this.column出荷元住所２ = new global::System.Data.DataColumn("出荷元住所２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column出荷元住所２);
+                this.column出荷元TEL = new global::System.Data.DataColumn("出荷元TEL", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column出荷元TEL);
+                this.column出荷元FAX = new global::System.Data.DataColumn("出荷元FAX", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column出荷元FAX);
                 this.column自社名 = new global::System.Data.DataColumn("自社名", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column自社名);
                 this.column自社郵便番号 = new global::System.Data.DataColumn("自社郵便番号", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8482,8 +9617,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量１);
                 this.column単位１ = new global::System.Data.DataColumn("単位１", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位１);
+                this.column単価１ = new global::System.Data.DataColumn("単価１", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価１);
+                this.column金額１ = new global::System.Data.DataColumn("金額１", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額１);
                 this.column摘要１ = new global::System.Data.DataColumn("摘要１", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要１);
+                this.column明細品番１ = new global::System.Data.DataColumn("明細品番１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番１);
+                this.column明細品名１ = new global::System.Data.DataColumn("明細品名１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名１);
+                this.column明細数量１ = new global::System.Data.DataColumn("明細数量１", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量１);
+                this.column明細単位１ = new global::System.Data.DataColumn("明細単位１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位１);
+                this.column明細摘要１ = new global::System.Data.DataColumn("明細摘要１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要１);
                 this.column行番号２ = new global::System.Data.DataColumn("行番号２", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号２);
                 this.column品番２ = new global::System.Data.DataColumn("品番２", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8494,8 +9643,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量２);
                 this.column単位２ = new global::System.Data.DataColumn("単位２", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位２);
+                this.column単価２ = new global::System.Data.DataColumn("単価２", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価２);
+                this.column金額２ = new global::System.Data.DataColumn("金額２", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額２);
                 this.column摘要２ = new global::System.Data.DataColumn("摘要２", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要２);
+                this.column明細品番２ = new global::System.Data.DataColumn("明細品番２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番２);
+                this.column明細品名２ = new global::System.Data.DataColumn("明細品名２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名２);
+                this.column明細数量２ = new global::System.Data.DataColumn("明細数量２", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量２);
+                this.column明細単位２ = new global::System.Data.DataColumn("明細単位２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位２);
+                this.column明細摘要２ = new global::System.Data.DataColumn("明細摘要２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要２);
                 this.column行番号３ = new global::System.Data.DataColumn("行番号３", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号３);
                 this.column品番３ = new global::System.Data.DataColumn("品番３", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8506,8 +9669,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量３);
                 this.column単位３ = new global::System.Data.DataColumn("単位３", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位３);
+                this.column単価３ = new global::System.Data.DataColumn("単価３", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価３);
+                this.column金額３ = new global::System.Data.DataColumn("金額３", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額３);
                 this.column摘要３ = new global::System.Data.DataColumn("摘要３", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要３);
+                this.column明細品番３ = new global::System.Data.DataColumn("明細品番３", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番３);
+                this.column明細品名３ = new global::System.Data.DataColumn("明細品名３", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名３);
+                this.column明細数量３ = new global::System.Data.DataColumn("明細数量３", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量３);
+                this.column明細単位３ = new global::System.Data.DataColumn("明細単位３", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位３);
+                this.column明細摘要３ = new global::System.Data.DataColumn("明細摘要３", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要３);
                 this.column行番号４ = new global::System.Data.DataColumn("行番号４", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号４);
                 this.column品番４ = new global::System.Data.DataColumn("品番４", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8518,8 +9695,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量４);
                 this.column単位４ = new global::System.Data.DataColumn("単位４", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位４);
+                this.column単価４ = new global::System.Data.DataColumn("単価４", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価４);
+                this.column金額４ = new global::System.Data.DataColumn("金額４", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額４);
                 this.column摘要４ = new global::System.Data.DataColumn("摘要４", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要４);
+                this.column明細品番４ = new global::System.Data.DataColumn("明細品番４", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番４);
+                this.column明細品名４ = new global::System.Data.DataColumn("明細品名４", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名４);
+                this.column明細数量４ = new global::System.Data.DataColumn("明細数量４", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量４);
+                this.column明細単位４ = new global::System.Data.DataColumn("明細単位４", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位４);
+                this.column明細摘要４ = new global::System.Data.DataColumn("明細摘要４", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要４);
                 this.column行番号５ = new global::System.Data.DataColumn("行番号５", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号５);
                 this.column品番５ = new global::System.Data.DataColumn("品番５", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8530,8 +9721,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量５);
                 this.column単位５ = new global::System.Data.DataColumn("単位５", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位５);
+                this.column単価５ = new global::System.Data.DataColumn("単価５", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価５);
+                this.column金額５ = new global::System.Data.DataColumn("金額５", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額５);
                 this.column摘要５ = new global::System.Data.DataColumn("摘要５", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要５);
+                this.column明細品番５ = new global::System.Data.DataColumn("明細品番５", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番５);
+                this.column明細品名５ = new global::System.Data.DataColumn("明細品名５", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名５);
+                this.column明細数量５ = new global::System.Data.DataColumn("明細数量５", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量５);
+                this.column明細単位５ = new global::System.Data.DataColumn("明細単位５", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位５);
+                this.column明細摘要５ = new global::System.Data.DataColumn("明細摘要５", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要５);
                 this.column行番号６ = new global::System.Data.DataColumn("行番号６", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号６);
                 this.column品番６ = new global::System.Data.DataColumn("品番６", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8542,8 +9747,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量６);
                 this.column単位６ = new global::System.Data.DataColumn("単位６", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位６);
+                this.column単価６ = new global::System.Data.DataColumn("単価６", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価６);
+                this.column金額６ = new global::System.Data.DataColumn("金額６", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額６);
                 this.column摘要６ = new global::System.Data.DataColumn("摘要６", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要６);
+                this.column明細品番６ = new global::System.Data.DataColumn("明細品番６", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番６);
+                this.column明細品名６ = new global::System.Data.DataColumn("明細品名６", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名６);
+                this.column明細数量６ = new global::System.Data.DataColumn("明細数量６", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量６);
+                this.column明細単位６ = new global::System.Data.DataColumn("明細単位６", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位６);
+                this.column明細摘要６ = new global::System.Data.DataColumn("明細摘要６", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要６);
                 this.column行番号７ = new global::System.Data.DataColumn("行番号７", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号７);
                 this.column品番７ = new global::System.Data.DataColumn("品番７", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8554,8 +9773,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量７);
                 this.column単位７ = new global::System.Data.DataColumn("単位７", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位７);
+                this.column単価７ = new global::System.Data.DataColumn("単価７", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価７);
+                this.column金額７ = new global::System.Data.DataColumn("金額７", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額７);
                 this.column摘要７ = new global::System.Data.DataColumn("摘要７", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要７);
+                this.column明細品番７ = new global::System.Data.DataColumn("明細品番７", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番７);
+                this.column明細品名７ = new global::System.Data.DataColumn("明細品名７", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名７);
+                this.column明細数量７ = new global::System.Data.DataColumn("明細数量７", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量７);
+                this.column明細単位７ = new global::System.Data.DataColumn("明細単位７", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位７);
+                this.column明細摘要７ = new global::System.Data.DataColumn("明細摘要７", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要７);
                 this.column行番号８ = new global::System.Data.DataColumn("行番号８", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号８);
                 this.column品番８ = new global::System.Data.DataColumn("品番８", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8566,8 +9799,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量８);
                 this.column単位８ = new global::System.Data.DataColumn("単位８", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位８);
+                this.column単価８ = new global::System.Data.DataColumn("単価８", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価８);
+                this.column金額８ = new global::System.Data.DataColumn("金額８", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額８);
                 this.column摘要８ = new global::System.Data.DataColumn("摘要８", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要８);
+                this.column明細品番８ = new global::System.Data.DataColumn("明細品番８", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番８);
+                this.column明細品名８ = new global::System.Data.DataColumn("明細品名８", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名８);
+                this.column明細数量８ = new global::System.Data.DataColumn("明細数量８", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量８);
+                this.column明細単位８ = new global::System.Data.DataColumn("明細単位８", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位８);
+                this.column明細摘要８ = new global::System.Data.DataColumn("明細摘要８", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要８);
                 this.column行番号９ = new global::System.Data.DataColumn("行番号９", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号９);
                 this.column品番９ = new global::System.Data.DataColumn("品番９", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8578,8 +9825,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量９);
                 this.column単位９ = new global::System.Data.DataColumn("単位９", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位９);
+                this.column単価９ = new global::System.Data.DataColumn("単価９", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価９);
+                this.column金額９ = new global::System.Data.DataColumn("金額９", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額９);
                 this.column摘要９ = new global::System.Data.DataColumn("摘要９", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要９);
+                this.column明細品番９ = new global::System.Data.DataColumn("明細品番９", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番９);
+                this.column明細品名９ = new global::System.Data.DataColumn("明細品名９", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名９);
+                this.column明細数量９ = new global::System.Data.DataColumn("明細数量９", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量９);
+                this.column明細単位９ = new global::System.Data.DataColumn("明細単位９", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位９);
+                this.column明細摘要９ = new global::System.Data.DataColumn("明細摘要９", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要９);
                 this.column行番号１０ = new global::System.Data.DataColumn("行番号１０", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号１０);
                 this.column品番１０ = new global::System.Data.DataColumn("品番１０", typeof(string), null, global::System.Data.MappingType.Element);
@@ -8590,8 +9851,22 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column数量１０);
                 this.column単位１０ = new global::System.Data.DataColumn("単位１０", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位１０);
+                this.column単価１０ = new global::System.Data.DataColumn("単価１０", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価１０);
+                this.column金額１０ = new global::System.Data.DataColumn("金額１０", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額１０);
                 this.column摘要１０ = new global::System.Data.DataColumn("摘要１０", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要１０);
+                this.column明細品番１０ = new global::System.Data.DataColumn("明細品番１０", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品番１０);
+                this.column明細品名１０ = new global::System.Data.DataColumn("明細品名１０", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細品名１０);
+                this.column明細数量１０ = new global::System.Data.DataColumn("明細数量１０", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細数量１０);
+                this.column明細単位１０ = new global::System.Data.DataColumn("明細単位１０", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細単位１０);
+                this.column明細摘要１０ = new global::System.Data.DataColumn("明細摘要１０", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細摘要１０);
                 this.column行番号４.Caption = "行番号";
                 this.column品番４.Caption = "品番";
                 this.column品名４.Caption = "品名";
@@ -16713,6 +17988,118 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先名１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先名１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先名１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先名１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先名２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先名２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先名２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先名２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先郵便番号 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先郵便番号Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先郵便番号\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先郵便番号Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先住所１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先住所１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先住所１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先住所１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先住所２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先住所２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先住所２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先住所２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先TEL {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先TELColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先TEL\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先TELColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DataColumn1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.DataColumn1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'DataColumn1\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.DataColumn1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 納品先名１ {
                 get {
                     try {
@@ -16809,6 +18196,22 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 納品先FAX {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.納品先FAXColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'納品先FAX\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.納品先FAXColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 出荷日 {
                 get {
                     try {
@@ -16836,6 +18239,118 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.納品日Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 出荷元名１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.出荷元名１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'出荷元名１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.出荷元名１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 出荷元名２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.出荷元名２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'出荷元名２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.出荷元名２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 出荷元郵便番号 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.出荷元郵便番号Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'出荷元郵便番号\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.出荷元郵便番号Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 出荷元住所１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.出荷元住所１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'出荷元住所１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.出荷元住所１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 出荷元住所２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.出荷元住所２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'出荷元住所２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.出荷元住所２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 出荷元TEL {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.出荷元TELColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'出荷元TEL\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.出荷元TELColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 出荷元FAX {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.出荷元FAXColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'出荷元FAX\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.出荷元FAXColumn] = value;
                 }
             }
             
@@ -17049,6 +18564,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価１ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額１ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要１ {
                 get {
                     if (this.Is摘要１Null()) {
@@ -17060,6 +18607,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量１ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要１Column] = value;
                 }
             }
             
@@ -17145,6 +18772,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価２ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額２ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要２ {
                 get {
                     if (this.Is摘要２Null()) {
@@ -17156,6 +18815,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量２ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要２Column] = value;
                 }
             }
             
@@ -17241,6 +18980,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価３ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額３ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要３ {
                 get {
                     if (this.Is摘要３Null()) {
@@ -17252,6 +19023,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番３ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名３ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量３ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位３ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要３ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要３Column] = value;
                 }
             }
             
@@ -17337,6 +19188,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価４ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額４ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要４ {
                 get {
                     if (this.Is摘要４Null()) {
@@ -17348,6 +19231,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番４ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名４ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量４ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位４ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要４ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要４Column] = value;
                 }
             }
             
@@ -17433,6 +19396,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価５ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額５ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要５ {
                 get {
                     if (this.Is摘要５Null()) {
@@ -17444,6 +19439,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番５ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名５ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量５ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位５ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要５ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要５Column] = value;
                 }
             }
             
@@ -17529,6 +19604,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価６ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額６ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要６ {
                 get {
                     if (this.Is摘要６Null()) {
@@ -17540,6 +19647,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番６ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名６ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量６ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位６ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要６ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要６Column] = value;
                 }
             }
             
@@ -17625,6 +19812,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価７ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額７ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要７ {
                 get {
                     if (this.Is摘要７Null()) {
@@ -17636,6 +19855,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番７ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名７ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量７ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位７ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要７ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要７Column] = value;
                 }
             }
             
@@ -17721,6 +20020,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価８ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額８ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要８ {
                 get {
                     if (this.Is摘要８Null()) {
@@ -17732,6 +20063,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番８ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名８ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量８ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位８ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要８ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要８Column] = value;
                 }
             }
             
@@ -17817,6 +20228,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価９ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額９ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要９ {
                 get {
                     if (this.Is摘要９Null()) {
@@ -17828,6 +20271,86 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.摘要９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番９ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名９ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量９ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位９ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要９ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要９Column] = value;
                 }
             }
             
@@ -17913,6 +20436,38 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価１０ {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableDLY11010_納品書.単価１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'単価１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.単価１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額１０ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.金額１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'金額１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.金額１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 摘要１０ {
                 get {
                     if (this.Is摘要１０Null()) {
@@ -17929,6 +20484,86 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品番１０ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品番１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品番１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品番１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細品名１０ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細品名１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細品名１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細品名１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細数量１０ {
+                get {
+                    try {
+                        return ((int)(this[this.tableDLY11010_納品書.明細数量１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細数量１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細数量１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細単位１０ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細単位１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細単位１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細単位１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 明細摘要１０ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.明細摘要１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'明細摘要１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.明細摘要１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is出荷主Null() {
                 return this.IsNull(this.tableDLY11010_納品書.出荷主Column);
             }
@@ -17937,6 +20572,90 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set出荷主Null() {
                 this[this.tableDLY11010_納品書.出荷主Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先名１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先名１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先名１Null() {
+                this[this.tableDLY11010_納品書.得意先名１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先名２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先名２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先名２Null() {
+                this[this.tableDLY11010_納品書.得意先名２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先郵便番号Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先郵便番号Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先郵便番号Null() {
+                this[this.tableDLY11010_納品書.得意先郵便番号Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先住所１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先住所１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先住所１Null() {
+                this[this.tableDLY11010_納品書.得意先住所１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先住所２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先住所２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先住所２Null() {
+                this[this.tableDLY11010_納品書.得意先住所２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先TELNull() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先TELColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先TELNull() {
+                this[this.tableDLY11010_納品書.得意先TELColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDataColumn1Null() {
+                return this.IsNull(this.tableDLY11010_納品書.DataColumn1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDataColumn1Null() {
+                this[this.tableDLY11010_納品書.DataColumn1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18013,6 +20732,18 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is納品先FAXNull() {
+                return this.IsNull(this.tableDLY11010_納品書.納品先FAXColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set納品先FAXNull() {
+                this[this.tableDLY11010_納品書.納品先FAXColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is出荷日Null() {
                 return this.IsNull(this.tableDLY11010_納品書.出荷日Column);
             }
@@ -18033,6 +20764,90 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set納品日Null() {
                 this[this.tableDLY11010_納品書.納品日Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is出荷元名１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.出荷元名１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set出荷元名１Null() {
+                this[this.tableDLY11010_納品書.出荷元名１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is出荷元名２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.出荷元名２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set出荷元名２Null() {
+                this[this.tableDLY11010_納品書.出荷元名２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is出荷元郵便番号Null() {
+                return this.IsNull(this.tableDLY11010_納品書.出荷元郵便番号Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set出荷元郵便番号Null() {
+                this[this.tableDLY11010_納品書.出荷元郵便番号Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is出荷元住所１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.出荷元住所１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set出荷元住所１Null() {
+                this[this.tableDLY11010_納品書.出荷元住所１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is出荷元住所２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.出荷元住所２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set出荷元住所２Null() {
+                this[this.tableDLY11010_納品書.出荷元住所２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is出荷元TELNull() {
+                return this.IsNull(this.tableDLY11010_納品書.出荷元TELColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set出荷元TELNull() {
+                this[this.tableDLY11010_納品書.出荷元TELColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is出荷元FAXNull() {
+                return this.IsNull(this.tableDLY11010_納品書.出荷元FAXColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set出荷元FAXNull() {
+                this[this.tableDLY11010_納品書.出荷元FAXColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18193,6 +21008,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価１Null() {
+                this[this.tableDLY11010_納品書.単価１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額１Null() {
+                this[this.tableDLY11010_納品書.金額１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要１Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要１Column);
             }
@@ -18201,6 +21040,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要１Null() {
                 this[this.tableDLY11010_納品書.摘要１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番１Null() {
+                this[this.tableDLY11010_納品書.明細品番１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名１Null() {
+                this[this.tableDLY11010_納品書.明細品名１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量１Null() {
+                this[this.tableDLY11010_納品書.明細数量１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位１Null() {
+                this[this.tableDLY11010_納品書.明細単位１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要１Null() {
+                this[this.tableDLY11010_納品書.明細摘要１Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18265,6 +21164,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価２Null() {
+                this[this.tableDLY11010_納品書.単価２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額２Null() {
+                this[this.tableDLY11010_納品書.金額２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要２Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要２Column);
             }
@@ -18273,6 +21196,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要２Null() {
                 this[this.tableDLY11010_納品書.摘要２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番２Null() {
+                this[this.tableDLY11010_納品書.明細品番２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名２Null() {
+                this[this.tableDLY11010_納品書.明細品名２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量２Null() {
+                this[this.tableDLY11010_納品書.明細数量２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位２Null() {
+                this[this.tableDLY11010_納品書.明細単位２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要２Null() {
+                this[this.tableDLY11010_納品書.明細摘要２Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18337,6 +21320,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価３Null() {
+                this[this.tableDLY11010_納品書.単価３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額３Null() {
+                this[this.tableDLY11010_納品書.金額３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要３Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要３Column);
             }
@@ -18345,6 +21352,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要３Null() {
                 this[this.tableDLY11010_納品書.摘要３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番３Null() {
+                this[this.tableDLY11010_納品書.明細品番３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名３Null() {
+                this[this.tableDLY11010_納品書.明細品名３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量３Null() {
+                this[this.tableDLY11010_納品書.明細数量３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位３Null() {
+                this[this.tableDLY11010_納品書.明細単位３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要３Null() {
+                this[this.tableDLY11010_納品書.明細摘要３Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18409,6 +21476,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価４Null() {
+                this[this.tableDLY11010_納品書.単価４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額４Null() {
+                this[this.tableDLY11010_納品書.金額４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要４Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要４Column);
             }
@@ -18417,6 +21508,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要４Null() {
                 this[this.tableDLY11010_納品書.摘要４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番４Null() {
+                this[this.tableDLY11010_納品書.明細品番４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名４Null() {
+                this[this.tableDLY11010_納品書.明細品名４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量４Null() {
+                this[this.tableDLY11010_納品書.明細数量４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位４Null() {
+                this[this.tableDLY11010_納品書.明細単位４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要４Null() {
+                this[this.tableDLY11010_納品書.明細摘要４Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18481,6 +21632,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価５Null() {
+                this[this.tableDLY11010_納品書.単価５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額５Null() {
+                this[this.tableDLY11010_納品書.金額５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要５Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要５Column);
             }
@@ -18489,6 +21664,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要５Null() {
                 this[this.tableDLY11010_納品書.摘要５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番５Null() {
+                this[this.tableDLY11010_納品書.明細品番５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名５Null() {
+                this[this.tableDLY11010_納品書.明細品名５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量５Null() {
+                this[this.tableDLY11010_納品書.明細数量５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位５Null() {
+                this[this.tableDLY11010_納品書.明細単位５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要５Null() {
+                this[this.tableDLY11010_納品書.明細摘要５Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18553,6 +21788,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価６Null() {
+                this[this.tableDLY11010_納品書.単価６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額６Null() {
+                this[this.tableDLY11010_納品書.金額６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要６Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要６Column);
             }
@@ -18561,6 +21820,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要６Null() {
                 this[this.tableDLY11010_納品書.摘要６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番６Null() {
+                this[this.tableDLY11010_納品書.明細品番６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名６Null() {
+                this[this.tableDLY11010_納品書.明細品名６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量６Null() {
+                this[this.tableDLY11010_納品書.明細数量６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位６Null() {
+                this[this.tableDLY11010_納品書.明細単位６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要６Null() {
+                this[this.tableDLY11010_納品書.明細摘要６Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18625,6 +21944,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価７Null() {
+                this[this.tableDLY11010_納品書.単価７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額７Null() {
+                this[this.tableDLY11010_納品書.金額７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要７Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要７Column);
             }
@@ -18633,6 +21976,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要７Null() {
                 this[this.tableDLY11010_納品書.摘要７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番７Null() {
+                this[this.tableDLY11010_納品書.明細品番７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名７Null() {
+                this[this.tableDLY11010_納品書.明細品名７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量７Null() {
+                this[this.tableDLY11010_納品書.明細数量７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位７Null() {
+                this[this.tableDLY11010_納品書.明細単位７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要７Null() {
+                this[this.tableDLY11010_納品書.明細摘要７Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18697,6 +22100,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価８Null() {
+                this[this.tableDLY11010_納品書.単価８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額８Null() {
+                this[this.tableDLY11010_納品書.金額８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要８Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要８Column);
             }
@@ -18705,6 +22132,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要８Null() {
                 this[this.tableDLY11010_納品書.摘要８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番８Null() {
+                this[this.tableDLY11010_納品書.明細品番８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名８Null() {
+                this[this.tableDLY11010_納品書.明細品名８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量８Null() {
+                this[this.tableDLY11010_納品書.明細数量８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位８Null() {
+                this[this.tableDLY11010_納品書.明細単位８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要８Null() {
+                this[this.tableDLY11010_納品書.明細摘要８Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18769,6 +22256,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価９Null() {
+                this[this.tableDLY11010_納品書.単価９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額９Null() {
+                this[this.tableDLY11010_納品書.金額９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要９Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要９Column);
             }
@@ -18777,6 +22288,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要９Null() {
                 this[this.tableDLY11010_納品書.摘要９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番９Null() {
+                this[this.tableDLY11010_納品書.明細品番９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名９Null() {
+                this[this.tableDLY11010_納品書.明細品名９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量９Null() {
+                this[this.tableDLY11010_納品書.明細数量９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位９Null() {
+                this[this.tableDLY11010_納品書.明細単位９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要９Null() {
+                this[this.tableDLY11010_納品書.明細摘要９Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18841,6 +22412,30 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.単価１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価１０Null() {
+                this[this.tableDLY11010_納品書.単価１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.金額１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額１０Null() {
+                this[this.tableDLY11010_納品書.金額１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is摘要１０Null() {
                 return this.IsNull(this.tableDLY11010_納品書.摘要１０Column);
             }
@@ -18849,6 +22444,66 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要１０Null() {
                 this[this.tableDLY11010_納品書.摘要１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品番１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品番１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品番１０Null() {
+                this[this.tableDLY11010_納品書.明細品番１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細品名１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細品名１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細品名１０Null() {
+                this[this.tableDLY11010_納品書.明細品名１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細数量１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細数量１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細数量１０Null() {
+                this[this.tableDLY11010_納品書.明細数量１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細単位１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細単位１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細単位１０Null() {
+                this[this.tableDLY11010_納品書.明細単位１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細摘要１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.明細摘要１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細摘要１０Null() {
+                this[this.tableDLY11010_納品書.明細摘要１０Column] = global::System.Convert.DBNull;
             }
         }
         

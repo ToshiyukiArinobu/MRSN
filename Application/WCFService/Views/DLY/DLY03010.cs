@@ -62,6 +62,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 出荷元名 { get; set; }
             public string 出荷先コード { get; set; }
             public string 出荷先枝番 { get; set; }
+            public string 出荷先名 { get; set; }
             public string 仕入先コード { get; set; }
             public string 仕入先枝番 { get; set; }
             public string 備考 { get; set; }
@@ -396,6 +397,7 @@ namespace KyoeiSystem.Application.WCFService
                                 出荷元名 = z.a.p.出荷元名,
                                 出荷先コード = z.a.p.出荷先コード,
                                 出荷先枝番 = z.a.p.出荷先枝番,
+                                出荷先名 = z.a.p.出荷先名,
                                 仕入先コード = z.a.p.仕入先コード,
                                 仕入先枝番 = z.a.p.仕入先枝番,
                                 備考 = z.a.p.備考,
@@ -419,9 +421,10 @@ namespace KyoeiSystem.Application.WCFService
                                 受注番号 = x.受注番号.ToString(),
                                 出荷元コード = x.出荷元コード.ToString(),
                                 出荷元枝番 = x.出荷元枝番.ToString(),
-                                出荷元名 = x.出荷元名.ToString(),
+                                出荷元名 = (x.出荷元名 ?? string.Empty).ToString(),
                                 出荷先コード = x.出荷先コード.ToString(),
                                 出荷先枝番 = x.出荷先枝番.ToString(),
+                                出荷先名 = (x.出荷先名 ?? string.Empty).ToString(),
                                 仕入先コード = x.仕入先コード.ToString(),
                                 仕入先枝番 = x.仕入先枝番.ToString(),
                                 備考 = x.備考,
@@ -2241,6 +2244,7 @@ namespace KyoeiSystem.Application.WCFService
             urhd.出荷元名 = drow["出荷元名"].ToString();
             urhd.出荷先コード = ParseInt(drow["出荷先コード"]);
             urhd.出荷先枝番 = ParseInt(drow["出荷先枝番"]);
+            urhd.出荷先名 = drow["出荷先名"].ToString();
             urhd.仕入先コード = ParseInt(drow["仕入先コード"]);
             urhd.仕入先枝番 = ParseInt(drow["仕入先枝番"]);
             urhd.備考 = drow["備考"].ToString();

@@ -16,8 +16,8 @@ namespace KyoeiSystem.Application.Windows.Views
     using DebugLog = System.Diagnostics.Debug;
 
     /// <summary>
-	/// 仕入入力フォームクラス
-	/// </summary>
+    /// 仕入入力フォームクラス
+    /// </summary>
     public partial class DLY01010 : WindowReportBase
     {
         #region 列挙型定義
@@ -145,28 +145,33 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>消費税計算</summary>
         TaxCalculator taxCalc;
 
+        /// <summary>
+        /// 編集中の行番号
+        /// </summary>
+        private int _編集行;
+
         #endregion
 
 
         #region << 画面初期処理 >>
 
         /// <summary>
-		/// 仕入入力 コンストラクタ
-		/// </summary>
-		public DLY01010()
-		{
-			InitializeComponent();
-			this.DataContext = this;
+        /// 仕入入力 コンストラクタ
+        /// </summary>
+        public DLY01010()
+        {
+            InitializeComponent();
+            this.DataContext = this;
 
-		}
+        }
 
         /// <summary>
-		/// 画面が表示された後のイベント処理
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		void Window_Loaded(object sender, RoutedEventArgs e)
-		{
+        /// 画面が表示された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             #region 画面初期設定(権限設定等)
             ucfg = AppCommon.GetConfig(this);
             frmcfg = (ConfigDLY01010)ucfg.GetConfigValue(typeof(ConfigDLY01010));
@@ -219,11 +224,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << データ受信 >>
         /// <summary>
-		/// 取得データの取り込み
-		/// </summary>
-		/// <param name="message"></param>
-		public override void OnReceivedResponseData(CommunicationObject message)
-		{
+        /// 取得データの取り込み
+        /// </summary>
+        /// <param name="message"></param>
+        public override void OnReceivedResponseData(CommunicationObject message)
+        {
             try
             {
                 var data = message.GetResultData();
@@ -280,6 +285,13 @@ namespace KyoeiSystem.Application.Windows.Views
                     case MasterCode_MyProduct:
                         #region 自社品番手入力時
                         DataTable ctbl = data as DataTable;
+
+                        int columnIdx = gridCtl.ActiveColumnIndex;
+                        int rIdx = gridCtl.ActiveRowIndex;
+
+                        // フォーカス移動後の項目が異なる場合または編集行が異なる場合は処理しない。
+                        if ((columnIdx != (int)GridColumnsMapping.自社品名) || _編集行 != rIdx) return;
+
                         if (ctbl == null || ctbl.Rows.Count == 0)
                         {
                             // 対象データなしの場合
@@ -333,7 +345,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridCtl.SetCellValue((int)GridColumnsMapping.単価, myhin.TwinTextBox.Text3);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.金額, string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ?
                                                                                         0 : decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3)));
-                                gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分,  myhin.SelectedRowData["消費税区分"]);
+                                gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedRowData["消費税区分"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedRowData["商品分類"]);
 
                                 // 20190530CB-S
@@ -490,8 +502,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>
         /// 画面項目の初期化をおこなう
         /// </summary>
-		private void ScreenClear()
-		{
+        private void ScreenClear()
+        {
             this.MaintenanceMode = null;
             if (SearchHeader != null)
                 SearchHeader = null;
@@ -521,12 +533,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region F1 マスタ参照
         /// <summary>
-		/// F1 リボン　マスタ参照
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public override void OnF1Key(object sender, KeyEventArgs e)
-		{
+        /// F1 リボン　マスタ参照
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF1Key(object sender, KeyEventArgs e)
+        {
             try
             {
                 object elmnt = FocusManager.GetFocusedElement(this);
@@ -569,6 +581,9 @@ namespace KyoeiSystem.Application.Windows.Views
                         myhin.TwinTextBox.LinkItem = 1;
                         if (myhin.ShowDialog(this) == true)
                         {
+                            //入力途中のセルを未編集状態に戻す
+                            spgrid.CancelCellEdit();
+
                             gridCtl.SetCellValue((int)GridColumnsMapping.伝票番号, this.c伝票番号.Text);
                             gridCtl.SetCellValue((int)GridColumnsMapping.品番コード, myhin.SelectedRowData["品番コード"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.自社品番, myhin.SelectedRowData["自社品番"]);
@@ -585,6 +600,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
                             // 20195030CB-E
+
+                            // 設定自社品番の編集を不可とする
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
 
                             // 集計計算をおこなう
                             summaryCalculation();
@@ -624,8 +642,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public override void OnF2Key(object sender, KeyEventArgs e)
-		{
+        public override void OnF2Key(object sender, KeyEventArgs e)
+        {
             try
             {
                 object elmnt = FocusManager.GetFocusedElement(this);
@@ -791,10 +809,10 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public override void OnF10Key(object sender, KeyEventArgs e)
-		{
-			if (this.MaintenanceMode == null)
-				return;
+        public override void OnF10Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode == null)
+                return;
 
             var yesno = MessageBox.Show("入力を取り消しますか？", "取消確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             if (yesno == MessageBoxResult.No)
@@ -811,8 +829,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public override void OnF11Key(object sender, KeyEventArgs e)
-		{
+        public override void OnF11Key(object sender, KeyEventArgs e)
+        {
             if (this.MaintenanceMode == null)
                 this.Close();
 
@@ -840,23 +858,23 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region F12 削除
         /// <summary>
-		/// F12　リボン　削除
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public override void OnF12Key(object sender, KeyEventArgs e)
-		{
+        /// F12　リボン　削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF12Key(object sender, KeyEventArgs e)
+        {
             if (this.MaintenanceMode == null)
-				return;
+                return;
 
             var yesno =
                 MessageBox.Show("伝票を削除してもよろしいですか？",
-                                "取消確認", 
+                                "取消確認",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Question,
                                 MessageBoxResult.No);
-			if (yesno == MessageBoxResult.No)
-				return;
+            if (yesno == MessageBoxResult.No)
+                return;
 
             // 削除処理実行
             base.SendRequest(
@@ -937,8 +955,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
+            // 現在の明細行を取得
+            var CurrentDetail = SearchResult.Select("", "", DataViewRowState.CurrentRows).AsEnumerable();
+
             // 【明細】詳細データが１件もない場合はエラー
-            if (SearchResult == null || SearchResult.Rows.Count == 0)
+            if (SearchResult == null || CurrentDetail.Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
             {
                 base.ErrorMessage = string.Format("明細情報が１件もありません。");
                 gridCtl.SpreadGrid.Focus();
@@ -956,10 +977,25 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // 追加行未入力レコードはスキップ
                 if (row["品番コード"] == null || string.IsNullOrEmpty(row["品番コード"].ToString()) || row["品番コード"].ToString().Equals("0"))
+                {
+                    rIdx++;
                     continue;
+                }
 
                 // エラー情報をクリア
                 gridCtl.ClearValidationErrors(rIdx);
+
+                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
+                int? row品番コード = DBNull.Value.Equals(row["品番コード"]) ? (int?)null : Convert.ToInt32(row["品番コード"]);
+                if (CurrentDetail.Where(x => x.Field<int?>("品番コード") == row品番コード && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
+                {
+                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
+                    gridCtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "同じ商品が存在するので、一つに纏めて下さい。");
+                    if (!isDetailErr)
+                        gridCtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
+
+                    isDetailErr = true;
+                }
 
                 if (string.IsNullOrEmpty(row["数量"].ToString()))
                 {
@@ -1014,8 +1050,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		private void Window_Closed(object sender, EventArgs e)
-		{
+        private void Window_Closed(object sender, EventArgs e)
+        {
             // 画面が閉じられた時、データを保持する
 
         }
@@ -1121,7 +1157,12 @@ namespace KyoeiSystem.Application.Windows.Views
             if (e.EditAction == SpreadEditAction.Cancel)
                 return;
 
-            
+            //明細行が存在しない場合は処理しない
+            if (SearchResult == null) return;
+            if (SearchResult.Select("", "", DataViewRowState.CurrentRows).Count() == 0) return;
+
+            _編集行 = e.CellPosition.Row;
+
             switch (targetColumn)
             {
                 case "自社品番":
@@ -1130,7 +1171,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         return;
 
                     //仕入先入力チェック
-                    if (string.IsNullOrEmpty(c仕入先.Text1) ||string.IsNullOrEmpty(c仕入先.Text2))
+                    if (string.IsNullOrEmpty(c仕入先.Text1) || string.IsNullOrEmpty(c仕入先.Text2))
                     {
                         MessageBox.Show("仕入先を入力してください。");
                         return;
@@ -1160,7 +1201,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     summaryCalculation();
 
                     SearchResult.Rows[targetRow.Index].EndEdit();
-                    
+
                     break;
             }
         }

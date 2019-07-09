@@ -158,6 +158,13 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        private string _出荷先名;
+        public string 出荷先名
+        {
+            get { return _出荷先名; }
+            set { _出荷先名 = value; NotifyPropertyChanged(); }
+        }
+
         private string _出荷元名;
         public string 出荷元名
         {
@@ -333,11 +340,10 @@ namespace KyoeiSystem.Application.Windows.Views
                         #region 自社品番・得意先品番 手入力時
                         DataTable ctbl = data as DataTable;
                         int rIdx = gcSpreadGrid.ActiveRowIndex;
-                        string columnName = gcSpreadGrid.ActiveColumn.Name;
+                        int columnIdx = gcSpreadGrid.ActiveColumn.Index;
 
-                        // 編集セルが異なる場合は処理しない。
-                        if (!(columnName == "自社品番" || columnName == "得意先品番コード")) return;
-                        if (_編集行 != rIdx) return;
+                        // フォーカス移動後の項目が異なる場合または編集行が異なる場合は処理しない。
+                        if ((!(columnIdx == (int)GridColumnsMapping.得意先品番 || columnIdx == (int)GridColumnsMapping.自社品名)) || _編集行 != rIdx) return;
 
                         if (ctbl == null || ctbl.Rows.Count == 0)
                         {
@@ -352,6 +358,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, 0);
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, (int)消費税区分.通常税率);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, (int)商品分類.その他);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色コード, string.Empty);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色名称, string.Empty);
 
                         }
                         else if (ctbl.Rows.Count > 1)
@@ -380,6 +388,8 @@ namespace KyoeiSystem.Application.Windows.Views
                                     string.IsNullOrEmpty(tokhin.TwinTextBox.Text3) ? 0 : decimal.ToInt32(AppCommon.DecimalParse(tokhin.TwinTextBox.Text3)));
                                 gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, tokhin.SelectedDataRow["消費税区分"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, tokhin.SelectedDataRow["商品分類"]);
+                                gridCtl.SetCellValue((int)GridColumnsMapping.色コード, tokhin.SelectedDataRow["自社色"]);
+                                gridCtl.SetCellValue((int)GridColumnsMapping.色名称, tokhin.SelectedDataRow["色名称"]);
 
                                 // 自社品番のセルをロック
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
@@ -404,6 +414,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, drow["売価"] == null ? 0 : Convert.ToInt32(drow["売価"]));
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色名称, drow["色名称"]);
 
                             // 自社品番のセルをロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
@@ -544,7 +556,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         myhin.TwinTextBox.LinkItem = 0;
                         if (myhin.ShowDialog(this) == true)
                         {
-                            //入力途中のセルを空欄状態に戻す
+                            //入力途中のセルを未編集状態に戻す
                             spgrid.CancelCellEdit();
 
                             gridCtl.SetCellValue((int)GridColumnsMapping.品番コード, myhin.SelectedDataRow["品番コード"]);
@@ -1006,6 +1018,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 this.cmb売上区分.SelectedIndex = 0;
                 this.txt得意先.Text1 = string.Empty;
                 this.txt得意先.Text2 = string.Empty;
+                this.txt出荷先.Text1 = string.Empty;
                 this.txt出荷元.Text1 = string.Empty;
 
                 this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
@@ -1274,8 +1287,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             #region 【明細】入力チェック
 
+            // 現在の明細行を取得
+            var CurrentDetail = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable();
+
             // 【明細】詳細データが１件もない場合はエラー
-            if (SearchDetail == null || SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable().Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
+            if (SearchDetail == null || CurrentDetail.Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
             {
                 this.gcSpreadGrid.Focus();
                 base.ErrorMessage = string.Format("明細情報が１件もありません。");
@@ -1294,17 +1310,25 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // 追加行未入力レコードはスキップ
                 if (row["品番コード"] == null || string.IsNullOrEmpty(row["品番コード"].ToString()) || row["品番コード"].ToString().Equals("0"))
-                    continue;
-
-                if (SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable().Where(a => a.Field<string>("品番コード") == row["品番コード"].ToString()).Count() > 1)
                 {
-                    this.gcSpreadGrid.Focus();
-                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
-                    return isResult;
+                    rIdx++;
+                    continue;
                 }
 
                 // エラー情報をクリア
                 gcSpreadGrid.Rows[rIdx].ValidationErrors.Clear();
+
+                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
+                if (CurrentDetail.Where(x => x.Field<string>("品番コード") == row["品番コード"].ToString() && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
+                {
+                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
+                    gcSpreadGrid.Rows[rIdx]
+                        .ValidationErrors.Add(new SpreadValidationError("同じ商品が存在するので、一つに纏めて下さい。", null, rIdx, GridColumnsMapping.品番コード.GetHashCode()));
+                    if (!isDetailErr)
+                        gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.品番コード.GetHashCode());
+
+                    isDetailErr = true;
+                }
 
                 if (string.IsNullOrEmpty(row["数量"].ToString()))
                 {
@@ -1506,17 +1530,16 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void txt出荷元_cText1Changed(object sender, RoutedEventArgs e)
         {
-
             // text1が"9999"の場合、出荷元名変更可能
             if (txt出荷元.Text1 == "9999")
             {
-                //出荷元名 = "";
+                txt出荷元.Text2 = "0";
                 txt出荷元名.Background = new SolidColorBrush(Colors.White);
                 txt出荷元名.IsReadOnly = false;
             }
             else
             {
-                //出荷元名 = txt出荷元.Label2Text;
+                txt出荷元名.Text = txt出荷元.Label2Text;
                 txt出荷元名.Background = new SolidColorBrush(Colors.AliceBlue);
                 txt出荷元名.IsReadOnly = true;
             }
@@ -1529,15 +1552,57 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void txt出荷元_TextAfterChanged(object sender, RoutedEventArgs e)
         {
-            // 明細内容・消費税の再計算を実施
-            summaryCalculation();
-
             txt出荷元.Label2Visibility = System.Windows.Visibility.Collapsed;
            
             if (txt出荷元.Text1 != "9999")
             {
                 txt出荷元名.Text = txt出荷元.Label2Text;
             }
+
+            // 明細内容・消費税の再計算を実施
+            summaryCalculation();
+
+        }
+
+         /// <summary>
+        /// 出荷先コードが変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷先_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            // text1が"9999"の場合、出荷先名変更可能
+            if (txt出荷先.Text1 == "9999")
+            {
+                txt出荷先.Text2 = "0";
+                txt出荷先名.Background = new SolidColorBrush(Colors.White);
+                txt出荷先名.IsReadOnly = false;
+            }
+            else
+            {
+                txt出荷先名.Text = txt出荷先.Label2Text;
+                txt出荷先名.Background = new SolidColorBrush(Colors.AliceBlue);
+                txt出荷先名.IsReadOnly = true;
+            }
+        }
+
+        /// <summary>
+        /// 出荷先が変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷先_TextAfterChanged(object sender, RoutedEventArgs e)
+        {
+            txt出荷先.Label2Visibility = System.Windows.Visibility.Collapsed;
+           
+            if (txt出荷先.Text1 != "9999")
+            {
+                txt出荷先名.Text = txt出荷先.Label2Text;
+            }
+
+            // 明細内容・消費税の再計算を実施
+            summaryCalculation();
+
         }
 
         /// <summary>
