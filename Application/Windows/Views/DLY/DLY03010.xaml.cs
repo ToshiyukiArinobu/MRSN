@@ -287,7 +287,7 @@ namespace KyoeiSystem.Application.Windows.Views
             this.txt伝票番号.Focus();
 
             // ログインユーザの自社コードにより参照条件の切り替え
-            this.txt在庫倉庫.LinkItem = ccfg.自社販社区分.Equals((int)自社販社区分.自社) ? (int?)null : ccfg.自社コード; 
+            this.txt在庫倉庫.LinkItem = ccfg.自社販社区分.Equals((int)自社販社区分.自社) ? (int?)null : ccfg.自社コード;
         }
 
         #endregion
@@ -534,7 +534,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if (spgrid != null)
                 {
-                    #region グリッドファンクションイベント                 
+                    #region グリッドファンクションイベント
                     if (gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.自社品番 ||
                         gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.得意先品番)
                     {
@@ -575,7 +575,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 設定自社品番の編集を不可とする
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
-                            
+
                             // 設定得意先品番の編集を不可とする
                             gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
 
@@ -977,6 +977,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="ds"></param>
         private void SetTblData(DataSet ds)
         {
+            // 変更イベントを発生させるため初期化
+            SearchHeader = null;
             // 売上ヘッダ情報設定
             DataTable tblHd = ds.Tables[T02_HEADER_TABLE_NAME];
             SearchHeader = tblHd.Rows[0];
@@ -1220,7 +1222,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // 出荷元
-            if (string.IsNullOrEmpty(this.txt出荷元.Text1)|| string.IsNullOrEmpty(this.txt出荷元.Text2))
+            if (string.IsNullOrEmpty(this.txt出荷元.Text1) || string.IsNullOrEmpty(this.txt出荷元.Text2))
             {
                 this.txt出荷元.Focus();
                 base.ErrorMessage = string.Format("出荷元が入力されていません。");
@@ -1235,7 +1237,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
-           
+
             // 4：メーカー販社商流直送で、ログインユーザーが自社以外の場合NG
             if (salesKbn.Equals("4") && ccfg.自社販社区分 != (int)自社販社区分.自社)
             {
@@ -1339,10 +1341,10 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     isDetailErr = true;
                 }
-            
+
                 decimal d数量;
                 decimal.TryParse(row["数量"].ToString(), out d数量);
-                
+
                 if (d数量 != 0)
                 {
                     bool wk返品数量Flg = d数量 > 0 ? false : true;
@@ -1534,14 +1536,12 @@ namespace KyoeiSystem.Application.Windows.Views
             if (txt出荷元.Text1 == "9999")
             {
                 txt出荷元.Text2 = "0";
-                txt出荷元名.Background = new SolidColorBrush(Colors.White);
-                txt出荷元名.IsReadOnly = false;
+                txt出荷元名.cIsReadOnly = false;
             }
             else
             {
                 txt出荷元名.Text = txt出荷元.Label2Text;
-                txt出荷元名.Background = new SolidColorBrush(Colors.AliceBlue);
-                txt出荷元名.IsReadOnly = true;
+                txt出荷元名.cIsReadOnly = true;
             }
         }
 
@@ -1553,7 +1553,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private void txt出荷元_TextAfterChanged(object sender, RoutedEventArgs e)
         {
             txt出荷元.Label2Visibility = System.Windows.Visibility.Collapsed;
-           
+
             if (txt出荷元.Text1 != "9999")
             {
                 txt出荷元名.Text = txt出荷元.Label2Text;
@@ -1564,7 +1564,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
-         /// <summary>
+        /// <summary>
         /// 出荷先コードが変更された後のイベント処理
         /// </summary>
         /// <param name="sender"></param>
@@ -1575,14 +1575,12 @@ namespace KyoeiSystem.Application.Windows.Views
             if (txt出荷先.Text1 == "9999")
             {
                 txt出荷先.Text2 = "0";
-                txt出荷先名.Background = new SolidColorBrush(Colors.White);
-                txt出荷先名.IsReadOnly = false;
+                txt出荷先名.cIsReadOnly = false;
             }
             else
             {
                 txt出荷先名.Text = txt出荷先.Label2Text;
-                txt出荷先名.Background = new SolidColorBrush(Colors.AliceBlue);
-                txt出荷先名.IsReadOnly = true;
+                txt出荷先名.cIsReadOnly = true;
             }
         }
 
@@ -1594,7 +1592,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private void txt出荷先_TextAfterChanged(object sender, RoutedEventArgs e)
         {
             txt出荷先.Label2Visibility = System.Windows.Visibility.Collapsed;
-           
+
             if (txt出荷先.Text1 != "9999")
             {
                 txt出荷先名.Text = txt出荷先.Label2Text;
