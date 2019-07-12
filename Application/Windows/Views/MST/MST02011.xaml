@@ -1,0 +1,285 @@
+﻿<fw:RibbonWindowViewBase
+  xmlns:fw="clr-namespace:KyoeiSystem.Framework.Windows.ViewBase;assembly=KyoeiSystem.Framework.Windows"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:sg="http://schemas.grapecity.com/windows/spreadgrid/2012"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:ctls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+  xmlns:Controls="clr-namespace:KyoeiSystem.Framework.Windows.Controls;assembly=KyoeiSystem.Framework.Windows.Controls"
+  xmlns:uc="clr-namespace:KyoeiSystem.Application.Windows.Views"
+  xmlns:System="clr-namespace:System;assembly=mscorlib"
+  x:Class="KyoeiSystem.Application.Windows.Views.MST02011"
+  mc:Ignorable="d" d:DesignWidth="300"
+  WindowStyle="SingleBorderWindow" AllowsTransparency="False"
+  MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
+  Title="仕入データ問合せ(MST02011)"
+  Loaded="MainWindow_Loaded" Closed="MainWindow_Closed">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="300*" />
+        </Grid.RowDefinitions>
+
+        <!-- リボン -->
+        <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+            <!-- タブ -->
+            <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+                <RibbonGroup Width="90" >
+                    <!-- 処理モード表示用に空けておく -->
+                </RibbonGroup>
+
+                <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,0,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
+                </RibbonGroup>
+                <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton
+                      LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                      ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png"
+                      Label="登録" ToolTipTitle="データ登録(F9)"
+                      Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    />
+                </RibbonGroup>
+                <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+                      ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"
+                      Label="入力取消" ToolTipTitle="入力取消(F10)"
+                    />
+                </RibbonGroup>
+                <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+                        Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"
+          />
+                </RibbonGroup>
+                <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton
+                      LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+                      ToolTipDescription="入力を削除します" ToolTipImageSource="../Images/28削除.png"
+                      Label="削除" ToolTipTitle="削除(F12)"
+                      Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    />
+                </RibbonGroup>
+
+            </RibbonTab>
+
+            <RibbonTab Header="ヘルプ" Background="Gray">
+                <RibbonGroup Header="サポート">
+                    <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+                                  Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
+                    <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+                                  Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
+                    <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+                                  Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
+                    <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+                                  Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"/>
+                </RibbonGroup>
+            </RibbonTab>
+
+        </Ribbon>
+
+        <Grid Grid.Row="0" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="74" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 編集モード領域  -->
+            <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+                 Background="{Binding MaintenanceModeBackground}">
+                <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+               FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
+               HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            </DockPanel>
+
+            <!-- エラーメッセージ領域 -->
+            <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+             Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}" />
+
+        </Grid>
+
+        <Grid Name="Func" Grid.Row="1" Background="AliceBlue" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Border Name="Header" Grid.Row="0" BorderThickness="1" Margin="10,10,10,5" Padding="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350" />
+                        <ColumnDefinition Width="400" />
+                        <ColumnDefinition Width="350" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 自社品名 -->
+                    <ctls:UcLabelTwinTextBox Name="myCompany" Grid.Row="0" HorizontalAlignment="Left"
+                                   DataAccessName="M70_JIS" DataAccessMode="On" 
+                                   Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                   Label_Context="自社品名" Label_Width="100"
+                                   Text1Width="120" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center" Width="223"
+          />
+                    <!--商品分類-->
+                    <ctls:UcLabelTextRadioButton Name="radio_商品分類" Grid.Column="1"
+                    Label_Content="商品分類" Label_Width="100"
+                    RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Four"
+                    RadioSecond_Content="食品" RadioThird_Content="繊維" RadioFourth_Content="その他"
+                    Text1VerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｔ消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+
+                    <!--商品形態-->
+                    <ctls:UcLabelTextRadioButton Name="radio_商品形態" Grid.Column="1" Grid.Row="1"
+                    Label_Content="商品形態" Label_Width="100"
+                    RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Five"
+                    RadioSecond_Content="SET品" RadioThird_Content="資材・単品" RadioFourth_Content="雑コード" RadioFifth_Content="副資材"
+                    Text1VerticalContentAlignment="Center"
+                    Text="{Binding Path=RowM01TOK[Ｔ消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
+                    <!-- 検索ボタン -->
+                    <Button Name="btnSearch" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Width="50" Height="50"  
+                          HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0"
+                          Click="Button_Click">
+                        <Image Source="../Images/検索実行ボタン.png" Stretch="Fill" />
+                    </Button>
+
+                    <Grid Grid.Row="1" Margin="0,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                 
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="0,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                       
+
+                    </Grid>
+
+                   
+                </Grid>
+
+            </Border>
+
+            <!-- 明細一覧 -->
+            <Grid Grid.Row="1">
+
+                <sg:GcSpreadGrid
+                  Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="8" Height="450"
+                  ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,10,259,-439"
+                  ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                  DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST02011G1.sgxml"
+                  PreviewKeyDown="spGridList_PreviewKeyDown">
+
+                    <!--カーソル色変更-->
+                    <sg:GcSpreadGrid.SelectionBorderUnfocused>
+                        <sg:BorderLine Color="Orange" Style="Thick"/>
+                    </sg:GcSpreadGrid.SelectionBorderUnfocused>
+                    <sg:GcSpreadGrid.SelectionBorder>
+                        <sg:BorderLine Color="Orange" Style="Thick"/>
+                    </sg:GcSpreadGrid.SelectionBorder>
+
+                    <sg:GcSpreadGrid.Columns>
+                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 自社品番}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 色}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 自社品名}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        <sg:Column Locked="False" Focusable="True" HorizontalAlignment="Right">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 原価}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        <sg:Column Locked="False" Focusable="True" HorizontalAlignment="Right">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 加工原価}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        <sg:Column Locked="False" HorizontalAlignment="Right">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 卸値}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        <sg:Column Locked="False" HorizontalAlignment="Right">
+                            
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 売価}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        <sg:Column Locked="False" HorizontalAlignment="Right">
+                            
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 掛率}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        
+                        
+
+                    </sg:GcSpreadGrid.Columns>
+                </sg:GcSpreadGrid>
+
+            </Grid>
+
+            
+
+        </Grid>
+
+    </Grid>
+</fw:RibbonWindowViewBase>

@@ -131,6 +131,12 @@
     <Compile Include="Views\DLY\DLY11010.xaml.cs">
       <DependentUpon>DLY11010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MST\MST02011.xaml.cs">
+      <DependentUpon>MST02011.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST01011.xaml.cs">
+      <DependentUpon>MST01011.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SCH\SCHS03_STOK.xaml.cs">
       <DependentUpon>SCHS03_STOK.xaml</DependentUpon>
     </Compile>
@@ -344,6 +350,12 @@
     <Resource Include="Views\BSK\BSK05010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\MST\MST02011G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\MST\MST01011G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Views\TKS\TKS09010G1.sgxml" />
     <None Include="Views\ZIK\ZIK01010G1.sgxml" />
     <Resource Include="Views\DLY\DLY07010G1.sgxml">
@@ -523,6 +535,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DLY\DLY11010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST02011.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MST\MST01011.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
