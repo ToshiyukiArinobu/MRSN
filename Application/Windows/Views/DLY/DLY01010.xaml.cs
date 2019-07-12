@@ -375,7 +375,20 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             SearchGrid.CommitCellEdit();
                             // 自社品番のセルをロック
+                            // 数量以外はロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+
+                            // 20190704CB-S
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.単位, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.単価, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.金額, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.消費税区分, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.商品分類, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.色コード, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.色名称, true);
+                            // 20190704CB-E
 
                             summaryCalculation();
 

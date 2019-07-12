@@ -54,17 +54,17 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         public class ConfigDLY04010 : FormConfigBase
         {
-		}
+        }
 
         /// ※ 必ず public で定義する。
         public ConfigDLY04010 frmcfg = null;
 
         #endregion
 
-		#region 定数定義
+        #region 定数定義
 
         /// <summary>移動情報取得</summary>
-		private const string T05_GetData = "T05_GetData";
+        private const string T05_GetData = "T05_GetData";
         /// <summary>移動情報更新</summary>
         private const string T05_Update = "T05_Update";
 
@@ -75,7 +75,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T05_HEADER_TABLE_NAME = "T05_IDOHD";
         /// <summary>移動明細 テーブル名</summary>
         private const string T05_DETAIL_TABLE_NAME = "T05_IDODTL";
-        
+
         #endregion
 
         #region 列挙型定義
@@ -92,7 +92,12 @@ namespace KyoeiSystem.Application.Windows.Views
             摘要 = 4,
             品番コード = 5,
             消費税区分 = 6,
-            商品分類 = 7
+            商品分類 = 7,
+
+            // 20190624CB-S
+            色コード = 8,
+            色名称 = 9,
+            // 20190624CB-E
         }
 
         /// <summary>
@@ -393,6 +398,13 @@ namespace KyoeiSystem.Application.Windows.Views
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Value = 0;   // [軽減税率対象]0:対象外
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Value = 3;    // [商品分類]3:その他
 
+                            // 20190624CB-S
+
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色コード].Value = string.Empty;
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色名称].Value = string.Empty;
+
+                            // 20190624CB-E
+
                         }
                         else if (ctbl.Rows.Count > 1)
                         {
@@ -414,8 +426,17 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Value = myhin.SelectedRowData["消費税区分"];
                                 gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Value = myhin.SelectedRowData["商品分類"];
 
+                                // 20190624CB-S
+
+                                gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色コード].Value = myhin.SelectedRowData["自社色"]; ;
+                                gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色名称].Value = myhin.SelectedRowData["自社色名"]; ;
+
+                                // 20190624CB-E
+
                                 // 自社品番のセルをロック
                                 gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.自社品番].Locked = true;
+
+
 
                             }
 
@@ -431,9 +452,23 @@ namespace KyoeiSystem.Application.Windows.Views
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Value = drow["消費税区分"];
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Value = drow["商品分類"];
 
+                            //20190624CB-S
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色コード].Value = drow["自社色"];
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色名称].Value = drow["自社色名"];
+                            //20190624CB-E
+
                             // 自社品番のセルをロック
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.自社品番].Locked = true;
 
+                            // 20190704CB-S
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.品番コード].Locked = true;
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.賞味期限].Locked = true;
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.摘要].Locked = true;
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Locked = true;
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Locked = true;
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色コード].Locked = true;
+                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色名称].Locked = true;
+                            // 20190704CB-E
                         }
 
                         #endregion
@@ -510,6 +545,11 @@ namespace KyoeiSystem.Application.Windows.Views
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Value = myhin.SelectedRowData["消費税区分"];
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Value = myhin.SelectedRowData["商品分類"];
 
+                            //20190624CB-S
+                            spgrid.Cells[rIdx, (int)GridColumnsMapping.色コード].Value = myhin.SelectedRowData["自社色"];
+                            spgrid.Cells[rIdx, (int)GridColumnsMapping.色名称].Value = myhin.SelectedRowData["自社色名"];
+                            //20190624CB-E
+
                             // 設定自社品番の編集を不可とする
                             spgrid.Cells[rIdx, cIdx].Locked = true;
 
@@ -555,7 +595,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public override void OnF9Key(object sender, KeyEventArgs e)
+        public override void OnF9Key(object sender, KeyEventArgs e)
         {
             if (MaintenanceMode == null)
                 return;
@@ -565,7 +605,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
 
             //20190613CB-S
-            if (txt移動元倉庫.Text1 == txt移動先倉庫.Text1) 
+            if (txt移動元倉庫.Text1 == txt移動先倉庫.Text1)
             {
                 this.txt移動先倉庫.Focus();
                 MessageBox.Show("移動元倉庫と移動先倉庫は同一に出来ません。");
@@ -625,11 +665,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             else
             {
-				if (DataUpdateVisible != Visibility.Hidden)
-				{
-					var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-					if (yesno == MessageBoxResult.No)
-						return;
+                if (DataUpdateVisible != Visibility.Hidden)
+                {
+                    var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (yesno == MessageBoxResult.No)
+                        return;
 
                 }
 
@@ -996,37 +1036,37 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 switch (e.CellPosition.ColumnName)
-            {
-                
+                {
 
 
-                case "自社品番":
-                    var target = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Value;
-                    if (target == null)
-                        return;
 
-                    // 自社品番(または得意先品番)からデータを参照し、取得内容をグリッドに設定
-                    base.SendRequest(
-                        new CommunicationObject(
-                            MessageType.RequestData,
-                            MasterCode_MyProduct,
-                            new object[] {
+                    case "自社品番":
+                        var target = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Value;
+                        if (target == null)
+                            return;
+
+                        // 自社品番(または得意先品番)からデータを参照し、取得内容をグリッドに設定
+                        base.SendRequest(
+                            new CommunicationObject(
+                                MessageType.RequestData,
+                                MasterCode_MyProduct,
+                                new object[] {
                                 target.ToString()
                             }));
-                    break;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
 
-            }
+                }
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.ToString());
             }
-            
-            
+
+
 
         }
 

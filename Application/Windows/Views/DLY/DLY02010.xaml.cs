@@ -55,18 +55,18 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         public class ConfigDLY02010 : FormConfigBase
         {
-		}
+        }
 
         /// ※ 必ず public で定義する。
         public ConfigDLY02010 frmcfg = null;
 
         #endregion
 
-		#region 定数定義
+        #region 定数定義
 
         #region サービスアクセス定義
         /// <summary>揚り情報取得</summary>
-		private const string T04_GetData = "T04_GetData";
+        private const string T04_GetData = "T04_GetData";
         /// <summary>揚り情報更新</summary>
         private const string T04_Update = "T04_Update";
         /// <summary>揚り情報削除</summary>
@@ -467,7 +467,20 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             gcSpreadGrid.CommitCellEdit();
                             // 自社品番のセルをロック
+                            // 数量以外はロック
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.品番コード, true);
+
+                            // 20190704CB-S
                             gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.自社品名, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.単位, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.単価, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.金額, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.消費税区分, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.商品分類, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.色コード, true);
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.色名称, true);
+                            // 20190704CB-E
 
                             summaryCalculation();
 
@@ -741,14 +754,14 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region F5 行追加
         /// <summary>
-		/// F05　リボン　行追加
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public override void OnF5Key(object sender, KeyEventArgs e)
-		{
-			if (this.MaintenanceMode == null)
-				return;
+        /// F05　リボン　行追加
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF5Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode == null)
+                return;
 
             int delRowCount = (SearchDetail.GetChanges(DataRowState.Deleted) == null) ? 0 : SearchDetail.GetChanges(DataRowState.Deleted).Rows.Count;
             if (SearchDetail.Rows.Count - delRowCount >= 10)
@@ -808,7 +821,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public override void OnF9Key(object sender, KeyEventArgs e)
+        public override void OnF9Key(object sender, KeyEventArgs e)
         {
             if (MaintenanceMode == null)
                 return;
@@ -858,11 +871,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             else
             {
-				if (DataUpdateVisible != Visibility.Hidden)
-				{
-					var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-					if (yesno == MessageBoxResult.No)
-						return;
+                if (DataUpdateVisible != Visibility.Hidden)
+                {
+                    var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (yesno == MessageBoxResult.No)
+                        return;
 
                 }
 
@@ -903,7 +916,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
-		{
+        {
             if (frmcfg == null) { frmcfg = new ConfigDLY02010(); }
 
             frmcfg.Top = this.Top;
