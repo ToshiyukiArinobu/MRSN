@@ -59,8 +59,9 @@
         <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
           <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
         </RibbonGroup>
-        <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+        <RibbonGroup Header="F6" Name="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+            <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F6" Height="50"
+                Label="行削除" ToolTipTitle="行削除(F6)" ToolTipDescription="選択中のリスト行を削除します" ToolTipImageSource="../Images/28削除.png" />
         </RibbonGroup>
         <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
           <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
@@ -245,7 +246,7 @@
         <!-- 移動明細 -->
         <sg:GcSpreadGrid Name="gcSpreadGrid" Grid.Row="2" HorizontalAlignment="Left" AutoFitType="CellWithHeader" LayoutMode="Template"
                          AutoGenerateColumns="False" HighlightHeader="None" RowCount="10" OperationMode="Normal"
-                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" MaxHeight="470" Margin="80,5,0,0"
+                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Height="470" Margin="80,5,0,0"
                          DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY04010G1.sgxml"
                          ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                          CellEditEnded="gcSpredGrid_CellEditEnded" PreviewKeyDown="gcSpredGrid_PreviewKeyDown">

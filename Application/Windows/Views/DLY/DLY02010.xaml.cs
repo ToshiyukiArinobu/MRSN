@@ -197,6 +197,11 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        /// <summary>
+        /// 編集中の行番号
+        /// </summary>
+        private int _編集行;
+
         #endregion
 
         #region << クラス変数定義 >>
@@ -374,7 +379,13 @@ namespace KyoeiSystem.Application.Windows.Views
                     case MasterCode_MyProduct:
                         #region 自社品番手入力時
                         DataTable ctbl = data as DataTable;
-                        int rIdx = gcSpreadGrid.ActiveRowIndex;
+
+                        int columnIdx = gridDtl.ActiveColumnIndex;
+                        int rIdx = gridDtl.ActiveRowIndex;
+
+                        // フォーカス移動後の項目が異なる場合または編集行が異なる場合は処理しない。
+                        if ((columnIdx != (int)GridColumnsMapping.自社品名) || _編集行 != rIdx) return;
+
                         if (ctbl == null || ctbl.Rows.Count == 0)
                         {
                             // 対象データなしの場合
@@ -638,6 +649,9 @@ namespace KyoeiSystem.Application.Windows.Views
                         myhin.TwinTextBox.LinkItem = 2;
                         if (myhin.ShowDialog(this) == true)
                         {
+                            //入力途中のセルを未編集状態に戻す
+                            spgrid.CancelCellEdit();
+
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.品番コード].Value = myhin.SelectedRowData["品番コード"];
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.自社品番].Value = myhin.SelectedRowData["自社品番"];
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.自社品名].Value = myhin.SelectedRowData["自社品名"];
@@ -653,6 +667,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
                             gridDtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
                             // 20195030CB-E
+
+                            // 設定自社品番の編集を不可とする
+                            gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
 
                             // 集計計算をおこなう
                             summaryCalculation();
@@ -823,14 +840,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF9Key(object sender, KeyEventArgs e)
         {
-            if (MaintenanceMode == null)
-                return;
-
-            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
+            if (MaintenanceMode == null || SearchDetail == null)
                 return;
 
             Update();
@@ -1011,6 +1021,13 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
+            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                return;
+
             // -- 送信用データを作成 --
             // 消費税をヘッダに設定
             SearchHeader["消費税"] = AppCommon.IntParse(this.lbl消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
@@ -1109,8 +1126,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
+            // 現在の明細行を取得
+            var CurrentDetail = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable();
+
             // 【明細】詳細データが１件もない場合はエラー
-            if (SearchDetail == null || SearchDetail.Rows.Count == 0)
+            if (SearchDetail == null || CurrentDetail.Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
             {
                 base.ErrorMessage = string.Format("明細情報が１件もありません。");
                 gridDtl.SpreadGrid.Focus();
@@ -1128,10 +1148,26 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // 追加行未入力レコードはスキップ
                 if (row["品番コード"] == null || string.IsNullOrEmpty(row["品番コード"].ToString()) || row["品番コード"].ToString().Equals("0"))
+                {
+                    rIdx++;
                     continue;
+                }
 
                 // エラー情報をクリア
                 gridDtl.ClearValidationErrors(rIdx);
+
+                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
+                int? row品番コード = DBNull.Value.Equals(row["品番コード"]) ? (int?)null : Convert.ToInt32(row["品番コード"]);
+                if (CurrentDetail.Where(x => x.Field<int?>("品番コード") == row品番コード && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
+                {
+                    gridDtl.SpreadGrid.Focus();
+                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
+                    gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "同じ商品が存在するので、一つに纏めて下さい。");
+                    if (!isDetailErr)
+                        gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
+
+                    isDetailErr = true;
+                }
 
                 if (string.IsNullOrEmpty(row["数量"].ToString()))
                 {
@@ -1400,6 +1436,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
             if (e.EditAction == SpreadEditAction.Cancel)
                 return;
+
+            //明細行が存在しない場合は処理しない
+            if (SearchDetail == null) return;
+            if (SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() == 0) return;
+
+            _編集行 = e.CellPosition.Row;
 
             switch (targetColumn)
             {

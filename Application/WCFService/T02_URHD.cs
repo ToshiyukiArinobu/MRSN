@@ -252,6 +252,21 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _出荷先コード;
     
         [DataMember]
+        public string 出荷先名
+        {
+            get { return _出荷先名; }
+            set
+            {
+                if (_出荷先名 != value)
+                {
+                    _出荷先名 = value;
+                    OnPropertyChanged("出荷先名");
+                }
+            }
+        }
+        private string _出荷先名;
+    
+        [DataMember]
         public Nullable<int> 出荷先枝番
         {
             get { return _出荷先枝番; }

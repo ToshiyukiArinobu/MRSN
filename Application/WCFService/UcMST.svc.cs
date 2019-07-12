@@ -95,7 +95,8 @@ namespace KyoeiSystem.Application.WCFService
         public class M10_TOKHIN_Extension : M09_HIN
         {
             // REMARKS:不足項目のみ定義
-            public string 得意先品番コード { get; set; } 
+            public string 得意先品番コード { get; set; }
+            public string 色名称 { get; set; } 
 
         }
 
@@ -936,7 +937,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="myPCode">自社品番</param>
         /// <returns></returns>
-        public List<M09.M09_HIN_NAMED> GetDataMyProductData(string myPCode, int code, int eda)
+        public List<M09.M09_HIN_NAMED> GetDataMyProductData(string myPCode, int? code, int? eda)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -1067,12 +1068,18 @@ namespace KyoeiSystem.Application.WCFService
                                 x => x.品番コード,
                                 y => y.品番コード,
                                 (x, y) => new { TOKHIN = x, HIN = y })
+                            .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
+                                x => x.HIN.自社色,
+                                y => y.色コード,
+                                (c, d) => new { c, d })
+                            .SelectMany(z => z.d.DefaultIfEmpty(), (x, y) => new { x.c.HIN, x.c.TOKHIN, IRO = y })
                             .Select(x => new M10_TOKHIN_Extension
                             {
                                 品番コード = x.HIN.品番コード,
                                 得意先品番コード = x.TOKHIN.得意先品番コード,
                                 自社品番 = x.HIN.自社品番,
                                 自社色 = x.HIN.自社色,
+                                色名称 = x.IRO.色名称,
                                 商品形態分類 = x.HIN.商品形態分類,
                                 商品分類 = x.HIN.商品分類,
                                 大分類 = x.HIN.大分類,
@@ -1107,12 +1114,18 @@ namespace KyoeiSystem.Application.WCFService
                                         (x, y) => new { x, y })
                                     .SelectMany(x => x.y.DefaultIfEmpty(),
                                         (a, b) => new { HIN = a.x, TOKHIN = b })
+                                    .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
+                                        x => x.HIN.自社色,
+                                        y => y.色コード,
+                                        (c, d) => new { c, d })
+                                    .SelectMany(z => z.d.DefaultIfEmpty(), (x, y) => new { x.c.HIN, x.c.TOKHIN, IRO = y })
                                     .Select(x => new M10_TOKHIN_Extension
                                     {
                                         品番コード = x.HIN.品番コード,
                                         得意先品番コード = x.TOKHIN.得意先品番コード,
                                         自社品番 = x.HIN.自社品番,
                                         自社色 = x.HIN.自社色,
+                                        色名称 = x.IRO.色名称,
                                         商品形態分類 = x.HIN.商品形態分類,
                                         商品分類 = x.HIN.商品分類,
                                         大分類 = x.HIN.大分類,
@@ -1140,32 +1153,37 @@ namespace KyoeiSystem.Application.WCFService
                 else
                 {
                     // 得意先、枝番が不正値だった場合は品番情報のみを取得して返す
-                    var result = context.M09_HIN
-                                    .Where(x => x.削除日時 == null && x.自社品番 == pCode)
+                    var result = context.M09_HIN.Where(x => x.削除日時 == null && x.自社品番 == pCode)
+                                    .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
+                                       x => x.自社色,
+                                       y => y.色コード,
+                                       (c, d) => new { c, d })
+                                    .SelectMany(z => z.d.DefaultIfEmpty(), (x, y) => new { HIN = x.c, y })
                                     .Select(x => new M10_TOKHIN_Extension
                                     {
-                                        品番コード = x.品番コード,
-                                        自社品番 = x.自社品番,
-                                        自社色 = x.自社色,
-                                        商品形態分類 = x.商品形態分類,
-                                        商品分類 = x.商品分類,
-                                        大分類 = x.大分類,
-                                        中分類 = x.中分類,
-                                        ブランド = x.ブランド,
-                                        シリーズ = x.シリーズ,
-                                        品群 = x.品群,
-                                        自社品名 = x.自社品名,
-                                        単位 = x.単位,
-                                        原価 = x.原価,
-                                        加工原価 = x.加工原価,
-                                        卸値 = x.卸値,
-                                        売価 = x.売価,
-                                        掛率 = x.掛率,
-                                        消費税区分 = x.消費税区分,
-                                        備考１ = x.備考１,
-                                        備考２ = x.備考２,
-                                        返却可能期限 = x.返却可能期限,
-                                        ＪＡＮコード = x.ＪＡＮコード
+                                        品番コード = x.HIN.品番コード,
+                                        自社品番 = x.HIN.自社品番,
+                                        自社色 = x.HIN.自社色,
+                                        色名称 = x.y.色名称,
+                                        商品形態分類 = x.HIN.商品形態分類,
+                                        商品分類 = x.HIN.商品分類,
+                                        大分類 = x.HIN.大分類,
+                                        中分類 = x.HIN.中分類,
+                                        ブランド = x.HIN.ブランド,
+                                        シリーズ = x.HIN.シリーズ,
+                                        品群 = x.HIN.品群,
+                                        自社品名 = x.HIN.自社品名,
+                                        単位 = x.HIN.単位,
+                                        原価 = x.HIN.原価,
+                                        加工原価 = x.HIN.加工原価,
+                                        卸値 = x.HIN.卸値,
+                                        売価 = x.HIN.売価,
+                                        掛率 = x.HIN.掛率,
+                                        消費税区分 = x.HIN.消費税区分,
+                                        備考１ = x.HIN.備考１,
+                                        備考２ = x.HIN.備考２,
+                                        返却可能期限 = x.HIN.返却可能期限,
+                                        ＪＡＮコード = x.HIN.ＪＡＮコード
                                     });
 
                     return result.ToList();

@@ -112,17 +112,17 @@ namespace KyoeiSystem.Application.WCFService
             DataTable dthd = KESSVCEntry.ConvertListToDataTable(hdList);
             DataTable dtdtl = KESSVCEntry.ConvertListToDataTable(dtlList);
 
-            // 不足レコードの補充
-            T05_IDOHD idohd = convertDataRowToT05_IDOHD_Entity(dthd.Rows[0]);
-            for (int i = 10 - dtdtl.Rows.Count; i >= 0; i--)
-            {
-                DataRow row = dtdtl.NewRow();
-                row["伝票番号"] = idohd.伝票番号;
-                row["行番号"] = 10 - i;
+            //// 不足レコードの補充
+            //T05_IDOHD idohd = convertDataRowToT05_IDOHD_Entity(dthd.Rows[0]);
+            //for (int i = 10 - dtdtl.Rows.Count; i >= 0; i--)
+            //{
+            //    DataRow row = dtdtl.NewRow();
+            //    row["伝票番号"] = idohd.伝票番号;
+            //    row["行番号"] = 10 - i;
 
-                dtdtl.Rows.Add(row);
+            //    dtdtl.Rows.Add(row);
 
-            }
+            //}
 
             dthd.TableName = TABLE_HEADER;
             t05ds.Tables.Add(dthd);
