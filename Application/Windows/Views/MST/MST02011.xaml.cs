@@ -228,7 +228,10 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
 
                     break;
-
+                    
+                case MST02011_Update :
+                    ScreenClear();
+                    break;
             }
 
         }
@@ -264,15 +267,15 @@ namespace KyoeiSystem.Application.Windows.Views
             //dt = SearchResult;
             //ds.Tables.Add(dt);
 
-            SearchResult.Rows[0]["原価"] = 200;
+           
 
             base.SendRequest(
                 new CommunicationObject(MessageType.UpdateData, MST02011_Update, new object[]{
                         SearchResult.DataSet,
                         ccfg.ユーザID,
-                        自社品名,
-                        商品分類,
-                        商品形態
+                        //自社品名,
+                        //商品分類,
+                        //商品形態
                     }));
         }
         #endregion

@@ -102,27 +102,27 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="updData"></param>
         /// <param name="pLoginUserCode"></param>
         /// <returns></returns>
-        public void Update(DataSet ds, int pLoginUserCode, string p自社品名, string p商品分類, string p商品形態)
+        public void Update(DataSet ds, int pLoginUserCode)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
                 context.Connection.Open();
 
-                int code = 0;
-                int i商品分類 = 1;
-                int i商品形態 = 1;
+                //int code = 0;
+                //int i商品分類 = 1;
+                //int i商品形態 = 1;
 
                 DataTable dt = ds.Tables["MST02011_GetData"];
 
-                if (int.TryParse(p商品分類, out code))
-                {
-                    i商品分類 = code;
-                }
+                //if (int.TryParse(p商品分類, out code))
+                //{
+                //    i商品分類 = code;
+                //}
 
-                if (int.TryParse(p商品形態, out code))
-                {
-                    i商品形態 = code;
-                }
+                //if (int.TryParse(p商品形態, out code))
+                //{
+                //    i商品形態 = code;
+                //}
 
                 foreach (DataRow rw in dt.Rows)
                 {
