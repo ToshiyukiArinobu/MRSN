@@ -13,7 +13,7 @@
   mc:Ignorable="d" d:DesignWidth="300"
   WindowStyle="SingleBorderWindow" AllowsTransparency="False"
   MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
-  Title="仕入データ問合せ(MST02011)"
+  Title="品番マスタ一括修正(MST02011)"
   Loaded="MainWindow_Loaded" Closed="MainWindow_Closed">
 
     <Grid>
@@ -33,8 +33,7 @@
                 </RibbonGroup>
 
                 <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,0,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
-                        Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
                 </RibbonGroup>
                 <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
                     <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
@@ -77,12 +76,7 @@
           />
                 </RibbonGroup>
                 <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton
-                      LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
-                      ToolTipDescription="入力を削除します" ToolTipImageSource="../Images/28削除.png"
-                      Label="削除" ToolTipTitle="削除(F12)"
-                      Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                    />
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
                 </RibbonGroup>
 
             </RibbonTab>
@@ -149,19 +143,19 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- 自社品名 -->
-                    <ctls:UcLabelTwinTextBox Name="myCompany" Grid.Row="0" HorizontalAlignment="Left"
-                                   DataAccessName="M70_JIS" DataAccessMode="On" 
-                                   Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                                   Label_Context="自社品名" Label_Width="100"
-                                   Text1Width="120" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center" Width="223"
-          />
+                    <ctls:UcLabelTextBox
+                      Name="txt自社品名" Grid.Row="0" ImeType="Native" HorizontalAlignment="Left" Margin="0,2,0,0"
+                      Label_Context="自社品名" Label_Width="100"
+                      cWidth="200" cMaxLength="50" cValidationType="None"
+                      Text="{Binding Path=自社品名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    />
                     <!--商品分類-->
                     <ctls:UcLabelTextRadioButton Name="radio_商品分類" Grid.Column="1"
                     Label_Content="商品分類" Label_Width="100"
                     RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Four"
                     RadioSecond_Content="食品" RadioThird_Content="繊維" RadioFourth_Content="その他"
                     Text1VerticalContentAlignment="Center"
-                    Text="{Binding Path=RowM01TOK[Ｔ消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    Text="{Binding Path=商品分類, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                 />
 
                     <!--商品形態-->
@@ -170,7 +164,7 @@
                     RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Five"
                     RadioSecond_Content="SET品" RadioThird_Content="資材・単品" RadioFourth_Content="雑コード" RadioFifth_Content="副資材"
                     Text1VerticalContentAlignment="Center"
-                    Text="{Binding Path=RowM01TOK[Ｔ消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    Text="{Binding Path=商品形態, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                 />
                     <!-- 検索ボタン -->
                     <Button Name="btnSearch" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Width="50" Height="50"  
@@ -214,9 +208,9 @@
                 <sg:GcSpreadGrid
                   Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="8" Height="450"
                   ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,10,259,-439"
-                  ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                  DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST02011G1.sgxml"
-                  PreviewKeyDown="spGridList_PreviewKeyDown">
+                  ItemsSource="{Binding SearchResult, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                  DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST02011G1.sgxml" OperationMode="Normal"
+                  PreviewKeyDown="spGridList_PreviewKeyDown" CellEditEnded="SearchGrid_CellEditEnded">
 
                     <!--カーソル色変更-->
                     <sg:GcSpreadGrid.SelectionBorderUnfocused>
@@ -229,44 +223,44 @@
                     <sg:GcSpreadGrid.Columns>
                         <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 自社品番}" />
+                                <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 色}" />
+                                <sg:BindingDataField Binding="{Binding 色, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 自社品名}" />
+                                <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="False" Focusable="True" HorizontalAlignment="Right">
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 原価}" />
+                                <sg:BindingDataField Binding="{Binding 原価, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="False" Focusable="True" HorizontalAlignment="Right">
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 加工原価}" />
+                                <sg:BindingDataField Binding="{Binding 加工原価, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="False" HorizontalAlignment="Right">
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 卸値}" />
+                                <sg:BindingDataField Binding="{Binding 卸値, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="False" HorizontalAlignment="Right">
                             
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 売価}" />
+                                <sg:BindingDataField Binding="{Binding 売価, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="False" HorizontalAlignment="Right">
                             
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 掛率}" />
+                                <sg:BindingDataField Binding="{Binding 掛率, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         
