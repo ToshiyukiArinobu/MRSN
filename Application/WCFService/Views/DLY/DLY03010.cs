@@ -85,7 +85,7 @@ namespace KyoeiSystem.Application.WCFService
             public decimal? 数量 { get; set; }
             public string 単位 { get; set; }
             public decimal? 単価 { get; set; }
-            public int 金額 { get; set; }
+            public decimal? 金額 { get; set; }
             public string 摘要 { get; set; }
 
             public bool マルセン仕入 { get; set; }
@@ -224,7 +224,7 @@ namespace KyoeiSystem.Application.WCFService
                             数量 = s.Field<decimal?>("数量"),
                             単位 = s.Field<string>("単位"),
                             単価 = s.Field<decimal?>("単価"),
-                            金額 = s.Field<int>("金額"),
+                            金額 = s.Field<decimal?>("金額"),
                             摘要 = s.Field<string>("摘要"),
                             マルセン仕入 = s.Field<bool?>("マルセン仕入") ?? false,
 
@@ -1932,7 +1932,7 @@ namespace KyoeiSystem.Application.WCFService
                     continue;
 
                 // (卸値)金額算出
-                decimal cost = getWholesalePrice(urhd.仕入先コード, urhd.仕入先枝番, dtlData.品番コード);
+                decimal cost = getWholesalePrice( dtlData.品番コード);
                 int amount = Decimal.ToInt32(decimal.Parse(((decimal)(cost * dtlData.数量)).ToString()));
 
                 T03_SRDTL_HAN srdtlhan = new T03_SRDTL_HAN();
@@ -2111,7 +2111,7 @@ namespace KyoeiSystem.Application.WCFService
                         continue;
 
                     // (卸値)金額算出
-                    decimal cost = T05Service.getCalcSalesTax(urhd.売上日, p税区分ID, dtlData.品番コード, dtlData.数量);
+                    decimal cost = getWholesalePrice(dtlData.品番コード);
                     int amount = Decimal.ToInt32(cost * dtlData.数量);
 
                     T02_URDTL_HAN urdtl = new T02_URDTL_HAN();
@@ -2422,46 +2422,31 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
-        #region 仕入値取得
+        #region 卸値取得
         /// <summary>
-        /// 対象の仕入れ値を取得する
+        /// 対象の卸値を取得する
         /// </summary>
         /// <param name="company"></param>
         /// <param name="eda"></param>
         /// <param name="productCode"></param>
         /// <returns></returns>
-        private decimal getWholesalePrice(int? company, int? eda, int productCode)
+        private decimal getWholesalePrice(int productCode)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
-                // 仕入先売価を参照
-                var m03 =
-                    context.M03_BAIKA
+
+                // 仕入先売価が見つからない場合は品番マスタの仕入単価を返す
+                var m09 =
+                    context.M09_HIN
                         .Where(w =>
                             w.削除日時 == null &&
-                            w.仕入先コード == company &&
-                            w.枝番 == eda &&
                             w.品番コード == productCode)
                         .FirstOrDefault();
 
-                if (m03 == null)
-                {
-                    // 仕入先売価が見つからない場合は品番マスタの仕入単価を返す
-                    var m09 =
-                        context.M09_HIN
-                            .Where(w =>
-                                w.削除日時 == null &&
-                                w.品番コード == productCode)
-                            .FirstOrDefault();
+                if (m09 == null)
+                    return 0;
 
-                    if (m09 == null)
-                        return 0;
-
-                    return m09.原価 ?? 0;
-
-                }
-
-                return m03.単価 ?? 0;
+                return m09.卸値 ?? 0;
 
             }
 

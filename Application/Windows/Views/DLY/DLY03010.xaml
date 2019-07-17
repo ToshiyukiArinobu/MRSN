@@ -266,7 +266,7 @@
             />
 
                         <ctls:UcTextBox x:Name="txt出荷先名"  Grid.Row="1" Grid.Column="4" cIsReadOnly="True"  Width="148" Margin="102,0,0,0"
-                            cMaxLength="30" BorderThickness="0"
+                            cMaxLength="30" BorderThickness="0" ImeType="Native"
                             Text="{Binding SearchHeader[出荷先名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                                  
             />
@@ -329,7 +329,7 @@
             />
 
                         <ctls:UcTextBox x:Name="txt出荷元名"  Grid.Row="3" Grid.Column="4" cIsReadOnly="True" Width="148" Margin="102,0,0,0"
-                            cMaxLength="30" BorderThickness="0"
+                            cMaxLength="30" BorderThickness="0" ImeType="Native"
                             Text="{Binding SearchHeader[出荷元名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                                  
             />
@@ -463,7 +463,7 @@
                                 <sg:BindingDataField Binding="{Binding 単価, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column HorizontalAlignment="Right" Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
                             </sg:Column.CellType>

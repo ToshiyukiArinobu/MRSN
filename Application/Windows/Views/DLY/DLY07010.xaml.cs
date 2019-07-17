@@ -88,10 +88,11 @@ namespace KyoeiSystem.Application.Windows.Views
             枝番 = 3,
             得意先名 = 4,
             自社品番 = 5,
-            自社品名 = 6,
-            依頼数 = 7,
-            仕上数 = 8,
-            品番コード = 9
+            色コード = 6,
+            自社品名 = 7,
+            依頼数 = 8,
+            仕上数 = 9,
+            品番コード = 10
         }
 
         #endregion
@@ -100,7 +101,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>初期処理フラグ</summary>
         /// <remarks>初期処理中はtrue</remarks>
-        private bool isFirst = true;
+        private bool isChange = true;
 
         #endregion
 
@@ -197,7 +198,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // 検索実行
             ProcDataSearch();
 
-            isFirst = false;
+            isChange = false;
 
             SetFocusToTopControl();
 
@@ -291,6 +292,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             if (myhin.ShowDialog(this) == true)
                             {
                                 setSpreadGridValue(rIdx, GridColumnsMapping.自社品番, myhin.SelectedRowData["自社品番"]);
+                                setSpreadGridValue(rIdx, GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
                                 setSpreadGridValue(rIdx, GridColumnsMapping.自社品名, myhin.SelectedRowData["自社品名"]);
                                 setSpreadGridValue(rIdx, GridColumnsMapping.品番コード, myhin.SelectedRowData["品番コード"]);
                                 gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, (int)GridColumnsMapping.依頼数);
@@ -306,7 +308,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // セット商品の場合に設定
                             if (drow["商品形態分類"].ToString().Equals("1"))
                             {
-                                //setSpreadGridValue(rIdx, GridColumnsMapping.自社品番, drow["自社品番"]);
+                                setSpreadGridValue(rIdx, GridColumnsMapping.色コード, drow["自社色"]);
                                 setSpreadGridValue(rIdx, GridColumnsMapping.自社品名, drow["自社品名"]);
                                 setSpreadGridValue(rIdx, GridColumnsMapping.品番コード, drow["品番コード"]);
                                 gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, (int)GridColumnsMapping.依頼数);
@@ -314,6 +316,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             else
                             {
                                 //setSpreadGridValue(rIdx, GridColumnsMapping.自社品番, string.Empty);
+                                setSpreadGridValue(rIdx, GridColumnsMapping.色コード, string.Empty);
                                 setSpreadGridValue(rIdx, GridColumnsMapping.自社品名, string.Empty);
                                 setSpreadGridValue(rIdx, GridColumnsMapping.品番コード, string.Empty);
                                 gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, (int)GridColumnsMapping.自社品番);
@@ -673,10 +676,12 @@ namespace KyoeiSystem.Application.Windows.Views
             {
 				if (DataUpdateVisible != Visibility.Hidden)
 				{
-					var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-					if (yesno == MessageBoxResult.No)
-						return;
-
+                    if (isChange)
+                    {
+                        var yesno = MessageBox.Show("保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                        if (yesno == MessageBoxResult.No)
+                            return;
+                    }
                 }
 
                 this.Close();
@@ -1034,6 +1039,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     break;
 
                 case (int)GridColumnsMapping.自社品番:
+                case (int)GridColumnsMapping.色コード:
                     string productCode = getSpreadGridValue(targetRowIndex, GridColumnsMapping.自社品番).ToString();
 
                     if (string.IsNullOrEmpty(productCode))

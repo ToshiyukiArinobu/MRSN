@@ -118,7 +118,7 @@ namespace KyoeiSystem.Application.Windows.Views.Common
         /// <param name="taxRateKbn">消費税区分[M09_HIN.消費税区分]0:通常税率、1:軽減税率、2:非課税</param>
         /// <param name="taxKbnId">税区分ID[M01_TOK.税区分ID]1:切捨て、2:四捨五入、3:切上げ</param>
         /// <returns>消費税額</returns>
-        public decimal CalculateTax(DateTime baseDate, long price, int taxRateKbn, int taxKbnId)
+        public decimal CalculateTax(DateTime baseDate, decimal price, int taxRateKbn, int taxKbnId)
         {
             decimal conTax = 0;
 

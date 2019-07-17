@@ -25,6 +25,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 得意先名 { get; set; }
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
+            public string 自社色 { get; set; }
             public string 自社品名 { get; set; }
             public int 依頼数 { get; set; }
             public int 仕上数 { get; set; }
@@ -71,6 +72,7 @@ namespace KyoeiSystem.Application.WCFService
                             得意先名 = s.TOK != null ? s.TOK.得意先名１ : string.Empty,
                             品番コード = s.AWK.品番コード,
                             自社品番 = s.HIN != null ? s.HIN.自社品番 : string.Empty,
+                            自社色 = s.HIN != null ? s.HIN.自社色 : string.Empty,
                             自社品名 = s.HIN != null ? s.HIN.自社品名 : string.Empty,
                             依頼数 = s.AWK.依頼数,
                             仕上数 = s.AWK.仕上数

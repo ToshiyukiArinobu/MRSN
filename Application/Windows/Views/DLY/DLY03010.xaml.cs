@@ -568,8 +568,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, myhin.SelectedDataRow["単位"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, myhin.TwinTextBox.Text3);
-                            gridCtl.SetCellValue((int)GridColumnsMapping.金額, string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ? 0 :
-                                                                                decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3)));
+                            gridCtl.SetCellValue((int)GridColumnsMapping.金額, string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ? 0 : AppCommon.DecimalParse(myhin.TwinTextBox.Text3));
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedDataRow["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedDataRow["商品分類"]);
 
@@ -1677,11 +1676,11 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
 
             // 小計・消費税・総合計の再計算をおこなう
-            long subTotal =
+            decimal subTotal =
                 SearchDetail.Select("", "", DataViewRowState.CurrentRows)
                     .AsEnumerable()
-                    .Where(w => w.Field<int?>("金額") != null)
-                    .Select(x => x.Field<int>("金額"))
+                    .Where(w => w.Field<decimal?>("金額") != null)
+                    .Select(x => x.Field<decimal>("金額"))
                     .Sum();
             decimal conTax = 0;
             DateTime date = DateTime.Now;
@@ -1698,7 +1697,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         continue;
 
                     int taxKbnId = txt得意先.ClaimTaxId;
-                    conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId);
+                    conTax += taxCalc.CalculateTax(date, row.Field<decimal>("金額"), row.Field<int>("消費税区分"), taxKbnId);
 
                 }
 
@@ -1757,7 +1756,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     decimal cost = gridCtl.GetCellValueToDecimal((int)GridColumnsMapping.単価) ?? 0;
                     decimal qty = gridCtl.GetCellValueToDecimal((int)GridColumnsMapping.数量) ?? 0;
 
-                    gridCtl.SetCellValue((int)GridColumnsMapping.金額, Convert.ToInt32(decimal.Multiply(cost, qty)));
+                    gridCtl.SetCellValue((int)GridColumnsMapping.金額, decimal.Multiply(cost, qty));
 
                     // グリッド内容の再計算を実施
                     summaryCalculation();
@@ -1766,6 +1765,13 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     break;
 
+                case "金額":
+                    // グリッド内容の再計算を実施
+                    summaryCalculation();
+
+                    SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+
+                    break;
                 default:
                     if (gridCtl.ActiveRowIndex >= 0)
                     {
