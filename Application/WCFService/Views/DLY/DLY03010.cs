@@ -2294,7 +2294,9 @@ namespace KyoeiSystem.Application.WCFService
             urdtl.数量 = ParseNumeric<decimal>(wkRow["数量"]);
             urdtl.単位 = wkRow["単位"].ToString();
             urdtl.単価 = ParseNumeric<decimal>(wkRow["単価"]);
-            urdtl.金額 = ParseNumeric<int>(wkRow["金額"]);
+            //No-54 Start
+            urdtl.金額 = Decimal.ToInt32(ParseNumeric<decimal>(wkRow["金額"]));
+            //No-54 End
             urdtl.摘要 = wkRow["摘要"].ToString();
 
             return urdtl;

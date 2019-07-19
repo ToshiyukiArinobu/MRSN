@@ -411,7 +411,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, drow["単位"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, drow["売価"]);
-                            gridCtl.SetCellValue((int)GridColumnsMapping.金額, drow["売価"] == null ? 0 : Convert.ToInt32(drow["売価"]));
+                            //No-55 Start
+                            gridCtl.SetCellValue((int)GridColumnsMapping.金額, AppCommon.DecimalParse(drow["売価"].ToString()));
+                            //No-55 End
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
@@ -1748,6 +1750,11 @@ namespace KyoeiSystem.Application.Windows.Views
                                 this.txt得意先.Text1,
                                 this.txt得意先.Text2
                             }));
+
+                    //No-57 Start
+                    SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+                    //No-57 End
+
                     break;
 
                 case "単価":
