@@ -444,21 +444,21 @@ namespace KyoeiSystem.Application.Windows.Views
                 spGridList.Rows.AddNew();
 
                 //自社品番
-                spGridList[iSpdRowIndex, "自社品番"].Value = tbl.Rows[row]["自社品番"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
                 //色
-                spGridList[iSpdRowIndex, "色"].Value = tbl.Rows[row]["色"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.色.GetHashCode()].Value = tbl.Rows[row]["色"].ToString();
                 //自社品名
-                spGridList[iSpdRowIndex, "自社品名"].Value = tbl.Rows[row]["自社品名"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.自社品名.GetHashCode()].Value = tbl.Rows[row]["自社品名"].ToString();
                 //原価
-                spGridList[iSpdRowIndex, "原価"].Value = tbl.Rows[row]["原価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.原価.GetHashCode()].Value = tbl.Rows[row]["原価"].ToString();
                 //加工原価
-                spGridList[iSpdRowIndex, "加工原価"].Value = tbl.Rows[row]["加工原価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.加工原価.GetHashCode()].Value = tbl.Rows[row]["加工原価"].ToString();
                 //卸値
-                spGridList[iSpdRowIndex, "卸値"].Value = tbl.Rows[row]["卸値"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.卸値.GetHashCode()].Value = tbl.Rows[row]["卸値"].ToString();
                 //売価
-                spGridList[iSpdRowIndex, "売価"].Value = tbl.Rows[row]["売価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.売価.GetHashCode()].Value = tbl.Rows[row]["売価"].ToString();
                 //掛率
-                spGridList[iSpdRowIndex, "掛率"].Value = tbl.Rows[row]["掛率"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.掛率.GetHashCode()].Value = tbl.Rows[row]["掛率"].ToString();
 
                 //スプレッド行インデックスインクリメント
                 iSpdRowIndex = iSpdRowIndex + 1;

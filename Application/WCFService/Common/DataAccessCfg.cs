@@ -135,6 +135,7 @@ namespace KyoeiSystem.Application.WCFService
             // 取引先マスタ一括更新
             new WCFDataAccessConfig() { Name = "MST01011_GetData", ServiceClass = "MST01011", MethodName = "GetData", Descprition = "取引先データ　取得" },
             new WCFDataAccessConfig() { Name = "MST01011_Update", ServiceClass = "MST01011", MethodName = "Update", Descprition = "取引先データ　更新" },
+            new WCFDataAccessConfig() { Name = "MST01011_GetM72", ServiceClass = "MST01011", MethodName = "GetM72", Descprition = "担当データ　取得" },
 
 
             #endregion
