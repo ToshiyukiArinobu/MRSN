@@ -178,6 +178,7 @@ namespace KyoeiSystem.Application.WCFService
                                 y => y.品番コード,
                                 (a, b) => new { a, b })
                             .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { SRDTL = x, HIN = y })
+                            
                             .Select(x => new T03.T03_SRDTL_Extension
                             {
                                 伝票番号 = x.SRDTL.a.伝票番号,
@@ -192,7 +193,13 @@ namespace KyoeiSystem.Application.WCFService
                                 金額 = x.SRDTL.a.金額,
                                 摘要 = x.SRDTL.a.摘要,
                                 消費税区分 = x.HIN.消費税区分 ?? 0,
-                                商品分類 = x.HIN.商品分類 ?? 0
+                                商品分類 = x.HIN.商品分類 ?? 0,
+
+                                // 20190705CB-S
+                                //色コード = x.HIN.自社色,
+                                //色名称 = x.HIN.自社色名
+                                // 20190705CB-E
+
                             })
                             .OrderBy(o => o.伝票番号)
                             .ThenBy(t => t.行番号);

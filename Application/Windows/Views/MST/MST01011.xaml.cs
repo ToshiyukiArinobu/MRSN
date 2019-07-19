@@ -1,19 +1,22 @@
-﻿using KyoeiSystem.Framework.Common;
-using KyoeiSystem.Framework.Core;
+﻿using KyoeiSystem.Framework.Core;
 using KyoeiSystem.Framework.Windows.ViewBase;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Input;
+using GrapeCity.Windows.SpreadGrid;
+
+using System.Windows.Controls;
+using KyoeiSystem.Framework.Windows.Controls;
+
 
 namespace KyoeiSystem.Application.Windows.Views
 {
-    using FwRepPreview = KyoeiSystem.Framework.Reports.Preview;
     using WinForms = System.Windows.Forms;
 
     /// <summary>
-    /// 品番マスタ一括修正
+    /// 取引先マスタ一括修正
     /// </summary>
     public partial class MST01011 : RibbonWindowViewBase
     {
@@ -30,7 +33,7 @@ namespace KyoeiSystem.Application.Windows.Views
             請求担当者コード = 4,
             請求担当者 = 5,
             支払担当者コード = 7,
-            担当者名 = 8,
+            支払担当者 = 8,
             
         }
 
@@ -64,7 +67,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << 定数定義 >>
 
-
+        private const string MST01011_GetDataList = "MST01011_GetData";
+        private const string MST01011_Update = "MST01011_Update";
 
         #endregion
 
@@ -76,16 +80,33 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region バインディングプロパティ
 
-        private DataTable _searchResult;
+        public DataTable _SearchResult;
         public DataTable SearchResult
         {
-            get { return _searchResult; }
-            set
-            {
-                _searchResult = value;
-                NotifyPropertyChanged();
-            }
+            get { return this._SearchResult; }
+            set { this._SearchResult = value; NotifyPropertyChanged(); }
 
+        }
+
+        private string _正式名称 = string.Empty;
+        public string 正式名称
+        {
+            get { return this._正式名称; }
+            set { this._正式名称 = value; NotifyPropertyChanged(); }
+        }
+
+        private string _担当会社コード = string.Empty;
+        public string 担当会社コード
+        {
+            get { return this._担当会社コード; }
+            set { this._担当会社コード = value; NotifyPropertyChanged(); }
+        }
+
+        private string _取引区分 = string.Empty;
+        public string 取引区分
+        {
+            get { return this._取引区分; }
+            set { this._取引区分 = value; NotifyPropertyChanged(); }
         }
 
         #endregion
@@ -111,7 +132,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // 初期状態を保存（SPREADリセット時にのみ使用する）
             this.sp_Config = AppCommon.SaveSpConfig(this.spGridList);
 
-            base.MasterMaintenanceWindowList.Add("M72_TNT", new List<Type> { typeof(MST23010), typeof(SCHM72_TNT) });
+            base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
 
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
@@ -144,8 +165,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
             spGridList.InputBindings.Add(new KeyBinding(spGridList.NavigationCommands.MoveNext, Key.Enter, ModifierKeys.None));
 
+            ScreenClear();
             // コントロールの初期設定をおこなう
-            initSearchControl();
+            //initSearchControl();
 
             spGridList.RowCount = 0;
 
@@ -169,7 +191,26 @@ namespace KyoeiSystem.Application.Windows.Views
 
             switch (message.GetMessageName())
             {
+                case MST01011_GetDataList:
+                    base.SetFreeForInput();
+                    if (tbl.Rows.Count > 0)
+                    {
+                        SearchResult = tbl;
+                        DataSet ds = new DataSet();
+                        ds.Tables.Add(SearchResult);
+                        SetData(tbl);
+                    }
 
+                    break;
+
+                case MST01011_Update:
+                    if ((int)data == 1)
+                    {
+                        MessageBox.Show("更新完了しました。");
+                    }
+
+                    ScreenClear();
+                    break;
 
             }
 
@@ -188,6 +229,31 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region 画面項目の初期化
+        /// <summary>
+        /// 画面の初期化処理をおこなう
+        /// </summary>
+        private void ScreenClear()
+        {
+            this.MaintenanceMode = null;
+
+            this.spGridList.ItemsSource = null;
+            this.spGridList.RowCount = 0;
+
+            if (SearchResult != null)
+                SearchResult.Clear();
+
+
+            正式名称 = string.Empty;
+            担当会社コード = string.Empty;
+            取引区分 = "0";
+
+
+            ResetAllValidation();
+
+        }
+        #endregion
+
         #region << リボン >>
 
         #region F1 マスタ検索
@@ -201,9 +267,32 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 var ctl = FocusManager.GetFocusedElement(this);
+                var spgrid = ViewBaseCommon.FindVisualParent<GcSpreadGrid>(ctl as Control);
                 var m01Text = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(ctl as UIElement);
 
-                if (m01Text == null)
+                if (spgrid != null)
+                {
+                    int cIdx = spgrid.ActiveColumnIndex;
+                    int rIdx = spgrid.ActiveRowIndex;
+
+                    if (spgrid.ActiveColumnIndex == GridColumnsMapping.支払担当者コード.GetHashCode() || spgrid.ActiveColumnIndex == GridColumnsMapping.請求担当者コード.GetHashCode())
+                    {
+                        SCHM72_TNT TNT = new SCHM72_TNT();
+                        TNT.TwinTextBox = new UcLabelTwinTextBox();
+                        if (TNT.ShowDialog(this) == true)
+                        {
+                            spgrid.Cells[rIdx, cIdx].Value = TNT.TwinTextBox.Text1;
+
+                            //更新用DataTableに反映
+                            string targetColumn = spgrid.ActiveCellPosition.ColumnName;
+                            SearchResult.Rows[rIdx][targetColumn] = spgrid.Cells[rIdx, cIdx].Value;
+                           
+                        }
+                    }
+
+ 
+                }
+                else if (m01Text == null)
                 {
                     ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
 
@@ -233,7 +322,24 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF9Key(object sender, KeyEventArgs e)
         {
+            try
+            {
 
+                if (SearchResult == null)
+                    return;
+
+                base.SendRequest(
+                    new CommunicationObject(MessageType.UpdateData, MST01011_Update, new object[]{
+                        SearchResult.DataSet,
+                        ccfg.ユーザID,
+                    }));
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return;
+            }
         }
         #endregion
 
@@ -245,7 +351,11 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF10Key(object sender, KeyEventArgs e)
         {
+            var yesno = MessageBox.Show("入力を取り消しますか？", "取消確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (yesno == MessageBoxResult.No)
+                return;
 
+            ScreenClear();
 
         }
         #endregion
@@ -262,20 +372,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        #region F12 削除
-        /// <summary>
-        /// F12　リボン　削除
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public override void OnF12Key(object sender, KeyEventArgs e)
-        {
-
-
-
-        }
-        #endregion
-
+       
         #region 一覧検索処理
 
         /// <summary>
@@ -294,7 +391,13 @@ namespace KyoeiSystem.Application.Windows.Views
                     return;
                 }
 
-                setSearchParams();
+                base.SendRequest(
+                    new CommunicationObject(MessageType.RequestData, MST01011_GetDataList, new object[]
+                        {
+                            正式名称
+                            ,担当会社コード
+                            ,取引区分
+                        }));
 
                 base.SetBusyForInput();
 
@@ -306,6 +409,43 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
+        #endregion
+
+        #region 取得データをセット
+        private void SetData(DataTable tbl)
+        {
+
+            int iSpdRowIndex = 0;
+
+            spGridList.InputBindings.Clear();
+            spGridList.RowCount = iSpdRowIndex;
+
+            for (int row = 0; row <= tbl.Rows.Count - 1; row++)
+            {
+
+                spGridList.Rows.AddNew();
+
+                //取引先コード
+                spGridList[iSpdRowIndex, GridColumnsMapping.取引先コード.GetHashCode()].Value = tbl.Rows[row]["取引先コード"].ToString();
+                //枝番
+                spGridList[iSpdRowIndex, GridColumnsMapping.枝番.GetHashCode()].Value = tbl.Rows[row]["枝番"].ToString();
+                //正式名称
+                spGridList[iSpdRowIndex, GridColumnsMapping.正式名称.GetHashCode()].Value = tbl.Rows[row]["正式名称"].ToString();
+                //請求担当者コード
+                spGridList[iSpdRowIndex, GridColumnsMapping.請求担当者コード.GetHashCode()].Value = tbl.Rows[row]["請求担当者コード"].ToString();
+                //請求担当者名
+                spGridList[iSpdRowIndex, GridColumnsMapping.請求担当者.GetHashCode()].Value = tbl.Rows[row]["請求担当者名"].ToString();
+                //支払担当者コード
+                spGridList[iSpdRowIndex, GridColumnsMapping.支払担当者コード.GetHashCode()].Value = tbl.Rows[row]["支払担当者コード"].ToString();
+                //支払担当者名
+                spGridList[iSpdRowIndex, GridColumnsMapping.支払担当者.GetHashCode()].Value = tbl.Rows[row]["支払担当者名"].ToString();
+
+                //スプレッド行インデックスインクリメント
+                iSpdRowIndex = iSpdRowIndex + 1;
+
+            }
+
+        }
         #endregion
 
         #region << KeyDown Events >>
@@ -381,39 +521,35 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-
-        #region << 機能処理群 >>
-
-
-
-        #region 検索条件部の初期設定
-
         /// <summary>
-        /// 検索条件部の初期設定をおこなう
+        /// spreadセル編集完了時処理
         /// </summary>
-        private void initSearchControl()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchGrid_CellEditEnded(object sender, GrapeCity.Windows.SpreadGrid.SpreadCellEditEndedEventArgs e)
         {
+            GcSpreadGrid grid = sender as GcSpreadGrid;
+            string targetColumn = grid.ActiveCellPosition.ColumnName;
 
+            //明細行が存在しない場合は処理しない
+            if (SearchResult == null) return;
 
+            Row targetRow = grid.Rows[grid.ActiveRowIndex];
+
+            //編集したセルの値を取得
+            var CellValue = grid[grid.ActiveRowIndex, targetColumn].Value;
+
+            if (CellValue != null)
+            {
+                SearchResult.Rows[targetRow.Index][targetColumn] = CellValue;
+            }
+            
         }
 
-        #endregion
-
-        #region 検索パラメータの設定
-        /// <summary>
-        /// 検索パラメータを設定する
-        /// </summary>
-        private void setSearchParams()
-        {
-
-        }
-        #endregion
+        
 
 
-
-
-
-        #endregion
+        
 
     }
 

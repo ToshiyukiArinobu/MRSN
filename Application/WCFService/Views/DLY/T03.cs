@@ -52,6 +52,11 @@ namespace KyoeiSystem.Application.WCFService
             public int 消費税区分 { get; set; }
             /// <summary>1:食品、2:繊維、3:その他</summary>
             public int 商品分類 { get; set; }
+
+            // 20190705CB-S
+            public string 色コード { get; set; }
+            public string 色名称{ get; set; }
+            // 20190705CB-E
         }
 
         /// <summary>

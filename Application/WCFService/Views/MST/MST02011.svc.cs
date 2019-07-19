@@ -66,13 +66,14 @@ namespace KyoeiSystem.Application.WCFService
                
                 var result = (
                     from m09 in context.M09_HIN
-                    where m09.商品分類 == i商品分類
-                    && m09.商品形態分類 == i商品形態
+                    from m06 in context.M06_IRO.Where(w => (m09.自社色.Equals(w.色コード))).DefaultIfEmpty()
+                    where (m09.商品分類 == i商品分類
+                    && m09.商品形態分類 == i商品形態)
                     select new MST02011_spread
                     {
                         品番コード = m09.品番コード,
                         自社品番 = m09.自社品番,
-                        色 = m09.自社色,
+                        色 = m06.色名称,
                         自社品名 = m09.自社品名,
                         原価 = m09.原価,
                         加工原価 = m09.加工原価,
@@ -102,62 +103,59 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="updData"></param>
         /// <param name="pLoginUserCode"></param>
         /// <returns></returns>
-        public void Update(DataSet ds, int pLoginUserCode)
+        public int Update(DataSet ds, int pLoginUserCode)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
-                context.Connection.Open();
 
-                //int code = 0;
-                //int i商品分類 = 1;
-                //int i商品形態 = 1;
-
-                DataTable dt = ds.Tables["MST02011_GetData"];
-
-                //if (int.TryParse(p商品分類, out code))
-                //{
-                //    i商品分類 = code;
-                //}
-
-                //if (int.TryParse(p商品形態, out code))
-                //{
-                //    i商品形態 = code;
-                //}
-
-                foreach (DataRow rw in dt.Rows)
+                try
                 {
-                    // 変更なしデータは処理対象外とする
-                    if (rw.RowState == DataRowState.Unchanged)
-                        continue;
 
-                    MST02011_spread row = getRowData(rw);
-                    
+                    context.Connection.Open();
 
-                    // 対象データ取得
-                    var data =
-                        context.M09_HIN
-                            .Where(w => w.品番コード == row.品番コード)
-                            .FirstOrDefault();
+                    DataTable dt = ds.Tables["MST02011_GetData"];
 
-                    if (data != null)
+                    foreach (DataRow rw in dt.Rows)
                     {
-                        data.原価 = row.原価;
-                        data.加工原価 = row.加工原価;
-                        data.卸値 = row.卸値;
-                        data.売価 = row.売価;
-                        data.掛率 = row.掛率;
+                        // 変更なしデータは処理対象外とする
+                        if (rw.RowState == DataRowState.Unchanged)
+                            continue;
 
-                        data.AcceptChanges();
+                        MST02011_spread row = getRowData(rw);
+
+
+                        // 対象データ取得
+                        var data =
+                            context.M09_HIN
+                                .Where(w => w.品番コード == row.品番コード)
+                                .FirstOrDefault();
+
+                        if (data != null)
+                        {
+                            data.原価 = row.原価;
+                            data.加工原価 = row.加工原価;
+                            data.卸値 = row.卸値;
+                            data.売価 = row.売価;
+                            data.掛率 = row.掛率;
+                            data.最終更新者 = pLoginUserCode;
+                            data.最終更新日時 = DateTime.Now;
+
+                            data.AcceptChanges();
+                        }
+
                     }
 
-                }
+                    context.SaveChanges();
 
-                context.SaveChanges();
-                
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
 
             }
 
-           
+            return 1;
         }
 
         /// <summary>

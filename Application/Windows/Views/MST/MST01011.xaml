@@ -13,7 +13,7 @@
   mc:Ignorable="d" d:DesignWidth="300"
   WindowStyle="SingleBorderWindow" AllowsTransparency="False"
   MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
-  Title="仕入データ問合せ(MST01011)"
+  Title="得意先マスタ一括修正(MST01011)"
   Loaded="MainWindow_Loaded" Closed="MainWindow_Closed">
 
     <Grid>
@@ -77,12 +77,7 @@
           />
                 </RibbonGroup>
                 <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton
-                      LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
-                      ToolTipDescription="入力を削除します" ToolTipImageSource="../Images/28削除.png"
-                      Label="削除" ToolTipTitle="削除(F12)"
-                      Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                    />
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
                 </RibbonGroup>
 
             </RibbonTab>
@@ -153,14 +148,16 @@
                       Name="txt正式名称" Grid.Row="0" ImeType="Native" HorizontalAlignment="Left" Margin="0,2,0,0"
                       Label_Context="正式名称" Label_Width="100"
                       cWidth="330" cMaxLength="50" cValidationType="None"
+                      Text="{Binding Path=正式名称, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                     />
 
                     <!-- 担当会社コード -->
                     <ctls:UcLabelTwinTextBox Name="myCompany" Grid.Row="1" HorizontalAlignment="Left"
-                                   DataAccessName="M72_TNT" DataAccessMode="On" 
+                                   DataAccessName="M70_JIS" DataAccessMode="On" 
                                    Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                                    Label_Context="担当会社コード" Label_Width="100"
                                    Text1Width="120" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center" Width="223"
+                                   Text1="{Binding Path=担当会社コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                     />
                    
 
@@ -170,7 +167,7 @@
                     RadioSelectButton="One" RadioOneStart="False" RadioViewCount="Five"
                     RadioOne_Content="得意先" RadioSecond_Content="仕入先" RadioThird_Content="加工先" RadioFourth_Content="相殺" RadioFifth_Content="販社"
                     Text1VerticalContentAlignment="Center"
-                    Text="{Binding Path=RowM01TOK[Ｔ消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Grid.ColumnSpan="2" Margin="228,0,93,0"
+                    Text="{Binding Path=取引区分, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" Grid.ColumnSpan="2" Margin="228,0,93,0"
                      />
                     <!-- 検索ボタン -->
                     <Button Name="btnSearch" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Width="50" Height="50"  
@@ -216,7 +213,7 @@
                   ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,10,192,-438"
                   ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                   DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST01011G1.sgxml"
-                  PreviewKeyDown="spGridList_PreviewKeyDown">
+                  PreviewKeyDown="spGridList_PreviewKeyDown" CellEditEnded="SearchGrid_CellEditEnded">
 
                     <!--カーソル色変更-->
                     <sg:GcSpreadGrid.SelectionBorderUnfocused>
@@ -237,30 +234,44 @@
                                 <sg:BindingDataField Binding="{Binding 枝番}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
+                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Left">
                             <sg:Column.DataField>
                                 <sg:BindingDataField Binding="{Binding 正式名称}" />
                             </sg:Column.DataField>
                         </sg:Column>
+
+                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 請求}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        
                         <sg:Column Locked="False" Focusable="True" HorizontalAlignment="Right">
                             <sg:Column.DataField>
                                 <sg:BindingDataField Binding="{Binding 請求担当者コード}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="False" Focusable="True" HorizontalAlignment="Right">
+                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Left">
                             <sg:Column.DataField>
                                 <sg:BindingDataField Binding="{Binding 請求担当者名}" />
                             </sg:Column.DataField>
                         </sg:Column>
+
+                        <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Center">
+                            <sg:Column.DataField>
+                                <sg:BindingDataField Binding="{Binding 支払}" />
+                            </sg:Column.DataField>
+                        </sg:Column>
+                        
                         <sg:Column Locked="False" HorizontalAlignment="Right">
                             <sg:Column.DataField>
                                 <sg:BindingDataField Binding="{Binding 支払担当者コード}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="False" HorizontalAlignment="Right">
+                        <sg:Column Locked="True" HorizontalAlignment="Left">
 
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 担当者名}" />
+                                <sg:BindingDataField Binding="{Binding 支払担当者名}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         

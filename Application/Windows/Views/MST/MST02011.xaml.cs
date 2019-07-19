@@ -168,7 +168,7 @@ namespace KyoeiSystem.Application.Windows.Views
             spGridList.InputBindings.Add(new KeyBinding(spGridList.NavigationCommands.MoveNext, Key.Enter, ModifierKeys.None));
 
             // コントロールの初期設定をおこなう
-            initSearchControl();
+            //initSearchControl();
 
             spGridList.RowCount = 0;
 
@@ -230,6 +230,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     break;
                     
                 case MST02011_Update :
+                    if ((int)data == 1) 
+                    {
+                        MessageBox.Show("更新完了しました。");
+                    }
+
                     ScreenClear();
                     break;
             }
@@ -259,24 +264,23 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF9Key(object sender, KeyEventArgs e)
         {
-            if (SearchResult == null)
+            try
+            {
+
+                if (SearchResult == null)
+                    return;
+
+                base.SendRequest(
+                    new CommunicationObject(MessageType.UpdateData, MST02011_Update, new object[]{
+                            SearchResult.DataSet,
+                            ccfg.ユーザID,
+                        }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
                 return;
-
-            //DataSet ds = new DataSet();
-            //DataTable dt = new DataTable();
-            //dt = SearchResult;
-            //ds.Tables.Add(dt);
-
-           
-
-            base.SendRequest(
-                new CommunicationObject(MessageType.UpdateData, MST02011_Update, new object[]{
-                        SearchResult.DataSet,
-                        ccfg.ユーザID,
-                        //自社品名,
-                        //商品分類,
-                        //商品形態
-                    }));
+            }
         }
         #endregion
 
@@ -468,29 +472,7 @@ namespace KyoeiSystem.Application.Windows.Views
         #region << 機能処理群 >>
 
 
-
-        #region 検索条件部の初期設定
-
-        /// <summary>
-        /// 検索条件部の初期設定をおこなう
-        /// </summary>
-        private void initSearchControl()
-        {
-            
-
-        }
-
-        #endregion
-
-        #region 検索パラメータの設定
-        /// <summary>
-        /// 検索パラメータを設定する
-        /// </summary>
-        private void setSearchParams()
-        {
-            
-        }
-        #endregion
+       
 
         /// <summary>
         /// セル編集コミット時処理
@@ -510,8 +492,10 @@ namespace KyoeiSystem.Application.Windows.Views
             //編集したセルの値を取得
             var CellValue = grid[grid.ActiveRowIndex,targetColumn].Value;
 
-            SearchResult.Rows[targetRow.Index][targetColumn] = CellValue;
-
+            if (CellValue != null)
+            {
+                SearchResult.Rows[targetRow.Index][targetColumn] = CellValue;
+            }
             //SearchResult.Rows[targetRow.Index].EndEdit();
             //SearchResult.AcceptChanges();
         }
