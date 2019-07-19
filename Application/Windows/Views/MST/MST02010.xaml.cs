@@ -67,6 +67,7 @@ namespace KyoeiSystem.Application.Windows.Views
         #region 定数定義
 
         private const string TargetTableNm = "M09_HIN_getData";
+        private const string M09_HIN_getDataList = "M09_HIN_getDataList";
         private const string GetNextID = "M09_HIN_getNext";
         private const string UpdateTable = "M09_HIN_Update";
 
@@ -88,6 +89,12 @@ namespace KyoeiSystem.Application.Windows.Views
             set { _M09_HIN_SearchRow = value; NotifyPropertyChanged(); }
         }
 
+        private DataTable _M09_HIN_Alldata;
+        public DataTable datatable_M09_HIN_All
+        {
+            get { return _M09_HIN_Alldata; }
+            set { _M09_HIN_Alldata = value; NotifyPropertyChanged(); }
+        }
         #endregion
 
         /// <summary>
@@ -166,7 +173,13 @@ namespace KyoeiSystem.Application.Windows.Views
             ChangeKeyItemChangeable(true);
             //ボタンはFalse
             //btnEnableChange(true);
-
+            
+            // 品番全検索
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    M09_HIN_getDataList,
+                    new object[] { null }));
             SetFocusToTopControl();
             this.ResetAllValidation();
 
@@ -323,6 +336,24 @@ namespace KyoeiSystem.Application.Windows.Views
                     return;
                 }
 
+                string str色SQL;
+
+                if(string.IsNullOrEmpty(M09_HIN_SearchRow["自社色"].ToString()))
+                {
+                    str色SQL = "IS NULL";
+                }
+                else
+                {
+                    str色SQL = "= '" + M09_HIN_SearchRow["自社色"].ToString() + "'";
+                }
+                DataRow[] drHinUniqe = datatable_M09_HIN_All.Select("自社品番 = '" + M09_HIN_SearchRow["自社品番"].ToString() + "' AND 自社色 " + str色SQL);
+                if (drHinUniqe.Length > 0)
+                {
+                    MessageBox.Show("入力された自社品番と色の組み合わせは\r\n品番コード : " + drHinUniqe[0]["品番コード"].ToString() + "\r\n登録済みです。");
+                    SetFocusToTopControl();
+                    return;
+                }
+
                 var yesno = MessageBox.Show("入力内容を登録しますか？", "登録確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
                 if (yesno != MessageBoxResult.Yes)
                     return;
@@ -360,6 +391,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 switch (message.GetMessageName())
                 {
+                    case M09_HIN_getDataList:
+                        datatable_M09_HIN_All = tbl;
+                        break;
                     case TargetTableNm:
                         SetTblData(tbl);
 
