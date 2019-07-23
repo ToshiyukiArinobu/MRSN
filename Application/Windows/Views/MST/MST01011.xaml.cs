@@ -29,15 +29,13 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             取引先コード = 0,
             枝番 = 1,
-            正式名称 = 2,
+            得意先名 = 2,
             請求担当者コード = 4,
             請求担当者 = 5,
             支払担当者コード = 7,
             支払担当者 = 8,
             
         }
-
-        
 
         #endregion
 
@@ -69,6 +67,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         private const string MST01011_GetDataList = "MST01011_GetData";
         private const string MST01011_Update = "MST01011_Update";
+        private const string MST01011_GetM72 = "MST01011_GetM72";
+
 
         #endregion
 
@@ -88,11 +88,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
-        private string _正式名称 = string.Empty;
-        public string 正式名称
+        private string _得意先名 = string.Empty;
+        public string 得意先名
         {
-            get { return this._正式名称; }
-            set { this._正式名称 = value; NotifyPropertyChanged(); }
+            get { return this._得意先名; }
+            set { this._得意先名 = value; NotifyPropertyChanged(); }
         }
 
         private string _担当会社コード = string.Empty;
@@ -212,9 +212,27 @@ namespace KyoeiSystem.Application.Windows.Views
                     ScreenClear();
                     break;
 
+                case MST01011_GetM72:
+                    var ctl = FocusManager.GetFocusedElement(this);
+                    var spgrid = ViewBaseCommon.FindVisualParent<GcSpreadGrid>(ctl as Control);
+
+                    if (data != null) 
+                    {
+                        int cIdx = spgrid.ActiveColumnIndex;
+                        int rIdx = spgrid.ActiveRowIndex;
+
+                        //担当者名を表示
+                        spgrid.Cells[rIdx - 1, cIdx + 1].Value = data.ToString();
+
+                    }
+
+                    break;
+
             }
 
         }
+
+        #region OnReveivedError
 
         /// <summary>
         /// 受信エラー時の処理をおこなう
@@ -226,6 +244,8 @@ namespace KyoeiSystem.Application.Windows.Views
             this.Message = base.ErrorMessage;
             base.SetFreeForInput();
         }
+
+        #endregion
 
         #endregion
 
@@ -244,7 +264,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 SearchResult.Clear();
 
 
-            正式名称 = string.Empty;
+            得意先名 = string.Empty;
             担当会社コード = string.Empty;
             取引区分 = "0";
 
@@ -281,7 +301,10 @@ namespace KyoeiSystem.Application.Windows.Views
                         TNT.TwinTextBox = new UcLabelTwinTextBox();
                         if (TNT.ShowDialog(this) == true)
                         {
+                            //担当者ID
                             spgrid.Cells[rIdx, cIdx].Value = TNT.TwinTextBox.Text1;
+                            //担当者名
+                            spgrid.Cells[rIdx, cIdx + 1].Value = TNT.TwinTextBox.Text2;
 
                             //更新用DataTableに反映
                             string targetColumn = spgrid.ActiveCellPosition.ColumnName;
@@ -360,6 +383,7 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region F11 終了
         /// <summary>
         /// F11　リボン　終了
         /// </summary>
@@ -372,7 +396,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-       
+        #endregion
+
         #region 一覧検索処理
 
         /// <summary>
@@ -394,7 +419,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 base.SendRequest(
                     new CommunicationObject(MessageType.RequestData, MST01011_GetDataList, new object[]
                         {
-                            正式名称
+                            得意先名
                             ,担当会社コード
                             ,取引区分
                         }));
@@ -430,7 +455,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 //枝番
                 spGridList[iSpdRowIndex, GridColumnsMapping.枝番.GetHashCode()].Value = tbl.Rows[row]["枝番"].ToString();
                 //正式名称
-                spGridList[iSpdRowIndex, GridColumnsMapping.正式名称.GetHashCode()].Value = tbl.Rows[row]["正式名称"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.得意先名.GetHashCode()].Value = tbl.Rows[row]["得意先名"].ToString();
                 //請求担当者コード
                 spGridList[iSpdRowIndex, GridColumnsMapping.請求担当者コード.GetHashCode()].Value = tbl.Rows[row]["請求担当者コード"].ToString();
                 //請求担当者名
@@ -521,6 +546,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region spreadセル編集完了時処理
         /// <summary>
         /// spreadセル編集完了時処理
         /// </summary>
@@ -539,17 +565,32 @@ namespace KyoeiSystem.Application.Windows.Views
             //編集したセルの値を取得
             var CellValue = grid[grid.ActiveRowIndex, targetColumn].Value;
 
-            if (CellValue != null)
+
+
+            //担当者コードが入力された際担当者名をDBから取得
+            if (CellValue.ToString().Length > 0)
             {
                 SearchResult.Rows[targetRow.Index][targetColumn] = CellValue;
+
+                if (targetColumn == "請求担当者コード" || targetColumn == "支払担当者コード")
+                {
+                    int i担当者コード = int.Parse(CellValue.ToString());
+
+                    base.SendRequest(
+                    new CommunicationObject(MessageType.RequestData, MST01011_GetM72, new object[]
+                        {
+
+                           i担当者コード 
+
+                        }));
+                }
+
             }
-            
+
         }
+        #endregion
 
-        
 
-
-        
 
     }
 

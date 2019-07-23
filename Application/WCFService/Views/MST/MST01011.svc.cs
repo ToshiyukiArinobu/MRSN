@@ -31,7 +31,7 @@ namespace KyoeiSystem.Application.WCFService
             public int? 取引先コード { get; set; }
             public int? 担当会社コード { get; set; }
             public int? 枝番 { get; set; }
-            public string 正式名称 { get; set; }
+            public string 得意先名 { get; set; }
             public int? 請求担当者コード { get; set; }
             public string 請求担当者名 { get; set; }
             public int? 支払担当者コード { get; set; }
@@ -42,7 +42,7 @@ namespace KyoeiSystem.Application.WCFService
         /// 取引先データを取得する
         /// </summary>
         /// <returns></returns>
-        public List<MST01011_spread> GetData(string p正式名称, string p担当会社コード, string p取引区分)
+        public List<MST01011_spread> GetData(string p得意先名, string p担当会社コード, string p取引区分)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -75,7 +75,7 @@ namespace KyoeiSystem.Application.WCFService
                         取引先コード = m01.取引先コード,
                         担当会社コード = m01.担当会社コード,
                         枝番 = m01.枝番,
-                        正式名称 = m01.得意先名１,
+                        得意先名 = m01.得意先名１,
                         請求担当者コード = m01.Ｔ担当者コード,
                         請求担当者名 = TNT_t.担当者名,
                         支払担当者コード = m01.Ｓ担当者コード,
@@ -88,9 +88,9 @@ namespace KyoeiSystem.Application.WCFService
                     result = result.Where(c => c.担当会社コード == i担当会社コード);
                 }
 
-                if (!string.IsNullOrEmpty(p正式名称))
+                if (!string.IsNullOrEmpty(p得意先名))
                 {
-                    result = result.Where(c => c.正式名称.Contains(p正式名称));
+                    result = result.Where(c => c.得意先名.Contains(p得意先名));
                 }
 
                 return result.ToList();
@@ -162,7 +162,7 @@ namespace KyoeiSystem.Application.WCFService
         }
 
         /// <summary>
-        /// 
+        /// 更新データ
         /// </summary>
         /// <param name="rw">DataRow</param>
         /// <returns></returns>
@@ -177,6 +177,34 @@ namespace KyoeiSystem.Application.WCFService
             data.支払担当者コード = int.Parse(rw["支払担当者コード"].ToString());
             return data;
 
+        }
+
+
+        /// <summary>
+        /// 担当者名取得
+        /// </summary>
+        /// <param name="p担当者コード"></param>
+        /// <returns></returns>
+        public string GetM72(int p担当者コード)
+        { 
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+                string s担当者名 = null;
+                var query = 
+                            context.M72_TNT
+                            .Where(w => w.担当者ID == p担当者コード)
+                            .FirstOrDefault();
+
+                if (query != null)
+                {
+                    s担当者名 = query.担当者名;
+                }
+
+
+                return s担当者名;
+
+            }
         }
 
     }

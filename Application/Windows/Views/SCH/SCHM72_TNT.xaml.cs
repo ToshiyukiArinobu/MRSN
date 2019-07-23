@@ -422,6 +422,9 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
                 this.TwinTextBox.Text1 = SearchResult.Rows[SearchGrid.SelectedIndex][COLUM_ID].ToString();
+
+                //20190719-CB
+                this.TwinTextBox.Text2 = SearchResult.Rows[SearchGrid.SelectedIndex][COLUM_NAME].ToString();
             }
             catch (Exception)
             {

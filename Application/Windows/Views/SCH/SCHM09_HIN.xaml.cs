@@ -262,7 +262,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     // 品番
                     if (!string.IsNullOrEmpty(this.txtCode.Text))
-                        sb.AppendFormat("( 品番コード = {0} OR 自社品番 LIKE '%{1}%' )", this.txtCode.Text, this.txtCode.Text);
+                        sb.AppendFormat("( 自社品番 LIKE '%{0}%' )", this.txtCode.Text);
 
                     // 品名
                     if (!string.IsNullOrEmpty(this.txtName.Text))
