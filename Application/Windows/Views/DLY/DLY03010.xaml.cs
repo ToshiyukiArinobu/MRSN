@@ -158,6 +158,11 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        // No-56 Strat
+        // 削除済みレコード情報
+        public DataTable SearchDeleteDetail;
+        // No-56 End
+
         private string _出荷先名;
         public string 出荷先名
         {
@@ -411,9 +416,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, drow["単位"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, drow["売価"]);
-                            //No-55 Start
+                            // No-55 Start
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, AppCommon.DecimalParse(drow["売価"].ToString()));
-                            //No-55 End
+                            // No-55 End
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
@@ -809,12 +814,13 @@ namespace KyoeiSystem.Application.Windows.Views
                 dtlRow["マルセン仕入"] = _自社区分.Equals((int)自社販社区分.販社);
             }
 
-
             SearchDetail.Rows.Add(dtlRow);
 
             // 行追加後は追加行を選択させる
+            // No-56 Start
+            int newRowIdx = SearchDetail.Rows.Count - 1;
+            // No-56 End
             // TODO:追加行が表示されるようにしたかったが追加行の上行までしか移動できない...
-            int newRowIdx = SearchDetail.Rows.Count - delRowCount - 1;
             gridCtl.ScrollShowCell(newRowIdx, (int)GridColumnsMapping.自社品名);
 
         }
@@ -844,14 +850,39 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBoxResult.No) == MessageBoxResult.No)
                 return;
 
+            // No-56 Start
+            int intDelRowIdx = gridCtl.ActiveRowIndex;                              // 削除行Index
+
+            // 選択行の削除
+            // Spreadより該当行を削除する
             try
             {
-                gridCtl.SpreadGrid.Rows.Remove(gridCtl.ActiveRowIndex);
+                gridCtl.SpreadGrid.Rows.Remove(intDelRowIdx);
             }
             catch
             {
-                SearchDetail.Rows[gridCtl.ActiveRowIndex].Delete();
+                // 削除処理をイベント不要のRemoveに変更する
+                //SearchDetail.Rows[intDelRowIdx].Delete();
+                SearchDetail.Rows.Remove(SearchDetail.Rows[intDelRowIdx]);
             }
+
+            // 追加行の判定（登録済みレコードの場合）
+            if (SearchDetail.Rows[intDelRowIdx].RowState != DataRowState.Added)
+            {
+                // 削除行を売上明細情報（削除）(SearchDeleteDetail)に格納する
+                SearchDeleteDetail.ImportRow(SearchDetail.Rows[intDelRowIdx]);
+            }
+
+            // SearchDetailより該当行を削除する
+            try
+            {
+                SearchDetail.Rows.Remove(SearchDetail.Rows[intDelRowIdx]);
+            }
+            catch
+            {
+                // エラー処理なし
+            }
+            // No-56 End
 
             // グリッド内容の再計算を実施
             summaryCalculation();
@@ -990,6 +1021,11 @@ namespace KyoeiSystem.Application.Windows.Views
             SearchDetail = tblDtl;
             SearchDetail.AcceptChanges();
 
+            // No-56 Strat
+            // 売上明細情報（削除）設定
+            SearchDeleteDetail = SearchDetail.Clone();
+            // No-56 End
+
             // 消費税情報保持
             taxCalc = new TaxCalculator(ds.Tables[M73_ZEI_TABLE_NAME]);
 
@@ -1059,6 +1095,19 @@ namespace KyoeiSystem.Application.Windows.Views
 
             DataSet ds = new DataSet();
             ds.Tables.Add(SearchHeader.Table.Copy());
+
+            // No-56 Start
+            // 売上明細情報（削除）を売上明細情報に追加する
+            // (※Rows.AddだとRowStateがAddedに変更されるため1行ずつImportする)
+            if (SearchDeleteDetail.Rows.Count != 0)
+            {
+                for (int intIdx = 0; intIdx < SearchDeleteDetail.Rows.Count; intIdx++)
+                {
+                    SearchDetail.ImportRow(SearchDeleteDetail.Rows[intIdx]);
+                }
+            }
+            // No-56 End
+
             ds.Tables.Add(SearchDetail.Copy());
 
             base.SendRequest(
@@ -1751,9 +1800,9 @@ namespace KyoeiSystem.Application.Windows.Views
                                 this.txt得意先.Text2
                             }));
 
-                    //No-57 Start
+                    // No-57 Start
                     SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
-                    //No-57 End
+                    // No-57 End
 
                     break;
 
