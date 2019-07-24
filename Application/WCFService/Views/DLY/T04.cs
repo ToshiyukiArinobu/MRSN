@@ -1305,7 +1305,17 @@ namespace KyoeiSystem.Application.WCFService
                     history.倉庫コード = 倉庫コード;
                     history.入出庫区分 = stockQty >= 0 ? (int)Const.入出庫区分.ID01_入庫 : (int)Const.入出庫区分.ID02_出庫;
                     history.品番コード = data.構成品番コード;
-                    history.賞味期限 = targetStok.賞味期限;
+                    //20190724CB-S
+                    //history.賞味期限 = targetStok.賞味期限;
+                    if (targetStok == null)
+                    {
+                        history.賞味期限 = null;
+                    }
+                    else
+                    {
+                        history.賞味期限 = targetStok.賞味期限;
+                    }
+                    //20190724CB-E
                     history.数量 = Math.Abs(decimal.ToInt32(stockQty));
                     history.伝票番号 = hdRow.伝票番号;
 
@@ -1317,8 +1327,12 @@ namespace KyoeiSystem.Application.WCFService
                     if (isAddData)
                     {
                         stok.倉庫コード = 倉庫コード;
-                        stok.品番コード = targetStok.品番コード;
-                        stok.賞味期限 = AppCommon.DateTimeToDate(targetStok.賞味期限, DateTime.MaxValue);
+                        // 20190724CB-S
+                        //stok.品番コード = targetStok.品番コード;
+                        stok.品番コード = data.構成品番コード;
+                        //stok.賞味期限 = AppCommon.DateTimeToDate(targetStok.賞味期限, DateTime.MaxValue);
+                        stok.賞味期限 = DateTime.MaxValue;
+                        // 20190724CB-E
                         stok.在庫数 = stockQty;
                         stok.登録者 = userId;
                         stok.登録日時 = DateTime.Now;
@@ -1519,6 +1533,86 @@ namespace KyoeiSystem.Application.WCFService
 
         // 20190528CB-E
 
+        // 20190724CB-S
+        /// <summary>
+        /// 登録データの商品がS03_STOKに存在するかのチェック
+        /// </summary>
+        /// <param name="ds"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool STOK_CHECK(DataSet ds, int userId)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                //登録時に存在しない在庫が含まれる場合falseを返す
+                bool result = true;
+               
+                try
+                {
+                    DataRow hrow = ds.Tables[TABLE_HEADER].Rows[0];
+                    T04_AGRHD hdRow = convertDataRowToT04_AGRHD_Entity(hrow);
+
+                    int 倉庫コード = get倉庫コード(context, hdRow.入荷先コード);
+
+                    DataTable dtlTbl = ds.Tables[TABLE_DETAIL];
+                    foreach (DataRow row in dtlTbl.Rows)
+                    {
+                        T04_AGRDTL dtlRow = convertDataRowToT04_AGRDTL_Entity(row);
+
+                        if (dtlRow.品番コード <= 0)
+                            continue;
+
+                        // 対象のセット品番を取得
+                        var agrdtbList =
+                            context.M10_SHIN
+                                .Where(w => w.削除日時 == null && w.品番コード == dtlRow.品番コード);
+
+                        // 構成品番がない場合は処理しない
+                        if (agrdtbList.Count() == 0)
+                            continue;
+
+                        // 構成品番毎に在庫処理をおこなう
+                        foreach (var data in agrdtbList)
+                        {
+                            S03_STOK stok = new S03_STOK();
+                            DateTime dt = AppCommon.DateTimeToDate(dtlRow.賞味期限, DateTime.MaxValue);
+
+                            // 賞味期限の一番古い在庫を取得
+                            var targetStok =
+                                context.S03_STOK
+                                    .Where(x =>
+                                        x.倉庫コード == 倉庫コード &&
+                                        x.品番コード == data.構成品番コード)
+                                    .OrderBy(o => o.賞味期限)
+                                    .FirstOrDefault();
+
+                            if (targetStok == null) 
+                            {
+                                result = false;
+                            }
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                       
+                }
+
+                return result;
+
+            }
+
+            
+
+        }
+
+        // 20190724CB-E
+
     }
+
+
 
 }

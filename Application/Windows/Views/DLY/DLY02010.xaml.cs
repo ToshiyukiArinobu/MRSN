@@ -75,6 +75,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T04_GetDTB = "T04_GetDtb";
         /// <summary>揚り部材明細情報作成</summary>
         private const string T04_CreateDTB = "T04_CreateDtb";
+        /// <summary>在庫の存在チェック</summary>
+        private const string T04_STOK_CHECK = "T04_STOK_CHECK";
 
         /// <summary>取引先名称取得</summary>
         private const string MasterCode_Supplier = "UcSupplier";
@@ -334,6 +336,31 @@ namespace KyoeiSystem.Application.Windows.Views
                             this.txt伝票番号.Focus();
                         }
                         break;
+
+                    //20190724CB-S
+                    case T04_STOK_CHECK:
+
+                        if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                                return;
+
+                        if (!(bool)data) 
+                        {
+                            if (MessageBox.Show("構成品の在庫が足りないですが、登録しますか？",
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                                return;
+                        }
+
+                        Update();
+
+                        break;
+                    //20190724CB-E
 
                     case T04_Update:
                         MessageBox.Show(AppConst.SUCCESS_UPDATE, "登録完了", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -842,9 +869,17 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             if (MaintenanceMode == null || SearchDetail == null)
                 return;
-
-            Update();
-
+            //20190724CB-S
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.UpdateData,
+                    T04_STOK_CHECK,
+                    new object[] {
+                        SearchDetail.DataSet,
+                        ccfg.ユーザID
+                    }));
+            //Update();
+            //20190724CB-E
         }
         #endregion
 
@@ -1021,12 +1056,12 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                return;
+            //if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
+            //                    "登録確認",
+            //                    MessageBoxButton.YesNo,
+            //                    MessageBoxImage.Question,
+            //                    MessageBoxResult.Yes) == MessageBoxResult.No)
+            //    return;
 
             // -- 送信用データを作成 --
             // 消費税をヘッダに設定

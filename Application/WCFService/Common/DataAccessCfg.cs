@@ -311,6 +311,7 @@ namespace KyoeiSystem.Application.WCFService
             // 20190528CB-S
             new WCFDataAccessConfig() { Name = "M10_GetCount", ServiceClass = "T04", MethodName = "M10_GetCount", Descprition = "セット品番構成品の登録件数取得" },
             // 20190528CB-E
+            new WCFDataAccessConfig() { Name = "T04_STOK_CHECK", ServiceClass = "T04", MethodName = "STOK_CHECK", Descprition = "セット品の在庫存在確認" },
 
             // 移動入力
             new WCFDataAccessConfig() { Name = "T05_GetData", ServiceClass = "DLY04010", MethodName = "GetData", Descprition = "移動入力情報取得" },
