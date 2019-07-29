@@ -754,6 +754,23 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// 販社売上修正
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_DLY12010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(DLY12010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
@@ -1666,6 +1683,40 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// 品番マスタ一括修正
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_MST02011(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(MST02011));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 取引先マスタ一括修正
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_MST01011(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(MST01011));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
@@ -2234,6 +2285,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     Kengen.Visibility = System.Windows.Visibility.Hidden;
                 }
+
+                // 20190726CB-S
+                // ログインユーザーの自社コードが"マルセン"ではない場合DLY12010(販社売上修正)を使用不可にする
+                if (this.ccfg.自社コード != 1) 
+                {
+                    DLY12010.Visibility = System.Windows.Visibility.Hidden;
+                }
+                // 20190726CB-E
 
                 if (AuthorityData.プログラムID != null)
                 {

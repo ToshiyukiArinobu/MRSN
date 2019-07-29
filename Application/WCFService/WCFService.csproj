@@ -317,6 +317,7 @@
     <Compile Include="Views\DLY\T05.cs" />
     <Compile Include="Views\DLY\T11.cs" />
     <Compile Include="Views\DLY\T12.cs" />
+    <Compile Include="Views\DLY\DLY12010.cs" />
     <Compile Include="Views\MST\MST02011.svc.cs">
       <DependentUpon>MST02011.svc</DependentUpon>
     </Compile>

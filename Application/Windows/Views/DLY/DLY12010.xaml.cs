@@ -1,281 +1,32 @@
-﻿using System;
+﻿using GrapeCity.Windows.SpreadGrid;
+using KyoeiSystem.Application.Windows.Views.Common;
+using KyoeiSystem.Framework.Core;
+using KyoeiSystem.Framework.Windows.Controls;
+using KyoeiSystem.Framework.Windows.ViewBase;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Ribbon;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.Data;
-
-using KyoeiSystem.Framework.Core;
-using KyoeiSystem.Framework.Common;
-using KyoeiSystem.Framework.Windows.ViewBase;
-using KyoeiSystem.Application.Windows.Views;
-using GrapeCity.Windows.SpreadGrid;
-using KyoeiSystem.Framework.Windows.Controls;
 
 namespace KyoeiSystem.Application.Windows.Views
 {
+    using DebugLog = System.Diagnostics.Debug;
+
     /// <summary>
-    /// 売上明細問合せ
+    /// 販売売上修正
     /// </summary>
     public partial class DLY12010 : RibbonWindowViewBase
     {
-
-        #region DLY12010_Member
-
-        public class DLY12010_Member : INotifyPropertyChanged
-        {
-            private int _明細番号;
-			private int _明細行;
-			private string _入力区分;
-			private DateTime _請求日付;
-			private DateTime? _支払日付;
-			private DateTime _配送日付;
-			private decimal? _配送時間;
-			private int? _得意先ID;
-			private string _得意先名;
-			private int? _請求内訳ID;
-			private string _請求内訳名;
-			private int? _車輌ID;
-			private string _車輌番号;
-			private int? _車種ID;
-			private string _車種名;
-			private int? _支払先ID;
-			private string _支払先略称名;
-			private int? _乗務員ID;
-			private string _乗務員名;
-			private string _支払先名２次;
-			private string _実運送乗務員;
-			private string _乗務員連絡先;
-			private decimal _数量;
-			private string _単位;
-			private decimal _重量;
-			private int _走行ＫＭ;
-			private int _実車ＫＭ;
-			private decimal _売上単価;
-			private int _売上金額;
-			private decimal _d売上金額;
-			private int _通行料;
-			private decimal _d通行料;
-			private int _請求割増１;
-			private decimal _d請求割増１;
-			private int _請求割増２;
-			private decimal _d請求割増２;
-			private int _売上金額計;
-			private decimal _d売上金額計;
-			private int _請求消費税;
-			private decimal _支払単価;
-			private int _支払金額;
-			private decimal _d支払金額;
-			private int _支払通行料;
-			private decimal _d支払通行料;
-			private int _支払割増１;
-			private decimal _d支払割増１;
-			private int _支払割増２;
-			private decimal _d支払割増２;
-			private decimal _支払金額計;
-			private int _支払消費税;
-			private int _社内区分;
-			private string _社内区分名;
-			private int _請求税区分;
-			private int _支払税区分;
-			private int _売上未定区分;
-			private int _支払未定区分;
-			private string _商品名;
-			private string _発地名;
-			private string _着地名;
-			private string _請求摘要;
-			private string _社内備考;
-			private int? _S締日;
-			private int? _T締日;
-			private string _表示順序1;
-			private string _表示順序2;
-			private string _表示順序3;
-			private string _表示順序4;
-			private string _表示順序5;
-			private decimal _単価;
-			private int? _発地ID;
-			private int? _着地ID;
-			private int? _商品ID;
-			private int _自社部門;
-			private int _請求運賃計算区分ID;
-			private int _支払運賃計算区分ID;
-
-
-            public int 明細番号 { get { return _明細番号; } set { _明細番号 = value; NotifyPropertyChanged(); } }
-            public int 明細行 { get { return _明細行; } set { _明細行 = value; NotifyPropertyChanged(); } }
-            public string 入力区分 { get { return _入力区分; } set { _入力区分 = value; NotifyPropertyChanged(); } }
-            public DateTime 請求日付 { get { return _請求日付; } set { _請求日付 = value; NotifyPropertyChanged(); } }
-            public DateTime? 支払日付 { get { return _支払日付; } set { _支払日付 = value; NotifyPropertyChanged(); } }
-            public DateTime 配送日付 { get { return _配送日付; } set { _配送日付 = value; NotifyPropertyChanged(); } }
-            public decimal? 配送時間 { get { return _配送時間; } set { _配送時間 = value; NotifyPropertyChanged(); } }
-            public int? 得意先ID { get { return _得意先ID; } set { _得意先ID = value; NotifyPropertyChanged(); } }
-            public string 得意先名 { get { return _得意先名; } set { _得意先名 = value; NotifyPropertyChanged(); } }
-            public int? 請求内訳ID { get { return _請求内訳ID; } set { _請求内訳ID = value; NotifyPropertyChanged(); } }
-            public string 請求内訳名 { get { return _請求内訳名; } set { _請求内訳名 = value; NotifyPropertyChanged(); } }
-            public int? 車輌ID { get { return _車輌ID; } set { _車輌ID = value; NotifyPropertyChanged(); } }
-            public string 車輌番号 { get { return _車輌番号; } set { _車輌番号 = value; NotifyPropertyChanged(); } }
-            public int? 車種ID { get { return _車種ID; } set { _車種ID = value; NotifyPropertyChanged(); } }
-            public string 車種名 { get { return _車種名; } set { _車種名 = value; NotifyPropertyChanged(); } }
-            public int? 支払先ID { get { return _支払先ID; } set { _支払先ID = value; NotifyPropertyChanged(); } }
-            public string 支払先略称名 { get { return _支払先略称名; } set { _支払先略称名 = value; NotifyPropertyChanged(); } }
-            public int? 乗務員ID { get { return _乗務員ID; } set { _乗務員ID = value; NotifyPropertyChanged(); } }
-            public string 乗務員名 { get { return _乗務員名; } set { _乗務員名 = value; NotifyPropertyChanged(); } }
-            public string 支払先名２次 { get { return _支払先名２次; } set { _支払先名２次 = value; NotifyPropertyChanged(); } }
-            public string 実運送乗務員 { get { return _実運送乗務員; } set { _実運送乗務員 = value; NotifyPropertyChanged(); } }
-            public string 乗務員連絡先 { get { return _乗務員連絡先; } set { _乗務員連絡先 = value; NotifyPropertyChanged(); } }
-            public decimal 数量 { get { return _数量; } set { _数量 = value; NotifyPropertyChanged(); } }
-            public string 単位 { get { return _単位; } set { _単位 = value; NotifyPropertyChanged(); } }
-            public decimal 重量 { get { return _重量; } set { _重量 = value; NotifyPropertyChanged(); } }
-            public int 走行ＫＭ { get { return _走行ＫＭ; } set { _走行ＫＭ = value; NotifyPropertyChanged(); } }
-            public int 実車ＫＭ { get { return _実車ＫＭ; } set { _実車ＫＭ = value; NotifyPropertyChanged(); } }
-            public decimal 売上単価 { get { return _売上単価; } set { _売上単価 = value; NotifyPropertyChanged(); } }
-            public int 売上金額 { get { return _売上金額; } set { _売上金額 = value; NotifyPropertyChanged(); } }
-            public decimal d売上金額 { get { return _d売上金額; } set { _d売上金額 = value; NotifyPropertyChanged(); } }
-            public int 通行料 { get { return _通行料; } set { _通行料 = value; NotifyPropertyChanged(); } }
-            public decimal d通行料 { get { return _d通行料; } set { _d通行料 = value; NotifyPropertyChanged(); } }
-            public int 請求割増１ { get { return _請求割増１; } set { _請求割増１ = value; NotifyPropertyChanged(); } }
-            public decimal d請求割増１ { get { return _d請求割増１; } set { _d請求割増１ = value; NotifyPropertyChanged(); } }
-            public int 請求割増２ { get { return _請求割増２; } set { _請求割増２ = value; NotifyPropertyChanged(); } }
-            public decimal d請求割増２ { get { return _d請求割増２; } set { _d請求割増２ = value; NotifyPropertyChanged(); } }
-            public int 売上金額計 { get { return _売上金額計; } set { _売上金額計 = value; NotifyPropertyChanged(); } }
-            public decimal d売上金額計 { get { return _d売上金額計; } set { _d売上金額計 = value; NotifyPropertyChanged(); } }
-            public int 請求消費税 { get { return _請求消費税; } set { _請求消費税 = value; NotifyPropertyChanged(); } }
-            public decimal 支払単価 { get { return _支払単価; } set { _支払単価 = value; NotifyPropertyChanged(); } }
-            public int 支払金額 { get { return _支払金額; } set { _支払金額 = value; NotifyPropertyChanged(); } }
-            public decimal d支払金額 { get { return _d支払金額; } set { _d支払金額 = value; NotifyPropertyChanged(); } }
-            public int 支払通行料 { get { return _支払通行料; } set { _支払通行料 = value; NotifyPropertyChanged(); } }
-            public decimal d支払通行料 { get { return _d支払通行料; } set { _d支払通行料 = value; NotifyPropertyChanged(); } }
-            public int 支払割増１ { get { return _支払割増１; } set { _支払割増１ = value; NotifyPropertyChanged(); } }
-            public decimal d支払割増１ { get { return _d支払割増１; } set { _d支払割増１ = value; NotifyPropertyChanged(); } }
-            public int 支払割増２ { get { return _支払割増２; } set { _支払割増２ = value; NotifyPropertyChanged(); } }
-            public decimal d支払割増２ { get { return _d支払割増２; } set { _d支払割増２ = value; NotifyPropertyChanged(); } }
-			public decimal 支払金額計 { get { return _支払金額計; } set { _支払金額計 = value; NotifyPropertyChanged(); } }
-            public int 支払消費税 { get { return _支払消費税; } set { _支払消費税 = value; NotifyPropertyChanged(); } }
-			public int 社内区分 { get { return _社内区分; } set { _社内区分 = value; NotifyPropertyChanged(); } }
-			public string 社内区分名 { get { return _社内区分名; } set { _社内区分名 = value; NotifyPropertyChanged(); } }
-			public int 請求税区分 { get { return _請求税区分; } set { _請求税区分 = value; NotifyPropertyChanged(); } }
-            public int 支払税区分 { get { return _支払税区分; } set { _支払税区分 = value; NotifyPropertyChanged(); } }
-            public int 売上未定区分 { get { return _売上未定区分; } set { _売上未定区分 = value; NotifyPropertyChanged(); } }
-            public int 支払未定区分 { get { return _支払未定区分; } set { _支払未定区分 = value; NotifyPropertyChanged(); } }
-            public string 商品名 { get { return _商品名; } set { _商品名 = value; NotifyPropertyChanged(); } }
-            public string 発地名 { get { return _発地名; } set { _発地名 = value; NotifyPropertyChanged(); } }
-            public string 着地名 { get { return _着地名; } set { _着地名 = value; NotifyPropertyChanged(); } }
-            public string 請求摘要 { get { return _請求摘要; } set { _請求摘要 = value; NotifyPropertyChanged(); } }
-            public string 社内備考 { get { return _社内備考; } set { _社内備考 = value; NotifyPropertyChanged(); } }
-            public int? S締日 { get { return _S締日; } set { _S締日 = value; NotifyPropertyChanged(); } }
-            public int? T締日 { get { return _T締日; } set { _T締日 = value; NotifyPropertyChanged(); } }
-            public string 表示順序1 { get { return _表示順序1; } set { _表示順序1 = value; NotifyPropertyChanged(); } }
-            public string 表示順序2 { get { return _表示順序2; } set { _表示順序2 = value; NotifyPropertyChanged(); } }
-            public string 表示順序3 { get { return _表示順序3; } set { _表示順序3 = value; NotifyPropertyChanged(); } }
-            public string 表示順序4 { get { return _表示順序4; } set { _表示順序4 = value; NotifyPropertyChanged(); } }
-            public string 表示順序5 { get { return _表示順序5; } set { _表示順序5 = value; NotifyPropertyChanged(); } }
-            public decimal 単価 { get { return _単価; } set { _単価 = value; NotifyPropertyChanged(); } }
-            public int? 発地ID { get { return _発地ID; } set { _発地ID = value; NotifyPropertyChanged(); } }
-            public int? 着地ID { get { return _着地ID; } set { _着地ID = value; NotifyPropertyChanged(); } }
-            public int? 商品ID { get { return _商品ID; } set { _商品ID = value; NotifyPropertyChanged(); } }
-            public int 自社部門 { get { return _自社部門; } set { _自社部門 = value; NotifyPropertyChanged(); } }
-            public int 請求運賃計算区分ID { get { return _請求運賃計算区分ID; } set { _請求運賃計算区分ID = value; NotifyPropertyChanged(); } }
-            public int 支払運賃計算区分ID { get { return _支払運賃計算区分ID; } set { _支払運賃計算区分ID = value; NotifyPropertyChanged(); } }
-
-
-            #region INotifyPropertyChanged メンバー
-            /// <summary>
-            /// Binding機能対応（プロパティの変更通知イベント）
-            /// </summary>
-            public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-            /// <summary>
-            /// Binding機能対応（プロパティの変更通知イベント送信）
-            /// </summary>
-            /// <param name="propertyName">Bindingプロパティ名</param>
-            public void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] String propertyName = "")
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-                }
-            }
-            #endregion
-        }
-
-        #endregion
-
-        #region MasterList_Member
-
-        public class MasterList_Member : INotifyPropertyChanged
-        {
-            private string _選択;
-            private int _コード;
-            private string _表示名;
-
-            public string 選択 { get { return _選択; } set { _選択 = value; NotifyPropertyChanged(); } }
-            public int コード { get { return _コード; } set { _コード = value; NotifyPropertyChanged(); } }
-            public string 表示名 { get { return _表示名; } set { _表示名 = value; NotifyPropertyChanged(); } }
-
-            #region INotifyPropertyChanged メンバー
-
-            /// <summary>
-            /// Binding機能対応（プロパティの変更通知イベント）
-            /// </summary>
-            public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-            /// <summary>
-            /// Binding機能対応（プロパティの変更通知イベント送信）
-            /// </summary>
-            /// <param name="propertyName">Bindingプロパティ名</param>
-            public void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] String propertyName = "")
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-                }
-            }
-
-            #endregion
-        }
-
-        #endregion
-
-        #region データアクセス用ID
-        private const string GET_CNTL = "M87_CNTL";
-        private const string GET_DATA = "DLY12010";
-        private const string UPDATE_ROW = "DLY12010_UPDATE";
-        private const string UPDATE_ROW2 = "DLY12010_UPDATE2";
-        private const string GET_DATA_CSV = "DLY12010_CSV";
-        private const string GET_DATA_PRT = "DLY12010_PRT";
-        private const string GET_MST1 = "DLY12010_MST1";
-        private const string GET_MST2 = "DLY12010_MST2";
-        private const string GET_MST3 = "DLY12010_MST3";
-        private const string GET_MST4 = "DLY12010_MST4";
-        private const string GET_MST5 = "DLY12010_MST5";
-        private const string GET_MST6 = "DLY12010_MST6";
-        private const string GET_MST7 = "DLY12010_MST7";
-        private const string GET_MST8 = "DLY12010_MST8";
-        private const string GET_MST9 = "DLY12010_MST9";
-		private const string GetTanka = "DLY01010_TANKA";
-        const string SelectedChar = "a";
-        const string UnselectedChar = "";
-        private const string GetBumon = "M71_Bumon";
-        const string ReportFileName = @"Files\DLY\DLY12010.rpt";
-        //レポート
-        private const string rptFullPathName_PIC = @"Files\DLY\DLY12010.rpt";
-        #endregion
-
         #region 画面設定項目
         /// <summary>
         /// ユーザ設定項目
         /// </summary>
         UserConfig ucfg = null;
+        CommonConfig ccfg = null;
 
         /// <summary>
         /// 画面固有設定項目のクラス定義
@@ -283,755 +34,212 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         public class ConfigDLY12010 : FormConfigBase
         {
-            public string[] 表示順 { get; set; }
-            public bool[] 表示順方向 { get; set; }
-            // コンボボックスの位置
-            public int 自社部門index { get; set; }
-
-            public byte[] spConfig20180118 = null;
-
-            public string 作成年 { get; set; }
-            public string 作成月 { get; set; }
-            public string 締日 { get; set; }
-            public string 集計期間From { get; set; }
-            public string 集計期間To { get; set; }
-            public int 区分1 { get; set; }
-            public int 区分2 { get; set; }
-            public int 区分3 { get; set; }
-            public int 区分4 { get; set; }
-            public int 区分5 { get; set; }
-            public bool? チェック { get; set; }
         }
-		 
+
         /// ※ 必ず public で定義する。
         public ConfigDLY12010 frmcfg = null;
 
-        public byte[] sp_Config = null;
+        #endregion
+
+        #region 定数定義
+
+        #region サービスアクセス定義
+        /// <summary>売上情報取得</summary>
+        private const string T02_GetData = "DLY12010_GetData";
+        /// <summary>売上情報更新</summary>
+        private const string T02_Update = "T02_Update";
+        /// <summary>売上情報削除</summary>
+        //private const string T02_Delete = "T02_Delete";
+
+        /// <summary>在庫数チェック</summary>
+        //private const string T02_StockCheck = "T02_CheckStock";
+        /// <summary>更新用_在庫数チェック</summary>
+        private const string UpdateData_StockCheck = "UpdateData_CheckStock";
+
+        /// <summary>取引先名称取得</summary>
+        private const string MasterCode_Supplier = "UcSupplier";
+        /// <summary>得意先品番情報取得</summary>
+        //private const string MasterCode_CustomerProduct = "UcCustomerProduct";
+        #endregion
+
+        #region 使用テーブル名定義
+        /// <summary>売上ヘッダ テーブル名</summary>
+        private const string T02_HEADER_TABLE_NAME = "T02_URHD";
+        /// <summary>売上明細 テーブル名</summary>
+        private const string T02_DETAIL_TABLE_NAME = "T02_URDTL";
+        /// <summary>消費税 テーブル名</summary>
+        private const string M73_ZEI_TABLE_NAME = "M73_ZEI";
+        /// <summary>自社 テーブル名</summary>
+        private const string M70_JIS_TABLE_NAME = "M70_JIS";
+        #endregion
+
+        /// <summary>金額フォーマット定義</summary>
+        private const string PRICE_FORMAT_STRING = "{0:#,0}";
+
+        /// <summary>メーカーの売上区分</summary>
+        private List<string> メーカー区分 = new List<string>() { "3", "4" };
 
         #endregion
 
-        #region 明細クリック時のアクション定義
+        #region 列挙型定義
+
         /// <summary>
-        /// 明細クリック時のアクション定義
+        /// データグリッドの列定義
         /// </summary>
-        public class cmd売上詳細表示 : ICommand
+        private enum GridColumnsMapping : int
         {
-            private GcSpreadGrid _gcSpreadGrid;
-            public cmd売上詳細表示(GcSpreadGrid gcSpreadGrid)
-            {
-                this._gcSpreadGrid = gcSpreadGrid;
-            }
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-            public event EventHandler CanExecuteChanged;
-            public void OnCanExecuteChanged()
-            {
-                if (CanExecuteChanged != null)
-                    CanExecuteChanged(this, EventArgs.Empty);
-            }
-            public void Execute(object parameter)
-            {
-                CellCommandParameter cellCommandParameter = (CellCommandParameter)parameter;
-                if (cellCommandParameter.Area == SpreadArea.Cells)
-                {
-                    int rowNo = cellCommandParameter.CellPosition.Row;
-                    var row = this._gcSpreadGrid.Rows[rowNo];
-                    var mNo = row.Cells[this._gcSpreadGrid.Columns["明細番号"].Index].Value;
-                    var gNo = row.Cells[this._gcSpreadGrid.Columns["明細行"].Index].Value;
-                    var wnd = GetWindow(this._gcSpreadGrid);
-
-                    // 入力区分により起動する画面を分けるとしたらココ
-                    string kbn = row.Cells[this._gcSpreadGrid.Columns["入力区分"].Index].Value.ToString();
-
-                    if (kbn.ToString() == "日報入力")
-                    {
-                        DLY01010 frm = new DLY01010();
-                        frm.初期明細番号 = (int?)mNo;
-                        frm.初期行番号 = (int?)gNo;
-						frm.ShowDialog(wnd);
-						if (frm.IsUpdated)
-						{
-							// 日報側で更新された場合、再検索を実行する
-							var parent = ViewBaseCommon.FindVisualParent<DLY12010>(this._gcSpreadGrid);
-							parent.Button_Click_1(null, null);
-						}
-                    }
-                    else if (kbn.ToString() == "売上入力")
-                    {
-                        DLY02015 frm = new DLY02015();
-                        frm.初期明細番号 = (int?)mNo;
-                        frm.初期行番号 = (int?)gNo;
-						frm.ShowDialog(wnd);
-						if (frm.IsUpdated)
-						{
-							// 日報側で更新された場合、再検索を実行する
-							var parent = ViewBaseCommon.FindVisualParent<DLY12010>(this._gcSpreadGrid);
-							parent.Button_Click_1(null, null);
-						}
-                    }
-					else if (kbn.ToString() == "内訳入力")
-					{
-						DLY02010 frm = new DLY02010();
-						frm.初期明細番号 = (int?)mNo;
-						frm.初期行番号 = (int?)gNo;
-						frm.ShowDialog(wnd);
-						if (frm.IsUpdated)
-						{
-							// 日報側で更新された場合、再検索を実行する
-							var parent = ViewBaseCommon.FindVisualParent<DLY12010>(this._gcSpreadGrid);
-							parent.Button_Click_1(null, null);
-						}
-					}
-                }
-            }
+            自社品番 = 0,
+            得意先品番 = 1,
+            自社品名 = 2,
+            色コード = 3,
+            色名称 = 4,
+            賞味期限 = 5,
+            数量 = 6,
+            単位 = 7,
+            単価 = 8,
+            金額 = 9,
+            摘要 = 10,
+            マルセン仕入 = 11,
+            品番コード = 12,
+            消費税区分 = 13,
+            商品分類 = 14
         }
-        #endregion
 
-        #region BindingMember
         /// <summary>
-        ///　メンバー変数
+        /// 自社区分 内包データ
         /// </summary>
-
-        private int pRowCount;
-        private int p明細番号;
-        private int p明細行;
-        string _originalText = null;
-        public int? 金額計算端数処理区分 = null;
-
-        public class BumonData
+        private enum 自社販社区分 : int
         {
-            public int 自社部門ID;
-            public string 自社部門名;
-        }
-        private List<BumonData> BumonList;
-
-        private int _p売上金額 = 0;
-        public int p売上金額
-        {
-            get { return this._p売上金額; }
-            set { this._p売上金額 = value; NotifyPropertyChanged(); }
+            自社 = 0,
+            販社 = 1
         }
 
-        private decimal _p売上単価 = 0;
-        public decimal p売上単価
+        /// <summary>
+        /// 商品分類 内包データ
+        /// </summary>
+        private enum 商品分類 : int
         {
-            get { return this._p売上単価; }
-            set { this._p売上単価 = value; NotifyPropertyChanged(); }
+            食品 = 1,
+            繊維 = 2,
+            その他 = 3
         }
 
-        private int _p支払金額 = 0;
-        public int p支払金額
+        private enum 消費税区分 : int
         {
-            get { return this._p支払金額; }
-            set { this._p支払金額 = value; NotifyPropertyChanged(); }
+            通常税率 = 0,
+            軽減税率 = 1,
+            非課税 = 2
         }
+        #endregion
 
-        private decimal _p支払単価 = 0;
-        public decimal p支払単価
+        #region バインディングデータ
+
+        /// <summary>売上ヘッダ情報</summary>
+        private DataRow _searchHeader;
+        public DataRow SearchHeader
         {
-            get { return this._p支払単価; }
-            set { this._p支払単価 = value; NotifyPropertyChanged(); }
-        }
-
-        //private UcLabelComboBox[] orderComboboxes = new UcLabelComboBox[] { null, null, null, null, null };
-
-        bool _請求内訳条件Enabled = false;
-        public bool 請求内訳条件Enabled
-        {
-            get { return this._請求内訳条件Enabled; }
-            set { this._請求内訳条件Enabled = value; NotifyPropertyChanged(); }
-        }
-
-        string _検索日付選択 = null;
-        public string 検索日付選択
-        {
-            get { return this._検索日付選択; }
-            set { this._検索日付選択 = value; NotifyPropertyChanged(); }
-        }
-
-        string _検索日付From = null;
-        public string 検索日付From
-        {
-            get { return this._検索日付From; }
-            set { this._検索日付From = value; NotifyPropertyChanged(); }
-        }
-
-        string _検索日付To = null;
-        public string 検索日付To
-        {
-            get { return this._検索日付To; }
-            set { this._検索日付To = value; NotifyPropertyChanged(); }
-        }
-
-        string _ピックアップ種類 = null;
-        public string ピックアップ種類
-        {
-            get { return this._ピックアップ種類; }
+            get { return _searchHeader; }
             set
             {
-                this._ピックアップ種類 = value;
-                NotifyPropertyChanged();
-                PickupSelect(value);
-            }
-        }
-
-        string[] _表示順 = new string[] { "", "", "", "", "", };
-        public string[] 表示順
-        {
-            get { return this._表示順; }
-            set { this._表示順 = value; NotifyPropertyChanged(); }
-        }
-
-        string[] _表示順名 = new string[] { "", "", "", "", "", };
-        public string[] 表示順名
-        {
-            get { return this._表示順名; }
-            set { this._表示順名 = value; NotifyPropertyChanged(); }
-        }
-
-        bool[] _表示順方向 = new bool[] { false, false, false, false, false };
-        public bool[] 表示順方向
-        {
-            get { return this._表示順方向; }
-            set { this._表示順方向 = value; NotifyPropertyChanged(); }
-        }
-
-        private string _得意先ID = null;
-        public string 得意先ID
-        {
-            set
-            {
-                _得意先ID = value;
-                NotifyPropertyChanged();
-            }
-            get { return _得意先ID; }
-        }
-
-        private string _担当者ID = null;
-        public string 担当者ID
-        {
-            set
-            {
-                _担当者ID = value;
-                NotifyPropertyChanged();
-            }
-            get { return _担当者ID; }
-        }
-
-        private string _乗務員ID = null;
-        public string 乗務員ID
-        {
-            set
-            {
-                _乗務員ID = value;
-                NotifyPropertyChanged();
-            }
-            get { return _乗務員ID; }
-        }
-
-        private string _車輌ID = null;
-        public string 車輌ID
-        {
-            set
-            {
-                _車輌ID = value;
-                NotifyPropertyChanged();
-            }
-            get { return _車輌ID; }
-        }
-
-
-        Dictionary<string, Visibility> _RangeVisibilities = new Dictionary<string, Visibility>()
-		{
-			{ "得意先", Visibility.Hidden },
-			{ "支払先", Visibility.Hidden },
-			{ "仕入先", Visibility.Hidden },
-			{ "乗務員", Visibility.Hidden },
-			{ "車輌", Visibility.Hidden },
-			{ "車種", Visibility.Hidden },
-			{ "発地", Visibility.Hidden },
-			{ "着地", Visibility.Hidden },
-			{ "商品", Visibility.Hidden },
-		};
-
-
-        public Dictionary<string, Visibility> RangeVisibilities
-        {
-            get { return _RangeVisibilities; }
-            set
-            {
-                _RangeVisibilities = value;
+                _searchHeader = value;
                 NotifyPropertyChanged();
             }
         }
 
-        private string _請求内訳ID = null;
-        public string 請求内訳ID
+        /// <summary>売上明細情報</summary>
+        private DataTable _searchDetail;
+        public DataTable SearchDetail
         {
+            get { return _searchDetail; }
             set
             {
-                _請求内訳ID = value;
-                NotifyPropertyChanged();
-            }
-            get { return _請求内訳ID; }
-        }
-
-        private string _支払先ID = null;
-        public string 支払先ID
-        {
-            set
-            {
-                _支払先ID = value;
-                NotifyPropertyChanged();
-            }
-            get { return _支払先ID; }
-        }
-
-        private string _自社部門ID = null;
-        public string 自社部門ID
-        {
-            set
-            {
-                _自社部門ID = value;
-                NotifyPropertyChanged();
-            }
-            get { return _自社部門ID; }
-        }
-
-        private string _発地名 = "";
-        public string 発地名
-        {
-            set
-            {
-                _発地名 = value;
-                NotifyPropertyChanged();
-            }
-            get { return _発地名; }
-        }
-        private string _着地名 = "";
-        public string 着地名
-        {
-            set
-            {
-                _着地名 = value;
-                NotifyPropertyChanged();
-            }
-            get { return _着地名; }
-        }
-
-        private string _商品名 = "";
-        public string 商品名
-        {
-            set
-            {
-                _商品名 = value;
-                NotifyPropertyChanged();
-            }
-            get { return _商品名; }
-        }
-
-        private string _請求摘要 = "";
-        public string 請求摘要
-        {
-            set
-            {
-                _請求摘要 = value;
-                NotifyPropertyChanged();
-            }
-            get { return _請求摘要; }
-        }
-
-        private string _社内備考 = "";
-        public string 社内備考
-        {
-            set
-            {
-                _社内備考 = value;
-                NotifyPropertyChanged();
-            }
-            get { return _社内備考; }
-        }
-
-        private int? _売上未定区分 = null;
-        public int? 売上未定区分
-        {
-            set { _売上未定区分 = value; NotifyPropertyChanged(); }
-            get { return _売上未定区分; }
-        }
-
-        // 絞り込みコード範囲
-        private string pickupCodeFROM = null;
-        private string pickupCodeTO = null;
-
-        private string _得意先FROM = null;
-        public string 得意先FROM
-        {
-            get { return _得意先FROM; }
-            set { _得意先FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _得意先TO = null;
-        public string 得意先TO
-        {
-            get { return _得意先TO; }
-            set { _得意先TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _支払先FROM = null;
-        public string 支払先FROM
-        {
-            get { return _支払先FROM; }
-            set { _支払先FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _支払先TO = null;
-        public string 支払先TO
-        {
-            get { return _支払先TO; }
-            set { _支払先TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _仕入先FROM = null;
-        public string 仕入先FROM
-        {
-            get { return _仕入先FROM; }
-            set { _仕入先FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _仕入先TO = null;
-        public string 仕入先TO
-        {
-            get { return _仕入先TO; }
-            set { _仕入先TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _乗務員FROM = null;
-        public string 乗務員FROM
-        {
-            get { return _乗務員FROM; }
-            set { _乗務員FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _乗務員TO = null;
-        public string 乗務員TO
-        {
-            get { return _乗務員TO; }
-            set { _乗務員TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _車輌FROM = null;
-        public string 車輌FROM
-        {
-            get { return _車輌FROM; }
-            set { _車輌FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _車輌TO = null;
-        public string 車輌TO
-        {
-            get { return _車輌TO; }
-            set { _車輌TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _車種FROM = null;
-        public string 車種FROM
-        {
-            get { return _車種FROM; }
-            set { _車種FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _車種TO = null;
-        public string 車種TO
-        {
-            get { return _車種TO; }
-            set { _車種TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _発地FROM = null;
-        public string 発地FROM
-        {
-            get { return _発地FROM; }
-            set { _発地FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _発地TO = null;
-        public string 発地TO
-        {
-            get { return _発地TO; }
-            set { _発地TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _着地FROM = null;
-        public string 着地FROM
-        {
-            get { return _着地FROM; }
-            set { _着地FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _着地TO = null;
-        public string 着地TO
-        {
-            get { return _着地TO; }
-            set { _着地TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-        private string _商品FROM = null;
-        public string 商品FROM
-        {
-            get { return _商品FROM; }
-            set { _商品FROM = value; pickupCodeFROM = value; NotifyPropertyChanged(); }
-        }
-        private string _商品TO = null;
-        public string 商品TO
-        {
-            get { return _商品TO; }
-            set { _商品TO = value; pickupCodeTO = value; NotifyPropertyChanged(); }
-        }
-
-        // 絞り込み条件（締日）
-        private string _ピックアップ締日 = null;
-        public string ピックアップ締日
-        {
-            get { return _ピックアップ締日; }
-            set { _ピックアップ締日 = value; NotifyPropertyChanged(); }
-        }
-
-        //----------------------------------------
-        // 検索結果データ
-        //----------------------------------------
-        private List<MasterList_Member> _pickup得意先 = null;
-        public List<MasterList_Member> Pickup得意先
-        {
-            get { return this._pickup得意先; }
-            set { this._pickup得意先 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickup支払先 = null;
-        public List<MasterList_Member> Pickup支払先
-        {
-            get { return this._pickup支払先; }
-            set { this._pickup支払先 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _Pickup仕入先 = null;
-        public List<MasterList_Member> Pickup仕入先
-        {
-            get { return this._Pickup仕入先; }
-            set { this._Pickup仕入先 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickup乗務員 = null;
-        public List<MasterList_Member> Pickup乗務員
-        {
-            get { return this._pickup乗務員; }
-            set { this._pickup乗務員 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickup車輌 = null;
-        public List<MasterList_Member> Pickup車輌
-        {
-            get { return this._pickup車輌; }
-            set { this._pickup車輌 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickup車種 = null;
-        public List<MasterList_Member> Pickup車種
-        {
-            get { return this._pickup車種; }
-            set { this._pickup車種 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickup発地 = null;
-        public List<MasterList_Member> Pickup発地
-        {
-            get { return this._pickup発地; }
-            set { this._pickup発地 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickup着地 = null;
-        public List<MasterList_Member> Pickup着地
-        {
-            get { return this._pickup着地; }
-            set { this._pickup着地 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickup商品 = null;
-        public List<MasterList_Member> Pickup商品
-        {
-            get { return this._pickup商品; }
-            set { this._pickup商品 = value; NotifyPropertyChanged(); NotifyPropertyChanged("PickupData"); }
-        }
-
-        private List<MasterList_Member> _pickupdata = null;
-        public List<MasterList_Member> PickupData
-        {
-            get { return this._pickupdata; }
-            set { this._pickupdata = value; NotifyPropertyChanged(); }
-        }
-
-        private bool PickupSwitch = false;
-
-        // 検索した結果データ
-        //private DataTable _dUriageDataResult = null;
-        //public DataTable 売上明細データ検索結果
-        //{
-        //    get
-        //    {
-        //        return this._dUriageDataResult;
-        //    }
-        //    set
-        //    {
-        //        this._dUriageDataResult = value;
-        //        if (value == null)
-        //        {
-        //            this.売上明細データ = null;
-        //        }
-        //        else
-        //        {
-        //            this.売上明細データ = value.Copy();
-        //        }
-        //        NotifyPropertyChanged();
-        //        //NotifyPropertyChanged("売上明細データ");
-        //    }
-        //}
-
-        private DataTable 管理データ = null;
-
-
-        private List<DLY12010_Member> _dUriageData = null;
-        public List<DLY12010_Member> 売上明細データ
-        {
-            get
-            {
-                return this._dUriageData;
-            }
-            set
-            {
-                this._dUriageData = value;
-                if (value == null)
-                {
-                    this.sp売上明細データ.ItemsSource = null;
-                }
-                else
-                {
-                    this.sp売上明細データ.ItemsSource = value;
-                }
+                _searchDetail = value;
                 NotifyPropertyChanged();
             }
         }
 
-        private decimal _売上金額 = 0;
-        public decimal 売上金額
+        // No-56 Strat
+        // 削除済みレコード情報
+        public DataTable SearchDeleteDetail;
+        // No-56 End
+
+        private string _出荷先名;
+        public string 出荷先名
         {
-            get { return _売上金額; }
-            set { _売上金額 = value; NotifyPropertyChanged(); }
+            get { return _出荷先名; }
+            set { _出荷先名 = value; NotifyPropertyChanged(); }
         }
 
-        private decimal _請求割増１ = 0;
-        public decimal 請求割増１
+        private string _出荷元名;
+        public string 出荷元名
         {
-            get { return _請求割増１; }
-            set { _請求割増１ = value; NotifyPropertyChanged(); }
+            get { return _出荷元名; }
+            set { _出荷元名 = value; NotifyPropertyChanged(); }
         }
 
-        private decimal _請求割増２ = 0;
-        public decimal 請求割増２
-        {
-            get { return _請求割増２; }
-            set { _請求割増２ = value; NotifyPropertyChanged(); }
-        }
+        /// <summary>
+        /// 検索された自社区分(0:自社、1:販社)
+        /// </summary>
+        private int _自社区分;
 
-        private decimal _通行料 = 0;
-        public decimal 通行料
-        {
-            get { return _通行料; }
-            set { _通行料 = value; NotifyPropertyChanged(); }
-        }
-
-        private decimal _売上合計 = 0;
-        public decimal 売上合計
-        {
-            get { return _売上合計; }
-            set { _売上合計 = value; NotifyPropertyChanged(); }
-        }
-
-        private decimal _数量 = 0;
-        public decimal 数量
-        {
-            get { return _数量; }
-            set { _数量 = value; NotifyPropertyChanged(); }
-        }
-
-        private decimal _重量 = 0;
-        public decimal 重量
-        {
-            get { return _重量; }
-            set { _重量 = value; NotifyPropertyChanged(); }
-        }
-
-        private decimal _支払社内 = 0;
-        public decimal 支払社内
-        {
-            get { return _支払社内; }
-            set { _支払社内 = value; NotifyPropertyChanged(); }
-        }
-
-        private decimal _支払通行料 = 0;
-        public decimal 支払通行料
-        {
-            get { return _支払通行料; }
-            set { _支払通行料 = value; NotifyPropertyChanged(); }
-        }
-
-        private decimal _支払合計 = 0;
-        public decimal 支払合計
-        {
-            get { return _支払合計; }
-            set { _支払合計 = value; NotifyPropertyChanged(); }
-        }
-
-        private bool _isExpanded = false;
-        public bool IsExpanded
-        {
-            get { return _isExpanded; }
-            set { _isExpanded = value; NotifyPropertyChanged(); }
-        }
-
-        private string _表示固定列数 = "5";
-        public string 表示固定列数
-        {
-            get { return _表示固定列数; }
-            set { _表示固定列数 = value; NotifyPropertyChanged(); SetupSpreadFixedColumn(this.sp売上明細データ, value); }
-        }
-
+        /// <summary>
+        /// 編集中の行番号
+        /// </summary>
+        private int _編集行;
 
         #endregion
 
-        #region DLY12010
+        #region << クラス変数定義 >>
+
+        /// <summary>グリッドコントローラ</summary>
+        GcSpreadGridController gridCtl;
+
+        /// <summary>消費税計算</summary>
+        TaxCalculator taxCalc;
+
+        #endregion
+
+
+
+        #region << 初期処理群 >>
+
         /// <summary>
-        /// 売上明細問合せ
+        /// 売上入力　コンストラクタ
         /// </summary>
         public DLY12010()
         {
             InitializeComponent();
             this.DataContext = this;
         }
-        #endregion
-
-        #region LOAD処理
 
         /// <summary>
-        /// 画面読み込み
+        /// ロードイベント
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // 初期状態を保存（SPREADリセット時にのみ使用する）
-            this.sp_Config = AppCommon.SaveSpConfig(this.sp売上明細データ);
-
-            // コンテキストメニューの作成
-
-            var dat = RangeVisibilities["得意先"];
-
-            base.MasterMaintenanceWindowList.Add("M04_DRV", new List<Type> { null, typeof(SCH04010) });
-            base.MasterMaintenanceWindowList.Add("M05_CAR", new List<Type> { null, typeof(SCH06010) });
-            base.MasterMaintenanceWindowList.Add("M72_TNT", new List<Type> { null, typeof(SCH23010) });
-
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
+            ccfg = (CommonConfig)ucfg.GetConfigValue(typeof(CommonConfig));
+
+            #region "権限関係"
+
+            // 登録ボタン設定
+            if (!権限Get.Authority_Update_Button(ccfg, this.GetType().Name))
+            {
+                // RibbonWindowViewBaseのプロパティに設定
+                DataUpdateVisible = System.Windows.Visibility.Hidden;
+            }
+
             frmcfg = (ConfigDLY12010)ucfg.GetConfigValue(typeof(ConfigDLY12010));
+
+            #endregion
+
             if (frmcfg == null)
             {
                 frmcfg = new ConfigDLY12010();
                 ucfg.SetConfigValue(frmcfg);
-                frmcfg.spConfig20180118 = this.sp_Config;
                 //画面サイズをタスクバーをのぞいた状態で表示させる
                 //this.Height = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Size.Height;
             }
@@ -1051,465 +259,145 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
                 this.Width = frmcfg.Width;
                 this.Height = frmcfg.Height;
-                this.cmb検索日付種類.SelectedIndex = frmcfg.区分1;
-                this.検索日付From = frmcfg.集計期間From;
-                this.検索日付To = frmcfg.集計期間To;
             }
+
             #endregion
 
+            // 検索画面情報を設定
+            base.MasterMaintenanceWindowList.Add("M01_TOK", new List<Type> { typeof(MST01010), typeof(SCHM01_TOK) });
+            base.MasterMaintenanceWindowList.Add("M09_HIN", new List<Type> { typeof(MST02010), typeof(SCHM09_HIN) });
+            base.MasterMaintenanceWindowList.Add("M11_TEK", new List<Type> { typeof(MST08010), typeof(SCHM11_TEK) });
+            base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
+            base.MasterMaintenanceWindowList.Add("M21_SYUK", new List<Type> { typeof(MST01020), typeof(SCHM21_SYUK) });
+            base.MasterMaintenanceWindowList.Add("M22_SOUK_JISC", new List<Type> { typeof(MST12020), typeof(SCHM22_SOUK) });
 
-			AppCommon.LoadSpConfig(this.sp売上明細データ, frmcfg.spConfig20180118 != null ? frmcfg.spConfig20180118 : this.sp_Config);
+            // コンボデータ取得
+            if (ccfg.自社販社区分 == (int)自社販社区分.販社)
+                // 販社の場合
+                this.cmb売上区分.ComboListingParams = "日次,売上入力,売上区分販社";
 
-            //usercfg = AppCommon.GetConfig(this);
-            //frmcfg = (ConfigDLY12010)usercfg.GetConfigValue(typeof(ConfigDLY12010));
-            //if (frmcfg == null)
-            //{
-            //    frmcfg = new ConfigDLY12010();
-            //}
+            AppCommon.SetutpComboboxList(this.cmb伝票要否, false);
+            AppCommon.SetutpComboboxList(this.cmb売上区分, false);
+            gridCtl = new GcSpreadGridController(gcSpreadGrid);
 
+            this.cmb売上区分.SelectedIndex = 0;
 
+            ScreenClear();
+            ChangeKeyItemChangeable(true);
 
-            //ComboBoxに値を設定する
-            GetComboBoxItems();
+            // ログインユーザの自社区分によりコントロール状態切換え
+            this.txt自社名.Text1 = ccfg.自社コード.ToString();
+            this.txt自社名.IsEnabled = ccfg.自社販社区分.Equals((int)自社販社区分.自社);
 
-            sp売上明細データ.RowCount = 0;
+            this.txt伝票番号.Focus();
 
-
-            if (frmcfg.表示順 != null)
-            {
-                if (frmcfg.表示順.Length == 5)
-                {
-                    this.表示順 = frmcfg.表示順;
-                }
-            }
-            if (frmcfg.表示順方向 != null)
-            {
-                if (frmcfg.表示順方向.Length == 5)
-                {
-                    this.表示順方向 = frmcfg.表示順方向;
-                }
-            }
-
-            this.spPickupList.ActiveCellPosition = CellPosition.Empty;
-            this.spPickupList.RowCount = 0;
-            ButtonCellType btn = this.sp売上明細データ.Columns[0].CellType as ButtonCellType;
-            btn.Command = new cmd売上詳細表示(sp売上明細データ);
-
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_CNTL, 1, 0));
-
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST1, "得意先"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST2, "支払先"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST3, "仕入先"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST4, "乗務員"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST5, "車輌"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST6, "車種"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST7, "発地"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST8, "着地"));
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_MST9, "商品"));
-
-            AppCommon.SetutpComboboxListToCell(this.sp売上明細データ, "売上未定区分", "日次", "運転日報入力", "未定区分", false);
-            AppCommon.SetutpComboboxListToCell(this.sp売上明細データ, "社内区分", "日次", "運転日報入力", "社内区分", false);
-            AppCommon.SetutpComboboxListToCell(this.sp売上明細データ, "請求税区分", "日次", "運転日報入力", "税区分", false);
-
-            this.textbox検索日付From.SetFocus();
-
-            this.ピックアップ種類 = "得意先";
-        }
-
-        /// <summary>
-        /// コンボボックスのアイテムをDBから取得
-        /// </summary>
-        private void GetComboBoxItems()
-        {
-
-            AppCommon.SetutpComboboxList(this.cmb検索日付種類, false);
-            AppCommon.SetutpComboboxList(this.cmb未定区分, false);
-            AppCommon.SetutpComboboxList(this.cmbPickup, false);
-
-            AppCommon.SetutpComboboxList(this.cmb表示順指定0, false);
-            AppCommon.SetutpComboboxList(this.cmb表示順指定1, false);
-            AppCommon.SetutpComboboxList(this.cmb表示順指定2, false);
-            AppCommon.SetutpComboboxList(this.cmb表示順指定3, false);
-            AppCommon.SetutpComboboxList(this.cmb表示順指定4, false);
-
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, GetBumon));
+            // ログインユーザの自社コードにより参照条件の切り替え
+            this.txt在庫倉庫.LinkItem = ccfg.自社販社区分.Equals((int)自社販社区分.自社) ? (int?)null : ccfg.自社コード;
         }
 
         #endregion
 
-        #region ピックアップ指定のGridの読み込み
+        #region << データ受信 >>
 
         /// <summary>
-        /// ピックアップ指定のGridの読み込み
+        /// データ受信処理
         /// </summary>
-        private void GetPickupCodeList()
+        /// <param name="message"></param>
+        public override void OnReceivedResponseData(CommunicationObject message)
         {
             try
             {
+                this.ErrorMessage = string.Empty;
+                var data = message.GetResultData();
+                DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
+
+                switch (message.GetMessageName())
+                {
+                    case T02_GetData:
+                        // 伝票検索または新規伝票の場合
+                        DataSet ds = data as DataSet;
+                        if (ds != null)
+                        {
+                            SetTblData(ds);
+                            ChangeKeyItemChangeable(false);
+                            txt売上日.Focus();
+                        }
+                        else
+                        {
+                            MessageBox.Show("指定の伝票番号は販社売上ではありません。", "伝票未登録", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                            this.txt伝票番号.Focus();
+                        }
+                        break;
+
+                    case T02_Update:
+                        MessageBox.Show(AppConst.SUCCESS_UPDATE, "登録完了", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // コントロール初期化
+                        ScreenClear();
+                        break;
+
+                    
+
+                    case UpdateData_StockCheck:
+                        // 在庫数チェック結果受信
+                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
+                        var zaiMBImage = MessageBoxImage.Question;
+
+                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
+                        {
+                            int rowNum = row.Field<int>("行番号");
+
+                            //メーカー以外
+                            if (!メーカー区分.Contains(this.cmb売上区分.SelectedValue.ToString()) && updateList.ContainsKey(rowNum))
+                            {
+                                zaiMBImage = MessageBoxImage.Warning;
+                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
+                            }
+                        }
+
+                        if (MessageBox.Show(zaiUpdateMessage,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                zaiMBImage,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                            return;
+
+                        Update();
+                        break;
+
+                    default:
+                        break;
+
+                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
-        #endregion
 
-        #region エラー受信
-
+        /// <summary>
+        /// データエラー受信メソッド
+        /// </summary>
+        /// <param name="message"></param>
         public override void OnReveivedError(CommunicationObject message)
         {
             base.OnReveivedError(message);
-            this.Message = base.ErrorMessage;
-            base.SetFreeForInput();
+            MessageBox.Show(ErrorMessage);
+            DebugLog.WriteLine("=================================");
+            DebugLog.WriteLine(message.GetParameters().GetValue(0));
+            DebugLog.WriteLine("=================================");
         }
 
         #endregion
 
-        #region データ受信メソッド
+        #region << リボン >>
 
+        #region F1 マスタ検索
         /// <summary>
-        /// 取得データの取り込み
-        /// </summary>
-        /// <param name="message"></param>
-        public override void OnReceivedResponseData(CommunicationObject message)
-        {
-            List<MasterList_Member> list = new List<MasterList_Member>();
-            var data = message.GetResultData();
-            DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
-            switch (message.GetMessageName())
-            {
-                case GET_CNTL:
-                    管理データ = tbl;
-                    this.txt請求割増１.Label_Context = AppCommon.GetWarimasiName1(tbl);
-                    this.txt請求割増２.Label_Context = AppCommon.GetWarimasiName2(tbl);
-                    AppCommon.SetupSpreadHeaderWarimasiName(this.sp売上明細データ, tbl);
-					金額計算端数処理区分 = (int)tbl.Rows[0]["金額計算端数区分"];
-                    break;
-                case GET_DATA:
-                    base.SetFreeForInput();
-                    var ds = data as DataSet;
-                    if (ds == null)
-                    {
-                        this.売上明細データ = null;
-                    }
-                    else
-                    {
-                        売上明細データ = (List<DLY12010_Member>)AppCommon.ConvertFromDataTable(typeof(List<DLY12010_Member>), ds.Tables["DataList"]);
-
-                        if (this.売上明細データ.Count == 0)
-                        {
-                            Summary();
-                            textbox検索日付From.Focus();
-                            this.ErrorMessage = "該当するデータはありません。";
-                            return;
-                        }
-
-                        DataReSort();
-                        //Perform_Pickup();
-                        Summary();
-                        textbox検索日付From.Focus();
-                    }
-
-					foreach (var row in sp売上明細データ.Rows)
-					{
-						if (AppCommon.IntParse(sp売上明細データ.Cells[row.Index, "社内区分"].Value.ToString()) == 1)
-						{
-							sp売上明細データ.Cells[row.Index, "社内区分"].Foreground = new SolidColorBrush(Colors.Red);
-						}
-						if (AppCommon.IntParse(sp売上明細データ.Cells[row.Index, "売上未定区分"].Value.ToString()) == 1)
-						{
-							sp売上明細データ.Cells[row.Index, "売上未定区分"].Foreground = new SolidColorBrush(Colors.Red);
-						}
-					}
-                    break;
-				//case GET_DATA_PRT:
-				//	DispPreviw(tbl);
-				//	break;
-
-                case GET_DATA_CSV:
-                    OutPutCSV(tbl);
-                    break;
-
-                case GET_MST1:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup得意先 = list;
-                    break;
-                case GET_MST2:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup支払先 = list;
-                    break;
-                case GET_MST3:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup仕入先 = list;
-                    break;
-                case GET_MST4:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup乗務員 = list;
-                    break;
-                case GET_MST5:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup車輌 = list;
-                    break;
-                case GET_MST6:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup車種 = list;
-                    break;
-                case GET_MST7:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup発地 = list;
-                    break;
-                case GET_MST8:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup着地 = list;
-                    break;
-                case GET_MST9:
-                    list = (List<MasterList_Member>)AppCommon.ConvertFromDataTable(list.GetType(), tbl);
-                    this.Pickup商品 = list;
-                    break;
-
-                case GetBumon:
-                    this.BumonList = new List<BumonData>();
-                    foreach (DataRow row in tbl.Rows)
-                    {
-                        BumonData xxx = new BumonData();
-                        xxx.自社部門ID = (int)row["自社部門ID"];
-                        xxx.自社部門名 = row["自社部門名"] as string;
-                        BumonList.Add(xxx);
-                    }
-                    List<CodeData> lll = new List<CodeData>();
-                    lll.Add(new CodeData() { コード = 0, 表示順 = 0, 表示名 = "(全部門検索)" });
-                    foreach (var row in BumonList)
-                    {
-                        lll.Add(new CodeData()
-                        {
-                            コード = row.自社部門ID,
-                            表示名 = row.自社部門名,
-                            表示順 = row.自社部門ID
-                        });
-                    }
-                    cmb部門指定.ComboboxItems = lll;
-                    break;
-
-
-                case UPDATE_ROW2:
-
-                    int TOKFlg = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["請求運賃計算区分ID"].Index].Value);
-                    int SHRFlg = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["支払運賃計算区分ID"].Index].Value);
-                    int p計算区分 = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["請求運賃計算区分ID"].Index].Value);
-                    int p請求支払区分 = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["支払運賃計算区分ID"].Index].Value);
-                    decimal p数量 = Convert.ToDecimal(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["数量"].Index].Value);
-                    decimal p重量 = Convert.ToDecimal(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["重量"].Index].Value);
-                    decimal p売上単価 = Convert.ToDecimal(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["売上単価"].Index].Value);
-                    decimal p支払単価 = Convert.ToDecimal(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["支払単価"].Index].Value);
-                    int p得意先ID = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["得意先ID"].Index].Value);
-                    int p支払先ID = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["支払先ID"].Index].Value);
-                    int p発地ID = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["発地ID"].Index].Value);
-                    int p着地ID = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["着地ID"].Index].Value);
-                    int p商品ID = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["商品ID"].Index].Value);
-                    int p走行ＫＭ = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["走行ＫＭ"].Index].Value);
-                    int p車種ID = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["車種ID"].Index].Value);
-                    string p入力区分 = Convert.ToString(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["入力区分"].Index].Value);
-                    p明細番号 = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["明細番号"].Index].Value);
-                    p明細行 = Convert.ToInt32(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["明細行"].Index].Value);
-                    decimal goukei = 0;
-
-                    p請求支払区分 = 0;
-
-                    int 金額 = 0;
-                    if (p入力区分.Contains("日報入力") == true)
-                    {
-                        switch (TOKFlg)
-                        {
-                            case 0:
-                                // 手入力は何もしない
-                                break;
-                            case 1:
-                                // 数量 ｘ 単価
-                                switch (金額計算端数処理区分)
-                                {
-                                    case 0:
-                                        金額 = (int)Math.Floor((p数量 * p売上単価));
-                                        break;
-                                    case 1:
-                                        金額 = (int)Math.Ceiling((p数量 * p売上単価));
-                                        break;
-                                    case 2:
-                                        金額 = (int)Math.Round((p数量 * p売上単価), 0, MidpointRounding.AwayFromZero);
-                                        break;
-                                }
-                                sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額"].Index].Text = 金額.ToString();
-                                sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額"].Index].Value = 金額;
-
-                                goukei = (decimal)(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額"].Index].Value ?? 0) + (decimal)(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d請求割増１"].Index].Value ?? 0) + (decimal)(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d請求割増２"].Index].Value ?? 0);
-                                sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額計"].Index].Text = goukei.ToString();
-
-                                base.SendRequest(new CommunicationObject(MessageType.UpdateData, UPDATE_ROW, p明細番号, p明細行, "Goukei", 1, 金額, p売上単価));
-                                break;
-                            case 2:
-                                // 重量 ｘ 単価
-                                switch (金額計算端数処理区分)
-                                {
-                                    case 0:
-                                        金額 = (int)Math.Floor((p重量 * p売上単価));
-                                        break;
-                                    case 1:
-                                        金額 = (int)Math.Ceiling((p重量 * p売上単価));
-                                        break;
-                                    case 2:
-                                        金額 = (int)Math.Round((p重量 * p売上単価), 0, MidpointRounding.AwayFromZero);
-                                        break;
-                                }
-                                sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額"].Index].Text = 金額.ToString();
-                                sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額"].Index].Value = 金額;
-
-                                goukei = (decimal)(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額"].Index].Value ?? 0) + (decimal)(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d請求割増１"].Index].Value ?? 0) + (decimal)(sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d請求割増２"].Index].Value ?? 0);
-                                sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d売上金額計"].Index].Text = goukei.ToString();
-
-                                base.SendRequest(new CommunicationObject(MessageType.UpdateData, UPDATE_ROW, p明細番号, p明細行, "Goukei", 1, 金額, p売上単価));
-                                break;
-                            case 3:
-                                base.SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p得意先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                                break;
-                            case 4:
-                                if (p得意先ID != 0 && p商品ID != 0)// && p重量 != 0 && p数量 != 0
-                                {
-                                    SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p得意先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                                }
-                                break;
-                            case 5:
-                                if (p得意先ID != 0 && p重量 != 0 && p数量 != 0)
-                                {
-                                    SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p得意先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                                }
-                                break;
-                            case 6:
-                                if (p得意先ID != 0 && p数量 != 0)
-                                {
-                                    SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p得意先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                                }
-                                break;
-                        }
-                    }
-
-                    p請求支払区分 = 1;
-                    switch (SHRFlg)
-                    {
-                        case 0:
-                            // 手入力は何もしない
-                            break;
-                        case 1:
-                            // 数量 ｘ 単価
-                            金額 = (int)(p数量 * p支払単価);
-                            sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d支払金額"].Index].Value = 金額;
-                            base.SendRequest(new CommunicationObject(MessageType.UpdateData, UPDATE_ROW, p明細番号, p明細行, "Total", 1, 金額, p支払単価));
-                            break;
-                        case 2:
-                            // 重量 ｘ 単価
-                            金額 = (int)(p重量 * p支払単価);
-                            sp売上明細データ.Cells[pRowCount, this.sp売上明細データ.Columns["d支払金額"].Index].Value = 金額;
-                            base.SendRequest(new CommunicationObject(MessageType.UpdateData, UPDATE_ROW, p明細番号, p明細行, "Total", 1, 金額, p支払単価));
-                            break;
-                        case 3:
-                            base.SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p支払先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                            break;
-                        case 4:
-                            if (p得意先ID != 0 && p商品ID != 0)// && p重量 != 0 && p数量 != 0
-                            {
-                                SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p支払先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                            }
-                            break;
-                        case 5:
-                            if (p得意先ID != 0 && p重量 != 0 && p数量 != 0)
-                            {
-                                SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p支払先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                            }
-                            break;
-                        case 6:
-                            if (p得意先ID != 0 && p数量 != 0)
-                            {
-                                SendRequest(new CommunicationObject(MessageType.RequestData, GetTanka, p計算区分, p請求支払区分, p支払先ID, p発地ID, p着地ID, p商品ID, p車種ID, p走行ＫＭ, p重量, p数量, 金額計算端数処理区分));
-                            }
-                            break;
-                    }
-
-                    Next_calculation();
-
-					if (CloseFlg) { CloseFlg = false; this.Close(); }
-                    break;
-
-                //[売上金額・売上単価]算出
-				case GetTanka:
-					if (tbl != null)
-					{
-						int kbn = (int)tbl.Rows[0]["Kubun"];
-						decimal tanka = (decimal)tbl.Rows[0]["Tanka"];
-						decimal kingaku = (decimal)tbl.Rows[0]["Kingaku"];
-						if (kbn == 0)
-						{
-							//売上金額計算
-							if (tanka >= 0)
-							{
-								p売上単価 = (decimal)tanka;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["売上単価"].Index].Text = p売上単価.ToString();
-							}
-							else
-							{
-								p売上単価 = 0;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["売上単価"].Index].Text = p売上単価.ToString();
-							}
-							if (kingaku >= 0)
-							{
-								p売上金額 = (int)kingaku;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["d売上金額"].Index].Text = p売上金額.ToString();
-							}
-							else
-							{
-								p売上金額 = 0;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["d売上金額"].Index].Text = p売上金額.ToString();
-							}
-							decimal meisai = AppCommon.DecimalParse(this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["明細番号"].Index].Text);
-							int gyo = AppCommon.IntParse(this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["明細行"].Index].Text);
-                            decimal d合計 = 売上明細データ.Where(c => c.明細番号 == meisai && c.明細行 == gyo).Sum(c => c.売上金額 + c.請求割増１ + c.請求割増２);
-                            this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["d売上金額計"].Index].Text = d合計.ToString();
-
-							base.SendRequest(new CommunicationObject(MessageType.UpdateData, UPDATE_ROW, p明細番号, p明細行, "Goukei", 1, p売上金額, p売上単価));
-						}
-						else
-						{
-							if (tanka >= 0)
-							{
-								p支払単価 = (decimal)tanka;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["支払単価"].Index].Text = p支払単価.ToString();
-							}
-							else
-							{
-								p支払単価 = 0;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["支払単価"].Index].Text = p支払単価.ToString();
-							}
-							if (kingaku >= 0)
-							{
-								p支払金額 = (int)kingaku;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["d支払金額"].Index].Text = p支払金額.ToString();
-							}
-							else
-							{
-								p売上金額 = 0;
-								this.sp売上明細データ[pRowCount, sp売上明細データ.Columns["d支払金額"].Index].Text = p売上金額.ToString();
-							}
-							base.SendRequest(new CommunicationObject(MessageType.UpdateData, UPDATE_ROW, p明細番号, p明細行, "Total", 1, p支払金額, p支払単価));
-
-						}
-					}
-                    break;
-            }
-        }
-
-        #endregion
-
-        #region リボン
-
-        /// <summary>
-        /// F1 マスタ検索
+        /// F1　リボン　マスタ検索
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1517,1425 +405,1118 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
-                ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+                object elmnt = FocusManager.GetFocusedElement(this);
+                var spgrid = ViewBaseCommon.FindVisualParent<GcSpreadGrid>(elmnt as Control);
+
+                if (spgrid != null)
+                {
+                    #region グリッドファンクションイベント
+                    if (gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.自社品番 ||
+                        gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.得意先品番)
+                    {
+                        // 対象セルがロックされている場合は処理しない
+                        if (gridCtl.CellLocked == true)
+                            return;
+
+                        if (string.IsNullOrEmpty(this.txt得意先.Text1) || string.IsNullOrEmpty(this.txt得意先.Text2))
+                        {
+                            txt得意先.SetFocus();
+                            MessageBox.Show("得意先が設定されていない為、選択できません。", "得意先未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                            return;
+                        }
+
+                        // 自社品番または得意先品番の場合
+                        SCHM10_TOKHIN myhin = new SCHM10_TOKHIN(this.txt得意先.Text1, this.txt得意先.Text2);
+                        myhin.txtCode.Text = gridCtl.GetCellValueToString();
+                        myhin.TwinTextBox = new UcLabelTwinTextBox();
+                        myhin.TwinTextBox.LinkItem = 0;
+                        if (myhin.ShowDialog(this) == true)
+                        {
+                            //入力途中のセルを未編集状態に戻す
+                            spgrid.CancelCellEdit();
+
+                            gridCtl.SetCellValue((int)GridColumnsMapping.品番コード, myhin.SelectedDataRow["品番コード"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.自社品番, myhin.SelectedDataRow["自社品番"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.得意先品番, myhin.SelectedDataRow["得意先品番コード"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.自社品名, myhin.SelectedDataRow["自社品名"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedDataRow["自社色"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedDataRow["色名称"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.単位, myhin.SelectedDataRow["単位"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.単価, myhin.TwinTextBox.Text3);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.金額, string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ? 0 : AppCommon.DecimalParse(myhin.TwinTextBox.Text3));
+                            gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedDataRow["消費税区分"]);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedDataRow["商品分類"]);
+
+                            // 設定自社品番の編集を不可とする
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+
+                            // 設定得意先品番の編集を不可とする
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
+
+                            // 集計計算をおこなう
+                            summaryCalculation();
+
+                        }
+
+                    }
+                    else if (gridCtl.ActiveColumnIndex == (int)GridColumnsMapping.摘要)
+                    {
+                        //入力途中のセルを空欄状態に戻す
+                        spgrid.CancelCellEdit();
+
+                        // TODO:全角６文字を超える可能性アリ
+                        SCHM11_TEK tek = new SCHM11_TEK();
+                        tek.TwinTextBox = new UcLabelTwinTextBox();
+                        if (tek.ShowDialog(this) == true)
+                            gridCtl.SetCellValue(tek.TwinTextBox.Text2);
+
+                    }
+
+                    SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+
+                    #endregion
+
+                }
+                else
+                {
+                    ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+
+                    // 得意先の場合は個別に処理
+                    // REMARKS:消費税関連の情報を取得する為
+                    var twinText = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(elmnt as Control);
+                    if (twinText == null)
+                        return;
+
+                    if (twinText.Name == this.txt得意先.Name)
+                    {
+                        txt得意先.OpenSearchWindow(this);
+                    }
+                    else if (twinText.Name == this.txt出荷元.Name)
+                    {
+                        txt出荷元.OpenSearchWindow(this);
+                    }
+                    else if (twinText.Name == this.txt出荷先.Name)
+                    {
+                        txt出荷先.OpenSearchWindow(this);
+                    }
+                    else if (twinText.Name == this.txt仕入先.Name)
+                    {
+                        txt仕入先.OpenSearchWindow(this);
+                    }
+
+                }
+
             }
             catch (Exception ex)
             {
                 appLog.Error("検索画面起動エラー", ex);
                 this.ErrorMessage = "システムエラーです。サポートへご連絡ください。";
+
             }
-        }
 
-        /// <summary>
-        /// 詳細表示
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public override void OnF4Key(object sender, KeyEventArgs e)
-        {
-            if (this.sp売上明細データ.ActiveCellPosition.Row < 0)
-            {
-                MessageBox.Show("検索データがありません。");
-                return;
-            }
-            DisplayDetail();
-        }
-
-        #region CSVファイル出力
-        /// <summary>
-        /// CSV出力
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public override void OnF5Key(object sender, KeyEventArgs e)
-        {
-            if (this.売上明細データ == null || this.売上明細データ.Count == 0)
-            {
-                MessageBox.Show("検索データがありません。");
-                return;
-            }
-            DataTable CSVデータ = new DataTable();
-
-            //リストをデータテーブルへ
-            AppCommon.ConvertToDataTable(売上明細データ, CSVデータ);
-
-            CSVデータ.Columns.Remove("社内区分");
-            CSVデータ.Columns.Remove("請求税区分");
-            CSVデータ.Columns.Remove("支払税区分");
-            CSVデータ.Columns.Remove("売上未定区分");
-            CSVデータ.Columns.Remove("支払未定区分");
-            CSVデータ.Columns.Remove("請求運賃計算区分ID");
-            CSVデータ.Columns.Remove("支払運賃計算区分ID");
-
-            System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
-            //はじめに表示されるフォルダを指定する
-            sfd.InitialDirectory = @"C:\";
-            //[ファイルの種類]に表示される選択肢を指定する
-            sfd.Filter = "CSVファイル(*.csv)|*.csv|すべてのファイル(*.*)|*.*";
-            //「CSVファイル」が選択されているようにする
-            sfd.FilterIndex = 1;
-            //タイトルを設定する
-            sfd.Title = "保存先のファイルを選択してください";
-            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-            sfd.RestoreDirectory = true;
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                //CSVファイル出力
-                CSVData.SaveCSV(CSVデータ, sfd.FileName, true, true, false, ',');
-                MessageBox.Show("CSVファイルの出力が完了しました。");
-            }
         }
         #endregion
 
+        #region F9 登録
         /// <summary>
-        /// 印刷
+        /// F09　リボン　登録
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public override void OnF8Key(object sender, KeyEventArgs e)
+        public override void OnF9Key(object sender, KeyEventArgs e)
         {
-            PrintOut();
+            if (MaintenanceMode == null)
+                return;
+
+            // 業務入力チェックをおこなう
+            if (!isFormValidation())
+                return;
+
+            // 全項目エラーチェック
+            if (!base.CheckAllValidation())
+            {
+                this.txt売上日.Focus();
+                return;
+            }
+
+            //在庫ﾁｪｯｸ
+            base.SendRequest(
+               new CommunicationObject(
+                   MessageType.RequestData,
+                   UpdateData_StockCheck,
+                   new object[] {
+                            this.txt在庫倉庫.Text1,
+                            SearchDetail.DataSet
+                        }));
 
         }
+        #endregion
 
+        #region F10 入力取消
+        /// <summary>
+        /// F10　リボン　入力取消
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public override void OnF10Key(object sender, KeyEventArgs e)
         {
-            base.OnF10Key(sender, e);
-        }
+            if (this.MaintenanceMode == null)
+                return;
 
+            var yesno = MessageBox.Show(AppConst.CONFIRM_CANCEL, "取消確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (yesno == MessageBoxResult.No)
+                return;
+
+            ScreenClear();
+
+        }
+        #endregion
+
+        #region F11 終了
         /// <summary>
-        /// F11　リボン終了
+        /// F11　リボン　終了
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public override void OnF11Key(object sender, KeyEventArgs e)
         {
-            this.Close();
+            if (this.MaintenanceMode == null)
+                this.Close();
+
+            else
+            {
+                if (DataUpdateVisible != Visibility.Hidden)
+                {
+                    var yesno = MessageBox.Show("編集中の伝票を保存せずに終了してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (yesno == MessageBoxResult.No)
+                        return;
+
+                }
+
+                this.Close();
+
+            }
+
         }
+        #endregion
+
+       
 
         #endregion
 
-        #region 印刷
-
-        void PrintOut()
-		{
-			PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
-			if (ret.Result == false)
-			{
-				this.ErrorMessage = "プリンタドライバーがインストールされていません！";
-				return;
-			}
-			frmcfg.PrinterName = ret.PrinterName;
-
-            if (this.売上明細データ == null)
-			{
-				this.ErrorMessage = "印刷データがありません。";
-                return;
-            }
-            if (this.売上明細データ.Count == 0)
-            {
-                this.ErrorMessage = "印刷データがありません。";
-                return;
-            }
-            try
-            {
-                base.SetBusyForInput();
-                var parms = new List<Framework.Reports.Preview.ReportParameter>()
-				{
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="日付区分", VALUE=(this.cmb検索日付種類.Text==null?"":this.cmb検索日付種類.Text)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="日付FROM", VALUE=(this.検索日付From==null?"":this.検索日付From)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="日付TO", VALUE=(this.検索日付To==null?"":this.検索日付To)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="乗務員指定", VALUE=(this.txt乗務員指定.Text2==null?"":this.txt乗務員指定.Text2)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="車輌指定", VALUE=(this.txt車輌指定.Text2==null?"":this.txt車輌指定.Text2)},
-					//new Framework.Reports.Preview.ReportParameter(){ PNAME="支払先指定", VALUE=(this.txtbox支払先.Text2==null?"":this.txtbox支払先.Text2)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="部門指定", VALUE=(this.cmb部門指定.Text==null?"":this.cmb部門指定.Text)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="未定区分", VALUE=(this.cmb未定区分.Text==null?"":this.cmb未定区分.Text)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="商品名指定", VALUE=(this.商品名==null?"":this.商品名)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="発地指定", VALUE=(this.発地名==null?"":this.発地名)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="着地指定", VALUE=(this.着地名==null?"":this.着地名)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="社内備考指定", VALUE=(this.社内備考==null?"":this.社内備考)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="請求摘要指定", VALUE=(this.請求摘要==null?"":this.請求摘要)},
-					new Framework.Reports.Preview.ReportParameter(){ PNAME="表示順序", VALUE=string.Format("{0} {1} {2} {3} {4}", 表示順名[0], 表示順名[1], 表示順名[2], 表示順名[3], 表示順名[4])},
-				};
-                KyoeiSystem.Framework.Reports.Preview.ReportPreview view = null;
-
-                DataTable 印刷データ = new DataTable();
-                //リストをデータテーブルへ
-                //AppCommon.ConvertToDataTable(売上明細データ, 印刷データ);
-
-				Dictionary<string, string> changecols = new Dictionary<string, string>()
-				{
-					{ "d売上金額", "売上金額" },
-					{ "d通行料", "通行料" },
-					{ "d請求割増１", "請求割増１" },
-					{ "d請求割増２", "請求割増２" },
-					{ "d売上金額計", "売上金額計" },
-					{ "d支払金額", "支払金額" },
-					{ "d支払通行料", "支払通行料" },
-				};
-				AppCommon.ConvertSpreadDataToTable<DLY12010_Member>(this.sp売上明細データ, 印刷データ, changecols);
-
-                印刷データ.TableName = "乗務員・車輌伝票一覧";
-
-				view = new KyoeiSystem.Framework.Reports.Preview.ReportPreview();
-                view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
-				view.SetReportData(印刷データ);
-
-                view.SetupParmeters(parms);
-
-                base.SetFreeForInput();
-
-				view.PrinterName = frmcfg.PrinterName;
-				view.ShowPreview();
-				view.Close();
-				frmcfg.PrinterName = view.PrinterName;
-
-            }
-            catch (Exception ex)
-            {
-                base.SetFreeForInput();
-                this.ErrorMessage = "システムエラーが発生しました。サポートにお問い合わせください。";
-                appLog.Error("得意先売上明細書の印刷時に例外が発生しました。", ex);
-            }
-        }
-
-        #endregion
-
-        #region 検索ボタン
+        #region << 検索データ設定・登録・削除処理 >>
 
         /// <summary>
-        /// 検索ボタン クリック
+        /// 取得内容を各コントロールに設定
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        /// <param name="ds"></param>
+        private void SetTblData(DataSet ds)
         {
-            if (!base.CheckAllValidation())
-            {
-                this.ErrorMessage = "入力内容に誤りがあります。";
-                MessageBox.Show("入力内容に誤りがあります。");
-                return;
-			}
-			sp売上明細データ.FilterDescriptions.Clear();
+            // 変更イベントを発生させるため初期化
+            SearchHeader = null;
+            // 売上ヘッダ情報設定
+            DataTable tblHd = ds.Tables[T02_HEADER_TABLE_NAME];
+            SearchHeader = tblHd.Rows[0];
+            SearchHeader.AcceptChanges();
 
-            if (ExpSyousai.IsExpanded == true)
-            {
-                ExpSyousai.IsExpanded = false;
-            }
+            // 売上明細情報設定
+            DataTable tblDtl = ds.Tables[T02_DETAIL_TABLE_NAME];
+            SearchDetail = tblDtl;
+            SearchDetail.AcceptChanges();
 
-            DateTime? p検索日付From = null;
-            DateTime? p検索日付To = null;
-            int p検索日付区分 = 0;
-            int? 乗務員ID = null;
-            int? 車輌ID = null;
-            int? 請求内訳ID = null;
-            int? 担当者ID = null;
-            int p自社部門ID = 0;
+            // No-56 Strat
+            // 売上明細情報（削除）設定
+            SearchDeleteDetail = SearchDetail.Clone();
+            // No-56 End
 
-            int iwk;
-            if (int.TryParse(this.担当者ID, out iwk) == true)
-            {
-                担当者ID = iwk;
-            }
-            if (int.TryParse(this.乗務員ID, out iwk) == true)
-            {
-                乗務員ID = iwk;
-            }
-            if (int.TryParse(this.車輌ID, out iwk) == true)
-            {
-                車輌ID = iwk;
-            }
-            if (int.TryParse(this.請求内訳ID, out iwk) == true)
-            {
-                請求内訳ID = iwk;
-            }
-            if (int.TryParse(this.自社部門ID, out p自社部門ID) != true)
-            {
-                p自社部門ID = 0;
-            }
+            // 消費税情報保持
+            taxCalc = new TaxCalculator(ds.Tables[M73_ZEI_TABLE_NAME]);
 
-            if (int.TryParse(this.検索日付選択, out p検索日付区分) != true)
-            {
-                p検索日付区分 = 0;
-            }
-            DateTime dtwk;
-            if (DateTime.TryParse(this.検索日付From, out dtwk) == true)
-            {
-                p検索日付From = dtwk;
-            }
-            if (DateTime.TryParse(this.検索日付To, out dtwk) == true)
-            {
-                p検索日付To = dtwk;
-            }
-            int p得意先FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.得意先FROM) != true)
-            {
-                int.TryParse(this.得意先FROM, out p得意先FROM);
-            }
-            int p得意先TO = -1;
-            if (string.IsNullOrWhiteSpace(this.得意先TO) != true)
-            {
-                int.TryParse(this.得意先TO, out p得意先TO);
-            }
-            int p支払先FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.支払先FROM) != true)
-            {
-                int.TryParse(this.支払先FROM, out p支払先FROM);
-            }
-            int p支払先TO = -1;
-            if (string.IsNullOrWhiteSpace(this.支払先TO) != true)
-            {
-                int.TryParse(this.支払先TO, out p支払先TO);
-            }
-            int p仕入先FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.仕入先FROM) != true)
-            {
-                int.TryParse(this.仕入先FROM, out p仕入先FROM);
-            }
-            int p仕入先TO = -1;
-            if (string.IsNullOrWhiteSpace(this.仕入先TO) != true)
-            {
-                int.TryParse(this.仕入先TO, out p仕入先TO);
-            }
-            int p乗務員FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.乗務員FROM) != true)
-            {
-                int.TryParse(this.乗務員FROM, out p乗務員FROM);
-            }
-            int p乗務員TO = -1;
-            if (string.IsNullOrWhiteSpace(this.乗務員TO) != true)
-            {
-                int.TryParse(this.乗務員TO, out p乗務員TO);
-            }
-            int p車輌FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.車輌FROM) != true)
-            {
-                int.TryParse(this.車輌FROM, out p車輌FROM);
-            }
-            int p車輌TO = -1;
-            if (string.IsNullOrWhiteSpace(this.車輌TO) != true)
-            {
-                int.TryParse(this.車輌TO, out p車輌TO);
-            }
-            int p車種FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.車種FROM) != true)
-            {
-                int.TryParse(this.車種FROM, out p車種FROM);
-            }
-            int p車種TO = -1;
-            if (string.IsNullOrWhiteSpace(this.車種TO) != true)
-            {
-                int.TryParse(this.車種TO, out p車種TO);
-            }
-            int p発地FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.発地FROM) != true)
-            {
-                int.TryParse(this.発地FROM, out p発地FROM);
-            }
-            int p発地TO = -1;
-            if (string.IsNullOrWhiteSpace(this.発地TO) != true)
-            {
-                int.TryParse(this.発地TO, out p発地TO);
-            }
-            int p着地FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.着地FROM) != true)
-            {
-                int.TryParse(this.着地FROM, out p着地FROM);
-            }
-            int p着地TO = -1;
-            if (string.IsNullOrWhiteSpace(this.着地TO) != true)
-            {
-                int.TryParse(this.着地TO, out p着地TO);
-            }
-            int p商品FROM = -1;
-            if (string.IsNullOrWhiteSpace(this.商品FROM) != true)
-            {
-                int.TryParse(this.商品FROM, out p商品FROM);
-            }
-            int p商品TO = -1;
-            if (string.IsNullOrWhiteSpace(this.商品TO) != true)
-            {
-                int.TryParse(this.商品TO, out p商品TO);
-            }
+            // 自社区分取得
+            DataTable dtJis = ds.Tables[M70_JIS_TABLE_NAME];
+            if (dtJis.Rows.Count > 0)
+                _自社区分 = dtJis.Rows[0].Field<int>("自社区分");
+            else
+                _自社区分 = (int)自社販社区分.販社;  // データが取得できなかった場合は販社として扱う
 
-            List<int?[]> IdList = new List<int?[]>();
-            foreach (var data in new List<int?[]> {(from r in this.Pickup得意先 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup支払先 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup仕入先 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup乗務員 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup車輌 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup車種 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup発地 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup着地 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-				,(from r in this.Pickup商品 where r.選択==SelectedChar select (int?)r.コード).ToArray()
-															})
+            // データ状態から編集状態を設定
+            if (SearchDetail.Select("品番コード > 0").Count() == 0)
             {
-                IdList.Add(data);
-            }
-            int p締日 = -1;
-            if (string.IsNullOrWhiteSpace(this.ピックアップ締日) != true)
-            {
-                int.TryParse(this.ピックアップ締日, out p締日);
-            }
-
-            CommunicationObject com
-                = new CommunicationObject(MessageType.RequestData, "DLY12010", 担当者ID, 
-                    乗務員ID, 車輌ID, 請求内訳ID, p検索日付From, p検索日付To, p検索日付区分, p自社部門ID, this.売上未定区分
-                    , 商品名, 発地名, 着地名, 請求摘要, 社内備考, p締日
-                    , p得意先FROM, p得意先TO
-                    , p支払先FROM, p支払先TO
-                    , p仕入先FROM, p仕入先TO
-                    , p乗務員FROM, p乗務員TO
-                    , p車輌FROM, p車輌TO
-                    , p車種FROM, p車種TO
-                    , p発地FROM, p発地TO
-                    , p着地FROM, p着地TO
-                    , p商品FROM, p商品TO
-                    , IdList[0]
-                    , IdList[1]
-                    , IdList[2]
-                    , IdList[3]
-                    , IdList[4]
-                    , IdList[5]
-                    , IdList[6]
-                    , IdList[7]
-                    , IdList[8]
-                    );
-
-            base.SendRequest(com);
-            base.SetBusyForInput();
-        }
-
-        #endregion
-
-        #region cmb表示順指定_SelectionChanged
-
-        private void cmb表示順指定_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int sel = (sender as UcLabelComboBox).SelectedIndex;
-            int cnt = 0;
-            // 同じ項目を2回以上指定できないようにする
-			//foreach (var cmb in this.orderComboboxes)
-			foreach (var cmb in new UcLabelComboBox[] { this.cmb表示順指定0, this.cmb表示順指定1, this.cmb表示順指定2, this.cmb表示順指定3, this.cmb表示順指定4, })
-            {
-                if (cmb.SelectedIndex < 1)
+                // 新規行を追加
+                for (int i = 0; i < 10; i++)
                 {
-                    continue;
-                }
-                if (cmb.SelectedIndex == sel)
-                {
-                    cnt++;
-                    if (cnt > 1)
-                    {
-                        MessageBox.Show("既に指定されています。");
-                        (sender as UcLabelComboBox).SelectedIndex = 0;
-                        return;
-                    }
-                }
-            }
-        }
+                    DataRow row = SearchDetail.NewRow();
+                    row["伝票番号"] = AppCommon.IntParse(tblHd.Rows[0]["伝票番号"].ToString());
+                    row["行番号"] = (i + 1);
+                    row["マルセン仕入"] = _自社区分.Equals((int)自社販社区分.販社);
+
+                    SearchDetail.Rows.Add(row);
+                    if (SearchDetail.Rows[i].RowState == DataRowState.Unchanged)
+                        SearchDetail.Rows[i].SetAdded();
 
-        #endregion
-
-        #region 表示順序
-
-        private void SortButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataReSort();
-        }
-
-        #endregion
-
-        #region DataReSort
-
-        void DataReSort()
-        {
-            if (売上明細データ == null)
-            {
-                return;
-            }
-            if (売上明細データ.Count == 0)
-            {
-                return;
-            }
-            this.sp売上明細データ.SortDescriptions.Clear();
-            UcLabelComboBox[] cmblist = { this.cmb表示順指定0, this.cmb表示順指定1, this.cmb表示順指定2, this.cmb表示順指定3, this.cmb表示順指定4, };
-            int ix = -1;
-            foreach (var cmb in cmblist)
-            {
-                ix++;
-                CodeData cd = cmb.Combo_SelectedItem as CodeData;
-                if (cd == null)
-                {
-                    continue;
-                }
-                if (cd.表示名 == "設定なし")
-                {
-                    continue;
-                }
-                try
-                {
-                    var sort = new SpreadSortDescription();
-                    sort.Direction = (this.表示順方向[ix]) ? ListSortDirection.Descending : ListSortDirection.Ascending;
-                    switch (cd.表示名)
-                    {
-                        case "入力順":
-                            sort.ColumnName = "明細番号";
-                            this.sp売上明細データ.SortDescriptions.Add(sort);
-                            sort = new SpreadSortDescription();
-                            sort.Direction = (this.表示順方向[ix]) ? ListSortDirection.Descending : ListSortDirection.Ascending;
-                            sort.ColumnName = "明細行";
-                            this.sp売上明細データ.SortDescriptions.Add(sort);
-                            break;
-                        case "指定日付":
-                            sort.ColumnName = (cmb検索日付種類.Combo_SelectedItem as CodeData).表示名 + "日付";
-                            this.sp売上明細データ.SortDescriptions.Add(sort);
-                            break;
-                        case "運行者名":
-                            sort.ColumnName = "乗務員名";
-                            this.sp売上明細データ.SortDescriptions.Add(sort);
-                            break;
-                        default:
-                            sort.ColumnName = cd.表示名;
-                            this.sp売上明細データ.SortDescriptions.Add(sort);
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    appLog.Error("売上明細データSPREADのソート時に例外が発生しました。", ex);
-                    //this.ErrorMessage = "データの並び替え中にシステムエラーが発生しました。サポートにお問い合わせください。";
-                }
-            }
-        }
-
-        #endregion
-
-        #region ピックアップ選択
-
-        private void AllSelect_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var row in this.PickupData)
-            {
-                row.選択 = SelectedChar;
-            }
-        }
-
-        #endregion
-
-        #region ピックアップクリア
-
-        private void AllClear_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var tbl in new List<MasterList_Member>[] { Pickup得意先, Pickup支払先, Pickup仕入先, Pickup乗務員, Pickup車輌, Pickup車種, Pickup発地, Pickup着地, Pickup商品, })
-            {
-                foreach (var rec in tbl.Where(x => x.選択 != UnselectedChar))
-                {
-                    rec.選択 = UnselectedChar;
-                }
-            }
-            this.得意先FROM = string.Empty;
-            this.得意先TO = string.Empty;
-            this.支払先FROM = string.Empty;
-            this.支払先TO = string.Empty;
-            this.仕入先FROM = string.Empty;
-            this.仕入先TO = string.Empty;
-            this.乗務員FROM = string.Empty;
-            this.乗務員TO = string.Empty;
-            this.車輌FROM = string.Empty;
-            this.車輌TO = string.Empty;
-            this.車種FROM = string.Empty;
-            this.車種TO = string.Empty;
-            this.発地FROM = string.Empty;
-            this.発地TO = string.Empty;
-            this.着地FROM = string.Empty;
-            this.着地TO = string.Empty;
-            this.商品FROM = string.Empty;
-            this.商品TO = string.Empty;
-            this.ピックアップ締日 = string.Empty;
-        }
-
-        #endregion
-
-		#region ピックアップ全解除
-		private void AllDeSelect_Click(object sender, RoutedEventArgs e)
-		{
-			foreach (var row in this.PickupData)
-			{
-				row.選択 = UnselectedChar;
-			}
-		}
-		#endregion
-
-		#region Perform_Pickup
-
-		//private void Perform_Pickup()
-        //{
-
-        //    if (売上明細データ検索結果 == null)
-        //    {
-        //        this.売上明細データ = null;
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        this.売上明細データ = this.売上明細データ検索結果.Copy();
-        //    }
-        //    if (this.売上明細データ == null)
-        //    {
-        //        return;
-        //    }
-
-        //    string cname = string.Empty;
-        //    int from = 0;
-        //    int to = 0;
-
-        //    if (string.IsNullOrWhiteSpace(pickupCodeFROM) != true)
-        //    {
-        //        if (int.TryParse(pickupCodeFROM, out from) != true)
-        //        {
-        //            from = 0;
-        //        }
-        //    }
-        //    if (string.IsNullOrWhiteSpace(pickupCodeTO) != true)
-        //    {
-        //        if (int.TryParse(pickupCodeTO, out to) != true)
-        //        {
-        //            to = 0;
-        //        }
-        //    }
-
-        //    switch (this.ピックアップ種類)
-        //    {
-        //        case "得意先":
-        //            cname = "得意先ID";
-        //            break;
-        //        case "支払先":
-        //            cname = "支払先ID";
-        //            break;
-        //        case "仕入先":
-        //            cname = "仕入先ID";
-        //            break;
-        //        case "乗務員":
-        //            cname = "乗務員ID";
-        //            break;
-        //        case "車輌":
-        //            cname = "車輌ID";
-        //            break;
-        //        case "車種":
-        //            cname = "車種ID";
-        //            break;
-        //        case "発地":
-        //            cname = "発地ID";
-        //            break;
-        //        case "着地":
-        //            cname = "着地ID";
-        //            break;
-        //        case "商品":
-        //            cname = "商品ID";
-        //            break;
-        //        default:
-        //            return;
-        //    }
-        //    spPickupList.ActiveCellPosition = CellPosition.Empty;
-        //}
-
-        #endregion
-
-        #region 合計計算用メンバー
-
-        // 合計計算用
-        public class TOTAL_MEMBER
-        {
-            public decimal 数量 { get; set; }
-            public decimal 重量 { get; set; }
-            public int 売上金額 { get; set; }
-            public int 通行料 { get; set; }
-            public int 請求割増１ { get; set; }
-            public int 請求割増２ { get; set; }
-            public int 支払金額 { get; set; }
-            public int 支払通行料 { get; set; }
-        }
-
-        #endregion
-
-        #region 合計計算
-
-        // 合計計算
-        void Summary()
-        {
-            売上金額 = 0m;
-            請求割増１ = 0m;
-            請求割増２ = 0m;
-            通行料 = 0m;
-            売上合計 = 0m;
-            数量 = 0m;
-            重量 = 0m;
-            支払社内 = 0m;
-            支払通行料 = 0m;
-            支払合計 = 0m;
-
-
-			if (sp売上明細データ.Columns[1].Name == null)
-			{
-				return;
-			}
-
-			DataTable 印刷データ = new DataTable("印刷データ");
-
-			Dictionary<string, string> changecols = new Dictionary<string, string>()
-			{
-			};
-
-			AppCommon.ConvertSpreadDataToTable<DLY12010_Member>(this.sp売上明細データ, 印刷データ, changecols);
-
-			売上金額 = AppCommon.DecimalParse(印刷データ.Compute("Sum(d売上金額)", null).ToString());
-			請求割増１ = AppCommon.DecimalParse(印刷データ.Compute("Sum(d請求割増１)", null).ToString());
-			請求割増２ = AppCommon.DecimalParse(印刷データ.Compute("Sum(d請求割増２)", null).ToString());
-			通行料 = AppCommon.DecimalParse(印刷データ.Compute("Sum(d通行料)", null).ToString());
-			売上合計 = 売上金額 + 請求割増１ + 請求割増２ + 通行料;
-			重量 = AppCommon.DecimalParse(印刷データ.Compute("Sum(重量)", null).ToString());
-			数量 = AppCommon.DecimalParse(印刷データ.Compute("Sum(数量)", null).ToString());
-			支払社内 = AppCommon.DecimalParse(印刷データ.Compute("Sum(d支払金額)", null).ToString());
-			支払通行料 = AppCommon.DecimalParse(印刷データ.Compute("Sum(d支払通行料)", null).ToString());
-			支払合計 = 支払社内 + 支払通行料;
-
-        }
-
-        #endregion
-
-        #region 部門のコンボボックスのリスト準備完了時
-        /// <summary>
-        /// 部門のコンボボックスのリスト準備完了時
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cmb部門指定_DataListInitialized(object sender, RoutedEventArgs e)
-        {
-            this.自社部門ID = "0";
-        }
-        #endregion
-
-        #region ピックアップ選択
-
-        private void PickupSelect(string selText)
-        {
-            foreach (var item in this.RangeVisibilities.Where(x => x.Key == selText).ToList())
-            {
-                RangeVisibilities[item.Key] = Visibility.Visible;
-            }
-            foreach (var item in this.RangeVisibilities.Where(x => x.Key != selText).ToList())
-            {
-                RangeVisibilities[item.Key] = Visibility.Hidden;
-            }
-            NotifyPropertyChanged("RangeVisibilities");
-
-            if (string.IsNullOrWhiteSpace(selText))
-            {
-                return;
-            }
-            this.PickupData = null;
-            this.PickupSwitch = true;
-            switch (selText)
-            {
-                case "得意先":
-                    this.PickupData = this.Pickup得意先;
-                    break;
-                case "支払先":
-                    this.PickupData = this.Pickup支払先;
-                    break;
-                case "仕入先":
-                    this.PickupData = this.Pickup仕入先;
-                    break;
-                case "乗務員":
-                    this.PickupData = this.Pickup乗務員;
-                    break;
-                case "車輌":
-                    this.PickupData = this.Pickup車輌;
-                    break;
-                case "車種":
-                    this.PickupData = this.Pickup車種;
-                    break;
-                case "発地":
-                    this.PickupData = this.Pickup発地;
-                    break;
-                case "着地":
-                    this.PickupData = this.Pickup着地;
-                    break;
-                case "商品":
-                    this.PickupData = this.Pickup商品;
-                    break;
-            }
-            spPickupList.ActiveCellPosition = CellPosition.Empty;
-        }
-
-        #endregion
-
-        #region SPREAD CellEnter
-
-        private void sp売上明細データ_CellEnter(object sender, SpreadCellEnterEventArgs e)
-        {
-            var grid = sender as GcSpreadGrid;
-            if (grid == null) return;
-            if (grid.RowCount == 0) return;
-            this._originalText = grid.Cells[e.Row, e.Column].Text;
-        }
-        #endregion
-
-		#region 合計再計算
-
-		//合計金額再計算
-		public void Next_calculation()
-		{
-			売上金額 = 0m;
-			請求割増１ = 0m;
-			請求割増２ = 0m;
-			通行料 = 0m;
-			売上合計 = 0m;
-			数量 = 0m;
-			重量 = 0m;
-			支払社内 = 0m;
-			支払通行料 = 0m;
-			支払合計 = 0m;
-
-			売上金額 = 売上明細データ.Sum(C => C.d売上金額);
-			請求割増１ = 売上明細データ.Sum(C => C.d請求割増１);
-			請求割増２ = 売上明細データ.Sum(C => C.d請求割増２);
-			通行料 = 売上明細データ.Sum(C => C.d通行料);
-			数量 = 売上明細データ.Sum(C => C.数量);
-			重量 = 売上明細データ.Sum(C => C.重量);
-			支払社内 = 売上明細データ.Sum(C => C.d支払金額);
-			支払通行料 = 売上明細データ.Sum(C => C.d支払通行料);
-			売上合計 = 売上明細データ.Sum(C => C.d売上金額 + C.d請求割増１ + C.d請求割増２ + C.d通行料);
-			支払合計 = 売上明細データ.Sum(C => C.d支払金額 + C.d支払通行料);
-
-			//int Count = 0;
-			//foreach (var Rows in sp売上明細データ.Rows)
-			//{
-
-			//	売上金額 += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["d売上金額"].Index].Value);
-			//	請求割増１ += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["d請求割増１"].Index].Value);
-			//	請求割増２ += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["d請求割増２"].Index].Value);
-			//	通行料 += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["d通行料"].Index].Value);
-
-
-			//	数量 += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["数量"].Index].Value);
-			//	重量 += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["重量"].Index].Value);
-			//	支払社内 += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["d支払金額"].Index].Value);
-			//	支払通行料 += Convert.ToDecimal(sp売上明細データ[Count, sp売上明細データ.Columns["d支払通行料"].Index].Value);
-
-
-			//	Count++;
-			//}
-			//売上合計 = 売上金額 + 請求割増１ + 請求割増２ + 通行料;
-			//支払合計 = 支払社内 + 支払通行料;
-		}
-
-
-		#endregion
-
-        #region 変数宣言
-
-        string CellName = string.Empty;
-        string CellText = string.Empty;
-        decimal Cell売上金額 = 0;
-        decimal Cell請求割増１ = 0;
-        decimal Cell請求割増２ = 0;
-        decimal Cell通行料 = 0;
-        decimal Cell売上合計 = 0;
-        decimal Cell数量 = 0;
-        decimal Cell重量 = 0;
-        decimal Cell支払社内 = 0;
-        decimal Cell支払通行料 = 0;
-        decimal Cell支払合計 = 0;
-
-        #endregion
-
-        #region SPREAD CellEditEnding
-
-        private void sp売上明細データ_CellEditEnding(object sender, SpreadCellEditEndingEventArgs e)
-        {
-            if (e.EditAction == SpreadEditAction.Cancel)
-            {
-                return;
-            }
-            CellName = e.CellPosition.ColumnName;
-            CellText = sp売上明細データ.Cells[e.CellPosition.Row, e.CellPosition.Column].Text;
-
-            //Cell売上金額 = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "d売上金額"].Text);
-            //Cell請求割増１ = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "d請求割増１"].Text);
-            //Cell請求割増２ = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "d請求割増２"].Text);
-            //Cell通行料 = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "d通行料"].Text);
-            //Cell数量 = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "数量"].Text);
-            //Cell重量 = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "重量"].Text);
-            //Cell支払社内 = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "d支払金額"].Text);
-            //Cell支払通行料 = AppCommon.DecimalParse(sp売上明細データ.Cells[e.CellPosition.Row, "d支払通行料"].Text);
-
-
-			//スプレッドコンボイベント関連付け解除				
-			if (sp売上明細データ[e.CellPosition].InheritedCellType is GrapeCity.Windows.SpreadGrid.ComboBoxCellType)
-			{
-				GrapeCity.Windows.SpreadGrid.Editors.GcComboBox gccmb = sp売上明細データ.EditElement as GrapeCity.Windows.SpreadGrid.Editors.GcComboBox;
-				if (gccmb != null)
-				{
-					gccmb.SelectionChanged -= comboEdit_SelectionChanged;
-				}
-			}
-
-			if (sp売上明細データ[e.CellPosition].InheritedCellType is GrapeCity.Windows.SpreadGrid.CheckBoxCellType)
-			{
-				GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement gcchk = sp売上明細データ.EditElement as GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement;
-				if (gcchk != null)
-				{
-					gcchk.Checked -= checkEdit_Checked;
-					gcchk.Unchecked -= checkEdit_Unchecked;
-				}
-			}				
-
-
-        }
-		/// <summary>			
-		/// comboEdit_SelectionChanged			
-		/// スプレッドコンボリストチェンジイベント			
-		/// </summary>			
-		/// <param name="sender"></param>			
-		/// <param name="e"></param>			
-		private void comboEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (sp売上明細データ.ActiveCell.IsEditing)
-			{
-				sp売上明細データ.CommitCellEdit();
-			}
-		}			
-
-
-        #endregion
-
-        #region Spread変更処理
-
-        private void sp売上明細データ_CellEditEnded(object sender, SpreadCellEditEndedEventArgs e)
-        {
-            if (e.EditAction == SpreadEditAction.Cancel)
-            {
-                return;
-            }
-            var gcsp = (sender as GcSpreadGrid);
-            if (gcsp == null)
-            {
-                return;
-            }
-            try
-            {
-                string cname = e.CellPosition.ColumnName;
-                string ctext = sp売上明細データ.Cells[e.CellPosition.Row, e.CellPosition.Column].Text;
-                ctext = ctext == null ? string.Empty : ctext;
-				if (cname == CellName && ctext == CellText && (!(gcsp[e.CellPosition].InheritedCellType is GrapeCity.Windows.SpreadGrid.ComboBoxCellType) && !(gcsp[e.CellPosition].InheritedCellType is GrapeCity.Windows.SpreadGrid.CheckBoxCellType)))
-				{
-					if (CloseFlg) { CloseFlg = false; }
-					// セルの値が変化していなければ何もしない	
-					return;
-				}
-
-
-				//リロードせずに対象セルのみ色変更
-				if (cname == "社内区分")
-				{
-					if (AppCommon.IntParse(sp売上明細データ.Cells[e.CellPosition.Row, "社内区分"].Value.ToString()) == 1)
-					{
-						sp売上明細データ.Cells[e.CellPosition.Row, "社内区分"].Foreground = new SolidColorBrush(Colors.Red);
-					}
-					else
-					{
-						sp売上明細データ.Cells[e.CellPosition.Row, "社内区分"].Foreground = new SolidColorBrush(Colors.Black);
-					}
-				}
-				if (cname == "売上未定区分")
-				{
-					if (AppCommon.IntParse(sp売上明細データ.Cells[e.CellPosition.Row, "売上未定区分"].Value.ToString()) == 1)
-					{
-						sp売上明細データ.Cells[e.CellPosition.Row, "売上未定区分"].Foreground = new SolidColorBrush(Colors.Red);
-					}
-					else
-					{
-						sp売上明細データ.Cells[e.CellPosition.Row, "売上未定区分"].Foreground = new SolidColorBrush(Colors.Black);
-					}
-				}
-
-                var row = gcsp.Rows[e.CellPosition.Row];
-                pRowCount = e.CellPosition.Row;
-                object val = row.Cells[e.CellPosition.Column].Value;
-                val = val == null ? "" : val;
-                if (cname == "売上未定区分")
-                {
-                    val = row.Cells[e.CellPosition.Column].Value.ToString();
-                }
-                if (cname.Contains("年月日") == true)
-                {
-                    AppCommon.SpreadYMDCellCheck(sender, e, this._originalText);
-                    cname = cname.Replace("年月日", "日付");
-                    DateTime dt;
-                    if (DateTime.TryParse(row.Cells[e.CellPosition.Column].Text, out dt) == true)
-                    {
-                        val = dt;
-                    }
-                    else
-                    {
-                        this.ErrorMessage = "正しい日付を入力してください。";
-                        return;
-                    }
-                }
-                if (cname.Contains("配送時間") == true && val == "")
-                {
-                    val = 0;
-                }
-                pRowCount = Convert.ToInt32(row.Index);
-                var colM = gcsp.Columns.Where(x => x.Name == "明細番号").FirstOrDefault();
-                if (colM == null)
-                {
-                    throw new Exception("システムエラー");
-                }
-                var colL = gcsp.Columns.Where(x => x.Name == "明細行").FirstOrDefault();
-                if (colL == null)
-                {
-                    throw new Exception("システムエラー");
                 }
 
-                //変数定義
-                int TOKFlg = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["請求運賃計算区分ID"].Index].Value);
-                int SHRFlg = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["支払運賃計算区分ID"].Index].Value);
-                int p計算区分 = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["請求運賃計算区分ID"].Index].Value);
-                int p請求支払区分 = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["支払運賃計算区分ID"].Index].Value);
-                decimal p数量 = Convert.ToDecimal(row.Cells[this.sp売上明細データ.Columns["数量"].Index].Value);
-                decimal p重量 = Convert.ToDecimal(row.Cells[this.sp売上明細データ.Columns["重量"].Index].Value);
-                decimal p売上単価 = Convert.ToDecimal(row.Cells[this.sp売上明細データ.Columns["売上単価"].Index].Value);
-                decimal p支払単価 = Convert.ToDecimal(row.Cells[this.sp売上明細データ.Columns["支払単価"].Index].Value);
-                int p得意先ID = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["得意先ID"].Index].Value);
-                int p支払先ID = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["支払先ID"].Index].Value);
-                int p発地ID = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["発地ID"].Index].Value);
-                int p着地ID = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["着地ID"].Index].Value);
-                int p商品ID = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["商品ID"].Index].Value);
-                int p走行ＫＭ = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["走行ＫＭ"].Index].Value);
-                int p車種ID = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["車種ID"].Index].Value);
-                string p入力区分 = Convert.ToString(row.Cells[this.sp売上明細データ.Columns["入力区分"].Index].Value);
-                p明細番号 = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["明細番号"].Index].Value);
-                p明細行 = Convert.ToInt32(row.Cells[this.sp売上明細データ.Columns["明細行"].Index].Value);
+                this.cmb伝票要否.SelectedIndex = 0;
+                this.cmb売上区分.SelectedIndex = 0;
+                this.txt得意先.Text1 = string.Empty;
+                this.txt得意先.Text2 = string.Empty;
+                this.txt出荷先.Text1 = string.Empty;
+                this.txt出荷元.Text1 = string.Empty;
 
-                string 項目名 = e.CellPosition.ColumnName;
-                if (!String.IsNullOrEmpty(e.CellPosition.ColumnName))
-                {
-                    if (e.CellPosition.ColumnName[0].ToString() == "d")
-                    {
-                        項目名 = e.CellPosition.ColumnName.Substring(1);
-                    };
-                }
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
+                this.txt売上日.Focus();
 
-                base.SendRequest(new CommunicationObject(MessageType.UpdateData, UPDATE_ROW2, row.Cells[colM.Index].Value, row.Cells[colL.Index].Value, 項目名, val));
-
-
-            }
-            catch (Exception ex)
-            {
-                this.ErrorMessage = "入力内容が不正です。";
-            }
-        }
-
-        #endregion
-
-        #region ピックアップ処理
-
-        private void spPickupList_SelectionChanged(object sender, EventArgs e)
-        {
-            if (this.PickupSwitch == true)
-            {
-                // 表示切替直後の時は何もしない。
-                this.PickupSwitch = false;
-                spPickupList.ActiveCellPosition = CellPosition.Empty;
-                return;
-            }
-            GcSpreadGrid gcsp = (sender as GcSpreadGrid);
-            if (gcsp == null)
-            {
-                return;
-            }
-            try
-            {
-                var row = gcsp.ActiveRow;
-                if (row == null)
-                {
-                    return;
-                }
-                var colM = gcsp.Columns.Where(x => x.Name == "選択").FirstOrDefault();
-                if (colM == null)
-                {
-                    throw new Exception("システムエラー");
-                }
-                string val = (string)row.Cells[colM.Index].Value;
-                if (string.IsNullOrWhiteSpace(val))
-                {
-                    row.Cells[colM.Index].Value = SelectedChar;
-                }
-                else
-                {
-                    row.Cells[colM.Index].Value = UnselectedChar;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            spPickupList.ActiveCellPosition = CellPosition.Empty;
-        }
-
-        #endregion
-
-        #region 得意先指定LostFocus
-        private void 得意先指定_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (IsExpanded)
-            {
-                cmb部門指定.Focus();
             }
             else
             {
-                textbox検索日付From.Focus();
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_EDIT;
+
+                // 取得明細の自社品番をロック(編集不可)に設定
+                foreach (var row in gcSpreadGrid.Rows)
+                {
+                    row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;
+                    row.Cells[(int)GridColumnsMapping.得意先品番].Locked = true;
+                }
+
+                gridCtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);
+
             }
+
+            // グリッド内容の再計算を実施
+            summaryCalculation();
+
+        }
+
+        /// <summary>
+        /// 売上情報の登録処理をおこなう
+        /// </summary>
+        private void Update()
+        {
+            // -- 送信用データを作成 --
+            // 消費税をヘッダに設定
+            SearchHeader["消費税"] = AppCommon.IntParse(this.lbl消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(SearchHeader.Table.Copy());
+
+            // No-56 Start
+            // 売上明細情報（削除）を売上明細情報に追加する
+            // (※Rows.AddだとRowStateがAddedに変更されるため1行ずつImportする)
+            if (SearchDeleteDetail.Rows.Count != 0)
+            {
+                for (int intIdx = 0; intIdx < SearchDeleteDetail.Rows.Count; intIdx++)
+                {
+                    SearchDetail.ImportRow(SearchDeleteDetail.Rows[intIdx]);
+                }
+            }
+            // No-56 End
+
+            ds.Tables.Add(SearchDetail.Copy());
+
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.UpdateData,
+                    T02_Update,
+                    new object[] {
+                        //SearchDetail.DataSet,
+                        ds,
+                        ccfg.ユーザID
+                    }));
+
+        }
+
+
+        #endregion
+
+        #region << 入力検証処理 >>
+
+        /// <summary>
+        /// 検索項目の検証をおこなう
+        /// </summary>
+        /// <returns></returns>
+        private bool isKeyItemValidation()
+        {
+            bool isResult = false;
+
+            if (string.IsNullOrEmpty(this.txt自社名.Text1))
+            {
+                base.ErrorMessage = "自社名が入力されていません。";
+                return isResult;
+            }
+
+            return isResult = true;
+
+        }
+
+        /// <summary>
+        /// 入力内容の検証をおこなう
+        /// </summary>
+        /// <returns></returns>
+        private bool isFormValidation()
+        {
+            bool isResult = false;
+
+            #region 【ヘッダ】必須入力チェック
+
+            // 伝票要否
+            if (this.cmb伝票要否.SelectedValue == null)
+            {
+                this.cmb伝票要否.Focus();
+                base.ErrorMessage = string.Format("伝票要否が選択されていません。");
+                return isResult;
+
+            }
+
+            // 売上日
+            if (string.IsNullOrEmpty(this.txt売上日.Text))
+            {
+                this.txt売上日.Focus();
+                base.ErrorMessage = string.Format("売上日が入力されていません。");
+                return isResult;
+
+            }
+            else if (!this.txt売上日.CheckValidation())
+            {
+                this.txt売上日.Focus();
+                base.ErrorMessage = string.Format("売上日の設定内容に誤りがあります。");
+                return isResult;
+
+            }
+
+            // 売上区分
+            if (this.cmb売上区分.SelectedValue == null)
+            {
+                this.cmb売上区分.Focus();
+                base.ErrorMessage = string.Format("売上区分が選択されていません。");
+                return isResult;
+
+            }
+
+            string salesKbn = this.cmb売上区分.SelectedValue.ToString();
+
+            // 得意先
+            if (string.IsNullOrEmpty(this.txt得意先.Text1) || string.IsNullOrEmpty(this.txt得意先.Text2))
+            {
+                this.txt得意先.Focus();
+                base.ErrorMessage = string.Format("得意先が入力されていません。");
+                return isResult;
+
+            }
+            else if (!this.txt得意先.CheckValidation())
+            {
+                this.txt得意先.Focus();
+                base.ErrorMessage = string.Format("得意先の設定内容に誤りがあります。");
+                return isResult;
+
+            }
+
+            // 在庫倉庫チェック（メーカー以外）
+            if (!メーカー区分.Contains(salesKbn) && string.IsNullOrEmpty(this.txt在庫倉庫.Text1))
+            {
+                this.txt在庫倉庫.Focus();
+                base.ErrorMessage = string.Format("在庫倉庫が入力されていません。");
+                return isResult;
+
+            }
+            else if (!this.txt在庫倉庫.CheckValidation())
+            {
+                this.txt在庫倉庫.Focus();
+                base.ErrorMessage = string.Format("在庫倉庫の設定内容に誤りがあります。");
+                return isResult;
+
+            }
+
+            // 出荷日
+            if (string.IsNullOrEmpty(this.txt出荷日.Text))
+            {
+                this.txt出荷日.Focus();
+                base.ErrorMessage = string.Format("出荷日が入力されていません。");
+                return isResult;
+
+            }
+            else if (!this.txt出荷日.CheckValidation())
+            {
+                this.txt出荷日.Focus();
+                base.ErrorMessage = string.Format("出荷日の設定内容に誤りがあります。");
+                return isResult;
+
+            }
+
+            // 出荷先
+            if (string.IsNullOrEmpty(this.txt出荷先.Text1) || string.IsNullOrEmpty(this.txt出荷先.Text2))
+            {
+                this.txt出荷先.Focus();
+                base.ErrorMessage = string.Format("出荷先が入力されていません。");
+                return isResult;
+
+            }
+            else if (!this.txt出荷先.CheckValidation())
+            {
+                this.txt出荷先.Focus();
+                base.ErrorMessage = string.Format("出荷先の設定内容に誤りがあります。");
+                return isResult;
+
+            }
+
+            // 出荷元
+            if (string.IsNullOrEmpty(this.txt出荷元.Text1) || string.IsNullOrEmpty(this.txt出荷元.Text2))
+            {
+                this.txt出荷元.Focus();
+                base.ErrorMessage = string.Format("出荷元が入力されていません。");
+                return isResult;
+
+            }
+            else if (!this.txt出荷元.CheckValidation())
+            {
+                this.txt出荷元.Focus();
+                base.ErrorMessage = string.Format("出荷元の設定内容に誤りがあります。");
+                return isResult;
+
+            }
+
+
+            // 4：メーカー販社商流直送で、ログインユーザーが自社以外の場合NG
+            if (salesKbn.Equals("4") && ccfg.自社販社区分 != (int)自社販社区分.自社)
+            {
+                //　※ログインユーザーで売上区分を管理しているため、通常この処理は行われない
+                this.txt自社名.Focus();
+                base.ErrorMessage = string.Format("ログインユーザーがマルセンユーザーではないため、登録できません。");
+                return isResult;
+            }
+
+            // 自社名コードが自社で、2：販社売上または4：メーカー販社商流直送の場合NG
+            if (_自社区分 == (int)自社販社区分.自社 && (salesKbn.Equals("2") || salesKbn.Equals("4")))
+            {
+                this.txt自社名.Focus();
+                base.ErrorMessage = string.Format("売上区分に誤りがあります。");
+                return isResult;
+            }
+
+            // 自社名コードが販社で、売上区分が 2：販社売上または4：メーカー販社商流直送以外はNG
+            if (_自社区分 != (int)自社販社区分.自社 && !(salesKbn.Equals("2") || salesKbn.Equals("4")))
+            {
+                this.txt自社名.Focus();
+                base.ErrorMessage = string.Format("売上区分に誤りがあります。");
+                return isResult;
+            }
+
+            if (salesKbn.Equals("3") || salesKbn.Equals("4"))
+            {
+                // 3：メーカー直送または4：メーカー販社商流直送の場合、仕入先は必須
+                if (string.IsNullOrEmpty(this.txt仕入先.Text1) || string.IsNullOrEmpty(this.txt仕入先.Text2))
+                {
+                    this.txt仕入先.Focus();
+                    base.ErrorMessage = string.Format("仕入先が入力されていません。");
+                    return isResult;
+
+                }
+
+                if (!txt仕入先.CheckValidation())
+                {
+                    this.txt仕入先.Focus();
+                    base.ErrorMessage = txt仕入先.GetValidationMessage();
+                    return isResult;
+
+                }
+
+            }
+
+
+            #endregion
+
+            #region 【明細】入力チェック
+
+            // 現在の明細行を取得
+            var CurrentDetail = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable();
+
+            // 【明細】詳細データが１件もない場合はエラー
+            if (SearchDetail == null || CurrentDetail.Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
+            {
+                this.gcSpreadGrid.Focus();
+                base.ErrorMessage = string.Format("明細情報が１件もありません。");
+                return isResult;
+            }
+
+            // 【明細】品番の商品分類が食品(1)の場合は賞味期限が必須
+            int rIdx = 0;
+            bool? 返品数量Flg = null;
+            bool isDetailErr = false;
+            foreach (DataRow row in SearchDetail.Rows)
+            {
+                // 削除行は検証対象外
+                if (row.RowState == DataRowState.Deleted)
+                    continue;
+
+                // 追加行未入力レコードはスキップ
+                if (row["品番コード"] == null || string.IsNullOrEmpty(row["品番コード"].ToString()) || row["品番コード"].ToString().Equals("0"))
+                {
+                    rIdx++;
+                    continue;
+                }
+
+                // エラー情報をクリア
+                gcSpreadGrid.Rows[rIdx].ValidationErrors.Clear();
+
+                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
+                if (CurrentDetail.Where(x => x.Field<string>("品番コード") == row["品番コード"].ToString() && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
+                {
+                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
+                    gcSpreadGrid.Rows[rIdx]
+                        .ValidationErrors.Add(new SpreadValidationError("同じ商品が存在するので、一つに纏めて下さい。", null, rIdx, GridColumnsMapping.品番コード.GetHashCode()));
+                    if (!isDetailErr)
+                        gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.品番コード.GetHashCode());
+
+                    isDetailErr = true;
+                }
+
+                if (string.IsNullOrEmpty(row["数量"].ToString()))
+                {
+                    gcSpreadGrid.Rows[rIdx]
+                        .ValidationErrors.Add(new SpreadValidationError("数量が入力されていません。", null, rIdx, GridColumnsMapping.数量.GetHashCode()));
+                    if (!isDetailErr)
+                        gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.数量.GetHashCode());
+
+                    isDetailErr = true;
+                }
+
+                decimal d数量;
+                decimal.TryParse(row["数量"].ToString(), out d数量);
+
+                if (d数量 != 0)
+                {
+                    bool wk返品数量Flg = d数量 > 0 ? false : true;
+
+                    if (返品数量Flg == null)
+                    {
+                        返品数量Flg = wk返品数量Flg;
+                    }
+                    else if ((bool)返品数量Flg != wk返品数量Flg)
+                    {
+                        this.gcSpreadGrid.Focus();
+                        base.ErrorMessage = string.Format("通常数量と返品数量が混在しています。");
+                        return isResult;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(row["単価"].ToString()))
+                {
+                    gcSpreadGrid.Rows[rIdx]
+                        .ValidationErrors.Add(new SpreadValidationError("単価が入力されていません。", null, rIdx, GridColumnsMapping.単価.GetHashCode()));
+                    if (!isDetailErr)
+                        gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.単価.GetHashCode());
+
+                    isDetailErr = true;
+                }
+
+                int type = Convert.ToInt32(row["商品分類"]);
+                DateTime date;
+                if (!DateTime.TryParse(row["賞味期限"].ToString(), out date))
+                {
+                    // 変換に失敗かつ商品分類が「食品」の場合はエラー
+                    if (type.Equals(商品分類.食品.GetHashCode()))
+                    {
+                        gcSpreadGrid.Rows[rIdx]
+                            .ValidationErrors.Add(new SpreadValidationError("商品分類が『食品』の為、賞味期限の設定が必要です。", null, rIdx, GridColumnsMapping.賞味期限.GetHashCode()));
+                        isDetailErr = true;
+                    }
+
+                }
+
+                rIdx++;
+
+            }
+
+            if (isDetailErr)
+                return isResult;
+
+            #endregion
+
+            return true;
+
+        }
+
+        #endregion
+
+        #region 画面項目の初期化
+        /// <summary>
+        /// 画面の初期化処理をおこなう
+        /// </summary>
+        private void ScreenClear()
+        {
+            this.MaintenanceMode = null;
+            if (SearchHeader != null)
+                SearchHeader = null;
+            if (SearchDetail != null)
+            {
+                SearchDetail.Clear();
+                for (int i = 0; i < 10; i++)
+                    SearchDetail.Rows.Add(SearchDetail.NewRow());
+
+            }
+
+            this.cmb伝票要否.SelectedIndex = 0;
+            this.cmb売上区分.SelectedIndex = 0;
+
+            this.txt納品伝票番号.Text = string.Empty;
+            this.txt受注番号.Text = string.Empty;
+            this.txt備考.Text1 = string.Empty;
+
+            string initValue = string.Format("{0:#,0}", 0);
+            this.lbl小計.Content = initValue;
+            this.lbl消費税.Content = initValue;
+            this.lbl総合計.Content = initValue;
+
+            ChangeKeyItemChangeable(true);
+            ResetAllValidation();
+
+            this.txt自社名.Text1 = string.IsNullOrEmpty(txt自社名.Text1) ? ccfg.自社コード.ToString() : txt自社名.Text1;
+
+            // ログインユーザの自社区分によりコントロール状態切換え
+            this.txt自社名.IsEnabled = ccfg.自社販社区分.Equals((int)自社販社区分.自社);
+
+            this.txt伝票番号.Focus();
+
         }
         #endregion
 
-        #region 締日入力
+        #region コントロールの入力可否変更
+        /// <summary>
+        /// キー項目としてマークされた項目の入力可否を切り替える
+        /// </summary>
+        /// <param name="flag">true:入力可、false:入力不可</param>
+        private void ChangeKeyItemChangeable(bool flag)
+        {
+            base.ChangeKeyItemChangeable(flag);
+
+            this.PrevSlip.IsEnabled = true;
+            this.NextSlip.IsEnabled = true;
+            this.gcSpreadGrid.IsEnabled = !flag;
+
+        }
+        #endregion
+
+        #region << コントロールイベント >>
 
         /// <summary>
-        /// 締日の入力
+        /// 伝票番号でキーが押された時のイベント処理
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PickUpSime_cTextChanged(object sender, RoutedEventArgs e)
+        private void txt伝票番号_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            var txtbx = (sender as UcLabelTextBox);
-            if (string.IsNullOrWhiteSpace(txtbx.Text))
+            if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
-                return;
-            }
-            txtbx.CheckValidation();
-        }
-
-        private void PickUpSime_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                e.Handled = true;
-                btnKensaku.Focus();
-            }
-        }
-
-        #endregion
-
-        #region Window_Closed
-        //画面が閉じられた時、データを保持する
-        private void Window_Closed(object sender, EventArgs e)
-		{
-			this.sp売上明細データ.InputBindings.Clear();
-			this.spPickupList.InputBindings.Clear();
-			this.売上明細データ = null;
-
-            if (ucfg != null)
-            {
-                if (frmcfg == null) { frmcfg = new ConfigDLY12010(); }
-                frmcfg.Top = this.Top;
-                frmcfg.Left = this.Left;
-                frmcfg.Width = this.Width;
-                frmcfg.Height = this.Height;
-                frmcfg.表示順 = this.表示順;
-                frmcfg.表示順方向 = this.表示順方向;
-                frmcfg.自社部門index = this.cmb部門指定.SelectedIndex;
-                this.売上明細データ = null;
-                frmcfg.区分1 = this.cmb検索日付種類.SelectedIndex;
-                frmcfg.集計期間From = this.検索日付From;
-                frmcfg.集計期間To = this.検索日付To;
-                frmcfg.spConfig20180118 = AppCommon.SaveSpConfig(this.sp売上明細データ);
-
-                ucfg.SetConfigValue(frmcfg);
-            }
-        }
-        #endregion
-
-        #region pickup_Expanded
-        private void pickup_Expanded(object sender, RoutedEventArgs e)
-        {
-            PickupSelect(this.ピックアップ種類);
-        }
-        #endregion
-
-        #region ColumnResert_Click
-        private void ColumnResert_Click(object sender, RoutedEventArgs e)
-        {
-            AppCommon.LoadSpConfig(this.sp売上明細データ, this.sp_Config);
-            AppCommon.SetutpComboboxListToCell(this.sp売上明細データ, "売上未定区分", "日次", "運転日報入力", "未定区分", false);
-            AppCommon.SetutpComboboxListToCell(this.sp売上明細データ, "社内区分", "日次", "運転日報入力", "社内区分", false);
-            AppCommon.SetutpComboboxListToCell(this.sp売上明細データ, "請求税区分", "日次", "運転日報入力", "税区分", false);
-            //Perform_Pickup();
-            //DataReSort();
-            this.表示固定列数 = this.sp売上明細データ.FrozenColumnCount.ToString();
-
-			売上金額 = 0;
-			請求割増１ = 0;
-			請求割増２ = 0;
-			通行料 = 0;
-			売上合計 = 0;
-			数量 = 0;
-			重量 = 0;
-			支払社内 = 0;
-			支払通行料 = 0;
-			支払合計 = 0;
-
-
-        }
-        #endregion
-
-        #region SetupSpreadFixedColumn
-        private void SetupSpreadFixedColumn(GcSpreadGrid gcsp, string colNum)
-        {
-            if (string.IsNullOrWhiteSpace(colNum))
-            {
-                return;
-            }
-            int cno;
-            if (int.TryParse(colNum, out cno) != true)
-            {
-                return;
-            }
-            if (cno < 1)
-            {
-                return;
-            }
-            gcsp.FrozenColumnCount = cno;
-        }
-        #endregion
-
-        #region DisplayDetail
-
-        private void DisplayDetail()
-        {
-            int rowNo = this.sp売上明細データ.ActiveCellPosition.Row;
-            var row = this.sp売上明細データ.Rows[rowNo];
-            string 入力区分 = sp売上明細データ[rowNo, sp売上明細データ.Columns["入力区分"].Index].Value.ToString();
-            var mNo = row.Cells[sp売上明細データ.Columns["明細番号"].Index].Value;
-            var gNo = row.Cells[sp売上明細データ.Columns["明細行"].Index].Value;
-            if (入力区分 == "日報入力")
-            {
-                DLY01010 frm = new DLY01010();
-                frm.初期明細番号 = (int?)mNo;
-                frm.初期行番号 = (int?)gNo;
-				frm.ShowDialog(this);
-				if (frm.IsUpdated)
-				{
-					// 日報側で更新された場合、再検索を実行する
-					this.Button_Click_1(null, null);
-				}
-            }
-            else if (入力区分 == "売上入力")
-            {
-                DLY02015 frm = new DLY02015();
-                frm.初期明細番号 = (int?)mNo;
-                frm.初期行番号 = (int?)gNo;
-				frm.ShowDialog(this);
-				if (frm.IsUpdated)
-				{
-					// 日報側で更新された場合、再検索を実行する
-					this.Button_Click_1(null, null);
-				}
-            }
-			else if (入力区分 == "内訳入力")
-			{
-				DLY02010 frm = new DLY02010();
-				frm.初期明細番号 = (int?)mNo;
-				frm.初期行番号 = (int?)gNo;
-				frm.ShowDialog(this);
-				if (frm.IsUpdated)
-				{
-					// 日報側で更新された場合、再検索を実行する
-					this.Button_Click_1(null, null);
-				}
-			}
-        }
-
-        #endregion
-
-        #region プレビュー画面
-        /// <summary>
-        /// プレビュー画面表示
-        /// </summary>
-        /// <param name="tbl"></param>
-		//private void DispPreviw(DataTable tbl)
-		//{
-		//	try
-		//	{
-		//		if (tbl.Rows.Count < 1)
-		//		{
-		//			this.ErrorMessage = "対象データが存在しません。";
-		//			return;
-		//		}
-		//		//印刷処理
-		//		KyoeiSystem.Framework.Reports.Preview.ReportPreview view = new KyoeiSystem.Framework.Reports.Preview.ReportPreview();
-		//		//第1引数　帳票タイトル
-		//		//第2引数　帳票ファイルPass
-		//		//第3以上　帳票の開始点(0で良い)
-		//		view.MakeReport("乗務員・車輌伝票問合せ", rptFullPathName_PIC, 0, 0, 0);
-		//		//帳票ファイルに送るデータ。
-		//		//帳票データの列と同じ列名を保持したDataTableを引数とする
-		//		view.SetReportData(tbl);
-		//		view.ShowPreview();
-
-		//		// 印刷した場合
-		//		if (view.IsPrinted)
-		//		{
-		//			//印刷した場合はtrueを返す
-		//		}
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		throw ex;
-		//	}
-		//}
-        #endregion
-
-        #region CSVファイル出力
-        /// <summary>
-        /// CSVファイル出力
-        /// </summary>
-        /// <param name="tbl"></param>
-        private void OutPutCSV(DataTable tbl)
-        {
-            System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
-            //はじめに表示されるフォルダを指定する
-            sfd.InitialDirectory = @"C:\";
-            //[ファイルの種類]に表示される選択肢を指定する
-            sfd.Filter = "CSVファイル(*.csv)|*.csv|すべてのファイル(*.*)|*.*";
-            //「CSVファイル」が選択されているようにする
-            sfd.FilterIndex = 1;
-            //タイトルを設定する
-            sfd.Title = "保存先のファイルを選択してください";
-            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-            sfd.RestoreDirectory = true;
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                //CSVファイル出力
-                CSVData.SaveCSV(tbl, sfd.FileName, true, true, false, ',');
-                MessageBox.Show("CSVファイルの出力が完了しました。");
-            }
-        }
-        #endregion
-
-        #region sp売上明細データ_PreviewKeyDown
-
-        private void sp売上明細データ_PreviewKeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.Delete && sp売上明細データ.EditElement == null)
-			{
-				e.Handled = true;
-			}
-			if (e.Key == Key.V && (((Keyboard.GetKeyStates(Key.LeftCtrl) & KeyStates.Down) != KeyStates.Down) || ((Keyboard.GetKeyStates(Key.RightCtrl) & KeyStates.Down) != KeyStates.Down)))
-			{
-				e.Handled = true;
-			}
-        }
-
-        #endregion
-
-        #region LastField_PreviewKeyDown
-
-        private void LastField_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                var ctl = sender as Framework.Windows.Controls.UcLabelTwinTextBox;
-                if (ctl == null)
+                if (string.IsNullOrEmpty(txt伝票番号.Text.ToString()))
                 {
+                    MessageBox.Show("伝票番号を入力して下さい");
                     return;
                 }
-                e.Handled = true;
-                bool chk = ctl.CheckValidation();
-                if (chk == true)
+
+
+
+                // 検索項目検証
+                if (!isKeyItemValidation())
                 {
-                    Keyboard.Focus(this.btnKensaku);
+                    this.txt伝票番号.Focus();
+                    return;
                 }
-                else
+
+                // 全項目エラーチェック
+                if (!base.CheckKeyItemValidation())
                 {
-                    ctl.Focus();
-                    this.ErrorMessage = ctl.GetValidationMessage();
+                    this.txt伝票番号.Focus();
+                    return;
                 }
+
+                // 入力伝票番号で検索
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.RequestData,
+                        T02_GetData,
+                        new object[] {
+                            this.txt自社名.Text1,
+                            this.txt伝票番号.Text,
+                            0,
+                            ccfg.ユーザID
+                        }));
+
+            }
+
+        }
+
+        /// <summary>
+        /// 取引先コード・枝番からフォーカスアウトした時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt得意先_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txt得意先.Text1) && string.IsNullOrEmpty(txt得意先.Text2))
+                return;
+
+            // 消費税再計算
+            summaryCalculation();
+
+        }
+
+        /// <summary>
+        /// 得意先コードが変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt得意先_TextAfterChanged(object sender, RoutedEventArgs e)
+        {
+            // 明細内容・消費税の再計算を実施
+            summaryCalculation();
+        }
+
+        /// <summary>
+        /// 出荷元コードが変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷元_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            // text1が"9999"の場合、出荷元名変更可能
+            if (txt出荷元.Text1 == "9999")
+            {
+                txt出荷元.Text2 = "0";
+                txt出荷元名.cIsReadOnly = false;
+            }
+            else
+            {
+                txt出荷元名.Text = txt出荷元.Label2Text;
+                txt出荷元名.cIsReadOnly = true;
+            }
+        }
+
+        /// <summary>
+        /// 出荷元が変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷元_TextAfterChanged(object sender, RoutedEventArgs e)
+        {
+            txt出荷元.Label2Visibility = System.Windows.Visibility.Collapsed;
+
+            if (txt出荷元.Text1 != "9999")
+            {
+                txt出荷元名.Text = txt出荷元.Label2Text;
+            }
+
+            // 明細内容・消費税の再計算を実施
+            summaryCalculation();
+
+        }
+
+        /// <summary>
+        /// 出荷先コードが変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷先_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            // text1が"9999"の場合、出荷先名変更可能
+            if (txt出荷先.Text1 == "9999")
+            {
+                txt出荷先.Text2 = "0";
+                txt出荷先名.cIsReadOnly = false;
+            }
+            else
+            {
+                txt出荷先名.Text = txt出荷先.Label2Text;
+                txt出荷先名.cIsReadOnly = true;
+            }
+        }
+
+        /// <summary>
+        /// 出荷先が変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt出荷先_TextAfterChanged(object sender, RoutedEventArgs e)
+        {
+            txt出荷先.Label2Visibility = System.Windows.Visibility.Collapsed;
+
+            if (txt出荷先.Text1 != "9999")
+            {
+                txt出荷先名.Text = txt出荷先.Label2Text;
+            }
+
+            // 明細内容・消費税の再計算を実施
+            summaryCalculation();
+
+        }
+
+        /// <summary>
+        /// 明細番号ページングボタン押下時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PagingButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            int sendParam = btn.Name == PrevSlip.Name ? -1 : 1;
+
+            // 検索項目検証
+            if (!isKeyItemValidation())
+            {
+                this.txt伝票番号.Focus();
+                return;
+            }
+
+            // 全項目エラーチェック
+            if (!base.CheckKeyItemValidation())
+            {
+                this.txt伝票番号.Focus();
+                return;
+            }
+
+            // 入力伝票番号で検索
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    T02_GetData,
+                    new object[] {
+                            this.txt自社名.Text1,
+                            this.txt伝票番号.Text,
+                            sendParam,
+                            ccfg.ユーザID
+                        }));
+
+        }
+
+        #region Window_Closed
+
+        /// <summary>
+        /// 画面が閉じられた時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (frmcfg == null) { frmcfg = new ConfigDLY12010(); }
+
+            frmcfg.Top = this.Top;
+            frmcfg.Left = this.Left;
+            frmcfg.Height = this.Height;
+            frmcfg.Width = this.Width;
+
+            ucfg.SetConfigValue(frmcfg);
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #region << 消費税関連処理 >>
+
+        /// <summary>
+        /// 明細内容を集計して結果を設定する
+        /// </summary>
+        private void summaryCalculation()
+        {
+            if (SearchDetail == null)
+                return;
+
+            // 小計・消費税・総合計の再計算をおこなう
+            decimal subTotal =
+                SearchDetail.Select("", "", DataViewRowState.CurrentRows)
+                    .AsEnumerable()
+                    .Where(w => w.Field<decimal?>("金額") != null)
+                    .Select(x => x.Field<decimal>("金額"))
+                    .Sum();
+            decimal conTax = 0;
+            DateTime date = DateTime.Now;
+
+            if (DateTime.TryParse(txt売上日.Text, out date))
+            {
+                foreach (DataRow row in SearchDetail.Rows)
+                {
+                    if (row.RowState == DataRowState.Deleted)
+                        continue;
+
+                    // 自社品番が空値(行追加のみのデータ)は処理対象外とする
+                    if (string.IsNullOrEmpty(row["自社品番"].ToString()))
+                        continue;
+
+                    int taxKbnId = txt得意先.ClaimTaxId;
+                    conTax += taxCalc.CalculateTax(date, row.Field<decimal>("金額"), row.Field<int>("消費税区分"), taxKbnId);
+
+                }
+
+                long total = Convert.ToInt64(subTotal + conTax);
+
+                lbl小計.Content = string.Format(PRICE_FORMAT_STRING, subTotal);
+                lbl消費税.Content = string.Format(PRICE_FORMAT_STRING, conTax);
+                lbl総合計.Content = string.Format(PRICE_FORMAT_STRING, total);
+
+            }
+
+        }
+
+        #endregion
+
+        #region << SpreadGridイベント処理群 >>
+
+        /// <summary>
+        /// SPREAD セル編集がコミットされた時の処理(手入力) CellEditEnadedイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gcSpredGrid_CellEditEnded(object sender, SpreadCellEditEndedEventArgs e)
+        {
+            GcSpreadGrid grid = sender as GcSpreadGrid;
+
+            //明細行が存在しない場合は処理しない
+            if (SearchDetail == null) return;
+            if (SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() == 0) return;
+
+            _編集行 = e.CellPosition.Row;
+
+            switch (e.CellPosition.ColumnName)
+            {
+                case "自社品番":
+                case "得意先品番コード":
+                    //var target = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Value;
+                    //if (target == null)
+                    //    return;
+
+                    //// 自社品番(または得意先品番)からデータを参照し、取得内容をグリッドに設定
+                    //base.SendRequest(
+                    //    new CommunicationObject(
+                    //        MessageType.RequestData,
+                    //        MasterCode_CustomerProduct,
+                    //        new object[] {
+                    //            target.ToString(),
+                    //            this.txt得意先.Text1,
+                    //            this.txt得意先.Text2
+                    //        }));
+
+                    //// No-57 Start
+                    //SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+                    //// No-57 End
+
+                    break;
+
+                case "単価":
+                case "数量":
+                    // 金額の再計算
+                    decimal cost = gridCtl.GetCellValueToDecimal((int)GridColumnsMapping.単価) ?? 0;
+                    decimal qty = gridCtl.GetCellValueToDecimal((int)GridColumnsMapping.数量) ?? 0;
+
+                    gridCtl.SetCellValue((int)GridColumnsMapping.金額, decimal.Multiply(cost, qty));
+
+                    // グリッド内容の再計算を実施
+                    summaryCalculation();
+
+                    SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+
+                    break;
+
+                case "金額":
+                    // グリッド内容の再計算を実施
+                    summaryCalculation();
+
+                    SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+
+                    break;
+                default:
+                    if (gridCtl.ActiveRowIndex >= 0)
+                    {
+                        // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                        SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+                    }
+                    break;
+
+            }
+
+        }
+
+        /// <summary>
+        /// 指定セルの値を取得する
+        /// </summary>
+        /// <param name="rIdx">行番号</param>
+        /// <param name="column">列定義</param>
+        /// <returns></returns>
+        private object getSpreadGridValue(int rIdx, GridColumnsMapping column)
+        {
+            if (gcSpreadGrid.RowCount - 1 < rIdx || rIdx < 0)
+                return null;
+
+            return gcSpreadGrid.Cells[rIdx, column.GetHashCode()].Value;
+
+        }
+
+        /// <summary>
+        /// 指定セルの値を設定する
+        /// </summary>
+        /// <param name="rIdx">行番号</param>
+        /// <param name="column">列定義</param>
+        /// <param name="value">設定値</param>
+        private void setSpreadGridValue(int rIdx, GridColumnsMapping column, object value)
+        {
+            if (gcSpreadGrid.RowCount - 1 < rIdx || rIdx < 0)
+                return;
+
+            gcSpreadGrid.Cells[rIdx, column.GetHashCode()].Value = value;
+
+        }
+
+        /// <summary>
+        /// SPREAD セルが編集状態になった時の処理 EditElementShowingイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gcSpredGrid_EditElementShowing(object sender, EditElementShowingEventArgs e)
+        {
+            GcSpreadGrid grid = sender as GcSpreadGrid;
+            if (grid.ActiveCell.InheritedCellType is GrapeCity.Windows.SpreadGrid.CheckBoxCellType)
+            {
+                // チェックボックス型セルのイベントを関連付けます。
+                GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement gcchk = grid.EditElement as GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement;
+                if (gcchk != null)
+                {
+                    gcchk.Checked += checkEdit_Checked;
+                    gcchk.Unchecked += checkEdit_Unchecked;
+                }
+            }
+        }
+
+        /// <summary>
+        /// checkEdit_Checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEdit_Checked(object sender, RoutedEventArgs e)
+        {
+            if (SearchDetail != null && SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() != 0 && gridCtl.ActiveRowIndex >= 0)
+            {
+                // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+            }
+        }
+
+        /// <summary>
+        /// checkEdit_Unchecked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEdit_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+            if (SearchDetail != null && SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() != 0 && gridCtl.ActiveRowIndex >= 0)
+            {
+                // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
             }
         }
 
         #endregion
 
-		private void sp売上明細データ_CellBeginEdit(object sender, SpreadCellBeginEditEventArgs e)
-		{
-			EditFlg = true;
-		}
-
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			if (sp売上明細データ.ActiveCell != null && sp売上明細データ.ActiveCell.IsEditing)
-			{
-				CloseFlg = true;
-				sp売上明細データ.CommitCellEdit();
-				if (CloseFlg) { e.Cancel = true; }
-				return;
-			}		
-		}
-
-
-		private void checkEdit_Checked(object sender, RoutedEventArgs e)
-		{
-			sp売上明細データ.CommitCellEdit();
-		}
-
-		private void checkEdit_Unchecked(object sender, RoutedEventArgs e)
-		{
-			sp売上明細データ.CommitCellEdit();
-		}
-
-		/// <summary>					
-		/// sp売上明細データ_EditElementShowing					
-		/// スプレッドコンボイベント関連付け					
-		/// デザイン画面でイベント追加					
-		/// </summary>					
-		/// <param name="sender"></param>					
-		/// <param name="e"></param>					
-		void sp売上明細データ_EditElementShowing(object sender, EditElementShowingEventArgs e)
-		{
-			if (e.EditElement is GrapeCity.Windows.SpreadGrid.Editors.GcComboBox)
-			{
-				GrapeCity.Windows.SpreadGrid.Editors.GcComboBox gccmb = e.EditElement as GrapeCity.Windows.SpreadGrid.Editors.GcComboBox;
-				if (gccmb != null)
-				{
-					gccmb.SelectionChanged += comboEdit_SelectionChanged;
-				}
-			}
-
-			if (e.EditElement is GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement)
-			{
-				GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement gcchk = e.EditElement as GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement;
-				if (gcchk != null)
-				{
-					gcchk.Checked += checkEdit_Checked;
-					gcchk.Unchecked += checkEdit_Unchecked;
-				}
-			}
-		}
-
-		private void sp売上明細データ_RowCollectionChanged(object sender, SpreadCollectionChangedEventArgs e)
-		{
-			if (sp売上明細データ.Columns[1].Name == null)
-			{
-				return;
-			}
-			if (sp売上明細データ.Rows.Count() > 0)
-			{
-				Summary();
-			}
-		}					
-			
-
     }
+
 }
