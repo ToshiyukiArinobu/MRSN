@@ -2122,10 +2122,7 @@ namespace KyoeiSystem.Application.WCFService
                     urdtl.数量 = dtlData.数量;
                     urdtl.単位 = dtlData.単位;
                     urdtl.単価 = cost;
-                    // No-72,No-73 Start
-                    //urdtl.金額 = decimal.ToInt32(amount * dtlData.数量);
-                    urdtl.金額 = amount;
-                    // No-72,No-73 Start
+                    urdtl.金額 = decimal.ToInt32(amount * dtlData.数量);
                     urdtl.摘要 = dtlData.摘要;
 
                     T02Service.T02_URDTL_HAN_Update(urdtl);
