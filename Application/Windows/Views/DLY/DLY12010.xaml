@@ -14,7 +14,7 @@
     d:DesignWidth="300" 
     MinHeight="728" MinWidth="1024" Height="768" Width="1024" Left="0" Top="0"
     WindowStartupLocation="Manual" AllowsTransparency="False" Language="ja-JP"
-    Title="販売売上修正(DLY12010)"
+    Title="販社売上修正(DLY12010)"
     Loaded="Window_Loaded" Closed="Window_Closed">
 
     <Window.Resources>
@@ -155,12 +155,12 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock x:Name="FuncTitle" Text="売上入力" Grid.Row="0" Grid.Column="0" FontSize="16" Margin="30,0,0,0" />
+                    <TextBlock x:Name="FuncTitle" Text="販社売上修正" Grid.Row="0" Grid.Column="0" FontSize="16" Margin="30,0,0,0" />
                     <ctls:UcLabelTwinTextBox x:Name="txt自社名" Label_Context="自社名" Grid.Column="1" Width="350"
                                    DataAccessName="M70_JIS" DataAccessMode="On" IsKeyItem="True"
                                    Label_Width="100"
                                    Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                                   Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                                   Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center" Text1IsReadOnly="True"
                                    Text2BorderBrush="Transparent" Text2Background="Transparent" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
           />
                     <ctls:UcLabelComboBox x:Name="cmb伝票要否" Grid.Row="0" Grid.Column="2"
@@ -221,7 +221,7 @@
                         <ctls:UcLabelComboBox x:Name="cmb売上区分" Grid.Row="1" Grid.Column="2"
                                   Label_Visibility="Collapsed"
                                   ComboListingParams="日次,売上入力,売上区分"
-                                  SelectedValue="{Binding SearchHeader[売上区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedValue="{Binding SearchHeader[売上区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" Combo_IsReadOnly="True" Combo_IsEditable="True"
             />
 
                         <TextBlock Text="得意先名称" Grid.Row="0" Grid.Column="3" TextAlignment="Center" Padding="0,5,0,0"

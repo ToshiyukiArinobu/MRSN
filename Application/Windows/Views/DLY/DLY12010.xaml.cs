@@ -885,21 +885,21 @@ namespace KyoeiSystem.Application.Windows.Views
                 return isResult;
             }
 
-            // 自社名コードが自社で、2：販社売上または4：メーカー販社商流直送の場合NG
-            if (_自社区分 == (int)自社販社区分.自社 && (salesKbn.Equals("2") || salesKbn.Equals("4")))
-            {
-                this.txt自社名.Focus();
-                base.ErrorMessage = string.Format("売上区分に誤りがあります。");
-                return isResult;
-            }
+            //// 自社名コードが自社で、2：販社売上または4：メーカー販社商流直送の場合NG
+            //if (_自社区分 == (int)自社販社区分.自社 && (salesKbn.Equals("2") || salesKbn.Equals("4")))
+            //{
+            //    this.txt自社名.Focus();
+            //    base.ErrorMessage = string.Format("売上区分に誤りがあります。");
+            //    return isResult;
+            //}
 
             // 自社名コードが販社で、売上区分が 2：販社売上または4：メーカー販社商流直送以外はNG
-            if (_自社区分 != (int)自社販社区分.自社 && !(salesKbn.Equals("2") || salesKbn.Equals("4")))
-            {
-                this.txt自社名.Focus();
-                base.ErrorMessage = string.Format("売上区分に誤りがあります。");
-                return isResult;
-            }
+            //if (_自社区分 != (int)自社販社区分.自社 && !(salesKbn.Equals("2") || salesKbn.Equals("4")))
+            //{
+            //    this.txt自社名.Focus();
+            //    base.ErrorMessage = string.Format("売上区分に誤りがあります。");
+            //    return isResult;
+            //}
 
             if (salesKbn.Equals("3") || salesKbn.Equals("4"))
             {

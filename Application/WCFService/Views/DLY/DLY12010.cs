@@ -386,7 +386,8 @@ namespace KyoeiSystem.Application.WCFService
                         join m70 in context.M70_JIS on m72.自社コード equals m70.自社コード
                         from m01 in context.M01_TOK.Where(w => w.取引先コード ==  t02.得意先コード)
                         where (t02.伝票番号 == num)
-                        &&(t02.会社名コード == m70.自社コード)
+                        && (t02.売上区分 == 2 || t02.売上区分 == 4)
+                        //&&(t02.会社名コード == m70.自社コード)
                         
                         && (t02.削除日時 == null)
 
@@ -539,7 +540,8 @@ namespace KyoeiSystem.Application.WCFService
                     // 伝票番号から売上ヘッダ情報を取得
                     var urhd =
                         context.T02_URHD
-                            .Where(w => w.削除日時 == null && w.会社名コード == code && w.伝票番号 == num)
+                            //.Where(w => w.削除日時 == null && w.会社名コード == code && w.伝票番号 == num)
+                            .Where(w => w.削除日時 == null && w.伝票番号 == num)
                             .FirstOrDefault();
 
                     if (urhd == null)
