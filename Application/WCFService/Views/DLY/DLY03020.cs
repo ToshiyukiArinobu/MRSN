@@ -47,6 +47,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 出荷元名 { get; set; }
             public string 出荷先コード { get; set; }
             public string 出荷先枝番 { get; set; }
+            public string 出荷先名 { get; set; }            // No-70
             public string 仕入先コード { get; set; }
             public string 仕入先枝番 { get; set; }
             public string 備考 { get; set; }
@@ -196,6 +197,7 @@ namespace KyoeiSystem.Application.WCFService
                                 出荷元名 = s.URTHD.出荷元名.ToString(),
                                 出荷先コード = s.URTHD.出荷先コード.ToString(),
                                 出荷先枝番 = s.URTHD.出荷先枝番.ToString(),
+                                出荷先名 = s.URTHD.出荷先名.ToString(),                 // No-70
                                 仕入先コード = s.URTHD.仕入先コード.ToString(),
                                 仕入先枝番 = s.URTHD.仕入先枝番.ToString(),
                                 備考 = s.URTHD.備考,
@@ -243,6 +245,7 @@ namespace KyoeiSystem.Application.WCFService
                                 出荷元名 = s.URTHD.出荷元名.ToString(),
                                 出荷先コード = s.URTHD.出荷先コード.ToString(),
                                 出荷先枝番 = s.URTHD.出荷先枝番.ToString(),
+                                出荷先名 = s.URTHD.出荷先名.ToString(),                 // No-70
                                 仕入先コード = s.URTHD.仕入先コード.ToString(),
                                 仕入先枝番 = s.URTHD.仕入先枝番.ToString(),
                                 備考 = s.URTHD.備考,

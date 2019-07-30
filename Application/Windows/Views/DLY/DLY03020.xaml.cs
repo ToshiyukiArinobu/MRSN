@@ -667,12 +667,19 @@ namespace KyoeiSystem.Application.Windows.Views
             // 消費税をヘッダに設定
             SearchHeader["消費税"] = AppCommon.IntParse(this.lbl消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
 
+            // No-70 Start
+            DataSet ds = new DataSet();
+            ds.Tables.Add(SearchHeader.Table.Copy());
+            ds.Tables.Add(SearchDetail.Copy());
+            // No-70 End
+
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.UpdateData,
                     T02_Update,
                     new object[] {
-                        SearchDetail.DataSet,
+                        //SearchDetail.DataSet,
+                        ds,
                         ccfg.ユーザID
                     }));
 
