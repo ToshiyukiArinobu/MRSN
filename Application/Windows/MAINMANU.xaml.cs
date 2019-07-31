@@ -1138,7 +1138,22 @@ namespace KyoeiSystem.Application.Windows.Views
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// 支払明細表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_SHR05020(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(SHR05020));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         /// <summary>
         /// 支払一覧表
         /// </summary>

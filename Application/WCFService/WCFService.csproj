@@ -328,6 +328,7 @@
     <Compile Include="Views\SHR\SHR03010.cs" />
     <Compile Include="Views\SHR\SHR05010.cs" />
     <Compile Include="Views\SHR\SHR06010.cs" />
+    <Compile Include="Views\SHR\SHR05020.cs" />
     <Compile Include="Views\TKS\TKS01020.cs" />
     <Compile Include="Views\MENU\MENU01.svc.cs">
       <DependentUpon>MENU01.svc</DependentUpon>

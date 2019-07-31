@@ -50,6 +50,8 @@ namespace Hakobou.Data.SHR {
         
         private SHR06010_出金予定表DataTable tableSHR06010_出金予定表;
         
+        private SHR05010_支払明細表DataTable tableSHR05010_支払明細表;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -116,6 +118,9 @@ namespace Hakobou.Data.SHR {
                 }
                 if ((ds.Tables["SHR06010_出金予定表"] != null)) {
                     base.Tables.Add(new SHR06010_出金予定表DataTable(ds.Tables["SHR06010_出金予定表"]));
+                }
+                if ((ds.Tables["SHR05010_支払明細表"] != null)) {
+                    base.Tables.Add(new SHR05010_支払明細表DataTable(ds.Tables["SHR05010_支払明細表"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -267,6 +272,16 @@ namespace Hakobou.Data.SHR {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public SHR05010_支払明細表DataTable SHR05010_支払明細表 {
+            get {
+                return this.tableSHR05010_支払明細表;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -370,6 +385,9 @@ namespace Hakobou.Data.SHR {
                 }
                 if ((ds.Tables["SHR06010_出金予定表"] != null)) {
                     base.Tables.Add(new SHR06010_出金予定表DataTable(ds.Tables["SHR06010_出金予定表"]));
+                }
+                if ((ds.Tables["SHR05010_支払明細表"] != null)) {
+                    base.Tables.Add(new SHR05010_支払明細表DataTable(ds.Tables["SHR05010_支払明細表"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -482,6 +500,12 @@ namespace Hakobou.Data.SHR {
                     this.tableSHR06010_出金予定表.InitVars();
                 }
             }
+            this.tableSHR05010_支払明細表 = ((SHR05010_支払明細表DataTable)(base.Tables["SHR05010_支払明細表"]));
+            if ((initTable == true)) {
+                if ((this.tableSHR05010_支払明細表 != null)) {
+                    this.tableSHR05010_支払明細表.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -518,6 +542,8 @@ namespace Hakobou.Data.SHR {
             base.Tables.Add(this.tableSHR05010_支払一覧表);
             this.tableSHR06010_出金予定表 = new SHR06010_出金予定表DataTable();
             base.Tables.Add(this.tableSHR06010_出金予定表);
+            this.tableSHR05010_支払明細表 = new SHR05010_支払明細表DataTable();
+            base.Tables.Add(this.tableSHR05010_支払明細表);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -595,6 +621,12 @@ namespace Hakobou.Data.SHR {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeSHR06010_出金予定表() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeSHR05010_支払明細表() {
             return false;
         }
         
@@ -691,6 +723,9 @@ namespace Hakobou.Data.SHR {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void SHR06010_出金予定表RowChangeEventHandler(object sender, SHR06010_出金予定表RowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void SHR05010_支払明細表RowChangeEventHandler(object sender, SHR05010_支払明細表RowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -7900,6 +7935,384 @@ namespace Hakobou.Data.SHR {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "SHR06010_出金予定表DataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class SHR05010_支払明細表DataTable : global::System.Data.TypedTableBase<SHR05010_支払明細表Row> {
+            
+            private global::System.Data.DataColumn column仕入先コード;
+            
+            private global::System.Data.DataColumn column仕入先名称;
+            
+            private global::System.Data.DataColumn column支払締日;
+            
+            private global::System.Data.DataColumn column品番コード;
+            
+            private global::System.Data.DataColumn column自社品番;
+            
+            private global::System.Data.DataColumn column色コード;
+            
+            private global::System.Data.DataColumn column品名;
+            
+            private global::System.Data.DataColumn column単価;
+            
+            private global::System.Data.DataColumn column数量;
+            
+            private global::System.Data.DataColumn column金額;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SHR05010_支払明細表DataTable() {
+                this.TableName = "SHR05010_支払明細表";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal SHR05010_支払明細表DataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected SHR05010_支払明細表DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 仕入先コードColumn {
+                get {
+                    return this.column仕入先コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 仕入先名称Column {
+                get {
+                    return this.column仕入先名称;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 支払締日Column {
+                get {
+                    return this.column支払締日;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 品番コードColumn {
+                get {
+                    return this.column品番コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社品番Column {
+                get {
+                    return this.column自社品番;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 色コードColumn {
+                get {
+                    return this.column色コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 品名Column {
+                get {
+                    return this.column品名;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価Column {
+                get {
+                    return this.column単価;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 数量Column {
+                get {
+                    return this.column数量;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額Column {
+                get {
+                    return this.column金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SHR05010_支払明細表Row this[int index] {
+                get {
+                    return ((SHR05010_支払明細表Row)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SHR05010_支払明細表RowChangeEventHandler SHR05010_支払明細表RowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SHR05010_支払明細表RowChangeEventHandler SHR05010_支払明細表RowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SHR05010_支払明細表RowChangeEventHandler SHR05010_支払明細表RowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event SHR05010_支払明細表RowChangeEventHandler SHR05010_支払明細表RowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddSHR05010_支払明細表Row(SHR05010_支払明細表Row row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SHR05010_支払明細表Row AddSHR05010_支払明細表Row(string 仕入先コード, string 仕入先名称, string 支払締日, long 品番コード, string 自社品番, string 色コード, string 品名, decimal 単価, decimal 数量, long 金額) {
+                SHR05010_支払明細表Row rowSHR05010_支払明細表Row = ((SHR05010_支払明細表Row)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        仕入先コード,
+                        仕入先名称,
+                        支払締日,
+                        品番コード,
+                        自社品番,
+                        色コード,
+                        品名,
+                        単価,
+                        数量,
+                        金額};
+                rowSHR05010_支払明細表Row.ItemArray = columnValuesArray;
+                this.Rows.Add(rowSHR05010_支払明細表Row);
+                return rowSHR05010_支払明細表Row;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                SHR05010_支払明細表DataTable cln = ((SHR05010_支払明細表DataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new SHR05010_支払明細表DataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.column仕入先コード = base.Columns["仕入先コード"];
+                this.column仕入先名称 = base.Columns["仕入先名称"];
+                this.column支払締日 = base.Columns["支払締日"];
+                this.column品番コード = base.Columns["品番コード"];
+                this.column自社品番 = base.Columns["自社品番"];
+                this.column色コード = base.Columns["色コード"];
+                this.column品名 = base.Columns["品名"];
+                this.column単価 = base.Columns["単価"];
+                this.column数量 = base.Columns["数量"];
+                this.column金額 = base.Columns["金額"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.column仕入先コード = new global::System.Data.DataColumn("仕入先コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column仕入先コード);
+                this.column仕入先名称 = new global::System.Data.DataColumn("仕入先名称", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column仕入先名称);
+                this.column支払締日 = new global::System.Data.DataColumn("支払締日", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column支払締日);
+                this.column品番コード = new global::System.Data.DataColumn("品番コード", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column品番コード);
+                this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社品番);
+                this.column色コード = new global::System.Data.DataColumn("色コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column色コード);
+                this.column品名 = new global::System.Data.DataColumn("品名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column品名);
+                this.column単価 = new global::System.Data.DataColumn("単価", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価);
+                this.column数量 = new global::System.Data.DataColumn("数量", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column数量);
+                this.column金額 = new global::System.Data.DataColumn("金額", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額);
+                this.column品番コード.DefaultValue = ((long)(0));
+                this.column単価.DefaultValue = ((decimal)(0m));
+                this.column数量.DefaultValue = ((decimal)(0m));
+                this.column金額.Caption = "当月請求額";
+                this.column金額.DefaultValue = ((long)(0));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SHR05010_支払明細表Row NewSHR05010_支払明細表Row() {
+                return ((SHR05010_支払明細表Row)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new SHR05010_支払明細表Row(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(SHR05010_支払明細表Row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.SHR05010_支払明細表RowChanged != null)) {
+                    this.SHR05010_支払明細表RowChanged(this, new SHR05010_支払明細表RowChangeEvent(((SHR05010_支払明細表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.SHR05010_支払明細表RowChanging != null)) {
+                    this.SHR05010_支払明細表RowChanging(this, new SHR05010_支払明細表RowChangeEvent(((SHR05010_支払明細表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.SHR05010_支払明細表RowDeleted != null)) {
+                    this.SHR05010_支払明細表RowDeleted(this, new SHR05010_支払明細表RowChangeEvent(((SHR05010_支払明細表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.SHR05010_支払明細表RowDeleting != null)) {
+                    this.SHR05010_支払明細表RowDeleting(this, new SHR05010_支払明細表RowChangeEvent(((SHR05010_支払明細表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveSHR05010_支払明細表Row(SHR05010_支払明細表Row row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                SHR ds = new SHR();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "SHR05010_支払明細表DataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -15936,6 +16349,301 @@ namespace Hakobou.Data.SHR {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class SHR05010_支払明細表Row : global::System.Data.DataRow {
+            
+            private SHR05010_支払明細表DataTable tableSHR05010_支払明細表;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal SHR05010_支払明細表Row(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableSHR05010_支払明細表 = ((SHR05010_支払明細表DataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 仕入先コード {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR05010_支払明細表.仕入先コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払明細表\' にある列 \'仕入先コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.仕入先コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 仕入先名称 {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR05010_支払明細表.仕入先名称Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払明細表\' にある列 \'仕入先名称\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.仕入先名称Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 支払締日 {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR05010_支払明細表.支払締日Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払明細表\' にある列 \'支払締日\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.支払締日Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 品番コード {
+                get {
+                    if (this.Is品番コードNull()) {
+                        return 0;
+                    }
+                    else {
+                        return ((long)(this[this.tableSHR05010_支払明細表.品番コードColumn]));
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.品番コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社品番 {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR05010_支払明細表.自社品番Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払明細表\' にある列 \'自社品番\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.自社品番Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 色コード {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR05010_支払明細表.色コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払明細表\' にある列 \'色コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.色コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 品名 {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR05010_支払明細表.品名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払明細表\' にある列 \'品名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.品名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価 {
+                get {
+                    if (this.Is単価Null()) {
+                        return 0m;
+                    }
+                    else {
+                        return ((decimal)(this[this.tableSHR05010_支払明細表.単価Column]));
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.単価Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 数量 {
+                get {
+                    if (this.Is数量Null()) {
+                        return 0m;
+                    }
+                    else {
+                        return ((decimal)(this[this.tableSHR05010_支払明細表.数量Column]));
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.数量Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 金額 {
+                get {
+                    if (this.Is金額Null()) {
+                        return 0;
+                    }
+                    else {
+                        return ((long)(this[this.tableSHR05010_支払明細表.金額Column]));
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is仕入先コードNull() {
+                return this.IsNull(this.tableSHR05010_支払明細表.仕入先コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set仕入先コードNull() {
+                this[this.tableSHR05010_支払明細表.仕入先コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is仕入先名称Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.仕入先名称Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set仕入先名称Null() {
+                this[this.tableSHR05010_支払明細表.仕入先名称Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is支払締日Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.支払締日Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set支払締日Null() {
+                this[this.tableSHR05010_支払明細表.支払締日Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is品番コードNull() {
+                return this.IsNull(this.tableSHR05010_支払明細表.品番コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set品番コードNull() {
+                this[this.tableSHR05010_支払明細表.品番コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社品番Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.自社品番Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社品番Null() {
+                this[this.tableSHR05010_支払明細表.自社品番Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is色コードNull() {
+                return this.IsNull(this.tableSHR05010_支払明細表.色コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set色コードNull() {
+                this[this.tableSHR05010_支払明細表.色コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is品名Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.品名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set品名Null() {
+                this[this.tableSHR05010_支払明細表.品名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.単価Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価Null() {
+                this[this.tableSHR05010_支払明細表.単価Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is数量Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.数量Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set数量Null() {
+                this[this.tableSHR05010_支払明細表.数量Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.金額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額Null() {
+                this[this.tableSHR05010_支払明細表.金額Column] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -16363,6 +17071,40 @@ namespace Hakobou.Data.SHR {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SHR06010_出金予定表Row Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class SHR05010_支払明細表RowChangeEvent : global::System.EventArgs {
+            
+            private SHR05010_支払明細表Row eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SHR05010_支払明細表RowChangeEvent(SHR05010_支払明細表Row row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public SHR05010_支払明細表Row Row {
                 get {
                     return this.eventRow;
                 }
