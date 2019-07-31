@@ -120,6 +120,7 @@ namespace KyoeiSystem.Application.Windows.Views
             get { return _SearchResult; }
             set
             {
+               
                 this._SearchResult = value;
                 NotifyPropertyChanged();
             }
@@ -629,10 +630,14 @@ namespace KyoeiSystem.Application.Windows.Views
                     // 品名
                     break;
 
-                case 4:
+                //case 4:
+                case 5:
                     // 単価
                     TextBox tbPrice = val as TextBox;
                     double iPrice = 0;
+
+                    
+
                     if (string.IsNullOrEmpty(tbPrice.Text))
                     {
                         MessageBox.Show("単価を入力してください", errCaption, MessageBoxButton.OK, msgImg);
@@ -640,7 +645,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
                     else if (!double.TryParse(tbPrice.Text, out iPrice))
                     {
-                        MessageBox.Show("単価には数値を入力してください", errCaption, MessageBoxButton.OK, msgImg);
+                        //MessageBox.Show("単価には数値を入力してください", errCaption, MessageBoxButton.OK, msgImg);
+                        tbPrice.Text = "0";
                         e.Cancel = true;
                     }
                     break;

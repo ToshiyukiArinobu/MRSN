@@ -382,7 +382,7 @@
                     </sg:GcSpreadGrid.SelectionBorder>
 
                     <sg:GcSpreadGrid.Columns>
-                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off"/>
                             </sg:Column.CellType>
@@ -390,7 +390,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="false" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="50" MaxLengthUnit="Byte" ImeState="Off"/>
                             </sg:Column.CellType>
@@ -398,7 +398,7 @@
                                 <sg:BindingDataField Binding="{Binding 得意先品番コード, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType IsReadOnly="True" />
                             </sg:Column.CellType>
@@ -406,7 +406,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType IsReadOnly="True" />
                             </sg:Column.CellType>
@@ -414,7 +414,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType IsReadOnly="True" />
                             </sg:Column.CellType>
@@ -422,7 +422,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column HorizontalAlignment="Center" Locked="True" Focusable="True" CanUserResize="False">
+                        <sg:Column HorizontalAlignment="Center" Locked="True" Focusable="False" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off" />
                             </sg:Column.CellType>
@@ -430,7 +430,7 @@
                                 <sg:BindingDataField Binding="{Binding 賞味期限, TargetNullValue='', StringFormat='yyyy/MM/dd', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column HorizontalAlignment="Right" Locked="True" Focusable="True" CanUserResize="False">
+                        <sg:Column HorizontalAlignment="Right" Locked="True" Focusable="False" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
                             </sg:Column.CellType>
@@ -462,7 +462,7 @@
                                 <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="False" Focusable="True" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="false" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
                             </sg:Column.CellType>
@@ -530,9 +530,9 @@
                         Background="{StaticResource DataGridSummaryBackground}"
           />
                     <ctls:UcLabelTwinTextBox x:Name="txt備考" Grid.Row="1" Grid.Column="0" Margin="2" DataAccessName="M11_TEK" DataAccessMode="On"
-                                   Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                                   Text1Width="40" Text1MaxLength="5"
-                                   Text2MaxLength="40" Text2IMEType="Native"
+                                   Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed" Focusable="True" Text1IsReadOnly="True"
+                                   Text1Width="40" Text1MaxLength="5" 
+                                   Text2MaxLength="40" Text2IMEType="Native" Text2IsReadOnly="True"
                                    Text2="{Binding SearchHeader[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
           />
 
