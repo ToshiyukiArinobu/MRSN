@@ -404,6 +404,10 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "SHR03010_PaymentAggregation", ServiceClass = "SHR03010", MethodName = "PaymentAggregation", Descprition = "支払締集計処理" },
 
             // 支払一覧表
+            new WCFDataAccessConfig() { Name = "SHR05020_GetCsvData", ServiceClass = "SHR05020", MethodName = "GetCsvData", Descprition = "支払明細表ＣＳＶデータ取得" },
+            new WCFDataAccessConfig() { Name = "SHR05020_GetPrintData", ServiceClass = "SHR05020", MethodName = "GetPrintData", Descprition = "支払明細表印刷データ取得" },
+
+            // 支払一覧表
             new WCFDataAccessConfig() { Name = "SHR05010_GetCsvData", ServiceClass = "SHR05010", MethodName = "GetCsvData", Descprition = "支払一覧表ＣＳＶデータ取得" },
             new WCFDataAccessConfig() { Name = "SHR05010_GetPrintData", ServiceClass = "SHR05010", MethodName = "GetPrintData", Descprition = "支払一覧表印刷データ取得" },
 

@@ -154,6 +154,9 @@
     <Compile Include="Views\SHR\SHR06010.xaml.cs">
       <DependentUpon>SHR06010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SHR\SHR05020.xaml.cs">
+      <DependentUpon>SHR05020.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TKS\TKS01020.xaml.cs">
       <DependentUpon>TKS01020.xaml</DependentUpon>
     </Compile>
@@ -570,6 +573,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SHR\SHR06010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SHR\SHR05020.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
