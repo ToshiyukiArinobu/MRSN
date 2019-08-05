@@ -354,7 +354,7 @@ namespace KyoeiSystem.Application.WCFService
                         .SelectMany(x => x.y.DefaultIfEmpty(), (q, r) => new { q.x.HIN, q.x.TOKHIN, q.x.IRO, q.x.DAI, q.x.TYU, q.x.BRAND, q.x.SERIES, q.x.HINGUN, q.x.TBAI, SBAI = r })
                         .GroupJoin(context.M04_BAIKA.Where(w => w.削除日時 == null && w.外注先コード == 得意先コード && w.枝番 == 得意先枝番), x => x.HIN.品番コード, y => y.品番コード, (x, y) => new { x, y })
                         .SelectMany(x => x.y.DefaultIfEmpty(), (s, t) => new { s.x.HIN, s.x.TOKHIN, s.x.IRO, s.x.DAI, s.x.TYU, s.x.BRAND, s.x.SERIES, s.x.HINGUN, s.x.TBAI, s.x.SBAI, GBAI = t })
-                        
+                        .Where(c => c.HIN.大分類 == c.TYU.大分類コード).DefaultIfEmpty() //暫定
                         .Select(x => new M10_TOKHIN_Named_Member
                             {
                                 品番コード = x.HIN.品番コード,

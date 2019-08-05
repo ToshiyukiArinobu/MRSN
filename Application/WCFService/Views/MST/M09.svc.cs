@@ -108,6 +108,8 @@ namespace KyoeiSystem.Application.WCFService
                     .SelectMany(m => m.y.DefaultIfEmpty(), (c, d) => new { c.x.HIN, c.x.IRO, DAI = d })
                     .GroupJoin(context.M13_TYUBUNRUI.Where(w => w.削除日時 == null),
                         x => x.HIN.中分類, y => y.中分類コード, (x, y) => new { x, y })
+                    //.GroupJoin(context.M13_TYUBUNRUI.Where(w => w.削除日時 == null),
+                    //    x => new { 大分類コード = x.HIN.大分類, 中分類コード = x.HIN.中分類 }, y => new { 大分類コード = y.大分類コード, 中分類コード = y.中分類コード }, (x, y) => new { x, y })
                     .SelectMany(m => m.y.DefaultIfEmpty(), (e, f) => new { e.x.HIN, e.x.IRO, e.x.DAI, TYU = f })
                     .GroupJoin(context.M14_BRAND.Where(w => w.削除日時 == null),
                         x => x.HIN.ブランド, y => y.ブランドコード, (x, y) => new { x, y })
@@ -125,7 +127,7 @@ namespace KyoeiSystem.Application.WCFService
                     .SelectMany(x => x.y.DefaultIfEmpty(), (o, p) => new { o.x.HIN, o.x.IRO, o.x.DAI, o.x.TYU, o.x.BRA, o.x.SER, o.x.GUN, o.x.TBAI, SBAI = p })
                     .GroupJoin(context.M04_BAIKA.Where(w => w.削除日時 == null && w.外注先コード == code && w.枝番 == eda), x => x.HIN.品番コード, y => y.品番コード, (x, y) => new { x, y })
                     .SelectMany(x => x.y.DefaultIfEmpty(), (q, r) => new { q.x.HIN, q.x.IRO, q.x.DAI, q.x.TYU, q.x.BRA, q.x.SER, q.x.GUN, q.x.TBAI, q.x.SBAI, GBAI = r })
-
+                    .Where(c => c.HIN.大分類 == c.TYU.大分類コード).DefaultIfEmpty() //暫定
                     .Select(t => new M09_HIN_NAMED
                     {
                         品番コード = t.HIN.品番コード,
@@ -336,16 +338,17 @@ namespace KyoeiSystem.Application.WCFService
                     .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, 大分類名 = q.大分類名 })
                     .GroupJoin(context.M13_TYUBUNRUI.Where(w => w.削除日時 == null),
                         x => x.HIN.中分類, y => y.中分類コード, (x, y) => new { x, y })
-                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, 中分類名 = q.中分類名 })
+                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, TYU = q })
                     .GroupJoin(context.M14_BRAND.Where(w => w.削除日時 == null),
                         x => x.HIN.ブランド, y => y.ブランドコード, (x, y) => new { x, y })
-                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, p.x.中分類名, ブランド名 = q.ブランド名 })
+                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, p.x.TYU, ブランド名 = q.ブランド名 })
                     .GroupJoin(context.M15_SERIES.Where(w => w.削除日時 == null),
                         x => x.HIN.シリーズ, y => y.シリーズコード, (x, y) => new { x, y })
-                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, p.x.中分類名, p.x.ブランド名, シリーズ名 = q.シリーズ名 })
+                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, p.x.TYU, p.x.ブランド名, シリーズ名 = q.シリーズ名 })
                     .GroupJoin(context.M16_HINGUN.Where(w => w.削除日時 == null),
                         x => x.HIN.品群, y => y.品群コード, (x, y) => new { x, y })
-                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, p.x.中分類名, p.x.ブランド名, p.x.シリーズ名, 品群名 = q.品群名 })
+                    .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, p.x.TYU, p.x.ブランド名, p.x.シリーズ名, 品群名 = q.品群名 })
+                    .Where(c => c.HIN.大分類 == c.TYU.大分類コード).DefaultIfEmpty() //暫定
                     .Select(t => new M09_HIN_NAMED
                     {
                         品番コード = t.HIN.品番コード,
@@ -359,7 +362,7 @@ namespace KyoeiSystem.Application.WCFService
                         大分類 = t.HIN.大分類,
                         大分類名 = t.大分類名,
                         中分類 = t.HIN.中分類,
-                        中分類名 = t.中分類名,
+                        中分類名 = t.TYU.中分類名,
                         ブランド = t.HIN.ブランド,
                         ブランド名 = t.ブランド名,
                         シリーズ = t.HIN.シリーズ,
