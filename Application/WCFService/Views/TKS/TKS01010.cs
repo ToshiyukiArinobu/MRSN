@@ -321,7 +321,6 @@ namespace KyoeiSystem.Application.WCFService
             var urList =
                 context.T02_URHD
                     .Where(w => w.削除日時 == null &&
-                        w.売上区分 < (int)CommonConstants.売上区分.通常売上返品 &&
                         w.会社名コード == company &&
                         w.得意先コード == code &&
                         w.得意先枝番 == eda &&
@@ -373,23 +372,29 @@ namespace KyoeiSystem.Application.WCFService
                         集計最終日 = targetEdDate,
                         支払消費税区分 = x.TOK.Ｔ消費税区分,
                         消費税区分 = x.HIN.消費税区分,
-                        金額 = x.URDTL.金額,
-                        消費税 =
-                            x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
-                                Math.Floor((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) :
-                            x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
-                                Math.Round((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100), 0, MidpointRounding.AwayFromZero) :
-                            x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
-                                Math.Ceiling((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) : 0
+                        // No-80 Start
+                        金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URDTL.金額 : x.URDTL.金額 * -1 ,
+                        消費税 = (
+                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    Math.Floor((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100)) :
+                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    Math.Round((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    Math.Ceiling((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100)) : 
+                                    0
+                                ) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1)
+                        // No-80 End
                     });
 
             // ヘッダ情報整形
@@ -563,24 +568,28 @@ namespace KyoeiSystem.Application.WCFService
                         集計最終日 = targetEdDate,
                         支払消費税区分 = x.TOK.Ｔ消費税区分,
                         消費税区分 = x.HIN.消費税区分,
-                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? x.URDTL.金額 : x.URDTL.金額 * -1,
-                        消費税 =
-                            x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
-                                Math.Floor((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) :
-                            x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
-                                Math.Round((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100), 0, MidpointRounding.AwayFromZero) :
-                            x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
-                                Math.Ceiling((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) :
-                                0
+                        // No-80 Start
+                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                            x.URDTL.金額 : x.URDTL.金額 * -1,
+                        消費税 = (
+                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    Math.Floor((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100)) :
+                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    Math.Round((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    Math.Ceiling((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100)) :
+                                    0
+                                ) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1)
+                        // No-80 End
                     });
 
             // ヘッダ情報整形
@@ -691,7 +700,6 @@ namespace KyoeiSystem.Application.WCFService
             var urList =
                 context.T02_URHD
                     .Where(w => w.削除日時 == null &&
-                        w.売上区分 < (int)CommonConstants.売上区分.通常売上返品 &&
                         w.会社名コード == company &&
                         w.得意先コード == code &&
                         w.得意先枝番 == eda &&
@@ -734,26 +742,33 @@ namespace KyoeiSystem.Application.WCFService
                         伝票番号 = x.URHD.伝票番号,
                         売上日 = x.URHD.売上日,
                         品番コード = x.URDTL.品番コード,
-                        数量 = x.URDTL.数量,
+                        // No-80 Start
+                        数量 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                            x.URDTL.数量 : x.URDTL.数量 * -1,
+                        // No-80 End
                         単価 = x.URDTL.単価,
-                        金額 = x.URDTL.金額 ?? 0,
-                        消費税 =
-                            x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
-                               (int)Math.Floor((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) :
-                            x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
-                               (int)Math.Round((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100), 0, MidpointRounding.AwayFromZero) :
-                            x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
-                               (int)Math.Ceiling((double)(x.URDTL.金額 *
-                                    (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) :
-                                0,
+                        // No-80 Start
+                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                            x.URDTL.金額 ?? 0 : (x.URDTL.金額 ?? 0) * -1,
+                        消費税 = (
+                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
+                                   (int)Math.Floor((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100)) :
+                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                   (int)Math.Round((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
+                                   (int)Math.Ceiling((double)(x.URDTL.金額 *
+                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                        0) / 100)) :
+                                    0
+                                ) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1),
+                        // No-80 End
                         摘要 = x.URDTL.摘要,
                         登録者 = userId,
                         登録日時 = DateTime.Now
@@ -829,9 +844,14 @@ namespace KyoeiSystem.Application.WCFService
                         伝票番号 = x.URHD.伝票番号,
                         売上日 = x.URHD.売上日,
                         品番コード = x.URDTL.品番コード,
-                        数量 = x.URDTL.数量,
+                        // No-80 Start
+                        数量 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                            x.URDTL.数量 : x.URDTL.数量 * -1,
+                        // No-80 End
                         単価 = x.URDTL.単価,
-                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? x.URDTL.金額 ?? 0 : (x.URDTL.金額 ?? 0) * -1,
+                        // No-80 Start
+                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 
+                            x.URDTL.金額 ?? 0 : (x.URDTL.金額 ?? 0) * -1,
                         消費税 = (
                             x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
                                (int)Math.Floor((double)(x.URDTL.金額 *
@@ -849,6 +869,7 @@ namespace KyoeiSystem.Application.WCFService
                                     x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
                                     0) / 100)) :
                                 0) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1),
+                        // No-80 End
                         摘要 = x.URDTL.摘要,
                         登録者 = userId,
                         登録日時 = DateTime.Now
