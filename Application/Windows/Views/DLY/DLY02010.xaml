@@ -30,6 +30,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="auto"/>
       <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
@@ -341,7 +342,7 @@
               <sg:BindingDataField Binding="{Binding 摘要, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
             </sg:Column.DataField>
           </sg:Column>
-          <sg:Column Locked="True" Focusable="False" IsVisible="False" Width="0">
+                    <sg:Column Locked="True" Focusable="False" IsVisible="False" Width="0">
             <sg:Column.CellType>
               <sg:TextCellType IsReadOnly="True" />
             </sg:Column.CellType>
@@ -365,7 +366,23 @@
               <sg:BindingDataField Binding="{Binding 商品分類}" />
             </sg:Column.DataField>
           </sg:Column>
-        </sg:GcSpreadGrid.Columns>
+                    <sg:Column Locked="False" Focusable="True" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <sg:Column Locked="False" Focusable="True" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                </sg:GcSpreadGrid.Columns>
 
       </sg:GcSpreadGrid>
 
@@ -534,7 +551,8 @@
         </sg:GcSpreadGrid>
 
       </GroupBox>
+            <Label x:Name="lbl情報" Content="" HorizontalAlignment="Left" Height="30" Margin="80,0,0,0" Grid.Row="6" VerticalAlignment="Top" Width="750"/>
 
-    </Grid>
+        </Grid>
   </Grid>
 </fw:RibbonWindowViewBase>

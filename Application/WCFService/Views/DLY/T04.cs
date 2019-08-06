@@ -53,6 +53,10 @@ namespace KyoeiSystem.Application.WCFService
             public int 消費税区分 { get; set; }
             /// <summary>1:食品、2:繊維、3:その他</summary>
             public int 商品分類 { get; set; }
+            // No-65 Start
+            public string 自社色 { get; set; }
+            public string 自社色名 { get; set; }
+            // No-65 End
         }
 
         /// <summary>
@@ -657,7 +661,14 @@ namespace KyoeiSystem.Application.WCFService
                                 x => x.品番コード,
                                 y => y.品番コード,
                                 (a, b) => new { a, b })
+                            // No-65 Start
                             .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { AGRDTL = x, HIN = y })
+                            .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
+                                x => x.HIN.自社色,
+                                y => y.色コード,
+                                (c, d) => new { c.AGRDTL, c.HIN, d })
+                            .SelectMany(x => x.d.DefaultIfEmpty(), (x, y) => new { x.AGRDTL, x.HIN, IRO = y })
+                            // No-65 End
                             .Select(x => new T04_AGRDTL_Extension
                             {
                                 伝票番号 = x.AGRDTL.a.伝票番号,
@@ -671,6 +682,10 @@ namespace KyoeiSystem.Application.WCFService
                                 単価 = x.AGRDTL.a.単価,
                                 金額 = x.AGRDTL.a.金額,
                                 摘要 = x.AGRDTL.a.摘要,
+                                // No-65 Start
+                                自社色 = x.HIN.自社色,
+                                自社色名 = x.IRO.色名称,
+                                // No-65 End
                                 消費税区分 = x.HIN.消費税区分 ?? 0,
                                 商品分類 = x.HIN.商品分類 ?? 0
                             })
@@ -1279,17 +1294,29 @@ namespace KyoeiSystem.Application.WCFService
 
                     bool isAddData = (targetStok == null);
                     decimal stockQty = 0;
+                    int intQuantity = Convert.ToInt32(row["数量"]);         // No-64
 
                     if (row.RowState == DataRowState.Deleted)
                     {
                         // 数量分在庫数を加算
-                        stockQty = data.使用数量;
+                        stockQty = data.使用数量 * intQuantity;             // No-64
                     }
                     if (row.RowState == DataRowState.Added)
                     {
                         // 数量分在庫数を減算
-                        stockQty = data.使用数量 * -1;
+                        stockQty = (data.使用数量 * intQuantity) * -1;      // No-64
                     }
+                    // No-87 Start    
+                    //if (row.RowState == DataRowState.Modified)
+                    //{
+                    //    // オリジナル(変更前数量)と比較して差分数量を加減算
+                    //    if (row.HasVersion(DataRowVersion.Original))
+                    //    {
+                    //        decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
+                    //        stockQty = (data.使用数量 * orgQty) - (data.使用数量 * intQuantity);
+                    //    }
+                    //}
+                    // No-87 End                    
                     else
                     {
                         // 対象なし(DataRowState.Unchanged or Modified)

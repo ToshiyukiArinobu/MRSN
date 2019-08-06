@@ -81,7 +81,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>取引先名称取得</summary>
         private const string MasterCode_Supplier = "UcSupplier";
         /// <summary>自社品番情報取得</summary>
-        private const string MasterCode_MyProduct = "UcMyProductSet";
+        private const string MasterCode_MyProduct = "UcCustomerProduct";           // No-65 Mod
 
         //20190528CB-S
         /// <summary>セット品番構成品情報取得</summary>
@@ -315,6 +315,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
+
                 this.ErrorMessage = string.Empty;
                 var data = message.GetResultData();
                 DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
@@ -500,7 +501,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 20190530CB-S
                             gridDtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
-                            gridDtl.SetCellValue((int)GridColumnsMapping.色名称, drow["自社色名"]);
+                            gridDtl.SetCellValue((int)GridColumnsMapping.色名称, drow["色名称"]);                 // No-65 Mod
                             // 20190530CB-E
 
                             gcSpreadGrid.CommitCellEdit();
@@ -625,6 +626,8 @@ namespace KyoeiSystem.Application.Windows.Views
             // ログインユーザの自社区分によりコントロール状態切換え
             this.txt会社名.Text1 = ccfg.自社コード.ToString();
             this.txt会社名.IsEnabled = ccfg.自社販社区分.Equals((int)自社販社区分.自社);
+
+            this.lbl情報.Content = string.Empty;                      // No-87 Add
 
             this.txt伝票番号.Focus();
 
@@ -1033,6 +1036,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 gridDtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);
 
+                this.lbl情報.Content = "セット品番を減らしても構成品は在庫を戻しません。";        // No-87 Add
             }
 
             // グリッド内容の再計算を実施
@@ -1492,6 +1496,10 @@ namespace KyoeiSystem.Application.Windows.Views
                             MasterCode_MyProduct,
                             new object[] {
                                 target.ToString()
+                                // No-65 Add Strat
+                               ,string.Empty,
+                                string.Empty
+                                // No-65 Add End
                             }));
                     break;
 
@@ -1529,19 +1537,41 @@ namespace KyoeiSystem.Application.Windows.Views
             if (_innerDetailDtb != null && _innerDetailDtb.Rows.Count > 0)
             {
                 // 部材明細登録あり(変更時)
-                // ⇒該当品番コードより該当するテーブルデータを表示
-                DataView dv = _innerDetailDtb.Copy().AsDataView();
+                // No-66 Mod Start
+                //// ⇒該当品番コードより該当するテーブルデータを表示
+                //DataView dv = _innerDetailDtb.Copy().AsDataView();
 
-                var pCode = getSpreadGridValue(grid.ActiveRowIndex, GridColumnsMapping.品番コード);
+                //var pCode = getSpreadGridValue(grid.ActiveRowIndex, GridColumnsMapping.品番コード);
 
-                // 編集時の行追加でnullになるパターンがあり得る為
-                if (pCode == null)
+                //// 編集時の行追加でnullになるパターンがあり得る為
+                //if (pCode == null)
+                //    return;
+
+                //dv.RowFilter = string.Format("セット品番コード = {0}", pCode);
+
+                //InnerDetail = dv.ToTable();
+                var num = getSpreadGridValue(grid.ActiveRowIndex, GridColumnsMapping.品番コード);
+                var code = this.txt入荷先.Text1;
+
+                if (num == null || string.IsNullOrEmpty(num.ToString()))
+                {
+                    if (InnerDetail != null)
+                        InnerDetail.Clear();
+
                     return;
 
-                dv.RowFilter = string.Format("セット品番コード = {0}", pCode);
+                }
 
-                InnerDetail = dv.ToTable();
-
+                // param<1:品番コード(string)、2:会社コード(string)>
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.RequestData,
+                        T04_CreateDTB,
+                        new object[] {
+                                num.ToString(),
+                                code.ToString()
+                            }));
+                // No-66 Mod End
             }
             else
             {
