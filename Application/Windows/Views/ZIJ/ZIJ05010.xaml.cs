@@ -13,7 +13,7 @@ namespace KyoeiSystem.Application.Windows.Views
     using WinForms = System.Windows.Forms;
 
     /// <summary>
-    /// 請求明細問合せ フォームクラス
+    /// 売上明細問合せ フォームクラス
     /// </summary>
     public partial class ZIJ05010 : RibbonWindowViewBase
     {
@@ -115,10 +115,10 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        #region<< 請求明細問合せ 初期処理群 >>
+        #region<< 売上明細問合せ 初期処理群 >>
 
         /// <summary>
-        /// 請求明細問合せ コンストラクタ
+        /// 売上明細問合せ コンストラクタ
         /// </summary>
         public ZIJ05010()
         {
@@ -208,6 +208,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         if (tbl.Rows.Count == 0)
                         {
                             this.ErrorMessage = "該当するデータはありません。";
+                            SearchResult = null;
                             return;
                         }
                         else
@@ -563,7 +564,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // REMARKS:テーブル名は帳票DataTableの名前と合わせる
                 DataTable 印刷データ = SearchResult.Copy();
-                印刷データ.TableName = "請求明細問合せ";
+                印刷データ.TableName = "売上明細問合せ";
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
                 view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
@@ -583,7 +584,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetFreeForInput();
                 this.ErrorMessage = "システムエラーが発生しました。サポートにお問い合わせください。";
-                appLog.Error("請求明細問合せ一覧表の印刷時に例外が発生しました。", ex);
+                appLog.Error("売上明細問合せ一覧表の印刷時に例外が発生しました。", ex);
             }
         }
 

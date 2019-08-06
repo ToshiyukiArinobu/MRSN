@@ -70,6 +70,14 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private DataTable AuthFuncTbl;
 
+        /// <summary>
+        /// 自社販社区分 内包データ
+        /// </summary>
+        private enum 自社販社区分 : int
+        {
+            自社 = 0,
+            販社 = 1
+        }
         #endregion
 
         #region 定数定義
@@ -928,7 +936,7 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
-        /// 請求明細問合せ
+        /// 売上明細問合せ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -2303,8 +2311,13 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // 20190726CB-S
                 // ログインユーザーの自社コードが"マルセン"ではない場合DLY12010(販社売上修正)を使用不可にする
-                if (this.ccfg.自社コード != 1) 
+                if (this.ccfg.自社販社区分 == (int)自社販社区分.自社)
                 {
+                    ZIJ01010.Content = "    1. 仕入問合せ";
+                }
+                else
+                {
+                    ZIJ01010.Content = "    1. マルセン自動仕入問合せ";
                     DLY12010.Visibility = System.Windows.Visibility.Hidden;
                 }
                 // 20190726CB-E

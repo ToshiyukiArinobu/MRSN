@@ -353,8 +353,8 @@ namespace KyoeiSystem.Application.WCFService
             // 出金問合せ
             new WCFDataAccessConfig() { Name = "ZIJ04010_GetData", ServiceClass = "ZIJ04010", MethodName = "GetDataList", Descprition = "出金問合せ情報取得" },
 
-            // 請求明細問合せ
-            new WCFDataAccessConfig() { Name = "ZIJ05010_GetData", ServiceClass = "ZIJ05010", MethodName = "GetDataList", Descprition = "請求明細問合せ情報取得" },
+            // 売上明細問合せ
+            new WCFDataAccessConfig() { Name = "ZIJ05010_GetData", ServiceClass = "ZIJ05010", MethodName = "GetDataList", Descprition = "売上明細問合せ情報取得" },
 
             // 商品移動/振替入力問合せ
             new WCFDataAccessConfig() { Name = "ZIJ06010_GetData", ServiceClass = "ZIJ06010", MethodName = "GetDataList", Descprition = "商品移動問い合わせ情報取得" },

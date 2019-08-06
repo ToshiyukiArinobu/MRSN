@@ -6,7 +6,7 @@ using System.Web;
 namespace KyoeiSystem.Application.WCFService
 {
     /// <summary>
-    /// 請求明細問合せサービスクラス
+    /// 売上明細問合せサービスクラス
     /// </summary>
     public class ZIJ05010
     {
@@ -42,7 +42,7 @@ namespace KyoeiSystem.Application.WCFService
 
         #region 請求明細問合せ検索処理
         /// <summary>
-        /// 請求明細問合せ検索をおこなう
+        /// 売上明細問合せ検索をおこなう
         /// </summary>
         /// <param name="p自社コード"></param>
         /// <param name="p自社販社区分"></param>
@@ -132,8 +132,8 @@ namespace KyoeiSystem.Application.WCFService
                             {
                                 売上日 = x.UHD.売上日,
                                 請求日 = x.UHD.売上日.Day >= x.TOK.Ｔ締日 ?
-                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ入金日１ ?? 31, (x.TOK.Ｔサイト１ ?? 0) + 1) :
-                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ入金日１ ?? 31, (x.TOK.Ｔサイト１ ?? 0) + 1),
+                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 1) :
+                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 0),
                                 売上区分 = x.KBN.表示名,
                                 伝票番号 = x.UHD.伝票番号.ToString(),
                                 元伝票番号 = x.UHD.元伝票番号 != null ? x.UHD.元伝票番号.ToString() : string.Empty,
