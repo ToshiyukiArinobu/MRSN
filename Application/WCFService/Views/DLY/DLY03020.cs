@@ -783,7 +783,11 @@ namespace KyoeiSystem.Application.WCFService
             setT05_IDOHD_Returns_Update(urhd);
 
             // 6.移動明細の更新
-            setT05_IDODTL_Update(urhd, dtlTbl, false);
+            // No-74 Mod Start
+            // 自社倉庫と在庫倉庫が異なる場合場合のみ移動処理を行う(メーカ販社は必ず異なる)
+            bool difShip = urhd.在庫倉庫コード != T05Service.getShippingDestination(urhd);
+            setT05_IDODTL_Update(urhd, dtlTbl, difShip);
+            // No-74 Mod Start
 
             // 7.販社仕入ヘッダの更新(販社⇒マルセン)
             setT03_SRHD_HAN_Update(urhd, dtlTbl, CommonConstants.仕入区分.返品);

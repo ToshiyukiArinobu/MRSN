@@ -389,8 +389,9 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridCtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.単位, tokhin.SelectedDataRow["単位"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.単価, tokhin.TwinTextBox.Text3);
-                                gridCtl.SetCellValue((int)GridColumnsMapping.金額,
-                                    string.IsNullOrEmpty(tokhin.TwinTextBox.Text3) ? 0 : decimal.ToInt32(AppCommon.DecimalParse(tokhin.TwinTextBox.Text3)));
+                                // No-88 Mod Start
+                                gridCtl.SetCellValue((int)GridColumnsMapping.金額, AppCommon.DecimalParse(tokhin.TwinTextBox.Text3));
+                                // No-88 Mod End
                                 gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, tokhin.SelectedDataRow["消費税区分"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, tokhin.SelectedDataRow["商品分類"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.色コード, tokhin.SelectedDataRow["自社色"]);
