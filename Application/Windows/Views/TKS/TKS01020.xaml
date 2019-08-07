@@ -122,7 +122,7 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
       <!-- ヘッダ部 -->
@@ -219,7 +219,7 @@
 
         <sg:GcSpreadGrid
             Name="sp請求データ一覧" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" RowCount="0"
-            AutoGenerateColumns="False" LayoutMode="Cell" ColumnDragMode="SelectThenDrag"
+            AutoGenerateColumns="False" LayoutMode="Cell" ColumnDragMode="SelectThenDrag" Height="400"
             ItemsSource="{Binding 請求書一覧データ, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
             DocumentUri="/KyoeiSystem.Application.Windows;component/views/TKS/TKS01020G1.sgxml">
 
