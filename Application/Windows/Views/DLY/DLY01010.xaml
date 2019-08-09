@@ -417,6 +417,24 @@
               <sg:BindingDataField Binding="{Binding 商品分類, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
             </sg:Column.DataField>
           </sg:Column>
+          <!-- 色コード -->
+          <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:TextCellType IsReadOnly="True" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+            </sg:Column.DataField>
+          </sg:Column>
+          <!-- 自社色 -->
+          <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
+            <sg:Column.CellType>
+              <sg:TextCellType IsReadOnly="True" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+            </sg:Column.DataField>
+          </sg:Column>
         </sg:GcSpreadGrid.Columns>
 
       </sg:GcSpreadGrid>
