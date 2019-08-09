@@ -135,6 +135,11 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        // No-58 Strat
+        // 削除済みレコード情報
+        public DataTable SearchDeleteDetail;
+        // No-58 End
+
         #endregion
 
         #region << クラス変数定義 >>
@@ -394,7 +399,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.単位, true);
-                            gridCtl.SetCellLocked((int)GridColumnsMapping.単価, true);
+                            //gridCtl.SetCellLocked((int)GridColumnsMapping.単価, true);                // No90 Mod
                             gridCtl.SetCellLocked((int)GridColumnsMapping.金額, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.消費税区分, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.商品分類, true);
@@ -457,6 +462,11 @@ namespace KyoeiSystem.Application.Windows.Views
             DataTable tblDtl = ds.Tables[DETAIL_TABLE_NAME];
             SearchResult = tblDtl;
             SearchResult.AcceptChanges();
+
+            // No-58 Add Strat
+            // 仕入明細情報（削除）設定
+            SearchDeleteDetail = SearchResult.Clone();
+            // No-58 Add End
 
             // 消費税情報保持
             taxCalc = new TaxCalculator(ds.Tables[ZEI_TABLE_NAME]);
@@ -731,7 +741,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // 行追加後は追加行を選択させる
             // TODO:追加行が表示されるようにしたかったが追加行の上行までしか移動できない...
-            int newRowIdx = SearchResult.Rows.Count - delRowCount - 1;
+            // No-58 Mod Start
+            //int newRowIdx = SearchResult.Rows.Count - delRowCount - 1;
+            int newRowIdx = SearchResult.Rows.Count - 1;
+            // No-58 Mod End
+
             gridCtl.ScrollShowCell(newRowIdx, (int)GridColumnsMapping.自社品名);
 
         }
@@ -756,15 +770,50 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBoxResult.No) == MessageBoxResult.No)
                 return;
 
+            // No-58 Mod Start
+            //try
+            //{
+            //    gridCtl.SpreadGrid.Rows.Remove(gridCtl.ActiveRowIndex);
+            //}
+            //catch
+            //{
+            //    SearchResult.Rows[gridCtl.ActiveRowIndex].Delete();
+            //}
+
+            int intDelRowIdx = gridCtl.ActiveRowIndex;                              // 削除行Index
+            //int intState = (int)SearchResult.Rows[intDelRowIdx].RowState;           // 状態
+
+            // 選択行の削除
+            // Spreadより該当行を削除する
             try
             {
-                gridCtl.SpreadGrid.Rows.Remove(gridCtl.ActiveRowIndex);
+                gridCtl.SpreadGrid.Rows.Remove(intDelRowIdx);
             }
             catch
             {
-                SearchResult.Rows[gridCtl.ActiveRowIndex].Delete();
+                // 削除処理をイベント不要のRemoveに変更する
+                //SearchResult.Rows[intDelRowIdx].Delete();
+                SearchResult.Rows.Remove(SearchResult.Rows[intDelRowIdx]);
             }
 
+            // 追加行の判定（登録済みレコードの場合）
+            if (SearchResult.Rows[intDelRowIdx].RowState != DataRowState.Added)
+            {
+                // 削除行を仕入明細情報（削除）(SearchDeleteDetail)に格納する
+                SearchDeleteDetail.ImportRow(SearchResult.Rows[intDelRowIdx]);
+            }
+
+            // SearchDetailより該当行を削除する
+            try
+            {
+                SearchResult.Rows.Remove(SearchResult.Rows[intDelRowIdx]);
+            }
+            catch
+            {
+                // エラー処理なし
+            }
+            // No-58 Mod End
+            
             // グリッド内容の再計算を実施
             summaryCalculation();
 
@@ -803,6 +852,18 @@ namespace KyoeiSystem.Application.Windows.Views
             // -- 送信用データを作成 --
             // 消費税をヘッダに設定
             SearchHeader["消費税"] = AppCommon.IntParse(this.c消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+
+            // No-58 Add Start
+            // 仕入明細情報（削除）を仕入明細情報に追加する
+            // (※Rows.AddだとRowStateがAddedに変更されるため1行ずつImportする)
+            if (SearchDeleteDetail.Rows.Count != 0)
+            {
+                for (int intIdx = 0; intIdx < SearchDeleteDetail.Rows.Count; intIdx++)
+                {
+                    SearchResult.ImportRow(SearchDeleteDetail.Rows[intIdx]);
+                }
+            }
+            // No-58 Add End
 
             base.SendRequest(
                 new CommunicationObject(
