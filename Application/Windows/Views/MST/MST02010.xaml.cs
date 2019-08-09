@@ -70,6 +70,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string M09_HIN_getDataList = "M09_HIN_getDataList";
         private const string GetNextID = "M09_HIN_getNext";
         private const string UpdateTable = "M09_HIN_Update";
+        private const string M09_HIN_getDataMyProduct = "M09_HIN_getDataMyProduct";        // No-92 Add
 
         #endregion
 
@@ -426,6 +427,20 @@ namespace KyoeiSystem.Application.Windows.Views
                         SetFocusToTopControl();
                         break;
 
+                    // No-92 Add Start
+                    case M09_HIN_getDataMyProduct:
+                        SetTblDataMyProduct(tbl);
+
+                        SetFocusToTopControl();
+
+                        // REMARKS:行バインドではLinkItemの大分類が設定されないので
+                        //         再適用させる
+                        string midiumWk = M09_HIN_SearchRow["中分類"].ToString();
+                        txtMediumClassCode.Text1 = string.Empty;
+                        txtMediumClassCode.Text1 = midiumWk;
+                        break;
+
+                    // No-92 Add End
                     default:
                         break;
                 }
@@ -478,6 +493,42 @@ namespace KyoeiSystem.Application.Windows.Views
             SetButton.IsEnabled = this.ItemStyle.Text.Equals(((int)eItemStyle.SET品).ToString());
 
         }
+
+        // No-92 Add Start
+        /// <summary>
+        /// テーブルデータを各変数に代入
+        /// </summary>
+        /// <param name="tbl"></param>
+        private void SetTblDataMyProduct(DataTable tbl)
+        {
+            // キーをfalse
+            ChangeKeyItemChangeable(false);
+
+
+            if (tbl.Rows.Count > 0)
+            {
+                M09_HIN_SearchRow = tbl.Rows[0];
+                M09_HIN_SearchRow["品番コード"] = this.ProductCode.Text1;
+                M09_HIN_SearchRow["消費税区分"] = 0;
+
+            }
+            else
+            {
+                string strMyProductCode = this.MyProductCode.Text;
+                string strColorCode = this.ColorCode.Text1;
+                M09_HIN_SearchRow = tbl.NewRow();
+                M09_HIN_SearchRow["品番コード"] = this.ProductCode.Text1;
+                M09_HIN_SearchRow["消費税区分"] = 0;
+                M09_HIN_SearchRow["自社品番"] = strMyProductCode;
+                M09_HIN_SearchRow["自社色"] = strColorCode;
+            }
+            NotifyPropertyChanged("M09_HIN_SearchRow");
+
+            // 商品形態が"1:SET商品"の場合のみ使用可能とする
+            SetButton.IsEnabled = this.ItemStyle.Text.Equals(((int)eItemStyle.SET品).ToString());
+
+        }
+        // No-92 Add End
 
         /// <summary>
         /// 画面が閉じられた後のイベント処理
@@ -545,6 +596,48 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
         }
+
+        // No-92 Add start
+        /// <summary>
+        /// コピー用品番ボタン押下時イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // 自社品番　色コードの入力精査
+                if (string.IsNullOrEmpty(this.MyProductCode.Text))
+                {
+                    //this.MyProductCode.SetFocus();
+                    MessageBox.Show("自社品番が設定されていない為、選択できません。", "自社品番未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    return;
+                }
+                if (string.IsNullOrEmpty(this.ColorCode.Text1))
+                {
+                    this.ColorCode.SetFocus();
+                    MessageBox.Show("色が設定されていない為、選択できません。", "色未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                    return;
+                }
+
+                // 品番コードデータ検索
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.RequestData,
+                        M09_HIN_getDataMyProduct,
+                        new object[] {
+                                    this.MyProductCode.Text,
+                                    this.ColorCode.Text1
+                                }));
+
+            }
+            catch
+            {
+            }
+
+        }
+        // No-92 Add End
 
         /// <summary>
         /// セット品構成品登録ボタン押下時イベント

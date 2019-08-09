@@ -482,6 +482,10 @@
               <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
+            <Button Name="CopyButton" Content="コピー用品番" Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,1"
+                    Width="160" Focusable="False"
+                    Click="CopyButton_Click"
+            />
             <Button Name="SetButton" Content="セット構成品" Grid.Row="3" HorizontalAlignment="Left" Margin="0,0,0,1"
                     Width="160" Focusable="False"
                     Click="SetButton_Click"

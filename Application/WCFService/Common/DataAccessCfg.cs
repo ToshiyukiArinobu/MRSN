@@ -117,6 +117,9 @@ namespace KyoeiSystem.Application.WCFService
 			new WCFDataAccessConfig() { Name = "M09_HIN_getNext", ServiceClass = "M09", MethodName = "GetNextNumber", Descprition = "品番マスタ 新規採番取得", },
             new WCFDataAccessConfig() { Name = "M09_HIN_Update", ServiceClass = "M09", MethodName = "Update", Descprition = "品番マスタ 登録・更新処理" },
             new WCFDataAccessConfig() { Name = "M09_HIN_getNamedData", ServiceClass="M09", MethodName = "GetNamedData", Descprition="品番マスタ 各種コード名称取得版" },
+            // No-92 Add Start
+            new WCFDataAccessConfig() { Name = "M09_HIN_getDataMyProduct", ServiceClass = "M09", MethodName = "GetDataMyProduct", Descprition = "品番マスタ データ取得(自社品番、色コード)" },
+            // No-92 Add End
 
             // セット品番マスタ
 			new WCFDataAccessConfig() { Name = "M10_SHIN", ServiceClass = "M10", MethodName = "GetData", Descprition = "セット品番マスタ データ取得" },
