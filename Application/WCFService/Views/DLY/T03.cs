@@ -54,8 +54,8 @@ namespace KyoeiSystem.Application.WCFService
             public int 商品分類 { get; set; }
 
             // 20190705CB-S
-            public string 色コード { get; set; }
-            public string 色名称{ get; set; }
+            public string 自社色 { get; set; }             // No-59 Mod
+            public string 自社色名 { get; set; }           // No-59 Mod     
             // 20190705CB-E
         }
 

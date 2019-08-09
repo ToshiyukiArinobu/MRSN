@@ -868,7 +868,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // 追加行の判定（登録済みレコードの場合）
-            if (SearchDetail.Rows[intDelRowIdx].RowState != DataRowState.Added)
+            if (SearchDetail.Rows.Count > intDelRowIdx && SearchDetail.Rows[intDelRowIdx].RowState != DataRowState.Added)
             {
                 // 削除行を売上明細情報（削除）(SearchDeleteDetail)に格納する
                 SearchDeleteDetail.ImportRow(SearchDetail.Rows[intDelRowIdx]);
@@ -877,7 +877,10 @@ namespace KyoeiSystem.Application.Windows.Views
             // SearchDetailより該当行を削除する
             try
             {
-                SearchDetail.Rows.Remove(SearchDetail.Rows[intDelRowIdx]);
+                if (gridCtl.SpreadGrid.Rows.Count != SearchDetail.Rows.Count)
+                {
+                    SearchDetail.Rows.Remove(SearchDetail.Rows[intDelRowIdx]);
+                }
             }
             catch
             {

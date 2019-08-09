@@ -771,17 +771,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
 
             // No-58 Mod Start
-            //try
-            //{
-            //    gridCtl.SpreadGrid.Rows.Remove(gridCtl.ActiveRowIndex);
-            //}
-            //catch
-            //{
-            //    SearchResult.Rows[gridCtl.ActiveRowIndex].Delete();
-            //}
-
             int intDelRowIdx = gridCtl.ActiveRowIndex;                              // 削除行Index
-            //int intState = (int)SearchResult.Rows[intDelRowIdx].RowState;           // 状態
 
             // 選択行の削除
             // Spreadより該当行を削除する
@@ -797,7 +787,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // 追加行の判定（登録済みレコードの場合）
-            if (SearchResult.Rows[intDelRowIdx].RowState != DataRowState.Added)
+            if (SearchResult.Rows.Count > intDelRowIdx && SearchResult.Rows[intDelRowIdx].RowState != DataRowState.Added)
             {
                 // 削除行を仕入明細情報（削除）(SearchDeleteDetail)に格納する
                 SearchDeleteDetail.ImportRow(SearchResult.Rows[intDelRowIdx]);
@@ -806,7 +796,10 @@ namespace KyoeiSystem.Application.Windows.Views
             // SearchDetailより該当行を削除する
             try
             {
-                SearchResult.Rows.Remove(SearchResult.Rows[intDelRowIdx]);
+                if (gridCtl.SpreadGrid.Rows.Count != SearchResult.Rows.Count)
+                {
+                    SearchResult.Rows.Remove(SearchResult.Rows[intDelRowIdx]);
+                }
             }
             catch
             {

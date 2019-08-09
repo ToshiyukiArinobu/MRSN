@@ -178,6 +178,13 @@ namespace KyoeiSystem.Application.WCFService
                                 y => y.品番コード,
                                 (a, b) => new { a, b })
                             .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { SRDTL = x, HIN = y })
+                            // No-59 Add Start
+                            .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
+                                x => x.HIN.自社色,
+                                y => y.色コード,
+                                (c, d) => new { c.SRDTL, c.HIN, d })
+                            .SelectMany(x => x.d.DefaultIfEmpty(), (x, y) => new { x.SRDTL, x.HIN, IRO = y })
+                            // No-59 Add End
                             
                             .Select(x => new T03.T03_SRDTL_Extension
                             {
@@ -196,8 +203,8 @@ namespace KyoeiSystem.Application.WCFService
                                 商品分類 = x.HIN.商品分類 ?? 0,
 
                                 // 20190705CB-S
-                                //色コード = x.HIN.自社色,
-                                //色名称 = x.HIN.自社色名
+                                自社色 = x.HIN.自社色,                        // No-59 Mod
+                                自社色名 = x.IRO.色名称                       // No-59 Mod
                                 // 20190705CB-E
 
                             })
