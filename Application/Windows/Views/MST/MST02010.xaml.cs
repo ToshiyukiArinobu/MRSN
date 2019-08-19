@@ -174,7 +174,12 @@ namespace KyoeiSystem.Application.Windows.Views
             ChangeKeyItemChangeable(true);
             //ボタンはFalse
             //btnEnableChange(true);
-            
+
+            // No-92 Add Start
+            this.Copy_MyProductCode.Text = string.Empty;
+            this.Copy_ColorCode.Text1 = string.Empty;
+            // No-92 Add End
+
             // 品番全検索
             base.SendRequest(
                 new CommunicationObject(
@@ -408,6 +413,18 @@ namespace KyoeiSystem.Application.Windows.Views
                         string midium = M09_HIN_SearchRow["中分類"].ToString();
                         txtMediumClassCode.Text1 = string.Empty;
                         txtMediumClassCode.Text1 = midium;
+
+                        // No-92 Add Start
+                        bool blnCopyEnabled = true;
+                        if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
+                        {
+                            blnCopyEnabled = false;
+                        }
+                        this.Copy_MyProductCode.IsEnabled = blnCopyEnabled;
+                        this.Copy_ColorCode.IsEnabled = blnCopyEnabled;
+                        this.CopyButton.IsEnabled = blnCopyEnabled;
+                        // No-92 Add End
+
                         break;
 
                     case UpdateTable:
@@ -429,7 +446,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     // No-92 Add Start
                     case M09_HIN_getDataMyProduct:
-                        SetTblDataMyProduct(tbl);
+                        SetTblData(tbl);
 
                         SetFocusToTopControl();
 
@@ -493,42 +510,6 @@ namespace KyoeiSystem.Application.Windows.Views
             SetButton.IsEnabled = this.ItemStyle.Text.Equals(((int)eItemStyle.SET品).ToString());
 
         }
-
-        // No-92 Add Start
-        /// <summary>
-        /// テーブルデータを各変数に代入
-        /// </summary>
-        /// <param name="tbl"></param>
-        private void SetTblDataMyProduct(DataTable tbl)
-        {
-            // キーをfalse
-            ChangeKeyItemChangeable(false);
-
-
-            if (tbl.Rows.Count > 0)
-            {
-                M09_HIN_SearchRow = tbl.Rows[0];
-                M09_HIN_SearchRow["品番コード"] = this.ProductCode.Text1;
-                M09_HIN_SearchRow["消費税区分"] = 0;
-
-            }
-            else
-            {
-                string strMyProductCode = this.MyProductCode.Text;
-                string strColorCode = this.ColorCode.Text1;
-                M09_HIN_SearchRow = tbl.NewRow();
-                M09_HIN_SearchRow["品番コード"] = this.ProductCode.Text1;
-                M09_HIN_SearchRow["消費税区分"] = 0;
-                M09_HIN_SearchRow["自社品番"] = strMyProductCode;
-                M09_HIN_SearchRow["自社色"] = strColorCode;
-            }
-            NotifyPropertyChanged("M09_HIN_SearchRow");
-
-            // 商品形態が"1:SET商品"の場合のみ使用可能とする
-            SetButton.IsEnabled = this.ItemStyle.Text.Equals(((int)eItemStyle.SET品).ToString());
-
-        }
-        // No-92 Add End
 
         /// <summary>
         /// 画面が閉じられた後のイベント処理
@@ -608,13 +589,13 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 // 自社品番　色コードの入力精査
-                if (string.IsNullOrEmpty(this.MyProductCode.Text))
+                if (string.IsNullOrEmpty(this.Copy_MyProductCode.Text))
                 {
                     //this.MyProductCode.SetFocus();
                     MessageBox.Show("自社品番が設定されていない為、選択できません。", "自社品番未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                     return;
                 }
-                if (string.IsNullOrEmpty(this.ColorCode.Text1))
+                if (string.IsNullOrEmpty(this.Copy_ColorCode.Text1))
                 {
                     this.ColorCode.SetFocus();
                     MessageBox.Show("色が設定されていない為、選択できません。", "色未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
@@ -627,8 +608,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         MessageType.RequestData,
                         M09_HIN_getDataMyProduct,
                         new object[] {
-                                    this.MyProductCode.Text,
-                                    this.ColorCode.Text1
+                                    this.Copy_MyProductCode.Text,
+                                    this.Copy_ColorCode.Text1
                                 }));
 
             }

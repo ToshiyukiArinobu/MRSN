@@ -482,7 +482,7 @@
               <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
-            <Button Name="CopyButton" Content="コピー用品番" Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,1"
+            <Button Name="CopyButton" Content="コピー" Grid.Row="2" HorizontalAlignment="Left" Margin="0,0,0,1"
                     Width="160" Focusable="False"
                     Click="CopyButton_Click"
             />
@@ -505,6 +505,22 @@
             <Button Name="KyakusakiButton" Content="得意先品番登録" Grid.Row="7" HorizontalAlignment="Left" Margin="0,0,0,1"
                     Width="160" Focusable="True"
                     Click="KyakusakiButton_Click"
+            />
+            <ctls:UcLabelTextBox
+                    x:Name="Copy_MyProductCode" Label_Context="コピー用自社品番" HorizontalAlignment="Left" IsKeyItem="False" IsRequired="false"
+                    Label_Width="100" cWidth="90" cMaxLength="12" cVerticalContentAlignment="Center"
+                    Text=""
+                    RenderTransformOrigin="0.515,-0.815"
+                    Margin="5,2,0,1"
+            />
+            <ctls:UcLabelTwinTextBox
+                    x:Name="Copy_ColorCode" Label_Context="コピー用色" Label_Width="100" HorizontalAlignment="Left"
+                    Label1Visibility="Collapsed" DataAccessName="M06_IRO"
+                    Text1Width="40" Text1IMEType="Off" Text1MaxLength="3" Text1VerticalContentAlignment="Center"
+                    Text2Width="200" Text2VerticalContentAlignment="Center"
+                    Text2IsReadOnly="True" Text2BorderThickness="0" Text2Background="Transparent"
+                    Text1="" Width="249"
+                    Margin="5,1,0,2" Grid.Row="1"
             />
           </Grid>
 
