@@ -150,22 +150,32 @@
                       Text="{Binding Path=自社品名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                     />
                     <!--商品分類-->
-                    <ctls:UcLabelTextRadioButton Name="radio_商品分類" Grid.Column="1"
+                    <ctls:UcLabelComboBox Name="cmb_商品分類" Grid.Column="1" Label_Context="商品分類" Label_Width="100" Width="200" HorizontalAlignment="Left"
+                                          ComboboxItems="{Binding ShouhinBunrui,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                          Combo_DisplayMemberPath="名称" Combo_SelectedValuePath="コード"
+                                          SelectedValue="{Binding 商品分類,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                    <!--<ctls:UcLabelTextRadioButton Name="radio_商品分類" Grid.Column="1"
                     Label_Content="商品分類" Label_Width="100"
                     RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Four"
                     RadioSecond_Content="食品" RadioThird_Content="繊維" RadioFourth_Content="その他"
                     Text1VerticalContentAlignment="Center"
                     Text="{Binding Path=商品分類, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                />
+                />-->
 
                     <!--商品形態-->
-                    <ctls:UcLabelTextRadioButton Name="radio_商品形態" Grid.Column="1" Grid.Row="1"
+                    <ctls:UcLabelComboBox Name="cmb_商品形態" Grid.Column="1" Grid.Row="1" Label_Context="商品形態" Label_Width="100" Width="200" HorizontalAlignment="Left"
+                                          ComboboxItems="{Binding ShouhinKeitai,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                          Combo_DisplayMemberPath="名称" Combo_SelectedValuePath="コード"
+                                          SelectedValue="{Binding 商品形態,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                    
+                    <!--<ctls:UcLabelTextRadioButton Name="radio_商品形態" Grid.Column="1" Grid.Row="1"
                     Label_Content="商品形態" Label_Width="100"
                     RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Five"
                     RadioSecond_Content="SET品" RadioThird_Content="資材・単品" RadioFourth_Content="雑コード" RadioFifth_Content="副資材"
                     Text1VerticalContentAlignment="Center"
                     Text="{Binding Path=商品形態, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                />
+                />-->
+                    
                     <!-- 検索ボタン -->
                     <Button Name="btnSearch" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Width="50" Height="50"  
                           HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0"
@@ -204,10 +214,13 @@
 
             <!-- 明細一覧 -->
             <Grid Grid.Row="1">
-
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="750"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
                 <sg:GcSpreadGrid
-                  Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="8" Height="450"
-                  ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,10,259,-439"
+                  Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="8" HorizontalAlignment="Left" Height="450" Width="750"
+                  ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="0"
                   ItemsSource="{Binding SearchResult, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                   DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST02011G1.sgxml" OperationMode="Normal"
                   PreviewKeyDown="spGridList_PreviewKeyDown" CellEditEnded="SearchGrid_CellEditEnded">
@@ -268,6 +281,11 @@
 
                     </sg:GcSpreadGrid.Columns>
                 </sg:GcSpreadGrid>
+                
+                <StackPanel Grid.Column="1">
+                    <Button Name="CSVOutPut" Content="CSV出力" Height="30" Width="150" Margin="0,30" Click="CSVOutPut_Click"/>
+                    <Button Name="CSVInPut" Content="CSV取込" Height="30" Width="150" Click="CSVInPut_Click"/>
+                </StackPanel>
 
             </Grid>
 

@@ -43,32 +43,19 @@ namespace KyoeiSystem.Application.WCFService
         /// 品番データを取得する
         /// </summary>
         /// <returns></returns>
-        public List<MST02011_spread> GetData(string p自社品名, string p商品分類, string p商品形態)
+        public List<MST02011_spread> GetData(string p自社品名, int p商品分類, int p商品形態)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
                 context.Connection.Open();
 
                 int code = 0;
-                int i商品分類 = 1;
-                int i商品形態 = 1;
-
-                if (int.TryParse(p商品分類, out code))
-                {
-                    i商品分類 = code;
-                }
-
-                if (int.TryParse(p商品形態, out code))
-                {
-                    i商品形態 = code;
-                }
-
                
                 var result = (
                     from m09 in context.M09_HIN
                     from m06 in context.M06_IRO.Where(w => (m09.自社色.Equals(w.色コード))).DefaultIfEmpty()
-                    where (m09.商品分類 == i商品分類
-                    && m09.商品形態分類 == i商品形態)
+                    where (m09.商品分類 == p商品分類 || p商品分類 == 0)
+                    && (m09.商品形態分類 == p商品形態 || p商品形態 == 0)
                     select new MST02011_spread
                     {
                         品番コード = m09.品番コード,
@@ -107,10 +94,8 @@ namespace KyoeiSystem.Application.WCFService
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
-
                 try
                 {
-
                     context.Connection.Open();
 
                     DataTable dt = ds.Tables["MST02011_GetData"];
