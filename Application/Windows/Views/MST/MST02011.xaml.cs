@@ -38,7 +38,15 @@ namespace KyoeiSystem.Application.Windows.Views
             掛率 = 7
         }
 
-        
+        /// <summary>
+        /// コンボボックス用
+        /// </summary>
+        public class ComboBoxClass
+        {
+            public int コード { get; set; }
+            public string 名称 { get; set; }
+
+        }
         #endregion
 
         #region 画面設定項目
@@ -67,9 +75,38 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << 定数定義 >>
 
-        private const string MST02011_GetDataList = "MST02011_GetData";
+        private const string MST02011_GetData = "MST02011_GetData";
         private const string MST02011_Update = "MST02011_Update";
 
+
+        //商品分類コンボ用
+        private ComboBoxClass[] _ShouhinBunrui
+            = { 
+				  new ComboBoxClass() { コード = 0, 名称 = "", },
+				  new ComboBoxClass() { コード = 1, 名称 = "食品", },
+				  new ComboBoxClass() { コード = 2, 名称 = "繊維", },
+				  new ComboBoxClass() { コード = 3, 名称 = "その他", },
+			  };
+        public ComboBoxClass[] ShouhinBunrui
+        {
+            get { return _ShouhinBunrui; }
+            set { _ShouhinBunrui = value; NotifyPropertyChanged(); }
+        }
+
+        //商品形態コンボ用
+        private ComboBoxClass[] _ShouhinKeitai
+            = { 
+				  new ComboBoxClass() { コード = 0, 名称 = "", },
+				  new ComboBoxClass() { コード = 1, 名称 = "SET品", },
+				  new ComboBoxClass() { コード = 2, 名称 = "資材・単品", },
+				  new ComboBoxClass() { コード = 3, 名称 = "雑コード", },
+				  new ComboBoxClass() { コード = 4, 名称 = "副資材", },
+			  };
+        public ComboBoxClass[] ShouhinKeitai
+        {
+            get { return _ShouhinKeitai; }
+            set { _ShouhinKeitai = value; NotifyPropertyChanged(); }
+        }
         #endregion
 
         #region << 変数定義 >>
@@ -95,15 +132,15 @@ namespace KyoeiSystem.Application.Windows.Views
             set { this._自社品名 = value; NotifyPropertyChanged(); }
         }
 
-        private string _商品分類 = string.Empty;
-        public string 商品分類
+        private int _商品分類 = 0;
+        public int 商品分類
         {
             get { return this._商品分類; }
             set { this._商品分類 = value; NotifyPropertyChanged(); }
         }
 
-        private string _商品形態 = string.Empty;
-        public string 商品形態
+        private int _商品形態 = 0;
+        public int 商品形態
         {
             get { return this._商品形態; }
             set { this._商品形態 = value; NotifyPropertyChanged(); }
@@ -195,8 +232,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
 
             自社品名 = string.Empty;
-            商品分類 = "1";
-            商品形態 = "1";
+            cmb_商品分類.SelectedIndex = 0;
+            cmb_商品形態.SelectedIndex = 0;
             
 
             ResetAllValidation();
@@ -205,7 +242,6 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region << 送信データ受信 >>
-
         /// <summary>
         /// 取得データの取り込み
         /// </summary>
@@ -217,28 +253,32 @@ namespace KyoeiSystem.Application.Windows.Views
 
             switch (message.GetMessageName())
             {
-                case MST02011_GetDataList :
+                case MST02011_GetData :
                     base.SetFreeForInput();
                     if (tbl.Rows.Count > 0)
                     {
                         SearchResult = tbl;
-                        DataSet ds = new DataSet();
-                        ds.Tables.Add(SearchResult);
                         SetData(tbl);
+                        spGridList.ShowRow(0);
                     }
 
                     break;
                     
-                case MST02011_Update :
-                    if ((int)data == 1) 
+                case MST02011_Update:
+                    base.SetFreeForInput();
+                    if ((int)data == 1)
                     {
                         MessageBox.Show("更新完了しました。");
+                    }
+                    else
+                    {
+                        MessageBox.Show("更新に失敗しました。");
+                        return;
                     }
 
                     ScreenClear();
                     break;
             }
-
         }
 
         /// <summary>
@@ -270,11 +310,15 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (SearchResult == null)
                     return;
 
+                DataSet ds = new DataSet();
+                ds.Tables.Add(SearchResult);
+
                 base.SendRequest(
                     new CommunicationObject(MessageType.UpdateData, MST02011_Update, new object[]{
-                            SearchResult.DataSet,
+                            ds,
                             ccfg.ユーザID,
                         }));
+                base.SetBusyForInput();
             }
             catch (Exception ex)
             {
@@ -336,7 +380,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 //setSearchParams();
 
                 base.SendRequest(
-                    new CommunicationObject(MessageType.RequestData,MST02011_GetDataList,new object[]
+                    new CommunicationObject(MessageType.RequestData,MST02011_GetData,new object[]
                         {
                             自社品名
                             ,商品分類
@@ -468,7 +512,6 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-
         #region << 機能処理群 >>
 
 
@@ -505,6 +548,112 @@ namespace KyoeiSystem.Application.Windows.Views
        
 
         #endregion
+
+        /// <summary>
+        /// CSVOutputボタン押下イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CSVOutPut_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchResult == null)
+            {
+                ErrorMessage = "検索を行ってから出力ボタンを押下してください。";
+                return;
+            }
+            WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
+            // はじめに表示されるフォルダを指定する
+            sfd.InitialDirectory = @"C:\";
+            // [ファイルの種類]に表示される選択肢を指定する
+            sfd.Filter = "CSVファイル(*.csv)|*.csv|すべてのファイル(*.*)|*.*";
+            // 「CSVファイル」が選択されているようにする
+            sfd.FilterIndex = 1;
+            // タイトルを設定する
+            sfd.Title = "保存先のファイルを選択してください";
+            // ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            sfd.RestoreDirectory = true;
+            if (sfd.ShowDialog() == WinForms.DialogResult.OK)
+            {
+                // CSVファイル出力
+                CSVData.SaveCSV(SearchResult, sfd.FileName, true, true, false, ',');
+                MessageBox.Show("CSVファイルの出力が完了しました。");
+            }
+        }
+
+        /// <summary>
+        /// CSVInputボタン押下時イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CSVInPut_Click(object sender, RoutedEventArgs e)
+        {
+            string selectFile = string.Empty;
+
+            try
+            {
+                //ファイル選択ダイアログ表示
+                selectFile = SelectCsvFile();
+                if (selectFile == String.Empty)
+                {
+                 return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                this.ErrorMessage = ex.Message;
+            }
+            
+            DataTable tbl = CSVData.ReadCsv(selectFile, ",", true, true, true);
+            SearchResult = tbl;
+            SearchResult.TableName = MST02011_GetData;
+            SetData(tbl);
+            MessageBox.Show("CSVファイルの内容を表に表示しました。");
+        }
+
+        /// <summary>
+        /// ファイル選択ダイアログ表示(CSVファイル用)
+        /// </summary>
+        /// <param name="title">ダイアログタイトル</param>
+        /// <param name="initFileName">初期表示ファイル名(フルパス)</param>
+        /// <returns></returns>
+        private string SelectCsvFile()
+        {
+            //OpenFileDialogクラスのインスタンスを作成
+            System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog();
+
+            string folder = string.Empty, fileName = string.Empty;
+            
+            //はじめのファイル名を指定する
+            ofd.FileName = fileName;
+
+            //はじめに表示されるフォルダを指定する
+            ofd.InitialDirectory = @folder;
+
+            //[ファイルの種類]に表示される選択肢を指定する
+            ofd.Filter = "CSVファイル(*.csv)|*.csv|すべてのファイル(*.*)|*.*";
+
+            //[ファイルの種類]にはじめに表示するものを指定する
+            ofd.FilterIndex = 1;
+
+            //タイトルを設定する
+            ofd.Title = "取込ファイルを選択してください。";
+
+            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            ofd.RestoreDirectory = true;
+
+            //存在しないファイルの名前が指定されたとき警告を表示する
+            ofd.CheckFileExists = true;
+
+            //存在しないパスが指定されたとき警告を表示する
+            ofd.CheckPathExists = true;
+
+            //ダイアログを表示する
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                return ofd.FileName;
+            else
+                return string.Empty;
+        }
 
     }
 

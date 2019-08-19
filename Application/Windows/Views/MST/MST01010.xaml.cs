@@ -1336,6 +1336,13 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+
+        private void M01_TORI_KBN_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TORI_KBN_TargetUpdated(sender, null);
+
+        }
+
 	}
 
 }

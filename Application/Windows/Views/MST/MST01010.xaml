@@ -415,7 +415,7 @@
               RadioOne_Content="得意先" RadioSecond_Content="仕入先" RadioThird_Content="加工先" RadioFourth_Content="相殺" RadioFifth_Content="販社"
               Text1VerticalContentAlignment="Center"
               Text="{Binding Path=RowM01TOK[取引区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-              TargetUpdated="TORI_KBN_TargetUpdated"
+              TargetUpdated="TORI_KBN_TargetUpdated" LostFocus="M01_TORI_KBN_LostFocus" 
           />
           <Grid Grid.Row="1">
 
