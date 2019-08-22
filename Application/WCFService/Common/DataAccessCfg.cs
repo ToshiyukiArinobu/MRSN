@@ -333,11 +333,11 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "T12_Update", ServiceClass = "T12", MethodName = "Update", Descprition = "支払入力情報登録・更新" },
 
             // 販社売上修正
-            new WCFDataAccessConfig() { Name = "DLY12010_GetData", ServiceClass = "DLY12010", MethodName = "GetData", Descprition = "売上入力情報取得" },
-            new WCFDataAccessConfig() { Name = "T02_Update", ServiceClass = "DLY12010", MethodName = "Update", Descprition = "売上入力情報登録・更新" },
-            new WCFDataAccessConfig() { Name = "T02_Delete", ServiceClass = "DLY12010", MethodName = "Delete", Descprition = "売上入力情報削除" },
-            new WCFDataAccessConfig() { Name = "T02_CheckStock", ServiceClass = "DLY12010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
-            new WCFDataAccessConfig() { Name = "UpdateData_CheckStock", ServiceClass = "DLY12010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
+            new WCFDataAccessConfig() { Name = "DLY12010_GetData", ServiceClass = "DLY12010", MethodName = "GetData", Descprition = "販社売上入力情報取得" },
+            new WCFDataAccessConfig() { Name = "DLY12010_Update", ServiceClass = "DLY12010", MethodName = "Update", Descprition = "販社売上入力情報登録・更新" },
+            new WCFDataAccessConfig() { Name = "DLY12010_Delete", ServiceClass = "DLY12010", MethodName = "Delete", Descprition = "販社売上入力情報削除" },
+            new WCFDataAccessConfig() { Name = "DLY12010_CheckStock", ServiceClass = "DLY12010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
+            new WCFDataAccessConfig() { Name = "DLY12010_UpdateData_CheckStock", ServiceClass = "DLY12010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
 
 
             #endregion
