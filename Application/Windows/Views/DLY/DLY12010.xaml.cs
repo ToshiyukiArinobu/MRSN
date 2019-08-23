@@ -482,21 +482,21 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     case UpdateData_StockCheck:
                         // 在庫数チェック結果受信
-                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
                         string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
                         var zaiMBImage = MessageBoxImage.Question;
+                        // 在庫更新機能がなくなったため警告メッセージを表示しない
+                        //Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        //foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
+                        //{
+                        //    int rowNum = row.Field<int>("行番号");
 
-                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
-                        {
-                            int rowNum = row.Field<int>("行番号");
-
-                            //メーカー以外
-                            if (!メーカー区分.Contains(this.cmb売上区分.SelectedValue.ToString()) && updateList.ContainsKey(rowNum))
-                            {
-                                zaiMBImage = MessageBoxImage.Warning;
-                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
-                            }
-                        }
+                        //    //メーカー以外
+                        //    if (!メーカー区分.Contains(this.cmb売上区分.SelectedValue.ToString()) && updateList.ContainsKey(rowNum))
+                        //    {
+                        //        zaiMBImage = MessageBoxImage.Warning;
+                        //        zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
+                        //    }
+                        //}
 
                         if (MessageBox.Show(zaiUpdateMessage,
                                 "登録確認",
@@ -1096,11 +1096,15 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     // 入力元画面　販社売上修正
                     InputSource_DLY12010 = true;
+                    // リボンの押下制御
+                    SetDispRibbonEnabled(true);
                 }
                 else
                 {
                     // 入力元画面　販社売上修正
                     InputSource_DLY12010 = false;
+                    // リボンの押下制御
+                    SetDispRibbonEnabled(false);
                 }
 
                 // 取得明細の自社品番をロック(編集不可)に設定
@@ -1485,11 +1489,9 @@ namespace KyoeiSystem.Application.Windows.Views
         private void SetDispRibbonEnabled(bool blnEnabled)
         {
             // 使用設定（可・不可）
-            //this.RibbonF12
-            
-            //this.F6.IsEnabled = blnEnabled;
-
-
+            this.RibbonF5.IsEnabled = blnEnabled;
+            this.RibbonF6.IsEnabled = blnEnabled;
+            this.RibbonF12.IsEnabled = blnEnabled;
             
         }
 
