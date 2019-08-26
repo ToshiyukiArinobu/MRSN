@@ -443,7 +443,16 @@
     <Compile Include="Views\ZIJ\ZIJ01010.cs" />
     <Compile Include="Views\ZIJ\ZIJ07010.cs" />
     <Compile Include="Views\ZIK\ZIK01010.cs" />
+    <Compile Include="V_M01_TOK.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
     <Compile Include="V_M09_HIN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_M10_TOKHIN.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_S04_HISTORY.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
     <Compile Include="V_SHR06010.cs">
