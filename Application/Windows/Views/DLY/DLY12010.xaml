@@ -48,19 +48,27 @@
                         Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
                 </RibbonGroup>
                 <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                    <RibbonButton LargeImageSource="../Images/16マスタ入力.png" Margin="0,0,0,0"
+                        Label="ﾏｽﾀ入力" Click="RibbonButton_Click" KeyTip="F2" Height="50"
+                        ToolTipTitle="マスタ入力(F2)" ToolTipDescription="マスタの入力画面を開きます"  ToolTipImageSource="../Images/16マスタ入力.png"/>
                 </RibbonGroup>
                 <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                    <RibbonButton LargeImageSource="../Images/18詳細表示.png" Margin="0,0,0,0"
+                        Label="在庫参照" Click="RibbonButton_Click" KeyTip="F3" Height="50"
+                        ToolTipTitle="在庫参照(F3)" ToolTipDescription="在庫の参照画面を開きます"  ToolTipImageSource="../Images/18詳細表示.png"/>
                 </RibbonGroup>
                 <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                    <RibbonButton LargeImageSource="../Images/18詳細表示.png" Margin="0,0,0,0"
+                        Label="在庫ﾁｪｯｸ" Click="RibbonButton_Click" KeyTip="F4" Height="50"
+                        ToolTipTitle="在庫ﾁｪｯｸ(F4)" ToolTipDescription="在庫チェックを行います"  ToolTipImageSource="../Images/18詳細表示.png"/>
                 </RibbonGroup>
-                <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                <RibbonGroup Name="RibbonF5" Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/行追加.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
+                        Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="リストに新規行を追加します。" ToolTipImageSource="../Images/行追加.png" />
                 </RibbonGroup>
-                <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                <RibbonGroup Name="RibbonF6" Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F6" Height="50"
+                        Label="行削除" ToolTipTitle="行削除(F6)" ToolTipDescription="選択中のリスト行を削除します" ToolTipImageSource="../Images/28削除.png" />
                 </RibbonGroup>
                 <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
                     <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
@@ -80,10 +88,11 @@
                     <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
                         Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png" />
                 </RibbonGroup>
-                <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                <RibbonGroup Name="RibbonF12" Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="Menu12" LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+                        Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="表示中のデータを削除します" ToolTipImageSource="../Images/28削除.png" >
+                    </RibbonButton>
                 </RibbonGroup>
-
             </RibbonTab>
 
             <RibbonTab Header="ヘルプ" Background="Gray">
@@ -209,19 +218,19 @@
                         <TextBlock Text="売上日" Grid.Row="0" Grid.Column="1" TextAlignment="Center" Padding="0,5,0,0"
                        Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
             />
-                        <ctls:UcTextBox Name="txt売上日" Grid.Column="1" Grid.Row="1" IsKeyItem="False" cIsReadOnly="True"
+                        <ctls:UcTextBox Name="txt売上日" Grid.Column="1" Grid.Row="1" IsKeyItem="False"
                             cMaxLength="10" cTextAlignment="Center" cBorderThickness="0" cVerticalContentAlignment="Center"
                             Mask="yyyy/MM/dd" ValidationType="Date"
                             Text="{Binding Path=SearchHeader[売上日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
             />
 
                         <TextBlock Text="売上区分" Grid.Row="0" Grid.Column="2" TextAlignment="Center" Padding="0,5,0,0"
-                       Foreground="White" Background="{StaticResource DataGridHeaderBackground}" 
+                       Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
             />
                         <ctls:UcLabelComboBox x:Name="cmb売上区分" Grid.Row="1" Grid.Column="2"
-                                  Label_Visibility="Collapsed" IsEnabled="False"
-                                  ComboListingParams="日次,売上入力,売上区分"
-                                  SelectedValue="{Binding SearchHeader[売上区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" Combo_IsReadOnly="True" Combo_IsEditable="True"
+                                  Label_Visibility="Collapsed"
+                                  ComboListingParams="日次,販社売上修正,売上区分"
+                                  SelectedValue="{Binding SearchHeader[売上区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
             />
 
                         <TextBlock Text="得意先名称" Grid.Row="0" Grid.Column="3" TextAlignment="Center" Padding="0,5,0,0"
@@ -239,27 +248,8 @@
                                 LostFocus="txt得意先_LostFocus" TextAfterChanged="txt得意先_TextAfterChanged"
             />
 
-                        <TextBlock Text="在庫倉庫名称 (M22_SOUK)" Grid.Row="0" Grid.Column="4" TextAlignment="Center" Padding="0,5,0,0"
+                        <TextBlock Text="" Grid.Row="0" Grid.Column="4" TextAlignment="Center" Padding="0,5,0,0"
                        Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
-            />
-                        <uc:M01_TOK_TextBox x:Name="txt出荷先" Grid.Row="1" Grid.Column="4" DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3,4"
-                                HorizontalAlignment="Left" Margin="2,0,0,0" IsKeyItem="False" Focusable="True" 
-                                Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                                Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center" Text1IsReadOnly="True"
-                                Label1Text="－"
-                                Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center" Text2IsReadOnly="True"
-                                Label2Text=""
-                                            
-                                Text1="{Binding SearchHeader[出荷先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                Text2="{Binding SearchHeader[出荷先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                            
-                                TextAfterChanged="txt出荷先_TextAfterChanged" cText1Changed="txt出荷先_cText1Changed"
-            />
-
-                        <ctls:UcTextBox x:Name="txt出荷先名"  Grid.Row="1" Grid.Column="4" cIsReadOnly="True"  Width="148" Margin="102,0,0,0"
-                            cMaxLength="30" BorderThickness="0" ImeType="Native"
-                            Text="{Binding SearchHeader[出荷先名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                 
             />
 
                         <TextBlock Text="納品伝票No." Grid.Row="2" Grid.Column="0" TextAlignment="Center" Padding="0,5,0,0"
@@ -275,7 +265,7 @@
             />
                         <ctls:UcTextBox Name="txt出荷日" Grid.Row="3" Grid.Column="1" IsKeyItem="False"
                             cMaxLength="10" cTextAlignment="Center" cBorderThickness="0" cVerticalContentAlignment="Center"
-                            Mask="yyyy/MM/dd" ValidationType="Date" cIsReadOnly="True"
+                            Mask="yyyy/MM/dd" ValidationType="Date"
                             Text="{Binding Path=SearchHeader[出荷日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
             />
 
@@ -290,15 +280,12 @@
                         <TextBlock Text="売上先販社名称" Grid.Row="2" Grid.Column="3" TextAlignment="Center" Padding="0,5,0,0"
                        Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
             />
-                        <uc:M01_TOK_TextBox x:Name="txt仕入先" Grid.Row="3" Grid.Column="3" DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,3"
-                                HorizontalAlignment="Left" Margin="2,0,0,0" IsKeyItem="False" Focusable="True"
-                                Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Visible"
-                                Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center" Text1IsReadOnly="True"
-                                Label1Text="－"
-                                Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center" Text2IsReadOnly="True"
-                                Label2Text=""
-                                Text1="{Binding SearchHeader[仕入先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                                Text2="{Binding SearchHeader[仕入先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                        <ctls:UcLabelTwinTextBox x:Name="txt売上先販社" Grid.Row="3" Grid.Column="3" DataAccessName="M70_JIS" DataAccessMode="On"
+                                     HorizontalAlignment="Left" Margin="2,0,0,0" IsKeyItem="False" 
+                                     Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                     Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
+                                     Text2Width="210" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center"
+                                     Text1="{Binding SearchHeader[自社コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
             />
 
                         <TextBlock Text="出荷元名称" Grid.Row="2" Grid.Column="4" TextAlignment="Center" Padding="0,5,0,0"
@@ -331,7 +318,7 @@
                         <ctls:UcLabelTwinTextBox x:Name="txt在庫倉庫" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" DataAccessName="M22_SOUK_JISC" DataAccessMode="On"
                                      HorizontalAlignment="Left" Margin="2,0,0,0" IsKeyItem="False" 
                                      Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                                     Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center" Text1IsReadOnly="True"
+                                     Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
                                      Text2Width="210" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center"
                                      Text1="{Binding SearchHeader[在庫倉庫コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
             />
@@ -382,7 +369,7 @@
                     </sg:GcSpreadGrid.SelectionBorder>
 
                     <sg:GcSpreadGrid.Columns>
-                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column Locked="False" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off"/>
                             </sg:Column.CellType>
@@ -390,7 +377,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="false" CanUserResize="False">
+                        <sg:Column Locked="False" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="50" MaxLengthUnit="Byte" ImeState="Off"/>
                             </sg:Column.CellType>
@@ -398,7 +385,7 @@
                                 <sg:BindingDataField Binding="{Binding 得意先品番コード, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType IsReadOnly="True" />
                             </sg:Column.CellType>
@@ -406,7 +393,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType IsReadOnly="True" />
                             </sg:Column.CellType>
@@ -414,7 +401,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column Locked="True" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType IsReadOnly="True" />
                             </sg:Column.CellType>
@@ -422,7 +409,7 @@
                                 <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column HorizontalAlignment="Center" Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column HorizontalAlignment="Center" Locked="False" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off" />
                             </sg:Column.CellType>
@@ -430,7 +417,7 @@
                                 <sg:BindingDataField Binding="{Binding 賞味期限, TargetNullValue='', StringFormat='yyyy/MM/dd', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column HorizontalAlignment="Right" Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
                             </sg:Column.CellType>
@@ -462,7 +449,7 @@
                                 <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                             </sg:Column.DataField>
                         </sg:Column>
-                        <sg:Column Locked="True" Focusable="false" CanUserResize="False">
+                        <sg:Column Locked="False" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
                                 <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
                             </sg:Column.CellType>
@@ -530,9 +517,9 @@
                         Background="{StaticResource DataGridSummaryBackground}"
           />
                     <ctls:UcLabelTwinTextBox x:Name="txt備考" Grid.Row="1" Grid.Column="0" Margin="2" DataAccessName="M11_TEK" DataAccessMode="On"
-                                   Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed" Focusable="True" Text1IsReadOnly="True"
-                                   Text1Width="40" Text1MaxLength="5" 
-                                   Text2MaxLength="40" Text2IMEType="Native" Text2IsReadOnly="True"
+                                   Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                   Text1Width="40" Text1MaxLength="5"
+                                   Text2MaxLength="40" Text2IMEType="Native"
                                    Text2="{Binding SearchHeader[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
           />
 
