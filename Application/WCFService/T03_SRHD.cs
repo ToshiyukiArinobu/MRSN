@@ -192,6 +192,66 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _元伝票番号;
     
         [DataMember]
+        public Nullable<int> 通常税率対象金額
+        {
+            get { return _通常税率対象金額; }
+            set
+            {
+                if (_通常税率対象金額 != value)
+                {
+                    _通常税率対象金額 = value;
+                    OnPropertyChanged("通常税率対象金額");
+                }
+            }
+        }
+        private Nullable<int> _通常税率対象金額;
+    
+        [DataMember]
+        public Nullable<int> 軽減税率対象金額
+        {
+            get { return _軽減税率対象金額; }
+            set
+            {
+                if (_軽減税率対象金額 != value)
+                {
+                    _軽減税率対象金額 = value;
+                    OnPropertyChanged("軽減税率対象金額");
+                }
+            }
+        }
+        private Nullable<int> _軽減税率対象金額;
+    
+        [DataMember]
+        public Nullable<int> 通常税率消費税
+        {
+            get { return _通常税率消費税; }
+            set
+            {
+                if (_通常税率消費税 != value)
+                {
+                    _通常税率消費税 = value;
+                    OnPropertyChanged("通常税率消費税");
+                }
+            }
+        }
+        private Nullable<int> _通常税率消費税;
+    
+        [DataMember]
+        public Nullable<int> 軽減税率消費税
+        {
+            get { return _軽減税率消費税; }
+            set
+            {
+                if (_軽減税率消費税 != value)
+                {
+                    _軽減税率消費税 = value;
+                    OnPropertyChanged("軽減税率消費税");
+                }
+            }
+        }
+        private Nullable<int> _軽減税率消費税;
+    
+        [DataMember]
         public Nullable<int> 消費税
         {
             get { return _消費税; }

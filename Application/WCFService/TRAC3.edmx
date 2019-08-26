@@ -58,6 +58,73 @@
           <EntitySet Name="T11_NYKNHD" EntityType="TRAC3Model.Store.T11_NYKNHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T12_PAYDTL" EntityType="TRAC3Model.Store.T12_PAYDTL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T12_PAYHD" EntityType="TRAC3Model.Store.T12_PAYHD" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="V_M01_TOK" EntityType="TRAC3Model.Store.V_M01_TOK" store:Type="Views" store:Schema="dbo" store:Name="V_M01_TOK">
+            <DefiningQuery>SELECT 
+      [V_M01_TOK].[取引先コード] AS [取引先コード], 
+      [V_M01_TOK].[枝番] AS [枝番], 
+      [V_M01_TOK].[取引区分] AS [取引区分], 
+      [V_M01_TOK].[取引区分名] AS [取引区分名], 
+      [V_M01_TOK].[得意先名１] AS [得意先名１], 
+      [V_M01_TOK].[得意先名２] AS [得意先名２], 
+      [V_M01_TOK].[部課名称] AS [部課名称], 
+      [V_M01_TOK].[略称名] AS [略称名], 
+      [V_M01_TOK].[郵便番号] AS [郵便番号], 
+      [V_M01_TOK].[住所１] AS [住所１], 
+      [V_M01_TOK].[住所２] AS [住所２], 
+      [V_M01_TOK].[電話番号] AS [電話番号], 
+      [V_M01_TOK].[ＦＡＸ] AS [ＦＡＸ], 
+      [V_M01_TOK].[かな読み] AS [かな読み], 
+      [V_M01_TOK].[担当会社コード] AS [担当会社コード], 
+      [V_M01_TOK].[担当会社名] AS [担当会社名], 
+      [V_M01_TOK].[Ｔ消費税区分] AS [Ｔ消費税区分], 
+      [V_M01_TOK].[Ｔ消費税区分名] AS [Ｔ消費税区分名], 
+      [V_M01_TOK].[Ｔ税区分ID] AS [Ｔ税区分ID], 
+      [V_M01_TOK].[Ｔ税区分ID名] AS [Ｔ税区分ID名], 
+      [V_M01_TOK].[Ｔ締日] AS [Ｔ締日], 
+      [V_M01_TOK].[Ｔ請求条件] AS [Ｔ請求条件], 
+      [V_M01_TOK].[Ｔ請求区分] AS [Ｔ請求区分], 
+      [V_M01_TOK].[Ｔ請求区分名] AS [Ｔ請求区分名], 
+      [V_M01_TOK].[Ｔサイト１] AS [Ｔサイト１], 
+      [V_M01_TOK].[Ｔサイト２] AS [Ｔサイト２], 
+      [V_M01_TOK].[Ｔ入金日１] AS [Ｔ入金日１], 
+      [V_M01_TOK].[Ｔ入金日２] AS [Ｔ入金日２], 
+      [V_M01_TOK].[Ｓ支払消費税区分] AS [Ｓ支払消費税区分], 
+      [V_M01_TOK].[Ｓ支払消費税区分名] AS [Ｓ支払消費税区分名], 
+      [V_M01_TOK].[Ｓ税区分ID] AS [Ｓ税区分ID], 
+      [V_M01_TOK].[Ｓ税区分ID名] AS [Ｓ税区分ID名], 
+      [V_M01_TOK].[Ｓ締日] AS [Ｓ締日], 
+      [V_M01_TOK].[Ｓ支払条件] AS [Ｓ支払条件], 
+      [V_M01_TOK].[Ｓ支払区分] AS [Ｓ支払区分], 
+      [V_M01_TOK].[Ｓ支払区分名] AS [Ｓ支払区分名], 
+      [V_M01_TOK].[Ｓサイト１] AS [Ｓサイト１], 
+      [V_M01_TOK].[Ｓサイト２] AS [Ｓサイト２], 
+      [V_M01_TOK].[Ｓ入金日１] AS [Ｓ入金日１], 
+      [V_M01_TOK].[Ｓ入金日２] AS [Ｓ入金日２], 
+      [V_M01_TOK].[与信枠] AS [与信枠], 
+      [V_M01_TOK].[Ｔ担当者コード] AS [Ｔ担当者コード], 
+      [V_M01_TOK].[Ｔ担当者名] AS [Ｔ担当者名], 
+      [V_M01_TOK].[Ｓ担当者コード] AS [Ｓ担当者コード], 
+      [V_M01_TOK].[Ｓ担当者名] AS [Ｓ担当者名], 
+      [V_M01_TOK].[自社備考１] AS [自社備考１], 
+      [V_M01_TOK].[自社備考２] AS [自社備考２], 
+      [V_M01_TOK].[集約取引先コード] AS [集約取引先コード], 
+      [V_M01_TOK].[集約取引先枝番] AS [集約取引先枝番], 
+      [V_M01_TOK].[集約取引先名] AS [集約取引先名], 
+      [V_M01_TOK].[参照取引先コード１] AS [参照取引先コード１], 
+      [V_M01_TOK].[参照取引先枝番１] AS [参照取引先枝番１], 
+      [V_M01_TOK].[参照取引先名１] AS [参照取引先名１], 
+      [V_M01_TOK].[参照取引先コード２] AS [参照取引先コード２], 
+      [V_M01_TOK].[参照取引先枝番２] AS [参照取引先枝番２], 
+      [V_M01_TOK].[参照取引先名２] AS [参照取引先名２], 
+      [V_M01_TOK].[参照取引先コード３] AS [参照取引先コード３], 
+      [V_M01_TOK].[参照取引先枝番３] AS [参照取引先枝番３], 
+      [V_M01_TOK].[参照取引先名３] AS [参照取引先名３], 
+      [V_M01_TOK].[集計コード１] AS [集計コード１], 
+      [V_M01_TOK].[集計コード２] AS [集計コード２], 
+      [V_M01_TOK].[集計コード３] AS [集計コード３], 
+      [V_M01_TOK].[論理削除] AS [論理削除]
+      FROM [dbo].[V_M01_TOK] AS [V_M01_TOK]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="V_M09_HIN" EntityType="TRAC3Model.Store.V_M09_HIN" store:Type="Views" store:Schema="dbo" store:Name="V_M09_HIN">
             <DefiningQuery>SELECT 
       [V_M09_HIN].[品番コード] AS [品番コード], 
@@ -92,6 +159,42 @@
       [V_M09_HIN].[返却可能期限] AS [返却可能期限], 
       [V_M09_HIN].[ＪＡＮコード] AS [ＪＡＮコード]
       FROM [dbo].[V_M09_HIN] AS [V_M09_HIN]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_M10_TOKHIN" EntityType="TRAC3Model.Store.V_M10_TOKHIN" store:Type="Views" store:Schema="dbo" store:Name="V_M10_TOKHIN">
+            <DefiningQuery>SELECT 
+      [V_M10_TOKHIN].[取引先コード] AS [取引先コード], 
+      [V_M10_TOKHIN].[枝番] AS [枝番], 
+      [V_M10_TOKHIN].[品番コード] AS [品番コード], 
+      [V_M10_TOKHIN].[得意先名１] AS [得意先名１], 
+      [V_M10_TOKHIN].[得意先品番コード] AS [得意先品番コード], 
+      [V_M10_TOKHIN].[自社品番] AS [自社品番], 
+      [V_M10_TOKHIN].[自社色] AS [自社色], 
+      [V_M10_TOKHIN].[自社品名] AS [自社品名], 
+      [V_M10_TOKHIN].[色名称] AS [色名称], 
+      [V_M10_TOKHIN].[得意先売価] AS [得意先売価], 
+      [V_M10_TOKHIN].[仕入先売価] AS [仕入先売価], 
+      [V_M10_TOKHIN].[外注先売価] AS [外注先売価]
+      FROM [dbo].[V_M10_TOKHIN] AS [V_M10_TOKHIN]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_S04_HISTORY" EntityType="TRAC3Model.Store.V_S04_HISTORY" store:Type="Views" store:Schema="dbo" store:Name="V_S04_HISTORY">
+            <DefiningQuery>SELECT 
+      [V_S04_HISTORY].[SEQ] AS [SEQ], 
+      [V_S04_HISTORY].[入出庫日] AS [入出庫日], 
+      [V_S04_HISTORY].[入出庫時刻] AS [入出庫時刻], 
+      [V_S04_HISTORY].[入出庫区分] AS [入出庫区分], 
+      [V_S04_HISTORY].[入出庫区分名] AS [入出庫区分名], 
+      [V_S04_HISTORY].[倉庫コード] AS [倉庫コード], 
+      [V_S04_HISTORY].[倉庫名] AS [倉庫名], 
+      [V_S04_HISTORY].[品番コード] AS [品番コード], 
+      [V_S04_HISTORY].[自社品番] AS [自社品番], 
+      [V_S04_HISTORY].[自社品名] AS [自社品名], 
+      [V_S04_HISTORY].[賞味期限] AS [賞味期限], 
+      [V_S04_HISTORY].[数量] AS [数量], 
+      [V_S04_HISTORY].[伝票番号] AS [伝票番号], 
+      [V_S04_HISTORY].[作成機能ID] AS [作成機能ID], 
+      [V_S04_HISTORY].[作成機能名] AS [作成機能名], 
+      [V_S04_HISTORY].[登録日時] AS [登録日時]
+      FROM [dbo].[V_S04_HISTORY] AS [V_S04_HISTORY]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_SHR06010" EntityType="TRAC3Model.Store.V_SHR06010" store:Type="Views" store:Schema="dbo" store:Name="V_SHR06010">
             <DefiningQuery>SELECT 
@@ -847,6 +950,10 @@
           <Property Name="仕入先枝番" Type="int" />
           <Property Name="備考" Type="varchar" MaxLength="40" />
           <Property Name="元伝票番号" Type="int" />
+          <Property Name="通常税率対象金額" Type="int" />
+          <Property Name="軽減税率対象金額" Type="int" />
+          <Property Name="通常税率消費税" Type="int" />
+          <Property Name="軽減税率消費税" Type="int" />
           <Property Name="小計" Type="int" />
           <Property Name="消費税" Type="int" Nullable="false" />
           <Property Name="総合計" Type="int" />
@@ -876,6 +983,10 @@
           <Property Name="仕入先コード" Type="int" />
           <Property Name="仕入先枝番" Type="int" />
           <Property Name="備考" Type="varchar" MaxLength="40" />
+          <Property Name="通常税率対象金額" Type="int" />
+          <Property Name="軽減税率対象金額" Type="int" />
+          <Property Name="通常税率消費税" Type="int" />
+          <Property Name="軽減税率消費税" Type="int" />
           <Property Name="消費税" Type="int" Nullable="false" />
           <Property Name="調整消費税" Type="int" />
           <Property Name="調整比率" Type="decimal" Precision="6" Scale="3" />
@@ -943,6 +1054,10 @@
           <Property Name="発注番号" Type="int" />
           <Property Name="備考" Type="varchar" MaxLength="40" />
           <Property Name="元伝票番号" Type="int" />
+          <Property Name="通常税率対象金額" Type="int" />
+          <Property Name="軽減税率対象金額" Type="int" />
+          <Property Name="通常税率消費税" Type="int" />
+          <Property Name="軽減税率消費税" Type="int" />
           <Property Name="消費税" Type="int" />
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
@@ -963,6 +1078,10 @@
           <Property Name="入荷先コード" Type="int" Nullable="false" />
           <Property Name="発注番号" Type="int" />
           <Property Name="備考" Type="varchar" MaxLength="40" />
+          <Property Name="通常税率対象金額" Type="int" />
+          <Property Name="軽減税率対象金額" Type="int" />
+          <Property Name="通常税率消費税" Type="int" />
+          <Property Name="軽減税率消費税" Type="int" />
           <Property Name="小計" Type="int" />
           <Property Name="消費税" Type="int" />
           <Property Name="総合計" Type="int" />
@@ -1159,6 +1278,87 @@
           <Property Name="削除日時" Type="datetime" />
         </EntityType>
         <!--生成中に見つかったエラー:
+      警告 6002: テーブル/ビュー 'MRSN.dbo.V_M01_TOK' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      -->
+        <EntityType Name="V_M01_TOK">
+          <Key>
+            <PropertyRef Name="取引先コード" />
+            <PropertyRef Name="枝番" />
+            <PropertyRef Name="取引区分" />
+            <PropertyRef Name="担当会社コード" />
+            <PropertyRef Name="Ｔ消費税区分" />
+            <PropertyRef Name="Ｔ税区分ID" />
+            <PropertyRef Name="Ｔ請求区分" />
+            <PropertyRef Name="Ｓ支払消費税区分" />
+            <PropertyRef Name="Ｓ税区分ID" />
+            <PropertyRef Name="Ｓ支払区分" />
+            <PropertyRef Name="論理削除" />
+          </Key>
+          <Property Name="取引先コード" Type="int" Nullable="false" />
+          <Property Name="枝番" Type="int" Nullable="false" />
+          <Property Name="取引区分" Type="int" Nullable="false" />
+          <Property Name="取引区分名" Type="varchar" MaxLength="6" />
+          <Property Name="得意先名１" Type="varchar" MaxLength="50" />
+          <Property Name="得意先名２" Type="varchar" MaxLength="50" />
+          <Property Name="部課名称" Type="varchar" MaxLength="50" />
+          <Property Name="略称名" Type="varchar" MaxLength="30" />
+          <Property Name="郵便番号" Type="varchar" MaxLength="8" />
+          <Property Name="住所１" Type="varchar" MaxLength="50" />
+          <Property Name="住所２" Type="varchar" MaxLength="50" />
+          <Property Name="電話番号" Type="varchar" MaxLength="15" />
+          <Property Name="ＦＡＸ" Type="varchar" MaxLength="15" />
+          <Property Name="かな読み" Type="varchar" MaxLength="20" />
+          <Property Name="担当会社コード" Type="int" Nullable="false" />
+          <Property Name="担当会社名" Type="varchar" MaxLength="40" />
+          <Property Name="Ｔ消費税区分" Type="int" Nullable="false" />
+          <Property Name="Ｔ消費税区分名" Type="varchar" MaxLength="4" />
+          <Property Name="Ｔ税区分ID" Type="int" Nullable="false" />
+          <Property Name="Ｔ税区分ID名" Type="varchar" MaxLength="8" />
+          <Property Name="Ｔ締日" Type="int" />
+          <Property Name="Ｔ請求条件" Type="int" />
+          <Property Name="Ｔ請求区分" Type="int" Nullable="false" />
+          <Property Name="Ｔ請求区分名" Type="varchar" MaxLength="4" />
+          <Property Name="Ｔサイト１" Type="int" />
+          <Property Name="Ｔサイト２" Type="int" />
+          <Property Name="Ｔ入金日１" Type="int" />
+          <Property Name="Ｔ入金日２" Type="int" />
+          <Property Name="Ｓ支払消費税区分" Type="int" Nullable="false" />
+          <Property Name="Ｓ支払消費税区分名" Type="varchar" MaxLength="4" />
+          <Property Name="Ｓ税区分ID" Type="int" Nullable="false" />
+          <Property Name="Ｓ税区分ID名" Type="varchar" MaxLength="8" />
+          <Property Name="Ｓ締日" Type="int" />
+          <Property Name="Ｓ支払条件" Type="int" />
+          <Property Name="Ｓ支払区分" Type="int" Nullable="false" />
+          <Property Name="Ｓ支払区分名" Type="varchar" MaxLength="4" />
+          <Property Name="Ｓサイト１" Type="int" />
+          <Property Name="Ｓサイト２" Type="int" />
+          <Property Name="Ｓ入金日１" Type="int" />
+          <Property Name="Ｓ入金日２" Type="int" />
+          <Property Name="与信枠" Type="int" />
+          <Property Name="Ｔ担当者コード" Type="int" />
+          <Property Name="Ｔ担当者名" Type="varchar" MaxLength="20" />
+          <Property Name="Ｓ担当者コード" Type="int" />
+          <Property Name="Ｓ担当者名" Type="varchar" MaxLength="20" />
+          <Property Name="自社備考１" Type="varchar" MaxLength="50" />
+          <Property Name="自社備考２" Type="varchar" MaxLength="50" />
+          <Property Name="集約取引先コード" Type="int" />
+          <Property Name="集約取引先枝番" Type="int" />
+          <Property Name="集約取引先名" Type="varchar" MaxLength="50" />
+          <Property Name="参照取引先コード１" Type="int" />
+          <Property Name="参照取引先枝番１" Type="int" />
+          <Property Name="参照取引先名１" Type="varchar" MaxLength="50" />
+          <Property Name="参照取引先コード２" Type="int" />
+          <Property Name="参照取引先枝番２" Type="int" />
+          <Property Name="参照取引先名２" Type="varchar" MaxLength="50" />
+          <Property Name="参照取引先コード３" Type="int" />
+          <Property Name="参照取引先枝番３" Type="int" />
+          <Property Name="参照取引先名３" Type="varchar" MaxLength="50" />
+          <Property Name="集計コード１" Type="int" />
+          <Property Name="集計コード２" Type="int" />
+          <Property Name="集計コード３" Type="int" />
+          <Property Name="論理削除" Type="int" Nullable="false" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
       警告 6002: テーブル/ビュー 'MRSN.dbo.V_M09_HIN' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
       -->
         <EntityType Name="V_M09_HIN">
@@ -1196,6 +1396,59 @@
           <Property Name="備考２" Type="varchar" MaxLength="32" />
           <Property Name="返却可能期限" Type="int" />
           <Property Name="ＪＡＮコード" Type="varchar" MaxLength="13" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
+      警告 6002: テーブル/ビュー 'MRSN.dbo.V_M10_TOKHIN' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      -->
+        <EntityType Name="V_M10_TOKHIN">
+          <Key>
+            <PropertyRef Name="取引先コード" />
+            <PropertyRef Name="枝番" />
+            <PropertyRef Name="品番コード" />
+          </Key>
+          <Property Name="取引先コード" Type="int" Nullable="false" />
+          <Property Name="枝番" Type="int" Nullable="false" />
+          <Property Name="品番コード" Type="int" Nullable="false" />
+          <Property Name="得意先名１" Type="varchar" MaxLength="50" />
+          <Property Name="得意先品番コード" Type="varchar" MaxLength="50" />
+          <Property Name="自社品番" Type="varchar" MaxLength="12" />
+          <Property Name="自社色" Type="varchar" MaxLength="3" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
+          <Property Name="色名称" Type="varchar" MaxLength="8" />
+          <Property Name="得意先売価" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="仕入先売価" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="外注先売価" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
+      警告 6002: テーブル/ビュー 'MRSN.dbo.V_S04_HISTORY' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      -->
+        <EntityType Name="V_S04_HISTORY">
+          <Key>
+            <PropertyRef Name="SEQ" />
+            <PropertyRef Name="入出庫日" />
+            <PropertyRef Name="入出庫時刻" />
+            <PropertyRef Name="入出庫区分" />
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="作成機能ID" />
+            <PropertyRef Name="登録日時" />
+          </Key>
+          <Property Name="SEQ" Type="bigint" Nullable="false" />
+          <Property Name="入出庫日" Type="date" Nullable="false" />
+          <Property Name="入出庫時刻" Type="time" Nullable="false" />
+          <Property Name="入出庫区分" Type="int" Nullable="false" />
+          <Property Name="入出庫区分名" Type="varchar" MaxLength="4" />
+          <Property Name="倉庫コード" Type="int" Nullable="false" />
+          <Property Name="倉庫名" Type="varchar" MaxLength="50" />
+          <Property Name="品番コード" Type="int" Nullable="false" />
+          <Property Name="自社品番" Type="varchar" MaxLength="12" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
+          <Property Name="賞味期限" Type="date" />
+          <Property Name="数量" Type="int" />
+          <Property Name="伝票番号" Type="int" />
+          <Property Name="作成機能ID" Type="int" Nullable="false" />
+          <Property Name="作成機能名" Type="varchar" MaxLength="18" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
         </EntityType>
         <!--生成中に見つかったエラー:
       警告 6002: テーブル/ビュー 'MRSN.dbo.V_SHR06010' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
@@ -1263,6 +1516,7 @@
           <EntitySet Name="M03_BAIKA" EntityType="TRAC3Model.M03_BAIKA" />
           <EntitySet Name="M04_BAIKA" EntityType="TRAC3Model.M04_BAIKA" />
           <EntitySet Name="M06_IRO" EntityType="TRAC3Model.M06_IRO" />
+          <EntitySet Name="M09_HIN" EntityType="TRAC3Model.M09_HIN" />
           <EntitySet Name="M10_SHIN" EntityType="TRAC3Model.M10_SHIN" />
           <EntitySet Name="M10_TOKHIN" EntityType="TRAC3Model.M10_TOKHIN" />
           <EntitySet Name="M11_TEK" EntityType="TRAC3Model.M11_TEK" />
@@ -1276,6 +1530,7 @@
           <EntitySet Name="M70_JIS" EntityType="TRAC3Model.M70_JIS" />
           <EntitySet Name="M72_TNT" EntityType="TRAC3Model.M72_TNT" />
           <EntitySet Name="M73_ZEI" EntityType="TRAC3Model.M73_ZEI" />
+          <EntitySet Name="M74_KGRP" EntityType="TRAC3Model.M74_KGRP" />
           <EntitySet Name="M74_KGRP_NAME" EntityType="TRAC3Model.M74_KGRP_NAME" />
           <EntitySet Name="M88_SEQ" EntityType="TRAC3Model.M88_SEQ" />
           <EntitySet Name="M89_KENALL" EntityType="TRAC3Model.M89_KENALL" />
@@ -1283,37 +1538,38 @@
           <EntitySet Name="M99_COMBOLIST" EntityType="TRAC3Model.M99_COMBOLIST" />
           <EntitySet Name="M99_MSG" EntityType="TRAC3Model.M99_MSG" />
           <EntitySet Name="M99_ZIP" EntityType="TRAC3Model.M99_ZIP" />
+          <EntitySet Name="S01_SEIDTL" EntityType="TRAC3Model.S01_SEIDTL" />
+          <EntitySet Name="S01_SEIHD" EntityType="TRAC3Model.S01_SEIHD" />
+          <EntitySet Name="S02_SHRDTL" EntityType="TRAC3Model.S02_SHRDTL" />
+          <EntitySet Name="S02_SHRHD" EntityType="TRAC3Model.S02_SHRHD" />
+          <EntitySet Name="S03_STOK" EntityType="TRAC3Model.S03_STOK" />
+          <EntitySet Name="S04_HISTORY" EntityType="TRAC3Model.S04_HISTORY" />
+          <EntitySet Name="S05_STOK_MONTH" EntityType="TRAC3Model.S05_STOK_MONTH" />
           <EntitySet Name="T02_URDTL" EntityType="TRAC3Model.T02_URDTL" />
+          <EntitySet Name="T02_URDTL_HAN" EntityType="TRAC3Model.T02_URDTL_HAN" />
+          <EntitySet Name="T02_URHD" EntityType="TRAC3Model.T02_URHD" />
+          <EntitySet Name="T02_URHD_HAN" EntityType="TRAC3Model.T02_URHD_HAN" />
           <EntitySet Name="T03_SRDTL" EntityType="TRAC3Model.T03_SRDTL" />
           <EntitySet Name="T03_SRDTL_HAN" EntityType="TRAC3Model.T03_SRDTL_HAN" />
+          <EntitySet Name="T03_SRHD" EntityType="TRAC3Model.T03_SRHD" />
+          <EntitySet Name="T03_SRHD_HAN" EntityType="TRAC3Model.T03_SRHD_HAN" />
           <EntitySet Name="T04_AGRDTB" EntityType="TRAC3Model.T04_AGRDTB" />
           <EntitySet Name="T04_AGRDTL" EntityType="TRAC3Model.T04_AGRDTL" />
           <EntitySet Name="T04_AGRHD" EntityType="TRAC3Model.T04_AGRHD" />
+          <EntitySet Name="T04_AGRWK" EntityType="TRAC3Model.T04_AGRWK" />
           <EntitySet Name="T05_IDODTL" EntityType="TRAC3Model.T05_IDODTL" />
-          <EntitySet Name="S03_STOK" EntityType="TRAC3Model.S03_STOK" />
           <EntitySet Name="T05_IDOHD" EntityType="TRAC3Model.T05_IDOHD" />
           <EntitySet Name="T11_NYKNDTL" EntityType="TRAC3Model.T11_NYKNDTL" />
           <EntitySet Name="T11_NYKNHD" EntityType="TRAC3Model.T11_NYKNHD" />
-          <EntitySet Name="T03_SRHD_HAN" EntityType="TRAC3Model.T03_SRHD_HAN" />
-          <EntitySet Name="T03_SRHD" EntityType="TRAC3Model.T03_SRHD" />
-          <EntitySet Name="S01_SEIDTL" EntityType="TRAC3Model.S01_SEIDTL" />
-          <EntitySet Name="V_TKS08010" EntityType="TRAC3Model.V_TKS08010" />
           <EntitySet Name="T12_PAYDTL" EntityType="TRAC3Model.T12_PAYDTL" />
           <EntitySet Name="T12_PAYHD" EntityType="TRAC3Model.T12_PAYHD" />
-          <EntitySet Name="S02_SHRDTL" EntityType="TRAC3Model.S02_SHRDTL" />
-          <EntitySet Name="S02_SHRHD" EntityType="TRAC3Model.S02_SHRHD" />
-          <EntitySet Name="V_SHR06010" EntityType="TRAC3Model.V_SHR06010" />
-          <EntitySet Name="S04_HISTORY" EntityType="TRAC3Model.S04_HISTORY" />
-          <EntitySet Name="T04_AGRWK" EntityType="TRAC3Model.T04_AGRWK" />
-          <EntitySet Name="S05_STOK_MONTH" EntityType="TRAC3Model.S05_STOK_MONTH" />
-          <EntitySet Name="S01_SEIHD" EntityType="TRAC3Model.S01_SEIHD" />
-          <EntitySet Name="T02_URDTL_HAN" EntityType="TRAC3Model.T02_URDTL_HAN" />
-          <EntitySet Name="T02_URHD_HAN" EntityType="TRAC3Model.T02_URHD_HAN" />
-          <EntitySet Name="M09_HIN" EntityType="TRAC3Model.M09_HIN" />
+          <EntitySet Name="V_M01_TOK" EntityType="TRAC3Model.V_M01_TOK" />
           <EntitySet Name="V_M09_HIN" EntityType="TRAC3Model.V_M09_HIN" />
-          <EntitySet Name="M74_KGRP" EntityType="TRAC3Model.M74_KGRP" />
-          <EntitySet Name="T02_URHD" EntityType="TRAC3Model.T02_URHD" />
-          </EntityContainer>
+          <EntitySet Name="V_M10_TOKHIN" EntityType="TRAC3Model.V_M10_TOKHIN" />
+          <EntitySet Name="V_S04_HISTORY" EntityType="TRAC3Model.V_S04_HISTORY" />
+          <EntitySet Name="V_SHR06010" EntityType="TRAC3Model.V_SHR06010" />
+          <EntitySet Name="V_TKS08010" EntityType="TRAC3Model.V_TKS08010" />
+        </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
           <Key>
@@ -1433,6 +1689,40 @@
           </Key>
           <Property Type="String" Name="色コード" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="色名称" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="M09_HIN">
+          <Key>
+            <PropertyRef Name="品番コード" />
+          </Key>
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="String" Name="自社品番" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社色" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="商品形態分類" />
+          <Property Type="Int32" Name="商品分類" />
+          <Property Type="Int32" Name="大分類" />
+          <Property Type="Int32" Name="中分類" />
+          <Property Type="String" Name="ブランド" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="シリーズ" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="品群" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="単位" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="加工原価" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="卸値" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="売価" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="掛率" Precision="4" Scale="1" />
+          <Property Type="Int32" Name="消費税区分" />
+          <Property Type="String" Name="備考１" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="備考２" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="返却可能期限" />
+          <Property Type="String" Name="ＪＡＮコード" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="論理削除" />
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Precision="3" />
           <Property Type="Int32" Name="最終更新者" />
@@ -1616,13 +1906,13 @@
           <Property Type="Int32" Name="自社区分" Nullable="false" />
           <Property Type="Int32" Name="取引先コード" />
           <Property Type="Int32" Name="枝番" />
+          <Property Type="Int32" Name="決算月" />
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Precision="3" />
           <Property Type="Int32" Name="最終更新者" />
           <Property Type="DateTime" Name="最終更新日時" Precision="3" />
           <Property Type="Int32" Name="削除者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
-          <Property Type="Int32" Name="決算月" />
         </EntityType>
         <EntityType Name="M72_TNT">
           <Key>
@@ -1658,6 +1948,20 @@
           <Property Type="DateTime" Name="最終更新日時" Precision="3" />
           <Property Type="Int32" Name="削除者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="M74_KGRP">
+          <Key>
+            <PropertyRef Name="グループ権限ID" />
+            <PropertyRef Name="プログラムID" />
+          </Key>
+          <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
+          <Property Type="String" Name="プログラムID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="タブグループ番号" />
+          <Property Type="Int32" Name="使用可能FLG" />
+          <Property Type="Int32" Name="データ更新FLG" />
+          <Property Type="DateTime" Name="登録日時" Precision="3" />
+          <Property Type="DateTime" Name="更新日時" Precision="3" />
+          <Property Type="DateTime" Name="削除日付" Precision="3" />
         </EntityType>
         <EntityType Name="M74_KGRP_NAME">
           <Key>
@@ -1744,6 +2048,177 @@
           <Property Type="String" Name="住所かな" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="住所漢字" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="S01_SEIDTL">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="請求年月" />
+            <PropertyRef Name="請求締日" />
+            <PropertyRef Name="請求先コード" />
+            <PropertyRef Name="請求先枝番" />
+            <PropertyRef Name="入金日" />
+            <PropertyRef Name="回数" />
+            <PropertyRef Name="行" />
+          </Key>
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="Int32" Name="請求年月" Nullable="false" />
+          <Property Type="Int32" Name="請求締日" Nullable="false" />
+          <Property Type="Int32" Name="請求先コード" Nullable="false" />
+          <Property Type="Int32" Name="請求先枝番" Nullable="false" />
+          <Property Type="Int32" Name="入金日" Nullable="false" />
+          <Property Type="Int32" Name="回数" Nullable="false" />
+          <Property Type="Int32" Name="行" Nullable="false" />
+          <Property Type="Int32" Name="伝票番号" Nullable="false" />
+          <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Decimal" Name="単価" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="金額" Nullable="false" />
+          <Property Type="Int32" Name="消費税" Nullable="false" />
+          <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="S01_SEIHD">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="請求年月" />
+            <PropertyRef Name="請求締日" />
+            <PropertyRef Name="請求先コード" />
+            <PropertyRef Name="請求先枝番" />
+            <PropertyRef Name="入金日" />
+            <PropertyRef Name="回数" />
+          </Key>
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="Int32" Name="請求年月" Nullable="false" />
+          <Property Type="Int32" Name="請求締日" Nullable="false" />
+          <Property Type="Int32" Name="請求先コード" Nullable="false" />
+          <Property Type="Int32" Name="請求先枝番" Nullable="false" />
+          <Property Type="Int32" Name="入金日" Nullable="false" />
+          <Property Type="Int32" Name="回数" Nullable="false" />
+          <Property Type="DateTime" Name="請求年月日" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="集計開始日" Precision="0" />
+          <Property Type="DateTime" Name="集計最終日" Precision="0" />
+          <Property Type="Int64" Name="前月残高" Nullable="false" />
+          <Property Type="Int64" Name="売上額" Nullable="false" />
+          <Property Type="Int64" Name="値引額" Nullable="false" />
+          <Property Type="Int64" Name="非税売上額" Nullable="false" />
+          <Property Type="Int64" Name="消費税" Nullable="false" />
+          <Property Type="Int64" Name="当月請求額" Nullable="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="S02_SHRDTL">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="支払年月" />
+            <PropertyRef Name="支払締日" />
+            <PropertyRef Name="支払先コード" />
+            <PropertyRef Name="支払先枝番" />
+            <PropertyRef Name="支払日" />
+            <PropertyRef Name="回数" />
+            <PropertyRef Name="行" />
+          </Key>
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="Int32" Name="支払年月" Nullable="false" />
+          <Property Type="Int32" Name="支払締日" Nullable="false" />
+          <Property Type="Int32" Name="支払先コード" Nullable="false" />
+          <Property Type="Int32" Name="支払先枝番" Nullable="false" />
+          <Property Type="Int32" Name="支払日" Nullable="false" />
+          <Property Type="Int32" Name="回数" Nullable="false" />
+          <Property Type="Int32" Name="行" Nullable="false" />
+          <Property Type="Int32" Name="伝票番号" Nullable="false" />
+          <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Decimal" Name="単価" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="金額" Nullable="false" />
+          <Property Type="Int32" Name="消費税" Nullable="false" />
+          <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="S02_SHRHD">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="支払年月" />
+            <PropertyRef Name="支払締日" />
+            <PropertyRef Name="支払先コード" />
+            <PropertyRef Name="支払先枝番" />
+            <PropertyRef Name="支払日" />
+            <PropertyRef Name="回数" />
+          </Key>
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="Int32" Name="支払年月" Nullable="false" />
+          <Property Type="Int32" Name="支払締日" Nullable="false" />
+          <Property Type="Int32" Name="支払先コード" Nullable="false" />
+          <Property Type="Int32" Name="支払先枝番" Nullable="false" />
+          <Property Type="Int32" Name="支払日" Nullable="false" />
+          <Property Type="Int32" Name="回数" Nullable="false" />
+          <Property Type="DateTime" Name="支払年月日" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="集計開始日" Precision="0" />
+          <Property Type="DateTime" Name="集計最終日" Precision="0" />
+          <Property Type="Int64" Name="前月残高" Nullable="false" />
+          <Property Type="Int64" Name="支払額" Nullable="false" />
+          <Property Type="Int64" Name="値引額" Nullable="false" />
+          <Property Type="Int64" Name="非課税支払額" Nullable="false" />
+          <Property Type="Int64" Name="消費税" Nullable="false" />
+          <Property Type="Int64" Name="当月支払額" Nullable="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="S03_STOK">
+          <Key>
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="賞味期限" />
+          </Key>
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="0" />
+          <Property Type="Decimal" Name="在庫数" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="S04_HISTORY">
+          <Key>
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Type="Int64" Name="SEQ" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="入出庫日" Nullable="false" Precision="0" />
+          <Property Type="Time" Name="入出庫時刻" Nullable="false" Precision="7" />
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="入出庫区分" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="DateTime" Name="賞味期限" Precision="0" />
+          <Property Type="Int32" Name="数量" />
+          <Property Type="Int32" Name="伝票番号" />
+          <Property Type="Int32" Name="作成機能ID" Nullable="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="S05_STOK_MONTH">
+          <Key>
+            <PropertyRef Name="締年月" />
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="賞味期限" />
+          </Key>
+          <Property Type="Int32" Name="締年月" Nullable="false" />
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="在庫数量" Nullable="false" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Precision="3" />
+        </EntityType>
         <EntityType Name="T02_URDTL">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -1758,6 +2233,101 @@
           <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int32" Name="金額" />
           <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="T02_URDTL_HAN">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+            <PropertyRef Name="行番号" />
+          </Key>
+          <Property Type="Int32" Name="伝票番号" Nullable="false" />
+          <Property Type="Int32" Name="行番号" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="DateTime" Name="賞味期限" Precision="0" />
+          <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="金額" />
+          <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="調整単価" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="調整金額" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="T02_URHD">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Type="Int32" Name="伝票番号" Nullable="false" />
+          <Property Type="Int32" Name="会社名コード" Nullable="false" />
+          <Property Type="Int32" Name="伝票要否" Nullable="false" />
+          <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="売上区分" Nullable="false" />
+          <Property Type="Int32" Name="得意先コード" Nullable="false" />
+          <Property Type="Int32" Name="得意先枝番" Nullable="false" />
+          <Property Type="Int32" Name="在庫倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="納品伝票番号" />
+          <Property Type="DateTime" Name="出荷日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="受注番号" />
+          <Property Type="Int32" Name="出荷元コード" />
+          <Property Type="Int32" Name="出荷元枝番" />
+          <Property Type="String" Name="出荷元名" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="出荷先コード" />
+          <Property Type="String" Name="出荷先名" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="出荷先枝番" />
+          <Property Type="Int32" Name="仕入先コード" />
+          <Property Type="Int32" Name="仕入先枝番" />
+          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="元伝票番号" />
+          <Property Type="Int32" Name="通常税率対象金額" />
+          <Property Type="Int32" Name="軽減税率対象金額" />
+          <Property Type="Int32" Name="通常税率消費税" />
+          <Property Type="Int32" Name="軽減税率消費税" />
+          <Property Type="Int32" Name="小計" />
+          <Property Type="Int32" Name="消費税" Nullable="false" />
+          <Property Type="Int32" Name="総合計" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="T02_URHD_HAN">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Type="Int32" Name="伝票番号" Nullable="false" />
+          <Property Type="Int32" Name="会社名コード" Nullable="false" />
+          <Property Type="Int32" Name="伝票要否" Nullable="false" />
+          <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="売上区分" Nullable="false" />
+          <Property Type="Int32" Name="販社コード" Nullable="false" />
+          <Property Type="Int32" Name="在庫倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="納品伝票番号" />
+          <Property Type="DateTime" Name="出荷日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="受注番号" />
+          <Property Type="Int32" Name="出荷元コード" />
+          <Property Type="String" Name="出荷先コード" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="仕入先コード" />
+          <Property Type="Int32" Name="仕入先枝番" />
+          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="通常税率対象金額" />
+          <Property Type="Int32" Name="軽減税率対象金額" />
+          <Property Type="Int32" Name="通常税率消費税" />
+          <Property Type="Int32" Name="軽減税率消費税" />
+          <Property Type="Int32" Name="消費税" Nullable="false" />
+          <Property Type="Int32" Name="調整消費税" />
+          <Property Type="Decimal" Name="調整比率" Precision="6" Scale="3" />
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="最終更新者" />
@@ -1800,6 +2370,59 @@
           <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int32" Name="金額" Nullable="false" />
           <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="T03_SRHD">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Type="Int32" Name="伝票番号" Nullable="false" />
+          <Property Type="Int32" Name="会社名コード" Nullable="false" />
+          <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="入力区分" Nullable="false" />
+          <Property Type="Int32" Name="仕入区分" Nullable="false" />
+          <Property Type="Int32" Name="仕入先コード" Nullable="false" />
+          <Property Type="Int32" Name="仕入先枝番" Nullable="false" />
+          <Property Type="Int32" Name="入荷先コード" Nullable="false" />
+          <Property Type="Int32" Name="発注番号" />
+          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="元伝票番号" />
+          <Property Type="Int32" Name="通常税率対象金額" />
+          <Property Type="Int32" Name="軽減税率対象金額" />
+          <Property Type="Int32" Name="通常税率消費税" />
+          <Property Type="Int32" Name="軽減税率消費税" />
+          <Property Type="Int32" Name="消費税" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="T03_SRHD_HAN">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Type="Int32" Name="伝票番号" Nullable="false" />
+          <Property Type="Int32" Name="会社名コード" Nullable="false" />
+          <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="仕入区分" Nullable="false" />
+          <Property Type="Int32" Name="仕入先コード" Nullable="false" />
+          <Property Type="Int32" Name="入荷先コード" Nullable="false" />
+          <Property Type="Int32" Name="発注番号" />
+          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="通常税率対象金額" />
+          <Property Type="Int32" Name="軽減税率対象金額" />
+          <Property Type="Int32" Name="通常税率消費税" />
+          <Property Type="Int32" Name="軽減税率消費税" />
+          <Property Type="Int32" Name="小計" />
+          <Property Type="Int32" Name="消費税" />
+          <Property Type="Int32" Name="総合計" />
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="最終更新者" />
@@ -1869,6 +2492,24 @@
           <Property Type="DateTime" Name="削除日時" Precision="3" />
           <Property Type="Int32" Name="削除者" />
         </EntityType>
+        <EntityType Name="T04_AGRWK">
+          <Key>
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Type="Int64" Name="SEQ" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="依頼日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="取引先コード" Nullable="false" />
+          <Property Type="Int32" Name="枝番" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="Int32" Name="依頼数" Nullable="false" />
+          <Property Type="Int32" Name="仕上数" Nullable="false" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
         <EntityType Name="T05_IDODTL">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -1880,23 +2521,6 @@
           <Property Type="DateTime" Name="賞味期限" Precision="0" />
           <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
           <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="S03_STOK">
-          <Key>
-            <PropertyRef Name="倉庫コード" />
-            <PropertyRef Name="品番コード" />
-            <PropertyRef Name="賞味期限" />
-          </Key>
-          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="0" />
-          <Property Type="Decimal" Name="在庫数" Nullable="false" Precision="8" Scale="2" />
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="最終更新者" />
@@ -1956,104 +2580,6 @@
           <Property Type="Int32" Name="削除者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
         </EntityType>
-        <EntityType Name="T03_SRHD_HAN">
-          <Key>
-            <PropertyRef Name="伝票番号" />
-          </Key>
-          <Property Type="Int32" Name="伝票番号" Nullable="false" />
-          <Property Type="Int32" Name="会社名コード" Nullable="false" />
-          <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="仕入区分" Nullable="false" />
-          <Property Type="Int32" Name="仕入先コード" Nullable="false" />
-          <Property Type="Int32" Name="入荷先コード" Nullable="false" />
-          <Property Type="Int32" Name="発注番号" />
-          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="小計" />
-          <Property Type="Int32" Name="消費税" />
-          <Property Type="Int32" Name="総合計" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="T03_SRHD">
-          <Key>
-            <PropertyRef Name="伝票番号" />
-          </Key>
-          <Property Type="Int32" Name="伝票番号" Nullable="false" />
-          <Property Type="Int32" Name="会社名コード" Nullable="false" />
-          <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="入力区分" Nullable="false" />
-          <Property Type="Int32" Name="仕入区分" Nullable="false" />
-          <Property Type="Int32" Name="仕入先コード" Nullable="false" />
-          <Property Type="Int32" Name="仕入先枝番" Nullable="false" />
-          <Property Type="Int32" Name="入荷先コード" Nullable="false" />
-          <Property Type="Int32" Name="発注番号" />
-          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="元伝票番号" />
-          <Property Type="Int32" Name="消費税" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="S01_SEIDTL">
-          <Key>
-            <PropertyRef Name="自社コード" />
-            <PropertyRef Name="請求年月" />
-            <PropertyRef Name="請求締日" />
-            <PropertyRef Name="請求先コード" />
-            <PropertyRef Name="請求先枝番" />
-            <PropertyRef Name="入金日" />
-            <PropertyRef Name="回数" />
-            <PropertyRef Name="行" />
-          </Key>
-          <Property Type="Int32" Name="自社コード" Nullable="false" />
-          <Property Type="Int32" Name="請求年月" Nullable="false" />
-          <Property Type="Int32" Name="請求締日" Nullable="false" />
-          <Property Type="Int32" Name="請求先コード" Nullable="false" />
-          <Property Type="Int32" Name="請求先枝番" Nullable="false" />
-          <Property Type="Int32" Name="入金日" Nullable="false" />
-          <Property Type="Int32" Name="回数" Nullable="false" />
-          <Property Type="Int32" Name="行" Nullable="false" />
-          <Property Type="Int32" Name="伝票番号" Nullable="false" />
-          <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="単価" Nullable="false" Precision="8" Scale="2" />
-          <Property Type="Int32" Name="金額" Nullable="false" />
-          <Property Type="Int32" Name="消費税" Nullable="false" />
-          <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="V_TKS08010">
-          <Key>
-            <PropertyRef Name="K自社コード" />
-            <PropertyRef Name="K得意先コード" />
-            <PropertyRef Name="K得意先枝番" />
-            <PropertyRef Name="得意先コード" />
-            <PropertyRef Name="締日" />
-          </Key>
-          <Property Type="Int32" Name="K自社コード" Nullable="false" />
-          <Property Type="Int32" Name="K入金年月" />
-          <Property Type="Int32" Name="K入金日" />
-          <Property Type="Int32" Name="K得意先コード" Nullable="false" />
-          <Property Type="Int32" Name="K得意先枝番" Nullable="false" />
-          <Property Type="String" Name="得意先コード" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="得意先名" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="入金日付" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="Int64" Name="売上額" />
-          <Property Type="Int64" Name="消費税" />
-          <Property Type="Int64" Name="回収予定額" />
-          <Property Type="String" Name="請求年月" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="締日" Nullable="false" />
-          <Property Type="Int32" Name="当月入金額" />
-        </EntityType>
         <EntityType Name="T12_PAYDTL">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -2089,257 +2615,83 @@
           <Property Type="Int32" Name="削除者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
         </EntityType>
-        <EntityType Name="S02_SHRDTL">
+        <EntityType Name="V_M01_TOK">
           <Key>
-            <PropertyRef Name="自社コード" />
-            <PropertyRef Name="支払年月" />
-            <PropertyRef Name="支払締日" />
-            <PropertyRef Name="支払先コード" />
-            <PropertyRef Name="支払先枝番" />
-            <PropertyRef Name="支払日" />
-            <PropertyRef Name="回数" />
-            <PropertyRef Name="行" />
+            <PropertyRef Name="取引先コード" />
+            <PropertyRef Name="枝番" />
+            <PropertyRef Name="取引区分" />
+            <PropertyRef Name="担当会社コード" />
+            <PropertyRef Name="Ｔ消費税区分" />
+            <PropertyRef Name="Ｔ税区分ID" />
+            <PropertyRef Name="Ｔ請求区分" />
+            <PropertyRef Name="Ｓ支払消費税区分" />
+            <PropertyRef Name="Ｓ税区分ID" />
+            <PropertyRef Name="Ｓ支払区分" />
+            <PropertyRef Name="論理削除" />
           </Key>
-          <Property Type="Int32" Name="自社コード" Nullable="false" />
-          <Property Type="Int32" Name="支払年月" Nullable="false" />
-          <Property Type="Int32" Name="支払締日" Nullable="false" />
-          <Property Type="Int32" Name="支払先コード" Nullable="false" />
-          <Property Type="Int32" Name="支払先枝番" Nullable="false" />
-          <Property Type="Int32" Name="支払日" Nullable="false" />
-          <Property Type="Int32" Name="回数" Nullable="false" />
-          <Property Type="Int32" Name="行" Nullable="false" />
-          <Property Type="Int32" Name="伝票番号" Nullable="false" />
-          <Property Type="DateTime" Name="仕入日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
-          <Property Type="Decimal" Name="単価" Nullable="false" Precision="8" Scale="2" />
-          <Property Type="Int32" Name="金額" Nullable="false" />
-          <Property Type="Int32" Name="消費税" Nullable="false" />
-          <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="S02_SHRHD">
-          <Key>
-            <PropertyRef Name="自社コード" />
-            <PropertyRef Name="支払年月" />
-            <PropertyRef Name="支払締日" />
-            <PropertyRef Name="支払先コード" />
-            <PropertyRef Name="支払先枝番" />
-            <PropertyRef Name="支払日" />
-            <PropertyRef Name="回数" />
-          </Key>
-          <Property Type="Int32" Name="自社コード" Nullable="false" />
-          <Property Type="Int32" Name="支払年月" Nullable="false" />
-          <Property Type="Int32" Name="支払締日" Nullable="false" />
-          <Property Type="Int32" Name="支払先コード" Nullable="false" />
-          <Property Type="Int32" Name="支払先枝番" Nullable="false" />
-          <Property Type="Int32" Name="支払日" Nullable="false" />
-          <Property Type="Int32" Name="回数" Nullable="false" />
-          <Property Type="DateTime" Name="支払年月日" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="集計開始日" Precision="0" />
-          <Property Type="DateTime" Name="集計最終日" Precision="0" />
-          <Property Type="Int64" Name="前月残高" Nullable="false" />
-          <Property Type="Int64" Name="支払額" Nullable="false" />
-          <Property Type="Int64" Name="値引額" Nullable="false" />
-          <Property Type="Int64" Name="非課税支払額" Nullable="false" />
-          <Property Type="Int64" Name="消費税" Nullable="false" />
-          <Property Type="Int64" Name="当月支払額" Nullable="false" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="V_SHR06010">
-          <Key>
-            <PropertyRef Name="K自社コード" />
-            <PropertyRef Name="K支払年月" />
-            <PropertyRef Name="K支払先コード" />
-            <PropertyRef Name="K支払先枝番" />
-            <PropertyRef Name="支払先コード" />
-            <PropertyRef Name="締日" />
-          </Key>
-          <Property Type="Int32" Name="K自社コード" Nullable="false" />
-          <Property Type="Int32" Name="K支払年月" Nullable="false" />
-          <Property Type="Int32" Name="K入金日" />
-          <Property Type="Int32" Name="K支払先コード" Nullable="false" />
-          <Property Type="Int32" Name="K支払先枝番" Nullable="false" />
-          <Property Type="String" Name="支払先コード" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="支払先名" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="支払日付" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="Int64" Name="支払額" />
-          <Property Type="Int64" Name="消費税" />
-          <Property Type="Int64" Name="支払予定額" />
-          <Property Type="String" Name="支払年月" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="締日" Nullable="false" />
-          <Property Type="Int32" Name="当月支払額" />
-        </EntityType>
-        <EntityType Name="S04_HISTORY">
-          <Key>
-            <PropertyRef Name="SEQ" />
-          </Key>
-          <Property Type="Int64" Name="SEQ" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="入出庫日" Nullable="false" Precision="0" />
-          <Property Type="Time" Name="入出庫時刻" Nullable="false" Precision="7" />
-          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
-          <Property Type="Int32" Name="入出庫区分" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="DateTime" Name="賞味期限" Precision="0" />
-          <Property Type="Int32" Name="数量" />
-          <Property Type="Int32" Name="伝票番号" />
-          <Property Type="Int32" Name="作成機能ID" Nullable="false" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="T04_AGRWK">
-          <Key>
-            <PropertyRef Name="SEQ" />
-          </Key>
-          <Property Type="Int64" Name="SEQ" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="依頼日" Nullable="false" Precision="0" />
           <Property Type="Int32" Name="取引先コード" Nullable="false" />
           <Property Type="Int32" Name="枝番" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="Int32" Name="依頼数" Nullable="false" />
-          <Property Type="Int32" Name="仕上数" Nullable="false" />
-          <Property Type="Int32" Name="登録者" Nullable="false" />
-          <Property Type="DateTime" Name="登録日時" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="S05_STOK_MONTH">
-          <Key>
-            <PropertyRef Name="締年月" />
-            <PropertyRef Name="倉庫コード" />
-            <PropertyRef Name="品番コード" />
-            <PropertyRef Name="賞味期限" />
-          </Key>
-          <Property Type="Int32" Name="締年月" Nullable="false" />
-          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="在庫数量" Nullable="false" />
-          <Property Type="Int32" Name="登録者" Nullable="false" />
-          <Property Type="DateTime" Name="登録日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="S01_SEIHD">
-          <Key>
-            <PropertyRef Name="自社コード" />
-            <PropertyRef Name="請求年月" />
-            <PropertyRef Name="請求締日" />
-            <PropertyRef Name="請求先コード" />
-            <PropertyRef Name="請求先枝番" />
-            <PropertyRef Name="入金日" />
-            <PropertyRef Name="回数" />
-          </Key>
-          <Property Type="Int32" Name="自社コード" Nullable="false" />
-          <Property Type="Int32" Name="請求年月" Nullable="false" />
-          <Property Type="Int32" Name="請求締日" Nullable="false" />
-          <Property Type="Int32" Name="請求先コード" Nullable="false" />
-          <Property Type="Int32" Name="請求先枝番" Nullable="false" />
-          <Property Type="Int32" Name="入金日" Nullable="false" />
-          <Property Type="Int32" Name="回数" Nullable="false" />
-          <Property Type="DateTime" Name="請求年月日" Nullable="false" Precision="0" />
-          <Property Type="DateTime" Name="集計開始日" Precision="0" />
-          <Property Type="DateTime" Name="集計最終日" Precision="0" />
-          <Property Type="Int64" Name="前月残高" Nullable="false" />
-          <Property Type="Int64" Name="売上額" Nullable="false" />
-          <Property Type="Int64" Name="値引額" Nullable="false" />
-          <Property Type="Int64" Name="非税売上額" Nullable="false" />
-          <Property Type="Int64" Name="消費税" Nullable="false" />
-          <Property Type="Int64" Name="当月請求額" Nullable="false" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="T02_URDTL_HAN">
-          <Key>
-            <PropertyRef Name="伝票番号" />
-            <PropertyRef Name="行番号" />
-          </Key>
-          <Property Type="Int32" Name="伝票番号" Nullable="false" />
-          <Property Type="Int32" Name="行番号" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="DateTime" Name="賞味期限" Precision="0" />
-          <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
-          <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="金額" />
-          <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="調整単価" Precision="10" Scale="2" />
-          <Property Type="Int32" Name="調整金額" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="T02_URHD_HAN">
-          <Key>
-            <PropertyRef Name="伝票番号" />
-          </Key>
-          <Property Type="Int32" Name="伝票番号" Nullable="false" />
-          <Property Type="Int32" Name="会社名コード" Nullable="false" />
-          <Property Type="Int32" Name="伝票要否" Nullable="false" />
-          <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="売上区分" Nullable="false" />
-          <Property Type="Int32" Name="販社コード" Nullable="false" />
-          <Property Type="Int32" Name="在庫倉庫コード" Nullable="false" />
-          <Property Type="Int32" Name="納品伝票番号" />
-          <Property Type="DateTime" Name="出荷日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="受注番号" />
-          <Property Type="Int32" Name="出荷元コード" />
-          <Property Type="String" Name="出荷先コード" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="仕入先コード" />
-          <Property Type="Int32" Name="仕入先枝番" />
-          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="消費税" Nullable="false" />
-          <Property Type="Int32" Name="調整消費税" />
-          <Property Type="Decimal" Name="調整比率" Precision="6" Scale="3" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="M09_HIN">
-          <Key>
-            <PropertyRef Name="品番コード" />
-          </Key>
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="String" Name="自社品番" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="自社色" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="商品形態分類" />
-          <Property Type="Int32" Name="商品分類" />
-          <Property Type="Int32" Name="大分類" />
-          <Property Type="Int32" Name="中分類" />
-          <Property Type="String" Name="ブランド" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="シリーズ" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="品群" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="単位" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="原価" Precision="9" Scale="2" />
-          <Property Type="Decimal" Name="加工原価" Precision="9" Scale="2" />
-          <Property Type="Decimal" Name="卸値" Precision="9" Scale="2" />
-          <Property Type="Decimal" Name="売価" Precision="9" Scale="2" />
-          <Property Type="Decimal" Name="掛率" Precision="4" Scale="1" />
-          <Property Type="Int32" Name="消費税区分" />
-          <Property Type="String" Name="備考１" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="備考２" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="返却可能期限" />
-          <Property Type="String" Name="ＪＡＮコード" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="論理削除" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
+          <Property Type="Int32" Name="取引区分" Nullable="false" />
+          <Property Type="String" Name="取引区分名" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="得意先名１" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="得意先名２" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="部課名称" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="略称名" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="住所１" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="住所２" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ＦＡＸ" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="かな読み" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="担当会社コード" Nullable="false" />
+          <Property Type="String" Name="担当会社名" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｔ消費税区分" Nullable="false" />
+          <Property Type="String" Name="Ｔ消費税区分名" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｔ税区分ID" Nullable="false" />
+          <Property Type="String" Name="Ｔ税区分ID名" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｔ締日" />
+          <Property Type="Int32" Name="Ｔ請求条件" />
+          <Property Type="Int32" Name="Ｔ請求区分" Nullable="false" />
+          <Property Type="String" Name="Ｔ請求区分名" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｔサイト１" />
+          <Property Type="Int32" Name="Ｔサイト２" />
+          <Property Type="Int32" Name="Ｔ入金日１" />
+          <Property Type="Int32" Name="Ｔ入金日２" />
+          <Property Type="Int32" Name="Ｓ支払消費税区分" Nullable="false" />
+          <Property Type="String" Name="Ｓ支払消費税区分名" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｓ税区分ID" Nullable="false" />
+          <Property Type="String" Name="Ｓ税区分ID名" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｓ締日" />
+          <Property Type="Int32" Name="Ｓ支払条件" />
+          <Property Type="Int32" Name="Ｓ支払区分" Nullable="false" />
+          <Property Type="String" Name="Ｓ支払区分名" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｓサイト１" />
+          <Property Type="Int32" Name="Ｓサイト２" />
+          <Property Type="Int32" Name="Ｓ入金日１" />
+          <Property Type="Int32" Name="Ｓ入金日２" />
+          <Property Type="Int32" Name="与信枠" />
+          <Property Type="Int32" Name="Ｔ担当者コード" />
+          <Property Type="String" Name="Ｔ担当者名" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Ｓ担当者コード" />
+          <Property Type="String" Name="Ｓ担当者名" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社備考１" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社備考２" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="集約取引先コード" />
+          <Property Type="Int32" Name="集約取引先枝番" />
+          <Property Type="String" Name="集約取引先名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="参照取引先コード１" />
+          <Property Type="Int32" Name="参照取引先枝番１" />
+          <Property Type="String" Name="参照取引先名１" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="参照取引先コード２" />
+          <Property Type="Int32" Name="参照取引先枝番２" />
+          <Property Type="String" Name="参照取引先名２" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="参照取引先コード３" />
+          <Property Type="Int32" Name="参照取引先枝番３" />
+          <Property Type="String" Name="参照取引先名３" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="集計コード１" />
+          <Property Type="Int32" Name="集計コード２" />
+          <Property Type="Int32" Name="集計コード３" />
+          <Property Type="Int32" Name="論理削除" Nullable="false" />
         </EntityType>
         <EntityType Name="V_M09_HIN">
           <Key>
@@ -2377,54 +2729,99 @@
           <Property Type="Int32" Name="返却可能期限" />
           <Property Type="String" Name="ＪＡＮコード" MaxLength="13" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="M74_KGRP">
+        <EntityType Name="V_M10_TOKHIN">
           <Key>
-            <PropertyRef Name="グループ権限ID" />
-            <PropertyRef Name="プログラムID" />
+            <PropertyRef Name="取引先コード" />
+            <PropertyRef Name="枝番" />
+            <PropertyRef Name="品番コード" />
           </Key>
-          <Property Type="Int32" Name="グループ権限ID" Nullable="false" />
-          <Property Type="String" Name="プログラムID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="タブグループ番号" />
-          <Property Type="Int32" Name="使用可能FLG" />
-          <Property Type="Int32" Name="データ更新FLG" />
-          <Property Type="DateTime" Name="登録日時" Precision="3" />
-          <Property Type="DateTime" Name="更新日時" Precision="3" />
-          <Property Type="DateTime" Name="削除日付" Precision="3" />
+          <Property Type="Int32" Name="取引先コード" Nullable="false" />
+          <Property Type="Int32" Name="枝番" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="String" Name="得意先名１" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="得意先品番コード" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品番" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社色" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="色名称" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="得意先売価" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="仕入先売価" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="外注先売価" Precision="9" Scale="2" />
         </EntityType>
-        <EntityType Name="T02_URHD">
+        <EntityType Name="V_S04_HISTORY">
           <Key>
-            <PropertyRef Name="伝票番号" />
+            <PropertyRef Name="SEQ" />
+            <PropertyRef Name="入出庫日" />
+            <PropertyRef Name="入出庫時刻" />
+            <PropertyRef Name="入出庫区分" />
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="作成機能ID" />
+            <PropertyRef Name="登録日時" />
           </Key>
-          <Property Type="Int32" Name="伝票番号" Nullable="false" />
-          <Property Type="Int32" Name="会社名コード" Nullable="false" />
-          <Property Type="Int32" Name="伝票要否" Nullable="false" />
-          <Property Type="DateTime" Name="売上日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="売上区分" Nullable="false" />
-          <Property Type="Int32" Name="得意先コード" Nullable="false" />
-          <Property Type="Int32" Name="得意先枝番" Nullable="false" />
-          <Property Type="Int32" Name="在庫倉庫コード" Nullable="false" />
-          <Property Type="Int32" Name="納品伝票番号" />
-          <Property Type="DateTime" Name="出荷日" Nullable="false" Precision="0" />
-          <Property Type="Int32" Name="受注番号" />
-          <Property Type="Int32" Name="出荷元コード" />
-          <Property Type="Int32" Name="出荷元枝番" />
-          <Property Type="String" Name="出荷元名" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="出荷先コード" />
-          <Property Type="String" Name="出荷先名" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="出荷先枝番" />
-          <Property Type="Int32" Name="仕入先コード" />
-          <Property Type="Int32" Name="仕入先枝番" />
-          <Property Type="String" Name="備考" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="元伝票番号" />
-          <Property Type="Int32" Name="小計" />
-          <Property Type="Int32" Name="消費税" Nullable="false" />
-          <Property Type="Int32" Name="総合計" />
-          <Property Type="Int32" Name="登録者" />
+          <Property Type="Int64" Name="SEQ" Nullable="false" />
+          <Property Type="DateTime" Name="入出庫日" Nullable="false" Precision="0" />
+          <Property Type="Time" Name="入出庫時刻" Nullable="false" Precision="7" />
+          <Property Type="Int32" Name="入出庫区分" Nullable="false" />
+          <Property Type="String" Name="入出庫区分名" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="String" Name="倉庫名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="String" Name="自社品番" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="賞味期限" Precision="0" />
+          <Property Type="Int32" Name="数量" />
+          <Property Type="Int32" Name="伝票番号" />
+          <Property Type="Int32" Name="作成機能ID" Nullable="false" />
+          <Property Type="String" Name="作成機能名" MaxLength="18" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_SHR06010">
+          <Key>
+            <PropertyRef Name="K自社コード" />
+            <PropertyRef Name="K支払年月" />
+            <PropertyRef Name="K支払先コード" />
+            <PropertyRef Name="K支払先枝番" />
+            <PropertyRef Name="支払先コード" />
+            <PropertyRef Name="締日" />
+          </Key>
+          <Property Type="Int32" Name="K自社コード" Nullable="false" />
+          <Property Type="Int32" Name="K支払年月" Nullable="false" />
+          <Property Type="Int32" Name="K入金日" />
+          <Property Type="Int32" Name="K支払先コード" Nullable="false" />
+          <Property Type="Int32" Name="K支払先枝番" Nullable="false" />
+          <Property Type="String" Name="支払先コード" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="支払先名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="支払日付" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="支払額" />
+          <Property Type="Int64" Name="消費税" />
+          <Property Type="Int64" Name="支払予定額" />
+          <Property Type="String" Name="支払年月" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="締日" Nullable="false" />
+          <Property Type="Int32" Name="当月支払額" />
+        </EntityType>
+        <EntityType Name="V_TKS08010">
+          <Key>
+            <PropertyRef Name="K自社コード" />
+            <PropertyRef Name="K得意先コード" />
+            <PropertyRef Name="K得意先枝番" />
+            <PropertyRef Name="得意先コード" />
+            <PropertyRef Name="締日" />
+          </Key>
+          <Property Type="Int32" Name="K自社コード" Nullable="false" />
+          <Property Type="Int32" Name="K入金年月" />
+          <Property Type="Int32" Name="K入金日" />
+          <Property Type="Int32" Name="K得意先コード" Nullable="false" />
+          <Property Type="Int32" Name="K得意先枝番" Nullable="false" />
+          <Property Type="String" Name="得意先コード" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="得意先名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="入金日付" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="売上額" />
+          <Property Type="Int64" Name="消費税" />
+          <Property Type="Int64" Name="回収予定額" />
+          <Property Type="String" Name="請求年月" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="締日" Nullable="false" />
+          <Property Type="Int32" Name="当月入金額" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2552,6 +2949,41 @@
                 <ScalarProperty Name="登録者" ColumnName="登録者" />
                 <ScalarProperty Name="色名称" ColumnName="色名称" />
                 <ScalarProperty Name="色コード" ColumnName="色コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M09_HIN">
+            <EntityTypeMapping TypeName="TRAC3Model.M09_HIN">
+              <MappingFragment StoreEntitySet="M09_HIN">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="論理削除" ColumnName="論理削除" />
+                <ScalarProperty Name="ＪＡＮコード" ColumnName="ＪＡＮコード" />
+                <ScalarProperty Name="返却可能期限" ColumnName="返却可能期限" />
+                <ScalarProperty Name="備考２" ColumnName="備考２" />
+                <ScalarProperty Name="備考１" ColumnName="備考１" />
+                <ScalarProperty Name="消費税区分" ColumnName="消費税区分" />
+                <ScalarProperty Name="掛率" ColumnName="掛率" />
+                <ScalarProperty Name="売価" ColumnName="売価" />
+                <ScalarProperty Name="卸値" ColumnName="卸値" />
+                <ScalarProperty Name="加工原価" ColumnName="加工原価" />
+                <ScalarProperty Name="原価" ColumnName="原価" />
+                <ScalarProperty Name="単位" ColumnName="単位" />
+                <ScalarProperty Name="自社品名" ColumnName="自社品名" />
+                <ScalarProperty Name="品群" ColumnName="品群" />
+                <ScalarProperty Name="シリーズ" ColumnName="シリーズ" />
+                <ScalarProperty Name="ブランド" ColumnName="ブランド" />
+                <ScalarProperty Name="中分類" ColumnName="中分類" />
+                <ScalarProperty Name="大分類" ColumnName="大分類" />
+                <ScalarProperty Name="商品分類" ColumnName="商品分類" />
+                <ScalarProperty Name="商品形態分類" ColumnName="商品形態分類" />
+                <ScalarProperty Name="自社色" ColumnName="自社色" />
+                <ScalarProperty Name="自社品番" ColumnName="自社品番" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2719,13 +3151,13 @@
           <EntitySetMapping Name="M70_JIS">
             <EntityTypeMapping TypeName="TRAC3Model.M70_JIS">
               <MappingFragment StoreEntitySet="M70_JIS">
-                <ScalarProperty Name="決算月" ColumnName="決算月" />
                 <ScalarProperty Name="削除日時" ColumnName="削除日時" />
                 <ScalarProperty Name="削除者" ColumnName="削除者" />
                 <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
                 <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
                 <ScalarProperty Name="登録日時" ColumnName="登録日時" />
                 <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="決算月" ColumnName="決算月" />
                 <ScalarProperty Name="枝番" ColumnName="枝番" />
                 <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
                 <ScalarProperty Name="自社区分" ColumnName="自社区分" />
@@ -2780,6 +3212,20 @@
                 <ScalarProperty Name="軽減税率" ColumnName="軽減税率" />
                 <ScalarProperty Name="消費税率" ColumnName="消費税率" />
                 <ScalarProperty Name="適用開始日付" ColumnName="適用開始日付" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M74_KGRP">
+            <EntityTypeMapping TypeName="TRAC3Model.M74_KGRP">
+              <MappingFragment StoreEntitySet="M74_KGRP">
+                <ScalarProperty Name="削除日付" ColumnName="削除日付" />
+                <ScalarProperty Name="更新日時" ColumnName="更新日時" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="データ更新FLG" ColumnName="データ更新FLG" />
+                <ScalarProperty Name="使用可能FLG" ColumnName="使用可能FLG" />
+                <ScalarProperty Name="タブグループ番号" ColumnName="タブグループ番号" />
+                <ScalarProperty Name="プログラムID" ColumnName="プログラムID" />
+                <ScalarProperty Name="グループ権限ID" ColumnName="グループ権限ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2868,6 +3314,153 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="S01_SEIDTL">
+            <EntityTypeMapping TypeName="TRAC3Model.S01_SEIDTL">
+              <MappingFragment StoreEntitySet="S01_SEIDTL">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="摘要" ColumnName="摘要" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="金額" ColumnName="金額" />
+                <ScalarProperty Name="単価" ColumnName="単価" />
+                <ScalarProperty Name="数量" ColumnName="数量" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="売上日" ColumnName="売上日" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+                <ScalarProperty Name="行" ColumnName="行" />
+                <ScalarProperty Name="回数" ColumnName="回数" />
+                <ScalarProperty Name="入金日" ColumnName="入金日" />
+                <ScalarProperty Name="請求先枝番" ColumnName="請求先枝番" />
+                <ScalarProperty Name="請求先コード" ColumnName="請求先コード" />
+                <ScalarProperty Name="請求締日" ColumnName="請求締日" />
+                <ScalarProperty Name="請求年月" ColumnName="請求年月" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S01_SEIHD">
+            <EntityTypeMapping TypeName="TRAC3Model.S01_SEIHD">
+              <MappingFragment StoreEntitySet="S01_SEIHD">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="当月請求額" ColumnName="当月請求額" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="非税売上額" ColumnName="非税売上額" />
+                <ScalarProperty Name="値引額" ColumnName="値引額" />
+                <ScalarProperty Name="売上額" ColumnName="売上額" />
+                <ScalarProperty Name="前月残高" ColumnName="前月残高" />
+                <ScalarProperty Name="集計最終日" ColumnName="集計最終日" />
+                <ScalarProperty Name="集計開始日" ColumnName="集計開始日" />
+                <ScalarProperty Name="請求年月日" ColumnName="請求年月日" />
+                <ScalarProperty Name="回数" ColumnName="回数" />
+                <ScalarProperty Name="入金日" ColumnName="入金日" />
+                <ScalarProperty Name="請求先枝番" ColumnName="請求先枝番" />
+                <ScalarProperty Name="請求先コード" ColumnName="請求先コード" />
+                <ScalarProperty Name="請求締日" ColumnName="請求締日" />
+                <ScalarProperty Name="請求年月" ColumnName="請求年月" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S02_SHRDTL">
+            <EntityTypeMapping TypeName="TRAC3Model.S02_SHRDTL">
+              <MappingFragment StoreEntitySet="S02_SHRDTL">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="摘要" ColumnName="摘要" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="金額" ColumnName="金額" />
+                <ScalarProperty Name="単価" ColumnName="単価" />
+                <ScalarProperty Name="数量" ColumnName="数量" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="仕入日" ColumnName="仕入日" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+                <ScalarProperty Name="行" ColumnName="行" />
+                <ScalarProperty Name="回数" ColumnName="回数" />
+                <ScalarProperty Name="支払日" ColumnName="支払日" />
+                <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />
+                <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
+                <ScalarProperty Name="支払締日" ColumnName="支払締日" />
+                <ScalarProperty Name="支払年月" ColumnName="支払年月" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S02_SHRHD">
+            <EntityTypeMapping TypeName="TRAC3Model.S02_SHRHD">
+              <MappingFragment StoreEntitySet="S02_SHRHD">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="非課税支払額" ColumnName="非課税支払額" />
+                <ScalarProperty Name="値引額" ColumnName="値引額" />
+                <ScalarProperty Name="支払額" ColumnName="支払額" />
+                <ScalarProperty Name="前月残高" ColumnName="前月残高" />
+                <ScalarProperty Name="集計最終日" ColumnName="集計最終日" />
+                <ScalarProperty Name="集計開始日" ColumnName="集計開始日" />
+                <ScalarProperty Name="支払年月日" ColumnName="支払年月日" />
+                <ScalarProperty Name="回数" ColumnName="回数" />
+                <ScalarProperty Name="支払日" ColumnName="支払日" />
+                <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />
+                <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
+                <ScalarProperty Name="支払締日" ColumnName="支払締日" />
+                <ScalarProperty Name="支払年月" ColumnName="支払年月" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S03_STOK">
+            <EntityTypeMapping TypeName="TRAC3Model.S03_STOK">
+              <MappingFragment StoreEntitySet="S03_STOK">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="在庫数" ColumnName="在庫数" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S04_HISTORY">
+            <EntityTypeMapping TypeName="TRAC3Model.S04_HISTORY">
+              <MappingFragment StoreEntitySet="S04_HISTORY">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="作成機能ID" ColumnName="作成機能ID" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+                <ScalarProperty Name="数量" ColumnName="数量" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="入出庫区分" ColumnName="入出庫区分" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+                <ScalarProperty Name="入出庫時刻" ColumnName="入出庫時刻" />
+                <ScalarProperty Name="入出庫日" ColumnName="入出庫日" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S05_STOK_MONTH">
+            <EntityTypeMapping TypeName="TRAC3Model.S05_STOK_MONTH">
+              <MappingFragment StoreEntitySet="S05_STOK_MONTH">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="在庫数量" ColumnName="在庫数量" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+                <ScalarProperty Name="締年月" ColumnName="締年月" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="T02_URDTL">
             <EntityTypeMapping TypeName="TRAC3Model.T02_URDTL">
               <MappingFragment StoreEntitySet="T02_URDTL">
@@ -2885,6 +3478,103 @@
                 <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="行番号" ColumnName="行番号" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T02_URDTL_HAN">
+            <EntityTypeMapping TypeName="TRAC3Model.T02_URDTL_HAN">
+              <MappingFragment StoreEntitySet="T02_URDTL_HAN">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="調整金額" ColumnName="調整金額" />
+                <ScalarProperty Name="調整単価" ColumnName="調整単価" />
+                <ScalarProperty Name="摘要" ColumnName="摘要" />
+                <ScalarProperty Name="金額" ColumnName="金額" />
+                <ScalarProperty Name="単価" ColumnName="単価" />
+                <ScalarProperty Name="単位" ColumnName="単位" />
+                <ScalarProperty Name="数量" ColumnName="数量" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="行番号" ColumnName="行番号" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T02_URHD">
+            <EntityTypeMapping TypeName="TRAC3Model.T02_URHD">
+              <MappingFragment StoreEntitySet="T02_URHD">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="総合計" ColumnName="総合計" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="小計" ColumnName="小計" />
+                <ScalarProperty Name="軽減税率消費税" ColumnName="軽減税率消費税" />
+                <ScalarProperty Name="通常税率消費税" ColumnName="通常税率消費税" />
+                <ScalarProperty Name="軽減税率対象金額" ColumnName="軽減税率対象金額" />
+                <ScalarProperty Name="通常税率対象金額" ColumnName="通常税率対象金額" />
+                <ScalarProperty Name="元伝票番号" ColumnName="元伝票番号" />
+                <ScalarProperty Name="備考" ColumnName="備考" />
+                <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
+                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+                <ScalarProperty Name="出荷先枝番" ColumnName="出荷先枝番" />
+                <ScalarProperty Name="出荷先名" ColumnName="出荷先名" />
+                <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
+                <ScalarProperty Name="出荷元名" ColumnName="出荷元名" />
+                <ScalarProperty Name="出荷元枝番" ColumnName="出荷元枝番" />
+                <ScalarProperty Name="出荷元コード" ColumnName="出荷元コード" />
+                <ScalarProperty Name="受注番号" ColumnName="受注番号" />
+                <ScalarProperty Name="出荷日" ColumnName="出荷日" />
+                <ScalarProperty Name="納品伝票番号" ColumnName="納品伝票番号" />
+                <ScalarProperty Name="在庫倉庫コード" ColumnName="在庫倉庫コード" />
+                <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
+                <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+                <ScalarProperty Name="売上区分" ColumnName="売上区分" />
+                <ScalarProperty Name="売上日" ColumnName="売上日" />
+                <ScalarProperty Name="伝票要否" ColumnName="伝票要否" />
+                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T02_URHD_HAN">
+            <EntityTypeMapping TypeName="TRAC3Model.T02_URHD_HAN">
+              <MappingFragment StoreEntitySet="T02_URHD_HAN">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="調整比率" ColumnName="調整比率" />
+                <ScalarProperty Name="調整消費税" ColumnName="調整消費税" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="軽減税率消費税" ColumnName="軽減税率消費税" />
+                <ScalarProperty Name="通常税率消費税" ColumnName="通常税率消費税" />
+                <ScalarProperty Name="軽減税率対象金額" ColumnName="軽減税率対象金額" />
+                <ScalarProperty Name="通常税率対象金額" ColumnName="通常税率対象金額" />
+                <ScalarProperty Name="備考" ColumnName="備考" />
+                <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
+                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+                <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
+                <ScalarProperty Name="出荷元コード" ColumnName="出荷元コード" />
+                <ScalarProperty Name="受注番号" ColumnName="受注番号" />
+                <ScalarProperty Name="出荷日" ColumnName="出荷日" />
+                <ScalarProperty Name="納品伝票番号" ColumnName="納品伝票番号" />
+                <ScalarProperty Name="在庫倉庫コード" ColumnName="在庫倉庫コード" />
+                <ScalarProperty Name="販社コード" ColumnName="販社コード" />
+                <ScalarProperty Name="売上区分" ColumnName="売上区分" />
+                <ScalarProperty Name="売上日" ColumnName="売上日" />
+                <ScalarProperty Name="伝票要否" ColumnName="伝票要否" />
+                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2927,6 +3617,61 @@
                 <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="行番号" ColumnName="行番号" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T03_SRHD">
+            <EntityTypeMapping TypeName="TRAC3Model.T03_SRHD">
+              <MappingFragment StoreEntitySet="T03_SRHD">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="軽減税率消費税" ColumnName="軽減税率消費税" />
+                <ScalarProperty Name="通常税率消費税" ColumnName="通常税率消費税" />
+                <ScalarProperty Name="軽減税率対象金額" ColumnName="軽減税率対象金額" />
+                <ScalarProperty Name="通常税率対象金額" ColumnName="通常税率対象金額" />
+                <ScalarProperty Name="元伝票番号" ColumnName="元伝票番号" />
+                <ScalarProperty Name="備考" ColumnName="備考" />
+                <ScalarProperty Name="発注番号" ColumnName="発注番号" />
+                <ScalarProperty Name="入荷先コード" ColumnName="入荷先コード" />
+                <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
+                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+                <ScalarProperty Name="仕入区分" ColumnName="仕入区分" />
+                <ScalarProperty Name="入力区分" ColumnName="入力区分" />
+                <ScalarProperty Name="仕入日" ColumnName="仕入日" />
+                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T03_SRHD_HAN">
+            <EntityTypeMapping TypeName="TRAC3Model.T03_SRHD_HAN">
+              <MappingFragment StoreEntitySet="T03_SRHD_HAN">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="総合計" ColumnName="総合計" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="小計" ColumnName="小計" />
+                <ScalarProperty Name="軽減税率消費税" ColumnName="軽減税率消費税" />
+                <ScalarProperty Name="通常税率消費税" ColumnName="通常税率消費税" />
+                <ScalarProperty Name="軽減税率対象金額" ColumnName="軽減税率対象金額" />
+                <ScalarProperty Name="通常税率対象金額" ColumnName="通常税率対象金額" />
+                <ScalarProperty Name="備考" ColumnName="備考" />
+                <ScalarProperty Name="発注番号" ColumnName="発注番号" />
+                <ScalarProperty Name="入荷先コード" ColumnName="入荷先コード" />
+                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
+                <ScalarProperty Name="仕入区分" ColumnName="仕入区分" />
+                <ScalarProperty Name="仕入日" ColumnName="仕入日" />
+                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2993,6 +3738,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="T04_AGRWK">
+            <EntityTypeMapping TypeName="TRAC3Model.T04_AGRWK">
+              <MappingFragment StoreEntitySet="T04_AGRWK">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="仕上数" ColumnName="仕上数" />
+                <ScalarProperty Name="依頼数" ColumnName="依頼数" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="枝番" ColumnName="枝番" />
+                <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
+                <ScalarProperty Name="依頼日" ColumnName="依頼日" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="T05_IDODTL">
             <EntityTypeMapping TypeName="TRAC3Model.T05_IDODTL">
               <MappingFragment StoreEntitySet="T05_IDODTL">
@@ -3008,22 +3772,6 @@
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="行番号" ColumnName="行番号" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="S03_STOK">
-            <EntityTypeMapping TypeName="TRAC3Model.S03_STOK">
-              <MappingFragment StoreEntitySet="S03_STOK">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="在庫数" ColumnName="在庫数" />
-                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
-                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3081,97 +3829,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T03_SRHD_HAN">
-            <EntityTypeMapping TypeName="TRAC3Model.T03_SRHD_HAN">
-              <MappingFragment StoreEntitySet="T03_SRHD_HAN">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="総合計" ColumnName="総合計" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="小計" ColumnName="小計" />
-                <ScalarProperty Name="備考" ColumnName="備考" />
-                <ScalarProperty Name="発注番号" ColumnName="発注番号" />
-                <ScalarProperty Name="入荷先コード" ColumnName="入荷先コード" />
-                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
-                <ScalarProperty Name="仕入区分" ColumnName="仕入区分" />
-                <ScalarProperty Name="仕入日" ColumnName="仕入日" />
-                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T03_SRHD">
-            <EntityTypeMapping TypeName="TRAC3Model.T03_SRHD">
-              <MappingFragment StoreEntitySet="T03_SRHD">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="元伝票番号" ColumnName="元伝票番号" />
-                <ScalarProperty Name="備考" ColumnName="備考" />
-                <ScalarProperty Name="発注番号" ColumnName="発注番号" />
-                <ScalarProperty Name="入荷先コード" ColumnName="入荷先コード" />
-                <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
-                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
-                <ScalarProperty Name="仕入区分" ColumnName="仕入区分" />
-                <ScalarProperty Name="入力区分" ColumnName="入力区分" />
-                <ScalarProperty Name="仕入日" ColumnName="仕入日" />
-                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="S01_SEIDTL">
-            <EntityTypeMapping TypeName="TRAC3Model.S01_SEIDTL">
-              <MappingFragment StoreEntitySet="S01_SEIDTL">
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="摘要" ColumnName="摘要" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="金額" ColumnName="金額" />
-                <ScalarProperty Name="単価" ColumnName="単価" />
-                <ScalarProperty Name="数量" ColumnName="数量" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
-                <ScalarProperty Name="売上日" ColumnName="売上日" />
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-                <ScalarProperty Name="行" ColumnName="行" />
-                <ScalarProperty Name="回数" ColumnName="回数" />
-                <ScalarProperty Name="入金日" ColumnName="入金日" />
-                <ScalarProperty Name="請求先枝番" ColumnName="請求先枝番" />
-                <ScalarProperty Name="請求先コード" ColumnName="請求先コード" />
-                <ScalarProperty Name="請求締日" ColumnName="請求締日" />
-                <ScalarProperty Name="請求年月" ColumnName="請求年月" />
-                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="V_TKS08010">
-            <EntityTypeMapping TypeName="TRAC3Model.V_TKS08010">
-              <MappingFragment StoreEntitySet="V_TKS08010">
-                <ScalarProperty Name="当月入金額" ColumnName="当月入金額" />
-                <ScalarProperty Name="締日" ColumnName="締日" />
-                <ScalarProperty Name="請求年月" ColumnName="請求年月" />
-                <ScalarProperty Name="回収予定額" ColumnName="回収予定額" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="売上額" ColumnName="売上額" />
-                <ScalarProperty Name="入金日付" ColumnName="入金日付" />
-                <ScalarProperty Name="得意先名" ColumnName="得意先名" />
-                <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
-                <ScalarProperty Name="K得意先枝番" ColumnName="K得意先枝番" />
-                <ScalarProperty Name="K得意先コード" ColumnName="K得意先コード" />
-                <ScalarProperty Name="K入金日" ColumnName="K入金日" />
-                <ScalarProperty Name="K入金年月" ColumnName="K入金年月" />
-                <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="T12_PAYDTL">
             <EntityTypeMapping TypeName="TRAC3Model.T12_PAYDTL">
               <MappingFragment StoreEntitySet="T12_PAYDTL">
@@ -3208,237 +3865,72 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="S02_SHRDTL">
-            <EntityTypeMapping TypeName="TRAC3Model.S02_SHRDTL">
-              <MappingFragment StoreEntitySet="S02_SHRDTL">
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="摘要" ColumnName="摘要" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="金額" ColumnName="金額" />
-                <ScalarProperty Name="単価" ColumnName="単価" />
-                <ScalarProperty Name="数量" ColumnName="数量" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
-                <ScalarProperty Name="仕入日" ColumnName="仕入日" />
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-                <ScalarProperty Name="行" ColumnName="行" />
-                <ScalarProperty Name="回数" ColumnName="回数" />
-                <ScalarProperty Name="支払日" ColumnName="支払日" />
-                <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />
-                <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
-                <ScalarProperty Name="支払締日" ColumnName="支払締日" />
-                <ScalarProperty Name="支払年月" ColumnName="支払年月" />
-                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="S02_SHRHD">
-            <EntityTypeMapping TypeName="TRAC3Model.S02_SHRHD">
-              <MappingFragment StoreEntitySet="S02_SHRHD">
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="非課税支払額" ColumnName="非課税支払額" />
-                <ScalarProperty Name="値引額" ColumnName="値引額" />
-                <ScalarProperty Name="支払額" ColumnName="支払額" />
-                <ScalarProperty Name="前月残高" ColumnName="前月残高" />
-                <ScalarProperty Name="集計最終日" ColumnName="集計最終日" />
-                <ScalarProperty Name="集計開始日" ColumnName="集計開始日" />
-                <ScalarProperty Name="支払年月日" ColumnName="支払年月日" />
-                <ScalarProperty Name="回数" ColumnName="回数" />
-                <ScalarProperty Name="支払日" ColumnName="支払日" />
-                <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />
-                <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
-                <ScalarProperty Name="支払締日" ColumnName="支払締日" />
-                <ScalarProperty Name="支払年月" ColumnName="支払年月" />
-                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="V_SHR06010">
-            <EntityTypeMapping TypeName="TRAC3Model.V_SHR06010">
-              <MappingFragment StoreEntitySet="V_SHR06010">
-                <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
-                <ScalarProperty Name="締日" ColumnName="締日" />
-                <ScalarProperty Name="支払年月" ColumnName="支払年月" />
-                <ScalarProperty Name="支払予定額" ColumnName="支払予定額" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="支払額" ColumnName="支払額" />
-                <ScalarProperty Name="支払日付" ColumnName="支払日付" />
-                <ScalarProperty Name="支払先名" ColumnName="支払先名" />
-                <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
-                <ScalarProperty Name="K支払先枝番" ColumnName="K支払先枝番" />
-                <ScalarProperty Name="K支払先コード" ColumnName="K支払先コード" />
-                <ScalarProperty Name="K入金日" ColumnName="K入金日" />
-                <ScalarProperty Name="K支払年月" ColumnName="K支払年月" />
-                <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="S04_HISTORY">
-            <EntityTypeMapping TypeName="TRAC3Model.S04_HISTORY">
-              <MappingFragment StoreEntitySet="S04_HISTORY">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="作成機能ID" ColumnName="作成機能ID" />
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-                <ScalarProperty Name="数量" ColumnName="数量" />
-                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
-                <ScalarProperty Name="入出庫区分" ColumnName="入出庫区分" />
-                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
-                <ScalarProperty Name="入出庫時刻" ColumnName="入出庫時刻" />
-                <ScalarProperty Name="入出庫日" ColumnName="入出庫日" />
-                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T04_AGRWK">
-            <EntityTypeMapping TypeName="TRAC3Model.T04_AGRWK">
-              <MappingFragment StoreEntitySet="T04_AGRWK">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="仕上数" ColumnName="仕上数" />
-                <ScalarProperty Name="依頼数" ColumnName="依頼数" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+          <EntitySetMapping Name="V_M01_TOK">
+            <EntityTypeMapping TypeName="TRAC3Model.V_M01_TOK">
+              <MappingFragment StoreEntitySet="V_M01_TOK">
+                <ScalarProperty Name="論理削除" ColumnName="論理削除" />
+                <ScalarProperty Name="集計コード３" ColumnName="集計コード３" />
+                <ScalarProperty Name="集計コード２" ColumnName="集計コード２" />
+                <ScalarProperty Name="集計コード１" ColumnName="集計コード１" />
+                <ScalarProperty Name="参照取引先名３" ColumnName="参照取引先名３" />
+                <ScalarProperty Name="参照取引先枝番３" ColumnName="参照取引先枝番３" />
+                <ScalarProperty Name="参照取引先コード３" ColumnName="参照取引先コード３" />
+                <ScalarProperty Name="参照取引先名２" ColumnName="参照取引先名２" />
+                <ScalarProperty Name="参照取引先枝番２" ColumnName="参照取引先枝番２" />
+                <ScalarProperty Name="参照取引先コード２" ColumnName="参照取引先コード２" />
+                <ScalarProperty Name="参照取引先名１" ColumnName="参照取引先名１" />
+                <ScalarProperty Name="参照取引先枝番１" ColumnName="参照取引先枝番１" />
+                <ScalarProperty Name="参照取引先コード１" ColumnName="参照取引先コード１" />
+                <ScalarProperty Name="集約取引先名" ColumnName="集約取引先名" />
+                <ScalarProperty Name="集約取引先枝番" ColumnName="集約取引先枝番" />
+                <ScalarProperty Name="集約取引先コード" ColumnName="集約取引先コード" />
+                <ScalarProperty Name="自社備考２" ColumnName="自社備考２" />
+                <ScalarProperty Name="自社備考１" ColumnName="自社備考１" />
+                <ScalarProperty Name="Ｓ担当者名" ColumnName="Ｓ担当者名" />
+                <ScalarProperty Name="Ｓ担当者コード" ColumnName="Ｓ担当者コード" />
+                <ScalarProperty Name="Ｔ担当者名" ColumnName="Ｔ担当者名" />
+                <ScalarProperty Name="Ｔ担当者コード" ColumnName="Ｔ担当者コード" />
+                <ScalarProperty Name="与信枠" ColumnName="与信枠" />
+                <ScalarProperty Name="Ｓ入金日２" ColumnName="Ｓ入金日２" />
+                <ScalarProperty Name="Ｓ入金日１" ColumnName="Ｓ入金日１" />
+                <ScalarProperty Name="Ｓサイト２" ColumnName="Ｓサイト２" />
+                <ScalarProperty Name="Ｓサイト１" ColumnName="Ｓサイト１" />
+                <ScalarProperty Name="Ｓ支払区分名" ColumnName="Ｓ支払区分名" />
+                <ScalarProperty Name="Ｓ支払区分" ColumnName="Ｓ支払区分" />
+                <ScalarProperty Name="Ｓ支払条件" ColumnName="Ｓ支払条件" />
+                <ScalarProperty Name="Ｓ締日" ColumnName="Ｓ締日" />
+                <ScalarProperty Name="Ｓ税区分ID名" ColumnName="Ｓ税区分ID名" />
+                <ScalarProperty Name="Ｓ税区分ID" ColumnName="Ｓ税区分ID" />
+                <ScalarProperty Name="Ｓ支払消費税区分名" ColumnName="Ｓ支払消費税区分名" />
+                <ScalarProperty Name="Ｓ支払消費税区分" ColumnName="Ｓ支払消費税区分" />
+                <ScalarProperty Name="Ｔ入金日２" ColumnName="Ｔ入金日２" />
+                <ScalarProperty Name="Ｔ入金日１" ColumnName="Ｔ入金日１" />
+                <ScalarProperty Name="Ｔサイト２" ColumnName="Ｔサイト２" />
+                <ScalarProperty Name="Ｔサイト１" ColumnName="Ｔサイト１" />
+                <ScalarProperty Name="Ｔ請求区分名" ColumnName="Ｔ請求区分名" />
+                <ScalarProperty Name="Ｔ請求区分" ColumnName="Ｔ請求区分" />
+                <ScalarProperty Name="Ｔ請求条件" ColumnName="Ｔ請求条件" />
+                <ScalarProperty Name="Ｔ締日" ColumnName="Ｔ締日" />
+                <ScalarProperty Name="Ｔ税区分ID名" ColumnName="Ｔ税区分ID名" />
+                <ScalarProperty Name="Ｔ税区分ID" ColumnName="Ｔ税区分ID" />
+                <ScalarProperty Name="Ｔ消費税区分名" ColumnName="Ｔ消費税区分名" />
+                <ScalarProperty Name="Ｔ消費税区分" ColumnName="Ｔ消費税区分" />
+                <ScalarProperty Name="担当会社名" ColumnName="担当会社名" />
+                <ScalarProperty Name="担当会社コード" ColumnName="担当会社コード" />
+                <ScalarProperty Name="かな読み" ColumnName="かな読み" />
+                <ScalarProperty Name="ＦＡＸ" ColumnName="ＦＡＸ" />
+                <ScalarProperty Name="電話番号" ColumnName="電話番号" />
+                <ScalarProperty Name="住所２" ColumnName="住所２" />
+                <ScalarProperty Name="住所１" ColumnName="住所１" />
+                <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
+                <ScalarProperty Name="略称名" ColumnName="略称名" />
+                <ScalarProperty Name="部課名称" ColumnName="部課名称" />
+                <ScalarProperty Name="得意先名２" ColumnName="得意先名２" />
+                <ScalarProperty Name="得意先名１" ColumnName="得意先名１" />
+                <ScalarProperty Name="取引区分名" ColumnName="取引区分名" />
+                <ScalarProperty Name="取引区分" ColumnName="取引区分" />
                 <ScalarProperty Name="枝番" ColumnName="枝番" />
                 <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
-                <ScalarProperty Name="依頼日" ColumnName="依頼日" />
-                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="S05_STOK_MONTH">
-            <EntityTypeMapping TypeName="TRAC3Model.S05_STOK_MONTH">
-              <MappingFragment StoreEntitySet="S05_STOK_MONTH">
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="在庫数量" ColumnName="在庫数量" />
-                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
-                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
-                <ScalarProperty Name="締年月" ColumnName="締年月" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="S01_SEIHD">
-            <EntityTypeMapping TypeName="TRAC3Model.S01_SEIHD">
-              <MappingFragment StoreEntitySet="S01_SEIHD">
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="当月請求額" ColumnName="当月請求額" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="非税売上額" ColumnName="非税売上額" />
-                <ScalarProperty Name="値引額" ColumnName="値引額" />
-                <ScalarProperty Name="売上額" ColumnName="売上額" />
-                <ScalarProperty Name="前月残高" ColumnName="前月残高" />
-                <ScalarProperty Name="集計最終日" ColumnName="集計最終日" />
-                <ScalarProperty Name="集計開始日" ColumnName="集計開始日" />
-                <ScalarProperty Name="請求年月日" ColumnName="請求年月日" />
-                <ScalarProperty Name="回数" ColumnName="回数" />
-                <ScalarProperty Name="入金日" ColumnName="入金日" />
-                <ScalarProperty Name="請求先枝番" ColumnName="請求先枝番" />
-                <ScalarProperty Name="請求先コード" ColumnName="請求先コード" />
-                <ScalarProperty Name="請求締日" ColumnName="請求締日" />
-                <ScalarProperty Name="請求年月" ColumnName="請求年月" />
-                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T02_URDTL_HAN">
-            <EntityTypeMapping TypeName="TRAC3Model.T02_URDTL_HAN">
-              <MappingFragment StoreEntitySet="T02_URDTL_HAN">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="調整金額" ColumnName="調整金額" />
-                <ScalarProperty Name="調整単価" ColumnName="調整単価" />
-                <ScalarProperty Name="摘要" ColumnName="摘要" />
-                <ScalarProperty Name="金額" ColumnName="金額" />
-                <ScalarProperty Name="単価" ColumnName="単価" />
-                <ScalarProperty Name="単位" ColumnName="単位" />
-                <ScalarProperty Name="数量" ColumnName="数量" />
-                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
-                <ScalarProperty Name="行番号" ColumnName="行番号" />
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T02_URHD_HAN">
-            <EntityTypeMapping TypeName="TRAC3Model.T02_URHD_HAN">
-              <MappingFragment StoreEntitySet="T02_URHD_HAN">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="調整比率" ColumnName="調整比率" />
-                <ScalarProperty Name="調整消費税" ColumnName="調整消費税" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="備考" ColumnName="備考" />
-                <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
-                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
-                <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
-                <ScalarProperty Name="出荷元コード" ColumnName="出荷元コード" />
-                <ScalarProperty Name="受注番号" ColumnName="受注番号" />
-                <ScalarProperty Name="出荷日" ColumnName="出荷日" />
-                <ScalarProperty Name="納品伝票番号" ColumnName="納品伝票番号" />
-                <ScalarProperty Name="在庫倉庫コード" ColumnName="在庫倉庫コード" />
-                <ScalarProperty Name="販社コード" ColumnName="販社コード" />
-                <ScalarProperty Name="売上区分" ColumnName="売上区分" />
-                <ScalarProperty Name="売上日" ColumnName="売上日" />
-                <ScalarProperty Name="伝票要否" ColumnName="伝票要否" />
-                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="M09_HIN">
-            <EntityTypeMapping TypeName="TRAC3Model.M09_HIN">
-              <MappingFragment StoreEntitySet="M09_HIN">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="論理削除" ColumnName="論理削除" />
-                <ScalarProperty Name="ＪＡＮコード" ColumnName="ＪＡＮコード" />
-                <ScalarProperty Name="返却可能期限" ColumnName="返却可能期限" />
-                <ScalarProperty Name="備考２" ColumnName="備考２" />
-                <ScalarProperty Name="備考１" ColumnName="備考１" />
-                <ScalarProperty Name="消費税区分" ColumnName="消費税区分" />
-                <ScalarProperty Name="掛率" ColumnName="掛率" />
-                <ScalarProperty Name="売価" ColumnName="売価" />
-                <ScalarProperty Name="卸値" ColumnName="卸値" />
-                <ScalarProperty Name="加工原価" ColumnName="加工原価" />
-                <ScalarProperty Name="原価" ColumnName="原価" />
-                <ScalarProperty Name="単位" ColumnName="単位" />
-                <ScalarProperty Name="自社品名" ColumnName="自社品名" />
-                <ScalarProperty Name="品群" ColumnName="品群" />
-                <ScalarProperty Name="シリーズ" ColumnName="シリーズ" />
-                <ScalarProperty Name="ブランド" ColumnName="ブランド" />
-                <ScalarProperty Name="中分類" ColumnName="中分類" />
-                <ScalarProperty Name="大分類" ColumnName="大分類" />
-                <ScalarProperty Name="商品分類" ColumnName="商品分類" />
-                <ScalarProperty Name="商品形態分類" ColumnName="商品形態分類" />
-                <ScalarProperty Name="自社色" ColumnName="自社色" />
-                <ScalarProperty Name="自社品番" ColumnName="自社品番" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3479,57 +3971,87 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="M74_KGRP">
-            <EntityTypeMapping TypeName="TRAC3Model.M74_KGRP">
-              <MappingFragment StoreEntitySet="M74_KGRP">
-                <ScalarProperty Name="削除日付" ColumnName="削除日付" />
-                <ScalarProperty Name="更新日時" ColumnName="更新日時" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="データ更新FLG" ColumnName="データ更新FLG" />
-                <ScalarProperty Name="使用可能FLG" ColumnName="使用可能FLG" />
-                <ScalarProperty Name="タブグループ番号" ColumnName="タブグループ番号" />
-                <ScalarProperty Name="プログラムID" ColumnName="プログラムID" />
-                <ScalarProperty Name="グループ権限ID" ColumnName="グループ権限ID" />
+          <EntitySetMapping Name="V_M10_TOKHIN">
+            <EntityTypeMapping TypeName="TRAC3Model.V_M10_TOKHIN">
+              <MappingFragment StoreEntitySet="V_M10_TOKHIN">
+                <ScalarProperty Name="外注先売価" ColumnName="外注先売価" />
+                <ScalarProperty Name="仕入先売価" ColumnName="仕入先売価" />
+                <ScalarProperty Name="得意先売価" ColumnName="得意先売価" />
+                <ScalarProperty Name="色名称" ColumnName="色名称" />
+                <ScalarProperty Name="自社品名" ColumnName="自社品名" />
+                <ScalarProperty Name="自社色" ColumnName="自社色" />
+                <ScalarProperty Name="自社品番" ColumnName="自社品番" />
+                <ScalarProperty Name="得意先品番コード" ColumnName="得意先品番コード" />
+                <ScalarProperty Name="得意先名１" ColumnName="得意先名１" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="枝番" ColumnName="枝番" />
+                <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T02_URHD">
-            <EntityTypeMapping TypeName="TRAC3Model.T02_URHD">
-              <MappingFragment StoreEntitySet="T02_URHD">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+          <EntitySetMapping Name="V_S04_HISTORY">
+            <EntityTypeMapping TypeName="TRAC3Model.V_S04_HISTORY">
+              <MappingFragment StoreEntitySet="V_S04_HISTORY">
                 <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="総合計" ColumnName="総合計" />
-                <ScalarProperty Name="消費税" ColumnName="消費税" />
-                <ScalarProperty Name="小計" ColumnName="小計" />
-                <ScalarProperty Name="元伝票番号" ColumnName="元伝票番号" />
-                <ScalarProperty Name="備考" ColumnName="備考" />
-                <ScalarProperty Name="仕入先枝番" ColumnName="仕入先枝番" />
-                <ScalarProperty Name="仕入先コード" ColumnName="仕入先コード" />
-                <ScalarProperty Name="出荷先枝番" ColumnName="出荷先枝番" />
-                <ScalarProperty Name="出荷先名" ColumnName="出荷先名" />
-                <ScalarProperty Name="出荷先コード" ColumnName="出荷先コード" />
-                <ScalarProperty Name="出荷元名" ColumnName="出荷元名" />
-                <ScalarProperty Name="出荷元枝番" ColumnName="出荷元枝番" />
-                <ScalarProperty Name="出荷元コード" ColumnName="出荷元コード" />
-                <ScalarProperty Name="受注番号" ColumnName="受注番号" />
-                <ScalarProperty Name="出荷日" ColumnName="出荷日" />
-                <ScalarProperty Name="納品伝票番号" ColumnName="納品伝票番号" />
-                <ScalarProperty Name="在庫倉庫コード" ColumnName="在庫倉庫コード" />
-                <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
-                <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
-                <ScalarProperty Name="売上区分" ColumnName="売上区分" />
-                <ScalarProperty Name="売上日" ColumnName="売上日" />
-                <ScalarProperty Name="伝票要否" ColumnName="伝票要否" />
-                <ScalarProperty Name="会社名コード" ColumnName="会社名コード" />
+                <ScalarProperty Name="作成機能名" ColumnName="作成機能名" />
+                <ScalarProperty Name="作成機能ID" ColumnName="作成機能ID" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+                <ScalarProperty Name="数量" ColumnName="数量" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="自社品名" ColumnName="自社品名" />
+                <ScalarProperty Name="自社品番" ColumnName="自社品番" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="倉庫名" ColumnName="倉庫名" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+                <ScalarProperty Name="入出庫区分名" ColumnName="入出庫区分名" />
+                <ScalarProperty Name="入出庫区分" ColumnName="入出庫区分" />
+                <ScalarProperty Name="入出庫時刻" ColumnName="入出庫時刻" />
+                <ScalarProperty Name="入出庫日" ColumnName="入出庫日" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+          <EntitySetMapping Name="V_SHR06010">
+            <EntityTypeMapping TypeName="TRAC3Model.V_SHR06010">
+              <MappingFragment StoreEntitySet="V_SHR06010">
+                <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
+                <ScalarProperty Name="締日" ColumnName="締日" />
+                <ScalarProperty Name="支払年月" ColumnName="支払年月" />
+                <ScalarProperty Name="支払予定額" ColumnName="支払予定額" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="支払額" ColumnName="支払額" />
+                <ScalarProperty Name="支払日付" ColumnName="支払日付" />
+                <ScalarProperty Name="支払先名" ColumnName="支払先名" />
+                <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
+                <ScalarProperty Name="K支払先枝番" ColumnName="K支払先枝番" />
+                <ScalarProperty Name="K支払先コード" ColumnName="K支払先コード" />
+                <ScalarProperty Name="K入金日" ColumnName="K入金日" />
+                <ScalarProperty Name="K支払年月" ColumnName="K支払年月" />
+                <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TKS08010">
+            <EntityTypeMapping TypeName="TRAC3Model.V_TKS08010">
+              <MappingFragment StoreEntitySet="V_TKS08010">
+                <ScalarProperty Name="当月入金額" ColumnName="当月入金額" />
+                <ScalarProperty Name="締日" ColumnName="締日" />
+                <ScalarProperty Name="請求年月" ColumnName="請求年月" />
+                <ScalarProperty Name="回収予定額" ColumnName="回収予定額" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="売上額" ColumnName="売上額" />
+                <ScalarProperty Name="入金日付" ColumnName="入金日付" />
+                <ScalarProperty Name="得意先名" ColumnName="得意先名" />
+                <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+                <ScalarProperty Name="K得意先枝番" ColumnName="K得意先枝番" />
+                <ScalarProperty Name="K得意先コード" ColumnName="K得意先コード" />
+                <ScalarProperty Name="K入金日" ColumnName="K入金日" />
+                <ScalarProperty Name="K入金年月" ColumnName="K入金年月" />
+                <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

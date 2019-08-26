@@ -282,6 +282,21 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _枝番;
     
         [DataMember]
+        public Nullable<int> 決算月
+        {
+            get { return _決算月; }
+            set
+            {
+                if (_決算月 != value)
+                {
+                    _決算月 = value;
+                    OnPropertyChanged("決算月");
+                }
+            }
+        }
+        private Nullable<int> _決算月;
+    
+        [DataMember]
         public Nullable<int> 登録者
         {
             get { return _登録者; }
@@ -370,21 +385,6 @@ namespace KyoeiSystem.Application.WCFService
             }
         }
         private Nullable<System.DateTime> _削除日時;
-    
-        [DataMember]
-        public Nullable<int> 決算月
-        {
-            get { return _決算月; }
-            set
-            {
-                if (_決算月 != value)
-                {
-                    _決算月 = value;
-                    OnPropertyChanged("決算月");
-                }
-            }
-        }
-        private Nullable<int> _決算月;
 
         #endregion
 
