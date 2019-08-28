@@ -39,6 +39,34 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// データグリッドの新列定義
+        /// </summary>
+        private enum GridColumnsMapping2 : int
+        {
+            自社品番 = 0,
+            自社色 = 1,
+            商品形態分類 = 2,
+            商品分類 = 3,
+            大分類 = 4,
+            中分類 = 5,
+            ブランド = 6,
+            シリーズ = 7,
+            品群 = 8,
+            自社品名 = 9,
+            単位 = 10,
+            原価 = 11,
+            加工原価 = 12,
+            卸値 = 13,
+            売価 = 14,
+            掛率 = 15,
+            消費税区分 = 16,
+            備考１ = 17,
+            備考２ = 18,
+            返却可能期限 = 19,
+            ＪＡＮコード = 20,
+        }
+
+        /// <summary>
         /// コンボボックス用
         /// </summary>
         public class ComboBoxClass
@@ -484,25 +512,48 @@ namespace KyoeiSystem.Application.Windows.Views
 
             for (int row = 0; row <= tbl.Rows.Count - 1; row++)
             {
+                //ここでグリッドに表示する
 
                 spGridList.Rows.AddNew();
 
-                //自社品番
-                spGridList[iSpdRowIndex, GridColumnsMapping.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
-                //色
-                spGridList[iSpdRowIndex, GridColumnsMapping.色.GetHashCode()].Value = tbl.Rows[row]["色"].ToString();
-                //自社品名
-                spGridList[iSpdRowIndex, GridColumnsMapping.自社品名.GetHashCode()].Value = tbl.Rows[row]["自社品名"].ToString();
-                //原価
-                spGridList[iSpdRowIndex, GridColumnsMapping.原価.GetHashCode()].Value = tbl.Rows[row]["原価"].ToString();
-                //加工原価
-                spGridList[iSpdRowIndex, GridColumnsMapping.加工原価.GetHashCode()].Value = tbl.Rows[row]["加工原価"].ToString();
-                //卸値
-                spGridList[iSpdRowIndex, GridColumnsMapping.卸値.GetHashCode()].Value = tbl.Rows[row]["卸値"].ToString();
-                //売価
-                spGridList[iSpdRowIndex, GridColumnsMapping.売価.GetHashCode()].Value = tbl.Rows[row]["売価"].ToString();
-                //掛率
-                spGridList[iSpdRowIndex, GridColumnsMapping.掛率.GetHashCode()].Value = tbl.Rows[row]["掛率"].ToString();
+                ////自社品番
+                //spGridList[iSpdRowIndex, GridColumnsMapping.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
+                ////色
+                //spGridList[iSpdRowIndex, GridColumnsMapping.色.GetHashCode()].Value = tbl.Rows[row]["色"].ToString();
+                ////自社品名
+                //spGridList[iSpdRowIndex, GridColumnsMapping.自社品名.GetHashCode()].Value = tbl.Rows[row]["自社品名"].ToString();
+                ////原価
+                //spGridList[iSpdRowIndex, GridColumnsMapping.原価.GetHashCode()].Value = tbl.Rows[row]["原価"].ToString();
+                ////加工原価
+                //spGridList[iSpdRowIndex, GridColumnsMapping.加工原価.GetHashCode()].Value = tbl.Rows[row]["加工原価"].ToString();
+                ////卸値
+                //spGridList[iSpdRowIndex, GridColumnsMapping.卸値.GetHashCode()].Value = tbl.Rows[row]["卸値"].ToString();
+                ////売価
+                //spGridList[iSpdRowIndex, GridColumnsMapping.売価.GetHashCode()].Value = tbl.Rows[row]["売価"].ToString();
+                ////掛率
+                //spGridList[iSpdRowIndex, GridColumnsMapping.掛率.GetHashCode()].Value = tbl.Rows[row]["掛率"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.自社色.GetHashCode()].Value = tbl.Rows[row]["自社色"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.商品形態分類.GetHashCode()].Value = tbl.Rows[row]["商品形態分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.商品分類.GetHashCode()].Value = tbl.Rows[row]["商品分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.大分類.GetHashCode()].Value = tbl.Rows[row]["大分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.中分類.GetHashCode()].Value = tbl.Rows[row]["中分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.ブランド.GetHashCode()].Value = tbl.Rows[row]["ブランド"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.シリーズ.GetHashCode()].Value = tbl.Rows[row]["シリーズ"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.品群.GetHashCode()].Value = tbl.Rows[row]["品群"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.自社品名.GetHashCode()].Value = tbl.Rows[row]["自社品名"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.単位.GetHashCode()].Value = tbl.Rows[row]["単位"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.原価.GetHashCode()].Value = tbl.Rows[row]["原価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.加工原価.GetHashCode()].Value = tbl.Rows[row]["加工原価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.卸値.GetHashCode()].Value = tbl.Rows[row]["卸値"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.売価.GetHashCode()].Value = tbl.Rows[row]["売価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.掛率.GetHashCode()].Value = tbl.Rows[row]["掛率"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.消費税区分.GetHashCode()].Value = tbl.Rows[row]["消費税区分"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.備考１.GetHashCode()].Value = tbl.Rows[row]["備考１"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.備考２.GetHashCode()].Value = tbl.Rows[row]["備考２"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.返却可能期限.GetHashCode()].Value = tbl.Rows[row]["返却可能期限"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping2.ＪＡＮコード.GetHashCode()].Value = tbl.Rows[row]["ＪＡＮコード"].ToString();
+
 
                 //スプレッド行インデックスインクリメント
                 iSpdRowIndex = iSpdRowIndex + 1;

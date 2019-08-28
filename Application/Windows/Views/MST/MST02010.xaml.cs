@@ -597,12 +597,12 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBox.Show("自社品番が設定されていない為、選択できません。", "自社品番未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                     return;
                 }
-                if (string.IsNullOrEmpty(this.Copy_ColorCode.Text1))
-                {
-                    this.ColorCode.SetFocus();
-                    MessageBox.Show("色が設定されていない為、選択できません。", "色未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                    return;
-                }
+                //if (string.IsNullOrEmpty(this.Copy_ColorCode.Text1))
+                //{
+                //    this.ColorCode.SetFocus();
+                //    MessageBox.Show("色が設定されていない為、選択できません。", "色未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                //    return;
+                //}
 
                 // 品番コードデータ検索
                 base.SendRequest(

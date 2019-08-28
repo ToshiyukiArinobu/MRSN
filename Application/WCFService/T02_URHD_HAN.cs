@@ -312,6 +312,21 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _軽減税率消費税;
     
         [DataMember]
+        public Nullable<int> 小計
+        {
+            get { return _小計; }
+            set
+            {
+                if (_小計 != value)
+                {
+                    _小計 = value;
+                    OnPropertyChanged("小計");
+                }
+            }
+        }
+        private Nullable<int> _小計;
+    
+        [DataMember]
         public int 消費税
         {
             get { return _消費税; }
@@ -325,6 +340,21 @@ namespace KyoeiSystem.Application.WCFService
             }
         }
         private int _消費税;
+    
+        [DataMember]
+        public Nullable<int> 総合計
+        {
+            get { return _総合計; }
+            set
+            {
+                if (_総合計 != value)
+                {
+                    _総合計 = value;
+                    OnPropertyChanged("総合計");
+                }
+            }
+        }
+        private Nullable<int> _総合計;
     
         [DataMember]
         public Nullable<int> 調整消費税

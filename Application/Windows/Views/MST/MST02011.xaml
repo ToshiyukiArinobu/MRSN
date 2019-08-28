@@ -219,7 +219,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <sg:GcSpreadGrid
-                  Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="8" HorizontalAlignment="Left" Height="450" Width="750"
+                  Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="21" HorizontalAlignment="Left" Height="450" Width="750"
                   ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="0"
                   ItemsSource="{Binding SearchResult, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                   DocumentUri="/KyoeiSystem.Application.Windows;component/views/MST/MST02011G1.sgxml" OperationMode="Normal"

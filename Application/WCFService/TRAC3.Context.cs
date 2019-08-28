@@ -293,18 +293,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<T02_URDTL_HAN> _t02_URDTL_HAN;
     
-        public ObjectSet<T02_URHD> T02_URHD
-        {
-            get { return _t02_URHD  ?? (_t02_URHD = CreateObjectSet<T02_URHD>("T02_URHD")); }
-        }
-        private ObjectSet<T02_URHD> _t02_URHD;
-    
-        public ObjectSet<T02_URHD_HAN> T02_URHD_HAN
-        {
-            get { return _t02_URHD_HAN  ?? (_t02_URHD_HAN = CreateObjectSet<T02_URHD_HAN>("T02_URHD_HAN")); }
-        }
-        private ObjectSet<T02_URHD_HAN> _t02_URHD_HAN;
-    
         public ObjectSet<T03_SRDTL> T03_SRDTL
         {
             get { return _t03_SRDTL  ?? (_t03_SRDTL = CreateObjectSet<T03_SRDTL>("T03_SRDTL")); }
@@ -316,12 +304,6 @@ namespace KyoeiSystem.Application.WCFService
             get { return _t03_SRDTL_HAN  ?? (_t03_SRDTL_HAN = CreateObjectSet<T03_SRDTL_HAN>("T03_SRDTL_HAN")); }
         }
         private ObjectSet<T03_SRDTL_HAN> _t03_SRDTL_HAN;
-    
-        public ObjectSet<T03_SRHD> T03_SRHD
-        {
-            get { return _t03_SRHD  ?? (_t03_SRHD = CreateObjectSet<T03_SRHD>("T03_SRHD")); }
-        }
-        private ObjectSet<T03_SRHD> _t03_SRHD;
     
         public ObjectSet<T03_SRHD_HAN> T03_SRHD_HAN
         {
@@ -424,6 +406,24 @@ namespace KyoeiSystem.Application.WCFService
             get { return _v_TKS08010  ?? (_v_TKS08010 = CreateObjectSet<V_TKS08010>("V_TKS08010")); }
         }
         private ObjectSet<V_TKS08010> _v_TKS08010;
+    
+        public ObjectSet<T02_URHD> T02_URHD
+        {
+            get { return _t02_URHD  ?? (_t02_URHD = CreateObjectSet<T02_URHD>("T02_URHD")); }
+        }
+        private ObjectSet<T02_URHD> _t02_URHD;
+    
+        public ObjectSet<T02_URHD_HAN> T02_URHD_HAN
+        {
+            get { return _t02_URHD_HAN  ?? (_t02_URHD_HAN = CreateObjectSet<T02_URHD_HAN>("T02_URHD_HAN")); }
+        }
+        private ObjectSet<T02_URHD_HAN> _t02_URHD_HAN;
+    
+        public ObjectSet<T03_SRHD> T03_SRHD
+        {
+            get { return _t03_SRHD  ?? (_t03_SRHD = CreateObjectSet<T03_SRHD>("T03_SRHD")); }
+        }
+        private ObjectSet<T03_SRHD> _t03_SRHD;
 
         #endregion
 
