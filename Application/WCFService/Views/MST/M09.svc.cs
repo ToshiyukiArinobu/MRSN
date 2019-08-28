@@ -187,16 +187,22 @@ namespace KyoeiSystem.Application.WCFService
             {
                 context.Connection.Open();
 
-                int iColorCode = -1;
-                if (!int.TryParse(ColorCode, out iColorCode))
-                    return new List<M09_HIN>();
-
-                var result =
+                if (string.IsNullOrEmpty(ColorCode))
+                {
+                    var result =
                     context.M09_HIN.Where(w => (w.削除日時 == null || w.論理削除 == 論理削除)
-                                                    && w.自社品番 == myProductCode && w.自社色 == ColorCode);
+                                                    && w.自社品番 == myProductCode && w.自社色 == null);
+                    return result.ToList();
+                }
+                else
+                {
 
-                return result.ToList();
+                    var result =
+                        context.M09_HIN.Where(w => (w.削除日時 == null || w.論理削除 == 論理削除)
+                                                        && w.自社品番 == myProductCode && w.自社色 == ColorCode);
 
+                    return result.ToList();
+                }
             }
 
         }
