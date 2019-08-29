@@ -20,7 +20,15 @@ namespace KyoeiSystem.Application.WCFService
     /// </summary>
     public class MST02011
     {
-      
+        public class MST02011_DATASET
+        {
+            public List<M06_IRO> M06List = new List<M06_IRO>();
+            public List<M12_DAIBUNRUI> M12List = new List<M12_DAIBUNRUI>();
+            public List<M13_TYUBUNRUI> M13List = new List<M13_TYUBUNRUI>();
+            public List<M14_BRAND> M14List = new List<M14_BRAND>();
+            public List<M15_SERIES> M15List = new List<M15_SERIES>();
+            public List<M16_HINGUN> M16List = new List<M16_HINGUN>();
+        }
        
         /// <summary>
         /// MST02011データメンバー
@@ -102,35 +110,35 @@ namespace KyoeiSystem.Application.WCFService
                             continue;
 
 
-
+                        int i品番コード = int.Parse(row["品番コード"].ToString());
                         // 対象データ取得
                         var data =
                             context.M09_HIN
-                                .Where(w => w.品番コード == (int)row["品番コード"])
+                                .Where(w => w.品番コード == i品番コード)
                                 .FirstOrDefault();
 
                         if (data != null)
                         {
                             data.自社品番 = (string)row["自社品番"];
-                            data.自社色 = (string)row["自社色"];
-                            data.商品形態分類 = (int?)row["商品形態分類"];
-                            data.商品分類 = (int?)row["商品分類"];
-                            data.大分類 = (int?)row["大分類"];
-                            data.中分類 = (int?)row["中分類"];
+                            data.自社色 = ConvertstringFromString(row["自社色"].ToString());
+                            data.商品形態分類 = ConvertintFromString(row["商品形態分類"].ToString());
+                            data.商品分類 = ConvertintFromString(row["商品分類"].ToString());
+                            data.大分類 = ConvertintFromString(row["大分類"].ToString());
+                            data.中分類 = ConvertintFromString(row["中分類"].ToString());
                             data.ブランド = (string)row["ブランド"];
                             data.シリーズ = (string)row["シリーズ"];
                             data.品群 = (string)row["品群"];
                             data.自社品名 = (string)row["自社品名"];
                             data.単位 = (string)row["単位"];
-                            data.原価 = decimal.Parse(row["原価"].ToString());
-                            data.加工原価 = decimal.Parse(row["加工原価"].ToString());
-                            data.卸値 = decimal.Parse(row["卸値"].ToString());
-                            data.売価 = decimal.Parse(row["売価"].ToString());
-                            data.掛率 = decimal.Parse(row["掛率"].ToString());
-                            data.消費税区分 = (int?)row["消費税区分"];
+                            data.原価 = ConvertdecimalFromString(row["原価"].ToString());
+                            data.加工原価 = ConvertdecimalFromString(row["加工原価"].ToString());
+                            data.卸値 = ConvertdecimalFromString(row["卸値"].ToString());
+                            data.売価 = ConvertdecimalFromString(row["売価"].ToString());
+                            data.掛率 = ConvertdecimalFromString(row["掛率"].ToString());
+                            data.消費税区分 = ConvertintFromString(row["消費税区分"].ToString());
                             data.備考１ = (string)row["備考１"];
                             data.備考２ = (string)row["備考２"];
-                            data.返却可能期限 = (int?)row["返却可能期限"];
+                            data.返却可能期限 = ConvertintFromString(row["返却可能期限"].ToString());
                             data.ＪＡＮコード = (string)row["ＪＡＮコード"];
 
 
@@ -146,15 +154,79 @@ namespace KyoeiSystem.Application.WCFService
                     context.SaveChanges();
 
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    return 0;
+                    throw;
                 }
 
             }
 
             return 1;
         }
+
+
+        /// <summary>
+        /// 文字列からnullに変換
+        /// </summary>
+        /// <param name="strData"></param>
+        /// <returns></returns>
+        private string ConvertstringFromString(string strData)
+        {
+            if (string.IsNullOrEmpty(strData))
+            {
+                return null;
+            }
+            else
+            {
+                return strData;
+            }
+        }
+        /// <summary>
+        /// 文字列からint?に変換
+        /// </summary>
+        /// <param name="strData"></param>
+        /// <returns></returns>
+        private int? ConvertintFromString(string strData)
+        {
+            if (string.IsNullOrEmpty(strData))
+            {
+                return null;
+            }
+
+            int retData;
+            if (int.TryParse(strData, out retData))
+            {
+                return retData;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 文字列からdecimal?に変換
+        /// </summary>
+        /// <param name="strData"></param>
+        /// <returns></returns>
+        private decimal? ConvertdecimalFromString(string strData)
+        {
+            if (string.IsNullOrEmpty(strData))
+            {
+                return null;
+            }
+
+            decimal retData;
+            if (decimal.TryParse(strData, out retData))
+            {
+                return retData;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// 
@@ -174,6 +246,44 @@ namespace KyoeiSystem.Application.WCFService
             data.掛率 = decimal.Parse(rw["掛率"].ToString());
             return data;
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public MST02011_DATASET GetMasterDataSet()
+        {
+            MST02011_DATASET retDataSet = new MST02011_DATASET();
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                var m06 = from x in context.M06_IRO
+                          select x;
+                retDataSet.M06List = m06.ToList();
+                //[M12_DAIBUNRUI]
+                var m12 = from x in context.M12_DAIBUNRUI
+                          select x;
+                retDataSet.M12List = m12.ToList();
+                //[M13_TYUBUNRUI]
+                var m13 = from x in context.M13_TYUBUNRUI
+                          select x;
+                retDataSet.M13List = m13.ToList();
+                //[M14_BRAND]
+                var m14 = from x in context.M14_BRAND
+                          select x;
+                retDataSet.M14List = m14.ToList();
+                //[M15_SERIES]
+                var m15 = from x in context.M15_SERIES
+                          select x;
+                retDataSet.M15List = m15.ToList();
+                //[M16_HINGUN]
+                var m16 = from x in context.M16_HINGUN
+                          select x;
+                retDataSet.M16List = m16.ToList();
+            }
+            return retDataSet;
         }
 
     }

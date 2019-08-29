@@ -245,23 +245,11 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<S01_SEIDTL> _s01_SEIDTL;
     
-        public ObjectSet<S01_SEIHD> S01_SEIHD
-        {
-            get { return _s01_SEIHD  ?? (_s01_SEIHD = CreateObjectSet<S01_SEIHD>("S01_SEIHD")); }
-        }
-        private ObjectSet<S01_SEIHD> _s01_SEIHD;
-    
         public ObjectSet<S02_SHRDTL> S02_SHRDTL
         {
             get { return _s02_SHRDTL  ?? (_s02_SHRDTL = CreateObjectSet<S02_SHRDTL>("S02_SHRDTL")); }
         }
         private ObjectSet<S02_SHRDTL> _s02_SHRDTL;
-    
-        public ObjectSet<S02_SHRHD> S02_SHRHD
-        {
-            get { return _s02_SHRHD  ?? (_s02_SHRHD = CreateObjectSet<S02_SHRHD>("S02_SHRHD")); }
-        }
-        private ObjectSet<S02_SHRHD> _s02_SHRHD;
     
         public ObjectSet<S03_STOK> S03_STOK
         {
@@ -424,6 +412,18 @@ namespace KyoeiSystem.Application.WCFService
             get { return _t03_SRHD  ?? (_t03_SRHD = CreateObjectSet<T03_SRHD>("T03_SRHD")); }
         }
         private ObjectSet<T03_SRHD> _t03_SRHD;
+    
+        public ObjectSet<S01_SEIHD> S01_SEIHD
+        {
+            get { return _s01_SEIHD  ?? (_s01_SEIHD = CreateObjectSet<S01_SEIHD>("S01_SEIHD")); }
+        }
+        private ObjectSet<S01_SEIHD> _s01_SEIHD;
+    
+        public ObjectSet<S02_SHRHD> S02_SHRHD
+        {
+            get { return _s02_SHRHD  ?? (_s02_SHRHD = CreateObjectSet<S02_SHRHD>("S02_SHRHD")); }
+        }
+        private ObjectSet<S02_SHRHD> _s02_SHRHD;
 
         #endregion
 

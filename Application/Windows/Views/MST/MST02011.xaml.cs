@@ -3,6 +3,7 @@ using KyoeiSystem.Framework.Core;
 using KyoeiSystem.Framework.Windows.ViewBase;
 using KyoeiSystem.Framework.Windows.Controls;
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
@@ -22,26 +23,10 @@ namespace KyoeiSystem.Application.Windows.Views
     public partial class MST02011 : RibbonWindowViewBase
     {
         #region << 列挙型定義 >>
-
-        /// <summary>
-        /// データグリッドの列定義
-        /// </summary>
-        private enum GridColumnsMapping : int
-        {
-            自社品番 = 0,
-            色 = 1,
-            自社品名 = 2,
-            原価 = 3,
-            加工原価 = 4,
-            卸値 = 5,
-            売価 = 6,
-            掛率 = 7
-        }
-
         /// <summary>
         /// データグリッドの新列定義
         /// </summary>
-        private enum GridColumnsMapping2 : int
+        private enum GridColumnsMapping : int
         {
             自社品番 = 0,
             自社色 = 1,
@@ -105,6 +90,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         private const string MST02011_GetData = "MST02011_GetData";
         private const string MST02011_Update = "MST02011_Update";
+        private const string MST02011_GetMasterDataSet = "MST02011_GetMasterDataSet";
 
 
         //商品分類コンボ用
@@ -153,6 +139,14 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
+        public DataSet _MasterDataSet;
+        public DataSet MasterDataSet
+        {
+            get { return this._MasterDataSet; }
+            set { this._MasterDataSet = value; NotifyPropertyChanged(); }
+
+        }
+
         private string _自社品名 = string.Empty;
         public string 自社品名
         {
@@ -197,7 +191,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // 初期状態を保存（SPREADリセット時にのみ使用する）
             this.sp_Config = AppCommon.SaveSpConfig(this.spGridList);
 
-            
+            base.SendRequest(new CommunicationObject(MessageType.RequestData, MST02011_GetMasterDataSet, null));
 
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
@@ -256,8 +250,10 @@ namespace KyoeiSystem.Application.Windows.Views
             this.spGridList.RowCount = 0;
 
             if (SearchResult != null)
+            {
                 SearchResult.Clear();
-
+            }
+            SearchResult = null;
 
             自社品名 = string.Empty;
             cmb_商品分類.SelectedIndex = 0;
@@ -281,6 +277,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
             switch (message.GetMessageName())
             {
+                case MST02011_GetMasterDataSet:
+                    if (data is DataSet)
+                    {
+                        MasterDataSet = data as DataSet;
+                    }
+                    break;
                 case MST02011_GetData :
                     base.SetFreeForInput();
                     if (tbl.Rows.Count > 0)
@@ -338,6 +340,11 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (SearchResult == null)
                     return;
 
+                if (UpdateValidataCheck() == false)
+                {
+                    return;
+                }
+
                 DataSet ds = new DataSet();
                 ds.Tables.Add(SearchResult);
 
@@ -385,7 +392,266 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        
+        /// <summary>
+        /// 更新前データチェック
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdateValidataCheck()
+        {
+            //バイト数検索用
+            Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+            int bytenum;
+            int iData;
+            decimal dData;
+            for (int i = 0; i < SearchResult.Rows.Count; i++)
+            {
+                DataRow drData = SearchResult.Rows[i];
+                //品番コード	int	Yes
+                //自社品番	varchar(12)	
+                bytenum = sjisEnc.GetByteCount(drData["自社品番"].ToString());
+                if (bytenum > 12)
+                {
+                    this.ErrorMessage = (i+1).ToString() + "行目の自社品番が12byteを超えています。";
+                    return false;
+                }
+                //自社色	varchar(3)
+                if (string.IsNullOrEmpty(drData["自社色"].ToString()) == false)
+                {
+                    DataTable dtM06 = MasterDataSet.Tables["M06List"];
+
+                    DataRow[] drlist = dtM06.Select("色コード = '" + drData["自社色"].ToString() +"'");
+
+                    if (drlist.Length == 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の自社色はマスタに存在しないデータがセットされています。";
+                        return false;
+                    }
+                }
+                //商品形態分類	int
+                if (int.TryParse(drData["商品形態分類"].ToString(), out iData))
+                {
+                    if (iData > 4 || iData <= 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の商品形態分類を1～4でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の商品形態分類を1～4でないデータがセットされています。";
+                    return false;
+                }
+                //商品分類	int	
+                if (int.TryParse(drData["商品分類"].ToString(), out iData))
+                {
+                    if (iData > 3 || iData <= 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の商品分類を1～3でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の商品分類を1～3でないデータがセットされています。";
+                    return false;
+                }
+                //大分類	int
+                if (string.IsNullOrEmpty(drData["大分類"].ToString()) == false)
+                {
+                    DataTable dtM12 = MasterDataSet.Tables["M12List"];
+
+                    DataRow[] drlist = dtM12.Select("大分類コード = " + drData["大分類"].ToString());
+
+                    if (drlist.Length == 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の大分類はマスタに存在しないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の大分類のデータがセットされていません。";
+                    return false;
+                }
+                //中分類	int	
+                if (string.IsNullOrEmpty(drData["中分類"].ToString()) == false)
+                {
+                    DataTable dtM13 = MasterDataSet.Tables["M13List"];
+
+                    DataRow[] drlist = dtM13.Select("中分類コード = " + drData["中分類"].ToString());
+
+                    if (drlist.Length == 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の中分類はマスタに存在しないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の中分類のデータがセットされていません。";
+                    return false;
+                }
+                //ブランド	varchar(3)
+                if (string.IsNullOrEmpty(drData["ブランド"].ToString()) == false)
+                {
+                    DataTable dtM14 = MasterDataSet.Tables["M14List"];
+
+                    DataRow[] drlist = dtM14.Select("ブランドコード = " + drData["ブランド"].ToString());
+
+                    if (drlist.Length == 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目のブランドはマスタに存在しないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目のブランドのデータがセットされていません。";
+                    return false;
+                }
+                //シリーズ	varchar(3)	
+                if (string.IsNullOrEmpty(drData["シリーズ"].ToString()) == false)
+                {
+                    DataTable dtM15 = MasterDataSet.Tables["M15List"];
+
+                    DataRow[] drlist = dtM15.Select("シリーズコード = " + drData["シリーズ"].ToString());
+
+                    if (drlist.Length == 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目のシリーズはマスタに存在しないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目のシリーズのデータがセットされていません。";
+                    return false;
+                }
+                //品群	varchar(3)	
+                if (string.IsNullOrEmpty(drData["品群"].ToString()) == false)
+                {
+                    DataTable dtM16 = MasterDataSet.Tables["M16List"];
+
+                    DataRow[] drlist = dtM16.Select("品群コード = " + drData["品群"].ToString());
+
+                    if (drlist.Length == 0)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の品群はマスタに存在しないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の品群のデータがセットされていません。";
+                    return false;
+                }
+                //自社品名	varchar(50)	
+                bytenum = sjisEnc.GetByteCount(drData["自社品名"].ToString());
+                if (bytenum > 50)
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の自社品名が50byteを超えています。";
+                    return false;
+                }
+                //単位	varchar(10)	
+                bytenum = sjisEnc.GetByteCount(drData["単位"].ToString());
+                if (bytenum > 10)
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の単位が10byteを超えています。";
+                    return false;
+                }
+                //原価	decimal(9, 2)	
+                if (string.IsNullOrEmpty(drData["原価"].ToString()) == false)
+                {
+                    if (decimal.TryParse(drData["原価"].ToString(), out dData) == false)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の原価が数値でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                //加工原価	decimal(9, 2)
+                if (string.IsNullOrEmpty(drData["加工原価"].ToString()) == false)
+                {
+                    if (decimal.TryParse(drData["加工原価"].ToString(), out dData) == false)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の加工原価が数値でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                //卸値	decimal(9, 2)	
+                if (string.IsNullOrEmpty(drData["卸値"].ToString()) == false)
+                {
+                    if (decimal.TryParse(drData["卸値"].ToString(), out dData) == false)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の卸値が数値でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                //売価	decimal(9, 2)
+                if (string.IsNullOrEmpty(drData["売価"].ToString()) == false)
+                {
+                    if (decimal.TryParse(drData["売価"].ToString(), out dData) == false)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の売価が数値でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                //掛率	decimal(4, 1)
+                if (string.IsNullOrEmpty(drData["掛率"].ToString()) == false)
+                {
+                    if (decimal.TryParse(drData["掛率"].ToString(), out dData) == false)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の掛率が数値でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                //消費税区分	int	
+                if (int.TryParse(drData["消費税区分"].ToString(), out iData))
+                {
+                    if (iData > 2)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の消費税区分を0～2でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の消費税区分を0～2でないデータがセットされています。";
+                    return false;
+                }
+                //備考１	varchar(32)	
+                bytenum = sjisEnc.GetByteCount(drData["備考１"].ToString());
+                if (bytenum > 32)
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の備考１が32byteを超えています。";
+                    return false;
+                }
+                //備考２	varchar(32)	
+                bytenum = sjisEnc.GetByteCount(drData["備考２"].ToString());
+                if (bytenum > 32)
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の備考２が32byteを超えています。";
+                    return false;
+                }
+                //返却可能期限	int
+                if(string.IsNullOrEmpty(drData["返却可能期限"].ToString()) == false)
+                {
+                    if (int.TryParse(drData["返却可能期限"].ToString(), out iData) == false)
+                    {
+                        this.ErrorMessage = (i + 1).ToString() + "行目の返却可能期限が数値でないデータがセットされています。";
+                        return false;
+                    }
+                }
+                //ＪＡＮコード	varchar(13)	
+                bytenum = sjisEnc.GetByteCount(drData["ＪＡＮコード"].ToString());
+                if (bytenum > 13)
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目のＪＡＮコードが13byteを超えています。";
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         #region 一覧検索処理
 
@@ -532,27 +798,27 @@ namespace KyoeiSystem.Application.Windows.Views
                 //spGridList[iSpdRowIndex, GridColumnsMapping.売価.GetHashCode()].Value = tbl.Rows[row]["売価"].ToString();
                 ////掛率
                 //spGridList[iSpdRowIndex, GridColumnsMapping.掛率.GetHashCode()].Value = tbl.Rows[row]["掛率"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.自社色.GetHashCode()].Value = tbl.Rows[row]["自社色"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.商品形態分類.GetHashCode()].Value = tbl.Rows[row]["商品形態分類"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.商品分類.GetHashCode()].Value = tbl.Rows[row]["商品分類"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.大分類.GetHashCode()].Value = tbl.Rows[row]["大分類"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.中分類.GetHashCode()].Value = tbl.Rows[row]["中分類"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.ブランド.GetHashCode()].Value = tbl.Rows[row]["ブランド"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.シリーズ.GetHashCode()].Value = tbl.Rows[row]["シリーズ"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.品群.GetHashCode()].Value = tbl.Rows[row]["品群"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.自社品名.GetHashCode()].Value = tbl.Rows[row]["自社品名"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.単位.GetHashCode()].Value = tbl.Rows[row]["単位"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.原価.GetHashCode()].Value = tbl.Rows[row]["原価"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.加工原価.GetHashCode()].Value = tbl.Rows[row]["加工原価"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.卸値.GetHashCode()].Value = tbl.Rows[row]["卸値"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.売価.GetHashCode()].Value = tbl.Rows[row]["売価"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.掛率.GetHashCode()].Value = tbl.Rows[row]["掛率"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.消費税区分.GetHashCode()].Value = tbl.Rows[row]["消費税区分"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.備考１.GetHashCode()].Value = tbl.Rows[row]["備考１"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.備考２.GetHashCode()].Value = tbl.Rows[row]["備考２"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.返却可能期限.GetHashCode()].Value = tbl.Rows[row]["返却可能期限"].ToString();
-                spGridList[iSpdRowIndex, GridColumnsMapping2.ＪＡＮコード.GetHashCode()].Value = tbl.Rows[row]["ＪＡＮコード"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.自社色.GetHashCode()].Value = tbl.Rows[row]["自社色"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.商品形態分類.GetHashCode()].Value = tbl.Rows[row]["商品形態分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.商品分類.GetHashCode()].Value = tbl.Rows[row]["商品分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.大分類.GetHashCode()].Value = tbl.Rows[row]["大分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.中分類.GetHashCode()].Value = tbl.Rows[row]["中分類"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.ブランド.GetHashCode()].Value = tbl.Rows[row]["ブランド"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.シリーズ.GetHashCode()].Value = tbl.Rows[row]["シリーズ"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.品群.GetHashCode()].Value = tbl.Rows[row]["品群"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.自社品名.GetHashCode()].Value = tbl.Rows[row]["自社品名"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.単位.GetHashCode()].Value = tbl.Rows[row]["単位"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.原価.GetHashCode()].Value = tbl.Rows[row]["原価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.加工原価.GetHashCode()].Value = tbl.Rows[row]["加工原価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.卸値.GetHashCode()].Value = tbl.Rows[row]["卸値"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.売価.GetHashCode()].Value = tbl.Rows[row]["売価"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.掛率.GetHashCode()].Value = tbl.Rows[row]["掛率"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.消費税区分.GetHashCode()].Value = tbl.Rows[row]["消費税区分"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.備考１.GetHashCode()].Value = tbl.Rows[row]["備考１"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.備考２.GetHashCode()].Value = tbl.Rows[row]["備考２"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.返却可能期限.GetHashCode()].Value = tbl.Rows[row]["返却可能期限"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.ＪＡＮコード.GetHashCode()].Value = tbl.Rows[row]["ＪＡＮコード"].ToString();
 
 
                 //スプレッド行インデックスインクリメント

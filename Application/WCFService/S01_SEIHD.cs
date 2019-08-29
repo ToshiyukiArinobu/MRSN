@@ -216,19 +216,34 @@ namespace KyoeiSystem.Application.WCFService
         private long _前月残高;
     
         [DataMember]
-        public long 売上額
+        public long 通常税率対象金額
         {
-            get { return _売上額; }
+            get { return _通常税率対象金額; }
             set
             {
-                if (_売上額 != value)
+                if (_通常税率対象金額 != value)
                 {
-                    _売上額 = value;
-                    OnPropertyChanged("売上額");
+                    _通常税率対象金額 = value;
+                    OnPropertyChanged("通常税率対象金額");
                 }
             }
         }
-        private long _売上額;
+        private long _通常税率対象金額;
+    
+        [DataMember]
+        public long 軽減税率対象金額
+        {
+            get { return _軽減税率対象金額; }
+            set
+            {
+                if (_軽減税率対象金額 != value)
+                {
+                    _軽減税率対象金額 = value;
+                    OnPropertyChanged("軽減税率対象金額");
+                }
+            }
+        }
+        private long _軽減税率対象金額;
     
         [DataMember]
         public long 値引額
@@ -259,6 +274,51 @@ namespace KyoeiSystem.Application.WCFService
             }
         }
         private long _非税売上額;
+    
+        [DataMember]
+        public long 売上額
+        {
+            get { return _売上額; }
+            set
+            {
+                if (_売上額 != value)
+                {
+                    _売上額 = value;
+                    OnPropertyChanged("売上額");
+                }
+            }
+        }
+        private long _売上額;
+    
+        [DataMember]
+        public long 通常税率消費税
+        {
+            get { return _通常税率消費税; }
+            set
+            {
+                if (_通常税率消費税 != value)
+                {
+                    _通常税率消費税 = value;
+                    OnPropertyChanged("通常税率消費税");
+                }
+            }
+        }
+        private long _通常税率消費税;
+    
+        [DataMember]
+        public long 軽減税率消費税
+        {
+            get { return _軽減税率消費税; }
+            set
+            {
+                if (_軽減税率消費税 != value)
+                {
+                    _軽減税率消費税 = value;
+                    OnPropertyChanged("軽減税率消費税");
+                }
+            }
+        }
+        private long _軽減税率消費税;
     
         [DataMember]
         public long 消費税
