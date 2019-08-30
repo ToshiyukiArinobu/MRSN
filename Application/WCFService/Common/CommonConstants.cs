@@ -114,6 +114,11 @@ namespace KyoeiSystem.Application.WCFService
         public static string 作成機能ID_仕入返品 = "仕入返品";
         public static string 作成機能ID_売上返品 = "売上返品";
 
+        // No-94 Add Start
+        public static string 消費税区分略称_通常税率 = "";
+        public static string 消費税区分略称_軽減税率 = "軽";
+        public static string 消費税区分略称_非課税 = "非";
+        // No-94 Add End
 
         #endregion
 

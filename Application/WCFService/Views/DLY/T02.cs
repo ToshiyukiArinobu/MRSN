@@ -62,6 +62,16 @@ namespace KyoeiSystem.Application.WCFService
                 urhd.仕入先枝番 = t02Data.仕入先枝番;
                 urhd.備考 = t02Data.備考;
                 urhd.元伝票番号 = t02Data.元伝票番号;
+                // No-94 Add Start
+                urhd.通常税率対象金額 = t02Data.通常税率対象金額;
+                urhd.軽減税率対象金額 = t02Data.軽減税率対象金額;
+                urhd.通常税率消費税 = t02Data.通常税率消費税;
+                urhd.軽減税率消費税 = t02Data.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                urhd.小計 = t02Data.小計;
+                urhd.総合計 = t02Data.総合計;
+                // No-95 Add End
                 urhd.消費税 = t02Data.消費税;
                 urhd.登録者 = _loginUserId;
                 urhd.登録日時 = com.GetDbDateTime();
@@ -94,6 +104,16 @@ namespace KyoeiSystem.Application.WCFService
                 hdData.仕入先枝番 = t02Data.仕入先枝番;
                 hdData.備考 = t02Data.備考;
                 hdData.元伝票番号 = t02Data.元伝票番号;
+                // No-94 Add Start
+                hdData.通常税率対象金額 = t02Data.通常税率対象金額;
+                hdData.軽減税率対象金額 = t02Data.軽減税率対象金額;
+                hdData.通常税率消費税 = t02Data.通常税率消費税;
+                hdData.軽減税率消費税 = t02Data.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                hdData.小計 = t02Data.小計;
+                hdData.総合計 = t02Data.総合計;
+                // No-95 Add End
                 hdData.消費税 = t02Data.消費税;
                 hdData.最終更新者 = _loginUserId;
                 hdData.最終更新日時 = com.GetDbDateTime();
@@ -285,6 +305,16 @@ namespace KyoeiSystem.Application.WCFService
                 urhd.仕入先コード = t02Data.仕入先コード;
                 urhd.仕入先枝番 = t02Data.仕入先枝番;
                 urhd.備考 = t02Data.備考;
+                // No-94 Add Start
+                urhd.通常税率対象金額 = t02Data.通常税率対象金額;
+                urhd.軽減税率対象金額 = t02Data.軽減税率対象金額;
+                urhd.通常税率消費税 = t02Data.通常税率消費税;
+                urhd.軽減税率消費税 = t02Data.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                urhd.小計 = t02Data.小計;
+                urhd.総合計 = t02Data.総合計;
+                // No-95 Add End
                 urhd.消費税 = t02Data.消費税;
                 urhd.登録者 = _loginUserId;
                 urhd.登録日時 = com.GetDbDateTime();
@@ -311,6 +341,16 @@ namespace KyoeiSystem.Application.WCFService
                 hdData.仕入先コード = t02Data.仕入先コード;
                 hdData.仕入先枝番 = t02Data.仕入先枝番;
                 hdData.備考 = t02Data.備考;
+                // No-94 Add Start
+                hdData.通常税率対象金額 = t02Data.通常税率対象金額;
+                hdData.軽減税率対象金額 = t02Data.軽減税率対象金額;
+                hdData.通常税率消費税 = t02Data.通常税率消費税;
+                hdData.軽減税率消費税 = t02Data.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                hdData.小計 = t02Data.小計;
+                hdData.総合計 = t02Data.総合計;
+                // No-95 Add End
                 hdData.消費税 = t02Data.消費税;
                 hdData.最終更新者 = _loginUserId;
                 hdData.最終更新日時 = com.GetDbDateTime();
