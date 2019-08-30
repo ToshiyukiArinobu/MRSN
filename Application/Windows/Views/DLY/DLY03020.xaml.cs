@@ -85,11 +85,12 @@ namespace KyoeiSystem.Application.Windows.Views
             単位 = 7,
             単価 = 8,
             金額 = 9,
-            摘要 = 10,
-            マルセン仕入 = 11,
-            品番コード = 12,
-            消費税区分 = 13,
-            商品分類 = 14
+            税区分 = 10,                        // No-94 Add
+            摘要 = 11,
+            マルセン仕入 = 12,
+            品番コード = 13,
+            消費税区分 = 14,
+            商品分類 = 15
         }
 
         /// <summary>
@@ -666,6 +667,16 @@ namespace KyoeiSystem.Application.Windows.Views
             // -- 送信用データを作成 --
             // 消費税をヘッダに設定
             SearchHeader["消費税"] = AppCommon.IntParse(this.lbl消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-94 Add Start
+            SearchHeader["通常税率対象金額"] = AppCommon.IntParse(this.lbl通常税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率対象金額"] = AppCommon.IntParse(this.lbl軽減税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.lbl通常税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.lbl軽減税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-94 Add End
+            // No-95 Add Start
+            SearchHeader["小計"] = AppCommon.IntParse(this.lbl小計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["総合計"] = AppCommon.IntParse(this.lbl総合計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-95 Add End
 
             // No-70 Start
             DataSet ds = new DataSet();
@@ -1033,6 +1044,12 @@ namespace KyoeiSystem.Application.Windows.Views
                                     .Sum();
             decimal conTax = 0;
             DateTime date = DateTime.Now;
+            // No-94 Add Start
+            int intTsujyo = 0;
+            int intKeigen = 0;
+            int intTaxTsujyo = 0;
+            int intTaxKeigen = 0;
+            // No-94 Add End
 
             if (DateTime.TryParse(txt売上日.Text, out date))
             {
@@ -1046,11 +1063,38 @@ namespace KyoeiSystem.Application.Windows.Views
                         continue;
 
                     int taxKbnId = txt得意先.SalesTaxId;
-                    conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId);
+                    //conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId);
 
+                    // No-94 Mod Start
+                    int intZeikbn = row.Field<int>("消費税区分");
+                    int intKingakuWk = row.Field<int>("金額");
+                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId));
+                    switch (intZeikbn)
+                    {
+                        case (int)消費税区分.通常税率:
+                            intTsujyo += intKingakuWk;
+                            intTaxTsujyo += intTaxWk;
+                            break;
+                        case (int)消費税区分.軽減税率:
+                            intKeigen += intKingakuWk;
+                            intTaxKeigen += intTaxWk;
+                            break;
+                        case (int)消費税区分.非課税:
+                        default:
+                            break;
+                    }
+                    conTax += intTaxWk;
+                    // No-94 Mod End
                 }
 
                 long total = (long)(subTotal + conTax);
+
+                // No-94 Add Start
+                lbl通常税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intTsujyo);
+                lbl軽減税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intKeigen);
+                lbl通常税率消費税.Content = string.Format(PRICE_FORMAT_STRING, intTaxTsujyo);
+                lbl軽減税率消費税.Content = string.Format(PRICE_FORMAT_STRING, intTaxKeigen);
+                // No-94 Add End
 
                 lbl小計.Content = string.Format(PRICE_FORMAT_STRING, subTotal);
                 lbl消費税.Content = string.Format(PRICE_FORMAT_STRING, conTax);

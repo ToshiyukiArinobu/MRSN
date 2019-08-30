@@ -29,6 +29,22 @@ namespace KyoeiSystem.Application.Windows.Views.Common
         /// </summary>
         private const string COLUMNS_NAME_REDUCED_TAX_RATE = "軽減税率";
 
+        // No-94 Add Start
+        private const string TAX_KBN_CHAR_TSUJYOZEI = "";
+        private const string TAX_KBN_CHAR_KEIGENZEI = "軽";
+        private const string TAX_KBN_CHAR_HIKAZEI = "非";
+
+        /// <summary>
+        /// 消費税区分
+        /// </summary>
+        private enum 消費税区分 : int
+        {
+            通常税率 = 0,
+            軽減税率 = 1,
+            非課税 = 2
+        }
+        // No-94 Add End
+
         #endregion
 
         #region << クラス変数定義 >>
@@ -107,6 +123,7 @@ namespace KyoeiSystem.Application.Windows.Views.Common
             return rate;
 
         }
+
         #endregion
 
         #region 消費税計算
@@ -173,6 +190,63 @@ namespace KyoeiSystem.Application.Windows.Views.Common
         }
         #endregion
 
+        #region 消費税関連文字列取得
+        // No-94 Add Start
+        /// <summary>
+        /// 税率文字列取得（該当する税区分の税率＋%）
+        /// <param name="dtTargetDate">対象となる日付</param>
+        /// <param name="objZeiKbn">消費税区分(0:通常税率、1:軽減税率、2:非課税)</param>
+        /// </summary>
+        public string getTaxRareString(DateTime dtTargetDate, object objZeiKbn)
+        {
+            int intZeiKbn = Convert.ToInt32(objZeiKbn);
+            string strTaxRare = string.Empty;
+
+            int intRate = 0;
+            intRate = getTargetTaxRate(dtTargetDate, intZeiKbn);
+
+            switch (intZeiKbn)
+            {
+                case (int)消費税区分.通常税率:
+                case (int)消費税区分.軽減税率:
+                    strTaxRare = string.Format("{0}%", intRate);
+                    break;
+                default:
+                    break;
+            }
+
+            return strTaxRare;
+        }
+
+        /// <summary>
+        /// 税率区分略称取得
+        /// <param name="objZeiKbn">消費税区分(0:通常税率、1:軽減税率、2:非課税)</param>
+        /// </summary>
+        public string getTaxRareKbnString(object objZeiKbn)
+        {
+            int intZeiKbn = Convert.ToInt32(objZeiKbn);
+            string strTaxRareKbn = string.Empty;
+
+            switch (intZeiKbn)
+            {
+                case (int)消費税区分.通常税率:
+                    strTaxRareKbn = TAX_KBN_CHAR_TSUJYOZEI;
+                    break;
+                case (int)消費税区分.軽減税率:
+                    strTaxRareKbn = TAX_KBN_CHAR_KEIGENZEI;
+                    break;
+                case (int)消費税区分.非課税:
+                    strTaxRareKbn = TAX_KBN_CHAR_HIKAZEI;
+                    break;
+                default:
+                    break;
+            }
+
+            return strTaxRareKbn;
+        }
+        // No-94 Add End
+
+        #endregion
     }
 
 }

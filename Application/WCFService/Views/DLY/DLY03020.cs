@@ -51,6 +51,16 @@ namespace KyoeiSystem.Application.WCFService
             public string 仕入先コード { get; set; }
             public string 仕入先枝番 { get; set; }
             public string 備考 { get; set; }
+            // No-94 Add Start
+            public int 通常税率対象金額 { get; set; }
+            public int 軽減税率対象金額 { get; set; }
+            public int 通常税率消費税 { get; set; }
+            public int 軽減税率消費税 { get; set; }
+            // No-94 Add End
+            // No-95 Add Start
+            public int 小計 { get; set; }
+            public int 総合計 { get; set; }
+            // No-95 Add End
             public int 消費税 { get; set; }
             public string 元伝票番号 { get; set; }
             public DateTime? 元売上日 { get; set; }
@@ -76,6 +86,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 単位 { get; set; }
             public decimal? 単価 { get; set; }
             public int 金額 { get; set; }
+            public string 税区分 { get; set; }             // No-94 Add
             public string 摘要 { get; set; }
 
             public bool マルセン仕入 { get; set; }
@@ -204,6 +215,16 @@ namespace KyoeiSystem.Application.WCFService
                                 元伝票番号 = s.URTHD.元伝票番号.ToString(),
                                 元売上日 = s.URHD == null ? (DateTime?)null : s.URHD.売上日,
                                 消費税 = s.URTHD.消費税,
+                                // No-94 Add Start
+                                通常税率対象金額 = s.URTHD.通常税率対象金額 ?? 0,
+                                軽減税率対象金額 = s.URTHD.軽減税率対象金額 ?? 0,
+                                通常税率消費税 = s.URTHD.通常税率消費税 ?? 0,
+                                軽減税率消費税 = s.URTHD.軽減税率消費税 ?? 0,
+                                // No-94 Add End
+                                // No-95 Add Start
+                                小計 = s.URTHD.小計 ?? 0,
+                                総合計 = s.URTHD.総合計 ?? 0,
+                                // No-95 Add End
                                 データ状態 = false,
                                 Ｓ支払消費税区分 = s.TOK.Ｓ支払消費税区分,
                                 Ｓ税区分ID = s.TOK.Ｓ税区分ID
@@ -252,6 +273,16 @@ namespace KyoeiSystem.Application.WCFService
                                 元伝票番号 = s.URTHD.伝票番号.ToString(),
                                 元売上日 = s.URTHD.売上日,
                                 消費税 = s.URTHD.消費税,
+                                // No-94 Add Start
+                                通常税率対象金額 = s.URTHD.通常税率対象金額 ?? 0,
+                                軽減税率対象金額 = s.URTHD.軽減税率対象金額 ?? 0,
+                                通常税率消費税 = s.URTHD.通常税率消費税 ?? 0,
+                                軽減税率消費税 = s.URTHD.軽減税率消費税 ?? 0,
+                                // No-94 Add End
+                                // No-95 Add Start
+                                小計 = s.URTHD.小計 ?? 0,
+                                総合計 = s.URTHD.総合計 ?? 0,
+                                // No-95 Add End
                                 データ状態 = true,
                                 Ｓ支払消費税区分 = s.TOK.Ｓ支払消費税区分,
                                 Ｓ税区分ID = s.TOK.Ｓ税区分ID
@@ -349,6 +380,9 @@ namespace KyoeiSystem.Application.WCFService
                                     単位 = x.URTDTL.単位,
                                     単価 = x.URTDTL.単価,
                                     金額 = x.URTDTL.金額 ?? 0,
+                                    税区分 =           // No-94 Add
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? CommonConstants.消費税区分略称_軽減税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? CommonConstants.消費税区分略称_非課税 : string.Empty,
                                     摘要 = x.URTDTL.摘要,
                                     マルセン仕入 = x.SRDTL_HAN != null,
                                     消費税区分 = x.HIN.消費税区分 ?? 0,
@@ -380,6 +414,9 @@ namespace KyoeiSystem.Application.WCFService
                                     単位 = x.URDTL.単位,
                                     単価 = x.URDTL.単価,
                                     金額 = x.URDTL.金額 ?? 0,
+                                    税区分 =           // No-94 Add
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? CommonConstants.消費税区分略称_軽減税率 :
+                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? CommonConstants.消費税区分略称_非課税 : string.Empty,
                                     摘要 = x.URDTL.摘要,
                                     マルセン仕入 = x.SRDTL_HAN != null,
                                     消費税区分 = x.HIN.消費税区分 ?? 0,
@@ -494,7 +531,7 @@ namespace KyoeiSystem.Application.WCFService
                                 break;
 
                             case (int)CommonConstants.売上区分.販社売上返品:
-                                setSalesCompanyReturnsProc(urhd, dtlTbl, isRegistData);
+                                setSalesCompanyReturnsProc(urhd, dtlTbl, hdRow,isRegistData);               // No-97 Mod
                                 break;
 
                             case (int)CommonConstants.売上区分.メーカー直送返品:
@@ -502,7 +539,7 @@ namespace KyoeiSystem.Application.WCFService
                                 break;
 
                             case (int)CommonConstants.売上区分.メーカー販社商流直送返品:
-                                setCommerceDirectDeliveryReturnsProc(urhd, dtlTbl, isRegistData);
+                                setCommerceDirectDeliveryReturnsProc(urhd, dtlTbl, hdRow, isRegistData);    // No-97 Mod
                                 break;
 
                             default:
@@ -565,7 +602,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="ds">登録対象データセット</param>
         /// <param name="userId">ログインユーザID</param>
         /// <param name="isRegist">データ状態(登録or編集)：登録時）真、編集時）偽</param>
-        private void setSalesCompanyReturnsProc(T02_URHD urhd, DataTable dtlTbl, bool isRegist)
+        private void setSalesCompanyReturnsProc(T02_URHD urhd, DataTable dtlTbl, DataRow hdRow, bool isRegist)
         {
 
             // 出荷元と出荷先が異なる場合場合のみ移動処理を行う
@@ -584,13 +621,13 @@ namespace KyoeiSystem.Application.WCFService
             setS04_HISTORY_Create(urhd, dtlTbl);
 
             // 5.販社仕入ヘッダの更新
-            setT03_SRHD_HAN_Update(urhd, dtlTbl, CommonConstants.仕入区分.返品);
+            setT03_SRHD_HAN_Update(urhd, dtlTbl, hdRow, CommonConstants.仕入区分.返品);       // No-97 Mod
 
             // 6.販社仕入明細の更新
             setT03_SRDTL_HAN_Update(urhd, dtlTbl);
 
             // 7.販社売上ヘッダの更新
-            setT02_URHD_HAN_Update(urhd, dtlTbl);
+            setT02_URHD_HAN_Update(urhd, dtlTbl, hdRow);       // No-97 Mod
 
             // 8.販社売上明細の更新
             setT02_URDTL_HAN_Update(urhd, dtlTbl);
@@ -765,7 +802,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="ds">登録対象データセット</param>
         /// <param name="userId">ログインユーザID</param>
         /// <param name="isRegist">データ状態(登録or編集)：登録時）真、編集時）偽</param>
-        private void setCommerceDirectDeliveryReturnsProc(T02_URHD urhd, DataTable dtlTbl, bool isRegist)
+        private void setCommerceDirectDeliveryReturnsProc(T02_URHD urhd, DataTable dtlTbl, DataRow hdRow, bool isRegist)
         {
             // 1.売上ヘッダの更新
             T02Service.T02_URHD_Update(urhd);
@@ -790,13 +827,13 @@ namespace KyoeiSystem.Application.WCFService
             // No-74 Mod Start
 
             // 7.販社仕入ヘッダの更新(販社⇒マルセン)
-            setT03_SRHD_HAN_Update(urhd, dtlTbl, CommonConstants.仕入区分.返品);
+            setT03_SRHD_HAN_Update(urhd, dtlTbl, hdRow, CommonConstants.仕入区分.返品);       // No-97 Mod
 
             // 8.販社仕入明細の更新
             setT03_SRDTL_HAN_Update(urhd, dtlTbl);
 
             // 9.販社売上ヘッダの更新
-            setT02_URHD_HAN_Update(urhd, dtlTbl);
+            setT02_URHD_HAN_Update(urhd, dtlTbl, hdRow);       // No-97 Mod
 
             // 10.販社売上明細の更新
             setT02_URDTL_HAN_Update(urhd, dtlTbl);
@@ -821,6 +858,16 @@ namespace KyoeiSystem.Application.WCFService
             srhd.発注番号 = urhd.受注番号;
             srhd.備考 = urhd.備考;
             srhd.元伝票番号 = urhd.元伝票番号;
+            // No-94 Add Start
+            srhd.通常税率対象金額 = urhd.通常税率対象金額;
+            srhd.軽減税率対象金額 = urhd.軽減税率対象金額;
+            srhd.通常税率消費税 = urhd.通常税率消費税;
+            srhd.軽減税率消費税 = urhd.軽減税率消費税;
+            // No-94 Add End
+            // No-95 Add Start
+            srhd.小計 = urhd.小計;
+            srhd.総合計 = urhd.総合計;
+            // No-95 Add End
             srhd.消費税 = urhd.消費税;
 
             T03Service.T03_SRHD_Update(srhd);
@@ -947,6 +994,239 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        #region << 販社仕入ヘッダ登録更新処理 >>
+        // No-97 Add Start
+        /// <summary>
+        /// 販社仕入ヘッダの登録・更新をおこなう
+        /// </summary>
+        /// <param name="t02Data"></param>
+        /// <param name="dtlTbl"></param>
+        /// <param name="hdRow"></param>
+        /// <param name="supKbn"></param>
+        private void setT03_SRHD_HAN_Update(T02_URHD t02Data, DataTable dtlTbl, DataRow hdRow, CommonConstants.仕入区分 supKbn)
+        {
+            // 売上対象の自社情報・取引先情報を取得する
+            var m70自社 = getFromJis();
+            M70_JIS srJis = getM70_JISFromM22_SOUK(t02Data.在庫倉庫コード);
+            M01_TOK tok = M01.M01_TOK_Single_GetData(srJis.取引先コード ?? 0, srJis.枝番 ?? 0);
+
+            // 消費税再計算の基準日は元伝票の売上日とする
+            DateTime strUriageDate = DateTime.Parse(hdRow["元売上日"].ToString());
+
+            #region 消費税再計算集計
+            int setTax = 0;
+            int intTsujyo = 0;
+            int intKeigen = 0;
+            int intHikazei = 0;
+            int intTaxTsujyo = 0;
+            int intTaxKeigen = 0;
+
+
+            // 全商品でない可能性があるのでチェックされている商品の消費税を再計算する
+            foreach (DataRow dtlRow in dtlTbl.Rows)
+            {
+                T02_URDTL dtl = convertDataRowToT02_URDTL_Entity(dtlRow);
+
+                // 商品未設定レコードは処理対象外とする
+                if (dtl.品番コード <= 0)
+                    continue;
+
+                // 削除されたレコードは処理対象外とする
+                if (DataRowState.Deleted == dtlRow.RowState)
+                    continue;
+
+                bool bval,
+                   仕入チェック = bool.TryParse(dtlRow["マルセン仕入"].ToString(), out bval) ? bval : false;
+                if (!仕入チェック)
+                    continue;   // チェックされていない商品は読み飛ばし
+
+                int intZeikbn = int.Parse(dtlRow["消費税区分"].ToString());
+
+                decimal dcmCost = getWholesalePrice(dtl.品番コード);
+                int intKingakuWk = Decimal.ToInt32(decimal.Parse(((decimal)(dcmCost * dtl.数量)).ToString()));
+                int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(strUriageDate, tok.Ｓ税区分ID, dtl.品番コード, dtl.数量));
+
+                switch (intZeikbn)
+                {
+                    case (int)CommonConstants.商品消費税区分.通常税率:
+                        intTsujyo += intKingakuWk;
+                        intTaxTsujyo += intTaxWk;
+                        break;
+                    case (int)CommonConstants.商品消費税区分.軽減税率:
+                        intKeigen += intKingakuWk;
+                        intTaxKeigen += intTaxWk;
+                        break;
+                    case (int)CommonConstants.商品消費税区分.非課税:
+                        intHikazei += intKingakuWk;
+                        break;
+                    default:
+                        break;
+                }
+                setTax += intTaxWk;
+
+            }
+            #endregion
+
+            T03_SRHD_HAN srhdhan = new T03_SRHD_HAN();
+
+            srhdhan.伝票番号 = t02Data.伝票番号;
+            srhdhan.会社名コード = t02Data.会社名コード;
+            srhdhan.仕入日 = t02Data.売上日;
+            srhdhan.仕入区分 = supKbn.GetHashCode();
+            srhdhan.仕入先コード = m70自社.自社コード;
+            srhdhan.入荷先コード = t02Data.会社名コード;
+            srhdhan.発注番号 = t02Data.受注番号;
+            srhdhan.備考 = t02Data.備考;
+            srhdhan.通常税率対象金額 = intTsujyo;
+            srhdhan.軽減税率対象金額 = intKeigen;
+            srhdhan.通常税率消費税 = intTaxTsujyo;
+            srhdhan.軽減税率消費税 = intTaxKeigen;
+            srhdhan.小計 = intTsujyo + intKeigen + intHikazei;
+            srhdhan.総合計 = srhdhan.小計 + setTax;
+            srhdhan.消費税 = setTax;
+
+            T03Service.T03_SRHD_HAN_Update(srhdhan);
+
+        }
+        // No-97 Add End
+        #endregion
+
+        #region << 販社売上ヘッダ更新処理 >>
+        // No-97 Add Start
+        /// <summary>
+        /// 販社売上ヘッダ情報の更新をおこなう
+        /// </summary>
+        /// <param name="urhdData">売上ヘッダデータ</param>
+        /// <param name="dt">売上明細データテーブル</param>
+        /// <param name="hdRow"></param>
+        private void setT02_URHD_HAN_Update(T02_URHD urhdData, DataTable dt, DataRow hdRow)
+        {
+
+            using (_context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                #region 売上区分により仕入先を切り替える
+                // ※会社名コードは必ずマルセン(自社)になる
+                int wk自社コード;
+
+                // TODO:切り捨て固定で設定しているが変更する可能性あり
+                int wkＳ税区分ID = 1;
+                switch (urhdData.売上区分)
+                {
+                    case (int)CommonConstants.売上区分.販社売上:
+                    case (int)CommonConstants.売上区分.販社売上返品:
+                        // >>仕入先にはマルセン(自社)
+                        // >>在庫倉庫には販社倉庫
+                        //   が設定されている想定
+
+                        var m70自社 = _context.M70_JIS.Where(c => c.自社区分 == (int)CommonConstants.自社区分.自社).FirstOrDefault();
+                        // ⇒会社名コード = 仕入先より取得
+                        wk自社コード = m70自社.自社コード;
+
+                        break;
+
+                    case (int)CommonConstants.売上区分.メーカー販社商流直送:
+                    case (int)CommonConstants.売上区分.メーカー販社商流直送返品:
+                        // >> 仕入先にはメーカー等
+                        // >> 在庫倉庫にはマルセン(自社)
+                        //   が設定されている想定
+
+                        // ⇒会社名コード = 在庫倉庫より取得
+                        wk自社コード = getM70_JISFromM22_SOUK(urhdData.在庫倉庫コード).自社コード;
+                        break;
+
+                    default:
+                        // その他の場合は入力内容をそのまま設定
+                        wk自社コード = urhdData.会社名コード;
+                        break;
+                }
+                #endregion
+
+                // 消費税再計算の基準日は元伝票の売上日とする
+                DateTime strUriageDate = DateTime.Parse(hdRow["元売上日"].ToString());
+
+                #region 卸値による消費税集計をおこなう
+                int setTax = 0;
+                int intTsujyo = 0;
+                int intKeigen = 0;
+                int intHikazei = 0;
+                int intTaxTsujyo = 0;
+                int intTaxKeigen = 0;
+
+                foreach (DataRow dtlRow in dt.Rows)
+                {
+                    T02_URDTL dtl = convertDataRowToT02_URDTL_Entity(dtlRow);
+
+                    // 商品未設定レコードは処理対象外とする
+                    if (dtl.品番コード <= 0)
+                        continue;
+
+                    // 削除されたレコードは処理対象外とする
+                    if (DataRowState.Deleted == dtlRow.RowState)
+                        continue;
+
+                    // チェック判定アリかつチェックボックス=オフの場合は登録処理をスキップする
+                    bool bval,
+                        仕入チェック = bool.TryParse(dtlRow["マルセン仕入"].ToString(), out bval) ? bval : false;
+                    if (仕入チェック == false)
+                        continue;
+
+
+                    int intZeikbn = int.Parse(dtlRow["消費税区分"].ToString());
+
+                    decimal dcmCost = getWholesalePrice(dtl.品番コード);
+                    int intKingakuWk = Decimal.ToInt32(decimal.Parse(((decimal)(dcmCost * dtl.数量)).ToString()));
+                    int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(strUriageDate, wkＳ税区分ID, dtl.品番コード, dtl.数量));
+
+                    switch (intZeikbn)
+                    {
+                        case (int)CommonConstants.商品消費税区分.通常税率:
+                            intTsujyo += intKingakuWk;
+                            intTaxTsujyo += intTaxWk;
+                            break;
+                        case (int)CommonConstants.商品消費税区分.軽減税率:
+                            intKeigen += intKingakuWk;
+                            intTaxKeigen += intTaxWk;
+                            break;
+                        case (int)CommonConstants.商品消費税区分.非課税:
+                            intHikazei += intKingakuWk;
+                            break;
+                        default:
+                            break;
+                    }
+                    setTax += intTaxWk;
+
+                }
+                #endregion
+
+                T02_URHD_HAN urhd = new T02_URHD_HAN();
+
+                urhd.伝票番号 = urhdData.伝票番号;
+                urhd.会社名コード = wk自社コード;
+                urhd.伝票要否 = urhdData.伝票要否;
+                urhd.売上日 = urhdData.売上日;
+                urhd.売上区分 = urhdData.売上区分;
+                urhd.販社コード = urhdData.会社名コード;
+                urhd.在庫倉庫コード = urhdData.在庫倉庫コード;
+                urhd.納品伝票番号 = urhdData.納品伝票番号;
+                urhd.出荷日 = urhdData.出荷日;
+                urhd.受注番号 = urhdData.受注番号;
+                urhd.仕入先コード = urhdData.仕入先コード;
+                urhd.仕入先枝番 = urhdData.仕入先枝番;
+                urhd.備考 = urhdData.備考;
+                urhd.通常税率対象金額 = intTsujyo;
+                urhd.軽減税率対象金額 = intKeigen;
+                urhd.通常税率消費税 = intTaxTsujyo;
+                urhd.軽減税率消費税 = intTaxKeigen;
+                urhd.小計 = intTsujyo + intKeigen + intHikazei;
+                urhd.総合計 = urhd.小計 + setTax;
+                urhd.消費税 = setTax;
+
+                // 販社売上ヘッダの登録実行
+                T02Service.T02_URHD_HAN_Update(urhd);
+            }
+        }
+        // No-97 Add End
+        #endregion
 
         #region 在庫返品更新
         /// <summary>
@@ -1365,6 +1645,59 @@ namespace KyoeiSystem.Application.WCFService
             }
 
         }
+
+        // No-97 Add Start
+        /// <summary>
+        /// 自社(マルセン)マスタデータを取得する
+        /// </summary>
+        /// <returns></returns>
+        private M70_JIS getFromJis()
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                var jis =
+                    context.M70_JIS
+                        .Where(w =>
+                            w.削除日時 == null &&
+                            w.自社区分 == (int)CommonConstants.自社区分.自社)
+                        .FirstOrDefault();
+
+                return jis;
+            }
+        }
+
+        #region 卸値取得
+        /// <summary>
+        /// 対象の卸値を取得する
+        /// </summary>
+        /// <param name="company"></param>
+        /// <param name="eda"></param>
+        /// <param name="productCode"></param>
+        /// <returns></returns>
+        private decimal getWholesalePrice(int productCode)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+
+                // 仕入先売価が見つからない場合は品番マスタの仕入単価を返す
+                var m09 =
+                    context.M09_HIN
+                        .Where(w =>
+                            w.削除日時 == null &&
+                            w.品番コード == productCode)
+                        .FirstOrDefault();
+
+                if (m09 == null)
+                    return 0;
+
+                return m09.卸値 ?? 0;
+
+            }
+
+        }
+        #endregion
+        // No-97 Add End
+        
         #endregion
 
         #endregion

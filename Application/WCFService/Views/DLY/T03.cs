@@ -142,6 +142,16 @@ namespace KyoeiSystem.Application.WCFService
                 srhd.発注番号 = shdData.発注番号;
                 srhd.備考 = shdData.備考;
                 srhd.元伝票番号 = shdData.元伝票番号;
+                // No-94 Add Start
+                srhd.通常税率対象金額 = shdData.通常税率対象金額;
+                srhd.軽減税率対象金額 = shdData.軽減税率対象金額;
+                srhd.通常税率消費税 = shdData.通常税率消費税;
+                srhd.軽減税率消費税 = shdData.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                srhd.小計 = shdData.小計;
+                srhd.総合計 = shdData.総合計;
+                // No-95 Add End
                 srhd.消費税 = shdData.消費税;
                 srhd.登録者 = _loginUserId;
                 srhd.登録日時 = com.GetDbDateTime();
@@ -164,6 +174,16 @@ namespace KyoeiSystem.Application.WCFService
                 hdData.発注番号 = shdData.発注番号;
                 hdData.備考 = shdData.備考;
                 hdData.元伝票番号 = shdData.元伝票番号;
+                // No-94 Add Start
+                hdData.通常税率対象金額 = shdData.通常税率対象金額;
+                hdData.軽減税率対象金額 = shdData.軽減税率対象金額;
+                hdData.通常税率消費税 = shdData.通常税率消費税;
+                hdData.軽減税率消費税 = shdData.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                hdData.小計 = shdData.小計;
+                hdData.総合計 = shdData.総合計;
+                // No-95 Add End
                 hdData.消費税 = shdData.消費税;
                 hdData.最終更新者 = _loginUserId;
                 hdData.最終更新日時 = com.GetDbDateTime();
@@ -342,6 +362,16 @@ namespace KyoeiSystem.Application.WCFService
                 srhd.入荷先コード = shdData.入荷先コード;
                 srhd.発注番号 = shdData.発注番号;
                 srhd.備考 = shdData.備考;
+                // No-94 Add Start
+                srhd.通常税率対象金額 = shdData.通常税率対象金額;
+                srhd.軽減税率対象金額 = shdData.軽減税率対象金額;
+                srhd.通常税率消費税 = shdData.通常税率消費税;
+                srhd.軽減税率消費税 = shdData.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                srhd.小計 = shdData.小計;
+                srhd.総合計 = shdData.総合計;
+                // No-95 Add End
                 srhd.消費税 = shdData.消費税;
                 srhd.登録者 = _loginUserId;
                 srhd.登録日時 = com.GetDbDateTime();
@@ -361,6 +391,16 @@ namespace KyoeiSystem.Application.WCFService
                 hdData.入荷先コード = shdData.入荷先コード;
                 hdData.発注番号 = shdData.発注番号;
                 hdData.備考 = shdData.備考;
+                // No-94 Add Start
+                hdData.通常税率対象金額 = shdData.通常税率対象金額;
+                hdData.軽減税率対象金額 = shdData.軽減税率対象金額;
+                hdData.通常税率消費税 = shdData.通常税率消費税;
+                hdData.軽減税率消費税 = shdData.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                hdData.小計 = shdData.小計;
+                hdData.総合計 = shdData.総合計;
+                // No-95 Add End
                 hdData.消費税 = shdData.消費税;
                 hdData.最終更新者 = _loginUserId;
                 hdData.最終更新日時 = com.GetDbDateTime();
