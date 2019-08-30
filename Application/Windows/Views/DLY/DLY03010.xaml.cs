@@ -365,6 +365,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, string.Empty);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, 0);
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, 0);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.税区分, string.Empty);      // No-94 Add
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, (int)消費税区分.通常税率);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, (int)商品分類.その他);
                             gridCtl.SetCellValue((int)GridColumnsMapping.色コード, string.Empty);
@@ -1496,6 +1497,12 @@ namespace KyoeiSystem.Application.Windows.Views
             this.txt備考.Text1 = string.Empty;
 
             string initValue = string.Format("{0:#,0}", 0);
+            // No-94 Add Start
+            lbl通常税率対象金額.Content = initValue;
+            lbl軽減税率対象金額.Content = initValue;
+            lbl通常税率消費税.Content = initValue;
+            lbl軽減税率消費税.Content = initValue;
+            // No-94 Add End
             this.lbl小計.Content = initValue;
             this.lbl消費税.Content = initValue;
             this.lbl総合計.Content = initValue;

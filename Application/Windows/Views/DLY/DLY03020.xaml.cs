@@ -902,6 +902,13 @@ namespace KyoeiSystem.Application.Windows.Views
             this.txt備考.Text1 = string.Empty;
 
             string initValue = string.Format("{0:#,0}", 0);
+            // No-94 Add Start
+            lbl通常税率対象金額.Content = initValue;
+            lbl軽減税率対象金額.Content = initValue;
+            lbl通常税率消費税.Content = initValue;
+            lbl軽減税率消費税.Content = initValue;
+            // No-94 Add End
+
             this.lbl小計.Content = initValue;
             this.lbl消費税.Content = initValue;
             this.lbl総合計.Content = initValue;
