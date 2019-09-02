@@ -373,7 +373,8 @@
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-                                                    <Button  Name="ZIJ08010" Content="    9. 商品移動/振替伝票" Click="Click_Dmy" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Disable}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
+                                                    <Button  Name="ZIJ10010" Content="    9. 揚り明細問合せ" Click="Click_ZIJ10010" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
+                                                    <Button  Name="ZIJ08010" Content="   10. 商品移動/振替伝票" Click="Click_Dmy" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Disable}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">

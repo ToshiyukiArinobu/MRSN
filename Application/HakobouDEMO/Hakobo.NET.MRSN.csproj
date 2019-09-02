@@ -300,6 +300,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TKS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Data\ZIJ\ZIJ.cs">
+      <DependentUpon>ZIJ.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\ZIJ\ZIJ.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -519,6 +523,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ZIK.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Files\ZIJ\ZIJ10010.cs">
+      <DependentUpon>ZIJ10010.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Files\ZIK\ZIK01010.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -699,6 +710,11 @@
     <Content Include="Files\SHR\SHR05020.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SHR05020.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\ZIJ\ZIJ10010.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ZIJ10010.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\licenses.licx" />

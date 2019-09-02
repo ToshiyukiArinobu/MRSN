@@ -729,6 +729,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
                 else
                 {
+                    if (!(twintxt is UcLabelTwinTextBox))
+                    {
+                        return;
+                    }
                     ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
 
                     // 仕入先の場合は個別に処理

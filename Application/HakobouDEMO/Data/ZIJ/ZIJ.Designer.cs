@@ -40,6 +40,8 @@ namespace Hakobou.Data.ZIJ {
         
         private 商品入出荷問合せDataTable table商品入出荷問合せ;
         
+        private 揚り明細問合せDataTable table揚り明細問合せ;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -91,6 +93,9 @@ namespace Hakobou.Data.ZIJ {
                 }
                 if ((ds.Tables["商品入出荷問合せ"] != null)) {
                     base.Tables.Add(new 商品入出荷問合せDataTable(ds.Tables["商品入出荷問合せ"]));
+                }
+                if ((ds.Tables["揚り明細問合せ"] != null)) {
+                    base.Tables.Add(new 揚り明細問合せDataTable(ds.Tables["揚り明細問合せ"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -192,6 +197,16 @@ namespace Hakobou.Data.ZIJ {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public 揚り明細問合せDataTable 揚り明細問合せ {
+            get {
+                return this.table揚り明細問合せ;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -281,6 +296,9 @@ namespace Hakobou.Data.ZIJ {
                 if ((ds.Tables["商品入出荷問合せ"] != null)) {
                     base.Tables.Add(new 商品入出荷問合せDataTable(ds.Tables["商品入出荷問合せ"]));
                 }
+                if ((ds.Tables["揚り明細問合せ"] != null)) {
+                    base.Tables.Add(new 揚り明細問合せDataTable(ds.Tables["揚り明細問合せ"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -362,6 +380,12 @@ namespace Hakobou.Data.ZIJ {
                     this.table商品入出荷問合せ.InitVars();
                 }
             }
+            this.table揚り明細問合せ = ((揚り明細問合せDataTable)(base.Tables["揚り明細問合せ"]));
+            if ((initTable == true)) {
+                if ((this.table揚り明細問合せ != null)) {
+                    this.table揚り明細問合せ.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -388,6 +412,8 @@ namespace Hakobou.Data.ZIJ {
             base.Tables.Add(this.table請求明細問合せ);
             this.table商品入出荷問合せ = new 商品入出荷問合せDataTable();
             base.Tables.Add(this.table商品入出荷問合せ);
+            this.table揚り明細問合せ = new 揚り明細問合せDataTable();
+            base.Tables.Add(this.table揚り明細問合せ);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -435,6 +461,12 @@ namespace Hakobou.Data.ZIJ {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerialize商品入出荷問合せ() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerialize揚り明細問合せ() {
             return false;
         }
         
@@ -516,6 +548,9 @@ namespace Hakobou.Data.ZIJ {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void 商品入出荷問合せRowChangeEventHandler(object sender, 商品入出荷問合せRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void 揚り明細問合せRowChangeEventHandler(object sender, 揚り明細問合せRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -3765,6 +3800,450 @@ namespace Hakobou.Data.ZIJ {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class 揚り明細問合せDataTable : global::System.Data.TypedTableBase<揚り明細問合せRow> {
+            
+            private global::System.Data.DataColumn column仕上日;
+            
+            private global::System.Data.DataColumn column加工区分;
+            
+            private global::System.Data.DataColumn column伝票番号;
+            
+            private global::System.Data.DataColumn column行番号;
+            
+            private global::System.Data.DataColumn column外注先;
+            
+            private global::System.Data.DataColumn column品番コード;
+            
+            private global::System.Data.DataColumn column自社品番;
+            
+            private global::System.Data.DataColumn column自社品名;
+            
+            private global::System.Data.DataColumn column自社色;
+            
+            private global::System.Data.DataColumn column賞味期限;
+            
+            private global::System.Data.DataColumn column単価;
+            
+            private global::System.Data.DataColumn column数量;
+            
+            private global::System.Data.DataColumn column単位;
+            
+            private global::System.Data.DataColumn column金額;
+            
+            private global::System.Data.DataColumn column摘要;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 揚り明細問合せDataTable() {
+                this.TableName = "揚り明細問合せ";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal 揚り明細問合せDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected 揚り明細問合せDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 仕上日Column {
+                get {
+                    return this.column仕上日;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 加工区分Column {
+                get {
+                    return this.column加工区分;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 伝票番号Column {
+                get {
+                    return this.column伝票番号;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 行番号Column {
+                get {
+                    return this.column行番号;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 外注先Column {
+                get {
+                    return this.column外注先;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 品番コードColumn {
+                get {
+                    return this.column品番コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社品番Column {
+                get {
+                    return this.column自社品番;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社品名Column {
+                get {
+                    return this.column自社品名;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社色Column {
+                get {
+                    return this.column自社色;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 賞味期限Column {
+                get {
+                    return this.column賞味期限;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価Column {
+                get {
+                    return this.column単価;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 数量Column {
+                get {
+                    return this.column数量;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単位Column {
+                get {
+                    return this.column単位;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額Column {
+                get {
+                    return this.column金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 摘要Column {
+                get {
+                    return this.column摘要;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 揚り明細問合せRow this[int index] {
+                get {
+                    return ((揚り明細問合せRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 揚り明細問合せRowChangeEventHandler 揚り明細問合せRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 揚り明細問合せRowChangeEventHandler 揚り明細問合せRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 揚り明細問合せRowChangeEventHandler 揚り明細問合せRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 揚り明細問合せRowChangeEventHandler 揚り明細問合せRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Add揚り明細問合せRow(揚り明細問合せRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 揚り明細問合せRow Add揚り明細問合せRow(System.DateTime 仕上日, string 加工区分, string 伝票番号, int 行番号, string 外注先, int 品番コード, string 自社品番, string 自社品名, string 自社色, System.DateTime 賞味期限, decimal 単価, decimal 数量, string 単位, int 金額, string 摘要) {
+                揚り明細問合せRow row揚り明細問合せRow = ((揚り明細問合せRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        仕上日,
+                        加工区分,
+                        伝票番号,
+                        行番号,
+                        外注先,
+                        品番コード,
+                        自社品番,
+                        自社品名,
+                        自社色,
+                        賞味期限,
+                        単価,
+                        数量,
+                        単位,
+                        金額,
+                        摘要};
+                row揚り明細問合せRow.ItemArray = columnValuesArray;
+                this.Rows.Add(row揚り明細問合せRow);
+                return row揚り明細問合せRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                揚り明細問合せDataTable cln = ((揚り明細問合せDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new 揚り明細問合せDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.column仕上日 = base.Columns["仕上日"];
+                this.column加工区分 = base.Columns["加工区分"];
+                this.column伝票番号 = base.Columns["伝票番号"];
+                this.column行番号 = base.Columns["行番号"];
+                this.column外注先 = base.Columns["外注先"];
+                this.column品番コード = base.Columns["品番コード"];
+                this.column自社品番 = base.Columns["自社品番"];
+                this.column自社品名 = base.Columns["自社品名"];
+                this.column自社色 = base.Columns["自社色"];
+                this.column賞味期限 = base.Columns["賞味期限"];
+                this.column単価 = base.Columns["単価"];
+                this.column数量 = base.Columns["数量"];
+                this.column単位 = base.Columns["単位"];
+                this.column金額 = base.Columns["金額"];
+                this.column摘要 = base.Columns["摘要"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.column仕上日 = new global::System.Data.DataColumn("仕上日", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column仕上日);
+                this.column加工区分 = new global::System.Data.DataColumn("加工区分", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column加工区分);
+                this.column伝票番号 = new global::System.Data.DataColumn("伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column伝票番号);
+                this.column行番号 = new global::System.Data.DataColumn("行番号", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column行番号);
+                this.column外注先 = new global::System.Data.DataColumn("外注先", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column外注先);
+                this.column品番コード = new global::System.Data.DataColumn("品番コード", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column品番コード);
+                this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社品番);
+                this.column自社品名 = new global::System.Data.DataColumn("自社品名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社品名);
+                this.column自社色 = new global::System.Data.DataColumn("自社色", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社色);
+                this.column賞味期限 = new global::System.Data.DataColumn("賞味期限", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column賞味期限);
+                this.column単価 = new global::System.Data.DataColumn("単価", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価);
+                this.column数量 = new global::System.Data.DataColumn("数量", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column数量);
+                this.column単位 = new global::System.Data.DataColumn("単位", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単位);
+                this.column金額 = new global::System.Data.DataColumn("金額", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額);
+                this.column摘要 = new global::System.Data.DataColumn("摘要", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column摘要);
+                this.column外注先.Caption = "加工先";
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 揚り明細問合せRow New揚り明細問合せRow() {
+                return ((揚り明細問合せRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new 揚り明細問合せRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(揚り明細問合せRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.揚り明細問合せRowChanged != null)) {
+                    this.揚り明細問合せRowChanged(this, new 揚り明細問合せRowChangeEvent(((揚り明細問合せRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.揚り明細問合せRowChanging != null)) {
+                    this.揚り明細問合せRowChanging(this, new 揚り明細問合せRowChangeEvent(((揚り明細問合せRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.揚り明細問合せRowDeleted != null)) {
+                    this.揚り明細問合せRowDeleted(this, new 揚り明細問合せRowChangeEvent(((揚り明細問合せRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.揚り明細問合せRowDeleting != null)) {
+                    this.揚り明細問合せRowDeleting(this, new 揚り明細問合せRowChangeEvent(((揚り明細問合せRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Remove揚り明細問合せRow(揚り明細問合せRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ZIJ ds = new ZIJ();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "揚り明細問合せDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class 商品在庫問合せRow : global::System.Data.DataRow {
@@ -6601,6 +7080,441 @@ namespace Hakobou.Data.ZIJ {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class 揚り明細問合せRow : global::System.Data.DataRow {
+            
+            private 揚り明細問合せDataTable table揚り明細問合せ;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal 揚り明細問合せRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.table揚り明細問合せ = ((揚り明細問合せDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime 仕上日 {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.table揚り明細問合せ.仕上日Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'仕上日\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.仕上日Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 加工区分 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.加工区分Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'加工区分\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.加工区分Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 伝票番号 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.伝票番号Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'伝票番号\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.伝票番号Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 行番号 {
+                get {
+                    try {
+                        return ((int)(this[this.table揚り明細問合せ.行番号Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'行番号\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.行番号Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 外注先 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.外注先Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'外注先\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.外注先Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 品番コード {
+                get {
+                    try {
+                        return ((int)(this[this.table揚り明細問合せ.品番コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'品番コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.品番コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社品番 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.自社品番Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'自社品番\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.自社品番Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社品名 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.自社品名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'自社品名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.自社品名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社色 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.自社色Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'自社色\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.自社色Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime 賞味期限 {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.table揚り明細問合せ.賞味期限Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'賞味期限\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.賞味期限Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価 {
+                get {
+                    try {
+                        return ((decimal)(this[this.table揚り明細問合せ.単価Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'単価\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.単価Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 数量 {
+                get {
+                    try {
+                        return ((decimal)(this[this.table揚り明細問合せ.数量Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'数量\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.数量Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 単位 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.単位Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'単位\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.単位Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 金額 {
+                get {
+                    try {
+                        return ((int)(this[this.table揚り明細問合せ.金額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'金額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 摘要 {
+                get {
+                    try {
+                        return ((string)(this[this.table揚り明細問合せ.摘要Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'揚り明細問合せ\' にある列 \'摘要\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table揚り明細問合せ.摘要Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is仕上日Null() {
+                return this.IsNull(this.table揚り明細問合せ.仕上日Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set仕上日Null() {
+                this[this.table揚り明細問合せ.仕上日Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is加工区分Null() {
+                return this.IsNull(this.table揚り明細問合せ.加工区分Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set加工区分Null() {
+                this[this.table揚り明細問合せ.加工区分Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is伝票番号Null() {
+                return this.IsNull(this.table揚り明細問合せ.伝票番号Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set伝票番号Null() {
+                this[this.table揚り明細問合せ.伝票番号Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is行番号Null() {
+                return this.IsNull(this.table揚り明細問合せ.行番号Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set行番号Null() {
+                this[this.table揚り明細問合せ.行番号Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is外注先Null() {
+                return this.IsNull(this.table揚り明細問合せ.外注先Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set外注先Null() {
+                this[this.table揚り明細問合せ.外注先Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is品番コードNull() {
+                return this.IsNull(this.table揚り明細問合せ.品番コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set品番コードNull() {
+                this[this.table揚り明細問合せ.品番コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社品番Null() {
+                return this.IsNull(this.table揚り明細問合せ.自社品番Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社品番Null() {
+                this[this.table揚り明細問合せ.自社品番Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社品名Null() {
+                return this.IsNull(this.table揚り明細問合せ.自社品名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社品名Null() {
+                this[this.table揚り明細問合せ.自社品名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社色Null() {
+                return this.IsNull(this.table揚り明細問合せ.自社色Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社色Null() {
+                this[this.table揚り明細問合せ.自社色Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is賞味期限Null() {
+                return this.IsNull(this.table揚り明細問合せ.賞味期限Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set賞味期限Null() {
+                this[this.table揚り明細問合せ.賞味期限Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価Null() {
+                return this.IsNull(this.table揚り明細問合せ.単価Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価Null() {
+                this[this.table揚り明細問合せ.単価Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is数量Null() {
+                return this.IsNull(this.table揚り明細問合せ.数量Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set数量Null() {
+                this[this.table揚り明細問合せ.数量Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単位Null() {
+                return this.IsNull(this.table揚り明細問合せ.単位Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単位Null() {
+                this[this.table揚り明細問合せ.単位Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額Null() {
+                return this.IsNull(this.table揚り明細問合せ.金額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額Null() {
+                this[this.table揚り明細問合せ.金額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is摘要Null() {
+                return this.IsNull(this.table揚り明細問合せ.摘要Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set摘要Null() {
+                this[this.table揚り明細問合せ.摘要Column] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -6858,6 +7772,40 @@ namespace Hakobou.Data.ZIJ {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public 商品入出荷問合せRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class 揚り明細問合せRowChangeEvent : global::System.EventArgs {
+            
+            private 揚り明細問合せRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 揚り明細問合せRowChangeEvent(揚り明細問合せRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 揚り明細問合せRow Row {
                 get {
                     return this.eventRow;
                 }

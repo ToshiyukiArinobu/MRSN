@@ -1003,6 +1003,23 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        /// <summary>
+        /// 揚り明細問合せ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIJ10010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(ZIJ10010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         #endregion
 
         #region 得意先管理[F3]
@@ -3166,6 +3183,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.Close();
         }
+
 
     }
 }

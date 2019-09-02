@@ -340,6 +340,9 @@
     <Compile Include="Views\ZIJ\ZIJ09010.xaml.cs">
       <DependentUpon>ZIJ09010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ZIJ\ZIJ10010.xaml.cs">
+      <DependentUpon>ZIJ10010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ZIK\ZIK01010.xaml.cs">
       <DependentUpon>ZIK01010.xaml</DependentUpon>
     </Compile>
@@ -367,6 +370,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Views\TKS\TKS09010G1.sgxml" />
+    <Resource Include="Views\ZIJ\ZIJ10010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Views\ZIK\ZIK01010G1.sgxml" />
     <Resource Include="Views\DLY\DLY07010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -813,6 +819,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ZIJ\ZIJ09010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIJ\ZIJ10010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

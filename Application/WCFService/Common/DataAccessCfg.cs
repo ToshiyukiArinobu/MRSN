@@ -369,6 +369,8 @@ namespace KyoeiSystem.Application.WCFService
             // 商品在庫問い合わせ
             new WCFDataAccessConfig() { Name = "ZIJ09010_GetData", ServiceClass = "ZIJ09010", MethodName = "GetDataList", Descprition = "商品在庫問い合わせ情報取得" },
 
+            // 揚り明細問合せ
+            new WCFDataAccessConfig() { Name = "ZIJ10010_GetData", ServiceClass = "ZIJ10010", MethodName = "GetDataList", Descprition = "揚り明細問合せ情報取得" },
             #endregion
 
             #region 得意先管理
