@@ -66,6 +66,16 @@ namespace KyoeiSystem.Application.WCFService
             public string 仕入先コード { get; set; }
             public string 仕入先枝番 { get; set; }
             public string 備考 { get; set; }
+            // No-94 Add Start
+            public int 通常税率対象金額 { get; set; }
+            public int 軽減税率対象金額 { get; set; }
+            public int 通常税率消費税 { get; set; }
+            public int 軽減税率消費税 { get; set; }
+            // No-94 Add End
+            // No-95 Add Start
+            public int 小計 { get; set; }
+            public int 総合計 { get; set; }
+            // No-95 Add End
             public int 消費税 { get; set; }
             public int 販社コード { get; set; }
             public bool 入力元画面DLY12010 { get; set; }
@@ -84,6 +94,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 単位 { get; set; }
             public decimal? 単価 { get; set; }
             public decimal? 金額 { get; set; }
+            public string 税区分 { get; set; }             // No-94 Add
             public string 摘要 { get; set; }
 
             public bool マルセン仕入 { get; set; }
@@ -234,7 +245,8 @@ namespace KyoeiSystem.Application.WCFService
                         自社色 = s.Field<string>("自社色"),
                         自社色名 = s.Field<string>("自社色名"),
                         消費税区分 = s.Field<int>("消費税区分"),
-                        商品分類 = s.Field<int>("商品分類")
+                        商品分類 = s.Field<int>("商品分類"),
+                        税区分 = s.Field<string>("税区分")            // No-94 Add
                     })
                     .ToList();
 
@@ -422,6 +434,16 @@ namespace KyoeiSystem.Application.WCFService
                                 仕入先コード = x.URHD_HAN.仕入先コード.ToString(),
                                 仕入先枝番 = x.URHD_HAN.仕入先枝番.ToString(),
                                 備考 = x.URHD_HAN.備考,
+                                // No-94 Add Start
+                                通常税率対象金額 = x.URHD_HAN.通常税率対象金額 ?? 0,
+                                軽減税率対象金額 = x.URHD_HAN.軽減税率対象金額 ?? 0,
+                                通常税率消費税 = x.URHD_HAN.通常税率消費税 ?? 0,
+                                軽減税率消費税 = x.URHD_HAN.軽減税率消費税 ?? 0,
+                                // No-94 Add End
+                                // No-95 Add Start
+                                小計 = x.URHD_HAN.小計 ?? 0,
+                                総合計 = x.URHD_HAN.総合計 ?? 0,
+                                // No-95 Add End
                                 消費税 = x.URHD_HAN.消費税,
                                 販社コード = x.URHD_HAN.販社コード,
                                 入力元画面DLY12010 = x.URHD == null ? true : false
@@ -490,6 +512,9 @@ namespace KyoeiSystem.Application.WCFService
                                 単位 = x.URDTL_HAN.単位,
                                 単価 = x.URDTL_HAN.単価,
                                 金額 = x.URDTL_HAN.金額 ?? 0,
+                                税区分 =           // No-94 Add
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? CommonConstants.消費税区分略称_軽減税率 :
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? CommonConstants.消費税区分略称_非課税 : string.Empty,
                                 摘要 = x.URDTL_HAN.摘要,
                                 マルセン仕入 = x.URDTL_HAN != null,
                                 消費税区分 = x.HIN.消費税区分 ?? 0,
@@ -729,6 +754,16 @@ namespace KyoeiSystem.Application.WCFService
             srhdhan.入荷先コード = ParseInt(hdRow["販社コード"]) ?? 0;
             srhdhan.発注番号 = t02Data.受注番号;
             srhdhan.備考 = t02Data.備考;
+            // No-94 Add Start
+            srhdhan.通常税率対象金額 = t02Data.通常税率対象金額;
+            srhdhan.軽減税率対象金額 = t02Data.軽減税率対象金額;
+            srhdhan.通常税率消費税 = t02Data.通常税率消費税;
+            srhdhan.軽減税率消費税 = t02Data.軽減税率消費税;
+            // No-94 Add End
+            // No-95 Add Start
+            srhdhan.小計 = t02Data.小計;
+            srhdhan.総合計 = t02Data.総合計;
+            // No-95 Add End
             srhdhan.消費税 = t02Data.消費税;
 
             T03Service.T03_SRHD_HAN_Update(srhdhan);
@@ -845,6 +880,16 @@ namespace KyoeiSystem.Application.WCFService
                 urhd.仕入先コード = urhdData.仕入先コード;
                 urhd.仕入先枝番 = urhdData.仕入先枝番;
                 urhd.備考 = urhdData.備考;
+                // No-94 Add Start
+                urhd.通常税率対象金額 = urhdData.通常税率対象金額;
+                urhd.軽減税率対象金額 = urhdData.軽減税率対象金額;
+                urhd.通常税率消費税 = urhdData.通常税率消費税;
+                urhd.軽減税率消費税 = urhdData.軽減税率消費税;
+                // No-94 Add End
+                // No-95 Add Start
+                urhd.小計 = urhdData.小計;
+                urhd.総合計 = urhdData.総合計;
+                // No-95 Add End
                 urhd.消費税 = urhdData.消費税;
 
                 // 販社売上ヘッダの登録実行
@@ -956,6 +1001,16 @@ namespace KyoeiSystem.Application.WCFService
             // REMARKS:カラムが無い場合は参照しない
             urhd.元伝票番号 = drow.Table.Columns.Contains("元伝票番号") ?
                 (int.TryParse(drow["元伝票番号"].ToString(), out ival) ? ival : (int?)null) : (int?)null;
+            // No-94 Add Start
+            urhd.通常税率対象金額 = ParseNumeric<int>(drow["通常税率対象金額"]);
+            urhd.軽減税率対象金額 = ParseNumeric<int>(drow["軽減税率対象金額"]);
+            urhd.通常税率消費税 = ParseNumeric<int>(drow["通常税率消費税"]);
+            urhd.軽減税率消費税 = ParseNumeric<int>(drow["軽減税率消費税"]);
+            // No-94 Add End
+            // No-95 Add Start
+            urhd.小計 = ParseNumeric<int>(drow["小計"]);
+            urhd.総合計 = ParseNumeric<int>(drow["総合計"]);
+            // No-95 Add End
             urhd.消費税 = ParseNumeric<int>(drow["消費税"]);
 
             return urhd;
