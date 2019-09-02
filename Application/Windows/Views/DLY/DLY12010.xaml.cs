@@ -103,11 +103,12 @@ namespace KyoeiSystem.Application.Windows.Views
             単位 = 7,
             単価 = 8,
             金額 = 9,
-            摘要 = 10,
-            マルセン仕入 = 11,
-            品番コード = 12,
-            消費税区分 = 13,
-            商品分類 = 14
+            税区分 = 10,                        // No-94 Add
+            摘要 = 11,
+            マルセン仕入 = 12,
+            品番コード = 13,
+            消費税区分 = 14,
+            商品分類 = 15
         }
 
         /// <summary>
@@ -378,6 +379,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, string.Empty);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, 0);
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, 0);
+                            gridCtl.SetCellValue((int)GridColumnsMapping.税区分, string.Empty);      // No-94 Add
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, (int)消費税区分.通常税率);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, (int)商品分類.その他);
                             gridCtl.SetCellValue((int)GridColumnsMapping.色コード, string.Empty);
@@ -407,6 +409,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridCtl.SetCellValue((int)GridColumnsMapping.単位, myhin.SelectedRowData["単位"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.単価, myhin.SelectedRowData["卸値"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.金額, AppCommon.DecimalParse(myhin.SelectedRowData["卸値"].ToString()));
+                                gridCtl.SetCellValue((int)GridColumnsMapping.税区分, taxCalc.getTaxRareKbnString(myhin.SelectedRowData["消費税区分"]));      // No-94 Add
                                 gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedRowData["消費税区分"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedRowData["商品分類"]);
                                 gridCtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
@@ -431,6 +434,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, drow["単位"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, drow["卸値"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, AppCommon.DecimalParse(drow["卸値"].ToString()));
+                            gridCtl.SetCellValue((int)GridColumnsMapping.税区分, taxCalc.getTaxRareKbnString(drow["消費税区分"]));        // No-94 Add
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
@@ -591,6 +595,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.単位, myhin.SelectedRowData["単位"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, myhin.SelectedRowData["卸値"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.金額, AppCommon.DecimalParse(myhin.SelectedRowData["卸値"].ToString()));
+                            gridCtl.SetCellValue((int)GridColumnsMapping.税区分, taxCalc.getTaxRareKbnString(myhin.SelectedRowData["消費税区分"]));       // No-94 Add
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedRowData["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedRowData["商品分類"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
@@ -1136,6 +1141,16 @@ namespace KyoeiSystem.Application.Windows.Views
             // 消費税をヘッダに設定
             SearchHeader["消費税"] = AppCommon.IntParse(this.lbl消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
             SearchHeader["販社コード"] = AppCommon.IntParse(this.txt売上先販社.Text1, System.Globalization.NumberStyles.Number);
+            // No-94 Add Start
+            SearchHeader["通常税率対象金額"] = AppCommon.IntParse(this.lbl通常税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率対象金額"] = AppCommon.IntParse(this.lbl軽減税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.lbl通常税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.lbl軽減税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-94 Add End
+            // No-95 Add Start
+            SearchHeader["小計"] = AppCommon.IntParse(this.lbl小計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["総合計"] = AppCommon.IntParse(this.lbl総合計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-95 Add End
 
             DataSet ds = new DataSet();
             ds.Tables.Add(SearchHeader.Table.Copy());
@@ -1264,9 +1279,25 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
+            // 在庫倉庫チェック（メーカー以外）
+            if (!メーカー区分.Contains(salesKbn) && string.IsNullOrEmpty(this.txt在庫倉庫.Text1))
+            {
+                this.txt在庫倉庫.Focus();
+                base.ErrorMessage = string.Format("在庫倉庫が入力されていません。");
+                return isResult;
+
+            }
+            else if (!this.txt在庫倉庫.CheckValidation())
+            {
+                this.txt在庫倉庫.Focus();
+                base.ErrorMessage = string.Format("在庫倉庫の設定内容に誤りがあります。");
+                return isResult;
+
+            }
+
             // 自社マスタの販社区分が1（販社）以外はNG
             // （販社リストDictionaryに存在しない場合はエラー）
-            if (!ListHansya.ContainsKey(this.txt売上先販社.Text1))
+            if (this.txt売上先販社.Text1 == null || !ListHansya.ContainsKey(this.txt売上先販社.Text1))
             {
                 this.txt売上先販社.Focus();
                 base.ErrorMessage = string.Format("売上先が販社ではないため、登録できません。");
@@ -1444,6 +1475,12 @@ namespace KyoeiSystem.Application.Windows.Views
             this.txt備考.Text1 = string.Empty;
 
             string initValue = string.Format("{0:#,0}", 0);
+            // No-94 Add Start
+            lbl通常税率対象金額.Content = initValue;
+            lbl軽減税率対象金額.Content = initValue;
+            lbl通常税率消費税.Content = initValue;
+            lbl軽減税率消費税.Content = initValue;
+            // No-94 Add End
             this.lbl小計.Content = initValue;
             this.lbl消費税.Content = initValue;
             this.lbl総合計.Content = initValue;
@@ -1713,6 +1750,13 @@ namespace KyoeiSystem.Application.Windows.Views
             decimal conTax = 0;
             DateTime date = DateTime.Now;
 
+            // No-94 Add Start
+            int intTsujyo = 0;
+            int intKeigen = 0;
+            int intTaxTsujyo = 0;
+            int intTaxKeigen = 0;
+            // No-94 Add End
+
             if (DateTime.TryParse(txt売上日.Text, out date))
             {
                 foreach (DataRow row in SearchDetail.Rows)
@@ -1730,11 +1774,36 @@ namespace KyoeiSystem.Application.Windows.Views
                     {
                         taxKbnId = txt得意先.ClaimTaxId;
                     }
-                    conTax += taxCalc.CalculateTax(date, row.Field<decimal>("金額"), row.Field<int>("消費税区分"), taxKbnId);
-
+                    // No-94 Mod Start
+                    int intZeikbn = row.Field<int>("消費税区分");
+                    int intKingakuWk = Decimal.ToInt32(row.Field<decimal>("金額"));
+                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId));
+                    switch (intZeikbn)
+                    {
+                        case (int)消費税区分.通常税率:
+                            intTsujyo += intKingakuWk;
+                            intTaxTsujyo += intTaxWk;
+                            break;
+                        case (int)消費税区分.軽減税率:
+                            intKeigen += intKingakuWk;
+                            intTaxKeigen += intTaxWk;
+                            break;
+                        case (int)消費税区分.非課税:
+                        default:
+                            break;
+                    }
+                    conTax += intTaxWk;
+                    // No-94 Mod End
                 }
 
                 long total = Convert.ToInt64(subTotal + conTax);
+
+                // No-94 Add Start
+                lbl通常税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intTsujyo);
+                lbl軽減税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intKeigen);
+                lbl通常税率消費税.Content = string.Format(PRICE_FORMAT_STRING, intTaxTsujyo);
+                lbl軽減税率消費税.Content = string.Format(PRICE_FORMAT_STRING, intTaxKeigen);
+                // No-94 Add End
 
                 lbl小計.Content = string.Format(PRICE_FORMAT_STRING, subTotal);
                 lbl消費税.Content = string.Format(PRICE_FORMAT_STRING, conTax);
