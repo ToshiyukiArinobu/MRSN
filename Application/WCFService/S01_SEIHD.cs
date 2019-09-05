@@ -216,6 +216,36 @@ namespace KyoeiSystem.Application.WCFService
         private long _前月残高;
     
         [DataMember]
+        public long 入金額
+        {
+            get { return _入金額; }
+            set
+            {
+                if (_入金額 != value)
+                {
+                    _入金額 = value;
+                    OnPropertyChanged("入金額");
+                }
+            }
+        }
+        private long _入金額;
+    
+        [DataMember]
+        public long 繰越残高
+        {
+            get { return _繰越残高; }
+            set
+            {
+                if (_繰越残高 != value)
+                {
+                    _繰越残高 = value;
+                    OnPropertyChanged("繰越残高");
+                }
+            }
+        }
+        private long _繰越残高;
+    
+        [DataMember]
         public long 通常税率対象金額
         {
             get { return _通常税率対象金額; }
