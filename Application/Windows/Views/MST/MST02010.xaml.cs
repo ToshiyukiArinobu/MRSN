@@ -497,8 +497,6 @@ namespace KyoeiSystem.Application.Windows.Views
             if (tbl.Rows.Count > 0)
             {
                 M09_HIN_SearchRow = tbl.Rows[0];
-                M09_HIN_SearchRow["消費税区分"] = 0;
-
             }
             else
             {

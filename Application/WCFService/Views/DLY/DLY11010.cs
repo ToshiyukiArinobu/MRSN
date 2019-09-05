@@ -210,6 +210,9 @@ namespace KyoeiSystem.Application.WCFService
             public decimal 単価 { get; set; }
             public int? 金額 { get; set; }
             public string 摘要 { get; set; }
+            // 20190902 add-s  CB軽減税率対応
+            public int? 消費税区分 { get; set; }
+            // 20190902 add-e  CB軽減税率対応
         }
 
         #endregion
@@ -314,7 +317,12 @@ namespace KyoeiSystem.Application.WCFService
                                 単位 = x.URDTL.単位,
                                 単価 = x.URDTL.単価,
                                 金額 = x.URDTL.金額,
-                                摘要 = x.URDTL.摘要
+
+                                //20190902 CB add & mod-s
+                                //摘要 = x.URDTL.摘要
+                                摘要 = x.URDTL.摘要,
+                                消費税区分 = x.HIN.消費税区分
+                                //20190902 CB add & mod-e
                             });
 
                     // 得意先品番(自社品番)の数量集計データを作成
@@ -329,7 +337,12 @@ namespace KyoeiSystem.Application.WCFService
                                 単位 = x.FirstOrDefault().単位,
                                 単価 = x.Sum(s => s.単価),
                                 金額 = x.Sum(s => s.金額),
-                                摘要 = x.FirstOrDefault().摘要
+
+                                //20190902 add & mod-s CB軽減税率対応
+                                //摘要 = x.FirstOrDefault().摘要
+                                摘要 = x.FirstOrDefault().摘要,
+                                消費税区分 = x.FirstOrDefault().消費税区分
+                                //20190902 add & mod-e CB軽減税率対応
                             });
 
                     int rowNum = 1;
@@ -423,6 +436,14 @@ namespace KyoeiSystem.Application.WCFService
         private void setPrintNouhinData(PrintoutMember prtMem, DetailExtension dtlRow, int rowNum)
         {
 
+            //20190902 add-s CB軽減税率対応
+            string 消費税区分wk = "";
+            if (dtlRow.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率)          
+                消費税区分wk = "軽 ";
+            else if (dtlRow.消費税区分 == (int)CommonConstants.商品消費税区分.非課税)          
+                消費税区分wk = "非 ";
+            //20190902 add-e CB軽減税率対応
+
             switch (rowNum)
             {
                 case 1:
@@ -433,7 +454,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位１ = dtlRow.単位;
                     prtMem.単価１ = dtlRow.単価;
                     prtMem.金額１ = dtlRow.金額;
-                    prtMem.摘要１ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要１ = dtlRow.摘要;
+                    prtMem.摘要１ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 2:
@@ -444,7 +468,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位２ = dtlRow.単位;
                     prtMem.単価２ = dtlRow.単価;
                     prtMem.金額２ = dtlRow.金額;
-                    prtMem.摘要２ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要２ = dtlRow.摘要;
+                    prtMem.摘要２ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 3:
@@ -455,7 +482,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位３ = dtlRow.単位;
                     prtMem.単価３ = dtlRow.単価;
                     prtMem.金額３ = dtlRow.金額;
-                    prtMem.摘要３ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要３ = dtlRow.摘要;
+                    prtMem.摘要３ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 4:
@@ -466,7 +496,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位４ = dtlRow.単位;
                     prtMem.単価４ = dtlRow.単価;
                     prtMem.金額４ = dtlRow.金額;
-                    prtMem.摘要４ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要４ = dtlRow.摘要;
+                    prtMem.摘要４ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 5:
@@ -477,7 +510,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位５ = dtlRow.単位;
                     prtMem.単価５ = dtlRow.単価;
                     prtMem.金額５ = dtlRow.金額;
-                    prtMem.摘要５ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要５ = dtlRow.摘要;
+                    prtMem.摘要５ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 6:
@@ -488,7 +524,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位６ = dtlRow.単位;
                     prtMem.単価６ = dtlRow.単価;
                     prtMem.金額６ = dtlRow.金額;
-                    prtMem.摘要６ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要６ = dtlRow.摘要;
+                    prtMem.摘要６ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 7:
@@ -499,7 +538,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位７ = dtlRow.単位;
                     prtMem.単価７ = dtlRow.単価;
                     prtMem.金額７ = dtlRow.金額;
-                    prtMem.摘要７ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要７ = dtlRow.摘要;
+                    prtMem.摘要７ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 8:
@@ -510,7 +552,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位８ = dtlRow.単位;
                     prtMem.単価８ = dtlRow.単価;
                     prtMem.金額８ = dtlRow.金額;
-                    prtMem.摘要８ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要８ = dtlRow.摘要;
+                    prtMem.摘要８ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 9:
@@ -521,7 +566,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位９ = dtlRow.単位;
                     prtMem.単価９ = dtlRow.単価;
                     prtMem.金額９ = dtlRow.金額;
-                    prtMem.摘要９ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要９ = dtlRow.摘要;
+                    prtMem.摘要９ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
                 case 10:
@@ -532,7 +580,10 @@ namespace KyoeiSystem.Application.WCFService
                     prtMem.単位１０ = dtlRow.単位;
                     prtMem.単価１０ = dtlRow.単価;
                     prtMem.金額１０ = dtlRow.金額;
-                    prtMem.摘要１０ = dtlRow.摘要;
+                    //20190902 mod-s CB軽減税率対応
+                    //prtMem.摘要１０ = dtlRow.摘要;
+                    prtMem.摘要１０ = 消費税区分wk + dtlRow.摘要;
+                    //20190902 CB mod-s
                     break;
 
             }
