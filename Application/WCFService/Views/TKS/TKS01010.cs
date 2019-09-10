@@ -107,8 +107,16 @@ namespace KyoeiSystem.Application.WCFService
                     TOK = TOK.Where(w => w.Ｔ締日 == closingDays);
 
                 // 得意先(請求先)絞込
+                // No-100 Mod Start
                 if (code != null && eda != null)
+                {
                     TOK = TOK.Where(w => w.取引先コード == code && w.枝番 == eda);
+                }
+                else if (code != null)
+                {
+                    TOK = TOK.Where(w => w.取引先コード == code);
+                }
+                // No-100 Mod End
 
                 #endregion
 
@@ -325,30 +333,46 @@ namespace KyoeiSystem.Application.WCFService
                         w.得意先コード == code &&
                         w.得意先枝番 == eda &&
                         w.売上日 >= targetStDate && w.売上日 <= targetEdDate)
-                    .Join(context.T02_URDTL.Where(w => w.削除日時 == null),
+                    .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                        x => new { コード = x.得意先コード, 枝番 = x.得意先枝番 },
+                        y => new { コード = y.取引先コード, 枝番 = y.枝番 },
+                        (x, y) => new { URHD = x, y })
+                    .SelectMany(z => z.y.DefaultIfEmpty(),
+                        (a, b) => new { a.URHD, TOK = b });
+
+            // No-100 Mod Start
+            // 前回情報取得
+            DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
+            if (cnt == 1)
+            {
+                befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
+            }
+            var befSeiCnt =
+                context.S01_SEIHD
+                    .Where(w => w.自社コード == company && w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) && w.請求先コード == code && w.請求先枝番 == eda)
+                    .OrderByDescending(o => o.回数)
+                    .FirstOrDefault();
+
+            // 入金額取得
+            var nyukin =
+                context.T11_NYKNHD
+                    .Where(w => w.削除日時 == null &&
+                        w.入金先自社コード == company &&
+                        (w.入金日 >= targetStDate && w.入金日 <= targetEdDate) &&
+                        w.得意先コード == code && w.得意先枝番 == eda)
+                    .Join(context.T11_NYKNDTL.Where(w => w.削除日時 == null),
                         x => x.伝票番号,
                         y => y.伝票番号,
-                        (x, y) => new { URHD = x, URDTL = y })
-                    .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
-                        x => new { コード = x.URHD.得意先コード, 枝番 = x.URHD.得意先枝番 },
-                        y => new { コード = y.取引先コード, 枝番 = y.枝番 },
-                        (x, y) => new { x, y })
-                    .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (a, b) => new { a.x.URHD, a.x.URDTL, TOK = b })
-                    .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
-                        x => x.URDTL.品番コード,
-                        y => y.品番コード,
-                        (x, y) => new { x, y })
-                    .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (c, d) => new { c.x.URHD, c.x.URDTL, c.x.TOK, HIN = d });
-
-            // 前月情報取得
-            DateTime befMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
-            var befSei =
-                context.S01_SEIHD
-                    .Where(w => w.自社コード == company && w.請求年月 == (befMonth.Year * 100 + befMonth.Month) && w.請求先コード == code && w.請求先枝番 == eda)
-                    .GroupBy(g => new { g.自社コード, g.請求先コード, g.請求先枝番, g.請求締日 })
+                        (x, y) => new { NYKNHD = x, NYKNDTL = y })
+                    .GroupBy(g => new { g.NYKNHD.得意先コード, g.NYKNHD.得意先枝番 })
+                    .Select(s => new
+                    {
+                        得意先コード = s.Key.得意先コード,
+                        得意先枝番 = s.Key.得意先枝番,
+                        合計金額 = s.Sum(sum => sum.NYKNDTL.金額)
+                    })
                     .FirstOrDefault();
+            // No-100 Mod End
 
             var wkData =
                 urList
@@ -357,7 +381,7 @@ namespace KyoeiSystem.Application.WCFService
                         y => y.適用開始日付,
                         (x, y) => new { x, y })
                     .SelectMany(x => x.y.DefaultIfEmpty(),
-                        (e, f) => new { e.x.URHD, e.x.URDTL, e.x.TOK, e.x.HIN, ZEI = f })
+                        (e, f) => new { e.x.URHD, e.x.TOK, ZEI = f })
                     .ToList()
                     .Select(x => new
                     {
@@ -371,30 +395,28 @@ namespace KyoeiSystem.Application.WCFService
                         集計開始日 = targetStDate,
                         集計最終日 = targetEdDate,
                         支払消費税区分 = x.TOK.Ｔ消費税区分,
-                        消費税区分 = x.HIN.消費税区分,
-                        // No-80 Start
-                        金額 =
+                        // No-94 Add Start
+                        消費税丸め区分 = x.TOK.Ｔ税区分ID,
+                        通常税率対象金額 =
                             x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
-                                x.URDTL.金額 : x.URDTL.金額 * -1 ,
-                        消費税 = (
-                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
-                                    Math.Floor((double)(x.URDTL.金額 *
-                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100)) :
-                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
-                                    Math.Round((double)(x.URDTL.金額 *
-                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100), 0, MidpointRounding.AwayFromZero) :
-                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
-                                    Math.Ceiling((double)(x.URDTL.金額 *
-                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100)) : 
-                                    0
-                                ) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1)
-                        // No-80 End
+                                x.URHD.通常税率対象金額 : x.URHD.通常税率対象金額 * -1,
+                        軽減税率対象金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.軽減税率対象金額 : x.URHD.軽減税率対象金額 * -1,
+                        通常税率消費税 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.通常税率消費税 : x.URHD.通常税率消費税 * -1,
+                        軽減税率消費税 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.軽減税率消費税 : x.URHD.軽減税率消費税 * -1,
+                        伝票非課税金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                (x.URHD.小計 - (x.URHD.通常税率対象金額 + x.URHD.軽減税率対象金額)) :
+                                (x.URHD.小計 - (x.URHD.通常税率対象金額 + x.URHD.軽減税率対象金額)) * -1 ,
+                        伝票金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.小計 : x.URHD.小計 * -1,
+                        // No-94 Add End
                     });
 
             // ヘッダ情報整形
@@ -417,7 +439,11 @@ namespace KyoeiSystem.Application.WCFService
                         g.Data.集計開始日,
                         g.Data.集計最終日,
                         g.Data.支払消費税区分,
-                        g.ZEI.消費税率
+                        g.ZEI.消費税率,
+                        // No-94 Add Start
+                        g.ZEI.軽減税率,
+                        g.Data.消費税丸め区分
+                        // No-94 Add End
                     })
                     .Select(x => new S01_SEIHD
                     {
@@ -431,16 +457,40 @@ namespace KyoeiSystem.Application.WCFService
                         請求年月日 = x.Key.請求年月日,
                         集計開始日 = x.Key.集計開始日,
                         集計最終日 = x.Key.集計最終日,
-                        前月残高 = befSei == null ? 0 : befSei.Sum(s => s.当月請求額),
-                        売上額 = (long)x.Sum(s => s.Data.金額),
+                        // No-100 Mod Start
+                        前月残高 = x.Key.請求締日 == 0 ? 0 : befSeiCnt == null ? 0 : befSeiCnt.当月請求額,
+                        入金額 = nyukin == null ? 0 : nyukin.合計金額,
+                        繰越残高 = 0,
+                        // No-100 Mod End
+                        // No-94 Mod Start
+                        売上額 = (long)x.Sum(s => s.Data.伝票金額),
                         値引額 = 0,
-                        非税売上額 =
-                            (long)x.Where(y => y.Data.消費税区分 == (int)CommonConstants.商品消費税区分.非課税)
-                                .Sum(m => m.Data.金額),
-                        消費税 =
+                        非税売上額 = (long)x.Sum(s => s.Data.伝票非課税金額),
+                        // No-94 Mod End
+                        // No-94 Add Start
+                        通常税率対象金額 = (long)x.Sum(s => s.Data.通常税率対象金額),
+                        軽減税率対象金額 = (long)x.Sum(s => s.Data.軽減税率対象金額),
+                        通常税率消費税 =
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
-                                (long)(x.Sum(s => s.Data.金額) * x.Key.消費税率 / 100) :
-                                (long)x.Sum(s => s.Data.消費税),
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    (long)Math.Round((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                0 :
+                            (long)x.Sum(s => s.Data.通常税率消費税),
+                        軽減税率消費税 =
+                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    (long)Math.Round((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                0 :
+                            (long)x.Sum(s => s.Data.軽減税率消費税),
+                        // No-94 Add End
                         当月請求額 = 0,
                         登録者 = userId,
                         登録日時 = DateTime.Now
@@ -466,6 +516,11 @@ namespace KyoeiSystem.Application.WCFService
                             請求年月日 = AppCommon.GetClosingDate(yearMonth / 100, yearMonth % 100, x.Ｔ締日 ?? 31, 0),
                             集計開始日 = targetStDate,
                             集計最終日 = targetEdDate,
+                            // No-100 Add Start
+                            前月残高 = x.Ｔ締日 == 0 ? 0 : befSeiCnt == null ? 0 : befSeiCnt.当月請求額,
+                            入金額 = nyukin == null ? 0 : nyukin.合計金額,
+                            繰越残高 = 0,
+                            // No-100 Add End
                             登録者 = userId,
                             登録日時 = DateTime.Now
                         })
@@ -477,8 +532,13 @@ namespace KyoeiSystem.Application.WCFService
 
             }
 
+
+            // 繰越残高を設定
+            urdata.繰越残高 = urdata.前月残高 - urdata.入金額;
+            // 消費税を設定
+            urdata.消費税 = urdata.通常税率消費税 + urdata.軽減税率消費税;
             // 請求額を設定
-            urdata.当月請求額 = urdata.売上額 + urdata.消費税;
+            urdata.当月請求額 = urdata.繰越残高 + urdata.売上額 + urdata.消費税;
 
             // ヘッダ情報登録
             S01_SEIHD_Update(context, urdata);
@@ -514,37 +574,54 @@ namespace KyoeiSystem.Application.WCFService
                         w.会社名コード == myCompanyCode &&
                         w.販社コード == salesCompanyCode &&
                         w.売上日 >= targetStDate && w.売上日 <= targetEdDate)
-                    .Join(context.T02_URDTL_HAN.Where(w => w.削除日時 == null),
-                        x => x.伝票番号,
-                        y => y.伝票番号,
-                        (x, y) => new { URHD = x, URDTL = y })
                     .Join(context.M70_JIS.Where(w => w.削除日時 == null),
-                        x => x.URHD.販社コード,
+                        x => x.販社コード,
                         y => y.自社コード,
-                        (x, y) => new { x.URHD, x.URDTL, JIS = y })
+                        (x, y) => new { URHD = x , JIS = y })
                     .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
                         x => new { コード = (int)x.JIS.取引先コード, 枝番 = (int)x.JIS.枝番 },
                         y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                         (x, y) => new { x, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (a, b) => new { a.x.URHD, a.x.URDTL, a.x.JIS, TOK = b })
-                    .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
-                        x => x.URDTL.品番コード,
-                        y => y.品番コード,
-                        (x, y) => new { x, y })
-                    .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (c, d) => new { c.x.URHD, c.x.URDTL, c.x.JIS, c.x.TOK, HIN = d });
+                        (a, b) => new { a.x.URHD, a.x.JIS, TOK = b });
 
-            // 前月情報取得
-            DateTime befMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
-            var befSei =
+            // No-100 Mod Start
+            // 前回情報取得
+            DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
+            if (cnt == 1)
+            {
+                befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
+            }
+
+            var befSeiCnt =
                 context.S01_SEIHD
                     .Where(w => w.自社コード == myCompanyCode &&
-                        w.請求年月 == (befMonth.Year * 100 + befMonth.Month) &&
+                        w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
                         w.請求先コード == targetJis.取引先コード &&
                         w.請求先枝番 == targetJis.枝番)
-                    .GroupBy(g => new { g.自社コード, g.請求先コード, g.請求先枝番, g.請求締日 })
+                    .OrderByDescending(o => o.回数)
                     .FirstOrDefault();
+
+            // 入金額取得
+            var nyukin =
+                context.T11_NYKNHD
+                    .Where(w => w.削除日時 == null &&
+                        w.入金先自社コード == myCompanyCode &&
+                        (w.入金日 >= targetStDate && w.入金日 <= targetEdDate) &&
+                        w.得意先コード == targetJis.取引先コード && w.得意先枝番 == targetJis.枝番)
+                    .Join(context.T11_NYKNDTL.Where(w => w.削除日時 == null),
+                        x => x.伝票番号,
+                        y => y.伝票番号,
+                        (x, y) => new { NYKNHD = x, NYKNDTL = y })
+                    .GroupBy(g => new { g.NYKNHD.得意先コード, g.NYKNHD.得意先枝番 })
+                    .Select(s => new
+                    {
+                        得意先コード = s.Key.得意先コード,
+                        得意先枝番 = s.Key.得意先枝番,
+                        合計金額 = s.Sum(sum => sum.NYKNDTL.金額)
+                    })
+                    .FirstOrDefault();
+            // No-100 Mod End
 
             var wkData =
                 urList
@@ -553,7 +630,7 @@ namespace KyoeiSystem.Application.WCFService
                         y => y.適用開始日付,
                         (x, y) => new { x, y })
                     .SelectMany(x => x.y.DefaultIfEmpty(),
-                        (e, f) => new { e.x.URHD, e.x.URDTL, e.x.TOK, e.x.HIN, ZEI = f })
+                        (e, f) => new { e.x.URHD, e.x.TOK, ZEI = f })
                     .ToList()
                     .Select(x => new
                     {
@@ -567,29 +644,28 @@ namespace KyoeiSystem.Application.WCFService
                         集計開始日 = targetStDate,
                         集計最終日 = targetEdDate,
                         支払消費税区分 = x.TOK.Ｔ消費税区分,
-                        消費税区分 = x.HIN.消費税区分,
-                        // No-80 Start
-                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
-                            x.URDTL.金額 : x.URDTL.金額 * -1,
-                        消費税 = (
-                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
-                                    Math.Floor((double)(x.URDTL.金額 *
-                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100)) :
-                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
-                                    Math.Round((double)(x.URDTL.金額 *
-                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100), 0, MidpointRounding.AwayFromZero) :
-                                x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
-                                    Math.Ceiling((double)(x.URDTL.金額 *
-                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100)) :
-                                    0
-                                ) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1)
-                        // No-80 End
+                        // No-94 Add Start
+                        消費税丸め区分 = x.TOK.Ｔ税区分ID,
+                        通常税率対象金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.通常税率対象金額 : x.URHD.通常税率対象金額 * -1,
+                        軽減税率対象金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.軽減税率対象金額 : x.URHD.軽減税率対象金額 * -1,
+                        通常税率消費税 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.通常税率消費税 : x.URHD.通常税率消費税 * -1,
+                        軽減税率消費税 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.軽減税率消費税 : x.URHD.軽減税率消費税 * -1,
+                        伝票非課税金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                (x.URHD.小計 - (x.URHD.通常税率対象金額 + x.URHD.軽減税率対象金額)) :
+                                (x.URHD.小計 - (x.URHD.通常税率対象金額 + x.URHD.軽減税率対象金額)) * -1,
+                        伝票金額 =
+                            x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                x.URHD.小計 : x.URHD.小計 * -1,
+                        // No-94 Add End
                     });
 
             // ヘッダ情報整形
@@ -612,7 +688,11 @@ namespace KyoeiSystem.Application.WCFService
                         g.Data.集計開始日,
                         g.Data.集計最終日,
                         g.Data.支払消費税区分,
-                        g.ZEI.消費税率
+                        g.ZEI.消費税率,
+                        // No-94 Add Start
+                        g.ZEI.軽減税率,
+                        g.Data.消費税丸め区分
+                        // No-94 Add End
                     })
                     .Select(x => new S01_SEIHD
                     {
@@ -626,16 +706,41 @@ namespace KyoeiSystem.Application.WCFService
                         請求年月日 = x.Key.請求年月日,
                         集計開始日 = x.Key.集計開始日,
                         集計最終日 = x.Key.集計最終日,
-                        前月残高 = befSei == null ? 0 : befSei.Sum(s => s.当月請求額),
-                        売上額 = (long)x.Sum(s => s.Data.金額),
+                        // No-100 Mod Start
+                        前月残高 = x.Key.請求締日 == 0 ? 0 : befSeiCnt == null ? 0 : befSeiCnt.当月請求額,
+                        入金額 = nyukin == null ? 0 : nyukin.合計金額,
+                        繰越残高 = 0,
+                        // No-100 Mod End
+                        // No-94 Mod Start
+                        売上額 = (long)x.Sum(s => s.Data.伝票金額),
                         値引額 = 0,
-                        非税売上額 =
-                            (long)x.Where(y => y.Data.消費税区分 == (int)CommonConstants.商品消費税区分.非課税)
-                                .Sum(m => m.Data.金額),
-                        消費税 =
+                        非税売上額 = (long)x.Sum(s => s.Data.伝票非課税金額),
+                        消費税 = 0,
+                        // No-94 Mod End
+                        // No-94 Add Start
+                        通常税率対象金額 = (long)x.Sum(s => s.Data.通常税率対象金額),
+                        軽減税率対象金額 = (long)x.Sum(s => s.Data.軽減税率対象金額),
+                        通常税率消費税 =
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
-                                (long)(x.Sum(s => s.Data.金額) * x.Key.消費税率 / 100) :
-                                (long)x.Sum(s => s.Data.消費税),
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    (long)Math.Round((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                0 :
+                            (long)x.Sum(s => s.Data.通常税率消費税),
+                        軽減税率消費税 =
+                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    (long)Math.Round((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                0 :
+                            (long)x.Sum(s => s.Data.軽減税率消費税),
+                        // No-94 Add End
                         当月請求額 = 0,
                         登録者 = userId,
                         登録日時 = DateTime.Now
@@ -661,15 +766,29 @@ namespace KyoeiSystem.Application.WCFService
                             請求年月日 = AppCommon.GetClosingDate(yearMonth / 100, yearMonth % 100, x.Ｔ締日 ?? 31, 0),
                             集計開始日 = targetStDate,
                             集計最終日 = targetEdDate,
+                            // No-100 Add Start
+                            前月残高 = x.Ｔ締日 == 0 ? 0 : befSeiCnt == null ? 0 : befSeiCnt.当月請求額,
+                            入金額 = nyukin == null ? 0 : nyukin.合計金額,
+                            繰越残高 = 0,
+                            // No-100 Add End
                             登録者 = userId,
                             登録日時 = DateTime.Now
                         })
                         .FirstOrDefault();
 
+                // No-100 Add Start
+                // 都度請求の場合は空ヘッダデータを作成しない
+                if (urdata.請求締日 == 0)
+                    return;
+                // No-100 Add End
             }
 
+            // 繰越残高を設定
+            urdata.繰越残高 = urdata.前月残高 - urdata.入金額;
+            // 消費税を設定
+            urdata.消費税 = urdata.通常税率消費税 + urdata.軽減税率消費税;
             // 請求額を設定
-            urdata.当月請求額 = urdata.売上額 + urdata.消費税;
+            urdata.当月請求額 = urdata.繰越残高 + urdata.売上額 + urdata.消費税;
 
             // ヘッダ情報登録
             S01_SEIHD_Update(context, urdata);
@@ -755,17 +874,17 @@ namespace KyoeiSystem.Application.WCFService
                                    (int)Math.Floor((double)(x.URDTL.金額 *
                                         (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                         x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100)) :
+                                        0) / (double)100)) :
                                 x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                    (int)Math.Round((double)(x.URDTL.金額 *
                                         (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                         x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                        0) / (double)100), 0, MidpointRounding.AwayFromZero) :
                                 x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
                                    (int)Math.Ceiling((double)(x.URDTL.金額 *
                                         (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                         x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                        0) / 100)) :
+                                        0) / (double)100)) :
                                     0
                                 ) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1),
                         // No-80 End
@@ -857,17 +976,17 @@ namespace KyoeiSystem.Application.WCFService
                                (int)Math.Floor((double)(x.URDTL.金額 *
                                     (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                     x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) :
+                                    0) / (double)100)) :
                             x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                (int)Math.Round((double)(x.URDTL.金額 *
                                     (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                     x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                    0) / (double)100), 0, MidpointRounding.AwayFromZero) :
                             x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
                                (int)Math.Ceiling((double)(x.URDTL.金額 *
                                     (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                     x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                    0) / 100)) :
+                                    0) / (double)100)) :
                                 0) * (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 1 : -1),
                         // No-80 End
                         摘要 = x.URDTL.摘要,
@@ -916,9 +1035,19 @@ namespace KyoeiSystem.Application.WCFService
                 data.集計開始日 = hdData.集計開始日;
                 data.集計最終日 = hdData.集計最終日;
                 data.前月残高 = hdData.前月残高;
+                // No-100 Add Start
+                data.入金額 = hdData.入金額;
+                data.繰越残高 = hdData.繰越残高;
+                // No-100 Add End
                 data.売上額 = hdData.売上額;
                 data.値引額 = hdData.値引額;
                 data.非税売上額 = hdData.非税売上額;
+                // No-94 Add Start
+                data.通常税率対象金額 = hdData.通常税率対象金額;
+                data.軽減税率対象金額 = hdData.軽減税率対象金額;
+                data.通常税率消費税 = hdData.通常税率消費税;
+                data.軽減税率消費税 = hdData.軽減税率消費税;
+                // No-94 Add End
                 data.消費税 = hdData.消費税;
                 data.当月請求額 = hdData.当月請求額;
                 data.登録者 = hdData.登録者;
@@ -934,9 +1063,19 @@ namespace KyoeiSystem.Application.WCFService
                 seihd.集計開始日 = hdData.集計開始日;
                 seihd.集計最終日 = hdData.集計最終日;
                 seihd.前月残高 = hdData.前月残高;
+                // No-100 Add Start
+                seihd.入金額 = hdData.入金額;
+                seihd.繰越残高 = hdData.繰越残高;
+                // No-100 Add End
                 seihd.売上額 = hdData.売上額;
                 seihd.値引額 = hdData.値引額;
                 seihd.非税売上額 = hdData.非税売上額;
+                // No-94 Add Start
+                seihd.通常税率対象金額 = hdData.通常税率対象金額;
+                seihd.軽減税率対象金額 = hdData.軽減税率対象金額;
+                seihd.通常税率消費税 = hdData.通常税率消費税;
+                seihd.軽減税率消費税 = hdData.軽減税率消費税;
+                // No-94 Add End
                 seihd.消費税 = hdData.消費税;
                 seihd.当月請求額 = hdData.当月請求額;
                 seihd.登録者 = hdData.登録者;
@@ -1011,8 +1150,13 @@ namespace KyoeiSystem.Application.WCFService
             // 入金日の算出
             try
             {
-                paymentDate = AppCommon.GetClosingDate(year, month, tok.Ｔ入金日１ ?? 31, 0);
-                paymentDate = paymentDate.AddMonths(tok.Ｔサイト１ ?? 0);
+                // No-100 Mod Start
+                DateTime baseDate = new DateTime(year, month, tok.Ｔ入金日１ ?? 31);
+                baseDate = baseDate.AddMonths(tok.Ｔサイト１ ?? 0);
+                int intNyukinMonth = int.Parse(baseDate.Month.ToString());
+                int intNyukinYear = int.Parse(baseDate.Year.ToString());
+                paymentDate = AppCommon.GetClosingDate(intNyukinYear, intNyukinMonth, tok.Ｔ入金日１ ?? 31, 0);
+                // No-100 Mod End
 
             }
             catch
@@ -1022,8 +1166,10 @@ namespace KyoeiSystem.Application.WCFService
             }
 
             // 集計期間設定
-            startDate = closingDate.AddMonths(-1);
-            endDate = closingDate.AddDays(-1);
+            // No-100 Mod Start
+            startDate = closingDate.AddDays(1).AddMonths(-1);
+            endDate = closingDate;
+            // No-100 Mod End
 
         }
 
