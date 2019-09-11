@@ -13,7 +13,7 @@
     mc:Ignorable="d"
     d:DesignWidth="300" 
     AllowsTransparency="False" WindowStartupLocation="Manual" Language="ja-JP"
-    MinHeight="728" MinWidth="1024" Height="768" Width="1024"
+    MinHeight="728" MinWidth="1024" Height="800" Width="1024"
     Loaded="Window_Loaded" Closed="Window_Closed"
     Title="仕入返品入力(DLY01020)">
 
@@ -465,6 +465,15 @@
               <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
             </sg:Column.DataField>
           </sg:Column>
+          <!-- 税区分 -->
+          <sg:Column Locked="True" Focusable="True" CanUserResize="False" HorizontalAlignment="Center">
+            <sg:Column.CellType>
+              <sg:TextCellType MaxLength="25" MaxLengthUnit="Byte" ImeState="On" />
+            </sg:Column.CellType>
+            <sg:Column.DataField>
+              <sg:BindingDataField Binding="{Binding 税区分, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+            </sg:Column.DataField>
+          </sg:Column>
           <!-- 摘要 -->
           <sg:Column Locked="False" CanUserResize="False">
             <sg:Column.CellType>
@@ -507,24 +516,17 @@
           <RowDefinition Height="30" />
           <RowDefinition Height="30" />
           <RowDefinition Height="30" />
+          <RowDefinition Height="30" />
           <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="464" />
           <ColumnDefinition Width="85" />
+          <ColumnDefinition Width="85" />
+          <ColumnDefinition Width="85" />
           <ColumnDefinition Width="100" />
           <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
-
-        <!-- 枠線描画 -->
-        <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,1" />
-        <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,1,0,1" />
-        <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,1,1" />
-        <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,0,0,1" />
-        <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,0,0,1" />
-        <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,0,1,1" />
-        <Border Grid.Column="1" Grid.Row="2" BorderThickness="1,0,0,1" />
-        <Border Grid.Column="2" Grid.Row="2" BorderThickness="1,0,1,1" />
 
         <ctls:UcLabel Content="備　　考" Grid.Row="0" Grid.Column="0" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
@@ -536,32 +538,60 @@
             Text2="{Binding SearchHeader[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
         />
 
-        <ctls:UcLabel Content="小　計" Grid.Row="0" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                <ctls:UcLabel Content="小　計" Grid.Row="1" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
         />
-        <Label x:Name="c小計" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Label x:Name="c小計" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-        <ctls:UcLabel Content="消費税" Grid.Row="1" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                <ctls:UcLabel Content="消費税" Grid.Row="2" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
         />
-        <Label x:Name="c消費税" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Label x:Name="c消費税" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-        <ctls:UcLabel Content="最大10行伝票" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <ctls:UcLabel Content="最大10行伝票" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
 
-        <ctls:UcLabel Content="総合計" Grid.Row="2" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                <ctls:UcLabel Content="総合計" Grid.Row="3" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0" Grid.ColumnSpan="3" 
                       Background="{StaticResource DataGridSummaryBackground}"
         />
-        <Label x:Name="c総合計" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Label x:Name="c総合計" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                <ctls:UcLabel Content="通常税" Grid.Row="0" Grid.Column="2" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                      Background="{StaticResource DataGridSummaryBackground}"
+        />
+                <ctls:UcLabel Content="軽減税" Grid.Row="0" Grid.Column="3" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                      Background="{StaticResource DataGridSummaryBackground}"
+        />
+                <ctls:UcLabel Content="合　計" Grid.Row="0" Grid.Column="4" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                      Background="{StaticResource DataGridSummaryBackground}"
+        />
+
+        <Label x:Name="lbl通常税率対象金額" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
+        <Label x:Name="lbl軽減税率対象金額" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />
+        <Label x:Name="lbl通常税率消費税" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
+        <Label x:Name="lbl軽減税率消費税" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />
+
+        <Label x:Name="lbl税区分説明" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Padding="0,6,5,0" 
+               Content="軽は軽減税率対象商品、非は非課税対象商品"/>
 
         <!-- 枠線描画 -->
-        <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,1" />
-        <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,1,0,1" />
-        <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,1,1" />
-        <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,0,0,1" />
-        <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,0,0,1" />
-        <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,0,1,1" />
-        <Border Grid.Column="1" Grid.Row="2" BorderThickness="1,0,0,1" />
-        <Border Grid.Column="2" Grid.Row="2" BorderThickness="1,0,1,1" />
+        <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,0,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="3" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="4" Grid.Row="0" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+        <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,1,0,1" Panel.ZIndex="9" />
+        <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="3" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="4" Grid.Row="1" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+        <Border Grid.Column="1" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="2" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="3" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+        <Border Grid.Column="4" Grid.Row="2" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+        <Border Grid.Column="1" Grid.Row="3" BorderThickness="1,1,0,1" Panel.ZIndex="9" Grid.ColumnSpan="3" />
+        <Border Grid.Column="2" Grid.Row="3" BorderThickness="0,0,0,1" Panel.ZIndex="9" />
+        <Border Grid.Column="3" Grid.Row="3" BorderThickness="0,0,0,1" Panel.ZIndex="9" />
+        <Border Grid.Column="4" Grid.Row="3" BorderThickness="1,1,1,1" Panel.ZIndex="9" />
 
       </Grid>
 

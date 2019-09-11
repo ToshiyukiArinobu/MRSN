@@ -36,6 +36,16 @@ namespace KyoeiSystem.Application.WCFService
             public string 備考 { get; set; }
             public string 元伝票番号 { get; set; }
             public int 消費税 { get; set; }
+            // No-94 Add Start
+            public int 通常税率対象金額 { get; set; }
+            public int 軽減税率対象金額 { get; set; }
+            public int 通常税率消費税 { get; set; }
+            public int 軽減税率消費税 { get; set; }
+            // No-94 Add End
+            // No-95 Add Start
+            public int 小計 { get; set; }
+            public int 総合計 { get; set; }
+            // No-95 Add End
             // REMARKS:Entityを基本に不足情報を補完する
             /// <summary>1:一括、2:個別</summary>
             public int Ｓ支払消費税区分 { get; set; }
@@ -52,6 +62,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 消費税区分 { get; set; }
             /// <summary>1:食品、2:繊維、3:その他</summary>
             public int 商品分類 { get; set; }
+            public string 税区分 { get; set; }             // No-94 Add
 
             // 20190705CB-S
             public string 自社色 { get; set; }             // No-59 Mod
@@ -74,6 +85,16 @@ namespace KyoeiSystem.Application.WCFService
             public string 入荷先コード { get; set; }
             public string 発注番号 { get; set; }
             public string 備考 { get; set; }
+            // No-94 Add Start
+            public int 通常税率対象金額 { get; set; }
+            public int 軽減税率対象金額 { get; set; }
+            public int 通常税率消費税 { get; set; }
+            public int 軽減税率消費税 { get; set; }
+            // No-94 Add End
+            // No-95 Add Start
+            public int 小計 { get; set; }
+            public int 総合計 { get; set; }
+            // No-95 Add End
             public int? 消費税 { get; set; }
             public string 元伝票番号 { get; set; }
             public DateTime? 元仕入日 { get; set; }
@@ -94,6 +115,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 消費税区分 { get; set; }
             /// <summary>1:食品、2:繊維、3:その他</summary>
             public int 商品分類 { get; set; }
+            public string 税区分 { get; set; }             // No-94 Add
         }
 
         #endregion

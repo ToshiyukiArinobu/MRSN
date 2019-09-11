@@ -136,6 +136,16 @@ namespace KyoeiSystem.Application.WCFService
                                         入荷先コード = z.a.p.入荷先コード.ToString(),
                                         発注番号 = z.a.p.発注番号 != null ? z.a.p.発注番号.ToString() : string.Empty,
                                         備考 = z.a.p.備考,
+                                        // No-94 Add Start
+                                        通常税率対象金額 = z.a.p.通常税率対象金額 ?? 0,
+                                        軽減税率対象金額 = z.a.p.軽減税率対象金額 ?? 0,
+                                        通常税率消費税 = z.a.p.通常税率消費税 ?? 0,
+                                        軽減税率消費税 = z.a.p.軽減税率消費税 ?? 0,
+                                        // No-94 Add End
+                                        // No-95 Add Start
+                                        小計 = z.a.p.小計 ?? 0,
+                                        総合計 = z.a.p.総合計 ?? 0,
+                                        // No-95 Add End
                                         消費税 = z.a.p.消費税 ?? 0,
                                         Ｓ支払消費税区分 = z.b.Ｓ支払消費税区分,
                                         Ｓ税区分ID = z.b.Ｓ支払区分
@@ -198,6 +208,9 @@ namespace KyoeiSystem.Application.WCFService
                                 単位 = x.SRDTL.a.単位,
                                 単価 = x.SRDTL.a.単価,
                                 金額 = x.SRDTL.a.金額,
+                                税区分 =           // No-94 Add
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? CommonConstants.消費税区分略称_軽減税率 :
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? CommonConstants.消費税区分略称_非課税 : string.Empty,
                                 摘要 = x.SRDTL.a.摘要,
                                 消費税区分 = x.HIN.消費税区分 ?? 0,
                                 商品分類 = x.HIN.商品分類 ?? 0,
@@ -601,6 +614,16 @@ namespace KyoeiSystem.Application.WCFService
             // REMARKS:カラムが無い場合は参照しない
             srhd.元伝票番号 = drow.Table.Columns.Contains("元伝票番号") ?
                 (int.TryParse(drow["元伝票番号"].ToString(), out ival) ? ival : (int?)null) : (int?)null;
+            // No-94 Add Start
+            srhd.通常税率対象金額 = ParseNumeric<int>(drow["通常税率対象金額"]);
+            srhd.軽減税率対象金額 = ParseNumeric<int>(drow["軽減税率対象金額"]);
+            srhd.通常税率消費税 = ParseNumeric<int>(drow["通常税率消費税"]);
+            srhd.軽減税率消費税 = ParseNumeric<int>(drow["軽減税率消費税"]);
+            // No-94 Add End
+            // No-95 Add Start
+            srhd.小計 = ParseNumeric<int>(drow["小計"]);
+            srhd.総合計 = ParseNumeric<int>(drow["総合計"]);
+            // No-95 Add End
             srhd.消費税 = ParseNumeric<int>(drow["消費税"]);
 
             return srhd;

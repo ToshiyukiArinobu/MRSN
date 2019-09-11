@@ -105,6 +105,16 @@ namespace KyoeiSystem.Application.WCFService
                                 入荷先コード = x.SRTHD.入荷先コード.ToString(),
                                 発注番号 = x.SRTHD.発注番号.ToString(),
                                 備考 = x.SRTHD.備考,
+                                // No-94 Add Start
+                                通常税率対象金額 = x.SRTHD.通常税率対象金額 ?? 0,
+                                軽減税率対象金額 = x.SRTHD.軽減税率対象金額 ?? 0,
+                                通常税率消費税 = x.SRTHD.通常税率消費税 ?? 0,
+                                軽減税率消費税 = x.SRTHD.軽減税率消費税 ?? 0,
+                                // No-94 Add End
+                                // No-95 Add Start
+                                小計 = x.SRTHD.小計 ?? 0,
+                                総合計 = x.SRTHD.総合計 ?? 0,
+                                // No-95 Add End
                                 消費税 = x.SRTHD.消費税,
                                 元伝票番号 = x.SRHD == null ? "" : x.SRHD.伝票番号.ToString(),
                                 元仕入日 = x.SRHD == null ? (DateTime?)null : x.SRHD.仕入日,
@@ -136,6 +146,16 @@ namespace KyoeiSystem.Application.WCFService
                                 入荷先コード = x.SRTHD.入荷先コード.ToString(),
                                 発注番号 = x.SRTHD.発注番号.ToString(),
                                 備考 = x.SRTHD.備考,
+                                // No-94 Add Start
+                                通常税率対象金額 = x.SRTHD.通常税率対象金額 ?? 0,
+                                軽減税率対象金額 = x.SRTHD.軽減税率対象金額 ?? 0,
+                                通常税率消費税 = x.SRTHD.通常税率消費税 ?? 0,
+                                軽減税率消費税 = x.SRTHD.軽減税率消費税 ?? 0,
+                                // No-94 Add End
+                                // No-95 Add Start
+                                小計 = x.SRTHD.小計 ?? 0,
+                                総合計 = x.SRTHD.総合計 ?? 0,
+                                // No-95 Add End
                                 消費税 = x.SRTHD.消費税,
                                 元伝票番号 = x.SRTHD.伝票番号.ToString(),
                                 元仕入日 = x.SRTHD.仕入日,
@@ -215,6 +235,9 @@ namespace KyoeiSystem.Application.WCFService
                                 単位 = x.SRTDTL.単位,
                                 単価 = x.SRTDTL.単価,
                                 金額 = x.SRTDTL.金額,
+                                税区分 =           // No-94 Add
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? CommonConstants.消費税区分略称_軽減税率 :
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? CommonConstants.消費税区分略称_非課税 : string.Empty,
                                 摘要 = x.SRTDTL.摘要,
                                 消費税区分 = x.HIN.消費税区分 ?? 0,
                                 商品分類 = x.HIN.商品分類 ?? 0
@@ -241,6 +264,9 @@ namespace KyoeiSystem.Application.WCFService
                                 単位 = x.SRTDTL.単位,
                                 単価 = x.SRTDTL.単価,
                                 金額 = x.SRTDTL.金額,
+                                税区分 =           // No-94 Add
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? CommonConstants.消費税区分略称_軽減税率 :
+                                    x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? CommonConstants.消費税区分略称_非課税 : string.Empty,
                                 摘要 = x.SRTDTL.摘要,
                                 消費税区分 = x.HIN.消費税区分 ?? 0,
                                 商品分類 = x.HIN.商品分類 ?? 0
