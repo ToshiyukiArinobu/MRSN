@@ -546,7 +546,7 @@
               </sg:Column.DataField>
             </sg:Column>
             <!-- 税区分 -->
-            <sg:Column Locked="False" Focusable="True" CanUserResize="False">
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False"  HorizontalAlignment="Center">
               <sg:Column.CellType>
                 <sg:TextCellType MaxLength="25" MaxLengthUnit="Byte" ImeState="On" />
               </sg:Column.CellType>

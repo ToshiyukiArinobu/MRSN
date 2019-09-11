@@ -406,6 +406,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 自社品番のセルをロック
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
+                                gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);               // No-94 Add
 
                                 summaryCalculation();
 
@@ -435,6 +436,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番のセルをロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);               // No-94 Add
 
                             summaryCalculation();
 
@@ -593,6 +595,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 設定得意先品番の編集を不可とする
                             gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
+
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);               // No-94 Add
 
                             // 集計計算をおこなう
                             summaryCalculation();
@@ -1085,6 +1089,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;
                     row.Cells[(int)GridColumnsMapping.得意先品番].Locked = true;
+                    row.Cells[(int)GridColumnsMapping.税区分].Locked = true;
                 }
 
                 gridCtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);

@@ -464,6 +464,14 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
+            // No-107 Add Start
+            if (gridCtl.ActiveRowIndex < 0)
+            {
+                this.ErrorMessage = "行を選択してください";
+                return;
+            }
+            // No-107 Add End
+
             if (MessageBox.Show(
                     AppConst.CONFIRM_DELETE_ROW,
                     "行削除確認",
@@ -636,6 +644,13 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 this.cmb伝票要否.SelectedIndex = 0;
 
+                // No-94 Add Start
+                foreach (var row in gcSpreadGrid.Rows)
+                {
+                    row.Cells[(int)GridColumnsMapping.税区分].Locked = true;
+                }
+                // No-94 Add End
+
                 this.txt返品日.Focus();
 
             }
@@ -648,6 +663,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;
                     row.Cells[(int)GridColumnsMapping.得意先品番].Locked = true;
+                    row.Cells[(int)GridColumnsMapping.税区分].Locked = true;               // No-94 Add
                 }
 
                 gridCtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);
@@ -1069,8 +1085,9 @@ namespace KyoeiSystem.Application.Windows.Views
                     if (string.IsNullOrEmpty(row["自社品番"].ToString()))
                         continue;
 
-                    int taxKbnId = txt得意先.SalesTaxId;
-                    //conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId);
+                    // hyu-test
+                    //int taxKbnId = txt得意先.SalesTaxId;
+                    int taxKbnId = txt得意先.ClaimTaxId;
 
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");

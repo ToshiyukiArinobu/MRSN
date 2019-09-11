@@ -77,8 +77,8 @@ namespace KyoeiSystem.Application.WCFService
             public int 総合計 { get; set; }
             // No-95 Add End
             public int 消費税 { get; set; }
-            public int Ｓ支払消費税区分 { get; set; }
-            public int Ｓ税区分ID { get; set; }
+            public int Ｔ消費税区分 { get; set; }                   // No-101 Mod
+            public int Ｔ税区分ID { get; set; }                     // No-101 Mod
 
         }
 
@@ -423,8 +423,8 @@ namespace KyoeiSystem.Application.WCFService
                                 総合計 = z.a.p.総合計,
                                 // No-95 Add End
                                 消費税 = z.a.p.消費税,
-                                Ｓ支払消費税区分 = z.b.Ｓ支払消費税区分,
-                                Ｓ税区分ID = z.b.Ｓ支払区分
+                                Ｔ消費税区分 = z.b.Ｔ消費税区分,                    // No-101 Mod
+                                Ｔ税区分ID = z.b.Ｔ税区分ID                         // No-101 Mod
                             })
                             .ToList()
                             .Select(x => new T02_URHD_Search_Extension
@@ -460,8 +460,8 @@ namespace KyoeiSystem.Application.WCFService
                                 総合計 = x.総合計 ?? 0,
                                 // No-95 Add End
                                 消費税 = x.消費税,
-                                Ｓ支払消費税区分 = x.Ｓ支払消費税区分,
-                                Ｓ税区分ID = x.Ｓ税区分ID
+                                Ｔ消費税区分 = x.Ｔ消費税区分,                      // No-101 Mod
+                                Ｔ税区分ID = x.Ｔ税区分ID                           // No-101 Mod
                             });
 
                     return result.ToList();
@@ -1937,7 +1937,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 decimal dcmCost = getWholesalePrice(dtl.品番コード);
                 int intKingakuWk = Decimal.ToInt32(decimal.Parse(((decimal)(dcmCost * dtl.数量)).ToString()));
-                int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(t02Data.売上日, tok.Ｓ税区分ID, dtl.品番コード, dtl.数量));
+                int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(t02Data.売上日, tok.Ｔ税区分ID, dtl.品番コード, dtl.数量));         // No-101 Mod
 
                 switch (intZeikbn)
                 {
@@ -2060,7 +2060,7 @@ namespace KyoeiSystem.Application.WCFService
                 int wk自社コード;
 
                 // TODO:切り捨て固定で設定しているが変更する可能性あり
-                int wkＳ税区分ID = 1;
+                int wkＴ税区分ID = 1;                                           // No-101 Mod
                 switch (urhdData.売上区分)
                 {
                     case (int)CommonConstants.売上区分.販社売上:
@@ -2073,7 +2073,7 @@ namespace KyoeiSystem.Application.WCFService
                         // ⇒会社名コード = 仕入先より取得
                         wk自社コード = m70自社.自社コード;
 
-                        //wkＳ税区分ID = M01.M01_TOK_Single_GetData(m70自社.取引先コード ?? 0, m70自社.枝番 ?? 1).Ｓ税区分ID;
+                        //wkＴ税区分ID = M01.M01_TOK_Single_GetData(m70自社.取引先コード ?? 0, m70自社.枝番 ?? 1).Ｔ税区分ID;   // No-101 Mod
                         break;
 
                     case (int)CommonConstants.売上区分.メーカー販社商流直送:
@@ -2089,7 +2089,7 @@ namespace KyoeiSystem.Application.WCFService
                     default:
                         // その他の場合は入力内容をそのまま設定
                         wk自社コード = urhdData.会社名コード;
-                        //wkＳ税区分ID = tok.Ｓ税区分ID;
+                        //wkＴ税区分ID = tok.Ｔ税区分ID;                       // No-101 Mod
                         break;
                 }
                 #endregion
@@ -2128,7 +2128,7 @@ namespace KyoeiSystem.Application.WCFService
 
                      decimal dcmCost = getWholesalePrice(dtl.品番コード);
                      int intKingakuWk = Decimal.ToInt32(decimal.Parse(((decimal)(dcmCost * dtl.数量)).ToString()));
-                     int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(urhdData.売上日, wkＳ税区分ID, dtl.品番コード, dtl.数量));
+                     int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(urhdData.売上日, wkＴ税区分ID, dtl.品番コード, dtl.数量));             // No-101 Mod
 
                      switch (intZeikbn)
                      {
@@ -2208,7 +2208,7 @@ namespace KyoeiSystem.Application.WCFService
                 //var tok = M01.M01_TOK_Single_GetData(urhd.仕入先コード ?? 0, urhd.仕入先枝番 ?? 0);
                 //Ｔ税区分ID = tok.Ｔ税区分ID;
 
-                #region 売上区分によりS税区分IDを切り替える
+                #region 売上区分によりT税区分IDを切り替える
 
                 switch (urhd.売上区分)
                 {

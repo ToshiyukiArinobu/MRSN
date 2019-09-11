@@ -418,6 +418,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 自社品番のセルをロック
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
+                                gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);             // No-94 Add
 
                                 summaryCalculation();
                             }
@@ -443,6 +444,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番のセルをロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);             // No-94 Add
 
                             summaryCalculation();
 
@@ -604,6 +606,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番のセルをロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);             // No-94 Add
 
                             summaryCalculation();
                         }
@@ -1120,6 +1123,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     row.Cells[(int)GridColumnsMapping.賞味期限].Locked = true;
                     row.Cells[(int)GridColumnsMapping.数量].Locked = true;
                     row.Cells[(int)GridColumnsMapping.摘要].Locked = true;
+                    row.Cells[(int)GridColumnsMapping.税区分].Locked = true;               // No-94 Add
                 }
 
                 gridCtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);
