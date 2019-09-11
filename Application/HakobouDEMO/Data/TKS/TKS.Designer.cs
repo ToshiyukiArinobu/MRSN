@@ -473,7 +473,21 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column消費税K;
             
+            private global::System.Data.DataColumn column通常税率対象金額;
+            
+            private global::System.Data.DataColumn column軽減税率対象金額;
+            
+            private global::System.Data.DataColumn column非税売上額;
+            
+            private global::System.Data.DataColumn column通常税率消費税;
+            
+            private global::System.Data.DataColumn column軽減税率消費税;
+            
             private global::System.Data.DataColumn column今回請求額;
+            
+            private global::System.Data.DataColumn column軽減税率;
+            
+            private global::System.Data.DataColumn column消費税率;
             
             private global::System.Data.DataColumn column振込先;
             
@@ -728,9 +742,65 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 通常税率対象金額Column {
+                get {
+                    return this.column通常税率対象金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減税率対象金額Column {
+                get {
+                    return this.column軽減税率対象金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 非税売上額Column {
+                get {
+                    return this.column非税売上額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 通常税率消費税Column {
+                get {
+                    return this.column通常税率消費税;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減税率消費税Column {
+                get {
+                    return this.column軽減税率消費税;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 今回請求額Column {
                 get {
                     return this.column今回請求額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減税率Column {
+                get {
+                    return this.column軽減税率;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 消費税率Column {
+                get {
+                    return this.column消費税率;
                 }
             }
             
@@ -807,7 +877,14 @@ namespace Hakobou.Data.TKS {
                         decimal 御買上額, 
                         decimal 消費税S, 
                         decimal 消費税K, 
+                        decimal 通常税率対象金額, 
+                        decimal 軽減税率対象金額, 
+                        decimal 非税売上額, 
+                        decimal 通常税率消費税, 
+                        decimal 軽減税率消費税, 
                         decimal 今回請求額, 
+                        int 軽減税率, 
+                        int 消費税率, 
                         string 振込先) {
                 TKS01020_H請求書Row rowTKS01020_H請求書Row = ((TKS01020_H請求書Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
@@ -838,7 +915,14 @@ namespace Hakobou.Data.TKS {
                         御買上額,
                         消費税S,
                         消費税K,
+                        通常税率対象金額,
+                        軽減税率対象金額,
+                        非税売上額,
+                        通常税率消費税,
+                        軽減税率消費税,
                         今回請求額,
+                        軽減税率,
+                        消費税率,
                         振込先};
                 rowTKS01020_H請求書Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTKS01020_H請求書Row);
@@ -889,7 +973,14 @@ namespace Hakobou.Data.TKS {
                 this.column御買上額 = base.Columns["御買上額"];
                 this.column消費税S = base.Columns["消費税S"];
                 this.column消費税K = base.Columns["消費税K"];
+                this.column通常税率対象金額 = base.Columns["通常税率対象金額"];
+                this.column軽減税率対象金額 = base.Columns["軽減税率対象金額"];
+                this.column非税売上額 = base.Columns["非税売上額"];
+                this.column通常税率消費税 = base.Columns["通常税率消費税"];
+                this.column軽減税率消費税 = base.Columns["軽減税率消費税"];
                 this.column今回請求額 = base.Columns["今回請求額"];
+                this.column軽減税率 = base.Columns["軽減税率"];
+                this.column消費税率 = base.Columns["消費税率"];
                 this.column振込先 = base.Columns["振込先"];
             }
             
@@ -950,8 +1041,22 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column消費税S);
                 this.column消費税K = new global::System.Data.DataColumn("消費税K", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column消費税K);
+                this.column通常税率対象金額 = new global::System.Data.DataColumn("通常税率対象金額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column通常税率対象金額);
+                this.column軽減税率対象金額 = new global::System.Data.DataColumn("軽減税率対象金額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減税率対象金額);
+                this.column非税売上額 = new global::System.Data.DataColumn("非税売上額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column非税売上額);
+                this.column通常税率消費税 = new global::System.Data.DataColumn("通常税率消費税", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column通常税率消費税);
+                this.column軽減税率消費税 = new global::System.Data.DataColumn("軽減税率消費税", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減税率消費税);
                 this.column今回請求額 = new global::System.Data.DataColumn("今回請求額", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column今回請求額);
+                this.column軽減税率 = new global::System.Data.DataColumn("軽減税率", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減税率);
+                this.column消費税率 = new global::System.Data.DataColumn("消費税率", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column消費税率);
                 this.column振込先 = new global::System.Data.DataColumn("振込先", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column振込先);
             }
@@ -1536,9 +1641,13 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column請求締日;
             
+            private global::System.Data.DataColumn column回数;
+            
             private global::System.Data.DataColumn column前月残高;
             
             private global::System.Data.DataColumn column入金金額;
+            
+            private global::System.Data.DataColumn column繰越残高;
             
             private global::System.Data.DataColumn column売上額;
             
@@ -1611,6 +1720,14 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 回数Column {
+                get {
+                    return this.column回数;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 前月残高Column {
                 get {
                     return this.column前月残高;
@@ -1622,6 +1739,14 @@ namespace Hakobou.Data.TKS {
             public global::System.Data.DataColumn 入金金額Column {
                 get {
                     return this.column入金金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 繰越残高Column {
+                get {
+                    return this.column繰越残高;
                 }
             }
             
@@ -1710,14 +1835,16 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TKS03010_請求一覧表Row AddTKS03010_請求一覧表Row(string 得意先コード, string 得意先名称, string 請求締日, long 前月残高, long 入金金額, long 売上額, long 値引額, long 非課税売上額, long 消費税, long 当月請求額, int 件数) {
+            public TKS03010_請求一覧表Row AddTKS03010_請求一覧表Row(string 得意先コード, string 得意先名称, string 請求締日, long 回数, long 前月残高, long 入金金額, long 繰越残高, long 売上額, long 値引額, long 非課税売上額, long 消費税, long 当月請求額, int 件数) {
                 TKS03010_請求一覧表Row rowTKS03010_請求一覧表Row = ((TKS03010_請求一覧表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         得意先コード,
                         得意先名称,
                         請求締日,
+                        回数,
                         前月残高,
                         入金金額,
+                        繰越残高,
                         売上額,
                         値引額,
                         非課税売上額,
@@ -1749,8 +1876,10 @@ namespace Hakobou.Data.TKS {
                 this.column得意先コード = base.Columns["得意先コード"];
                 this.column得意先名称 = base.Columns["得意先名称"];
                 this.column請求締日 = base.Columns["請求締日"];
+                this.column回数 = base.Columns["回数"];
                 this.column前月残高 = base.Columns["前月残高"];
                 this.column入金金額 = base.Columns["入金金額"];
+                this.column繰越残高 = base.Columns["繰越残高"];
                 this.column売上額 = base.Columns["売上額"];
                 this.column値引額 = base.Columns["値引額"];
                 this.column非課税売上額 = base.Columns["非課税売上額"];
@@ -1768,10 +1897,14 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column得意先名称);
                 this.column請求締日 = new global::System.Data.DataColumn("請求締日", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column請求締日);
+                this.column回数 = new global::System.Data.DataColumn("回数", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column回数);
                 this.column前月残高 = new global::System.Data.DataColumn("前月残高", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column前月残高);
                 this.column入金金額 = new global::System.Data.DataColumn("入金金額", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column入金金額);
+                this.column繰越残高 = new global::System.Data.DataColumn("繰越残高", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column繰越残高);
                 this.column売上額 = new global::System.Data.DataColumn("売上額", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column売上額);
                 this.column値引額 = new global::System.Data.DataColumn("値引額", typeof(long), null, global::System.Data.MappingType.Element);
@@ -1784,8 +1917,10 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column当月請求額);
                 this.column件数 = new global::System.Data.DataColumn("件数", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column件数);
+                this.column回数.DefaultValue = ((long)(0));
                 this.column前月残高.DefaultValue = ((long)(0));
                 this.column入金金額.DefaultValue = ((long)(0));
+                this.column繰越残高.DefaultValue = ((long)(0));
                 this.column売上額.DefaultValue = ((long)(0));
                 this.column値引額.DefaultValue = ((long)(0));
                 this.column非課税売上額.DefaultValue = ((long)(0));
@@ -3402,6 +3537,86 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 通常税率対象金額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS01020_H請求書.通常税率対象金額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'通常税率対象金額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.通常税率対象金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 軽減税率対象金額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS01020_H請求書.軽減税率対象金額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'軽減税率対象金額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.軽減税率対象金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 非税売上額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS01020_H請求書.非税売上額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'非税売上額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.非税売上額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 通常税率消費税 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS01020_H請求書.通常税率消費税Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'通常税率消費税\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.通常税率消費税Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 軽減税率消費税 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS01020_H請求書.軽減税率消費税Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'軽減税率消費税\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.軽減税率消費税Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public decimal 今回請求額 {
                 get {
                     try {
@@ -3413,6 +3628,38 @@ namespace Hakobou.Data.TKS {
                 }
                 set {
                     this[this.tableTKS01020_H請求書.今回請求額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 軽減税率 {
+                get {
+                    try {
+                        return ((int)(this[this.tableTKS01020_H請求書.軽減税率Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'軽減税率\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.軽減税率Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 消費税率 {
+                get {
+                    try {
+                        return ((int)(this[this.tableTKS01020_H請求書.消費税率Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'消費税率\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.消費税率Column] = value;
                 }
             }
             
@@ -3758,6 +4005,66 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is通常税率対象金額Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.通常税率対象金額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set通常税率対象金額Null() {
+                this[this.tableTKS01020_H請求書.通常税率対象金額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減税率対象金額Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.軽減税率対象金額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減税率対象金額Null() {
+                this[this.tableTKS01020_H請求書.軽減税率対象金額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is非税売上額Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.非税売上額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set非税売上額Null() {
+                this[this.tableTKS01020_H請求書.非税売上額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is通常税率消費税Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.通常税率消費税Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set通常税率消費税Null() {
+                this[this.tableTKS01020_H請求書.通常税率消費税Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減税率消費税Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.軽減税率消費税Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減税率消費税Null() {
+                this[this.tableTKS01020_H請求書.軽減税率消費税Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is今回請求額Null() {
                 return this.IsNull(this.tableTKS01020_H請求書.今回請求額Column);
             }
@@ -3766,6 +4073,30 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set今回請求額Null() {
                 this[this.tableTKS01020_H請求書.今回請求額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減税率Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.軽減税率Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減税率Null() {
+                this[this.tableTKS01020_H請求書.軽減税率Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is消費税率Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.消費税率Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set消費税率Null() {
+                this[this.tableTKS01020_H請求書.消費税率Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4280,6 +4611,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 回数 {
+                get {
+                    if (this.Is回数Null()) {
+                        return 0;
+                    }
+                    else {
+                        return ((long)(this[this.tableTKS03010_請求一覧表.回数Column]));
+                    }
+                }
+                set {
+                    this[this.tableTKS03010_請求一覧表.回数Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public long 前月残高 {
                 get {
                     if (this.Is前月残高Null()) {
@@ -4307,6 +4654,22 @@ namespace Hakobou.Data.TKS {
                 }
                 set {
                     this[this.tableTKS03010_請求一覧表.入金金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 繰越残高 {
+                get {
+                    if (this.Is繰越残高Null()) {
+                        return 0;
+                    }
+                    else {
+                        return ((long)(this[this.tableTKS03010_請求一覧表.繰越残高Column]));
+                    }
+                }
+                set {
+                    this[this.tableTKS03010_請求一覧表.繰越残高Column] = value;
                 }
             }
             
@@ -4444,6 +4807,18 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is回数Null() {
+                return this.IsNull(this.tableTKS03010_請求一覧表.回数Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set回数Null() {
+                this[this.tableTKS03010_請求一覧表.回数Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is前月残高Null() {
                 return this.IsNull(this.tableTKS03010_請求一覧表.前月残高Column);
             }
@@ -4464,6 +4839,18 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set入金金額Null() {
                 this[this.tableTKS03010_請求一覧表.入金金額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is繰越残高Null() {
+                return this.IsNull(this.tableTKS03010_請求一覧表.繰越残高Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set繰越残高Null() {
+                this[this.tableTKS03010_請求一覧表.繰越残高Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

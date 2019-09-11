@@ -289,6 +289,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         break;
 
                     case TKS01020_GETPRINGDATA:
+
                         DataSet ds = data as DataSet;
 
                         if (ds.Tables.Count < 1)
@@ -296,12 +297,21 @@ namespace KyoeiSystem.Application.Windows.Views
                             base.ErrorMessage = "対象データが存在しません。";
                             return;
                         }
+                        else
+                        {
+                            //20190910 add-s CB 軽減税率対応 
+                            // 詳細データがない場合、メッセージ表示
+                            if ((ds.Tables["TKS01020_D請求書"].Rows.Count) <= 0)
+                                {
+                                base.ErrorMessage = "対象データが存在しません。";
+                                return;
+                            }
+                            //20190910 add-e CB 軽減税率対応 
+                        }
 
                         PrintPreview(ds);
                         break;
-
                 }
-
             }
             catch (Exception ex)
             {

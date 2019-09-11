@@ -94,6 +94,21 @@ namespace KyoeiSystem.Application.WCFService
             /// ○○銀行 ○○支店 口座種別：〇〇 口座番号：ｘｘｘｘｘｘｘ　口座名義：ｘｘｘｘｘｘｘ
             /// </summary>
             public string 振込先 { get; set; }
+
+            //20190903 CB add-s 軽減税率対応
+            public decimal 通常税率対象金額 { get; set; }
+            public decimal 軽減税率対象金額 { get; set; }
+            public decimal 通常税率消費税 { get; set; }
+            public decimal 軽減税率消費税 { get; set; }
+            public decimal 非税売上額 { get; set; }
+
+            public DateTime? 集計最終日 { get; set; }
+
+            public int 消費税率 { get; set; }
+            public int 軽減税率 { get; set; }
+
+            //20190903 CB add-d 軽減税率対応
+
         }
 
         /// <summary>
@@ -348,13 +363,29 @@ namespace KyoeiSystem.Application.WCFService
                             締日 = (x.TOK.Ｔ締日 >= 31) ? "末" : x.TOK.Ｔ締日.ToString(),
                             発行日付 = printDate.ToString("yyyy/MM/dd"),
                             前回請求額 = x.SEIHD.前月残高,
-                            今回入金額 = 今月入金額,
-                            繰越残高 = (前月入金額 - (befSeihd != null ? befSeihd.当月請求額 : 0)),
+
+                            //20190906 mod-s CB 軽減税率対応 DB値を設定に変更
+                            //今回入金額 = 今月入金額,
+                            //繰越残高 = (前月入金額 - (befSeihd != null ? befSeihd.当月請求額 : 0)),
+                            今回入金額 = x.SEIHD.入金額,
+                            繰越残高 = x.SEIHD.繰越残高,
+                            //20190906 mod-e CB 軽減税率対応
+
                             御買上額 = x.SEIHD.売上額,
                             消費税S = x.SEIHD.消費税,
                             消費税K = 0,
                             今回請求額 = x.SEIHD.当月請求額,
-                            振込先 = x.JIS.振込銀行１
+
+                            //20190903 mod&add-s CB 軽減税率対応
+                            //振込先 = x.JIS.振込銀行１
+                            振込先 = x.JIS.振込銀行１,
+                            通常税率対象金額 = x.SEIHD.通常税率対象金額,
+                            軽減税率対象金額 = x.SEIHD.軽減税率対象金額,
+                            通常税率消費税 = x.SEIHD.通常税率消費税,
+                            軽減税率消費税 = x.SEIHD.軽減税率消費税,
+                            非税売上額 = x.SEIHD.非税売上額,
+                            集計最終日 = x.SEIHD.集計最終日
+                            //20190903 add-e CB 軽減税率対応
                         });
                     #endregion
 
@@ -392,11 +423,47 @@ namespace KyoeiSystem.Application.WCFService
                                 数量 = x.SDTL.数量,
                                 単価 = x.SDTL.単価,
                                 金額 = x.SDTL.金額,
-                                軽減税率適用 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "*" : ""
+
+                                //20190902 CB mod - s 軽減税率対応
+                                //軽減税率適用 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "*" : ""
+                                軽減税率適用 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "軽"
+                                                : x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? "非" : ""
+                                //20190902 CB mod - e
                             });
                     #endregion
 
-                    DataTable hdDt = KESSVCEntry.ConvertListToDataTable<PrintHeaderMember>(hdResult.AsQueryable().ToList());
+                    //20190910 CB add - s 軽減税率対応
+                    //S01_SEIHDの集計最終日を基準としてM73_ZEIから税率を取得
+                    DataTable dt;
+                    dt  = KESSVCEntry.ConvertListToDataTable<PrintHeaderMember>(hdResult.AsQueryable().ToList());
+
+                    M73 M73Service;
+                    M73Service = new M73();
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        // drを使った処理(カラムにアクセスする場合は dr["カラム名"]と表記)
+                        DateTime? DateTimeWk = (DateTime)dr["集計最終日"];
+
+                        if (DateTimeWk != null)
+                        {
+                            //共通関数仕様　+1日
+                            DateTime answer = (DateTime)DateTimeWk;
+                            answer = answer.AddDays(1);
+
+                            List<M73.M73_ZEI_Member> lstM73 = M73Service.GetData(answer, -1);
+
+                            dr["軽減税率"] = lstM73[0].軽減税率;
+                            dr["消費税率"] = lstM73[0].消費税率;
+                        }
+                    }
+                    //20190910 CB add - e 軽減税率対応
+
+                    //20190910 CB mod - s 軽減税率対応
+                    //DataTable hdDt = KESSVCEntry.ConvertListToDataTable<PrintHeaderMember>(hdResult.AsQueryable().ToList());
+                    DataTable hdDt = dt;
+                    //20190910 CB mod - e 軽減税率対応
+
                     hdDt.TableName = PRINT_HEADER_TABLE_NAME;
                     DataTable dtlDt = KESSVCEntry.ConvertListToDataTable<PrintDetailMember>(dtlResult.AsQueryable().ToList());
                     dtlDt.TableName = PRINT_DETAIL_TABLE_NAME;
@@ -415,7 +482,6 @@ namespace KyoeiSystem.Application.WCFService
                         dsResult.Tables.Add(dtlDt);
 
                     }
-
                 }
 
             }
