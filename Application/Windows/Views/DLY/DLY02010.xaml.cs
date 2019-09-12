@@ -464,9 +464,21 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridDtl.SetCellValue((int)GridColumnsMapping.自社品名, myhin.SelectedRowData["自社品名"]);
                                 gridDtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
                                 gridDtl.SetCellValue((int)GridColumnsMapping.単位, myhin.SelectedRowData["単位"]);
-                                gridDtl.SetCellValue((int)GridColumnsMapping.単価, myhin.TwinTextBox.Text3);
-                                gridDtl.SetCellValue((int)GridColumnsMapping.金額, string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ? 0 :
+
+                                // No-96 Mod Start
+                                if (cmb加工区分.SelectedValue.ToString() == ((int)加工区分.社内加工).ToString())
+                                {
+                                    gridDtl.SetCellValue((int)GridColumnsMapping.単価, 0m);
+                                    gridDtl.SetCellValue((int)GridColumnsMapping.金額, 0);
+                                }
+                                else
+                                {
+                                    gridDtl.SetCellValue((int)GridColumnsMapping.単価, myhin.TwinTextBox.Text3);
+                                    gridDtl.SetCellValue((int)GridColumnsMapping.金額, string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ? 0 :
                                                                                     decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3)));
+                                }
+                                // No-96 Mod End
+
                                 gridDtl.SetCellValue((int)GridColumnsMapping.消費税区分, myhin.SelectedRowData["消費税区分"]);
                                 gridDtl.SetCellValue((int)GridColumnsMapping.商品分類, myhin.SelectedRowData["商品分類"]);
 
@@ -494,8 +506,21 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.自社品名, drow["自社品名"]);
                             gridDtl.SetCellValue((int)GridColumnsMapping.数量, 1m);
                             gridDtl.SetCellValue((int)GridColumnsMapping.単位, drow["単位"]);
-                            gridDtl.SetCellValue((int)GridColumnsMapping.単価, drow["加工原価"]);
-                            gridDtl.SetCellValue((int)GridColumnsMapping.金額, drow["加工原価"] == null ? 0 : Convert.ToInt32(drow["加工原価"]));
+
+
+                            // No-96 Mod Start
+                            if (cmb加工区分.SelectedValue.ToString() == ((int)加工区分.社内加工).ToString())
+                            {
+                                gridDtl.SetCellValue((int)GridColumnsMapping.単価, 0m);
+                                gridDtl.SetCellValue((int)GridColumnsMapping.金額, 0);
+                            }
+                            else
+                            {
+                                gridDtl.SetCellValue((int)GridColumnsMapping.単価, drow["加工原価"]);
+                                gridDtl.SetCellValue((int)GridColumnsMapping.金額, drow["加工原価"] == null ? 0 : Convert.ToInt32(drow["加工原価"]));
+                            }
+                            // No-96 Mod End
+
                             gridDtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridDtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
 
@@ -687,9 +712,21 @@ namespace KyoeiSystem.Application.Windows.Views
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.自社品名].Value = myhin.SelectedRowData["自社品名"];
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.数量].Value = 1m;
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.単位].Value = myhin.SelectedRowData["単位"];
-                            spgrid.Cells[rIdx, (int)GridColumnsMapping.単価].Value = myhin.TwinTextBox.Text3;
-                            spgrid.Cells[rIdx, (int)GridColumnsMapping.金額].Value = string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ?
-                                                                                                    0 : decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3));
+
+                            // No-96 Mod Start
+                            if (cmb加工区分.SelectedValue.ToString() == ((int)加工区分.社内加工).ToString())
+                            {
+                                spgrid.Cells[rIdx, (int)GridColumnsMapping.単価].Value = 0m;
+                                spgrid.Cells[rIdx, (int)GridColumnsMapping.金額].Value = 0;
+                            }
+                            else
+                            {
+                                spgrid.Cells[rIdx, (int)GridColumnsMapping.単価].Value = myhin.TwinTextBox.Text3;
+                                spgrid.Cells[rIdx, (int)GridColumnsMapping.金額].Value = string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ?
+                                                                                                        0 : decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3));
+                            }
+                            // No-96 Mod End
+                            
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Value = myhin.SelectedRowData["消費税区分"];
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Value = myhin.SelectedRowData["商品分類"];
 
@@ -842,6 +879,14 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             if (this.MaintenanceMode == null)
                 return;
+
+            // No-109 Add Start
+            if (gridDtl.ActiveRowIndex < 0)
+            {
+                this.ErrorMessage = "行を選択してください";
+                return;
+            }
+            // No-109 Add End
 
             if (MessageBox.Show(
                     AppConst.CONFIRM_DELETE_ROW,

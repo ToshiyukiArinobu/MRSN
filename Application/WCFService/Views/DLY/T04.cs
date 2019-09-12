@@ -504,8 +504,10 @@ namespace KyoeiSystem.Application.WCFService
                                         入荷先コード = z.a.p.入荷先コード,
                                         備考 = z.a.p.備考,
                                         消費税 = z.a.p.消費税,
-                                        Ｓ支払消費税区分 = z.b.Ｓ支払消費税区分,
-                                        Ｓ税区分ID = z.b.Ｓ支払区分
+                                        // No-96 Mod Start
+                                        Ｓ支払消費税区分 = z.b == null ? 0 : z.b.Ｓ支払消費税区分,
+                                        Ｓ税区分ID = z.b == null ? 0 : z.b.Ｓ支払区分
+                                        // No-96 Mod End
                                     });
 
                     return result.ToList();
