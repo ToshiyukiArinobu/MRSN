@@ -284,10 +284,12 @@ namespace KyoeiSystem.Application.WCFService
                             品番コード = s.STOK.品番コード,
                             倉庫コード = s.STOK.倉庫コード,
                             賞味期限 = (s.STOK.賞味期限 != AppCommon.GetMaxDate() ? s.STOK.賞味期限 : (DateTime?)null),
-                            自社品番 = s.HIN.自社品番,
-                            自社品名 = s.HIN.自社品名,
-                            倉庫名 = s.SOUK.倉庫名,
-                            在庫数量 = s.STOK.在庫数量
+                            // No-117 Mod Start
+                            自社品番 = s.HIN == null ? string.Empty : s.HIN.自社品番,
+                            自社品名 = s.HIN == null ? string.Empty : s.HIN.自社品名,
+                            倉庫名 = s.SOUK == null ? string.Empty : s.SOUK.倉庫名,
+                            在庫数量 = s.STOK == null ? 0 : s.STOK.在庫数量
+                            // No-117 Mod End
                         })
                         .OrderBy(o => o.品番コード)
                         .ThenBy(t => t.倉庫コード)
