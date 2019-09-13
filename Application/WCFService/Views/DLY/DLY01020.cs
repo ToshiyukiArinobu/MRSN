@@ -443,8 +443,16 @@ namespace KyoeiSystem.Application.WCFService
                 // 在庫調整数計算
                 if (srhd.仕入区分 == (int)CommonConstants.仕入区分.返品)
                 {
-                    // 設定数量分を在庫から減算(返品)
+                    // No-108 Add Start
                     stockQty = srdtl.数量 * -1;
+
+                    // オリジナル(変更前数量)と比較して差分数量を加減算
+                    if (row.HasVersion(DataRowVersion.Original))
+                    {
+                        decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
+                        stockQty = srdtl.数量 * -1 + orgQty;
+                    }
+                    // No-108 Add End
 
                 }
                 else
