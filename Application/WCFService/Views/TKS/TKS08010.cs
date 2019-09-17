@@ -225,8 +225,10 @@ namespace KyoeiSystem.Application.WCFService
                                 得意先コード = s.TOK.取引先コード.ToString(),
                                 得意先枝番 = s.TOK.枝番.ToString(),
                                 得意先名 = s.TOK.得意先名１,
-                                入金日 = s.TOK.Ｓ入金日１ ?? 31,
-                                サイト = s.TOK.Ｓサイト１ ?? 0,
+                                // No.101-4 Mod Start
+                                入金日 = s.TOK.Ｔ入金日１ ?? 31,
+                                サイト = s.TOK.Ｔサイト１ ?? 0,
+                                // No.101-4 Mod End
                                 対象年月１ = refYearMonth.AddMonths(REF_MONTHS * -1).ToString("yyyy/MM"),
                                 入金予定額１ = (i == REF_MONTHS && s.SHD != null) ? s.SHD.当月請求額 : (long?)null,
                                 入金額１ = (i == REF_MONTHS && s.NYKN != null) ? s.NYKN.金額 : (long?)null,
