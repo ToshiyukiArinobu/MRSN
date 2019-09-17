@@ -1085,9 +1085,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     if (string.IsNullOrEmpty(row["自社品番"].ToString()))
                         continue;
 
-                    // hyu-test
-                    //int taxKbnId = txt得意先.SalesTaxId;
-                    int taxKbnId = txt得意先.ClaimTaxId;
+                    int taxKbnId = txt得意先.ClaimTaxId;       // No-101 Mod
 
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");

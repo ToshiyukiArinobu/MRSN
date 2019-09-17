@@ -715,7 +715,7 @@ namespace KyoeiSystem.Application.WCFService
                         if (row.HasVersion(DataRowVersion.Original))
                         {
                             decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
-                            stockQty = (orgQty - urdtl.数量);
+                            stockQty = (urdtl.数量 - orgQty);             // No-98 Mod
                         }
 
                     }
@@ -913,7 +913,7 @@ namespace KyoeiSystem.Application.WCFService
                         if (row.HasVersion(DataRowVersion.Original))
                         {
                             decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
-                            stockQty = (orgQty - urdtl.数量);
+                            stockQty = (urdtl.数量 - orgQty);             // No-98 Mod
                         }
 
                     }
