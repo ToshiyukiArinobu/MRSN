@@ -156,11 +156,13 @@ namespace KyoeiSystem.Application.WCFService
             while (targetMonth <= lastMonth)
             {
                 // 開始日は前月締日を設定
+                // No.101-3 Mod Start
                 DateTime calcStartDate =
-                    AppCommon.GetClosingDate(targetMonth.AddMonths(-1).Year, targetMonth.AddMonths(-1).Month, hanData.TOK.Ｓ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY);
+                    AppCommon.GetClosingDate(targetMonth.AddMonths(-1).Year, targetMonth.AddMonths(-1).Month, hanData.TOK.Ｔ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY);
                 // 終了日は当月締日の前日を設定
                 DateTime calcEndDate =
-                    AppCommon.GetClosingDate(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｓ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY).AddDays(-1);
+                    AppCommon.GetClosingDate(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｔ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY).AddDays(-1);
+                // No.101-3 Mod End
 
                 var ajustData =
                     context.T02_URHD_HAN
@@ -225,8 +227,11 @@ namespace KyoeiSystem.Application.WCFService
                             pYear = pMonth < 4 ? year + 1 : year;
 
                         // 締日前日が集計最終日
+                        // No.101-3 Mod Start
                         DateTime priodEndDate =
-                            AppCommon.GetClosingDate(pYear, pMonth, hanData.TOK.Ｓ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY).AddDays(-1);
+                            AppCommon.GetClosingDate(pYear, pMonth, hanData.TOK.Ｔ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY).AddDays(-1);
+                        // No.101-3 Mod End
+
                         // 最終日から１２ヶ月遡って翌日を集計開始日とする
                         DateTime priodStrDate = priodEndDate.AddMonths(-12).AddDays(1);
 
@@ -277,8 +282,10 @@ namespace KyoeiSystem.Application.WCFService
                             int sumTax = 0;
                             foreach (var row in context.T02_URDTL_HAN.Where(w => w.削除日時 == null && w.伝票番号 == data.伝票番号))
                             {
+                                // No.101-3 Mod Start
                                 sumTax += decimal.ToInt32(
-                                    zeiService.getCalculatTax(hanData.TOK.Ｓ税区分ID, data.売上日, row.品番コード, row.調整金額 ?? 0, row.数量));
+                                    zeiService.getCalculatTax(hanData.TOK.Ｔ消費税区分, data.売上日, row.品番コード, row.調整金額 ?? 0, row.数量));
+                                // No.101-3 Mod End
                             }
 
                             data.調整消費税 = sumTax;
@@ -354,11 +361,13 @@ namespace KyoeiSystem.Application.WCFService
                         while (targetMonth <= lastMonth)
                         {
                             // 開始日は前月締日を設定
+                            // No.101-3 Mod Start
                             DateTime calcStartDate =
-                                AppCommon.GetClosingDate(targetMonth.AddMonths(-1).Year, targetMonth.AddMonths(-1).Month, hanData.TOK.Ｓ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY);
+                                AppCommon.GetClosingDate(targetMonth.AddMonths(-1).Year, targetMonth.AddMonths(-1).Month, hanData.TOK.Ｔ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY);
                             // 終了日は当月締日の前日を設定
                             DateTime calcEndDate =
-                                AppCommon.GetClosingDate(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｓ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY).AddDays(-1);
+                                AppCommon.GetClosingDate(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｔ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY).AddDays(-1);
+                            // No.101-3 Mod End
 
                             var hdList =
                                 context.T02_URHD_HAN
@@ -439,11 +448,15 @@ namespace KyoeiSystem.Application.WCFService
                             srcMem.得意先コード = hanData.TOK.取引先コード;
                             srcMem.得意先枝番 = hanData.TOK.枝番;
                             srcMem.得意先名 = hanData.TOK.得意先名１;
-                            srcMem.締日 = hanData.TOK.Ｓ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY;
+                            // No.101-3 Mod Start
+                            srcMem.締日 = hanData.TOK.Ｔ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY;
+                            // No.101-3 Mod End
                             srcMem.開始日付1 = calcStartDate;
                             srcMem.終了日付1 = calcEndDate;
+                            // No.101-3 Mod Start
                             srcMem.入金日 =
-                                new DateTime(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｓ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY).AddMonths(hanData.TOK.Ｔサイト１ ?? 0);
+                                new DateTime(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｔ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY).AddMonths(hanData.TOK.Ｔサイト１ ?? 0);
+                            // No.101-3 Mod End
 
                             List<TKS01010.TKS01010_SearchMember> list = new List<TKS01010.TKS01010_SearchMember>();
                             list.Add(srcMem);
