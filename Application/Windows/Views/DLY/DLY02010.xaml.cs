@@ -1120,6 +1120,14 @@ namespace KyoeiSystem.Application.Windows.Views
             // 消費税をヘッダに設定
             SearchHeader["消費税"] = AppCommon.IntParse(this.lbl消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
 
+            // No.112 Add Start
+            // 小計をヘッダに設定
+            SearchHeader["小計"] = AppCommon.IntParse(this.lbl小計.Content.ToString(), System.Globalization.NumberStyles.Number);
+
+            // 総合計をヘッダに設定
+            SearchHeader["総合計"] = AppCommon.IntParse(this.lbl総合計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No.112 Add End
+
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.UpdateData,

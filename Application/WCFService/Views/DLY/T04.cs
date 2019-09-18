@@ -554,6 +554,10 @@ namespace KyoeiSystem.Application.WCFService
                 srhd.入荷先コード = t04Data.入荷先コード;
                 srhd.備考 = t04Data.備考;
                 srhd.消費税 = t04Data.消費税;
+                // No.112 Add Start
+                srhd.小計 = t04Data.小計;
+                srhd.総合計 = t04Data.総合計;
+                // No.112 Add End
                 srhd.登録者 = userId;
                 srhd.登録日時 = DateTime.Now;
                 srhd.最終更新者 = userId;
@@ -573,6 +577,10 @@ namespace KyoeiSystem.Application.WCFService
                 hdData.入荷先コード = t04Data.入荷先コード;
                 hdData.備考 = t04Data.備考;
                 hdData.消費税 = t04Data.消費税;
+                // No.112 Add Start
+                hdData.小計 = t04Data.小計;
+                hdData.総合計 = t04Data.総合計;
+                // No.112 Add End
                 hdData.最終更新者 = userId;
                 hdData.最終更新日時 = DateTime.Now;
                 hdData.削除者 = null;
@@ -1433,6 +1441,10 @@ namespace KyoeiSystem.Application.WCFService
             agrhd.入荷先コード = ParseNumeric<int>(drow["入荷先コード"]);
             agrhd.備考 = drow["備考"].ToString();
             agrhd.消費税 = ParseNumeric<int>(drow["消費税"]);
+            // No.112 Add Start
+            agrhd.小計 = ParseNumeric<int>(drow["小計"]);
+            agrhd.総合計 = ParseNumeric<int>(drow["総合計"]);
+            // No.112 Add End
 
             return agrhd;
 
