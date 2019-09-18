@@ -538,7 +538,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
                             gridDtl.SetCellLocked((int)GridColumnsMapping.自社品名, true);
                             gridDtl.SetCellLocked((int)GridColumnsMapping.単位, true);
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.単価, true);
+                            //gridDtl.SetCellLocked((int)GridColumnsMapping.単価, true);                          // No.110 Mod
                             gridDtl.SetCellLocked((int)GridColumnsMapping.金額, true);
                             gridDtl.SetCellLocked((int)GridColumnsMapping.消費税区分, true);
                             gridDtl.SetCellLocked((int)GridColumnsMapping.商品分類, true);
