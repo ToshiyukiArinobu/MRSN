@@ -126,6 +126,7 @@ namespace KyoeiSystem.Application.WCFService
                             .OrderBy(o => o.UHD.得意先コード)
                             .ThenBy(t => t.UHD.得意先枝番)
                             .ThenBy(t => t.UHD.売上日)
+                            .ThenBy(t => t.UHD.伝票番号)                    // No-120 Add
                             .ThenBy(t => t.UDTL.行番号)
                             .ToList()
                             .Select(x => new SearchDataMember
