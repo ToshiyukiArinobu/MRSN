@@ -266,7 +266,7 @@
             />
 
                         <ctls:UcTextBox x:Name="txt出荷先名"  Grid.Row="1" Grid.Column="4" cIsReadOnly="True"  Width="148" Margin="102,0,0,0"
-                            cMaxLength="30" BorderThickness="0" ImeType="Native"
+                            cMaxLength="50" BorderThickness="0" ImeType="Native"
                             Text="{Binding SearchHeader[出荷先名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                                  
             />
@@ -329,7 +329,7 @@
             />
 
                         <ctls:UcTextBox x:Name="txt出荷元名"  Grid.Row="3" Grid.Column="4" cIsReadOnly="True" Width="148" Margin="102,0,0,0"
-                            cMaxLength="30" BorderThickness="0" ImeType="Native"
+                            cMaxLength="50" BorderThickness="0" ImeType="Native"
                             Text="{Binding SearchHeader[出荷元名], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                                  
             />
