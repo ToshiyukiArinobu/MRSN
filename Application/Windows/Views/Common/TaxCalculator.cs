@@ -148,7 +148,16 @@ namespace KyoeiSystem.Application.Windows.Views.Common
             {
                 case 1:
                     // 切捨て
-                    conTax += Math.Floor(calcValue);
+                    // No.188 Mod Start
+                    if (calcValue > 0)
+                    {
+                        conTax += Math.Floor(calcValue);
+                    }
+                    else
+                    {
+                        conTax += Math.Ceiling(calcValue);
+                    }
+                    // No.188 Mod End
                     break;
 
                 case 2:
@@ -158,7 +167,16 @@ namespace KyoeiSystem.Application.Windows.Views.Common
 
                 case 3:
                     // 切上げ
-                    conTax += Math.Ceiling(calcValue);
+                    // No.188 Mod Start
+                    if (calcValue > 0)
+                    {
+                        conTax += Math.Ceiling(calcValue);
+                    }
+                    else
+                    {
+                        conTax += Math.Floor(calcValue);
+                    }
+                    // No.188 Mod End
                     break;
 
                 default:
