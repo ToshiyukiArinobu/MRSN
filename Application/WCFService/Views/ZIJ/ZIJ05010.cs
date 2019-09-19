@@ -148,7 +148,7 @@ namespace KyoeiSystem.Application.WCFService
                                 単価 = x.UDTL.単価,
                                 数量 = x.UDTL.数量,
                                 単位 = x.UDTL.単位,
-                                金額 = x.UDTL.金額 ?? 0,
+                                金額 = x.UDTL.金額 == null ? 0 : x.UHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? (int)x.UDTL.金額 : (int)x.UDTL.金額 * -1,     // No.115 Mod
                                 摘要 = x.UDTL.摘要,
                                 受注番号 = x.UHD.受注番号.ToString(),
                                 納品伝票番号 = x.UHD.納品伝票番号.ToString(),
