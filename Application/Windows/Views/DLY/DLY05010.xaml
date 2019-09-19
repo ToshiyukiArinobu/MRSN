@@ -285,7 +285,7 @@
             <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <!--<sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="##,###,##0,,,-," />-->
-                <sg:TextCellType MaxLength="8" MaxLengthUnit="Byte" ImeState="Off" />
+                <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off" />
               </sg:Column.CellType>
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, StringFormat='#,#'}" />

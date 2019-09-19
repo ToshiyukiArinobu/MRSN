@@ -283,7 +283,7 @@
             <!-- 金額 -->
             <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
-                <sg:TextCellType MaxLength="8" MaxLengthUnit="Byte" ImeState="Off" />
+                <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off" />
               </sg:Column.CellType>
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, StringFormat='#,#'}" />
