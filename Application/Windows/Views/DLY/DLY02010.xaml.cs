@@ -473,9 +473,11 @@ namespace KyoeiSystem.Application.Windows.Views
                                 }
                                 else
                                 {
-                                    gridDtl.SetCellValue((int)GridColumnsMapping.単価, myhin.TwinTextBox.Text3);
-                                    gridDtl.SetCellValue((int)GridColumnsMapping.金額, string.IsNullOrEmpty(myhin.TwinTextBox.Text3) ? 0 :
-                                                                                    decimal.ToInt32(AppCommon.DecimalParse(myhin.TwinTextBox.Text3)));
+                                    // No.119 Mod Start
+                                    gridDtl.SetCellValue((int)GridColumnsMapping.単価, myhin.SelectedRowData["加工原価"]);
+                                    gridDtl.SetCellValue((int)GridColumnsMapping.金額, myhin.SelectedRowData["加工原価"] == null ? 0 :
+                                                                                     Convert.ToInt32(myhin.SelectedRowData["加工原価"]));
+                                    // No.119 Mod End
                                 }
                                 // No-96 Mod End
 
