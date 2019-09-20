@@ -598,6 +598,12 @@ namespace KyoeiSystem.Application.Windows.Views
                 case "034":  // 得意先商品売価設定(得意先、相殺、販社)
                     param3 = "得意先販社売価";
                     break;
+
+                // No.127 Add Start
+                case "123":  // 仕入先外注先売価設定(仕入先、外注先、相殺)
+                    param3 = "仕入先外注先売価";
+                    break;
+                // No.127 Add End
                 default:
                     break;
             }
