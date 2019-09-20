@@ -141,11 +141,13 @@ namespace KyoeiSystem.Application.WCFService
                             {
                                 会社名コード = x.SHD.会社名コード,
                                 仕入日 = x.SHD.仕入日,
-                                支払日 = x.SHD.仕入日.Day >= x.TOK.Ｓ締日 ?
+                                // No-128 Mod Start
+                                支払日 = x.SHD.仕入日.Day >= (x.TOK.Ｓ締日 ?? 31) ?
                                     // No.101-5 Mod Start
-                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, x.TOK.Ｓ入金日１ ?? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month)).AddMonths((x.TOK.Ｓサイト１ ?? 0) + 1) :
-                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, x.TOK.Ｓ入金日１ ?? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month)).AddMonths(x.TOK.Ｓサイト１ ?? 0),
+                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths((x.TOK.Ｓサイト１ ?? 0) + 1) :
+                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths(x.TOK.Ｓサイト１ ?? 0),
                                     // No.101-5 Mod End
+                                // No-128 Mod End
                                 仕入区分 = x.SHD.仕入区分 == (int)CommonConstants.仕入区分.通常 ? CommonConstants.仕入区分_通常 :
                                            x.SHD.仕入区分 == (int)CommonConstants.仕入区分.返品 ? CommonConstants.仕入区分_返品 :
                                            string.Empty,
