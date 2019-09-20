@@ -184,6 +184,8 @@ namespace KyoeiSystem.Application.WCFService
 
                         // 4>> 在庫情報更新
                         setS03_STOK_DTB_Update(context, ds, userId);
+                        context.SaveChanges();      // No.124 Add
+
                         setS03_STOK_Update(context, ds, userId);
 
                         // 変更状態を確定
