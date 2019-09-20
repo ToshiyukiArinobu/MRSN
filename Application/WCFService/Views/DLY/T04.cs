@@ -1352,7 +1352,7 @@ namespace KyoeiSystem.Application.WCFService
                     }
                     else
                     {
-                        history.賞味期限 = targetStok.賞味期限;
+                        history.賞味期限 = targetStok.賞味期限 == DateTime.MaxValue.Date ? (DateTime?)null : targetStok.賞味期限;    // No.129 Mod
                     }
                     //20190724CB-E
                     history.数量 = Math.Abs(decimal.ToInt32(stockQty));
