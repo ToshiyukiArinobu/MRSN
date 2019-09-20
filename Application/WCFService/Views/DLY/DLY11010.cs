@@ -222,7 +222,14 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public List<PrintoutMember> GetPrintData(string 売上日From, string 売上日To, string 得意先コード, string 得意先枝番, string 伝票番号From, string 伝票番号To)
+        //20190919 mod-s CB 軽減税率対応 ccfg.自社区分 が　0の場合は現状のまま　1の場合はT02_URHDの会社名コードとccfg.自社コードが一致す
+        //public List<PrintoutMember> GetPrintData(string 売上日From, string 売上日To, string 得意先コード, string 得意先枝番, string 伝票番号From, string 伝票番号To)
+        public List<PrintoutMember> GetPrintData(
+            string 売上日From, string 売上日To, 
+            string 得意先コード, string 得意先枝番, 
+            string 伝票番号From, string 伝票番号To,
+            int? 自社コード)
+        //20190919 mod-e CB 軽減税率対応
         {
             List<PrintoutMember> result = new List<PrintoutMember>();
 
@@ -260,6 +267,13 @@ namespace KyoeiSystem.Application.WCFService
 
                 if (denTo != null)
                     urhdList = urhdList.Where(w => w.伝票番号 <= denTo);
+
+                //20190919 add-s CB 軽減税率対応
+                //ccfg.自社区分 が　0の場合は現状のままccfg.自社区分が1の場合は、
+                //T02_URHDの会社名コードとccfg.自社コードが一致する
+                if (自社コード != null)
+                    urhdList = urhdList.Where(w => w.会社名コード == 自社コード);
+                //20190919 add-e CB 軽減税率対応
 
                 foreach (T02_URHD hdRow in urhdList.ToList())
                 {

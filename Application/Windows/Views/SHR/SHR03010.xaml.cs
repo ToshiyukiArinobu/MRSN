@@ -535,7 +535,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了1.GetHashCode()));
 
                 }
-                else if (closingDate != null && DateTime.Parse(row["終了日付1"].ToString()) >= closingDate)
+                else if (closingDate != null && DateTime.Parse(row["終了日付1"].ToString()) > closingDate)
                 {
                     isDetailErr = true;
                     msg = "１回目の終了日付が締日を超えています。";
@@ -574,7 +574,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             }
                         }
 
-                        if (closingDate != null && DateTime.Parse(row["開始日付2"].ToString()) >= closingDate)
+                        if (closingDate != null && DateTime.Parse(row["開始日付2"].ToString()) > closingDate)
                         {
                             isDetailErr = true;
                             msg = "２回目の開始日付が締日を超えています。";
@@ -637,7 +637,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             }
                         }
                         
-                        if (closingDate != null && DateTime.Parse(row["開始日付3"].ToString()) >= closingDate)
+                        if (closingDate != null && DateTime.Parse(row["開始日付3"].ToString()) > closingDate)
                         {
                             isDetailErr = true;
                             msg = "３回目の開始日付が締日を超えています。";
