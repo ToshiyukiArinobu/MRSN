@@ -41,6 +41,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        //20190919 add-s CB 軽減税率対応
+        #region 権限関係
+        CommonConfig ccfg = null;
+        #endregion
+        //20190919 add-e CB 軽減税率対応
+
         #region 画面設定項目
         /// <summary>
         /// ユーザ設定項目
@@ -89,6 +95,12 @@ namespace KyoeiSystem.Application.Windows.Views
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
             frmcfg = (ConfigDLY11010)ucfg.GetConfigValue(typeof(ConfigDLY11010));
+
+            //20190919 add-s CB 軽減税率対応
+            // 権限設定を呼び出す(ucfgを取得した後のに入れる)
+            ccfg = (CommonConfig)ucfg.GetConfigValue(typeof(CommonConfig));
+            //20190919 add-e CB 軽減税率対応
+
             if (frmcfg == null)
             {
                 frmcfg = new ConfigDLY11010();
@@ -225,6 +237,28 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBoxResult.Yes) == MessageBoxResult.No)
                 return;
 
+            //20190919 add & mod -s CB 軽減税率対応
+            //ccfg.自社区分 が　0の場合は現状のままccfg.自社区分が1の場合は、
+            //T02_URHDの会社名コードとccfg.自社コードが一致する
+
+            int? 自社コード = null;
+            if (ccfg.自社販社区分 == 1)
+            {
+                自社コード = ccfg.自社コード;
+            }
+            //base.SendRequest(
+            //    new CommunicationObject(
+            //        MessageType.UpdateData,
+            //        DLY11010_PRINTOUT,
+            //        new object[] {
+            //            this.txt売上日From.Text,
+            //            this.txt売上日To.Text,
+            //            this.txt得意先.Text1,
+            //            this.txt得意先.Text2,
+            //            this.txt伝票番号From.Text,
+            //            this.txt伝票番号To.Text
+            //        }));
+
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.UpdateData,
@@ -235,8 +269,11 @@ namespace KyoeiSystem.Application.Windows.Views
                         this.txt得意先.Text1,
                         this.txt得意先.Text2,
                         this.txt伝票番号From.Text,
-                        this.txt伝票番号To.Text
+                        this.txt伝票番号To.Text,
+                        自社コード
                     }));
+            //20190919 add & mod -e CB 軽減税率対応
+
 
             //if (this.売上明細データ == null)
             //{
