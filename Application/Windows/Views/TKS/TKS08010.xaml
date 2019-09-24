@@ -16,7 +16,7 @@
   Left="0" Top="0"
   MinHeight="728" MinWidth="1024"
   Height="768" Width="1024"
-  Title="回収予定実績表(TKS08010)"
+  Title="入金予定実績表(TKS08010)"
   WindowStartupLocation="CenterOwner"
   Loaded="RibbonWindow_Loaded" Closed="MainWindow_Closed">
 
