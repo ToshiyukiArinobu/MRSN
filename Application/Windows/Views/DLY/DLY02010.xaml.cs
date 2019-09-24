@@ -861,6 +861,17 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             DataRow dtlRow = SearchDetail.NewRow();
+            // No.131 Add Start
+            dtlRow["伝票番号"] = this.txt伝票番号.Text;
+            if (SearchDetail.Rows.Count - delRowCount > 0)
+            {
+                dtlRow["行番号"] = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable().Select(a => a.Field<int>("行番号")).Max() + 1;
+            }
+            else
+            {
+                dtlRow["行番号"] = 1;
+            }
+            // No.131 Add End
             SearchDetail.Rows.Add(dtlRow);
 
             // 行追加後は追加行を選択させる

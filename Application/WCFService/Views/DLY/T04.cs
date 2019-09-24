@@ -1306,15 +1306,28 @@ namespace KyoeiSystem.Application.WCFService
 
                     bool isAddData = (targetStok == null);
                     decimal stockQty = 0;
-                    int intQuantity = Convert.ToInt32(row["数量"]);         // No-64
+                    int intQuantity = 0;         // No.131 Mod
 
                     if (row.RowState == DataRowState.Deleted)
                     {
+                        // No.131 Add Start
+                        if (row.HasVersion(DataRowVersion.Original))
+                        {
+                            intQuantity = Convert.ToInt32(row["数量", DataRowVersion.Original]);
+
+                        }
+                        else
+                        {
+                            intQuantity = Convert.ToInt32(row["数量"]);
+                        }
+                        // No.131 Add End
+
                         // 数量分在庫数を加算
                         stockQty = data.使用数量 * intQuantity;             // No-64
                     }
                     if (row.RowState == DataRowState.Added)
                     {
+                        intQuantity = Convert.ToInt32(row["数量"]);
                         // 数量分在庫数を減算
                         stockQty = (data.使用数量 * intQuantity) * -1;      // No-64
                     }
