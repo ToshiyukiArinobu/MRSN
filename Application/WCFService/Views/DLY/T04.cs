@@ -1314,7 +1314,6 @@ namespace KyoeiSystem.Application.WCFService
                         if (row.HasVersion(DataRowVersion.Original))
                         {
                             intQuantity = Convert.ToInt32(row["数量", DataRowVersion.Original]);
-
                         }
                         else
                         {
