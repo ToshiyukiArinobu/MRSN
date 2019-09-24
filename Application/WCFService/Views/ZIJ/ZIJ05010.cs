@@ -17,8 +17,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class SearchDataMember
         {
-            public DateTime 売上日 { get; set; }
-            public DateTime 請求日 { get; set; }
+            public string 売上日 { get; set; }     // No.130-1 Mod
+            public string 請求日 { get; set; }     // No.130-1 Mod
             public string 売上区分 { get; set; }
             public string 伝票番号 { get; set; }
             public string 元伝票番号 { get; set; }
@@ -28,7 +28,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社品番 { get; set; }
             public string 自社品名 { get; set; }
             public string 自社色 { get; set; }
-            public DateTime? 賞味期限 { get; set; }
+            public string 賞味期限 { get; set; }    // No.130-1 Mod
             public decimal 単価 { get; set; }
             public decimal 数量 { get; set; }
             public string 単位 { get; set; }
@@ -131,10 +131,10 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
-                                売上日 = x.UHD.売上日,
+                                売上日 = x.UHD.売上日.ToShortDateString(),        // No.130-1 Mod
                                 請求日 = x.UHD.売上日.Day >= x.TOK.Ｔ締日 ?
-                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 1) :
-                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 0),
+                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 1).ToShortDateString() :     // No.130-1 Mod
+                                    AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 0).ToShortDateString(),      // No.130-1 Mod
                                 売上区分 = x.KBN.表示名,
                                 伝票番号 = x.UHD.伝票番号.ToString(),
                                 元伝票番号 = x.UHD.元伝票番号 != null ? x.UHD.元伝票番号.ToString() : string.Empty,
@@ -144,7 +144,7 @@ namespace KyoeiSystem.Application.WCFService
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
                                 自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
                                 自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
-                                賞味期限 = x.UDTL.賞味期限,
+                                賞味期限 = x.UDTL.賞味期限 == null ? null : x.UDTL.賞味期限.Value.ToShortDateString(),          // No.130-1 Mod
                                 単価 = x.UDTL.単価,
                                 数量 = x.UDTL.数量,
                                 単位 = x.UDTL.単位,

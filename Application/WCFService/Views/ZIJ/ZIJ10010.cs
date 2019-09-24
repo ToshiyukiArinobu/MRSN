@@ -17,7 +17,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class SearchDataMember
         {
-            public DateTime 仕上日 { get; set; }
+            public string 仕上日 { get; set; }         // No.130-2 Mod
             public string 加工区分 { get; set; }
             public string 伝票番号 { get; set; }
             public int 行番号 { get; set; }
@@ -26,7 +26,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社品番 { get; set; }
             public string 自社品名 { get; set; }
             public string 自社色 { get; set; }
-            public DateTime? 賞味期限 { get; set; }
+            public string 賞味期限 { get; set; }        // No.130-2 Mod
             public decimal 単価 { get; set; }
             public decimal 数量 { get; set; }
             public string 単位 { get; set; }
@@ -127,7 +127,7 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
-                                仕上日 = x.AGRHD.仕上り日,
+                                仕上日 = x.AGRHD.仕上り日.ToShortDateString(),     // No.130-2 Mod
                                 加工区分 = x.KBN.表示名,
                                 伝票番号 = x.AGRHD.伝票番号.ToString(),
                                 行番号 = x.AGRDTL.行番号,
@@ -136,7 +136,7 @@ namespace KyoeiSystem.Application.WCFService
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
                                 自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
                                 自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
-                                賞味期限 = x.AGRDTL.賞味期限,
+                                賞味期限 = x.AGRDTL.賞味期限 == null ? null : x.AGRDTL.賞味期限.Value.ToShortDateString(),   // No.130-2 Mod
                                 単価 = x.AGRDTL.単価 == null ? 0 : (decimal)x.AGRDTL.単価,
                                 数量 = x.AGRDTL.数量 == null ? 0 : (decimal)x.AGRDTL.数量,
                                 単位 = x.AGRDTL.単位,

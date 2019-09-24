@@ -18,8 +18,8 @@ namespace KyoeiSystem.Application.WCFService
         public class SearchDataMember
         {
             public int 会社名コード { get; set; }
-            public DateTime 仕入日 { get; set; }
-            public DateTime 支払日 { get; set; }
+            public string 仕入日 { get; set; }         // No.130-3 Mod
+            public string 支払日 { get; set; }         // No.130-3 Mod
             public string 仕入区分 { get; set; }
             public string 入力区分 { get; set; }
             public int 伝票番号 { get; set; }
@@ -30,7 +30,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社品番 { get; set; }
             public string 自社品名 { get; set; }
             public string 自社色 { get; set; }
-            public DateTime? 賞味期限 { get; set; }
+            public string 賞味期限 { get; set; }        // No.130-3 Mod
             public decimal 単価 { get; set; }
             public decimal 数量 { get; set; }
             public string 単位 { get; set; }
@@ -140,12 +140,12 @@ namespace KyoeiSystem.Application.WCFService
                             .Select(x => new SearchDataMember
                             {
                                 会社名コード = x.SHD.会社名コード,
-                                仕入日 = x.SHD.仕入日,
+                                仕入日 = x.SHD.仕入日.ToShortDateString(),    // No.130-3 Mod
                                 // No-128 Mod Start
                                 支払日 = x.SHD.仕入日.Day >= (x.TOK.Ｓ締日 ?? 31) ?
                                     // No.101-5 Mod Start
-                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths((x.TOK.Ｓサイト１ ?? 0) + 1) :
-                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths(x.TOK.Ｓサイト１ ?? 0),
+                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths((x.TOK.Ｓサイト１ ?? 0) + 1).ToShortDateString() :  // No.130-3 Mod
+                                    new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths(x.TOK.Ｓサイト１ ?? 0).ToShortDateString(),         // No.130-3 Mod
                                     // No.101-5 Mod End
                                 // No-128 Mod End
                                 仕入区分 = x.SHD.仕入区分 == (int)CommonConstants.仕入区分.通常 ? CommonConstants.仕入区分_通常 :
@@ -162,7 +162,7 @@ namespace KyoeiSystem.Application.WCFService
                                 自社品番 = x.HIN.自社品番,
                                 自社品名 = x.HIN.自社品名,
                                 自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
-                                賞味期限 = x.SDTL.賞味期限,
+                                賞味期限 = x.SDTL.賞味期限 == null? null : x.SDTL.賞味期限.Value.ToShortDateString(),    // No.130-3 Mod
                                 数量 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.数量 : x.SDTL.数量 * -1,
                                 単価 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.単価 : x.SDTL.単価 * -1,
                                 単位 = x.SDTL.単位,
