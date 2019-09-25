@@ -177,7 +177,7 @@ namespace KyoeiSystem.Application.WCFService
                         for (int i = 0; i < tallyList.Count; i++)
                         {
                             BSK01010_PrintMember print = new BSK01010_PrintMember();
-                            print.得意先コード = string.Format("{0} - {1}", tokRow.取引先コード, tokRow.枝番);
+                            print.得意先コード = string.Format("{0:000} - {1:00}", tokRow.取引先コード, tokRow.枝番);     // No.132-2 Mod
                             print.得意先名 = tokRow.得意先名１;
                             print.品番コード = tallyList[i].品番コード;
                             print.品番名称 = tallyList[i].自社品名;

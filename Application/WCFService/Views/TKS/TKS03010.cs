@@ -240,7 +240,7 @@ namespace KyoeiSystem.Application.WCFService
                 .ToList()
                 .Select(x => new PrintMember
                 {
-                    得意先コード = x.NHD.請求先コード + " - " + x.NHD.請求先枝番,
+                    得意先コード = string.Format("{0:000} - {1:00}", x.NHD.請求先コード, x.NHD.請求先枝番),  // No.132-1 Mod
                     得意先名称 = x.TOK == null ? "" : x.TOK.得意先名１,
 
                     //20190906 add-s CB 軽減税率対応
