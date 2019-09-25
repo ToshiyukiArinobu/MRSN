@@ -342,22 +342,26 @@ namespace KyoeiSystem.Application.Windows.Views
                     return;
                 }
 
-                string str色SQL;
+                // 自社色の重複チェック
+                if (M09_HIN_SearchRow["自社色", DataRowVersion.Original].ToString().Equals(M09_HIN_SearchRow["自社色"].ToString()) == false)  // No.153 Add
+                {
+                    string str色SQL;
 
-                if(string.IsNullOrEmpty(M09_HIN_SearchRow["自社色"].ToString()))
-                {
-                    str色SQL = "IS NULL";
-                }
-                else
-                {
-                    str色SQL = "= '" + M09_HIN_SearchRow["自社色"].ToString() + "'";
-                }
-                DataRow[] drHinUniqe = datatable_M09_HIN_All.Select("自社品番 = '" + M09_HIN_SearchRow["自社品番"].ToString() + "' AND 自社色 " + str色SQL);
-                if (drHinUniqe.Length > 0)
-                {
-                    MessageBox.Show("入力された自社品番と色の組み合わせは\r\n品番コード : " + drHinUniqe[0]["品番コード"].ToString() + "\r\n登録済みです。");
-                    SetFocusToTopControl();
-                    return;
+                    if (string.IsNullOrEmpty(M09_HIN_SearchRow["自社色"].ToString()))
+                    {
+                        str色SQL = "IS NULL";
+                    }
+                    else
+                    {
+                        str色SQL = "= '" + M09_HIN_SearchRow["自社色"].ToString() + "'";
+                    }
+                    DataRow[] drHinUniqe = datatable_M09_HIN_All.Select("自社品番 = '" + M09_HIN_SearchRow["自社品番"].ToString() + "' AND 自社色 " + str色SQL);
+                    if (drHinUniqe.Length > 0)
+                    {
+                        MessageBox.Show("入力された自社品番と色の組み合わせは\r\n品番コード : " + drHinUniqe[0]["品番コード"].ToString() + "\r\n登録済みです。");
+                        SetFocusToTopControl();
+                        return;
+                    }
                 }
 
                 var yesno = MessageBox.Show("入力内容を登録しますか？", "登録確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
