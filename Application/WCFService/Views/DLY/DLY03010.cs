@@ -310,12 +310,12 @@ namespace KyoeiSystem.Application.WCFService
                         // 一致データ取得
                         if (isConv)
                         {
-                            hdList = hdList.Where(w => w.伝票番号 == iSlipNumber);
+                            // No.137 Mod Start
+                            hdList = hdList.Where(w => w.伝票番号 == iSlipNumber && w.削除日時 == null && w.売上区分 < 通常売上返品区分);
 
                             if (hdList.Count() == 0)
-                                // この場合は存在しない明細番号が指定されている
-                                return slipNum;
-
+                                return string.Empty;
+                            // No.137 Mod End
                         }
                         else
                             return string.Empty;
