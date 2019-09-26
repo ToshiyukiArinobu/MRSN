@@ -78,14 +78,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private Dictionary<int, string> 金種Dic = new Dictionary<int, string>()
         {
-            { 0, "" },
-            { 金種区分.現金.GetHashCode(), "現金" },
-            { 金種区分.小切手.GetHashCode(), "小切手" },
-            { 金種区分.振込.GetHashCode(), "振込" },
-            { 金種区分.手形.GetHashCode(), "手形" },
-            { 金種区分.相殺.GetHashCode(), "相殺" },
-            { 金種区分.調整.GetHashCode(), "調整" },
-            { 金種区分.その他.GetHashCode(), "その他" },
+            { 0, "" },  // No.145 Mod
         };
 
         #endregion
@@ -111,20 +104,6 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             自社 = 0,
             販社 = 1
-        }
-
-        /// <summary>
-        /// 金種 内包データ
-        /// </summary>
-        private enum 金種区分 : int
-        {
-            現金 = 1,
-            小切手 = 2,
-            振込 = 3,
-            手形 = 4,
-            相殺 = 5,
-            調整 = 6,
-            その他 = 7
         }
 
         #endregion
@@ -231,6 +210,15 @@ namespace KyoeiSystem.Application.Windows.Views
             ChangeKeyItemChangeable(true);
 
             #region 金種コードのドロップダウンを生成
+            // No.145 Add Start
+            Window view = System.Windows.Window.GetWindow(this.gcSpreadGrid);
+            List<CodeData> codeList = AppCommon.GetComboboxCodeList(view, "随時", "入金問合せ", "金種", false);
+            codeList = codeList.Where(x => x.コード != 0).ToList();
+            foreach (CodeData code in codeList)
+            {
+                金種Dic.Add(code.コード, code.表示名);
+            }
+            // No.145 Add End
 
             GrapeCity.Windows.SpreadGrid.ComboBoxCellType c1 = new GrapeCity.Windows.SpreadGrid.ComboBoxCellType();
             c1.ItemsSource = 金種Dic;
@@ -609,7 +597,6 @@ namespace KyoeiSystem.Application.Windows.Views
             if (SearchDetail == null || SearchDetail.Rows.Count == 0 || SearchDetail.Select("金種コード > 0").Count() == 0)
             {
                 base.ErrorMessage = string.Format("明細情報が１件もありません。");
-                this.gcSpreadGrid.Focus();
                 return isResult;
             }
 
@@ -642,7 +629,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 金種が「手形」の場合は期日が必須
                 if (string.IsNullOrEmpty(row["期日"].ToString()))
                 {
-                    if (int.Parse(row["金種コード"].ToString()).Equals(金種区分.手形.GetHashCode()))
+                    if (int.Parse(row["金種コード"].ToString()).Equals(金種Dic.FirstOrDefault(x => x.Value.Equals("手形")).Key))  // No.145 Mod
                     {
                         gcSpreadGrid.Rows[rIdx]
                             .ValidationErrors.Add(new SpreadValidationError("金種が「手形」の場合は期日の設定が必要です。", null, rIdx, GridColumnsMapping.期日.GetHashCode()));

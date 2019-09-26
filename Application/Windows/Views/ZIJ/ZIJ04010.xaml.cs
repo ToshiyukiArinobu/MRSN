@@ -4,6 +4,7 @@ using KyoeiSystem.Framework.Windows.ViewBase;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -43,17 +44,6 @@ namespace KyoeiSystem.Application.Windows.Views
             販社 = 1
         }
 
-        private enum 金種コード : int
-        {
-            現金 = 1,
-            振込 = 2,
-            小切手 = 3,
-            手形 = 4,
-            相殺 = 5,
-            調整 = 6,
-            その他 = 7
-        }
-
         #endregion
 
         #region 画面設定項目
@@ -90,7 +80,12 @@ namespace KyoeiSystem.Application.Windows.Views
         #region << 変数定義 >>
 
         private Dictionary<string, string> paramDic = new Dictionary<string, string>();
-
+        // No.145 Add Start
+        private Dictionary<int, string> goldNameDic = new Dictionary<int, string>()
+        {
+            { 0, "指定なし" }, 
+        };
+        // No.145 Add End
         #endregion
 
         #region バインディングプロパティ
@@ -164,6 +159,17 @@ namespace KyoeiSystem.Application.Windows.Views
             #endregion
 
             spGridList.InputBindings.Add(new KeyBinding(spGridList.NavigationCommands.MoveNext, Key.Enter, ModifierKeys.None));
+            
+            // No.145 Add Start
+            // 金種の名称辞書を作成
+            Window view = System.Windows.Window.GetWindow(this);
+            List<CodeData> codeList = AppCommon.GetComboboxCodeList(view, "随時", "出金問合せ", "金種", false);
+            codeList = codeList.Where(x => x.コード != 0).ToList();
+            foreach (CodeData code in codeList)
+            {
+                goldNameDic.Add(code.コード, code.表示名);
+            }
+            // No.145 Add End
 
             // コントロールの初期設定をおこなう
             initSearchControl();
@@ -482,20 +488,6 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private void setSearchParams()
         {
-            #region 金種の名称辞書を作成
-            Dictionary<int, string> goldNameDic = new Dictionary<int, string>()
-                {
-                    { 0, "指定なし" },
-                    { 金種コード.現金.GetHashCode(), "現金" },
-                    { 金種コード.振込.GetHashCode(), "振込" },
-                    { 金種コード.小切手.GetHashCode(), "小切手" },
-                    { 金種コード.手形.GetHashCode(), "手形" },
-                    { 金種コード.相殺.GetHashCode(), "相殺" },
-                    { 金種コード.調整.GetHashCode(), "調整" },
-                    { 金種コード.その他.GetHashCode(), "その他" }
-                };
-            #endregion
-
             paramDic.Clear();
             paramDic.Add("出金日From", withdrawalDateFrom.Text);
             paramDic.Add("出金日To", withdrawalDateTo.Text);
@@ -516,13 +508,15 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private void summaryCalc()
         {
-            sumCash.Text = parseLongSummary(金種コード.現金);
-            sumTransfer.Text = parseLongSummary(金種コード.振込);
-            sumCheck.Text = parseLongSummary(金種コード.小切手);
-            sumPromissory.Text = parseLongSummary(金種コード.手形);
-            sumOffset.Text = parseLongSummary(金種コード.相殺);
-            sumAjustment.Text = parseLongSummary(金種コード.調整);
-            sumOther.Text = parseLongSummary(金種コード.その他);
+            // Mo.145 Mod Start
+            sumCash.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("現金")).Key);
+            sumTransfer.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("振込")).Key);
+            sumCheck.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("小切手")).Key);
+            sumPromissory.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("手形")).Key);
+            sumOffset.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("相殺")).Key);
+            sumAjustment.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("調整")).Key);
+            sumOther.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("その他")).Key);
+            // Mo.145 Mod End
 
             sumTotal.Text = parseLongSummary(null);
 
@@ -533,7 +527,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        private string parseLongSummary(金種コード? code)
+        private string parseLongSummary(int? code)
         {
             string sVal;
             if (code == null)
