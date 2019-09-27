@@ -46,6 +46,10 @@ namespace KyoeiSystem.Application.WCFService
             public int 消費税区分 { get; set; }
             /// <summary>1:食品、2:繊維、3:その他</summary>
             public int 商品分類 { get; set; }
+            // No-154 Add Start
+            public string 自社色 { get; set; }
+            public string 自社色名 { get; set; }
+            // No-154 Add Start
         }
 
         #endregion
@@ -415,27 +419,33 @@ namespace KyoeiSystem.Application.WCFService
                 if (int.TryParse(slipNumber, out num))
                 {
                     var result =
+                        // No-154 Mod Start
                         context.T05_IDODTL.Where(w => w.削除日時 == null && w.伝票番号 == num)
                             .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
                                 x => x.品番コード,
                                 y => y.品番コード,
                                 (a, b) => new { a, b })
-                            .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { AGRDTL = x, HIN = y })
+                            .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { IDODTL = x, HIN = y })
+                            .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null), x => x.HIN.自社色, y => y.色コード, (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(), (c, d) => new { c.x.IDODTL, c.x.HIN, IRO = d })
                             .Select(x => new T05_IDODTL_Extension
                             {
-                                伝票番号 = x.AGRDTL.a.伝票番号,
-                                行番号 = x.AGRDTL.a.行番号,
-                                品番コード = x.AGRDTL.a.品番コード,
+                                伝票番号 = x.IDODTL.a.伝票番号,
+                                行番号 = x.IDODTL.a.行番号,
+                                品番コード = x.IDODTL.a.品番コード,
                                 自社品番 = x.HIN.自社品番,
                                 自社品名 = x.HIN.自社品名,
-                                賞味期限 = x.AGRDTL.a.賞味期限,
-                                数量 = x.AGRDTL.a.数量,
-                                摘要 = x.AGRDTL.a.摘要,
+                                自社色 = x.HIN.自社色,
+                                自社色名 = x.IRO != null ? x.IRO.色名称 : string.Empty,
+                                賞味期限 = x.IDODTL.a.賞味期限,
+                                数量 = x.IDODTL.a.数量,
+                                摘要 = x.IDODTL.a.摘要,
                                 消費税区分 = x.HIN.消費税区分 ?? 0,
                                 商品分類 = x.HIN.商品分類 ?? 0
                             })
                             .OrderBy(o => o.伝票番号)
                             .ThenBy(t => t.行番号);
+                    // No-154 Mod End
 
                     return result.ToList();
 
