@@ -165,6 +165,8 @@ namespace KyoeiSystem.Application.WCFService
 
             if (hst != null)
             {
+                hst.入出庫日 = history.入出庫日;        // No.156-1 Add
+                hst.入出庫時刻 = history.入出庫時刻;    // No.156-1 Add
                 hst.倉庫コード = history.倉庫コード;
                 hst.入出庫区分 = history.入出庫区分;
                 hst.賞味期限 = history.賞味期限;
