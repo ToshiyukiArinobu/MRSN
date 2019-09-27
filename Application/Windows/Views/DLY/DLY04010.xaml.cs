@@ -87,16 +87,16 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             自社品番 = 0,
             自社品名 = 1,
-            賞味期限 = 2,
-            数量 = 3,
-            摘要 = 4,
-            品番コード = 5,
-            消費税区分 = 6,
-            商品分類 = 7,
+            賞味期限 = 4,
+            数量 = 5,
+            摘要 = 6,
+            品番コード = 7,
+            消費税区分 = 8,
+            商品分類 = 9,
 
             // 20190624CB-S
-            色コード = 8,
-            色名称 = 9,
+            色コード = 2,
+            色名称 = 3,
             // 20190624CB-E
         }
 
@@ -440,8 +440,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                                 // 20190624CB-S
 
-                                gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色コード].Value = myhin.SelectedRowData["自社色"]; ;
-                                gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色名称].Value = myhin.SelectedRowData["自社色名"]; ;
+                                gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色コード].Value = myhin.SelectedRowData["自社色"]; 
+                                gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.色名称].Value = myhin.SelectedRowData["自社色名"]; 
 
                                 // 20190624CB-E
 
