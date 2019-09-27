@@ -330,7 +330,7 @@ namespace KyoeiSystem.Application.WCFService
                         setS03_STOK_Update(shd, dtlTable);
 
                         // 4>> 入出庫履歴の作成
-                        setS04_HISTORY_Create(shd, dtlTable);
+                        setS04_HISTORY_Create(shd, dtlTable, hdTable.Rows[0]);  // No.156-2 Mod
 
                         // 変更状態を確定
                         context.SaveChanges();
@@ -483,7 +483,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="srhd">仕入ヘッダデータ</param>
         /// <param name="dtlTable">仕入明細データテーブル</param>
-        protected void setS04_HISTORY_Create(T03_SRHD srhd, DataTable dtlTable)
+        /// <param name="orghd">変更前仕入明細データテーブル</param>
+        protected void setS04_HISTORY_Create(T03_SRHD srhd, DataTable dtlTable, DataRow orghd)
         {
             foreach (DataRow row in dtlTable.Rows)
             {
@@ -511,10 +512,17 @@ namespace KyoeiSystem.Application.WCFService
 
                 Dictionary<string, string> hstDic = new Dictionary<string, string>()
                     {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
-                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
-                        { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
-                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
+                        // No.156-2 Mod Start
+                        { S04.COLUMNS_NAME_入出庫日, orghd == null? 
+                                                        history.入出庫日.ToString("yyyy/MM/dd") : string.Format("{0:yyyy/MM/dd}", orghd["仕入日", DataRowVersion.Original])},
+                        { S04.COLUMNS_NAME_倉庫コード, orghd == null? 
+                                                        history.倉庫コード.ToString() : 
+                                                        orghd["入荷先コード", DataRowVersion.Original] == DBNull.Value? 
+                                                        null : T03Service.get倉庫コード(Convert.ToInt32(orghd["入荷先コード", DataRowVersion.Original])).ToString() },
+                        { S04.COLUMNS_NAME_伝票番号, orghd == null? 
+                                                        history.伝票番号.ToString() : orghd["伝票番号", DataRowVersion.Original].ToString() },
+                        { S04.COLUMNS_NAME_品番コード,  history.品番コード.ToString() }
+                        // No.156-2 Mod End
                     };
 
                 if (row.RowState == DataRowState.Added)
@@ -526,16 +534,14 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     S04Service.DeleteProductHistory(hstDic);
                 }
-                else if (row.RowState == DataRowState.Modified)
+                // No.156-2 Mod Start
+                else
                 {
+                    // (DataRowState.Modified、DataRowState.Unchanged)
                     // 仕入更新の為、履歴更新
                     S04Service.UpdateProductHistory(history, hstDic);
                 }
-                else
-                {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
-                }
+                // No.156-2 Mod End
 
             }
 
