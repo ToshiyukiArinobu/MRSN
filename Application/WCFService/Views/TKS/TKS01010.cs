@@ -730,26 +730,36 @@ namespace KyoeiSystem.Application.WCFService
                         // No-94 Add Start
                         通常税率対象金額 = (long)x.Sum(s => s.Data.通常税率対象金額),
                         軽減税率対象金額 = (long)x.Sum(s => s.Data.軽減税率対象金額),
+                        // No.135-1 Mod Start
                         通常税率消費税 =
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
-                                    (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                    x.Sum(s => s.Data.通常税率対象金額) > 0 ?
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                     (long)Math.Round((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
-                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                    x.Sum(s => s.Data.通常税率対象金額) > 0 ?
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 0 :
                             (long)x.Sum(s => s.Data.通常税率消費税),
                         軽減税率消費税 =
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
-                                    (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                    x.Sum(s => s.Data.軽減税率対象金額) > 0 ?
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                     (long)Math.Round((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
-                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                    x.Sum(s => s.Data.軽減税率対象金額) > 0 ?
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 0 :
                             (long)x.Sum(s => s.Data.軽減税率消費税),
+                        // No.135-1 Mod End
                         // No-94 Add End
                         当月請求額 = 0,
                         登録者 = userId,
