@@ -483,7 +483,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="srhd">仕入ヘッダデータ</param>
         /// <param name="dtlTable">仕入明細データテーブル</param>
-        /// <param name="orghd">変更前仕入明細データテーブル</param>
+        /// <param name="orghd">変更前仕入ヘッダデータ</param>
         protected void setS04_HISTORY_Create(T03_SRHD srhd, DataTable dtlTable, DataRow orghd)
         {
             foreach (DataRow row in dtlTable.Rows)
