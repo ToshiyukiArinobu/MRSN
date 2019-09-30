@@ -549,7 +549,7 @@ namespace KyoeiSystem.Application.WCFService
                     {
                         decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
                         stockQty = (dtlRow.数量 - orgQty) * (isSubtract ? -1 : 1);
-                        stockQtyhist = dtlRow.数量 - orgQty;
+                        stockQtyhist = dtlRow.数量;
                     }
 
                 }
