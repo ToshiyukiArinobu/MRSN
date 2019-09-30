@@ -307,7 +307,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // -- 検索条件適用：作成区分(1:滞留ありのみ、2:滞留なし含む)
                 if (createType == 1)
-                    result = result.Where(w => w.入金滞留額 > 0);
+                    result = result.Where(w => w.入金滞留額 != 0);           // No152 Mod
 
                 return result.ToList();
 
