@@ -529,16 +529,18 @@ namespace KyoeiSystem.Application.WCFService
 
                 #region 在庫数計算
                 decimal stockQty = 0;
+                decimal stockQtyhist = 0;                           // No-155 Add
                 if (row.RowState == DataRowState.Deleted)
                 {
                     // 数量分在庫数を加減算
                     stockQty = dtlRow.数量 * (isSubtract ? -1 : 1);
+                    stockQtyhist = dtlRow.数量;
                 }
                 else if (row.RowState == DataRowState.Added)
                 {
                     // 数量分在庫数を加減算
                     stockQty = dtlRow.数量 * (isSubtract ? -1 : 1);
-
+                    stockQtyhist = dtlRow.数量;
                 }
                 else if (row.RowState == DataRowState.Modified)
                 {
@@ -547,6 +549,7 @@ namespace KyoeiSystem.Application.WCFService
                     {
                         decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
                         stockQty = (dtlRow.数量 - orgQty) * (isSubtract ? -1 : 1);
+                        stockQtyhist = dtlRow.数量;
                     }
 
                 }
@@ -576,7 +579,7 @@ namespace KyoeiSystem.Application.WCFService
                 history.入出庫区分 = !isSubtract ? (int)CommonConstants.入出庫区分.ID01_入庫 : (int)CommonConstants.入出庫区分.ID02_出庫;
                 history.品番コード = dtlRow.品番コード;
                 history.賞味期限 = dtlRow.賞味期限;
-                history.数量 = Math.Abs(decimal.ToInt32(stockQty));
+                history.数量 = decimal.ToInt32(stockQtyhist);             // No-155 Mod
                 history.伝票番号 = dtlRow.伝票番号;
 
                 Dictionary<string, string> hstDic = new Dictionary<string, string>()

@@ -336,9 +336,10 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             if (SearchResult == null)
                 return;
-
             try
             {
+                SearchGrid.CommitEdit(DataGridEditingUnit.Row, true);
+            
                 if (!isDataGridValidation())
                     return;
 

@@ -1138,6 +1138,9 @@ namespace KyoeiSystem.Application.Windows.Views
                         break;
 
                 }
+
+                SearchDetail.Rows[grid.ActiveRowIndex].EndEdit();               // No-160 Add
+
             }
             catch (Exception ex)
             {
