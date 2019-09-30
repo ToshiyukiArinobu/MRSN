@@ -157,7 +157,7 @@
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
 
-          <TextBlock x:Name="FuncTitle" Text="売上入力" Grid.Row="0" Grid.Column="0" FontSize="16" Margin="30,0,0,0" />
+          <TextBlock x:Name="FuncTitle" Text="売上返品入力" Grid.Row="0" Grid.Column="0" FontSize="16" Margin="30,0,0,0" />
           <ctls:UcLabelTwinTextBox
               x:Name="txt自社名" Label_Context="自社名" Grid.Column="1" Width="350"
               DataAccessName="M70_JIS" DataAccessMode="On" IsKeyItem="True"
