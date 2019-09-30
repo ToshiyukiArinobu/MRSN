@@ -363,7 +363,7 @@ namespace KyoeiSystem.Application.WCFService
                     shd = shd.Where(w => w.請求先コード == customerCode && w.請求先枝番 == customerEda);
 
                 if (createType == 1)
-                    shd = shd.Where(w => w.当月請求額 > 0);
+                    shd = shd.Where(w => w.売上額 != 0);          // No-144 Mod
 
                 return shd.ToList();
 
