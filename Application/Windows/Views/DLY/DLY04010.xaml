@@ -278,6 +278,24 @@
                 <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
+            <!-- 自社色 -->
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:TextCellType IsReadOnly="True" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
+            <!-- 自社色名 -->
+            <sg:Column Locked="True" Focusable="True" CanUserResize="False">
+              <sg:Column.CellType>
+                <sg:TextCellType IsReadOnly="True" />
+              </sg:Column.CellType>
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+              </sg:Column.DataField>
+            </sg:Column>
             <!-- 賞味期限 -->
             <sg:Column HorizontalAlignment="Center" Locked="False" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
