@@ -170,7 +170,7 @@ namespace KyoeiSystem.Application.WCFService
                 .ToList()
                 .Select(x => new PrintMember
                 {
-                    仕入先コード = x.NHD.支払先コード + " - " + x.NHD.支払先枝番,
+                    仕入先コード = string.Format("{0:000} - {1:00}", x.NHD.支払先コード, x.NHD.支払先枝番),      // No-150 Mod
                     仕入先名称 = x.TOK == null ? "" : x.TOK.得意先名１,
                     支払締日 = x.NHD.支払締日.ToString(),
                     品番コード = x.NDTL.品番コード,
