@@ -56,16 +56,6 @@ namespace KyoeiSystem.Application.WCFService
             public Nullable<int> 軽減税率消費税 { get; set; }
             public Nullable<int> 消費税 { get; set; }
             public Nullable<int> 当月支払額 { get; set; }
-            
-            //public int 行番号 { get; set; }
-            //public int 品番コード { get; set; }
-            //public Nullable<System.DateTime> 賞味期限 { get; set; }
-            //public decimal 数量 { get; set; }
-            //public string 単位 { get; set; }
-            //public decimal 単価 { get; set; }
-            //public int 金額 { get; set; }
-            //public string 摘要 { get; set; }
-
             public Nullable<int> Ｓ締日 { get; set; }
             public Nullable<int> Ｓ入金日１ { get; set; }
             public int Ｓ支払消費税区分 { get; set; }
@@ -517,7 +507,9 @@ namespace KyoeiSystem.Application.WCFService
                         g.Data.集計開始日,
                         g.Data.集計最終日,
                         g.Data.支払消費税区分,
-                        g.ZEI.消費税率
+                        g.Data.消費税丸め区分,
+                        g.ZEI.消費税率,
+                        g.ZEI.軽減税率
                     })
                     .Select(x => new S02_SHRHD
                     {
@@ -537,9 +529,33 @@ namespace KyoeiSystem.Application.WCFService
                         値引額 = 0,
                         非課税支払額 = (long)x.Sum(s => s.Data.伝票非課税金額),
                         支払額 = (long)x.Sum(s => s.Data.金額),
-                        通常税率消費税 = (long)x.Sum(s => s.Data.通常税率消費税),
-                        軽減税率消費税 = (long)x.Sum(s => s.Data.軽減税率消費税),
-                        消費税 = (long)x.Sum(s => s.Data.通常税率消費税) +(long)x.Sum(s => s.Data.軽減税率消費税),
+                        通常税率消費税 = x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    x.Sum(s => s.Data.通常税率対象金額) > 0 ?
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    (long)Math.Round((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    x.Sum(s => s.Data.通常税率対象金額) > 0 ?
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                0 : 
+                                (long)x.Sum(s => s.Data.通常税率消費税),
+                        軽減税率消費税 = x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
+                                    x.Sum(s => s.Data.軽減税率対象金額) > 0 ?
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                    (long)Math.Round((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
+                                    x.Sum(s => s.Data.軽減税率対象金額) > 0 ?
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                0 : 
+                                (long)x.Sum(s => s.Data.軽減税率消費税),
+                        消費税 =  0,
                         当月支払額 = 0,
                         登録者 = userId,
                         登録日時 = DateTime.Now
@@ -574,6 +590,8 @@ namespace KyoeiSystem.Application.WCFService
 
             // 支払額を設定
             srdata.当月支払額 = srdata.支払額 + srdata.消費税;
+            // 消費税を設定
+            srdata.消費税 = srdata.通常税率消費税 + srdata.軽減税率消費税;
 
             // ヘッダ情報登録
             S02_SHRHD_Update(context, srdata);
