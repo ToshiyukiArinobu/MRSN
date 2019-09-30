@@ -952,10 +952,10 @@
           <Property Name="受注番号" Type="int" />
           <Property Name="出荷元コード" Type="int" />
           <Property Name="出荷元枝番" Type="int" />
-          <Property Name="出荷元名" Type="varchar" MaxLength="30" />
+          <Property Name="出荷元名" Type="varchar" MaxLength="50" />
           <Property Name="出荷先コード" Type="int" />
-          <Property Name="出荷先名" Type="varchar" MaxLength="30" />
           <Property Name="出荷先枝番" Type="int" />
+          <Property Name="出荷先名" Type="varchar" MaxLength="50" />
           <Property Name="仕入先コード" Type="int" />
           <Property Name="仕入先枝番" Type="int" />
           <Property Name="備考" Type="varchar" MaxLength="40" />
@@ -1292,7 +1292,7 @@
           <Property Name="削除日時" Type="datetime" />
         </EntityType>
         <!--生成中に見つかったエラー:
-      警告 6002: テーブル/ビュー 'MRSN.dbo.V_M01_TOK' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      警告 6002: テーブル/ビュー 'MRSN_IKO.dbo.V_M01_TOK' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
       -->
         <EntityType Name="V_M01_TOK">
           <Key>
@@ -1373,7 +1373,7 @@
           <Property Name="論理削除" Type="int" Nullable="false" />
         </EntityType>
         <!--生成中に見つかったエラー:
-      警告 6002: テーブル/ビュー 'MRSN.dbo.V_M09_HIN' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      警告 6002: テーブル/ビュー 'MRSN_IKO.dbo.V_M09_HIN' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
       -->
         <EntityType Name="V_M09_HIN">
           <Key>
@@ -1412,7 +1412,7 @@
           <Property Name="ＪＡＮコード" Type="varchar" MaxLength="13" />
         </EntityType>
         <!--生成中に見つかったエラー:
-      警告 6002: テーブル/ビュー 'MRSN.dbo.V_M10_TOKHIN' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      警告 6002: テーブル/ビュー 'MRSN_IKO.dbo.V_M10_TOKHIN' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
       -->
         <EntityType Name="V_M10_TOKHIN">
           <Key>
@@ -1434,7 +1434,7 @@
           <Property Name="外注先売価" Type="decimal" Precision="9" Scale="2" />
         </EntityType>
         <!--生成中に見つかったエラー:
-      警告 6002: テーブル/ビュー 'MRSN.dbo.V_S04_HISTORY' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      警告 6002: テーブル/ビュー 'MRSN_IKO.dbo.V_S04_HISTORY' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
       -->
         <EntityType Name="V_S04_HISTORY">
           <Key>
@@ -1465,7 +1465,7 @@
           <Property Name="登録日時" Type="datetime" Nullable="false" />
         </EntityType>
         <!--生成中に見つかったエラー:
-      警告 6002: テーブル/ビュー 'MRSN.dbo.V_SHR06010' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      警告 6002: テーブル/ビュー 'MRSN_IKO.dbo.V_SHR06010' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
       -->
         <EntityType Name="V_SHR06010">
           <Key>
@@ -1492,7 +1492,7 @@
           <Property Name="当月支払額" Type="int" />
         </EntityType>
         <!--生成中に見つかったエラー:
-      警告 6002: テーブル/ビュー 'MRSN.dbo.V_TKS08010' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
+      警告 6002: テーブル/ビュー 'MRSN_IKO.dbo.V_TKS08010' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。
       -->
         <EntityType Name="V_TKS08010">
           <Key>
@@ -1517,9 +1517,6 @@
           <Property Name="締日" Type="int" Nullable="false" />
           <Property Name="当月入金額" Type="int" />
         </EntityType>
-        <Function Name="F01_ZEI" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="date" Type="date" Mode="In" />
-        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -2697,9 +2694,9 @@
           <Property Type="Int32" Name="受注番号" />
           <Property Type="Int32" Name="出荷元コード" />
           <Property Type="Int32" Name="出荷元枝番" />
-          <Property Type="String" Name="出荷元名" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="出荷元名" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="出荷先コード" />
-          <Property Type="String" Name="出荷先名" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="出荷先名" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="出荷先枝番" />
           <Property Type="Int32" Name="仕入先コード" />
           <Property Type="Int32" Name="仕入先枝番" />
