@@ -527,7 +527,7 @@ namespace KyoeiSystem.Application.WCFService
                             case (int)CommonConstants.売上区分.通常売上返品:
                             case (int)CommonConstants.売上区分.委託売上返品:
                             case (int)CommonConstants.売上区分.預け売上返品:
-                                setUsualSaleReturnsProc(urhd, dtlTbl, isRegistData);
+                                setUsualSaleReturnsProc(urhd, dtlTbl, isRegistData, hdRow);                 // No.156-4 Mod
                                 break;
 
                             case (int)CommonConstants.売上区分.販社売上返品:
@@ -535,7 +535,7 @@ namespace KyoeiSystem.Application.WCFService
                                 break;
 
                             case (int)CommonConstants.売上区分.メーカー直送返品:
-                                setMakerDirectReturnsProc(urhd, dtlTbl, isRegistData);
+                                setMakerDirectReturnsProc(urhd, dtlTbl, hdRow, isRegistData);               // No.156-4 Mod
                                 break;
 
                             case (int)CommonConstants.売上区分.メーカー販社商流直送返品:
@@ -577,7 +577,8 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="ds">登録対象データセット</param>
         /// <param name="userId">ログインユーザID</param>
         /// <param name="isRegist">データ状態(登録or編集)：登録時）真、編集時）偽</param>
-        private void setUsualSaleReturnsProc(T02_URHD urhd, DataTable dtlTbl, bool isRegist)
+        /// <param name="orghd">編集前ヘッダーデータ</param>
+        private void setUsualSaleReturnsProc(T02_URHD urhd, DataTable dtlTbl, bool isRegist, DataRow orghd)
         {
             // 1.売上ヘッダの更新
             T02Service.T02_URHD_Update(urhd);
@@ -589,7 +590,7 @@ namespace KyoeiSystem.Application.WCFService
             setS03_STOK_Returns_Update(urhd, dtlTbl, false, isRegist);
 
             // 4.入出庫履歴の生成
-            setS04_HISTORY_Create(urhd, dtlTbl);
+            setS04_HISTORY_Create(urhd, dtlTbl, orghd);         // No.156-4
 
         }
         #endregion
@@ -599,8 +600,9 @@ namespace KyoeiSystem.Application.WCFService
         /// 販社売上時の更新処理
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="ds">登録対象データセット</param>
-        /// <param name="userId">ログインユーザID</param>
+        /// <param name="urhd">売上ヘッダーデータ</param>
+        /// <param name="dtlTbl">売上明細データ</param>
+        /// <param name="hdRow">編集前ヘッダーデータ</param>
         /// <param name="isRegist">データ状態(登録or編集)：登録時）真、編集時）偽</param>
         private void setSalesCompanyReturnsProc(T02_URHD urhd, DataTable dtlTbl, DataRow hdRow, bool isRegist)
         {
@@ -618,7 +620,7 @@ namespace KyoeiSystem.Application.WCFService
             setS03_STOK_Returns_Update(urhd, dtlTbl, false, isRegist);
 
             // 4.入出庫履歴の生成
-            setS04_HISTORY_Create(urhd, dtlTbl);
+            setS04_HISTORY_Create(urhd, dtlTbl, hdRow);        // No.156-4 Mod
 
             // 5.販社仕入ヘッダの更新
             setT03_SRHD_HAN_Update(urhd, dtlTbl, hdRow, CommonConstants.仕入区分.返品);       // No-97 Mod
@@ -645,7 +647,7 @@ namespace KyoeiSystem.Application.WCFService
                 setS03_STOK_Returns_Update(urhd, dtlTbl, true, isRegist);
 
                 // 12.販社の入出庫履歴の生成
-                setS04_HISTORY_HANReturns_Update(urhd, dtlTbl, true);
+                setS04_HISTORY_HANReturns_Update(urhd, dtlTbl, hdRow, true);        // No.156-4
             }
         }
         #endregion
@@ -655,10 +657,11 @@ namespace KyoeiSystem.Application.WCFService
         /// メーカー直送時の更新処理
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="ds">登録対象データセット</param>
-        /// <param name="userId">ログインユーザID</param>
+        /// <param name="urhd">売上ヘッダーデータ</param>
+        /// <param name="dtlTbl">売上明細データ</param>
+        /// <param name="orghd">編集前売上ヘッダーデータ</param>
         /// <param name="isRegist">データ状態(登録or編集)：登録時）真、編集時）偽</param>
-        private void setMakerDirectReturnsProc(T02_URHD urhd, DataTable dtlTbl, bool isRegist)
+        private void setMakerDirectReturnsProc(T02_URHD urhd, DataTable dtlTbl, DataRow orghd, bool isRegist)
         {
             // 1.売上ヘッダの更新
             T02Service.T02_URHD_Update(urhd);
@@ -670,7 +673,7 @@ namespace KyoeiSystem.Application.WCFService
             setS03_STOK_Returns_Update(urhd, dtlTbl, false, isRegist);
 
             // 4.入出庫履歴の生成(入庫)
-            setS04_HISTORY_Create(urhd, dtlTbl);
+            setS04_HISTORY_Create(urhd, dtlTbl, orghd);         // No.156-4
 
             // 5.仕入ヘッダの更新
             setT03_SRHD_Update(urhd, CommonConstants.仕入区分.返品);
@@ -751,7 +754,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 S04_HISTORY history = new S04_HISTORY();
 
-                history.入出庫日 = urhd.売上日;
+                history.入出庫日 = urhd.売上日;    // 返品日
                 history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
                 history.倉庫コード = urhd.在庫倉庫コード;
                 history.入出庫区分 = (int)CommonConstants.入出庫区分.ID02_出庫;
@@ -762,7 +765,10 @@ namespace KyoeiSystem.Application.WCFService
 
                 Dictionary<string, string> hstDic = new Dictionary<string, string>()
                     {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        // No.156-4 Mod STart
+                        { S04.COLUMNS_NAME_入出庫日, orghd == null ? 
+                                                        history.入出庫日.ToString("yyyy/MM/dd") : string.Format("{0:yyyy/MM/dd}", orghd["売上日", DataRowVersion.Original]) },
+                        // No.156-4 Mod End
                         { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
@@ -777,17 +783,13 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     S04Service.DeleteProductHistory(hstDic);
                 }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
+                // No.156-4 Mod STart
                 else
                 {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
+                    // 売上更新の為、履歴更新(DataRowState.Unchanged、DataRowState.Modified)
+                    S04Service.UpdateProductHistory(history, hstDic);
                 }
-
+                // No.156-4 Mod End
             }
             #endregion
 
@@ -814,7 +816,7 @@ namespace KyoeiSystem.Application.WCFService
             setS03_STOK_Returns_Update(urhd, dtlTbl, false, isRegist);
 
             // 4.入出庫履歴の生成
-            setS04_HISTORY_Create(urhd, dtlTbl);
+            setS04_HISTORY_Create(urhd, dtlTbl, hdRow);         // No.156-4 Mod
 
             // 5.移動ヘッダの更新(販社⇒マルセン)
             setT05_IDOHD_Returns_Update(urhd);
@@ -842,7 +844,7 @@ namespace KyoeiSystem.Application.WCFService
             setS03_STOK_Returns_Update(urhd, dtlTbl, true, isRegist);
 
             // 12.販社の入出庫履歴の生成
-            setS04_HISTORY_HANReturns_Update(urhd, dtlTbl, true);
+            setS04_HISTORY_HANReturns_Update(urhd, dtlTbl, hdRow, true);    // No.156-4 MOd
 
             #region 13.仕入ヘッダの更新(メーカー⇒マルセン)
             T03_SRHD srhd = new T03_SRHD();
@@ -949,7 +951,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 S04_HISTORY history = new S04_HISTORY();
 
-                history.入出庫日 = urhd.売上日;
+                history.入出庫日 = urhd.売上日;    // 返品日
                 history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
                 history.倉庫コード = urhd.在庫倉庫コード;
                 history.入出庫区分 = (int)CommonConstants.入出庫区分.ID02_出庫;
@@ -960,7 +962,10 @@ namespace KyoeiSystem.Application.WCFService
 
                 Dictionary<string, string> hstDic = new Dictionary<string, string>()
                     {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        // No.156-4 Mod STart
+                        { S04.COLUMNS_NAME_入出庫日, hdRow == null ? 
+                                                        history.入出庫日.ToString("yyyy/MM/dd") : string.Format("{0:yyyy/MM/dd}", hdRow["売上日", DataRowVersion.Original]) },
+                        // No.156-4 Mod End
                         { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
@@ -975,16 +980,13 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     S04Service.DeleteProductHistory(hstDic);
                 }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
+                // No.156-4 Mod STart
                 else
                 {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
+                    // 売上更新の為、履歴更新(DataRowState.Unchanged、DataRowState.Modified)
+                    S04Service.UpdateProductHistory(history, hstDic);
                 }
+                // No.156-4 Mod End
 
             }
             #endregion
@@ -1358,9 +1360,10 @@ namespace KyoeiSystem.Application.WCFService
         /// <summary>
         /// 入庫履歴の登録・更新をおこなう
         /// </summary>
-        /// <param name="hdData">仕入ヘッダデータ</param>
-        /// <param name="dtlTable">仕入明細データテーブル</param>
-        private void setS04_HISTORY_Create(T02_URHD hdData, DataTable dtlTable)
+        /// <param name="hdData">売上ヘッダデータ</param>
+        /// <param name="dtlTable">売上明細データテーブル</param>
+        /// <param name="orghd">編集前ヘッダーデータ</param>
+        private void setS04_HISTORY_Create(T02_URHD hdData, DataTable dtlTable, DataRow orghd)
         {
             foreach (DataRow row in dtlTable.Rows)
             {
@@ -1390,7 +1393,7 @@ namespace KyoeiSystem.Application.WCFService
                         break;
                 }
 
-                history.入出庫日 = hdData.売上日;
+                history.入出庫日 = hdData.売上日;  // 返品日
                 history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
                 //history.入出庫区分 = (int)S04Service.getInboundType(row, "数量", urdtl.数量);
                 history.入出庫区分 = (int)CommonConstants.入出庫区分.ID01_入庫;
@@ -1401,7 +1404,10 @@ namespace KyoeiSystem.Application.WCFService
 
                 Dictionary<string, string> hstDic = new Dictionary<string, string>()
                     {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        // No.156-3 Mod Start
+                        { S04.COLUMNS_NAME_入出庫日, orghd == null ?
+                                                        history.入出庫日.ToString("yyyy/MM/dd") : string.Format("{0:yyyy/MM/dd}", orghd["売上日", DataRowVersion.Original]) },
+                        // No.156-3 Mod End
                         { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
@@ -1416,16 +1422,13 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     S04Service.DeleteProductHistory(hstDic);
                 }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
+                // No.156-4 Mod Start
                 else
                 {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
+                    // 売上更新の為、履歴更新(DataRowState.Unchanged、DataRowState.Modified)
+                    S04Service.UpdateProductHistory(history, hstDic);
                 }
+                // No.156-4 Mod End
 
             }
 
@@ -1466,8 +1469,9 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="urhd"></param>
         /// <param name="dtlTbl"></param>
+        /// <param name="orghd">編集前ヘッダーデータ</param>
         /// <param name="isNonCheckItemWithout">マルセン仕入チェックが無いものを除外するか</param>
-        private void setS04_HISTORY_HANReturns_Update(T02_URHD urhd, DataTable dtlTbl, bool isNonCheckItemWithout)
+        private void setS04_HISTORY_HANReturns_Update(T02_URHD urhd, DataTable dtlTbl, DataRow orghd, bool isNonCheckItemWithout)
         {
 
             foreach (DataRow row in dtlTbl.Rows)
@@ -1488,7 +1492,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 #region 販社からの出庫
                 S04_HISTORY history = new S04_HISTORY();
-                history.入出庫日 = urhd.売上日;
+                history.入出庫日 = urhd.売上日;    // 返品日
                 history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
                 history.倉庫コード = getStockpileFromJis(urhd.会社名コード);
                 history.入出庫区分 = (int)CommonConstants.入出庫区分.ID02_出庫;
@@ -1499,7 +1503,10 @@ namespace KyoeiSystem.Application.WCFService
 
                 Dictionary<string, string> hstDic = new Dictionary<string, string>()
                     {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        // No.156-3 Mod Start
+                        { S04.COLUMNS_NAME_入出庫日, orghd == null ?
+                                                        history.入出庫日.ToString("yyyy/MM/dd") : string.Format("{0:yyyy/MM/dd}", orghd["売上日", DataRowVersion.Original]) },
+                        // No.156-3 Mod End
                         { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
@@ -1514,21 +1521,18 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     S04Service.DeleteProductHistory(hstDic);
                 }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
+                // No.156-4 Mod STart
                 else
                 {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
+                    // 売上更新の為、履歴更新(DataRowState.Unchanged、DataRowState.Modified))
+                    S04Service.UpdateProductHistory(history, hstDic);
                 }
+                // No.156-4 Mod End
                 #endregion
 
                 #region 自社の入庫
                 history = new S04_HISTORY();
-                history.入出庫日 = urhd.売上日;
+                history.入出庫日 = urhd.売上日;    // 返品日
                 history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
                 history.倉庫コード = urhd.在庫倉庫コード;
                 history.入出庫区分 = (int)CommonConstants.入出庫区分.ID01_入庫;
@@ -1539,8 +1543,12 @@ namespace KyoeiSystem.Application.WCFService
 
                 hstDic = new Dictionary<string, string>()
                     {
-                        { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
-                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
+                        //{ S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
+                        // No.156-3 Mod Start
+                        { S04.COLUMNS_NAME_入出庫日, orghd == null ?
+                                                        history.入出庫日.ToString("yyyy/MM/dd") : string.Format("{0:yyyy/MM/dd}", orghd["売上日", DataRowVersion.Original]) },
+                        // No.156-3 Mod End
+                        { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString()},
                         { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
                     };
@@ -1554,16 +1562,13 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     S04Service.DeleteProductHistory(hstDic);
                 }
-                else if (row.RowState == DataRowState.Modified)
-                {
-                    // 売上更新の為、履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
+                // No.156-4 Mod Start
                 else
                 {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
+                    // 売上更新の為、履歴更新(DataRowState.Unchanged、DataRowState.Modified)
+                    S04Service.UpdateProductHistory(history, hstDic);
                 }
+                // No.156-4 Mod End
                 #endregion
 
             }
