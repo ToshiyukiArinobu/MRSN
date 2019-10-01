@@ -325,6 +325,12 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
                             txt売上日.Focus();
+                            // No.161 Add Start
+                            if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
+                            {
+                                cmb売上区分.IsEnabled = false;
+                            }
+                            // No.161 Add End
                         }
                         else
                         {
