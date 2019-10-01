@@ -310,18 +310,18 @@ namespace KyoeiSystem.Application.WCFService
 
                                     #region 入出庫データ作成
 
-                                    S04_HISTORY history = new S04_HISTORY();
+                                    // No.156-5 Mod Start
+                                    Dictionary<string, string> hstDic = new Dictionary<string, string>()
+                                    {
+                                        { S04.COLUMNS_NAME_入出庫日, t04agrhd.仕上り日.ToString("yyyy/MM/dd") },
+                                        { S04.COLUMNS_NAME_倉庫コード, souk.ToString() },
+                                        { S04.COLUMNS_NAME_伝票番号, data.伝票番号.ToString() },
+                                        { S04.COLUMNS_NAME_品番コード, data.品番コード.ToString() }
+                                    };
 
-                                    history.入出庫日 = t04agrhd.仕上り日;
-                                    history.入出庫時刻 = DateTime.Now.TimeOfDay;
-                                    history.倉庫コード = souk;
-                                    history.入出庫区分 = (int)Const.入出庫区分.ID01_入庫;
-                                    history.品番コード = data.品番コード;
-                                    history.数量 = Math.Abs(decimal.ToInt32(data.数量 ?? 0));
-                                    history.伝票番号 = data.伝票番号;
-
-                                    historyService.CreateProductHistory(history);
-
+                                    // 履歴削除を実行
+                                    historyService.DeleteProductHistory(hstDic);
+                                    // No.156-5 Mod End
                                     #endregion
 
                                 }
@@ -352,18 +352,18 @@ namespace KyoeiSystem.Application.WCFService
                                 }
 
                                 #region 入出庫データ作成
+                                // No.156-5 Mod Start
+                                Dictionary<string, string> hstDic = new Dictionary<string, string>()
+                                    {
+                                        { S04.COLUMNS_NAME_入出庫日, t04agrhd.仕上り日.ToString("yyyy/MM/dd") },
+                                        { S04.COLUMNS_NAME_倉庫コード, souk.ToString() },
+                                        { S04.COLUMNS_NAME_伝票番号, agrdtl.伝票番号.ToString() },
+                                        { S04.COLUMNS_NAME_品番コード, agrdtl.品番コード.ToString() }
+                                    };
 
-                                S04_HISTORY history = new S04_HISTORY();
-
-                                history.入出庫日 = t04agrhd.仕上り日;
-                                history.入出庫時刻 = DateTime.Now.TimeOfDay;
-                                history.倉庫コード = souk;
-                                history.入出庫区分 = (int)Const.入出庫区分.ID02_出庫;
-                                history.品番コード = agrdtl.品番コード;
-                                history.数量 = Math.Abs(decimal.ToInt32(agrdtl.数量 ?? 0));
-                                history.伝票番号 = agrdtl.伝票番号;
-
-                                historyService.CreateProductHistory(history);
+                                // 履歴削除を実行
+                                historyService.DeleteProductHistory(hstDic);
+                                // No.156-5 Mod End
 
                                 #endregion
 
@@ -1197,11 +1197,6 @@ namespace KyoeiSystem.Application.WCFService
                     }
 
                 }
-                else
-                {
-                    // 対象なし(DataRowState.Unchanged)
-                    continue;
-                }
 
                 #region 入出庫データ作成
 
@@ -1213,38 +1208,67 @@ namespace KyoeiSystem.Application.WCFService
                 history.入出庫区分 = (int)Const.入出庫区分.ID01_入庫;
                 history.品番コード = dtlRow.品番コード;
                 history.賞味期限 = dtlRow.賞味期限 == DateTime.MaxValue ? (DateTime?)null : dtlRow.賞味期限;
-                history.数量 = Math.Abs(decimal.ToInt32(stockQty));
+                //history.数量 = Convert.ToInt32(row["数量"]);        
+                history.数量 = row.RowState == DataRowState.Deleted ?
+                        Convert.ToInt32(row["数量", DataRowVersion.Original]) : Convert.ToInt32(row["数量"]);       // No.156-5 Mod
                 history.伝票番号 = hdRow.伝票番号;
 
-                historyService.CreateProductHistory(history);
+                // No.156-5 Mod Start
+                Dictionary<string, string> hstDic = new Dictionary<string, string>()
+                    {
+                        { S04.COLUMNS_NAME_入出庫日, string.Format("{0:yyyy/MM/dd}", hrow["仕上り日", DataRowVersion.Original]) },
+                        { S04.COLUMNS_NAME_倉庫コード, get倉庫コード(context, Convert.ToInt32(hrow["入荷先コード", DataRowVersion.Original])).ToString()},
+                        { S04.COLUMNS_NAME_伝票番号,  history.伝票番号.ToString() },
+                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() },
+                        { S04.COLUMNS_NAME_入出庫区分, history.入出庫区分.ToString() }
+                    };
+
+                if (row.RowState == DataRowState.Added)
+                {
+                    // 揚り作成の為、履歴作成
+                    historyService.CreateProductHistory(history);
+                }
+                else if (row.RowState == DataRowState.Deleted)
+                {
+                    historyService.DeleteProductHistory(hstDic);
+                }
+                else
+                {
+                    // 揚り更新の為、履歴更新 (DataRowState.Unchanged、DataRowState.Modified)
+                    historyService.UpdateProductHistory(history, hstDic);
+                }
+                // No.156-5 Mod End
 
                 #endregion
 
                 // 対象データ設定
-                if (isAddData)
+                if (row.RowState != DataRowState.Unchanged)         // No.156-5 Add
                 {
-                    stok.倉庫コード = 倉庫コード;
-                    stok.品番コード = dtlRow.品番コード;
-                    stok.賞味期限 = dtlRow.賞味期限 ?? DateTime.MaxValue;
-                    stok.在庫数 = stockQty;
-                    stok.登録者 = userId;
-                    stok.登録日時 = DateTime.Now;
-                    stok.最終更新者 = userId;
-                    stok.最終更新日時 = DateTime.Now;
+                    if (isAddData)
+                    {
+                        stok.倉庫コード = 倉庫コード;
+                        stok.品番コード = dtlRow.品番コード;
+                        stok.賞味期限 = dtlRow.賞味期限 ?? DateTime.MaxValue;
+                        stok.在庫数 = stockQty;
+                        stok.登録者 = userId;
+                        stok.登録日時 = DateTime.Now;
+                        stok.最終更新者 = userId;
+                        stok.最終更新日時 = DateTime.Now;
 
-                    context.S03_STOK.ApplyChanges(stok);
+                        context.S03_STOK.ApplyChanges(stok);
 
-                }
-                else
-                {
-                    dS03.在庫数 = dS03.在庫数 + stockQty;
-                    dS03.最終更新者 = userId;
-                    dS03.最終更新日時 = DateTime.Now;
-                    dS03.削除者 = null;
-                    dS03.削除日時 = null;
+                    }
+                    else
+                    {
+                        dS03.在庫数 = dS03.在庫数 + stockQty;
+                        dS03.最終更新者 = userId;
+                        dS03.最終更新日時 = DateTime.Now;
+                        dS03.削除者 = null;
+                        dS03.削除日時 = null;
 
-                    dS03.AcceptChanges();
+                        dS03.AcceptChanges();
 
+                    }
                 }
 
             }
@@ -1324,7 +1348,7 @@ namespace KyoeiSystem.Application.WCFService
                         // 数量分在庫数を加算
                         stockQty = data.使用数量 * intQuantity;             // No-64
                     }
-                    if (row.RowState == DataRowState.Added)
+                    else if (row.RowState == DataRowState.Added)
                     {
                         intQuantity = Convert.ToInt32(row["数量"]);
                         // 数量分在庫数を減算
@@ -1340,12 +1364,8 @@ namespace KyoeiSystem.Application.WCFService
                     //        stockQty = (data.使用数量 * orgQty) - (data.使用数量 * intQuantity);
                     //    }
                     //}
-                    // No-87 End                    
-                    else
-                    {
-                        // 対象なし(DataRowState.Unchanged or Modified)
-                        continue;
-                    }
+                    // No-87 End 
+                    
 
                     #region 入出庫データ作成
 
@@ -1354,7 +1374,7 @@ namespace KyoeiSystem.Application.WCFService
                     history.入出庫日 = hdRow.仕上り日;
                     history.入出庫時刻 = DateTime.Now.TimeOfDay;
                     history.倉庫コード = 倉庫コード;
-                    history.入出庫区分 = stockQty >= 0 ? (int)Const.入出庫区分.ID01_入庫 : (int)Const.入出庫区分.ID02_出庫;
+                    history.入出庫区分 =  (int)Const.入出庫区分.ID02_出庫;      // No.156-5 Mod
                     history.品番コード = data.構成品番コード;
                     //20190724CB-S
                     //history.賞味期限 = targetStok.賞味期限;
@@ -1367,42 +1387,70 @@ namespace KyoeiSystem.Application.WCFService
                         history.賞味期限 = targetStok.賞味期限 == DateTime.MaxValue.Date ? (DateTime?)null : targetStok.賞味期限;    // No.129 Mod
                     }
                     //20190724CB-E
-                    history.数量 = Math.Abs(decimal.ToInt32(stockQty));
+                    history.数量 = row.RowState == DataRowState.Deleted ? 
+                        Convert.ToInt32(row["数量", DataRowVersion.Original]) : data.使用数量 * Convert.ToInt32(row["数量"]);        // No.156-5 Mod
                     history.伝票番号 = hdRow.伝票番号;
 
-                    historyService.CreateProductHistory(history);
+                    // No.156-5 Mod Start
+                    Dictionary<string, string> hstDic = new Dictionary<string, string>()
+                    {
+                        { S04.COLUMNS_NAME_入出庫日, string.Format("{0:yyyy/MM/dd}", hrow["仕上り日", DataRowVersion.Original]) },
+                        { S04.COLUMNS_NAME_倉庫コード, get倉庫コード(context, Convert.ToInt32(hrow["入荷先コード", DataRowVersion.Original])).ToString()},
+                        { S04.COLUMNS_NAME_伝票番号,  history.伝票番号.ToString() },
+                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() },
+                        { S04.COLUMNS_NAME_入出庫区分, history.入出庫区分.ToString() }
+                    };
+
+                    if (row.RowState == DataRowState.Added)
+                    {
+                        // 揚り作成の為、履歴作成
+                        historyService.CreateProductHistory(history);
+                    }
+                    else if (row.RowState == DataRowState.Deleted)
+                    {
+                        historyService.DeleteProductHistory(hstDic);
+                    }
+                    else
+                    {
+                        // 揚り更新の為、履歴更新 (DataRowState.Unchanged、DataRowState.Modified)
+                        historyService.UpdateProductHistory(history, hstDic);
+                    }
+                    // No.156-5 Mod End
 
                     #endregion
 
                     // 対象データ設定
-                    if (isAddData)
+                    if (row.RowState == DataRowState.Added || row.RowState == DataRowState.Deleted )         // No.156-5 Add
                     {
-                        stok.倉庫コード = 倉庫コード;
-                        // 20190724CB-S
-                        //stok.品番コード = targetStok.品番コード;
-                        stok.品番コード = data.構成品番コード;
-                        //stok.賞味期限 = AppCommon.DateTimeToDate(targetStok.賞味期限, DateTime.MaxValue);
-                        stok.賞味期限 = DateTime.MaxValue;
-                        // 20190724CB-E
-                        stok.在庫数 = stockQty;
-                        stok.登録者 = userId;
-                        stok.登録日時 = DateTime.Now;
-                        stok.最終更新者 = userId;
-                        stok.最終更新日時 = DateTime.Now;
+                        if (isAddData)
+                        {
+                            stok.倉庫コード = 倉庫コード;
+                            // 20190724CB-S
+                            //stok.品番コード = targetStok.品番コード;
+                            stok.品番コード = data.構成品番コード;
+                            //stok.賞味期限 = AppCommon.DateTimeToDate(targetStok.賞味期限, DateTime.MaxValue);
+                            stok.賞味期限 = DateTime.MaxValue;
+                            // 20190724CB-E
+                            stok.在庫数 = stockQty;
+                            stok.登録者 = userId;
+                            stok.登録日時 = DateTime.Now;
+                            stok.最終更新者 = userId;
+                            stok.最終更新日時 = DateTime.Now;
 
-                        context.S03_STOK.ApplyChanges(stok);
+                            context.S03_STOK.ApplyChanges(stok);
 
-                    }
-                    else
-                    {
-                        targetStok.在庫数 = targetStok.在庫数 + stockQty;
-                        targetStok.最終更新者 = userId;
-                        targetStok.最終更新日時 = DateTime.Now;
-                        targetStok.削除者 = null;
-                        targetStok.削除日時 = null;
+                        }
+                        else
+                        {
+                            targetStok.在庫数 = targetStok.在庫数 + stockQty;
+                            targetStok.最終更新者 = userId;
+                            targetStok.最終更新日時 = DateTime.Now;
+                            targetStok.削除者 = null;
+                            targetStok.削除日時 = null;
 
-                        targetStok.AcceptChanges();
+                            targetStok.AcceptChanges();
 
+                        }
                     }
 
                 }
