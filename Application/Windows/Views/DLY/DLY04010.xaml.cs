@@ -377,6 +377,15 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
+
+                            // No-156-1 Add Start
+                            bool blnEnabled = true;
+                            if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
+                            {
+                                blnEnabled = false;
+                            }
+                            setDispHeaderEnabled(blnEnabled);
+                            // No-156-1 Add Add End
                         }
                         else
                         {
@@ -770,6 +779,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
                 F6.IsEnabled = true;
+
                 this.txt移動日.Focus();
 
             }
@@ -1025,6 +1035,21 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
         #endregion
+
+        // No-156-1 Add Start
+        #region 入力制御
+        /// <summary>
+        /// 画面ヘッダ部の入力設定を行う
+        /// </summary>
+        private void setDispHeaderEnabled(bool blnEnabled)
+        {
+            txt移動日.IsEnabled = blnEnabled;
+            cmb移動区分.IsEnabled = blnEnabled;
+            txt移動元倉庫.IsEnabled = blnEnabled;
+            txt移動先倉庫.IsEnabled = blnEnabled;
+        }
+        #endregion
+        // No-156-1 Add End
 
         #region << コントロールイベント >>
 
