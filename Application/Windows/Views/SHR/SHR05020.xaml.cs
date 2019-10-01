@@ -338,7 +338,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 第1引数　帳票タイトル
                 // 第2引数　帳票ファイルPass
                 // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("支払一覧表", ReportTemplateFileName, 0, 0, 0);
+                view.MakeReport("支払明細表", ReportTemplateFileName, 0, 0, 0);          // No-148 Mod
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする
                 view.SetReportData(tbl);

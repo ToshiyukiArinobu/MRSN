@@ -749,26 +749,34 @@ namespace KyoeiSystem.Application.WCFService
                         値引額 = 0,
                         非課税支払額 = (long)x.Sum(s => s.Data.伝票非課税金額),
                         支払額 = 0,
-                        通常税率消費税=
-                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
+                        // No-135-2 Mod Start
+                        通常税率消費税 = x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
-                                    (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                    x.Sum(s => s.Data.通常税率対象金額) > 0 ?
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                     (long)Math.Round((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
-                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                    x.Sum(s => s.Data.通常税率対象金額) > 0 ?
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 0 :
-                            (long)x.Sum(s => s.Data.通常税率消費税),
-                        軽減税率消費税 = 
-                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
+                                (long)x.Sum(s => s.Data.通常税率消費税),
+                        軽減税率消費税 = x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
-                                    (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                    x.Sum(s => s.Data.軽減税率対象金額) > 0 ?
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                     (long)Math.Round((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID03_切上げ ?
-                                    (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                    x.Sum(s => s.Data.軽減税率対象金額) > 0 ?
+                                        (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
+                                        (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 0 :
-                            (long)x.Sum(s => s.Data.軽減税率消費税),
+                                (long)x.Sum(s => s.Data.軽減税率消費税),
+                        // No-135-2 Mod End
                         消費税 = 0,
                         当月支払額 = 0,
                         登録者 = userId,
@@ -899,17 +907,17 @@ namespace KyoeiSystem.Application.WCFService
                                    (int)Math.Floor((double)(x.SRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100)) :
+                                       0) / (double)100)) :
                                 x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                    (int)Math.Round((double)(x.SRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                       0) / (double)100), 0, MidpointRounding.AwayFromZero) :
                                 x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
                                    (int)Math.Ceiling((double)(x.SRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100)) :
+                                       0) / (double)100)) :
                                     0
                                  ) * (x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? 1 : -1),
                         // No-86 End
@@ -1019,17 +1027,17 @@ namespace KyoeiSystem.Application.WCFService
                                    (int)Math.Floor((double)(x.SRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100)) :
+                                       0) / (double)100)) :
                                 x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                    (int)Math.Round((double)(x.SRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                       0) / (double)100), 0, MidpointRounding.AwayFromZero) :
                                 x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
                                    (int)Math.Ceiling((double)(x.SRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100)) :
+                                       0) / (double)100)) :
                                     0 
                                  ) * (x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? 1 : -1),
                         // No-86 End
@@ -1182,17 +1190,17 @@ namespace KyoeiSystem.Application.WCFService
                                    (int)Math.Floor((double)(x.AGRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100)) :
+                                       0) / (double)100)) :
                                 x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
                                    (int)Math.Round((double)(x.AGRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100), 0, MidpointRounding.AwayFromZero) :
+                                       0) / (double)100), 0, MidpointRounding.AwayFromZero) :
                                 x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
                                    (int)Math.Ceiling((double)(x.AGRDTL.金額 *
                                        (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
                                        x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / 100)) :
+                                       0) / (double)100)) :
                                 0,
                         摘要 = x.AGRDTL.摘要,
                         登録者 = userId,
