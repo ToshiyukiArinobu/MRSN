@@ -260,7 +260,13 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 入力パラメータによるデータ絞込み
                 if (code != null && eda != null)
-                    urhdList.Where(w => w.得意先コード == code && w.得意先枝番 == eda);
+                {
+                    urhdList = urhdList.Where(w => w.得意先コード == code && w.得意先枝番 == eda);
+                }
+                else if (code != null)
+                {
+                    urhdList = urhdList.Where(w => w.得意先コード == code);
+                }
 
                 if (denFrom != null)
                     urhdList = urhdList.Where(w => w.伝票番号 >= denFrom);
