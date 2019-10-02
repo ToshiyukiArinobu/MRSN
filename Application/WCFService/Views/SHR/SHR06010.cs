@@ -111,7 +111,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 if (createType == 1)
                     baseList = baseList
-                        .Where(w => w.支払予定額 > 0);
+                        .Where(w => w.支払予定額 != 0);
 
                 #endregion
 

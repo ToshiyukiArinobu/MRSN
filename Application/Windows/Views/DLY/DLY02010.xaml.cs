@@ -330,6 +330,16 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
                             txt仕上り日.Focus();
+                            // No.162-3 Add Start
+                            bool blnEnabled = true;
+                            if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
+                            {
+                                blnEnabled = false;
+                            }
+                            // 入力制御
+                            setDispHeaderEnabled(blnEnabled);
+                            SetDispRibbonEnabled(blnEnabled);
+                            // No.162-3 Add End
                         }
                         else
                         {
@@ -1336,6 +1346,35 @@ namespace KyoeiSystem.Application.Windows.Views
             gridDtb.SetEnabled(!flag);
 
         }
+
+        // No-162-3 Add Start
+        #region 画面ヘッダ部の入力制御
+        /// <summary>
+        /// 画面ヘッダ部の入力設定を行う
+        /// </summary>
+        /// <param name="blnEnabled">true:入力可、false:入力不可</param>
+        private void setDispHeaderEnabled(bool blnEnabled)
+        {
+            txt外注先.IsEnabled = blnEnabled;
+            txt入荷先.IsEnabled = blnEnabled;
+            cmb加工区分.IsEnabled = blnEnabled;
+        }
+        #endregion
+
+        #region 画面リボンの入力制御
+        /// <summary>
+        /// 画面リボンの入力制御
+        /// </summary>
+        /// <param name="blnEnabled">true:入力可、false:入力不可</param>
+        private void SetDispRibbonEnabled(bool blnEnabled)
+        {
+            // 使用設定（可・不可）
+            this.RibbonF5.IsEnabled = blnEnabled;
+            this.RibbonF6.IsEnabled = blnEnabled;
+        }
+
+        #endregion
+        // No-162-3 Add End
 
         #region << コントロールイベント >>
 

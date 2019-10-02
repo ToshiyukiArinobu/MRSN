@@ -58,11 +58,11 @@
         <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
           <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
         </RibbonGroup>
-        <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+        <RibbonGroup Name="RibbonF5" Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
           <RibbonButton LargeImageSource="../Images/行追加.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
                         Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="リストに新規行を追加します。" ToolTipImageSource="../Images/行追加.png" />
         </RibbonGroup>
-        <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+        <RibbonGroup Name="RibbonF6" Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
           <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F6" Height="50"
                         Label="行削除" ToolTipTitle="行削除(F6)" ToolTipDescription="選択中のリスト行を削除します" ToolTipImageSource="../Images/28削除.png" />
         </RibbonGroup>

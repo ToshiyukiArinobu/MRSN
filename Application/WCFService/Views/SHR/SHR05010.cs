@@ -254,7 +254,7 @@ namespace KyoeiSystem.Application.WCFService
                     shd = shd.Where(w => w.支払先コード == customerCode && w.支払先枝番 == customerEda);
 
                 if (createType == 1)
-                    shd = shd.Where(w => w.当月支払額 > 0);
+                    shd = shd.Where(w => w.支払額 != 0);
 
                 return shd.ToList();
 
