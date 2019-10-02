@@ -43,6 +43,18 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        #region 拡張クラス定義
+        /// <summary>
+        /// 入金検索クラス定義
+        /// </summary>
+        public class T11_NYKN_Search_Extension
+        {
+            public int 得意先コード { get; set; }
+            public int 得意先枝番 { get; set; }
+            public int 合計金額 { get; set; }
+        }
+        #endregion
+
         #region 請求集計対象の得意先リストを取得
         /// <summary>
         /// 請求集計対象の得意先リストを取得する
@@ -323,7 +335,123 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="userId">ログインユーザID</param>
         private void setHeaderInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
         {
+            // ヘッダ情報取得
+            S01_SEIHD urdata = getHeaderInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId);
+
+            // 都度請求の場合はヘッダデータを作成しない
+            if (urdata == null)
+            {
+                return;
+            }
+
+            // ヘッダ情報登録
+            S01_SEIHD_Update(context, urdata);
+
+        }
+
+        /// <summary>
+        /// 請求ヘッダ登録処理(販社)
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="myCompanyCode">自社コード</param>
+        /// <param name="yearMonth">請求年月(yyyymm)</param>
+        /// <param name="salesCompanyCode">販社コード(M70_JIS)</param>
+        /// <param name="cnt">回数</param>
+        /// <param name="targetStDate">集計開始日</param>
+        /// <param name="targetEdDate">集計終了日</param>
+        /// <param name="paymentDate">入金日</param>
+        /// <param name="userId">ログインユーザID</param>
+        private void setHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        {
+            // ヘッダ情報取得(販社)
+            S01_SEIHD urdata = getHeaderInfoHan(context, myCompanyCode, yearMonth, salesCompanyCode, cnt, targetStDate, targetEdDate, paymentDate, userId);
+
+            // 都度請求の場合はヘッダデータを作成しない
+            if (urdata == null)
+            {
+                return;
+            }
+
+            // ヘッダ情報登録
+            S01_SEIHD_Update(context, urdata);
+
+        }
+
+        #endregion
+
+        #region 請求明細登録処理
+        /// <summary>
+        /// 請求明細登録処理
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">自社コード</param>
+        /// <param name="yearMonth">作成年月</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="cnt">回数</param>
+        /// <param name="targetStDate">集計期間開始</param>
+        /// <param name="targetEdDate">集計期間終了</param>
+        /// <param name="paymentDate">入金日</param>
+        /// <param name="userId">ログインユーザID</param>
+        private void setDetailInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        {
+            // 明細情報取得
+            List<S01_SEIDTL> dtlList = getDetailInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId);
+            
+            // 明細情報の登録
+            S01_SEIDTL_Update(context, dtlList.ToList());
+
+        }
+
+        /// <summary>
+        /// 請求明細登録処理(販社)
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="myCompanyCode">自社コード</param>
+        /// <param name="yearMonth">請求年月</param>
+        /// <param name="salesCompanyCode">販社コード(M70_JIS)</param>
+        /// <param name="cnt">回数</param>
+        /// <param name="targetStDate">集計開始日</param>
+        /// <param name="targetEdDate">集計終了日</param>
+        /// <param name="paymentDate">入金日</param>
+        /// <param name="userId">ログインユーザID</param>
+        private void setDetailInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        {
+            // 明細情報取得
+            List<S01_SEIDTL> dtlList = getDetailInfoHan(context, myCompanyCode, yearMonth, salesCompanyCode, cnt, targetStDate, targetEdDate, paymentDate, userId);
+
+            // 明細情報の登録
+            S01_SEIDTL_Update(context, dtlList.ToList());
+
+        }
+
+        #endregion
+
+        #region 請求ヘッダ情報取得
+        /// <summary>
+        /// 請求ヘッダ情報取得
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">自社コード</param>
+        /// <param name="yearMonth">作成年月</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="cnt">回数</param>
+        /// <param name="targetStDate">集計開始日</param>
+        /// <param name="targetEdDate">集計終了日</param>
+        /// <param name="paymentDate">入金日</param>
+        /// <param name="userId">ログインユーザID</param>
+        public S01_SEIHD getHeaderInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        {
             int 得意先入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
+
+            // No-100 Mod Start
+            // 前回請求情報取得
+            var befSeiCnt = getLastChargeInfo(context, company, yearMonth, code, eda, cnt);
+
+            // 入金情報取得
+            var nyukin = getPaymentInfo(context, company, code, eda, targetStDate, targetEdDate);
+            // No-100 Mod End
 
             // 基本情報
             var urList =
@@ -339,40 +467,6 @@ namespace KyoeiSystem.Application.WCFService
                         (x, y) => new { URHD = x, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
                         (a, b) => new { a.URHD, TOK = b });
-
-            // No-100 Mod Start
-            // 前回情報取得
-            DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
-            if (cnt == 1)
-            {
-                befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
-            }
-            var befSeiCnt =
-                context.S01_SEIHD
-                    .Where(w => w.自社コード == company && w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) && w.請求先コード == code && w.請求先枝番 == eda)
-                    .OrderByDescending(o => o.回数)
-                    .FirstOrDefault();
-
-            // 入金額取得
-            var nyukin =
-                context.T11_NYKNHD
-                    .Where(w => w.削除日時 == null &&
-                        w.入金先自社コード == company &&
-                        (w.入金日 >= targetStDate && w.入金日 <= targetEdDate) &&
-                        w.得意先コード == code && w.得意先枝番 == eda)
-                    .Join(context.T11_NYKNDTL.Where(w => w.削除日時 == null),
-                        x => x.伝票番号,
-                        y => y.伝票番号,
-                        (x, y) => new { NYKNHD = x, NYKNDTL = y })
-                    .GroupBy(g => new { g.NYKNHD.得意先コード, g.NYKNHD.得意先枝番 })
-                    .Select(s => new
-                    {
-                        得意先コード = s.Key.得意先コード,
-                        得意先枝番 = s.Key.得意先枝番,
-                        合計金額 = s.Sum(sum => sum.NYKNDTL.金額)
-                    })
-                    .FirstOrDefault();
-            // No-100 Mod End
 
             var wkData =
                 urList
@@ -412,7 +506,7 @@ namespace KyoeiSystem.Application.WCFService
                         伝票非課税金額 =
                             x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
                                 (x.URHD.小計 - (x.URHD.通常税率対象金額 + x.URHD.軽減税率対象金額)) :
-                                (x.URHD.小計 - (x.URHD.通常税率対象金額 + x.URHD.軽減税率対象金額)) * -1 ,
+                                (x.URHD.小計 - (x.URHD.通常税率対象金額 + x.URHD.軽減税率対象金額)) * -1,
                         伝票金額 =
                             x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
                                 x.URHD.小計 : x.URHD.小計 * -1,
@@ -466,6 +560,7 @@ namespace KyoeiSystem.Application.WCFService
                         売上額 = (long)x.Sum(s => s.Data.伝票金額),
                         値引額 = 0,
                         非税売上額 = (long)x.Sum(s => s.Data.伝票非課税金額),
+                        消費税 = 0,
                         // No-94 Mod End
                         // No-94 Add Start
                         通常税率対象金額 = (long)x.Sum(s => s.Data.通常税率対象金額),
@@ -538,10 +633,9 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 都度請求の場合は空ヘッダデータを作成しない
                 if (urdata.請求締日 == 0)
-                    return;
+                    return null;
 
             }
-
 
             // 繰越残高を設定
             urdata.繰越残高 = urdata.前月残高 - urdata.入金額;
@@ -550,13 +644,12 @@ namespace KyoeiSystem.Application.WCFService
             // 請求額を設定
             urdata.当月請求額 = urdata.繰越残高 + urdata.売上額 + urdata.消費税;
 
-            // ヘッダ情報登録
-            S01_SEIHD_Update(context, urdata);
+            return urdata;
 
         }
 
         /// <summary>
-        /// 請求ヘッダ登録処理(販社)
+        /// 請求ヘッダ情報取得(販社)
         /// </summary>
         /// <param name="context"></param>
         /// <param name="myCompanyCode">自社コード</param>
@@ -567,7 +660,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="targetEdDate">集計終了日</param>
         /// <param name="paymentDate">入金日</param>
         /// <param name="userId">ログインユーザID</param>
-        private void setHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        public S01_SEIHD getHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
         {
             int 販社入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
 
@@ -576,6 +669,14 @@ namespace KyoeiSystem.Application.WCFService
                 context.M70_JIS
                     .Where(w => w.削除日時 == null && w.自社コード == salesCompanyCode)
                     .First();
+
+            // No-100 Mod Start
+            // 前回請求情報取得
+            var befSeiCnt = getLastChargeInfo(context, myCompanyCode, yearMonth, targetJis.取引先コード, targetJis.枝番, cnt);
+
+            // 入金情報取得
+            var nyukin = getPaymentInfo(context, myCompanyCode, targetJis.取引先コード, targetJis.枝番, targetStDate, targetEdDate);
+            // No-100 Mod End
 
             // 基本情報
             var urList =
@@ -587,51 +688,13 @@ namespace KyoeiSystem.Application.WCFService
                     .Join(context.M70_JIS.Where(w => w.削除日時 == null),
                         x => x.販社コード,
                         y => y.自社コード,
-                        (x, y) => new { URHD = x , JIS = y })
+                        (x, y) => new { URHD = x, JIS = y })
                     .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
                         x => new { コード = (int)x.JIS.取引先コード, 枝番 = (int)x.JIS.枝番 },
                         y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                         (x, y) => new { x, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
                         (a, b) => new { a.x.URHD, a.x.JIS, TOK = b });
-
-            // No-100 Mod Start
-            // 前回情報取得
-            DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
-            if (cnt == 1)
-            {
-                befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
-            }
-
-            var befSeiCnt =
-                context.S01_SEIHD
-                    .Where(w => w.自社コード == myCompanyCode &&
-                        w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
-                        w.請求先コード == targetJis.取引先コード &&
-                        w.請求先枝番 == targetJis.枝番)
-                    .OrderByDescending(o => o.回数)
-                    .FirstOrDefault();
-
-            // 入金額取得
-            var nyukin =
-                context.T11_NYKNHD
-                    .Where(w => w.削除日時 == null &&
-                        w.入金先自社コード == myCompanyCode &&
-                        (w.入金日 >= targetStDate && w.入金日 <= targetEdDate) &&
-                        w.得意先コード == targetJis.取引先コード && w.得意先枝番 == targetJis.枝番)
-                    .Join(context.T11_NYKNDTL.Where(w => w.削除日時 == null),
-                        x => x.伝票番号,
-                        y => y.伝票番号,
-                        (x, y) => new { NYKNHD = x, NYKNDTL = y })
-                    .GroupBy(g => new { g.NYKNHD.得意先コード, g.NYKNHD.得意先枝番 })
-                    .Select(s => new
-                    {
-                        得意先コード = s.Key.得意先コード,
-                        得意先枝番 = s.Key.得意先枝番,
-                        合計金額 = s.Sum(sum => sum.NYKNDTL.金額)
-                    })
-                    .FirstOrDefault();
-            // No-100 Mod End
 
             var wkData =
                 urList
@@ -799,7 +862,7 @@ namespace KyoeiSystem.Application.WCFService
                 // No-100 Add Start
                 // 都度請求の場合は空ヘッダデータを作成しない
                 if (urdata.請求締日 == 0)
-                    return;
+                    return null;
                 // No-100 Add End
             }
 
@@ -810,16 +873,96 @@ namespace KyoeiSystem.Application.WCFService
             // 請求額を設定
             urdata.当月請求額 = urdata.繰越残高 + urdata.売上額 + urdata.消費税;
 
-            // ヘッダ情報登録
-            S01_SEIHD_Update(context, urdata);
+            return urdata;
+
+        }
+
+        /// <summary>
+        /// 前回請求情報取得
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">会社名コード</param>
+        /// <param name="yearMonth">作成年月</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="cnt">回数</param>
+        public S01_SEIHD getLastChargeInfo(TRAC3Entities context, int company, int yearMonth, int? code, int? eda, int cnt)
+        {
+            // No-100 Mod Start
+            // 前回請求情報取得
+            DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
+            if (cnt == 1)
+            {
+                befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
+            }
+
+            var befSeiCnt =
+                context.S01_SEIHD
+                    .Where(w => w.自社コード == company &&
+                        w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
+                        w.請求先コード == code &&
+                        w.請求先枝番 == eda)
+                    .OrderByDescending(o => o.回数)
+                    .FirstOrDefault();
+
+            return befSeiCnt;
+            // No-100 Mod End
+
+        }
+
+        /// <summary>
+        /// 入金情報取得
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">会社名コード</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="targetStDate">集計開始日</param>
+        /// <param name="targetEdDate">集計終了日</param>
+        public T11_NYKN_Search_Extension getPaymentInfo(TRAC3Entities context, int company, int? code, int? eda, DateTime? targetStDate, DateTime? targetEdDate)
+        {
+            // No-100 Mod Start
+            // 入金額取得
+            var nyukin =
+                context.T11_NYKNHD
+                    .Where(w => w.削除日時 == null &&
+                        w.入金先自社コード == company &&
+                        (w.入金日 >= targetStDate && w.入金日 <= targetEdDate) &&
+                        w.得意先コード == code && w.得意先枝番 == eda)
+                    .Join(context.T11_NYKNDTL.Where(w => w.削除日時 == null),
+                        x => x.伝票番号,
+                        y => y.伝票番号,
+                        (x, y) => new { NYKNHD = x, NYKNDTL = y })
+                    .GroupBy(g => new { g.NYKNHD.得意先コード, g.NYKNHD.得意先枝番 })
+                    .Select(s => new
+                    {
+                        得意先コード = s.Key.得意先コード,
+                        得意先枝番 = s.Key.得意先枝番,
+                        合計金額 = s.Sum(sum => sum.NYKNDTL.金額)
+                    })
+                    .FirstOrDefault();
+            // No-100 Mod End
+
+            T11_NYKN_Search_Extension result = new T11_NYKN_Search_Extension(); 
+
+            if (nyukin == null)
+            {
+                return null;
+            }
+
+            result.得意先コード = nyukin.得意先コード ?? 0;
+            result.得意先枝番 = nyukin.得意先枝番 ?? 0;
+            result.合計金額 = nyukin.合計金額;
+
+            return result;
 
         }
 
         #endregion
 
-        #region 請求明細登録処理
+        #region 請求明細情報取得
         /// <summary>
-        /// 請求明細登録処理
+        /// 請求明細情報取得
         /// </summary>
         /// <param name="context"></param>
         /// <param name="company">自社コード</param>
@@ -831,7 +974,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="targetEdDate">集計期間終了</param>
         /// <param name="paymentDate">入金日</param>
         /// <param name="userId">ログインユーザID</param>
-        private void setDetailInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        public List<S01_SEIDTL> getDetailInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
         {
             int 得意先入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
 
@@ -913,13 +1056,12 @@ namespace KyoeiSystem.Application.WCFService
                         登録日時 = DateTime.Now
                     });
 
-            // 明細情報の登録
-            S01_SEIDTL_Update(context, dtlList.ToList());
+            return dtlList.ToList();
 
         }
 
         /// <summary>
-        /// 請求明細登録処理(販社)
+        /// 請求明細情報取得(販社)
         /// </summary>
         /// <param name="context"></param>
         /// <param name="myCompanyCode">自社コード</param>
@@ -930,7 +1072,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="targetEdDate">集計終了日</param>
         /// <param name="paymentDate">入金日</param>
         /// <param name="userId">ログインユーザID</param>
-        private void setDetailInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        public List<S01_SEIDTL> getDetailInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
         {
             int 販社入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
 
@@ -989,7 +1131,7 @@ namespace KyoeiSystem.Application.WCFService
                         // No-80 End
                         単価 = x.URDTL.単価,
                         // No-80 Start
-                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ? 
+                        金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
                             x.URDTL.金額 ?? 0 : (x.URDTL.金額 ?? 0) * -1,
                         消費税 = (
                             x.TOK.Ｔ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
@@ -1014,8 +1156,7 @@ namespace KyoeiSystem.Application.WCFService
                         登録日時 = DateTime.Now
                     });
 
-            // 明細情報の登録
-            S01_SEIDTL_Update(context, dtlList.ToList());
+            return dtlList.ToList();
 
         }
 
