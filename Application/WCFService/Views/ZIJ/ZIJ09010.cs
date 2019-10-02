@@ -105,8 +105,8 @@ namespace KyoeiSystem.Application.WCFService
                                 w.STOK.倉庫コード ==
                                     context.M22_SOUK.Where(v =>
                                             v.削除日時 == null &&
-                                            v.場所会社コード == p自社コード &&
-                                            v.場所会社コード == v.寄託会社コード)
+                                            (v.場所会社コード == p自社コード ||
+                                             v.寄託会社コード == p自社コード))
                                         .Select(s => s.倉庫コード)
                                         .FirstOrDefault())
                                 .ToList();
