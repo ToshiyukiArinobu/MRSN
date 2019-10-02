@@ -258,6 +258,15 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
                             SetFocusToTopControl();
+                            // No.162-1 Add Start
+                            bool blnEnabled = true;
+                            if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
+                            {
+                                blnEnabled = false;
+                            }
+                            // 入力制御
+                            setDispHeaderEnabled(blnEnabled);
+                            // No.162-1 Add End
                         }
                         else
                         {
@@ -538,6 +547,20 @@ namespace KyoeiSystem.Application.Windows.Views
             base.ChangeKeyItemChangeable(flag);
 
         }
+
+        #region 画面ヘッダ部の入力制御
+        // No.162-1 Add Start
+        /// <summary>
+        /// 画面ヘッダ部の入力設定を行う
+        /// </summary>
+        /// <param name="blnEnabled">true:入力可、false:入力不可</param>
+        private void setDispHeaderEnabled(bool blnEnabled)
+        {
+            c入荷先.IsEnabled = blnEnabled;
+            c仕入区分.IsEnabled = blnEnabled;
+        }
+        // No.162-1 Add End
+        #endregion
 
         /// <summary>
         /// 画面項目の初期化をおこなう
