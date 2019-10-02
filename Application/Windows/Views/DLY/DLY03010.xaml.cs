@@ -325,12 +325,15 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
                             txt売上日.Focus();
-                            // No.161 Add Start
+                            // No.162-2 Mod Start
+                            bool blnEnabled = true;
                             if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
                             {
-                                cmb売上区分.IsEnabled = false;
+                                blnEnabled = false;
                             }
-                            // No.161 Add End
+                            // 入力制御
+                            setDispHeaderEnabled(blnEnabled);
+                            // No.162-2 Mod End
                         }
                         else
                         {
@@ -1545,6 +1548,20 @@ namespace KyoeiSystem.Application.Windows.Views
             this.gcSpreadGrid.IsEnabled = !flag;
 
         }
+        #endregion
+
+        #region 画面ヘッダ部の入力制御
+        // No.162-2 Add Start
+        /// <summary>
+        /// 画面ヘッダ部の入力設定を行う
+        /// </summary>
+        /// <param name="blnEnabled">true:入力可、false:入力不可</param>
+        private void setDispHeaderEnabled(bool blnEnabled)
+        {
+            txt在庫倉庫.IsEnabled = blnEnabled;
+            cmb売上区分.IsEnabled = blnEnabled;
+        }
+        // No.162-2 Add End
         #endregion
 
         #region << コントロールイベント >>
