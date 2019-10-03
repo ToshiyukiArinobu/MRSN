@@ -455,7 +455,7 @@ namespace KyoeiSystem.Application.WCFService
                             srcMem.終了日付1 = calcEndDate;
                             // No.101-3 Mod Start
                             srcMem.入金日 =
-                                new DateTime(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｔ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY).AddMonths(hanData.TOK.Ｔサイト１ ?? 0);
+                                AppCommon.GetClosingDate(targetMonth.Year, targetMonth.Month, hanData.TOK.Ｔ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY, hanData.TOK.Ｔサイト１ ?? 0);    // No-169 Mod
                             // No.101-3 Mod End
 
                             List<TKS01010.TKS01010_SearchMember> list = new List<TKS01010.TKS01010_SearchMember>();
