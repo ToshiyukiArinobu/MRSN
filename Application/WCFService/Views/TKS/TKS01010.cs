@@ -1306,17 +1306,14 @@ namespace KyoeiSystem.Application.WCFService
                     .Where(w => w.削除日時 == null && w.取引先コード == targetRow.得意先コード && w.枝番 == targetRow.得意先枝番)
                     .FirstOrDefault();
 
-            DateTime closingDate = AppCommon.GetClosingDate(year, month, tok.Ｔ締日 ?? 31, 0);
+            DateTime closingDate = AppCommon.GetClosingDate(year, month, tok.Ｔ締日 ?? CommonConstants.DEFAULT_CLOSING_DAY, 0);
 
             // 入金日の算出
             try
             {
                 // No-100 Mod Start
-                DateTime baseDate = new DateTime(year, month, tok.Ｔ入金日１ ?? 31);
-                baseDate = baseDate.AddMonths(tok.Ｔサイト１ ?? 0);
-                int intNyukinMonth = int.Parse(baseDate.Month.ToString());
-                int intNyukinYear = int.Parse(baseDate.Year.ToString());
-                paymentDate = AppCommon.GetClosingDate(intNyukinYear, intNyukinMonth, tok.Ｔ入金日１ ?? 31, 0);
+                paymentDate =
+                    AppCommon.GetClosingDate(year, month, tok.Ｔ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY, tok.Ｔサイト１ ?? 0);    // No-170 Mod
                 // No-100 Mod End
 
             }
