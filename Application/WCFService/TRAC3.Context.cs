@@ -424,6 +424,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s01_SEIHD  ?? (_s01_SEIHD = CreateObjectSet<S01_SEIHD>("S01_SEIHD")); }
         }
         private ObjectSet<S01_SEIHD> _s01_SEIHD;
+    
+        public ObjectSet<S06_URIHD> S06_URIHD
+        {
+            get { return _s06_URIHD  ?? (_s06_URIHD = CreateObjectSet<S06_URIHD>("S06_URIHD")); }
+        }
+        private ObjectSet<S06_URIHD> _s06_URIHD;
 
         #endregion
 
