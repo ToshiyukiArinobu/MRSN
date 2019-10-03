@@ -22,8 +22,8 @@ namespace KyoeiSystem.Application.WCFService
             public int 得意先コード { get; set; }
             public int 得意先枝番 { get; set; }
             public string 得意先名 { get; set; }
-            public DateTime 入金日 { get; set; }
-            public DateTime 支払日 { get; set; }
+            public string 入金日 { get; set; }         // No-168 Mod
+            public string 支払日 { get; set; }         // No-168 Mod
             public long 請求予定額 { get; set; }
             public long 支払予定額 { get; set; }
             public long 相殺請求予定額 { get; set; }
@@ -82,8 +82,8 @@ namespace KyoeiSystem.Application.WCFService
                             得意先コード = s.取引先コード,
                             得意先枝番 = s.枝番,
                             得意先名 = s.取引先名,
-                            入金日 = DateTime.TryParseExact(s.入金日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt : DateTime.Now,
-                            支払日 = DateTime.TryParseExact(s.支払日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt : DateTime.Now,
+                            入金日 = DateTime.TryParseExact(s.入金日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt.ToShortDateString() : DateTime.Now.ToShortDateString(),        // No-168 Mod
+                            支払日 = DateTime.TryParseExact(s.支払日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt.ToShortDateString() : DateTime.Now.ToShortDateString(),        // No-168 Mod
                             請求予定額 = s.当月請求額,
                             支払予定額 = s.支払予定額,
                             相殺請求予定額 = s.当月請求額 - s.支払予定額
