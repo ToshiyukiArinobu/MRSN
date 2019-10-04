@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="550b233a9e9c430789b2898076f3a748" Name="ダイアグラム1" ZoomLevel="81" ShowGrid="true" SnapToGrid="false">
+      <Diagram DiagramId="550b233a9e9c430789b2898076f3a748" Name="ダイアグラム1" ZoomLevel="85" ShowGrid="true" SnapToGrid="false">
         <EntityTypeShape EntityType="TRAC3Model.M01_TOK" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.M02_BAIKA" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.M03_BAIKA" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" />
@@ -63,6 +63,7 @@
         <EntityTypeShape EntityType="TRAC3Model.T03_SRHD" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.S02_SHRHD" Width="1.5" PointX="6.75" PointY="14.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.S01_SEIHD" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S06_URIHD" Width="1.5" PointX="8.8154222079963613" PointY="14.717571367135664" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
