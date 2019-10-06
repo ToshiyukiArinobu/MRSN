@@ -61,9 +61,9 @@
         <EntityTypeShape EntityType="TRAC3Model.T02_URHD" Width="1.5" PointX="14.75" PointY="4.7499999999999991" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.T02_URHD_HAN" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.T03_SRHD" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.S02_SHRHD" Width="1.5" PointX="6.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.S01_SEIHD" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.S06_URIHD" Width="1.5" PointX="8.8154222079963613" PointY="14.717571367135664" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S01_SEIHD" Width="1.5" PointX="6.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S06_URIHD" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S02_SHRHD" Width="1.5" PointX="8.75" PointY="14.75" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

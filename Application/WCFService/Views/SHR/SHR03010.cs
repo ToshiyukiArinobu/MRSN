@@ -65,7 +65,17 @@ namespace KyoeiSystem.Application.WCFService
         // No-84 End
 
         #endregion
-
+        #region 拡張クラス定義
+        /// <summary>
+        /// 出金検索クラス定義
+        /// </summary>
+        public class T12_PAY_Search_Extension
+        {
+            public int 得意先コード { get; set; }
+            public int 得意先枝番 { get; set; }
+            public int 合計金額 { get; set; }
+        }
+        #endregion
         #region 支払集計対象の得意先リストを取得
         /// <summary>
         /// 支払集計対象の得意先リストを取得する
@@ -376,6 +386,9 @@ namespace KyoeiSystem.Application.WCFService
         {
             int 仕入先入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
 
+            // 出金情報取得
+            var syukin = getPaymentInfo(context, company, code, eda, targetStDate, targetEdDate);
+
             // No-84,86 Start
             var srList =
                 context.T03_SRHD
@@ -524,11 +537,13 @@ namespace KyoeiSystem.Application.WCFService
                         集計開始日 = x.Key.集計開始日,
                         集計最終日 = x.Key.集計最終日,
                         前月残高 = befSeiCnt == null ? 0 : befSeiCnt.当月支払額,
+                        出金額 = syukin == null ? 0 : syukin.合計金額,
+                        繰越残高 = 0,
                         通常税率対象金額 = (long)x.Sum(s => s.Data.通常税率対象金額),
                         軽減税率対象金額 = (long)x.Sum(s => s.Data.軽減税率対象金額),
                         値引額 = 0,
                         非課税支払額 = (long)x.Sum(s => s.Data.伝票非課税金額),
-                        支払額 = (long)x.Sum(s => s.Data.金額),
+                        支払額 = (long)x.Sum(s => s.Data.伝票金額),
                         通常税率消費税 = x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
                                     x.Sum(s => s.Data.通常税率対象金額) > 0 ?
@@ -581,6 +596,8 @@ namespace KyoeiSystem.Application.WCFService
                             支払年月日 = AppCommon.GetClosingDate(yearMonth / 100, yearMonth % 100, x.Ｓ入金日１ ?? 31, 0),
                             集計開始日 = targetStDate,
                             集計最終日 = targetEdDate,
+                            前月残高 = x.Ｓ締日 == 0 ? 0 : befSeiCnt == null ? 0 : befSeiCnt.当月支払額,
+                            出金額 = syukin == null ? 0 : syukin.合計金額,
                             登録者 = userId,
                             登録日時 = DateTime.Now
                         })
@@ -588,11 +605,12 @@ namespace KyoeiSystem.Application.WCFService
 
             }
 
-            // 支払額を設定
-            srdata.当月支払額 = srdata.支払額 + srdata.消費税;
+            // 繰越残高を設定
+            srdata.繰越残高 = srdata.前月残高 - srdata.出金額;
             // 消費税を設定
             srdata.消費税 = srdata.通常税率消費税 + srdata.軽減税率消費税;
-
+            // 支払額を設定
+            srdata.当月支払額 = srdata.繰越残高 + srdata.支払額 + srdata.消費税;
             // ヘッダ情報登録
             S02_SHRHD_Update(context, srdata);
 
@@ -619,6 +637,9 @@ namespace KyoeiSystem.Application.WCFService
                 context.M70_JIS
                     .Where(w => w.削除日時 == null && w.自社コード == paymentCompanyCode)
                     .First();
+
+            // 出金情報取得
+            var syukin = getPaymentInfo(context, myCompanyCode, targetJis.取引先コード, targetJis.枝番, targetStDate, targetEdDate);
 
             // 基本情報
             var srList =
@@ -648,13 +669,14 @@ namespace KyoeiSystem.Application.WCFService
                     //.SelectMany(z => z.y.DefaultIfEmpty(),
                     //    (c, d) => new { c.x.SRHD, c.x.SRDTL, c.x.JIS, c.x.TOK, HIN = d });
 
+            
             // 前回情報取得
             DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
             if (cnt == 1)
             {
                 befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
             }
-            var befSei =
+            var befSeiCnt =
                 context.S02_SHRHD
                     .Where(w => w.自社コード == myCompanyCode &&
                         w.支払年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
@@ -743,12 +765,14 @@ namespace KyoeiSystem.Application.WCFService
                         支払年月日 = x.Key.支払年月日,
                         集計開始日 = x.Key.集計開始日,
                         集計最終日 = x.Key.集計最終日,
-                        前月残高 = befSei == null ? 0 : befSei.当月支払額,
+                        前月残高 = befSeiCnt == null ? 0 : befSeiCnt.当月支払額,
+                        出金額 = syukin == null ? 0 : syukin.合計金額,
+                        繰越残高 = 0,
                         通常税率対象金額 = (long)x.Sum(s => s.Data.通常税率対象金額),
                         軽減税率対象金額 = (long)x.Sum(s => s.Data.軽減税率対象金額),
                         値引額 = 0,
                         非課税支払額 = (long)x.Sum(s => s.Data.伝票非課税金額),
-                        支払額 = 0,
+                        支払額 = (long)x.Sum(s => s.Data.伝票金額),
                         // No-135-2 Mod Start
                         通常税率消費税 = x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
@@ -793,7 +817,6 @@ namespace KyoeiSystem.Application.WCFService
                         .ToList()
                         .Select(x => new S02_SHRHD
                         {
-                            自社コード = myCompanyCode,
                             支払年月 = yearMonth,
                             支払締日 = x.Ｓ締日 ?? 31,
                             支払先コード = x.取引先コード,
@@ -803,6 +826,8 @@ namespace KyoeiSystem.Application.WCFService
                             支払年月日 = AppCommon.GetClosingDate(yearMonth / 100, yearMonth % 100, x.Ｓ入金日１ ?? 31, 0),
                             集計開始日 = targetStDate,
                             集計最終日 = targetEdDate,
+                            前月残高 = x.Ｓ締日 == 0 ? 0 : befSeiCnt == null ? 0 : befSeiCnt.当月支払額,
+                            出金額 = syukin == null ? 0 : syukin.合計金額,
                             登録者 = userId,
                             登録日時 = DateTime.Now
                         })
@@ -810,17 +835,66 @@ namespace KyoeiSystem.Application.WCFService
 
             }
 
-            //支払額を設定
-            srdata.支払額 = srdata.通常税率対象金額 + srdata.軽減税率対象金額 + srdata.非課税支払額;
+            // 繰越残高を設定
+            srdata.繰越残高 = srdata.前月残高 - srdata.出金額;
             // 消費税を設定
             srdata.消費税 = srdata.通常税率消費税 + srdata.軽減税率消費税;
-            // 当月支払額を設定
-            srdata.当月支払額 = srdata.支払額 + srdata.消費税;
+            // 支払額を設定
+            srdata.当月支払額 = srdata.繰越残高 + srdata.支払額 + srdata.消費税;
 
             // ヘッダ情報登録
             S02_SHRHD_Update(context, srdata);
 
         }
+
+        /// <summary>
+        /// 出金情報取得
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">会社名コード</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="targetStDate">集計開始日</param>
+        /// <param name="targetEdDate">集計終了日</param>
+        public T12_PAY_Search_Extension getPaymentInfo(TRAC3Entities context, int company, int? code, int? eda, DateTime? targetStDate, DateTime? targetEdDate)
+        {
+            // No-100 Mod Start
+            // 出金額取得
+            var syukin =
+                context.T12_PAYHD
+                    .Where(w => w.削除日時 == null &&
+                        w.出金元自社コード == company &&
+                        (w.出金日 >= targetStDate && w.出金日 <= targetEdDate) &&
+                        w.得意先コード == code && w.得意先枝番 == eda)
+                    .Join(context.T12_PAYDTL.Where(w => w.削除日時 == null),
+                        x => x.伝票番号,
+                        y => y.伝票番号,
+                        (x, y) => new { PAYHD = x, PAYDTL = y })
+                    .GroupBy(g => new { g.PAYHD.得意先コード, g.PAYHD.得意先枝番 })
+                    .Select(s => new
+                    {
+                        得意先コード = s.Key.得意先コード,
+                        得意先枝番 = s.Key.得意先枝番,
+                        合計金額 = s.Sum(sum => sum.PAYDTL.金額)
+                    })
+                    .FirstOrDefault();
+            // No-100 Mod End
+
+            T12_PAY_Search_Extension result = new T12_PAY_Search_Extension();
+
+            if (syukin == null)
+            {
+                return null;
+            }
+
+            result.得意先コード = syukin.得意先コード ?? 0;
+            result.得意先枝番 = syukin.得意先枝番 ?? 0;
+            result.合計金額 = syukin.合計金額;
+
+            return result;
+
+        }
+
 
         #endregion
 
@@ -1247,6 +1321,9 @@ namespace KyoeiSystem.Application.WCFService
                 data.集計最終日 = hdData.集計最終日;
 
                 data.前月残高 = hdData.前月残高;
+                data.前月残高 = hdData.前月残高;
+                data.出金額 = hdData.出金額;
+                data.繰越残高 = hdData.繰越残高;
                 data.通常税率対象金額 = hdData.通常税率対象金額;
                 data.軽減税率対象金額 = hdData.軽減税率対象金額;
                 data.値引額 = hdData.値引額;
@@ -1270,6 +1347,8 @@ namespace KyoeiSystem.Application.WCFService
                 shrhd.集計開始日 = hdData.集計開始日;
                 shrhd.集計最終日 = hdData.集計最終日;
                 shrhd.前月残高 = hdData.前月残高;
+                shrhd.出金額 = hdData.出金額;
+                shrhd.繰越残高 = hdData.繰越残高;
                 shrhd.通常税率対象金額 = hdData.通常税率対象金額;
                 shrhd.軽減税率対象金額 = hdData.軽減税率対象金額;
                 shrhd.値引額 = hdData.値引額;
@@ -1347,9 +1426,8 @@ namespace KyoeiSystem.Application.WCFService
             // 入金日の算出
             try
             {
-                paymentDate = AppCommon.GetClosingDate(year, month, tok.Ｓ入金日１ ?? 31, 0);
-                paymentDate = paymentDate.AddMonths(tok.Ｓサイト１ ?? 0);
-
+                paymentDate =
+                    AppCommon.GetClosingDate(year, month, tok.Ｓ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY, tok.Ｓサイト１ ?? 0);    // No-170 Mod
             }
             catch
             {

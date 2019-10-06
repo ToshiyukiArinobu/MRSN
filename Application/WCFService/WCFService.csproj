@@ -245,6 +245,9 @@
     <Compile Include="S05_STOK_MONTH.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
+    <Compile Include="S06_URIHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
     <Compile Include="T02_URDTL.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>

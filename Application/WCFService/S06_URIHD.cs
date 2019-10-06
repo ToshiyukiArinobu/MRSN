@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace KyoeiSystem.Application.WCFService
 {
     [DataContract(IsReference = true)]
-    public partial class S02_SHRHD: IObjectWithChangeTracker, INotifyPropertyChanged
+    public partial class S06_URIHD: IObjectWithChangeTracker, INotifyPropertyChanged
     {
         #region Simple Properties
     
@@ -42,99 +42,99 @@ namespace KyoeiSystem.Application.WCFService
         private int _自社コード;
     
         [DataMember]
-        public int 支払年月
+        public int 請求年月
         {
-            get { return _支払年月; }
+            get { return _請求年月; }
             set
             {
-                if (_支払年月 != value)
+                if (_請求年月 != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property '支払年月' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property '請求年月' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _支払年月 = value;
-                    OnPropertyChanged("支払年月");
+                    _請求年月 = value;
+                    OnPropertyChanged("請求年月");
                 }
             }
         }
-        private int _支払年月;
+        private int _請求年月;
     
         [DataMember]
-        public int 支払締日
+        public int 請求締日
         {
-            get { return _支払締日; }
+            get { return _請求締日; }
             set
             {
-                if (_支払締日 != value)
+                if (_請求締日 != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property '支払締日' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property '請求締日' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _支払締日 = value;
-                    OnPropertyChanged("支払締日");
+                    _請求締日 = value;
+                    OnPropertyChanged("請求締日");
                 }
             }
         }
-        private int _支払締日;
+        private int _請求締日;
     
         [DataMember]
-        public int 支払先コード
+        public int 請求先コード
         {
-            get { return _支払先コード; }
+            get { return _請求先コード; }
             set
             {
-                if (_支払先コード != value)
+                if (_請求先コード != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property '支払先コード' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property '請求先コード' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _支払先コード = value;
-                    OnPropertyChanged("支払先コード");
+                    _請求先コード = value;
+                    OnPropertyChanged("請求先コード");
                 }
             }
         }
-        private int _支払先コード;
+        private int _請求先コード;
     
         [DataMember]
-        public int 支払先枝番
+        public int 請求先枝番
         {
-            get { return _支払先枝番; }
+            get { return _請求先枝番; }
             set
             {
-                if (_支払先枝番 != value)
+                if (_請求先枝番 != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property '支払先枝番' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property '請求先枝番' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _支払先枝番 = value;
-                    OnPropertyChanged("支払先枝番");
+                    _請求先枝番 = value;
+                    OnPropertyChanged("請求先枝番");
                 }
             }
         }
-        private int _支払先枝番;
+        private int _請求先枝番;
     
         [DataMember]
-        public int 支払日
+        public int 入金日
         {
-            get { return _支払日; }
+            get { return _入金日; }
             set
             {
-                if (_支払日 != value)
+                if (_入金日 != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property '支払日' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property '入金日' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _支払日 = value;
-                    OnPropertyChanged("支払日");
+                    _入金日 = value;
+                    OnPropertyChanged("入金日");
                 }
             }
         }
-        private int _支払日;
+        private int _入金日;
     
         [DataMember]
         public int 回数
@@ -156,19 +156,19 @@ namespace KyoeiSystem.Application.WCFService
         private int _回数;
     
         [DataMember]
-        public System.DateTime 支払年月日
+        public System.DateTime 請求年月日
         {
-            get { return _支払年月日; }
+            get { return _請求年月日; }
             set
             {
-                if (_支払年月日 != value)
+                if (_請求年月日 != value)
                 {
-                    _支払年月日 = value;
-                    OnPropertyChanged("支払年月日");
+                    _請求年月日 = value;
+                    OnPropertyChanged("請求年月日");
                 }
             }
         }
-        private System.DateTime _支払年月日;
+        private System.DateTime _請求年月日;
     
         [DataMember]
         public Nullable<System.DateTime> 集計開始日
@@ -216,19 +216,19 @@ namespace KyoeiSystem.Application.WCFService
         private long _前月残高;
     
         [DataMember]
-        public long 出金額
+        public long 入金額
         {
-            get { return _出金額; }
+            get { return _入金額; }
             set
             {
-                if (_出金額 != value)
+                if (_入金額 != value)
                 {
-                    _出金額 = value;
-                    OnPropertyChanged("出金額");
+                    _入金額 = value;
+                    OnPropertyChanged("入金額");
                 }
             }
         }
-        private long _出金額;
+        private long _入金額;
     
         [DataMember]
         public long 繰越残高
@@ -291,34 +291,34 @@ namespace KyoeiSystem.Application.WCFService
         private long _値引額;
     
         [DataMember]
-        public long 非課税支払額
+        public long 非税売上額
         {
-            get { return _非課税支払額; }
+            get { return _非税売上額; }
             set
             {
-                if (_非課税支払額 != value)
+                if (_非税売上額 != value)
                 {
-                    _非課税支払額 = value;
-                    OnPropertyChanged("非課税支払額");
+                    _非税売上額 = value;
+                    OnPropertyChanged("非税売上額");
                 }
             }
         }
-        private long _非課税支払額;
+        private long _非税売上額;
     
         [DataMember]
-        public long 支払額
+        public long 売上額
         {
-            get { return _支払額; }
+            get { return _売上額; }
             set
             {
-                if (_支払額 != value)
+                if (_売上額 != value)
                 {
-                    _支払額 = value;
-                    OnPropertyChanged("支払額");
+                    _売上額 = value;
+                    OnPropertyChanged("売上額");
                 }
             }
         }
-        private long _支払額;
+        private long _売上額;
     
         [DataMember]
         public long 通常税率消費税
@@ -366,19 +366,19 @@ namespace KyoeiSystem.Application.WCFService
         private long _消費税;
     
         [DataMember]
-        public long 当月支払額
+        public long 当月請求額
         {
-            get { return _当月支払額; }
+            get { return _当月請求額; }
             set
             {
-                if (_当月支払額 != value)
+                if (_当月請求額 != value)
                 {
-                    _当月支払額 = value;
-                    OnPropertyChanged("当月支払額");
+                    _当月請求額 = value;
+                    OnPropertyChanged("当月請求額");
                 }
             }
         }
-        private long _当月支払額;
+        private long _当月請求額;
     
         [DataMember]
         public Nullable<int> 登録者
