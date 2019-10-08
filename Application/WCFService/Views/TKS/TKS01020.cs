@@ -125,7 +125,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 得意先枝番 { get; set; }
             public int 回数 { get; set; }
 
-            public string 伝票番号 { get; set; }
+            public int 伝票番号 { get; set; }               // No-181 Mod
             public string 売上日 { get; set; }
             public string 品番名称 { get; set; }
             public decimal 数量 { get; set; }
@@ -417,7 +417,7 @@ namespace KyoeiSystem.Application.WCFService
                                 得意先枝番 = x.SDTL.請求先枝番.ToString(),
                                 回数 = x.SDTL.回数,
 
-                                伝票番号 = x.SDTL.伝票番号.ToString(),
+                                伝票番号 = x.SDTL.伝票番号,              // No-181 Mod
                                 売上日 = x.SDTL.売上日.ToString("yyyy/MM/dd"),
                                 品番名称 = x.HIN.自社品名,
                                 数量 = x.SDTL.数量,
@@ -429,7 +429,8 @@ namespace KyoeiSystem.Application.WCFService
                                 軽減税率適用 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "軽"
                                                 : x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? "非" : ""
                                 //20190902 CB mod - e
-                            });
+                            })
+                            .OrderBy(o => o.売上日).ThenBy(o => o.伝票番号);           // No-181 Add
                     #endregion
 
                     //20190910 CB add - s 軽減税率対応
