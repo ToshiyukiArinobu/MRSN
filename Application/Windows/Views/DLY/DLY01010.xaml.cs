@@ -877,6 +877,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF9Key(object sender, KeyEventArgs e)
         {
+            SearchGrid.CommitCellEdit();          // No-173 Add
+            
             if (this.MaintenanceMode == null || SearchResult == null)
                 return;
 

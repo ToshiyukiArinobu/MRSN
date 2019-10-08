@@ -942,6 +942,10 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF9Key(object sender, KeyEventArgs e)
         {
+
+            gcSpreadGrid.CommitCellEdit();          // No-173 Add
+            sgInnerDetail.CommitCellEdit();         // No-173 Add
+
             if (MaintenanceMode == null || SearchDetail == null)
                 return;
             //20190724CB-S
