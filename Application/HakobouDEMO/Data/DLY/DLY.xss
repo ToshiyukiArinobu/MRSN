@@ -17,7 +17,7 @@
     <Shape ID="DesignTable:運行指示書" ZOrder="6" X="-1" Y="337" Height="30" Width="150" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="0" OldDataTableHeight="279" SplitterPosition="26" />
     <Shape ID="DesignTable:日別売上日計表" ZOrder="5" X="-2" Y="417" Height="30" Width="152" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="0" OldDataTableHeight="279" SplitterPosition="26" />
     <Shape ID="DesignTable:TEST_DLY22010" ZOrder="4" X="-2" Y="378" Height="30" Width="174" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="0" OldDataTableHeight="258" SplitterPosition="26" />
-    <Shape ID="DesignTable:DLY11010_納品書" ZOrder="1" X="481" Y="4" Height="283" Width="179" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="26" SplitterPosition="279" />
+    <Shape ID="DesignTable:DLY11010_納品書" ZOrder="1" X="481" Y="4" Height="257" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="26" SplitterPosition="253" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

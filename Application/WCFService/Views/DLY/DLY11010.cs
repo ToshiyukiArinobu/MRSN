@@ -55,6 +55,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社FAX { get; set; }
             public string 伝票番号 { get; set; }
             public string 納品伝票番号 { get; set; }
+            public string 伝票備考 { get; set; }
             public int? 行番号１ { get; set; }
             public string 品番１ { get; set; }
             public string 品名１ { get; set; }
@@ -446,6 +447,7 @@ namespace KyoeiSystem.Application.WCFService
             prtMem.自社FAX = jis.ＦＡＸ;
             prtMem.伝票番号 = hdRow.伝票番号.ToString();
             prtMem.納品伝票番号 = hdRow.納品伝票番号.ToString();
+            prtMem.伝票備考 = hdRow.備考;
 
         }
         #endregion

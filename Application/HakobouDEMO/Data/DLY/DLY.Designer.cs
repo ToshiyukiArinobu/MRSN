@@ -7401,6 +7401,8 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column納品伝票番号;
             
+            private global::System.Data.DataColumn column伝票備考;
+            
             private global::System.Data.DataColumn column行番号１;
             
             private global::System.Data.DataColumn column品番１;
@@ -7947,6 +7949,14 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 納品伝票番号Column {
                 get {
                     return this.column納品伝票番号;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 伝票備考Column {
+                get {
+                    return this.column伝票備考;
                 }
             }
             
@@ -9060,6 +9070,7 @@ namespace Hakobou.Data.DLY {
                         string 自社FAX, 
                         string 伝票番号, 
                         string 納品伝票番号, 
+                        string 伝票備考, 
                         string 行番号１, 
                         string 品番１, 
                         string 品名１, 
@@ -9224,6 +9235,7 @@ namespace Hakobou.Data.DLY {
                         自社FAX,
                         伝票番号,
                         納品伝票番号,
+                        伝票備考,
                         行番号１,
                         品番１,
                         品名１,
@@ -9408,6 +9420,7 @@ namespace Hakobou.Data.DLY {
                 this.column自社FAX = base.Columns["自社FAX"];
                 this.column伝票番号 = base.Columns["伝票番号"];
                 this.column納品伝票番号 = base.Columns["納品伝票番号"];
+                this.column伝票備考 = base.Columns["伝票備考"];
                 this.column行番号１ = base.Columns["行番号１"];
                 this.column品番１ = base.Columns["品番１"];
                 this.column品名１ = base.Columns["品名１"];
@@ -9607,6 +9620,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column伝票番号);
                 this.column納品伝票番号 = new global::System.Data.DataColumn("納品伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column納品伝票番号);
+                this.column伝票備考 = new global::System.Data.DataColumn("伝票備考", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column伝票備考);
                 this.column行番号１ = new global::System.Data.DataColumn("行番号１", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column行番号１);
                 this.column品番１ = new global::System.Data.DataColumn("品番１", typeof(string), null, global::System.Data.MappingType.Element);
@@ -18484,6 +18499,22 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 伝票備考 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.伝票備考Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'伝票備考\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.伝票備考Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 行番号１ {
                 get {
                     if (this.Is行番号１Null()) {
@@ -20944,6 +20975,18 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set納品伝票番号Null() {
                 this[this.tableDLY11010_納品書.納品伝票番号Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is伝票備考Null() {
+                return this.IsNull(this.tableDLY11010_納品書.伝票備考Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set伝票備考Null() {
+                this[this.tableDLY11010_納品書.伝票備考Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
