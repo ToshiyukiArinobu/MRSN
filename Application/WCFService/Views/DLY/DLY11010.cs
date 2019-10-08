@@ -202,6 +202,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class DetailExtension
         {
+            public int 行番号 { get; set; }             // No-174 Add
             public string 品番 { get; set; }
             public string 得意先品番 { get; set; }
             public string 品名 { get; set; }
@@ -323,13 +324,14 @@ namespace KyoeiSystem.Application.WCFService
                             .SelectMany(z => z.y.DefaultIfEmpty(),
                                 (a, b) => new { URDTL = a.x, HIN = b })
                             .GroupJoin(context.M10_TOKHIN.Where(w => w.削除日時 == null),
-                                x => x.URDTL.品番コード,
-                                y => y.品番コード,
+                                x => new { 品番 = x.URDTL.品番コード, 得意先 = hdRow.得意先コード, 枝番 = hdRow.得意先枝番 },      // No-174 Mod
+                                y => new { 品番 = y.品番コード, 得意先 = y.取引先コード, 枝番 = y.枝番 },                          // No-174 Mod
                                 (x, y) => new { x, y })
                             .SelectMany(z => z.y.DefaultIfEmpty(),
                                 (c, d) => new { c.x.URDTL, c.x.HIN, TOKHIN = d })
                             .Select(x => new DetailExtension
                             {
+                                行番号 = x.URDTL.行番号,          // No-174 Add
                                 品番 = x.HIN.自社品番,
                                 得意先品番 = x.TOKHIN == null ? x.HIN.自社品番 : x.TOKHIN.得意先品番コード,
                                 品名 = x.HIN.自社品名,
@@ -345,35 +347,37 @@ namespace KyoeiSystem.Application.WCFService
                                 //20190902 CB add & mod-e
                             });
 
-                    // 得意先品番(自社品番)の数量集計データを作成
-                    var query =
-                        urdtlList.GroupBy(g => new { g.得意先品番, g.単価 })
-                            .Select(x => new DetailExtension
-                            {
-                                品番 = x.Key.得意先品番,
-                                得意先品番 = string.Empty,
-                                品名 = x.FirstOrDefault().品名,
-                                数量 = x.Sum(s => s.数量),
-                                単位 = x.FirstOrDefault().単位,
-                                単価 = x.Sum(s => s.単価),
-                                金額 = x.Sum(s => s.金額),
+                    //// 得意先品番(自社品番)の数量集計データを作成
+                    //var query =
+                    //    urdtlList.GroupBy(g => new { g.得意先品番, g.単価 })
+                    //        .Select(x => new DetailExtension
+                    //        {
+                    //            品番 = x.Key.得意先品番,
+                    //            得意先品番 = string.Empty,
+                    //            品名 = x.FirstOrDefault().品名,
+                    //            数量 = x.Sum(s => s.数量),
+                    //            単位 = x.FirstOrDefault().単位,
+                    //            単価 = x.Sum(s => s.単価),
+                    //            金額 = x.Sum(s => s.金額),
 
-                                //20190902 add & mod-s CB軽減税率対応
-                                //摘要 = x.FirstOrDefault().摘要
-                                摘要 = x.FirstOrDefault().摘要,
-                                消費税区分 = x.FirstOrDefault().消費税区分
-                                //20190902 add & mod-e CB軽減税率対応
-                            });
+                    //            //20190902 add & mod-s CB軽減税率対応
+                    //            //摘要 = x.FirstOrDefault().摘要
+                    //            摘要 = x.FirstOrDefault().摘要,
+                    //            消費税区分 = x.FirstOrDefault().消費税区分
+                    //            //20190902 add & mod-e CB軽減税率対応
+                    //        });
 
+                    // 納品書（下部）のデータ設定
                     int rowNum = 1;
-                    foreach (DetailExtension dtlRow in urdtlList.OrderBy(c => c.品番))
+                    foreach (DetailExtension dtlRow in urdtlList.OrderBy(o => o.行番号))      // No-174 Mod
                     {
                         setPrintNouhinData(prtMem, dtlRow, rowNum);
                         rowNum++;
                     }
 
+                    // 納品書（上部）のデータ設定
                     rowNum = 1;
-                    foreach (DetailExtension dtlRow in query.OrderBy(c => c.品番))
+                    foreach (DetailExtension dtlRow in urdtlList.OrderBy(o => o.行番号))      // No-174 Mod
                     {
                         setPrintDetailData(prtMem, dtlRow, rowNum);
                         rowNum++;
