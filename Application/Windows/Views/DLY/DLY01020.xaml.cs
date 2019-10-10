@@ -16,7 +16,7 @@ namespace KyoeiSystem.Application.Windows.Views
     using DebugLog = System.Diagnostics.Debug;
 
     /// <summary>
-	/// 仕入入力フォームクラス
+	/// 仕入返品入力フォームクラス
 	/// </summary>
     public partial class DLY01020 : WindowReportBase
     {
@@ -490,6 +490,10 @@ namespace KyoeiSystem.Application.Windows.Views
             if (SearchDetail == null)
                 return;
 
+            //▼課題管理表No173-3 Add Start Arinobu 2019/10/10
+            gcSpreadGrid.CommitCellEdit();
+            //▲課題管理表No173-3 Add End Arinobu 2019/10/10
+
             // 業務入力チェックをおこなう
             if (!isFormValidation())
                 return;
@@ -915,6 +919,15 @@ namespace KyoeiSystem.Application.Windows.Views
                     
                     break;
 
+                //▼課題管理表No173-3 Add Start Arinobu 2019/10/10
+                default:
+                    if (gridCtl.ActiveRowIndex >= 0)
+                    {
+                        // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                        SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+                    }
+                    break;
+                //▲課題管理表No173-3 Add End Arinobu 2019/10/10
             }
 
 

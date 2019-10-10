@@ -506,6 +506,10 @@ namespace KyoeiSystem.Application.Windows.Views
             if (MaintenanceMode == null)
                 return;
 
+            //▼課題管理表No173-4 Add Start Arinobu 2019/10/10
+            gcSpreadGrid.CommitCellEdit();
+            //▲課題管理表No173-4 Add End Arinobu 2019/10/10
+
             // 業務入力チェックをおこなう
             if (!isFormValidation())
                 return;
@@ -1165,6 +1169,14 @@ namespace KyoeiSystem.Application.Windows.Views
                     break;
 
                 default:
+
+                    //▼課題管理表No173-4 Add Start Arinobu 2019/10/10
+                    if (gridCtl.ActiveRowIndex >= 0)
+                    {
+                        // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                        SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+                    }
+                    //▲課題管理表No173-4 Add Start Arinobu 2019/10/10
                     break;
 
             }
@@ -1218,6 +1230,54 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         #endregion
+
+        /// <summary>
+        /// SPREAD セルが編集状態になった時の処理 EditElementShowingイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gcSpredGrid_EditElementShowing(object sender, EditElementShowingEventArgs e)
+        {
+            GcSpreadGrid grid = sender as GcSpreadGrid;
+            if (grid.ActiveCell.InheritedCellType is GrapeCity.Windows.SpreadGrid.CheckBoxCellType)
+            {
+                // チェックボックス型セルのイベントを関連付けます。
+                GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement gcchk = grid.EditElement as GrapeCity.Windows.SpreadGrid.Editors.CheckBoxEditElement;
+                if (gcchk != null)
+                {
+                    gcchk.Checked += checkEdit_Checked;
+                    gcchk.Unchecked += checkEdit_Unchecked;
+                }
+            }
+        }
+        /// <summary>
+        /// checkEdit_Checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEdit_Checked(object sender, RoutedEventArgs e)
+        {
+            if (SearchDetail != null && SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() != 0 && gridCtl.ActiveRowIndex >= 0)
+            {
+                // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+            }
+        }
+
+        /// <summary>
+        /// checkEdit_Unchecked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEdit_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+            if (SearchDetail != null && SearchDetail.Select("", "", DataViewRowState.CurrentRows).Count() != 0 && gridCtl.ActiveRowIndex >= 0)
+            {
+                // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                SearchDetail.Rows[gridCtl.ActiveRowIndex].EndEdit();
+            }
+        }
 
     }
 

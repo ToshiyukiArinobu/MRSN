@@ -443,7 +443,7 @@
                          Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Height="290" Margin="80,5,0,0"
                          DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY03020G1.sgxml"
                          ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                         CellEditEnded="gcSpredGrid_CellEditEnded" PreviewKeyDown="gcSpredGrid_PreviewKeyDown">
+                         CellEditEnded="gcSpredGrid_CellEditEnded" EditElementShowing="gcSpredGrid_EditElementShowing"  PreviewKeyDown="gcSpredGrid_PreviewKeyDown">
 
           <!--カーソル色変更-->
           <sg:GcSpreadGrid.SelectionBorderUnfocused>
@@ -454,7 +454,7 @@
           </sg:GcSpreadGrid.SelectionBorder>
 
           <sg:GcSpreadGrid.Columns>
-            <!-- 自社品番 -->
+            <!-- 自社品番0 -->
             <sg:Column Locked="True" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off"/>
@@ -463,7 +463,7 @@
                 <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 得意先品番 -->
+            <!-- 得意先品番1 -->
             <sg:Column Locked="True" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:TextCellType MaxLength="50" MaxLengthUnit="Byte" ImeState="Off"/>
@@ -472,7 +472,7 @@
                 <sg:BindingDataField Binding="{Binding 得意先品番コード, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 自社品名 -->
+            <!-- 自社品名2 -->
             <sg:Column Locked="True" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:TextCellType IsReadOnly="True" />
@@ -481,7 +481,7 @@
                 <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 色コード -->
+            <!-- 色コード3 -->
             <sg:Column Locked="True" Focusable="True" CanUserResize="False">
                 <sg:Column.CellType>
                     <sg:TextCellType IsReadOnly="True" />
@@ -490,7 +490,7 @@
                     <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                 </sg:Column.DataField>
             </sg:Column>
-            <!-- 色名称 -->
+            <!-- 色名称4 -->
             <sg:Column Locked="True" Focusable="True" CanUserResize="False">
                 <sg:Column.CellType>
                     <sg:TextCellType IsReadOnly="True" />
@@ -500,7 +500,7 @@
                 </sg:Column.DataField>
             </sg:Column>
 
-            <!-- 賞味期限 -->
+            <!-- 賞味期限5 -->
             <sg:Column HorizontalAlignment="Center" Locked="True" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:TextCellType MaxLength="10" MaxLengthUnit="Byte" ImeState="Off" />
@@ -509,7 +509,7 @@
                 <sg:BindingDataField Binding="{Binding 賞味期限, TargetNullValue='', StringFormat='yyyy/MM/dd', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 数量 -->
+            <!-- 数量6 -->
             <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
@@ -518,7 +518,7 @@
                 <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 単位 -->
+            <!-- 単位7 -->
             <sg:Column Locked="True" Focusable="False" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:TextCellType MaxLength="2" MaxLengthUnit="Byte" />
@@ -527,7 +527,7 @@
                 <sg:BindingDataField Binding="{Binding 単位, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 単価 -->
+            <!-- 単価8 -->
             <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.##,,,-,"/>
@@ -536,7 +536,7 @@
                 <sg:BindingDataField Binding="{Binding 単価, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 金額 -->
+            <!-- 金額9 -->
             <sg:Column HorizontalAlignment="Right" Locked="True" Focusable="False" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
@@ -545,7 +545,7 @@
                 <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- 税区分 -->
+            <!-- 税区分10 -->
             <sg:Column Locked="True" Focusable="True" CanUserResize="False"  HorizontalAlignment="Center">
               <sg:Column.CellType>
                 <sg:TextCellType MaxLength="25" MaxLengthUnit="Byte" ImeState="On" />
@@ -554,7 +554,7 @@
                 <sg:BindingDataField Binding="{Binding 税区分, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                 </sg:Column.DataField>
             </sg:Column>
-            <!-- 摘要 -->
+            <!-- 摘要11 -->
             <sg:Column Locked="False" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
                 <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
@@ -563,7 +563,7 @@
                 <sg:BindingDataField Binding="{Binding 摘要, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
               </sg:Column.DataField>
             </sg:Column>
-            <!-- マルセン仕入 -->
+            <!-- マルセン仕入1s12 -->
             <sg:Column Locked="True" Focusable="True" CanUserResize="False" HorizontalAlignment="Center">
               <sg:Column.CellType>
                 <sg:CheckBoxCellType />

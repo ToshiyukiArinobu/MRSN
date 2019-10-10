@@ -849,6 +849,37 @@ namespace KyoeiSystem.Framework.Windows.ViewBase
 				//{
 				//	throw new ApplicationException();
 				//}
+                // 権限関係
+                if (wnd.GetType().GetField("ccfg",
+                                            System.Reflection.BindingFlags.Public |
+                                            System.Reflection.BindingFlags.Instance |
+                                            System.Reflection.BindingFlags.NonPublic) != null)
+                {
+
+                    string PGID = this.GetType().Name;
+                    object ccfg_tmp = wnd.GetType().GetField("ccfg",
+                                                        System.Reflection.BindingFlags.Public |
+                                                        System.Reflection.BindingFlags.Instance |
+                                                        System.Reflection.BindingFlags.NonPublic).GetValue(wnd);
+                    if (ccfg_tmp != null && ccfg_tmp.GetType().GetField("プログラムID") != null)
+                    {
+                        CommonConfig ccfg = new CommonConfig();
+                        ccfg.ユーザID = (int)ccfg_tmp.GetType().GetField("ユーザID").GetValue(ccfg_tmp);
+                        ccfg.ユーザ名 = (string)ccfg_tmp.GetType().GetField("ユーザ名").GetValue(ccfg_tmp);
+                        ccfg.権限 = (int)ccfg_tmp.GetType().GetField("権限").GetValue(ccfg_tmp);
+                        ccfg.ログイン時刻 = (DateTime)ccfg_tmp.GetType().GetField("ログイン時刻").GetValue(ccfg_tmp);
+                        ccfg.ログアウト時刻 = (DateTime)ccfg_tmp.GetType().GetField("ログアウト時刻").GetValue(ccfg_tmp);
+                        ccfg.ライセンスID = (string)ccfg_tmp.GetType().GetField("ライセンスID").GetValue(ccfg_tmp);
+                        //権限関係追加
+                        ccfg.プログラムID = (string[])ccfg_tmp.GetType().GetField("プログラムID").GetValue(ccfg_tmp);
+                        ccfg.使用可能FLG = (Boolean[])ccfg_tmp.GetType().GetField("使用可能FLG").GetValue(ccfg_tmp);
+                        ccfg.データ更新FLG = (Boolean[])ccfg_tmp.GetType().GetField("データ更新FLG").GetValue(ccfg_tmp);
+                        if (!Authority_Disp_Close(ccfg, PGID))
+                        {
+                            return;
+                        }
+                    }
+                }
 			}
 			catch (ApplicationException)
 			{
