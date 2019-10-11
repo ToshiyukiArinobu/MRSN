@@ -58,6 +58,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 伝票備考 { get; set; }
             public int? 行番号１ { get; set; }
             public string 品番１ { get; set; }
+            public string 得意先品番１ { get; set; }
             public string 品名１ { get; set; }
             public decimal? 数量１ { get; set; }
             public decimal? 単価１ { get; set; }
@@ -72,6 +73,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要１ { get; set; }
             public int? 行番号２ { get; set; }
             public string 品番２ { get; set; }
+            public string 得意先品番２ { get; set; }
             public string 品名２ { get; set; }
             public decimal? 数量２ { get; set; }
             public string 単位２ { get; set; }
@@ -86,6 +88,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要２ { get; set; }
             public int? 行番号３ { get; set; }
             public string 品番３ { get; set; }
+            public string 得意先品番３ { get; set; }
             public string 品名３ { get; set; }
             public decimal? 数量３ { get; set; }
             public string 単位３ { get; set; }
@@ -100,6 +103,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要３ { get; set; }
             public int? 行番号４ { get; set; }
             public string 品番４ { get; set; }
+            public string 得意先品番４ { get; set; }
             public string 品名４ { get; set; }
             public decimal? 数量４ { get; set; }
             public string 単位４ { get; set; }
@@ -114,6 +118,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要４ { get; set; }
             public int? 行番号５ { get; set; }
             public string 品番５ { get; set; }
+            public string 得意先品番５ { get; set; }
             public string 品名５ { get; set; }
             public decimal? 数量５ { get; set; }
             public string 単位５ { get; set; }
@@ -128,6 +133,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要５ { get; set; }
             public int? 行番号６ { get; set; }
             public string 品番６ { get; set; }
+            public string 得意先品番６ { get; set; }
             public string 品名６ { get; set; }
             public decimal? 数量６ { get; set; }
             public string 単位６ { get; set; }
@@ -142,6 +148,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要６ { get; set; }
             public int? 行番号７ { get; set; }
             public string 品番７ { get; set; }
+            public string 得意先品番７ { get; set; }
             public string 品名７ { get; set; }
             public decimal? 数量７ { get; set; }
             public string 単位７ { get; set; }
@@ -156,6 +163,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要７ { get; set; }
             public int? 行番号８ { get; set; }
             public string 品番８ { get; set; }
+            public string 得意先品番８ { get; set; }
             public string 品名８ { get; set; }
             public decimal? 数量８ { get; set; }
             public string 単位８ { get; set; }
@@ -170,6 +178,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要８ { get; set; }
             public int? 行番号９ { get; set; }
             public string 品番９ { get; set; }
+            public string 得意先品番９ { get; set; }
             public string 品名９ { get; set; }
             public decimal? 数量９ { get; set; }
             public string 単位９ { get; set; }
@@ -184,6 +193,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 明細摘要９ { get; set; }
             public int? 行番号１０ { get; set; }
             public string 品番１０ { get; set; }
+            public string 得意先品番１０ { get; set; }
             public string 品名１０ { get; set; }
             public decimal? 数量１０ { get; set; }
             public string 単位１０ { get; set; }
@@ -475,6 +485,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 1:
                     prtMem.行番号１ = rowNum;
                     prtMem.品番１ = dtlRow.品番;
+                    prtMem.得意先品番１ = dtlRow.得意先品番;
                     prtMem.品名１ = dtlRow.品名;
                     prtMem.数量１ = dtlRow.数量;
                     prtMem.単位１ = dtlRow.単位;
@@ -489,6 +500,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 2:
                     prtMem.行番号２ = rowNum;
                     prtMem.品番２ = dtlRow.品番;
+                    prtMem.得意先品番２ = dtlRow.得意先品番;
                     prtMem.品名２ = dtlRow.品名;
                     prtMem.数量２ = dtlRow.数量;
                     prtMem.単位２ = dtlRow.単位;
@@ -503,6 +515,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 3:
                     prtMem.行番号３ = rowNum;
                     prtMem.品番３ = dtlRow.品番;
+                    prtMem.得意先品番３ = dtlRow.得意先品番;
                     prtMem.品名３ = dtlRow.品名;
                     prtMem.数量３ = dtlRow.数量;
                     prtMem.単位３ = dtlRow.単位;
@@ -517,6 +530,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 4:
                     prtMem.行番号４ = rowNum;
                     prtMem.品番４ = dtlRow.品番;
+                    prtMem.得意先品番４ = dtlRow.得意先品番;
                     prtMem.品名４ = dtlRow.品名;
                     prtMem.数量４ = dtlRow.数量;
                     prtMem.単位４ = dtlRow.単位;
@@ -531,6 +545,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 5:
                     prtMem.行番号５ = rowNum;
                     prtMem.品番５ = dtlRow.品番;
+                    prtMem.得意先品番５ = dtlRow.得意先品番;
                     prtMem.品名５ = dtlRow.品名;
                     prtMem.数量５ = dtlRow.数量;
                     prtMem.単位５ = dtlRow.単位;
@@ -545,6 +560,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 6:
                     prtMem.行番号６ = rowNum;
                     prtMem.品番６ = dtlRow.品番;
+                    prtMem.得意先品番６ = dtlRow.得意先品番;
                     prtMem.品名６ = dtlRow.品名;
                     prtMem.数量６ = dtlRow.数量;
                     prtMem.単位６ = dtlRow.単位;
@@ -559,6 +575,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 7:
                     prtMem.行番号７ = rowNum;
                     prtMem.品番７ = dtlRow.品番;
+                    prtMem.得意先品番７ = dtlRow.得意先品番;
                     prtMem.品名７ = dtlRow.品名;
                     prtMem.数量７ = dtlRow.数量;
                     prtMem.単位７ = dtlRow.単位;
@@ -573,6 +590,7 @@ namespace KyoeiSystem.Application.WCFService
                 case 8:
                     prtMem.行番号８ = rowNum;
                     prtMem.品番８ = dtlRow.品番;
+                    prtMem.得意先品番８ = dtlRow.得意先品番;
                     prtMem.品名８ = dtlRow.品名;
                     prtMem.数量８ = dtlRow.数量;
                     prtMem.単位８ = dtlRow.単位;
@@ -586,6 +604,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 case 9:
                     prtMem.行番号９ = rowNum;
+                    prtMem.得意先品番９ = dtlRow.得意先品番;
                     prtMem.品番９ = dtlRow.品番;
                     prtMem.品名９ = dtlRow.品名;
                     prtMem.数量９ = dtlRow.数量;
@@ -600,6 +619,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 case 10:
                     prtMem.行番号１０ = rowNum;
+                    prtMem.得意先品番１０ = dtlRow.得意先品番;
                     prtMem.品番１０ = dtlRow.品番;
                     prtMem.品名１０ = dtlRow.品名;
                     prtMem.数量１０ = dtlRow.数量;
@@ -628,7 +648,7 @@ namespace KyoeiSystem.Application.WCFService
             switch (rowNum)
             {
                 case 1:
-                    prtMem.明細品番１ = dtlRow.品番;
+                    prtMem.明細品番１ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名１ = dtlRow.品名;
                     prtMem.明細数量１ = dtlRow.数量;
                     prtMem.明細単位１ = dtlRow.単位;
@@ -636,7 +656,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 2:
-                    prtMem.明細品番２ = dtlRow.品番;
+                    prtMem.明細品番２ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名２ = dtlRow.品名;
                     prtMem.明細数量２ = dtlRow.数量;
                     prtMem.明細単位２ = dtlRow.単位;
@@ -644,7 +664,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 3:
-                    prtMem.明細品番３ = dtlRow.品番;
+                    prtMem.明細品番３ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名３ = dtlRow.品名;
                     prtMem.明細数量３ = dtlRow.数量;
                     prtMem.明細単位３ = dtlRow.単位;
@@ -652,7 +672,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 4:
-                    prtMem.明細品番４ = dtlRow.品番;
+                    prtMem.明細品番４ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名４ = dtlRow.品名;
                     prtMem.明細数量４ = dtlRow.数量;
                     prtMem.明細単位４ = dtlRow.単位;
@@ -660,7 +680,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 5:
-                    prtMem.明細品番５ = dtlRow.品番;
+                    prtMem.明細品番５ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名５ = dtlRow.品名;
                     prtMem.明細数量５ = dtlRow.数量;
                     prtMem.明細単位５ = dtlRow.単位;
@@ -668,7 +688,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 6:
-                    prtMem.明細品番６ = dtlRow.品番;
+                    prtMem.明細品番６ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名６ = dtlRow.品名;
                     prtMem.明細数量６ = dtlRow.数量;
                     prtMem.明細単位６ = dtlRow.単位;
@@ -676,7 +696,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 7:
-                    prtMem.明細品番７ = dtlRow.品番;
+                    prtMem.明細品番７ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名７ = dtlRow.品名;
                     prtMem.明細数量７ = dtlRow.数量;
                     prtMem.明細単位７ = dtlRow.単位;
@@ -684,7 +704,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 8:
-                    prtMem.明細品番８ = dtlRow.品番;
+                    prtMem.明細品番８ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名８ = dtlRow.品名;
                     prtMem.明細数量８ = dtlRow.数量;
                     prtMem.明細単位８ = dtlRow.単位;
@@ -692,7 +712,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 9:
-                    prtMem.明細品番９ = dtlRow.品番;
+                    prtMem.明細品番９ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名９ = dtlRow.品名;
                     prtMem.明細数量９ = dtlRow.数量;
                     prtMem.明細単位９ = dtlRow.単位;
@@ -700,7 +720,7 @@ namespace KyoeiSystem.Application.WCFService
                     break;
 
                 case 10:
-                    prtMem.明細品番１０ = dtlRow.品番;
+                    prtMem.明細品番１０ = string.IsNullOrEmpty(dtlRow.得意先品番) ? dtlRow.品番 : dtlRow.得意先品番;
                     prtMem.明細品名１０ = dtlRow.品名;
                     prtMem.明細数量１０ = dtlRow.数量;
                     prtMem.明細単位１０ = dtlRow.単位;

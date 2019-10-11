@@ -340,17 +340,6 @@
                                        RadioSelectButton="One" RadioOne_Content="自社" RadioSecond_Content="販社"
                                        Text="{Binding 自社区分, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
           />
-
-<!-- TODO:データ選択時にtext2のバインドがうまくいかない
-          <ctls:UcLabelTwinTextBox Name="Suppliers" Label_Context="取引先コード" Grid.Row="26" MasterCheckEnabled="False" DataAccessName="M01_TOK"
-                                   Label_Width="100" Label1Text="－" Margin="0,0,360,0"
-                                   Text1MaxLength="4" Text1Width="60" Text1IMEType="Off"
-                                   Text1="{Binding 取引先コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                   Text2MaxLength="2" Text2Width="40" Text2IMEType="Off"
-                                   Text2="{Binding 取引先コード枝番, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                   LinkItem="{Binding 表示方法, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-          />
--->
           <uc:M01_TOK_TextBox x:Name="suppliers" Grid.Row="26" HorizontalAlignment="Left"
                               Label_Context="取引先コード" Label_Width="100"
                               DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="4"
@@ -362,25 +351,17 @@
                               Text2="{Binding 取引先コード枝番, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                               Label2Text=""
           />
-<!--
-          <ctls:UcLabelTwinTextBox Name="supCode" Label_Context="取引先コード" Grid.Row="26" Grid.ColumnSpan="1" Label_Width="100"
-                                   Label1Text="－"
-                                   Text1Width="60" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer"
-                                   Text1="{Binding 取引先コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                   Label2Visibility="Collapsed"
-                                   Text2Visibility="Collapsed" Text2Width="100"
-                                   DataAccessName="M01_TOK" MasterCheckEnabled="False"
-                                   GotFocus="supCode_GotFocus" LostFocus="supCode_LostFocus"
-                                   PreviewMouseDown="supCode_PreviewMouseDown"
-          />
 
-          <ctls:UcLabelTwinTextBox Name="supEda" Grid.Row="25" Label_Width="100" Grid.RowSpan="2" Margin="190,10,287,0" MasterCheckEnabled="False" LabelVisibility="Collapsed"
-                                   Text1Width="40" Text1MaxLength="2" Label1Visibility="Collapsed" Text1IMEType="Off" Text1ValidationType="Integer"
-                                   Text1="{Binding 取引先コード枝番, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                                   Label2Visibility="Collapsed" Text2Visibility="Collapsed" Text2Width="5"
+                    <StackPanel Grid.Row="28" Orientation="Horizontal">
+                        <ctls:UcLabelTextBox Name="settlementMonth" Label_Context="決算月" Label_Width="100" cWidth="35"
+                               HorizontalAlignment="Left" cTextAlignment="Right" ImeType="Off" cMaxLength="2" ValidationType="Number" MinValue="1" MaxValue="12"
+                               Text="{Binding 決算月, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
--->
-          <!-- ロゴ画像 -->
+                    <Label Content="月" Grid.Row="28" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- ロゴ画像 -->
           <Button Grid.Column="2" Grid.RowSpan="10" Width="300" Height="170" Margin="10,0,10,0"
                   BorderBrush="Black" BorderThickness="2" Background="Transparent"  Focusable="False" AllowDrop="True" 
                   MouseDoubleClick="ImageButton_MouseDoubleClick" DragEnter="Drag_Enter" Drop="DragDrop"

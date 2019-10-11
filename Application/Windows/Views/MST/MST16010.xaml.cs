@@ -78,6 +78,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private string _取引先コード枝番;
         private byte[] _ロゴ画像;
         private DateTime? _削除日時 = null;
+        private int? _決算月 = null;
 
         public string 自社ID { get { return _自社ID; } set { this._自社ID = value; NotifyPropertyChanged(); } }
         public string 自社名 { get { return _自社名; } set { this._自社名 = value; NotifyPropertyChanged(); } }
@@ -96,7 +97,7 @@ namespace KyoeiSystem.Application.Windows.Views
         public string 取引先コード枝番 { get { return _取引先コード枝番; } set { this._取引先コード枝番 = value; NotifyPropertyChanged(); } }
         public byte[] ロゴ画像 { get { return _ロゴ画像; } set { this._ロゴ画像 = value; NotifyPropertyChanged(); } }
         public DateTime? 削除日時 { get { return this._削除日時; } set { this._削除日時 = value; NotifyPropertyChanged(); } }
-
+        public int? 決算月 { get { return _決算月; } set { this._決算月 = value; NotifyPropertyChanged(); } }
         private DataRow _MstData;
         public DataRow MstData
         {
@@ -280,7 +281,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 ロゴ画像 = obj == DBNull.Value ? null : (byte[])obj;
                 DateTime Wk;
                 削除日時 = DateTime.TryParse(tbl.Rows[0]["削除日時"].ToString(), out Wk) ? Wk : (DateTime?)null;
-
+                int iWk;
+                決算月 = int.TryParse(tbl.Rows[0]["決算月"].ToString(), out iWk) ? iWk : (int?)null;
                 ChangeKeyItemChangeable(false);
                 SetFocusToTopControl();
 
@@ -640,7 +642,8 @@ namespace KyoeiSystem.Application.Windows.Views
             取引先コード枝番 = string.Empty;
             ロゴ画像 = null;
             削除日時 = null;
-
+            決算月 = null;
+            
             this.MaintenanceMode = string.Empty;
 
             // キーのみtrue

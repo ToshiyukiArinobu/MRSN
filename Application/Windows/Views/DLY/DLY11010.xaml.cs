@@ -119,6 +119,8 @@ namespace KyoeiSystem.Application.Windows.Views
             txt売上日From.Text = DateTime.Now.ToString("yyyy/MM/dd");
             txt売上日To.Text = DateTime.Now.ToString("yyyy/MM/dd");
 
+            SetFocusToTopControl();
+
         }
 
         #endregion

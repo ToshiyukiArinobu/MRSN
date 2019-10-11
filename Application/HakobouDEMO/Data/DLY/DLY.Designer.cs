@@ -7407,6 +7407,8 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column品番１;
             
+            private global::System.Data.DataColumn column得意先品番１;
+            
             private global::System.Data.DataColumn column品名１;
             
             private global::System.Data.DataColumn column数量１;
@@ -7432,6 +7434,8 @@ namespace Hakobou.Data.DLY {
             private global::System.Data.DataColumn column行番号２;
             
             private global::System.Data.DataColumn column品番２;
+            
+            private global::System.Data.DataColumn column得意先品番２;
             
             private global::System.Data.DataColumn column品名２;
             
@@ -7459,6 +7463,8 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column品番３;
             
+            private global::System.Data.DataColumn column得意先品番３;
+            
             private global::System.Data.DataColumn column品名３;
             
             private global::System.Data.DataColumn column数量３;
@@ -7484,6 +7490,8 @@ namespace Hakobou.Data.DLY {
             private global::System.Data.DataColumn column行番号４;
             
             private global::System.Data.DataColumn column品番４;
+            
+            private global::System.Data.DataColumn column得意先品番４;
             
             private global::System.Data.DataColumn column品名４;
             
@@ -7511,6 +7519,8 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column品番５;
             
+            private global::System.Data.DataColumn column得意先品番５;
+            
             private global::System.Data.DataColumn column品名５;
             
             private global::System.Data.DataColumn column数量５;
@@ -7536,6 +7546,8 @@ namespace Hakobou.Data.DLY {
             private global::System.Data.DataColumn column行番号６;
             
             private global::System.Data.DataColumn column品番６;
+            
+            private global::System.Data.DataColumn column得意先品番６;
             
             private global::System.Data.DataColumn column品名６;
             
@@ -7563,6 +7575,8 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column品番７;
             
+            private global::System.Data.DataColumn column得意先品番７;
+            
             private global::System.Data.DataColumn column品名７;
             
             private global::System.Data.DataColumn column数量７;
@@ -7588,6 +7602,8 @@ namespace Hakobou.Data.DLY {
             private global::System.Data.DataColumn column行番号８;
             
             private global::System.Data.DataColumn column品番８;
+            
+            private global::System.Data.DataColumn column得意先品番８;
             
             private global::System.Data.DataColumn column品名８;
             
@@ -7615,6 +7631,8 @@ namespace Hakobou.Data.DLY {
             
             private global::System.Data.DataColumn column品番９;
             
+            private global::System.Data.DataColumn column得意先品番９;
+            
             private global::System.Data.DataColumn column品名９;
             
             private global::System.Data.DataColumn column数量９;
@@ -7640,6 +7658,8 @@ namespace Hakobou.Data.DLY {
             private global::System.Data.DataColumn column行番号１０;
             
             private global::System.Data.DataColumn column品番１０;
+            
+            private global::System.Data.DataColumn column得意先品番１０;
             
             private global::System.Data.DataColumn column品名１０;
             
@@ -7978,6 +7998,14 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番１Column {
+                get {
+                    return this.column得意先品番１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 品名１Column {
                 get {
                     return this.column品名１;
@@ -8077,6 +8105,14 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 品番２Column {
                 get {
                     return this.column品番２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番２Column {
+                get {
+                    return this.column得意先品番２;
                 }
             }
             
@@ -8186,6 +8222,14 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番３Column {
+                get {
+                    return this.column得意先品番３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 品名３Column {
                 get {
                     return this.column品名３;
@@ -8285,6 +8329,14 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 品番４Column {
                 get {
                     return this.column品番４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番４Column {
+                get {
+                    return this.column得意先品番４;
                 }
             }
             
@@ -8394,6 +8446,14 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番５Column {
+                get {
+                    return this.column得意先品番５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 品名５Column {
                 get {
                     return this.column品名５;
@@ -8493,6 +8553,14 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 品番６Column {
                 get {
                     return this.column品番６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番６Column {
+                get {
+                    return this.column得意先品番６;
                 }
             }
             
@@ -8602,6 +8670,14 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番７Column {
+                get {
+                    return this.column得意先品番７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 品名７Column {
                 get {
                     return this.column品名７;
@@ -8701,6 +8777,14 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 品番８Column {
                 get {
                     return this.column品番８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番８Column {
+                get {
+                    return this.column得意先品番８;
                 }
             }
             
@@ -8810,6 +8894,14 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番９Column {
+                get {
+                    return this.column得意先品番９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 品名９Column {
                 get {
                     return this.column品名９;
@@ -8909,6 +9001,14 @@ namespace Hakobou.Data.DLY {
             public global::System.Data.DataColumn 品番１０Column {
                 get {
                     return this.column品番１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先品番１０Column {
+                get {
+                    return this.column得意先品番１０;
                 }
             }
             
@@ -9073,6 +9173,7 @@ namespace Hakobou.Data.DLY {
                         string 伝票備考, 
                         string 行番号１, 
                         string 品番１, 
+                        string 得意先品番１, 
                         string 品名１, 
                         int 数量１, 
                         string 単位１, 
@@ -9086,6 +9187,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要１, 
                         string 行番号２, 
                         string 品番２, 
+                        string 得意先品番２, 
                         string 品名２, 
                         int 数量２, 
                         string 単位２, 
@@ -9099,6 +9201,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要２, 
                         string 行番号３, 
                         string 品番３, 
+                        string 得意先品番３, 
                         string 品名３, 
                         int 数量３, 
                         string 単位３, 
@@ -9112,6 +9215,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要３, 
                         string 行番号４, 
                         string 品番４, 
+                        string 得意先品番４, 
                         string 品名４, 
                         int 数量４, 
                         string 単位４, 
@@ -9125,6 +9229,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要４, 
                         string 行番号５, 
                         string 品番５, 
+                        string 得意先品番５, 
                         string 品名５, 
                         int 数量５, 
                         string 単位５, 
@@ -9138,6 +9243,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要５, 
                         string 行番号６, 
                         string 品番６, 
+                        string 得意先品番６, 
                         string 品名６, 
                         int 数量６, 
                         string 単位６, 
@@ -9151,6 +9257,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要６, 
                         string 行番号７, 
                         string 品番７, 
+                        string 得意先品番７, 
                         string 品名７, 
                         int 数量７, 
                         string 単位７, 
@@ -9164,6 +9271,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要７, 
                         string 行番号８, 
                         string 品番８, 
+                        string 得意先品番８, 
                         string 品名８, 
                         int 数量８, 
                         string 単位８, 
@@ -9177,6 +9285,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要８, 
                         string 行番号９, 
                         string 品番９, 
+                        string 得意先品番９, 
                         string 品名９, 
                         int 数量９, 
                         string 単位９, 
@@ -9190,6 +9299,7 @@ namespace Hakobou.Data.DLY {
                         string 明細摘要９, 
                         string 行番号１０, 
                         string 品番１０, 
+                        string 得意先品番１０, 
                         string 品名１０, 
                         int 数量１０, 
                         string 単位１０, 
@@ -9238,6 +9348,7 @@ namespace Hakobou.Data.DLY {
                         伝票備考,
                         行番号１,
                         品番１,
+                        得意先品番１,
                         品名１,
                         数量１,
                         単位１,
@@ -9251,6 +9362,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要１,
                         行番号２,
                         品番２,
+                        得意先品番２,
                         品名２,
                         数量２,
                         単位２,
@@ -9264,6 +9376,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要２,
                         行番号３,
                         品番３,
+                        得意先品番３,
                         品名３,
                         数量３,
                         単位３,
@@ -9277,6 +9390,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要３,
                         行番号４,
                         品番４,
+                        得意先品番４,
                         品名４,
                         数量４,
                         単位４,
@@ -9290,6 +9404,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要４,
                         行番号５,
                         品番５,
+                        得意先品番５,
                         品名５,
                         数量５,
                         単位５,
@@ -9303,6 +9418,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要５,
                         行番号６,
                         品番６,
+                        得意先品番６,
                         品名６,
                         数量６,
                         単位６,
@@ -9316,6 +9432,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要６,
                         行番号７,
                         品番７,
+                        得意先品番７,
                         品名７,
                         数量７,
                         単位７,
@@ -9329,6 +9446,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要７,
                         行番号８,
                         品番８,
+                        得意先品番８,
                         品名８,
                         数量８,
                         単位８,
@@ -9342,6 +9460,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要８,
                         行番号９,
                         品番９,
+                        得意先品番９,
                         品名９,
                         数量９,
                         単位９,
@@ -9355,6 +9474,7 @@ namespace Hakobou.Data.DLY {
                         明細摘要９,
                         行番号１０,
                         品番１０,
+                        得意先品番１０,
                         品名１０,
                         数量１０,
                         単位１０,
@@ -9423,6 +9543,7 @@ namespace Hakobou.Data.DLY {
                 this.column伝票備考 = base.Columns["伝票備考"];
                 this.column行番号１ = base.Columns["行番号１"];
                 this.column品番１ = base.Columns["品番１"];
+                this.column得意先品番１ = base.Columns["得意先品番１"];
                 this.column品名１ = base.Columns["品名１"];
                 this.column数量１ = base.Columns["数量１"];
                 this.column単位１ = base.Columns["単位１"];
@@ -9436,6 +9557,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要１ = base.Columns["明細摘要１"];
                 this.column行番号２ = base.Columns["行番号２"];
                 this.column品番２ = base.Columns["品番２"];
+                this.column得意先品番２ = base.Columns["得意先品番２"];
                 this.column品名２ = base.Columns["品名２"];
                 this.column数量２ = base.Columns["数量２"];
                 this.column単位２ = base.Columns["単位２"];
@@ -9449,6 +9571,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要２ = base.Columns["明細摘要２"];
                 this.column行番号３ = base.Columns["行番号３"];
                 this.column品番３ = base.Columns["品番３"];
+                this.column得意先品番３ = base.Columns["得意先品番３"];
                 this.column品名３ = base.Columns["品名３"];
                 this.column数量３ = base.Columns["数量３"];
                 this.column単位３ = base.Columns["単位３"];
@@ -9462,6 +9585,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要３ = base.Columns["明細摘要３"];
                 this.column行番号４ = base.Columns["行番号４"];
                 this.column品番４ = base.Columns["品番４"];
+                this.column得意先品番４ = base.Columns["得意先品番４"];
                 this.column品名４ = base.Columns["品名４"];
                 this.column数量４ = base.Columns["数量４"];
                 this.column単位４ = base.Columns["単位４"];
@@ -9475,6 +9599,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要４ = base.Columns["明細摘要４"];
                 this.column行番号５ = base.Columns["行番号５"];
                 this.column品番５ = base.Columns["品番５"];
+                this.column得意先品番５ = base.Columns["得意先品番５"];
                 this.column品名５ = base.Columns["品名５"];
                 this.column数量５ = base.Columns["数量５"];
                 this.column単位５ = base.Columns["単位５"];
@@ -9488,6 +9613,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要５ = base.Columns["明細摘要５"];
                 this.column行番号６ = base.Columns["行番号６"];
                 this.column品番６ = base.Columns["品番６"];
+                this.column得意先品番６ = base.Columns["得意先品番６"];
                 this.column品名６ = base.Columns["品名６"];
                 this.column数量６ = base.Columns["数量６"];
                 this.column単位６ = base.Columns["単位６"];
@@ -9501,6 +9627,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要６ = base.Columns["明細摘要６"];
                 this.column行番号７ = base.Columns["行番号７"];
                 this.column品番７ = base.Columns["品番７"];
+                this.column得意先品番７ = base.Columns["得意先品番７"];
                 this.column品名７ = base.Columns["品名７"];
                 this.column数量７ = base.Columns["数量７"];
                 this.column単位７ = base.Columns["単位７"];
@@ -9514,6 +9641,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要７ = base.Columns["明細摘要７"];
                 this.column行番号８ = base.Columns["行番号８"];
                 this.column品番８ = base.Columns["品番８"];
+                this.column得意先品番８ = base.Columns["得意先品番８"];
                 this.column品名８ = base.Columns["品名８"];
                 this.column数量８ = base.Columns["数量８"];
                 this.column単位８ = base.Columns["単位８"];
@@ -9527,6 +9655,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要８ = base.Columns["明細摘要８"];
                 this.column行番号９ = base.Columns["行番号９"];
                 this.column品番９ = base.Columns["品番９"];
+                this.column得意先品番９ = base.Columns["得意先品番９"];
                 this.column品名９ = base.Columns["品名９"];
                 this.column数量９ = base.Columns["数量９"];
                 this.column単位９ = base.Columns["単位９"];
@@ -9540,6 +9669,7 @@ namespace Hakobou.Data.DLY {
                 this.column明細摘要９ = base.Columns["明細摘要９"];
                 this.column行番号１０ = base.Columns["行番号１０"];
                 this.column品番１０ = base.Columns["品番１０"];
+                this.column得意先品番１０ = base.Columns["得意先品番１０"];
                 this.column品名１０ = base.Columns["品名１０"];
                 this.column数量１０ = base.Columns["数量１０"];
                 this.column単位１０ = base.Columns["単位１０"];
@@ -9626,6 +9756,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号１);
                 this.column品番１ = new global::System.Data.DataColumn("品番１", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番１);
+                this.column得意先品番１ = new global::System.Data.DataColumn("得意先品番１", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番１);
                 this.column品名１ = new global::System.Data.DataColumn("品名１", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名１);
                 this.column数量１ = new global::System.Data.DataColumn("数量１", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9652,6 +9784,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号２);
                 this.column品番２ = new global::System.Data.DataColumn("品番２", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番２);
+                this.column得意先品番２ = new global::System.Data.DataColumn("得意先品番２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番２);
                 this.column品名２ = new global::System.Data.DataColumn("品名２", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名２);
                 this.column数量２ = new global::System.Data.DataColumn("数量２", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9678,6 +9812,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号３);
                 this.column品番３ = new global::System.Data.DataColumn("品番３", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番３);
+                this.column得意先品番３ = new global::System.Data.DataColumn("得意先品番３", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番３);
                 this.column品名３ = new global::System.Data.DataColumn("品名３", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名３);
                 this.column数量３ = new global::System.Data.DataColumn("数量３", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9704,6 +9840,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号４);
                 this.column品番４ = new global::System.Data.DataColumn("品番４", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番４);
+                this.column得意先品番４ = new global::System.Data.DataColumn("得意先品番４", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番４);
                 this.column品名４ = new global::System.Data.DataColumn("品名４", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名４);
                 this.column数量４ = new global::System.Data.DataColumn("数量４", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9730,6 +9868,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号５);
                 this.column品番５ = new global::System.Data.DataColumn("品番５", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番５);
+                this.column得意先品番５ = new global::System.Data.DataColumn("得意先品番５", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番５);
                 this.column品名５ = new global::System.Data.DataColumn("品名５", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名５);
                 this.column数量５ = new global::System.Data.DataColumn("数量５", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9756,6 +9896,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号６);
                 this.column品番６ = new global::System.Data.DataColumn("品番６", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番６);
+                this.column得意先品番６ = new global::System.Data.DataColumn("得意先品番６", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番６);
                 this.column品名６ = new global::System.Data.DataColumn("品名６", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名６);
                 this.column数量６ = new global::System.Data.DataColumn("数量６", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9782,6 +9924,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号７);
                 this.column品番７ = new global::System.Data.DataColumn("品番７", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番７);
+                this.column得意先品番７ = new global::System.Data.DataColumn("得意先品番７", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番７);
                 this.column品名７ = new global::System.Data.DataColumn("品名７", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名７);
                 this.column数量７ = new global::System.Data.DataColumn("数量７", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9808,6 +9952,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号８);
                 this.column品番８ = new global::System.Data.DataColumn("品番８", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番８);
+                this.column得意先品番８ = new global::System.Data.DataColumn("得意先品番８", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番８);
                 this.column品名８ = new global::System.Data.DataColumn("品名８", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名８);
                 this.column数量８ = new global::System.Data.DataColumn("数量８", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9834,6 +9980,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号９);
                 this.column品番９ = new global::System.Data.DataColumn("品番９", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番９);
+                this.column得意先品番９ = new global::System.Data.DataColumn("得意先品番９", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番９);
                 this.column品名９ = new global::System.Data.DataColumn("品名９", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名９);
                 this.column数量９ = new global::System.Data.DataColumn("数量９", typeof(int), null, global::System.Data.MappingType.Element);
@@ -9860,6 +10008,8 @@ namespace Hakobou.Data.DLY {
                 base.Columns.Add(this.column行番号１０);
                 this.column品番１０ = new global::System.Data.DataColumn("品番１０", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番１０);
+                this.column得意先品番１０ = new global::System.Data.DataColumn("得意先品番１０", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先品番１０);
                 this.column品名１０ = new global::System.Data.DataColumn("品名１０", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品名１０);
                 this.column数量１０ = new global::System.Data.DataColumn("数量１０", typeof(int), null, global::System.Data.MappingType.Element);
@@ -18547,6 +18697,22 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番１ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 品名１ {
                 get {
                     if (this.Is品名１Null()) {
@@ -18750,6 +18916,22 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.品番２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番２Column] = value;
                 }
             }
             
@@ -18963,6 +19145,22 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番３ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 品名３ {
                 get {
                     if (this.Is品名３Null()) {
@@ -19166,6 +19364,22 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.品番４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番４ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番４Column] = value;
                 }
             }
             
@@ -19379,6 +19593,22 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番５ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 品名５ {
                 get {
                     if (this.Is品名５Null()) {
@@ -19582,6 +19812,22 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.品番６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番６ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番６Column] = value;
                 }
             }
             
@@ -19795,6 +20041,22 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番７ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 品名７ {
                 get {
                     if (this.Is品名７Null()) {
@@ -19998,6 +20260,22 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.品番８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番８ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番８Column] = value;
                 }
             }
             
@@ -20211,6 +20489,22 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番９ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 品名９ {
                 get {
                     if (this.Is品名９Null()) {
@@ -20414,6 +20708,22 @@ namespace Hakobou.Data.DLY {
                 }
                 set {
                     this[this.tableDLY11010_納品書.品番１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先品番１０ {
+                get {
+                    try {
+                        return ((string)(this[this.tableDLY11010_納品書.得意先品番１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'DLY11010_納品書\' にある列 \'得意先品番１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableDLY11010_納品書.得意先品番１０Column] = value;
                 }
             }
             
@@ -21015,6 +21325,18 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番１Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番１Null() {
+                this[this.tableDLY11010_納品書.得意先品番１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is品名１Null() {
                 return this.IsNull(this.tableDLY11010_納品書.品名１Column);
             }
@@ -21167,6 +21489,18 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set品番２Null() {
                 this[this.tableDLY11010_納品書.品番２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番２Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番２Null() {
+                this[this.tableDLY11010_納品書.得意先品番２Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21327,6 +21661,18 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番３Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番３Null() {
+                this[this.tableDLY11010_納品書.得意先品番３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is品名３Null() {
                 return this.IsNull(this.tableDLY11010_納品書.品名３Column);
             }
@@ -21479,6 +21825,18 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set品番４Null() {
                 this[this.tableDLY11010_納品書.品番４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番４Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番４Null() {
+                this[this.tableDLY11010_納品書.得意先品番４Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21639,6 +21997,18 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番５Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番５Null() {
+                this[this.tableDLY11010_納品書.得意先品番５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is品名５Null() {
                 return this.IsNull(this.tableDLY11010_納品書.品名５Column);
             }
@@ -21791,6 +22161,18 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set品番６Null() {
                 this[this.tableDLY11010_納品書.品番６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番６Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番６Null() {
+                this[this.tableDLY11010_納品書.得意先品番６Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21951,6 +22333,18 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番７Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番７Null() {
+                this[this.tableDLY11010_納品書.得意先品番７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is品名７Null() {
                 return this.IsNull(this.tableDLY11010_納品書.品名７Column);
             }
@@ -22103,6 +22497,18 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set品番８Null() {
                 this[this.tableDLY11010_納品書.品番８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番８Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番８Null() {
+                this[this.tableDLY11010_納品書.得意先品番８Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -22263,6 +22669,18 @@ namespace Hakobou.Data.DLY {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番９Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番９Null() {
+                this[this.tableDLY11010_納品書.得意先品番９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is品名９Null() {
                 return this.IsNull(this.tableDLY11010_納品書.品名９Column);
             }
@@ -22415,6 +22833,18 @@ namespace Hakobou.Data.DLY {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set品番１０Null() {
                 this[this.tableDLY11010_納品書.品番１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先品番１０Null() {
+                return this.IsNull(this.tableDLY11010_納品書.得意先品番１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先品番１０Null() {
+                this[this.tableDLY11010_納品書.得意先品番１０Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
