@@ -344,7 +344,7 @@ namespace KyoeiSystem.Application.WCFService
                             {
                                 行番号 = x.URDTL.行番号,          // No-174 Add
                                 品番 = x.HIN.自社品番,
-                                得意先品番 = x.TOKHIN == null ? x.HIN.自社品番 : x.TOKHIN.得意先品番コード,
+                                得意先品番 = x.TOKHIN == null ? string.Empty : x.TOKHIN.得意先品番コード,
                                 品名 = x.HIN.自社品名,
                                 数量 = x.URDTL.数量,
                                 単位 = x.URDTL.単位,
