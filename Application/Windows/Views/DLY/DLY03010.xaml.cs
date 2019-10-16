@@ -1254,6 +1254,12 @@ namespace KyoeiSystem.Application.Windows.Views
                 return isResult;
 
             }
+            else if (string.IsNullOrEmpty(this.txt得意先.Label2Text))
+            {
+                this.txt得意先.Focus();
+                base.ErrorMessage = string.Format("得意先がマスタに存在していないデータが入力されています。");
+                return isResult;
+            }
             else if (!this.txt得意先.CheckValidation())
             {
                 this.txt得意先.Focus();
