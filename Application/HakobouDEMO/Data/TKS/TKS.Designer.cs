@@ -34,6 +34,8 @@ namespace Hakobou.Data.TKS {
         
         private TKS08010_入金予定実績表DataTable tableTKS08010_入金予定実績表;
         
+        private TKS02010_売上データ一覧表DataTable tableTKS02010_売上データ一覧表;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -76,6 +78,9 @@ namespace Hakobou.Data.TKS {
                 }
                 if ((ds.Tables["TKS08010_入金予定実績表"] != null)) {
                     base.Tables.Add(new TKS08010_入金予定実績表DataTable(ds.Tables["TKS08010_入金予定実績表"]));
+                }
+                if ((ds.Tables["TKS02010_売上データ一覧表"] != null)) {
+                    base.Tables.Add(new TKS02010_売上データ一覧表DataTable(ds.Tables["TKS02010_売上データ一覧表"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -142,6 +147,16 @@ namespace Hakobou.Data.TKS {
         public TKS08010_入金予定実績表DataTable TKS08010_入金予定実績表 {
             get {
                 return this.tableTKS08010_入金予定実績表;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public TKS02010_売上データ一覧表DataTable TKS02010_売上データ一覧表 {
+            get {
+                return this.tableTKS02010_売上データ一覧表;
             }
         }
         
@@ -227,6 +242,9 @@ namespace Hakobou.Data.TKS {
                 if ((ds.Tables["TKS08010_入金予定実績表"] != null)) {
                     base.Tables.Add(new TKS08010_入金予定実績表DataTable(ds.Tables["TKS08010_入金予定実績表"]));
                 }
+                if ((ds.Tables["TKS02010_売上データ一覧表"] != null)) {
+                    base.Tables.Add(new TKS02010_売上データ一覧表DataTable(ds.Tables["TKS02010_売上データ一覧表"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -290,6 +308,12 @@ namespace Hakobou.Data.TKS {
                     this.tableTKS08010_入金予定実績表.InitVars();
                 }
             }
+            this.tableTKS02010_売上データ一覧表 = ((TKS02010_売上データ一覧表DataTable)(base.Tables["TKS02010_売上データ一覧表"]));
+            if ((initTable == true)) {
+                if ((this.tableTKS02010_売上データ一覧表 != null)) {
+                    this.tableTKS02010_売上データ一覧表.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -310,6 +334,8 @@ namespace Hakobou.Data.TKS {
             base.Tables.Add(this.tableTKS07010_入金予定表);
             this.tableTKS08010_入金予定実績表 = new TKS08010_入金予定実績表DataTable();
             base.Tables.Add(this.tableTKS08010_入金予定実績表);
+            this.tableTKS02010_売上データ一覧表 = new TKS02010_売上データ一覧表DataTable();
+            base.Tables.Add(this.tableTKS02010_売上データ一覧表);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -339,6 +365,12 @@ namespace Hakobou.Data.TKS {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeTKS08010_入金予定実績表() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeTKS02010_売上データ一覧表() {
             return false;
         }
         
@@ -411,6 +443,9 @@ namespace Hakobou.Data.TKS {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void TKS08010_入金予定実績表RowChangeEventHandler(object sender, TKS08010_入金予定実績表RowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void TKS02010_売上データ一覧表RowChangeEventHandler(object sender, TKS02010_売上データ一覧表RowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -3049,6 +3084,409 @@ namespace Hakobou.Data.TKS {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "TKS08010_入金予定実績表DataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class TKS02010_売上データ一覧表DataTable : global::System.Data.TypedTableBase<TKS02010_売上データ一覧表Row> {
+            
+            private global::System.Data.DataColumn column得意先コード;
+            
+            private global::System.Data.DataColumn column得意先名称;
+            
+            private global::System.Data.DataColumn column前月繰越;
+            
+            private global::System.Data.DataColumn column入金額;
+            
+            private global::System.Data.DataColumn column通常税率対象売上額;
+            
+            private global::System.Data.DataColumn column軽減税率対象売上額;
+            
+            private global::System.Data.DataColumn column非課税売上額;
+            
+            private global::System.Data.DataColumn column通常税消費税;
+            
+            private global::System.Data.DataColumn column軽減税消費税;
+            
+            private global::System.Data.DataColumn column税込売上額;
+            
+            private global::System.Data.DataColumn column軽減税込売上額;
+            
+            private global::System.Data.DataColumn column当月残高;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TKS02010_売上データ一覧表DataTable() {
+                this.TableName = "TKS02010_売上データ一覧表";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal TKS02010_売上データ一覧表DataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected TKS02010_売上データ一覧表DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先コードColumn {
+                get {
+                    return this.column得意先コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先名称Column {
+                get {
+                    return this.column得意先名称;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前月繰越Column {
+                get {
+                    return this.column前月繰越;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 入金額Column {
+                get {
+                    return this.column入金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 通常税率対象売上額Column {
+                get {
+                    return this.column通常税率対象売上額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減税率対象売上額Column {
+                get {
+                    return this.column軽減税率対象売上額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 非課税売上額Column {
+                get {
+                    return this.column非課税売上額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 通常税消費税Column {
+                get {
+                    return this.column通常税消費税;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減税消費税Column {
+                get {
+                    return this.column軽減税消費税;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 税込売上額Column {
+                get {
+                    return this.column税込売上額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減税込売上額Column {
+                get {
+                    return this.column軽減税込売上額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 当月残高Column {
+                get {
+                    return this.column当月残高;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TKS02010_売上データ一覧表Row this[int index] {
+                get {
+                    return ((TKS02010_売上データ一覧表Row)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TKS02010_売上データ一覧表RowChangeEventHandler TKS02010_売上データ一覧表RowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TKS02010_売上データ一覧表RowChangeEventHandler TKS02010_売上データ一覧表RowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TKS02010_売上データ一覧表RowChangeEventHandler TKS02010_売上データ一覧表RowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TKS02010_売上データ一覧表RowChangeEventHandler TKS02010_売上データ一覧表RowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddTKS02010_売上データ一覧表Row(TKS02010_売上データ一覧表Row row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TKS02010_売上データ一覧表Row AddTKS02010_売上データ一覧表Row(string 得意先コード, string 得意先名称, decimal 前月繰越, decimal 入金額, decimal 通常税率対象売上額, decimal 軽減税率対象売上額, long 非課税売上額, double 通常税消費税, decimal 軽減税消費税, decimal 税込売上額, decimal 軽減税込売上額, decimal 当月残高) {
+                TKS02010_売上データ一覧表Row rowTKS02010_売上データ一覧表Row = ((TKS02010_売上データ一覧表Row)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        得意先コード,
+                        得意先名称,
+                        前月繰越,
+                        入金額,
+                        通常税率対象売上額,
+                        軽減税率対象売上額,
+                        非課税売上額,
+                        通常税消費税,
+                        軽減税消費税,
+                        税込売上額,
+                        軽減税込売上額,
+                        当月残高};
+                rowTKS02010_売上データ一覧表Row.ItemArray = columnValuesArray;
+                this.Rows.Add(rowTKS02010_売上データ一覧表Row);
+                return rowTKS02010_売上データ一覧表Row;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                TKS02010_売上データ一覧表DataTable cln = ((TKS02010_売上データ一覧表DataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new TKS02010_売上データ一覧表DataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.column得意先コード = base.Columns["得意先コード"];
+                this.column得意先名称 = base.Columns["得意先名称"];
+                this.column前月繰越 = base.Columns["前月繰越"];
+                this.column入金額 = base.Columns["入金額"];
+                this.column通常税率対象売上額 = base.Columns["通常税率対象売上額"];
+                this.column軽減税率対象売上額 = base.Columns["軽減税率対象売上額"];
+                this.column非課税売上額 = base.Columns["非課税売上額"];
+                this.column通常税消費税 = base.Columns["通常税消費税"];
+                this.column軽減税消費税 = base.Columns["軽減税消費税"];
+                this.column税込売上額 = base.Columns["税込売上額"];
+                this.column軽減税込売上額 = base.Columns["軽減税込売上額"];
+                this.column当月残高 = base.Columns["当月残高"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.column得意先コード = new global::System.Data.DataColumn("得意先コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先コード);
+                this.column得意先名称 = new global::System.Data.DataColumn("得意先名称", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先名称);
+                this.column前月繰越 = new global::System.Data.DataColumn("前月繰越", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前月繰越);
+                this.column入金額 = new global::System.Data.DataColumn("入金額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column入金額);
+                this.column通常税率対象売上額 = new global::System.Data.DataColumn("通常税率対象売上額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column通常税率対象売上額);
+                this.column軽減税率対象売上額 = new global::System.Data.DataColumn("軽減税率対象売上額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減税率対象売上額);
+                this.column非課税売上額 = new global::System.Data.DataColumn("非課税売上額", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column非課税売上額);
+                this.column通常税消費税 = new global::System.Data.DataColumn("通常税消費税", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column通常税消費税);
+                this.column軽減税消費税 = new global::System.Data.DataColumn("軽減税消費税", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減税消費税);
+                this.column税込売上額 = new global::System.Data.DataColumn("税込売上額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column税込売上額);
+                this.column軽減税込売上額 = new global::System.Data.DataColumn("軽減税込売上額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減税込売上額);
+                this.column当月残高 = new global::System.Data.DataColumn("当月残高", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column当月残高);
+                this.column前月繰越.Caption = "前月残高";
+                this.column非課税売上額.DefaultValue = ((long)(0));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TKS02010_売上データ一覧表Row NewTKS02010_売上データ一覧表Row() {
+                return ((TKS02010_売上データ一覧表Row)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new TKS02010_売上データ一覧表Row(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(TKS02010_売上データ一覧表Row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.TKS02010_売上データ一覧表RowChanged != null)) {
+                    this.TKS02010_売上データ一覧表RowChanged(this, new TKS02010_売上データ一覧表RowChangeEvent(((TKS02010_売上データ一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.TKS02010_売上データ一覧表RowChanging != null)) {
+                    this.TKS02010_売上データ一覧表RowChanging(this, new TKS02010_売上データ一覧表RowChangeEvent(((TKS02010_売上データ一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.TKS02010_売上データ一覧表RowDeleted != null)) {
+                    this.TKS02010_売上データ一覧表RowDeleted(this, new TKS02010_売上データ一覧表RowChangeEvent(((TKS02010_売上データ一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.TKS02010_売上データ一覧表RowDeleting != null)) {
+                    this.TKS02010_売上データ一覧表RowDeleting(this, new TKS02010_売上データ一覧表RowChangeEvent(((TKS02010_売上データ一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveTKS02010_売上データ一覧表Row(TKS02010_売上データ一覧表Row row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                TKS ds = new TKS();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "TKS02010_売上データ一覧表DataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -5953,6 +6391,357 @@ namespace Hakobou.Data.TKS {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class TKS02010_売上データ一覧表Row : global::System.Data.DataRow {
+            
+            private TKS02010_売上データ一覧表DataTable tableTKS02010_売上データ一覧表;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal TKS02010_売上データ一覧表Row(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableTKS02010_売上データ一覧表 = ((TKS02010_売上データ一覧表DataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先コード {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS02010_売上データ一覧表.得意先コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'得意先コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.得意先コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先名称 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS02010_売上データ一覧表.得意先名称Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'得意先名称\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.得意先名称Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 前月繰越 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.前月繰越Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'前月繰越\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.前月繰越Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 入金額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.入金額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'入金額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.入金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 通常税率対象売上額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.通常税率対象売上額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'通常税率対象売上額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.通常税率対象売上額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 軽減税率対象売上額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.軽減税率対象売上額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'軽減税率対象売上額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.軽減税率対象売上額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 非課税売上額 {
+                get {
+                    if (this.Is非課税売上額Null()) {
+                        return 0;
+                    }
+                    else {
+                        return ((long)(this[this.tableTKS02010_売上データ一覧表.非課税売上額Column]));
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.非課税売上額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public double 通常税消費税 {
+                get {
+                    try {
+                        return ((double)(this[this.tableTKS02010_売上データ一覧表.通常税消費税Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'通常税消費税\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.通常税消費税Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 軽減税消費税 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.軽減税消費税Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'軽減税消費税\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.軽減税消費税Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 税込売上額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.税込売上額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'税込売上額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.税込売上額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 軽減税込売上額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.軽減税込売上額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'軽減税込売上額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.軽減税込売上額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 当月残高 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableTKS02010_売上データ一覧表.当月残高Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS02010_売上データ一覧表\' にある列 \'当月残高\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS02010_売上データ一覧表.当月残高Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先コードNull() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.得意先コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先コードNull() {
+                this[this.tableTKS02010_売上データ一覧表.得意先コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先名称Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.得意先名称Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先名称Null() {
+                this[this.tableTKS02010_売上データ一覧表.得意先名称Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前月繰越Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.前月繰越Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前月繰越Null() {
+                this[this.tableTKS02010_売上データ一覧表.前月繰越Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is入金額Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.入金額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set入金額Null() {
+                this[this.tableTKS02010_売上データ一覧表.入金額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is通常税率対象売上額Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.通常税率対象売上額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set通常税率対象売上額Null() {
+                this[this.tableTKS02010_売上データ一覧表.通常税率対象売上額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減税率対象売上額Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.軽減税率対象売上額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減税率対象売上額Null() {
+                this[this.tableTKS02010_売上データ一覧表.軽減税率対象売上額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is非課税売上額Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.非課税売上額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set非課税売上額Null() {
+                this[this.tableTKS02010_売上データ一覧表.非課税売上額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is通常税消費税Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.通常税消費税Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set通常税消費税Null() {
+                this[this.tableTKS02010_売上データ一覧表.通常税消費税Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減税消費税Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.軽減税消費税Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減税消費税Null() {
+                this[this.tableTKS02010_売上データ一覧表.軽減税消費税Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is税込売上額Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.税込売上額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set税込売上額Null() {
+                this[this.tableTKS02010_売上データ一覧表.税込売上額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減税込売上額Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.軽減税込売上額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減税込売上額Null() {
+                this[this.tableTKS02010_売上データ一覧表.軽減税込売上額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is当月残高Null() {
+                return this.IsNull(this.tableTKS02010_売上データ一覧表.当月残高Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set当月残高Null() {
+                this[this.tableTKS02010_売上データ一覧表.当月残高Column] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -6108,6 +6897,40 @@ namespace Hakobou.Data.TKS {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TKS08010_入金予定実績表Row Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class TKS02010_売上データ一覧表RowChangeEvent : global::System.EventArgs {
+            
+            private TKS02010_売上データ一覧表Row eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TKS02010_売上データ一覧表RowChangeEvent(TKS02010_売上データ一覧表Row row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TKS02010_売上データ一覧表Row Row {
                 get {
                     return this.eventRow;
                 }

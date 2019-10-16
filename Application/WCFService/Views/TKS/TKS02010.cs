@@ -11,305 +11,671 @@ using System.Transactions;
 
 namespace KyoeiSystem.Application.WCFService
 {
-    #region TKS02010_Member
 
     /// <summary>
-    /// TKS02010  印刷　メンバー
+    /// 売上データ一覧サービス
     /// </summary>
-    [DataContract]
-    public class TKS02010_Member
-    {
-        [DataMember] public int? 得意先コード { get; set; }
-        [DataMember] public string T郵便番号 { get; set; }
-        [DataMember] public string T住所1 { get; set; }
-        [DataMember] public string T住所2 { get; set; }
-        [DataMember] public string 得意先名 { get; set; }
-        [DataMember] public string 請求内訳名 { get; set; }
-        [DataMember] public string 自社名 { get; set; }
-        [DataMember] public string J郵便番号 { get; set; }
-        [DataMember] public string J住所1 { get; set; }
-        [DataMember] public string J住所2 { get; set; }
-        [DataMember] public string TEL { get; set; }
-        [DataMember] public string FAX { get; set; }
-        [DataMember] public string 振込銀行1 { get; set; }
-        [DataMember] public string 振込銀行2 { get; set; }
-        [DataMember] public string 振込銀行3 { get; set; }
-        [DataMember] public DateTime 日付 { get; set; }
-        [DataMember] public string 発地名 { get; set; }
-        [DataMember] public string 着地名 { get; set; }
-        [DataMember] public string 品名 { get; set; }
-        [DataMember] public decimal 数量 { get; set; }
-        [DataMember] public decimal 売上単価 { get; set; }
-        [DataMember] public int 売上金額 { get; set; }
-        [DataMember] public int 通行料 { get; set; }
-        [DataMember] public string 摘要 { get; set; }
-        [DataMember] public int 締日 { get; set; }
-        [DataMember] public int 内課税金額 { get; set; }
-        [DataMember] public int 売上金額合計 { get; set; }
-        [DataMember] public int 当月合計額 { get; set; }
-  }
-    #endregion
-
-    #region TKS02010_Goukei_Member
-    /// <summary>
-    /// TKS02010 当月合計金額
-    /// </summary>
-    public class TKS02010_Goukei_Member
-    {
-        [DataMember]
-        public int 得意先コード { get; set; }
-        [DataMember]
-        public string T郵便番号 { get; set; }
-        [DataMember]
-        public string T住所1 { get; set; }
-        [DataMember]
-        public string T住所2 { get; set; }
-        [DataMember]
-        public string 得意先名 { get; set; }
-        [DataMember]
-        public string 請求内訳名 { get; set; }
-        [DataMember]
-        public string 自社名 { get; set; }
-        [DataMember]
-        public string J郵便番号 { get; set; }
-        [DataMember]
-        public string J住所1 { get; set; }
-        [DataMember]
-        public string J住所2 { get; set; }
-        [DataMember]
-        public string TEL { get; set; }
-        [DataMember]
-        public string FAX { get; set; }
-        [DataMember]
-        public string 振込銀行1 { get; set; }
-        [DataMember]
-        public string 振込銀行2 { get; set; }
-        [DataMember]
-        public string 振込銀行3 { get; set; }
-        [DataMember]
-        public DateTime 日付 { get; set; }
-        [DataMember]
-        public string 発地名 { get; set; }
-        [DataMember]
-        public string 着地名 { get; set; }
-        [DataMember]
-        public string 品名 { get; set; }
-        [DataMember]
-        public decimal 数量 { get; set; }
-        [DataMember]
-        public decimal 売上単価 { get; set; }
-        [DataMember]
-        public int 売上金額 { get; set; }
-        [DataMember]
-        public int 通行料 { get; set; }
-        [DataMember]
-        public string 摘要 { get; set; }
-        [DataMember]
-        public int 締日 { get; set; }
-        [DataMember]
-        public int 内課税金額 { get; set; }
-        [DataMember]
-        public int 売上金額合計 { get; set; }
-    }
-    [DataContract]
-
-    #endregion
-
-    #region TKS02010_SPREAD_Member
-    public class TKS02010_SPREAD_Member
-    {
-        [DataMember]
-        public int 取引先ID { get; set; }
-        [DataMember]
-        public string 取引先名 { get; set; }
-        [DataMember]
-        public string 内訳名 { get; set; }
-        [DataMember]
-        public string 郵便番号 { get; set; }
-        [DataMember]
-        public string 住所1 { get; set; }
-        [DataMember]
-        public string 住所2 { get; set; }
-        [DataMember]
-        public string 電話番号 { get; set; }
-        [DataMember]
-        public decimal 請求額 { get; set; }
-    }
-
-    #endregion
-
     public class TKS02010
     {
+        #region << 列挙型定義 >>
+
         /// <summary>
-        /// 売上明細書
+        /// 印刷区分
         /// </summary>
-        /// <returns></returns>
-        public List<TKS02010_Member> GetListTKS02010(int? i得意先コード, int?[] i得意先List, int? i自社コード, int? i作成締日, DateTime? d集計期間From, DateTime? d集計期間To)
+        private enum 印刷区分 : int
         {
-            List<TKS02010_Member> retList = new List<TKS02010_Member>();
+            集約する = 1,
+            集約しない = 2
+        }
+        #endregion
+
+        #region 拡張クラス定義
+        /// <summary>
+        /// TKS02010_売上データ一覧表帳票項目定義
+        /// </summary>
+        private class PrintMember
+        {
+            public string 得意先コード { get; set; }
+            public string 得意先名称 { get; set; }
+            public long 前月繰越 { get; set; }
+            public long 入金額 { get; set; }
+            public long 通常税率対象売上額 { get; set; }
+            public long 通常税消費税 { get; set; }
+            public long 税込売上額 { get; set; }
+            public long 軽減税率対象売上額 { get; set; }
+            public long 軽減税消費税 { get; set; }
+            public long 軽減税込売上額 { get; set; }
+            public long 非課税売上額 { get; set; }
+            public long 当月残高 { get; set; }
+        }
+        #endregion
+
+        #region 帳票出力データ取得
+        /// <summary>
+        /// 帳票出力データを取得する
+        /// </summary>
+        /// <param name="condition">
+        ///  == 検索条件 ==
+        /// 自社コード
+        /// 作成年月
+        /// 得意先コード
+        /// 得意先枝番
+        /// 作成区分
+        /// ユーザーID
+        /// </param>
+        /// <returns></returns>
+        public DataTable GetPrintData(Dictionary<string, string> condition)
+        {
+            DataTable dt = SalesAggregation(condition);
+
+            return dt;
+
+        }
+        #endregion
+
+        #region CSV出力データ取得
+        /// <summary>
+        /// ＣＳＶ出力データを取得する
+        /// </summary>
+        /// <param name="condition">
+        ///  == 検索条件 ==
+        /// 自社コード
+        /// 作成年月
+        /// 得意先コード
+        /// 得意先枝番
+        /// 作成区分
+        /// ユーザーID
+        /// </param>
+        /// <returns></returns>
+        public DataTable GetCsvData(Dictionary<string, string> condition)
+        {
+            DataTable dt = SalesAggregation(condition);
+
+            return dt;
+
+        }
+        #endregion
+
+        #region 売上集計処理
+        /// <summary>
+        /// 売上集計処理
+        /// </summary>
+        /// <param name="自社コード"></param>
+        /// <param name="作成年月"></param>
+        /// <param name="得意先コード"></param>
+        /// <param name="枝番"></param>
+        /// <param name="印刷区分"></param>
+        /// <param name="userId"></param>
+        public DataTable SalesAggregation(Dictionary<string, string> condition)
+        {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
-                context.Connection.Open();
+                // 検索パラメータを展開
+                int myCompany, createYearMonth, createType, userId;
+                int? customerCode, customerEda;
 
-                var query = (from t01 in context.T01_TRN.Where(x => x.入力区分 != 3 || (x.入力区分 == 3 && x.明細行 == 1))
-                             from m01 in context.M01_TOK.Where(x => x.得意先KEY == t01.得意先KEY)
-                             from m10 in context.M10_UHK.Where(x => x.得意先KEY == t01.得意先KEY && x.請求内訳ID == t01.請求内訳ID)
-                             from m70 in context.M70_JIS.Where(x => x.自社ID == i自社コード)
-                             where m01.削除日付 == null
-                             select new TKS02010_Member
-                             {
-                                 得意先コード = m01.得意先ID,
-                                 T郵便番号 = m01.郵便番号,
-                                 T住所1 = m01.住所１,
-                                 T住所2 = m01.住所２,
-                                 得意先名 = m01.得意先名１,
-                                 請求内訳名 = m10.請求内訳名 == null ? "なし" : m10.請求内訳名,
-                                 自社名 = m70.自社名,
-                                 J郵便番号 = m70.郵便番号,
-                                 J住所1 = m70.住所１,
-                                 J住所2 = m70.住所２,
-                                 TEL = m70.電話番号,
-                                 FAX = m70.ＦＡＸ,
-                                 振込銀行1 = m70.振込銀行１,
-                                 振込銀行2 = m70.振込銀行２,
-                                 振込銀行3 = m70.振込銀行３,
-                                 日付 = t01.請求日付,
-                                 発地名 = t01.発地名,
-                                 着地名 = t01.着地名,
-                                 品名 = t01.商品名,
-                                 数量 = t01.数量,
-                                 売上単価 = t01.売上単価,
-                                 売上金額 = t01.売上金額,
-                                 通行料 = t01.通行料,
-                                 摘要 = t01.請求摘要 == null ? "なし": t01.請求摘要,
-                                 締日 = m01.Ｔ締日,
-                                 内課税金額 = t01.請求税区分 == 0 ? t01.売上金額 + t01.請求割増１ + t01.請求割増２ : 0 ,
-                                 売上金額合計 = t01.売上金額 + t01.請求割増１ + t01.請求割増２,
-                             }).AsQueryable();
+                getFormParams(condition, out myCompany, out createYearMonth, out customerCode, out customerEda, out createType, out userId);
 
-
-                if (i得意先コード != 0 && i得意先List.Length != 0 || i得意先コード == 0 && i得意先List.Length != 0 || i得意先コード != 0 && i得意先List.Length == 0)
+                try
                 {
+                    context.Connection.Open();
 
-                    //得意先コードがあるときのみ
-                    if (i得意先コード != 0)
+                    // 対象として取引区分：得意先、相殺、販社を対象とする
+                    List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };
+
+                    // 集計得意先を取得
+                    List<M01_TOK> tokList =
+                                context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分)).ToList();
+
+                    // 取引先が指定されていれば条件追加
+                    if (customerCode != null && customerEda != null)
                     {
-                        query = query.Where(x => x.得意先コード == i得意先コード);
-                    }
-                    else if(i得意先コード == 0)
-                    {
-                        query = query.Where(c => c.得意先コード >= int.MaxValue);
-                    }
-
-                    //作成締日
-                    query = query.Where(x => x.締日 == i作成締日);
-
-                    //集計期間
-                    query = query.Where(x => x.日付 >= d集計期間From && x.日付 <= d集計期間To);
-
-                    //ﾋﾟｯｸｱｯﾌﾟがtrueの時
-                    if (i得意先List.Length > 0)
-                    {
-                        var intCause = i得意先List;
-                        query = query.Union(from t01 in context.T01_TRN.Where(x => x.入力区分 != 3 || (x.入力区分 == 3 && x.明細行 == 1))
-                                            from m01 in context.M01_TOK.Where(x => x.得意先KEY == t01.得意先KEY)
-                                            from m10 in context.M10_UHK.Where(x => x.得意先KEY == t01.得意先KEY && x.請求内訳ID == t01.請求内訳ID)
-                                            from m70 in context.M70_JIS.Where(x => x.自社ID == i自社コード)
-                                            where intCause.Contains(m01.得意先ID) && m01.削除日付 == null
-                                            select new TKS02010_Member
-                                            {
-                                                得意先コード = m01.得意先ID,
-                                                T郵便番号 = m01.郵便番号,
-                                                T住所1 = m01.住所１,
-                                                T住所2 = m01.住所２,
-                                                得意先名 = m01.得意先名１,
-                                                請求内訳名 = m10.請求内訳名,
-                                                自社名 = m70.自社名,
-                                                J郵便番号 = m70.郵便番号,
-                                                J住所1 = m70.住所１,
-                                                J住所2 = m70.住所２,
-                                                TEL = m70.電話番号,
-                                                FAX = m70.ＦＡＸ,
-                                                振込銀行1 = m70.振込銀行１,
-                                                振込銀行2 = m70.振込銀行２,
-                                                振込銀行3 = m70.振込銀行３,
-                                                日付 = t01.請求日付,
-                                                発地名 = t01.発地名,
-                                                着地名 = t01.着地名,
-                                                品名 = t01.商品名,
-                                                数量 = t01.数量,
-                                                売上単価 = t01.売上単価,
-                                                売上金額 = t01.売上金額,
-                                                通行料 = t01.通行料,
-                                                摘要 = t01.請求摘要,
-                                                締日 = m01.Ｔ締日,
-                                                内課税金額 = t01.請求税区分 == 0 ? t01.売上金額 + t01.請求割増１ + t01.請求割増２ : 0,
-                                                売上金額合計 = t01.売上金額 + t01.請求割増１ + t01.請求割増２,
-                                            }).AsQueryable();
+                        tokList = tokList.Where(w => w.取引先コード == customerCode && w.枝番 == customerEda).ToList();
                     }
 
-                    //作成締日
-                    query = query.Where(x => x.締日 == i作成締日);
-
-                    //集計期間
-                    query = query.Where(x => x.日付 >= d集計期間From && x.日付 <= d集計期間To);
-
-                    query = query.OrderBy(c => c.得意先コード);
-
-                }
-                else
-                {
-                    //* * * * * 得意先もﾋﾟｯｸｱｯﾌﾟ先がNullの場合全件取得 * * * * *//
-
-                    //集計期間(全件取得)
-                    if (d集計期間From != null && d集計期間To != null)
+                    if (customerCode != null && customerEda == null)
                     {
-                        query = query.Where(x => x.日付 >= d集計期間From && x.日付 <= d集計期間To);
+                        tokList = tokList.Where(w => w.取引先コード == customerCode).ToList();
+                    }
+
+                    tokList = tokList.OrderBy(o => o.取引先コード).ThenBy(t => t.枝番).ToList();
+
+                    try
+                    {
+                        foreach (var tok in tokList)
+                        {
+                            // 集計処理
+                            getAggregateData(context, myCompany, createYearMonth, tok.取引先コード, tok.枝番, userId);
+                        }
+
+                        context.SaveChanges();
+
+                        // 売上一覧データ取得
+                        DataTable dt = getData(context, myCompany, createYearMonth, tokList, createType);
+                        return dt;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return null;
                     }
                     
-                    //締日(ALL締日)
-                    if(i作成締日 != null)
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        #endregion
+
+        #region 集計処理
+        /// <summary>
+        /// 集計処理
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">自社コード</param>
+        /// <param name="yearMonth">請求年月</param>
+        /// <param name="code">取引先コード</param>
+        /// <param name="eda">枝番</param>
+        /// <param name="userId">ログインユーザID</param>
+        public void getAggregateData(TRAC3Entities context, int company, int yearMonth, int code, int eda, int userId)
+        {
+            DateTime targetStDate = new DateTime(yearMonth / 100, yearMonth % 100, 1);
+            DateTime targetEdDate = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(1).AddDays(-1);
+
+            // 対象の取引先が「販社」の場合は販社売上を参照する為、ロジックを分岐する
+            var tokdata =
+                context.M01_TOK.Where(w => w.削除日時 == null && w.取引先コード == code && w.枝番 == eda)
+                    .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null && w.取引先コード != null && w.枝番 != null),
+                        x => new { code = x.取引先コード, eda = x.枝番 },
+                        y => new { code = (int)y.取引先コード, eda = (int)y.枝番 },
+                        (x, y) => new { x, y })
+                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                        (a, b) => new { TOK = a.x, JIS = b })
+                    .FirstOrDefault();
+
+            DateTime paymentDate;
+            // 入金日の算出
+            try
+            {
+                paymentDate =
+                    AppCommon.GetClosingDate(targetStDate.Year, targetStDate.Month, tokdata.TOK.Ｔ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY, tokdata.TOK.Ｔサイト１ ?? 0);
+            }
+            catch
+            {
+                // 基本的にあり得ないがこの場合は当月末日を指定
+                paymentDate = new DateTime(targetStDate.Year, targetStDate.Month, DateTime.DaysInMonth(targetStDate.Year, targetStDate.Month));
+            }
+
+            if (tokdata.JIS != null && tokdata.JIS.自社区分 == CommonConstants.自社区分.販社.GetHashCode())
+            {
+                // ヘッダ情報の登録
+                setHeaderInfoHan(context, company, yearMonth, tokdata.JIS.自社コード, targetStDate, targetEdDate, code, eda, paymentDate, userId);
+            }
+            else
+            {
+                // ヘッダ情報の登録
+                setHeaderInfo(context, company, yearMonth, code, eda, targetStDate, targetEdDate, paymentDate, userId);
+            }
+
+        }
+        #endregion
+
+        #region 売上一覧ヘッダ登録処理
+        /// <summary>
+        /// 売上一覧ヘッダ登録処理
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">自社コード</param>
+        /// <param name="yearMonth">作成年月</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="targetStDate">集計開始日</param>
+        /// <param name="targetEdDate">集計終了日</param>
+        /// <param name="paymentDate">入金日</param>
+        /// <param name="userId">ログインユーザID</param>
+        private void setHeaderInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda,  
+                                        DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        {
+            int cnt = 1;
+            TKS01010 tks01010 = new TKS01010();
+
+            // ヘッダ情報取得
+            S01_SEIHD urdata = tks01010.getHeaderInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId);
+
+            // 都度請求の場合はヘッダデータを作成しない
+            if (urdata == null)
+            {
+                return;
+            }
+
+            // 前月残高の再設定
+            S06_URIHD befData = getLastChargeInfo(context, company, yearMonth, code, eda, cnt);
+            urdata.前月残高 = befData == null? 0 : befData.当月請求額;
+
+            // 繰越金額、当月残高の再計算
+            urdata.繰越残高 = urdata.前月残高 - urdata.入金額;
+            urdata.当月請求額 = urdata.繰越残高 + urdata.売上額 + urdata.消費税;
+
+            // ヘッダ情報の整形
+            S06_URIHD s06data = ConvertToS06_URIHD_Entity(urdata);
+
+            // ヘッダ情報登録
+            S06_URIHD_Update(context, s06data);
+        }
+
+        /// <summary>
+        /// 売上一覧ヘッダ登録処理(販社)
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="myCompanyCode">自社コード</param>
+        /// <param name="yearMonth">請求年月(yyyymm)</param>
+        /// <param name="salesCompanyCode">販社コード(M70_JIS)</param>
+        /// <param name="code">取引先コード</param>
+        /// <param name="eda">枝番</param>
+        /// <param name="paymentDate">入金日</param>
+        /// <param name="userId">ログインユーザID</param>
+        private void setHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, 
+                                        DateTime? targetStDate, DateTime? targetEdDate, int? code, int? eda, DateTime paymentDate, int userId)
+        {
+            int cnt = 1;
+            TKS01010 tks01010 = new TKS01010();
+            
+            // ヘッダ情報取得(販社)
+            S01_SEIHD urdata = tks01010.getHeaderInfoHan(context, myCompanyCode, yearMonth, salesCompanyCode, cnt, targetStDate, targetEdDate, paymentDate, userId);
+
+            // 都度請求の場合はヘッダデータを作成しない
+            if (urdata == null)
+            {
+                return;
+            }
+
+            // 前月残高の再設定
+            S06_URIHD befData = getLastChargeInfo(context, myCompanyCode, yearMonth, code, eda, cnt);
+            urdata.前月残高 = befData == null ? 0 : befData.繰越残高;
+
+            // 繰越金額、当月残高の再計算
+            urdata.繰越残高 = urdata.前月残高 - urdata.入金額;
+            urdata.当月請求額 = urdata.繰越残高 + urdata.売上額 + urdata.消費税;
+
+            // ヘッダ情報の整形
+            S06_URIHD s06data = ConvertToS06_URIHD_Entity(urdata);
+            
+            // ヘッダ情報登録
+            S06_URIHD_Update(context, s06data);
+
+        }
+
+        #endregion
+
+        #region 前月情報取得
+
+        /// <summary>
+        /// 前月情報取得
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">会社名コード</param>
+        /// <param name="yearMonth">作成年月</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="cnt">回数</param>
+        public S06_URIHD getLastChargeInfo(TRAC3Entities context, int company, int yearMonth, int? code, int? eda, int cnt)
+        {
+            // 前回請求情報取得
+            DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
+            if (cnt == 1)
+            {
+                befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
+            }
+
+            var befSeiCnt =
+                context.S06_URIHD
+                    .Where(w => w.自社コード == company &&
+                        w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
+                        w.請求先コード == code &&
+                        w.請求先枝番 == eda)
+                    .OrderByDescending(o => o.回数)
+                    .FirstOrDefault();
+
+            return befSeiCnt;
+        }
+
+        #endregion
+
+        #region 売上一覧ヘッダ更新処理
+        /// <summary>
+        /// 売上一覧ヘッダ更新処理
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="hdData"></param>
+        private void S06_URIHD_Update(TRAC3Entities context, S06_URIHD hdData)
+        {
+            var urihd =
+                context.S06_URIHD.Where(w =>
+                    w.自社コード == hdData.自社コード &&
+                    w.請求年月 == hdData.請求年月 &&
+                    w.請求先コード == hdData.請求先コード &&
+                    w.請求先枝番 == hdData.請求先枝番 &&
+                    w.入金日 == hdData.入金日 &&
+                    w.回数 == hdData.回数)
+                    .FirstOrDefault();
+
+            if (urihd == null)
+            {
+                // 登録なしなので登録をおこなう
+                S06_URIHD data = new S06_URIHD();
+
+                data.自社コード = hdData.自社コード;
+                data.請求年月 = hdData.請求年月;
+                data.請求締日 = hdData.請求締日;
+                data.請求先コード = hdData.請求先コード;
+                data.請求先枝番 = hdData.請求先枝番;
+                data.入金日 = hdData.入金日;
+                data.回数 = hdData.回数;
+                data.請求年月日 = hdData.請求年月日;
+                data.集計開始日 = hdData.集計開始日;
+                data.集計最終日 = hdData.集計最終日;
+                data.前月残高 = hdData.前月残高;
+                data.入金額 = hdData.入金額;
+                data.繰越残高 = hdData.繰越残高;
+                data.売上額 = hdData.売上額;
+                data.値引額 = hdData.値引額;
+                data.非税売上額 = hdData.非税売上額;
+                data.通常税率対象金額 = hdData.通常税率対象金額;
+                data.軽減税率対象金額 = hdData.軽減税率対象金額;
+                data.通常税率消費税 = hdData.通常税率消費税;
+                data.軽減税率消費税 = hdData.軽減税率消費税;
+                data.消費税 = hdData.消費税;
+                data.当月請求額 = hdData.当月請求額;
+                data.登録者 = hdData.登録者;
+                data.登録日時 = DateTime.Now;
+
+                context.S06_URIHD.ApplyChanges(data);
+
+            }
+            else
+            {
+                // 登録済みなので更新をおこなう
+                urihd.請求年月日 = hdData.請求年月日;
+                urihd.集計開始日 = hdData.集計開始日;
+                urihd.集計最終日 = hdData.集計最終日;
+                urihd.前月残高 = hdData.前月残高;
+                urihd.入金額 = hdData.入金額;
+                urihd.繰越残高 = hdData.繰越残高;
+                urihd.売上額 = hdData.売上額;
+                urihd.値引額 = hdData.値引額;
+                urihd.非税売上額 = hdData.非税売上額;
+                urihd.通常税率対象金額 = hdData.通常税率対象金額;
+                urihd.軽減税率対象金額 = hdData.軽減税率対象金額;
+                urihd.通常税率消費税 = hdData.通常税率消費税;
+                urihd.軽減税率消費税 = hdData.軽減税率消費税;
+                urihd.消費税 = hdData.消費税;
+                urihd.当月請求額 = hdData.当月請求額;
+                urihd.登録者 = hdData.登録者;
+                urihd.登録日時 = DateTime.Now;
+
+                urihd.AcceptChanges();
+
+            }
+
+        }
+        #endregion
+
+        #region 売上一覧データ取得
+        /// <summary>
+        /// 売上一覧データ取得
+        /// </summary>
+        /// <param name="context">context</param>
+        /// <param name="company">会社コード</param>
+        /// <param name="yearMonth">作成年月</param>
+        /// <param name="tokList">得意先リスト</param>
+        /// <param name="printKbn">印刷区分 0:集約する 1:集約しない</param>
+        /// <returns></returns>
+        private DataTable getData(TRAC3Entities context, int company, int yearMonth, List<M01_TOK> tokList, int printKbn)
+        {
+            DataTable dt = new DataTable();
+
+            // 売上一覧データ取得
+            List<S06_URIHD> uriList = getHeaderData(context, company, yearMonth, tokList);
+
+            if (uriList == null)
+            {
+                return null;
+            }
+
+            // 取得データを統合して結果リストを作成
+            if (printKbn == 印刷区分.集約しない.GetHashCode())
+            {
+                var resultList =
+                    uriList.GroupJoin(tokList,
+                        x => new { コード = x.請求先コード, 枝番 = x.請求先枝番 },
+                        y => new { コード = y.取引先コード, 枝番 = y.枝番 },
+                        (x, y) => new { x, y })
+                    .SelectMany(x => x.y,
+                        (a, b) => new { UHD = a.x, TOK = b })
+                    .GroupBy(g => new
                     {
-                        query = query.Where(x => x.締日 == i作成締日);
-                    }
+                        g.UHD.自社コード,
+                        g.UHD.請求年月,
+                        g.UHD.請求先コード,
+                        g.UHD.請求先枝番,
+                        g.TOK.略称名,
+                        g.TOK.得意先名１
+                    })
+                    .Select(x => new PrintMember
+                    {
+                        得意先コード = string.Format("{0:000} - {1:00}", x.Key.請求先コード, x.Key.請求先枝番),
+                        得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
+                        前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
+                        入金額 = (long)x.Sum(s => s.UHD.入金額),
+                        通常税率対象売上額 = (long)x.Sum(s => s.UHD.通常税率対象金額),
+                        軽減税率対象売上額 = (long)x.Sum(s => s.UHD.軽減税率対象金額),
+                        通常税消費税 = (long)x.Sum(s => s.UHD.通常税率消費税),
+                        軽減税消費税 = (long)x.Sum(s => s.UHD.軽減税率消費税),
+                        税込売上額 = (long)x.Sum(s => s.UHD.通常税率対象金額) + (long)x.Sum(s => s.UHD.通常税率消費税),
+                        軽減税込売上額 = (long)x.Sum(s => s.UHD.軽減税率対象金額) + (long)x.Sum(s => s.UHD.軽減税率消費税),
+                        非課税売上額 = (long)x.Sum(s => s.UHD.非税売上額),
+                        当月残高 = (long)x.Sum(s => s.UHD.当月請求額),
+                    }).ToList();
 
-                    query = query.OrderBy(c => c.得意先コード);
+                resultList = resultList.OrderBy(o => o.得意先コード).ToList();
+                dt = KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList);
+            }
+            else
+            {
+                List<PrintMember> hanshaList = new List<PrintMember>();
+                List<PrintMember> wkList = new List<PrintMember>();
 
+                // 販社リスト取得
+                var hanList =
+                    tokList
+                    .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.販社 &&　w.取引先コード != null && w.枝番 != null),
+                        x => new { code = x.取引先コード, eda = x.枝番 },
+                        y => new { code = (int)y.取引先コード, eda = (int)y.枝番 },
+                        (x, y) => new { x, y })
+                    .SelectMany(x => x.y,
+                        (a, b) => new { HAN = a.x, JIS = b }).ToList();
+                
+                if (hanList.Count() > 0)
+                {
+                    // 販社は集約しせず抽出
+                    hanshaList =
+                        uriList.GroupJoin(hanList,
+                            x => new { コード = x.請求先コード, 枝番 = x.請求先枝番 },
+                            y => new { コード = y.HAN.取引先コード, 枝番 = y.HAN.枝番 },
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y,
+                            (a, b) => new { UHD = a.x, TOK = b })
+                        .GroupBy(g => new
+                        {
+                            g.UHD.自社コード,
+                            g.UHD.請求年月,
+                            g.UHD.請求先コード,
+                            g.UHD.請求先枝番,
+                            g.TOK.HAN.略称名,
+                            g.TOK.HAN.得意先名１
+                        })
+                        .Select(x => new PrintMember
+                        {
+                            得意先コード = string.Format("{0:000} - {1:00}", x.Key.請求先コード, x.Key.請求先枝番),
+                            得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
+                            前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
+                            入金額 = (long)x.Sum(s => s.UHD.入金額),
+                            通常税率対象売上額 = (long)x.Sum(s => s.UHD.通常税率対象金額),
+                            軽減税率対象売上額 = (long)x.Sum(s => s.UHD.軽減税率対象金額),
+                            通常税消費税 = (long)x.Sum(s => s.UHD.通常税率消費税),
+                            軽減税消費税 = (long)x.Sum(s => s.UHD.軽減税率消費税),
+                            税込売上額 = (long)x.Sum(s => s.UHD.通常税率対象金額) + (long)x.Sum(s => s.UHD.通常税率消費税),
+                            軽減税込売上額 = (long)x.Sum(s => s.UHD.軽減税率対象金額) + (long)x.Sum(s => s.UHD.軽減税率消費税),
+                            非課税売上額 = (long)x.Sum(s => s.UHD.非税売上額),
+                            当月残高 = (long)x.Sum(s => s.UHD.当月請求額),
+                        }).ToList();
                 }
 
+                // 販社以外の得意先は集約して抽出
+                tokList = tokList.Where(x => hanList.Select(s => s.HAN.取引先コード).Contains(x.取引先コード) == false).ToList();
 
-                //結果をリスト変換
-                retList = query.ToList();
-                return retList;
+                if (tokList.Count > 0)
+                {
+                    wkList = 
+                    uriList.GroupJoin(tokList,
+                            x => new { コード = x.請求先コード, 枝番 = x.請求先枝番 },
+                            y => new { コード = y.取引先コード, 枝番 = y.枝番 },
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y,
+                            (a, b) => new { UHD = a.x, TOK = b })
+                        .GroupBy(g => new
+                        {
+                            g.UHD.自社コード,
+                            g.UHD.請求年月,
+                            g.UHD.請求先コード,
+                            g.TOK.得意先名１
+                        })
+                        .Select(x => new PrintMember
+                        {
+                            得意先コード = string.Format("{0:000} - 00", x.Key.請求先コード),
+                            得意先名称 = x.Key.得意先名１ == null ? "" : x.Key.得意先名１,
+                            前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
+                            入金額 = (long)x.Sum(s => s.UHD.入金額),
+                            通常税率対象売上額 = (long)x.Sum(s => s.UHD.通常税率対象金額),
+                            軽減税率対象売上額 = (long)x.Sum(s => s.UHD.軽減税率対象金額),
+                            通常税消費税 = (long)x.Sum(s => s.UHD.通常税率消費税),
+                            軽減税消費税 = (long)x.Sum(s => s.UHD.軽減税率消費税),
+                            税込売上額 = (long)x.Sum(s => s.UHD.通常税率対象金額) + (long)x.Sum(s => s.UHD.通常税率消費税),
+                            軽減税込売上額 = (long)x.Sum(s => s.UHD.軽減税率対象金額) + (long)x.Sum(s => s.UHD.軽減税率消費税),
+                            非課税売上額 = (long)x.Sum(s => s.UHD.非税売上額),
+                            当月残高 = (long)x.Sum(s => s.UHD.当月請求額),
+                        }).ToList();
+                }
+
+                // 販社リストと得意先リストを結合
+                var resultList = hanshaList.ToList().Concat(wkList);
+
+                resultList = resultList.OrderBy(o => o.得意先コード).ToList();
+                dt = KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList.ToList());
             }
+            
+            return dt;
         }
-        //得意先コード, 自社ID, 作成締日, 集計期間From, 集計期間To
-        public List<TKS02010_SPREAD_Member> GetListTKS02010_SPREAD(int i得意先コード, int i自社コード, int i作成締日, DateTime d集計期間From, DateTime d集計期間To)
+        #endregion
+
+        #region 売上一覧ヘッダデータ取得
+        /// <summary>
+        /// 売上一覧ヘッダデータ取得
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company"></param>
+        /// <param name="yearMonth"></param>
+        /// <param name="tokList"></param>
+        /// <returns></returns>
+        private List<S06_URIHD> getHeaderData(TRAC3Entities context, int company, int yearMonth, List<M01_TOK> tokList)
         {
-            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
-            {
-                context.Connection.Open();
+            
+            List<int> codeList = tokList.Select(s => s.取引先コード).ToList();
+            List<int> edaList = tokList.Select(s => s.枝番).ToList();
 
-                var query = (from t01 in context.T01_TRN.Where(x => x.入力区分 != 3 || (x.入力区分 == 3 && x.明細行 == 1))
-                             from m01 in context.M01_TOK.Where(c => c.得意先KEY == t01.得意先KEY && c.得意先ID == i得意先コード && c.削除日付 == null)
-                             from m10 in context.M10_UHK.Where(c => c.請求内訳ID == t01.請求内訳ID).DefaultIfEmpty()
-                             where m01.Ｔ締日 == i作成締日 && t01.請求日付 >= d集計期間From && t01.請求日付 <= d集計期間To
-                             group new { t01 , m01 , m10 } by new { m01.得意先ID , m01.得意先名１ , m01.住所１ , m01.住所２ , m01.郵便番号 , m01.電話番号 , m10.請求内訳名 } into Group 
-                             select new TKS02010_SPREAD_Member
-                           {
-                               取引先ID = Group.Key.得意先ID,
-                               取引先名 = Group.Key.得意先名１,
-                               内訳名 = Group.Key.請求内訳名 == null ? "なし" : Group.Key.請求内訳名,
-                               郵便番号 = Group.Key.郵便番号,
-                               住所1 = Group.Key.住所１,
-                               住所2 = Group.Key.住所２,
-                               電話番号 = Group.Key.電話番号,
-                               請求額 = Group.Sum(c => c.t01.売上金額),
-                           }).AsQueryable();
+            var uhd = context.S06_URIHD.Where(w => w.自社コード == company && w.請求年月 == yearMonth &&
+                                                codeList.Contains(w.請求先コード) && edaList.Contains(w.請求先枝番) &&
+                                                w.売上額 != 0);
 
-                return query.ToList();
-            }
+            return uhd.ToList();
         }
+
+        #endregion
+
+        #region パラメータ展開
+        /// <summary>
+        /// フォームパラメータを展開する
+        /// </summary>
+        /// <param name="condition">検索条件辞書</param>
+        /// <param name="myCompany">自社コード</param>
+        /// <param name="createYearMonth">作成年月(yyyymm)</param>
+        /// <param name="customerCode">得意先コード</param>
+        /// <param name="customerEda">得意先枝番</param>
+        /// <param name="createType">作成区分</param>
+        private void getFormParams(
+            Dictionary<string, string> condition,
+            out int myCompany,
+            out int createYearMonth,
+            out int? customerCode,
+            out int? customerEda,
+            out int createType,
+            out int userId)
+        {
+            int ival = -1;
+
+            myCompany = int.Parse(condition["自社コード"]);
+            createYearMonth = int.Parse(condition["作成年月"].Replace("/", ""));
+            customerCode = int.TryParse(condition["得意先コード"], out ival) ? ival : (int?)null;
+            customerEda = int.TryParse(condition["得意先枝番"], out ival) ? ival : (int?)null;
+            createType = int.Parse(condition["作成区分"]);
+            userId = int.Parse(condition["userId"]);
+        }
+        #endregion
+
+        #region << サービス処理関連 >>
+
+        #region S06_URIHD_Entityへ変換
+        /// <summary>
+        /// S06_URIHD_Entityへ変換
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        private S06_URIHD ConvertToS06_URIHD_Entity(S01_SEIHD row)
+        {
+            S06_URIHD s06hd = new S06_URIHD();
+
+            s06hd.自社コード = row.自社コード;
+            s06hd.請求年月 = row.請求年月;
+            s06hd.請求締日 = row.請求締日;
+            s06hd.請求先コード = row.請求先コード;
+            s06hd.請求先枝番 = row.請求先枝番;
+            s06hd.入金日 = row.入金日;
+            s06hd.回数 = row.回数;
+            s06hd.請求年月日 = row.請求年月日;
+            s06hd.集計開始日 = row.集計開始日;
+            s06hd.集計最終日 = row.集計最終日;
+            s06hd.前月残高 = row.前月残高;
+            s06hd.入金額 = row.入金額;
+            s06hd.繰越残高 = row.繰越残高;
+            s06hd.通常税率対象金額 = row.通常税率対象金額;
+            s06hd.軽減税率対象金額 = row.軽減税率対象金額;
+            s06hd.値引額 = row.値引額;
+            s06hd.非税売上額 = row.非税売上額;
+            s06hd.売上額 = row.売上額;
+            s06hd.通常税率消費税 = row.通常税率消費税;
+            s06hd.軽減税率消費税 = row.軽減税率消費税;
+            s06hd.消費税 = row.消費税;
+            s06hd.当月請求額 = row.当月請求額;
+            s06hd.登録者 = row.登録者;
+
+            return s06hd;
+        }
+        #endregion
+
+        #endregion
 
     }
+
 }

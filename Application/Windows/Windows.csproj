@@ -313,6 +313,9 @@
     <Compile Include="Views\TKS\TKS09010.xaml.cs">
       <DependentUpon>TKS09010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TKS\TKS02010.xaml.cs">
+      <DependentUpon>TKS02010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControl\M01_TOK_TextBox.xaml.cs">
       <DependentUpon>M01_TOK_TextBox.xaml</DependentUpon>
     </Compile>
@@ -783,6 +786,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TKS\TKS09010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS02010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

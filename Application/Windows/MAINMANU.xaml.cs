@@ -1023,6 +1023,22 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 得意先管理[F3]
+        /// <summary>
+        /// 売上データ一覧表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_TKS02010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(TKS02010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         /// <summary>
         /// 納品書出力

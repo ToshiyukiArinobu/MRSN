@@ -431,6 +431,7 @@
     </Compile>
     <Compile Include="Views\DLY\T03.cs" />
     <Compile Include="Views\TKS\TKS01010.cs" />
+    <Compile Include="Views\TKS\TKS02010.cs" />
     <Compile Include="Views\TKS\TKS03010.cs" />
     <Compile Include="Views\TKS\TKS07010.cs" />
     <Compile Include="Views\TKS\TKS08010.cs" />

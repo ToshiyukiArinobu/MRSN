@@ -375,6 +375,11 @@ namespace KyoeiSystem.Application.WCFService
 
             #region 得意先管理
 
+            // 売上データ一覧
+            new WCFDataAccessConfig() { Name = "SalesAggregation", ServiceClass = "TKS02010", MethodName = "SalesAggregation", Descprition = "売上集計処理" },
+            new WCFDataAccessConfig() { Name = "TKS02010_GetCsvData", ServiceClass = "TKS02010", MethodName = "GetCsvData", Descprition = "売上集計、一覧表ＣＳＶデータ取得" },
+            new WCFDataAccessConfig() { Name = "TKS02010_GetPrintData", ServiceClass = "TKS02010", MethodName = "GetPrintData", Descprition = "売上集計処理、一覧表印刷データ取得" },
+
             // 納品書出力
             new WCFDataAccessConfig() { Name = "DLY11010_Print", ServiceClass = "DLY11010", MethodName = "GetPrintData", Descprition = "納品書出力情報取得" },
 
