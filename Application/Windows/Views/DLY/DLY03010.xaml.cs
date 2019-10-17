@@ -393,7 +393,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             tokhin.txtCode.Text = colVal == null ? string.Empty : colVal.ToString();
                             tokhin.txtCode.IsEnabled = false;
                             tokhin.TwinTextBox = new UcLabelTwinTextBox();
-                            tokhin.TwinTextBox.LinkItem = 1;
+                            tokhin.TwinTextBox.LinkItem = 0;    // No197 Mod
                             if (tokhin.ShowDialog(this) == true)
                             {
                                 gridCtl.SetCellValue((int)GridColumnsMapping.品番コード, tokhin.SelectedDataRow["品番コード"]);
