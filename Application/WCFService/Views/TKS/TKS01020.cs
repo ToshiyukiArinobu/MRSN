@@ -433,6 +433,57 @@ namespace KyoeiSystem.Application.WCFService
                             .OrderBy(o => o.売上日).ThenBy(o => o.伝票番号);           // No-181 Add
                     #endregion
 
+                    #region 期間内の入金明細
+                    var nyukinDtl = 
+                        context.T11_NYKNHD.Where(c =>
+                                    c.入金先自社コード == myCompany &&
+                                    c.得意先コード == mem.得意先コード &&
+                                    c.得意先枝番 == mem.得意先枝番 &&
+                                    c.入金日 >= seihd.集計開始日 &&
+                                    c.入金日 <= seihd.集計最終日
+                                    )
+                                    .GroupJoin(context.T11_NYKNDTL.Where(c => c.削除日時 == null),
+                                        x => x.伝票番号,
+                                        y => y.伝票番号,
+                                        (x,y) => new {x,y})
+                                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                                        (a, b) => new { HD = a.x, DTL = b })
+                                    .GroupJoin(context.M99_COMBOLIST.Where(c => 
+                                        c.分類 == "随時" &&
+                                        c.機能 == "入金問合せ" &&
+                                        c.カテゴリ == "金種"),
+                                        x => x.DTL.金種コード,
+                                        y => y.コード,
+                                        (x, y) => new { x, y })
+                                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                                        (a, b) => new { NYU = a.x, CMB = b })
+                                    .ToList()
+                                    .Select(x => new PrintDetailMember
+                                    {
+                                        PagingKey = string.Concat(mem.得意先コード, "-", mem.得意先枝番, "-", mem.入金日, ">", mem.回数),
+                                        自社コード = myCompany.ToString(),
+                                        請求年月 = createYM.ToString(),
+                                        請求先コード = mem.得意先コード.ToString(),
+                                        請求先枝番 = mem.得意先枝番.ToString(),
+                                        得意先コード = mem.得意先コード.ToString(),
+                                        得意先枝番 = mem.得意先枝番.ToString(),
+                                        回数 = mem.回数,
+
+                                        伝票番号 = x.NYU.HD.伝票番号,              // No-181 Mod
+                                        売上日 = x.NYU.HD.入金日.ToString("yyyy/MM/dd"),
+                                        品番名称 = x.CMB.表示名 == null ? string.Empty: x.CMB.表示名,
+                                        数量 = 0,
+                                        単価 = 0,
+                                        金額 = x.NYU.DTL.金額,
+
+                                        軽減税率適用 = "",
+                                    });
+
+                    //売上日→伝票番号の順でソート
+                    var dtl = dtlResult.Concat(nyukinDtl).OrderBy(o => o.売上日).ThenBy(o => o.伝票番号);
+
+                    #endregion
+
                     //20190910 CB add - s 軽減税率対応
                     //S01_SEIHDの集計最終日を基準としてM73_ZEIから税率を取得
                     DataTable dt;
@@ -466,7 +517,7 @@ namespace KyoeiSystem.Application.WCFService
                     //20190910 CB mod - e 軽減税率対応
 
                     hdDt.TableName = PRINT_HEADER_TABLE_NAME;
-                    DataTable dtlDt = KESSVCEntry.ConvertListToDataTable<PrintDetailMember>(dtlResult.AsQueryable().ToList());
+                    DataTable dtlDt = KESSVCEntry.ConvertListToDataTable<PrintDetailMember>(dtl.AsQueryable().ToList());
                     dtlDt.TableName = PRINT_DETAIL_TABLE_NAME;
 
                     if (dsResult.Tables.Contains(hdDt.TableName))
