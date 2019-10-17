@@ -227,11 +227,11 @@ namespace KyoeiSystem.Application.Windows.Views
             //ccfg.自社区分 が　0の場合は現状のままccfg.自社区分が1の場合は、
             //T02_URHDの会社名コードとccfg.自社コードが一致する
 
-            int? 自社コード = null;
-            if (ccfg.自社販社区分 == 1)
-            {
-                自社コード = ccfg.自社コード;
-            }
+            //int? 自社コード = null;
+            //if (ccfg.自社販社区分 == 1)
+            //{
+            //    自社コード = ccfg.自社コード;
+            //}
             //base.SendRequest(
             //    new CommunicationObject(
             //        MessageType.UpdateData,
@@ -256,7 +256,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         this.txt得意先.Text2,
                         this.txt伝票番号From.Text,
                         this.txt伝票番号To.Text,
-                        自社コード
+                        ccfg.自社コード
                     }));
             //20190919 add & mod -e CB 軽減税率対応
 

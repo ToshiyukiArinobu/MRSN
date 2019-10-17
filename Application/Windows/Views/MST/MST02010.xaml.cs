@@ -343,8 +343,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
                 // 自社色の重複チェック
-                if (M09_HIN_SearchRow["自社色", DataRowVersion.Original].ToString().Equals(M09_HIN_SearchRow["自社色"].ToString()) == false)  // No.153 Add
-                {
+                //if (M09_HIN_SearchRow["自社色", DataRowVersion.Original].ToString().Equals(M09_HIN_SearchRow["自社色"].ToString()) == false)  // No.153 Add
+                //{
                     string str色SQL;
 
                     if (string.IsNullOrEmpty(M09_HIN_SearchRow["自社色"].ToString()))
@@ -355,14 +355,14 @@ namespace KyoeiSystem.Application.Windows.Views
                     {
                         str色SQL = "= '" + M09_HIN_SearchRow["自社色"].ToString() + "'";
                     }
-                    DataRow[] drHinUniqe = datatable_M09_HIN_All.Select("自社品番 = '" + M09_HIN_SearchRow["自社品番"].ToString() + "' AND 自社色 " + str色SQL);
+                    DataRow[] drHinUniqe = datatable_M09_HIN_All.Select("自社品番 = '" + M09_HIN_SearchRow["自社品番"].ToString() + "' AND 自社色 " + str色SQL + " AND 品番コード <> " + M09_HIN_SearchRow["品番コード"].ToString());
                     if (drHinUniqe.Length > 0)
                     {
                         MessageBox.Show("入力された自社品番と色の組み合わせは\r\n品番コード : " + drHinUniqe[0]["品番コード"].ToString() + "\r\n登録済みです。");
                         SetFocusToTopControl();
                         return;
                     }
-                }
+                //}
 
                 var yesno = MessageBox.Show("入力内容を登録しますか？", "登録確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
                 if (yesno != MessageBoxResult.Yes)
@@ -450,9 +450,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     // No-92 Add Start
                     case M09_HIN_getDataMyProduct:
-                        SetTblData(tbl);
+                        SetTblDataCopy(tbl);
 
-                        SetFocusToTopControl();
 
                         this.ResetAllValidation();
 
@@ -507,6 +506,31 @@ namespace KyoeiSystem.Application.Windows.Views
                 M09_HIN_SearchRow = tbl.NewRow();
                 M09_HIN_SearchRow["品番コード"] = this.ProductCode.Text1;
                 M09_HIN_SearchRow["消費税区分"] = 0;
+            }
+            NotifyPropertyChanged("M09_HIN_SearchRow");
+
+            // 商品形態が"1:SET商品"の場合のみ使用可能とする
+            SetButton.IsEnabled = this.ItemStyle.Text.Equals(((int)eItemStyle.SET品).ToString());
+
+        }
+
+        /// <summary>
+        /// テーブルデータを各変数に代入
+        /// </summary>
+        /// <param name="tbl"></param>
+        private void SetTblDataCopy(DataTable tbl)
+        {
+            // キーをfalse
+            ChangeKeyItemChangeable(false);
+
+            if (tbl.Rows.Count > 0)
+            {
+                M09_HIN_SearchRow = tbl.Rows[0];
+                M09_HIN_SearchRow["品番コード"] = this.ProductCode.Text1;
+            }
+            else
+            {
+                this.ErrorMessage = "コピー用品番がみつかりません。確認をしてください。";
             }
             NotifyPropertyChanged("M09_HIN_SearchRow");
 
