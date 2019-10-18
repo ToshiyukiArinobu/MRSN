@@ -14,7 +14,7 @@
   d:DesignWidth="300" 
   MinHeight="728" MinWidth="1024" Height="768" Width="1024" Left="0" Top="0"
   WindowStartupLocation="Manual" AllowsTransparency="False" Language="ja-JP"
-  Title="支払入力(DLY06010)"
+  Title="出金入力(DLY06010)"
   Loaded="Window_Loaded" Closed="Window_Closed">
 
   <Window.Resources>
@@ -155,7 +155,7 @@
             <ColumnDefinition Width="auto" />
           </Grid.ColumnDefinitions>
 
-          <TextBlock x:Name="FuncTitle" Text="支払入力" Grid.Row="0" Grid.Column="0" FontSize="16" Margin="30,0,0,0" />
+                    <TextBlock x:Name="FuncTitle" Text="出金入力" Grid.Row="0" Grid.Column="0" FontSize="16" Margin="30,0,0,0" />
           <ctls:UcLabelTwinTextBox x:Name="txt会社名" Label_Context="会社名" Grid.Column="1" HorizontalAlignment="Left"
                                    DataAccessName="M70_JIS" DataAccessMode="On" IsKeyItem="True" Margin="2,0"
                                    Label_Width="100"

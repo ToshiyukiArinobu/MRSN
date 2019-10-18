@@ -1057,8 +1057,8 @@ namespace KyoeiSystem.Application.Windows.Views
             // 仕入日
             if (string.IsNullOrEmpty(this.c仕入日.Text))
             {
-                base.ErrorMessage = string.Format("仕入日が入力されていません。");
                 this.c仕入日.Focus();
+                base.ErrorMessage = string.Format("仕入日が入力されていません。");
                 return isResult;
 
             }
@@ -1066,8 +1066,8 @@ namespace KyoeiSystem.Application.Windows.Views
             // 仕入区分
             if (this.c仕入区分.SelectedValue == null)
             {
-                base.ErrorMessage = string.Format("仕入区分が選択されていません。");
                 this.c仕入区分.Focus();
+                base.ErrorMessage = string.Format("仕入区分が選択されていません。");
                 return isResult;
 
             }
@@ -1075,17 +1075,23 @@ namespace KyoeiSystem.Application.Windows.Views
             // 仕入先
             if (string.IsNullOrEmpty(this.c仕入先.Text1) || string.IsNullOrEmpty(this.c仕入先.Text2))
             {
-                base.ErrorMessage = string.Format("仕入先が入力されていません。");
                 this.c仕入先.Focus();
+                base.ErrorMessage = string.Format("仕入先が入力されていません。");
                 return isResult;
 
+            }
+            else if (string.IsNullOrEmpty(c仕入先名.Content.ToString()))
+            {
+                this.c仕入先.Focus();
+                base.ErrorMessage = string.Format("仕入先がマスタに存在していないデータが入力されています。");
+                return isResult;
             }
 
             // 入荷先
             if (string.IsNullOrEmpty(this.c入荷先.Text1))
             {
-                base.ErrorMessage = string.Format("入荷先が入力されていません。");
                 this.c入荷先.Focus();
+                base.ErrorMessage = string.Format("入荷先が入力されていません。");
                 return isResult;
 
             }
@@ -1096,8 +1102,8 @@ namespace KyoeiSystem.Application.Windows.Views
             // 【明細】詳細データが１件もない場合はエラー
             if (SearchResult == null || CurrentDetail.Where(a => !string.IsNullOrEmpty(a.Field<string>("自社品番"))).Count() == 0)
             {
-                base.ErrorMessage = string.Format("明細情報が１件もありません。");
                 gridCtl.SpreadGrid.Focus();
+                base.ErrorMessage = string.Format("明細情報が１件もありません。");
                 return isResult;
             }
 
