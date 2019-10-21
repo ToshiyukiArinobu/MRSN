@@ -224,6 +224,7 @@
               Name="c仕入日" Grid.Row="1" Grid.Column="1" cMaxLength="10" cTextAlignment="Center" IsKeyItem="False"
               Mask="yyyy/MM/dd" cValidationType="Date" cVerticalContentAlignment="Center" BorderThickness="0" Label_Width="0" Margin="-1,-1,-2,-1"
               Text="{Binding Path=SearchHeader[仕入日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+              cTextChanged="c仕入日_cTextChanged"
           />
 
           <ctls:UcLabelComboBox
