@@ -6,14 +6,14 @@ using System.Web;
 namespace KyoeiSystem.Application.WCFService
 {
     /// <summary>
-    /// 支払明細問合せサービスクラス
+    /// 仕入明細問合せサービスクラス
     /// </summary>
     public class ZIJ02010
     {
         #region 項目クラス定義
 
         /// <summary>
-        /// ZIJ02010 支払明細問合せ 検索メンバー
+        /// ZIJ02010 仕入明細問合せ 検索メンバー
         /// </summary>
         public class SearchDataMember
         {
@@ -41,9 +41,9 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
-        #region 支払明細問合せ検索処理
+        #region 仕入明細問合せ検索処理
         /// <summary>
-        /// 支払明細問合せ検索をおこなう
+        /// 仕入明細問合せ検索をおこなう
         /// </summary>
         /// <param name="p自社コード"></param>
         /// <param name="cond">
@@ -142,7 +142,7 @@ namespace KyoeiSystem.Application.WCFService
                                 会社名コード = x.SHD.会社名コード,
                                 仕入日 = x.SHD.仕入日.ToShortDateString(),    // No.130-3 Mod
                                 // No-128 Mod Start
-                                支払日 = x.SHD.仕入日.Day >= (x.TOK.Ｓ締日 ?? 31) ?
+                                支払日 = x.TOK.Ｓ入金日１ == 0 ? string.Empty : x.SHD.仕入日.Day >= (x.TOK.Ｓ締日 ?? 31) ?
                                     // No.101-5 Mod Start
                                     new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths((x.TOK.Ｓサイト１ ?? 0) + 1).ToShortDateString() :  // No.130-3 Mod
                                     new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths(x.TOK.Ｓサイト１ ?? 0).ToShortDateString(),         // No.130-3 Mod
