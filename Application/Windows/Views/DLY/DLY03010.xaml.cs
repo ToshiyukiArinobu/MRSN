@@ -1706,6 +1706,19 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
+        // No.175-1 Add
+        /// <summary>
+        /// 売上日が変更された後のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt売上日_cTextChanged(object sender, RoutedEventArgs e)
+        {
+            // 明細内容・消費税の再計算を実施
+            summaryCalculation();
+        }
+        // No.175-1 End
+
         /// <summary>
         /// 明細番号ページングボタン押下時のイベント処理
         /// </summary>
