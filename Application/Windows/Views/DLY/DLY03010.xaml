@@ -222,6 +222,7 @@
                             cMaxLength="10" cTextAlignment="Center" cBorderThickness="0" cVerticalContentAlignment="Center"
                             Mask="yyyy/MM/dd" ValidationType="Date"
                             Text="{Binding Path=SearchHeader[売上日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+                            cTextChanged="txt売上日_cTextChanged"
             />
 
                         <TextBlock Text="売上区分" Grid.Row="0" Grid.Column="2" TextAlignment="Center" Padding="0,5,0,0"

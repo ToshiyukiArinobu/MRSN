@@ -1253,6 +1253,19 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        // No.175-2 Add Start
+        /// <summary>
+        /// 仕入日変更時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void c仕入日_cTextChanged(object sender, RoutedEventArgs e)
+        {
+            // グリッド内容の再計算を実施
+            summaryCalculation();
+        }
+        // No.175-2 Add End
+
         /// <summary>
         /// 仕入先コード変更時のイベント処理
         /// </summary>
