@@ -602,11 +602,11 @@ namespace KyoeiSystem.Application.WCFService
                             case (int)CommonConstants.売上区分.委託売上:
                             case (int)CommonConstants.売上区分.預け売上:
                                 // 通常更新(売上～在庫引去り)
-                                setUsualSalesProc(ds);
+                                setUsualSalesProc(context, ds);     // No.176 Mod
                                 break;
 
                             case (int)CommonConstants.売上区分.販社売上:
-                                setSalesCompanyProc(ds);    // No.156-3
+                                setSalesCompanyProc(context, ds);    // No.176 Mod
                                 break;
 
                             case (int)CommonConstants.売上区分.メーカー直送:
@@ -893,7 +893,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="context"></param>
         /// <param name="ds"></param>
         /// <param name="userId"></param>
-        private void setUsualSalesProc(DataSet ds)
+        private void setUsualSalesProc(TRAC3Entities context, DataSet ds)
         {
             DataRow hdRow = ds.Tables[T02_HEADER_TABLE_NAME].Rows[0];
             T02_URHD hdData = convertDataRowToT02_URHD_Entity(hdRow);
@@ -906,7 +906,7 @@ namespace KyoeiSystem.Application.WCFService
             setT02_URDTL_Update(hdData, dtlTbl, false);
 
             // 3.在庫の更新
-            setS03_STOK_Update(hdData, dtlTbl, hdRow);  // No.156-3 Add
+            setS03_STOK_Update(context, hdData, dtlTbl, hdRow);  // No.176 Mod
 
         }
         #endregion
@@ -918,7 +918,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="context"></param>
         /// <param name="ds"></param>
         /// <param name="userId"></param>
-        private void setSalesCompanyProc(DataSet ds)
+        private void setSalesCompanyProc(TRAC3Entities context, DataSet ds)
         {
             DataRow hdRow = ds.Tables[T02_HEADER_TABLE_NAME].Rows[0];
             T02_URHD urhd = convertDataRowToT02_URHD_Entity(hdRow);
@@ -952,7 +952,7 @@ namespace KyoeiSystem.Application.WCFService
             setT05_IDODTL_Update(urhd, dtlTbl, difSouk);
 
             // 7.販社在庫(販社入庫)の更新(入出庫履歴も同時に作成)
-            setS03_HAN_STOK_Update(urhd, dtlTbl, difSouk, BefZaiSouk, hdRow);   // No.156-3
+            setS03_HAN_STOK_Update(context, urhd, dtlTbl, difSouk, BefZaiSouk, hdRow);   // No.156-3
 
             #endregion
 
@@ -963,7 +963,7 @@ namespace KyoeiSystem.Application.WCFService
             setT02_URDTL_Update(urhd, dtlTbl, false);
 
             // 10.在庫(引去)の更新
-            setS03_STOK_Update(urhd, dtlTbl, hdRow);    // No.156-3 Mod
+            setS03_STOK_Update(context, urhd, dtlTbl, hdRow);    // No.156-3 Mod
 
         }
         #endregion
@@ -995,7 +995,7 @@ namespace KyoeiSystem.Application.WCFService
             setT03_SRDTL_Update(hdData, dtlTbl, false);
 
             // 3.メーカー仕入在庫の更新
-            setS03_MA_STOK_Update(hdData, dtlTbl, hdRow);           // No.156-3 Mod
+            setS03_MA_STOK_Update(context, hdData, dtlTbl, hdRow);           // No.156-3 Mod
 
             // 4.売上ヘッダの更新
             T02Service.T02_URHD_Update(hdData);
@@ -1004,7 +1004,7 @@ namespace KyoeiSystem.Application.WCFService
             setT02_URDTL_Update(hdData, dtlTbl, false);
 
             // 6.在庫(引去)の更新
-            setS03_STOK_Update(hdData, dtlTbl, hdRow);  // No.156-3 Mod
+            setS03_STOK_Update(context, hdData, dtlTbl, hdRow);  // No.156-3 Mod
 
         }
         #endregion
@@ -1066,7 +1066,7 @@ namespace KyoeiSystem.Application.WCFService
             setT03_SRDTL_Update(urhd, dtlDt, false);
 
             // 3.メーカー仕入の在庫更新
-            setS03_MA_STOK_Update(urhd, dtlDt, hdRow);      // No.156-3
+            setS03_MA_STOK_Update(context, urhd, dtlDt, hdRow);      // No.176 Mod
 
             // 自社倉庫と在庫倉庫が異なる場合場合のみ移動処理を行う(メーカ販社は必ず異なる)
             bool difShip = urhd.在庫倉庫コード != T05Service.getShippingDestination(urhd);
@@ -1138,6 +1138,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // マルセン仕入 = ON
                 // ⇒マルセン(自社)からの出庫処理
+                DateTime dt;
                 S03_STOK outStok = new S03_STOK();
 
                 int outSouk = getStockpileFromJis(); // マルセン(自社)を強制で設定
@@ -1146,6 +1147,40 @@ namespace KyoeiSystem.Application.WCFService
                 outStok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
                 outStok.在庫数 = stockQty;
 
+                // No.176 Add Start
+                // 賞味期限が変更された場合
+                // 旧賞味期限の在庫を加算(もとに戻す)新賞味期限の在庫を減算
+                if (row.RowState == DataRowState.Modified)
+                {
+                    decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
+
+                    // 数量が変更された場合
+                    if (!row["数量"].Equals(row["数量", DataRowVersion.Original]))
+                    {
+                        outStok.在庫数 = (urdtl.数量 - orgQty) * -1;
+                    }
+
+                    // 賞味期限が変更された場合、賞味期限変更＋数量変更
+                    // (出荷分)旧賞味期限の在庫を加算(もとに戻す)新賞味期限の在庫を減算
+                    if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
+                    {
+                        S03_STOK oldStok = new S03_STOK();
+                        oldStok.倉庫コード = urhd.在庫倉庫コード;
+                        oldStok.品番コード = urdtl.品番コード;
+                        oldStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                            DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                        oldStok.在庫数 = orgQty;
+                        outStok.在庫数 = urdtl.数量 * -1;
+
+                        S03Service.S03_STOK_Update(oldStok);
+                    }
+                }
+                else if (row.RowState == DataRowState.Deleted)
+                {
+                    outStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                            DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                }
+                // No.176 Add End
                 S03Service.S03_STOK_Update(outStok);
 
                 #region 出庫履歴の作成
@@ -1169,25 +1204,111 @@ namespace KyoeiSystem.Application.WCFService
                         { S04.COLUMNS_NAME_倉庫コード, outHistory.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, outHistory.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, outHistory.品番コード.ToString() },
-                        { S04.COLUMNS_NAME_入出庫区分, outHistory.入出庫区分.ToString() }
+                        { S04.COLUMNS_NAME_入出庫区分, outHistory.入出庫区分.ToString() },
+                        { S04.COLUMNS_NAME_賞味期限, row.HasVersion(DataRowVersion.Original) == false ?
+                                                        urdtl.賞味期限.ToString() : row["賞味期限", DataRowVersion.Original] == DBNull.Value ?
+                                                            null : string.Format("{0:yyyy/MM/dd}", row["賞味期限", DataRowVersion.Original])},         // No.176 Add
                     };
+                // No.176 Mod Start
+                // 入力SpreadからKey重複レコードを取得
+                var keyRec = dtlDt.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                                 && x["伝票番号"].ToString().Equals(urdtl.伝票番号.ToString())
+                                                 && x["品番コード"].ToString().Equals(urdtl.品番コード.ToString())
+                                                 && x["賞味期限"].ToString().Equals(urdtl.賞味期限.ToString())).ToList();
+
+                // 入力SpreadからKey重複レコードを取得(旧賞味期限)
+                DateTime? old賞味期限 = null;
+                DateTime wk;
+                if (row.HasVersion(DataRowVersion.Original))
+                {
+                    old賞味期限 = DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out wk) ? wk : (DateTime?)null;
+                }
+                var keyRecBef = dtlDt.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                                            && x["伝票番号"].ToString().Equals(urdtl.伝票番号.ToString())
+                                                            && x["品番コード"].ToString().Equals(urdtl.品番コード.ToString())
+                                                            && x["賞味期限"].ToString().Equals(old賞味期限.ToString())).ToList();
+
+                // DB登録済データの取得
+                var dbOutRec = context.S04_HISTORY.Where(x => x.入出庫日 == outHistory.入出庫日
+                                                         && x.倉庫コード == outHistory.倉庫コード
+                                                         && x.伝票番号 == outHistory.伝票番号
+                                                         && x.品番コード == outHistory.品番コード
+                                                         && ((x.賞味期限 == null && outHistory.賞味期限 == null) || x.賞味期限 == outHistory.賞味期限)
+                                                         && x.入出庫区分 == outHistory.入出庫区分
+                                                         && x.削除日時 == null).FirstOrDefault();
+
+                // Spreadに重複データありの場合
+                if (keyRec.Count() > 1)
+                {
+                    // Keyデータの合計数量を設定
+                    outHistory.数量 = (int)keyRec.Select(x => x.Field<decimal>("数量")).Sum();
+                }
 
                 if (row.RowState == DataRowState.Added)
                 {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(outHistory);
+                    // Spreadに重複データありかつDBに既存データが存在する場合
+                    if (keyRec.Count() > 1 && dbOutRec != null)
+                    {
+                        // 履歴更新
+                        S04Service.UpdateProductHistory(outHistory, hstDic);
+                    }
+                    else
+                    {
+                        // 売上作成の為、履歴作成
+                        S04Service.CreateProductHistory(outHistory);
+                    }
                 }
                 else if (row.RowState == DataRowState.Deleted)
                 {
-                    S04Service.DeleteProductHistory(hstDic);
+                    // Spreadに重複データがなければ、削除
+                    if (keyRecBef.Count() == 0)
+                    {
+                        S04Service.DeleteProductHistory(hstDic);
+                    }
+                    // No.156-3 Mod Start
                 }
-                // No.156-3 Mod Start
+                else if (row.RowState == DataRowState.Modified)
+                {
+                    // 賞味期限が変更されている場合 旧データをDEL　新データをINS
+                    if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
+                    {
+                        // 入力spreadにKey重複レコード(旧賞味期限)が存在しない
+                        if (keyRecBef.Count() == 0)
+                        {
+                            // 既存データ(旧賞味期限)削除
+                            S04Service.DeleteProductHistory(hstDic);
+                        }
+
+                        // DBに登録済データがない場合は新規登録
+                        if (dbOutRec == null)
+                        {
+                            // 新規登録(新賞味期限)
+                            S04Service.CreateProductHistory(outHistory);
+                        }
+                    }
+                    else
+                    {
+                        if (dbOutRec == null)
+                        {
+                            // 売上作成の為、履歴作成
+                            S04Service.CreateProductHistory(outHistory);
+                        }
+                        else
+                        {
+                            // 売上更新の為、履歴更新 
+                            S04Service.UpdateProductHistory(outHistory, hstDic);
+                        }
+                    }
+                }
                 else
                 {
-                    // 売上更新の為、履歴更新(DataRowState.Modified、DataRowState.Unchanged)
-                    S04Service.UpdateProductHistory(outHistory, hstDic);
+                    // 対象なし(DataRowState.Unchanged)
+                    return;
                 }
+                context.SaveChanges();
+                
                 // No.156-3 Mod End
+                // No.176 Mod End
                 #endregion
 
                 // ⇒販社への入庫処理
@@ -1199,6 +1320,40 @@ namespace KyoeiSystem.Application.WCFService
                 inStok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
                 inStok.在庫数 = stockQty * -1;
 
+                // No.176 Add Start
+                // 賞味期限が変更された場合
+                // 旧賞味期限の在庫を加算(もとに戻す)新賞味期限の在庫を減算
+                if (row.RowState == DataRowState.Modified)
+                {
+                    decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
+
+                    // 数量が変更された場合
+                    if (!row["数量"].Equals(row["数量", DataRowVersion.Original]))
+                    {
+                        inStok.在庫数 = urdtl.数量 - orgQty;
+                    }
+
+                    // 賞味期限が変更された場合、賞味期限変更＋数量変更
+                    // (入荷分)旧賞味期限の在庫を減算(もとに戻す)新賞味期限の在庫を加算
+                    if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
+                    {
+                        S03_STOK oldStok = new S03_STOK();
+                        oldStok.倉庫コード = inSouk;
+                        oldStok.品番コード = urdtl.品番コード;
+                        oldStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                            DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                        oldStok.在庫数 = orgQty * -1;
+                        inStok.在庫数 = urdtl.数量;
+
+                        S03Service.S03_STOK_Update(oldStok);
+                    }
+                }
+                else if (row.RowState == DataRowState.Deleted)
+                {
+                    inStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                            DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                }
+                // No.176 Add End
                 S03Service.S03_STOK_Update(inStok);
 
                 // 入庫履歴の作成
@@ -1223,25 +1378,92 @@ namespace KyoeiSystem.Application.WCFService
                         { S04.COLUMNS_NAME_倉庫コード, inHistory.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, inHistory.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, inHistory.品番コード.ToString() },
-                        { S04.COLUMNS_NAME_入出庫区分, inHistory.入出庫区分.ToString() }
+                        { S04.COLUMNS_NAME_入出庫区分, inHistory.入出庫区分.ToString() },
+                        { S04.COLUMNS_NAME_賞味期限, row.HasVersion(DataRowVersion.Original) == false ?
+                                                        urdtl.賞味期限.ToString() : row["賞味期限", DataRowVersion.Original] == DBNull.Value ?
+                                                            null : string.Format("{0:yyyy/MM/dd}", row["賞味期限", DataRowVersion.Original])},         // No.176 Add
                     };
+
+                // No.176 Mod Start
+                // DB登録済データの取得
+                var dbInRec = context.S04_HISTORY.Where(x => x.入出庫日 == inHistory.入出庫日
+                                                         && x.倉庫コード == inHistory.倉庫コード
+                                                         && x.伝票番号 == inHistory.伝票番号
+                                                         && x.品番コード == inHistory.品番コード
+                                                         && ((x.賞味期限 == null && inHistory.賞味期限 == null) || x.賞味期限 == inHistory.賞味期限)
+                                                         && x.入出庫区分 == inHistory.入出庫区分
+                                                         && x.削除日時 == null).FirstOrDefault();
+
+                // Spreadに重複データありの場合
+                if (keyRec.Count() > 1)
+                {
+                    // Keyデータの合計数量を設定
+                    inHistory.数量 = (int)keyRec.Select(x => x.Field<decimal>("数量")).Sum();
+                }
 
                 if (row.RowState == DataRowState.Added)
                 {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(inHistory);
+                    if (keyRec.Count() > 1 && dbInRec != null)
+                    {
+                        // 履歴更新
+                        S04Service.UpdateProductHistory(inHistory, hstDic);
+                    }
+                    else
+                    {
+                        // 売上作成の為、履歴作成
+                        S04Service.CreateProductHistory(inHistory);
+                    }
                 }
                 else if (row.RowState == DataRowState.Deleted)
                 {
-                    S04Service.DeleteProductHistory(hstDic);
+                    // Spreadに重複データがなければ、削除
+                    if (keyRecBef.Count() == 0)
+                    {
+                        S04Service.DeleteProductHistory(hstDic);
+                    }
+                    // No.156-3 Mod Start
                 }
-                // No.156-3 Mod Start
+                else if (row.RowState == DataRowState.Modified)
+                {
+                    // 賞味期限が変更されている場合 旧データをDEL　新データをINS
+                    if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
+                    {
+                        // 入力spreadにKey重複レコード(旧賞味期限)が存在しない
+                        if (keyRecBef.Count() == 0)
+                        {
+                            // 既存データ(旧賞味期限)削除
+                            S04Service.DeleteProductHistory(hstDic);
+                        }
+
+                        // DBに登録済データがない場合は新規登録
+                        if (dbInRec == null)
+                        {
+                            // 新規登録(新賞味期限)
+                            S04Service.CreateProductHistory(inHistory);
+                        }
+                    }
+                    else
+                    {
+                        if (dbInRec == null)
+                        {
+                            // 売上作成の為、履歴作成
+                            S04Service.CreateProductHistory(inHistory);
+                        }
+                        else
+                        {
+                            // 売上更新の為、履歴更新 
+                            S04Service.UpdateProductHistory(inHistory, hstDic);
+                        }
+                    }
+                }
                 else
                 {
-                    // 売上更新の為、履歴更新(DataRowState.Modified、DataRowState.Unchanged)
-                    S04Service.UpdateProductHistory(inHistory, hstDic);
+                    // 対象なし(DataRowState.Unchanged)
+                    return;
                 }
+                context.SaveChanges();
                 // No.156-3 Mod End
+                // No.176 Mod End
                 #endregion
 
             }
@@ -1254,7 +1476,7 @@ namespace KyoeiSystem.Application.WCFService
             setT02_URDTL_Update(urhd, dtlDt, false);
 
             // 12.在庫(引去)の更新
-            setS03_STOK_Update(urhd, dtlDt, hdRow);     // No.156-3
+            setS03_STOK_Update(context, urhd, dtlDt, hdRow);     // No.176 Mod
 
         }
         #endregion
@@ -1320,7 +1542,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="urhd">売上ヘッダデータ</param>
         /// <param name="dtlTbl">売上明細データテーブル</param>
         /// </param>
-        private void setS03_STOK_Update(T02_URHD urhd, DataTable dtlTbl, DataRow orghd)
+        private void setS03_STOK_Update(TRAC3Entities context, T02_URHD urhd, DataTable dtlTbl, DataRow orghd)
         {
             foreach (DataRow row in dtlTbl.Rows)
             {
@@ -1330,6 +1552,8 @@ namespace KyoeiSystem.Application.WCFService
                     continue;
 
                 decimal stockQty = 0;
+                decimal oldstockQty = 0;
+                bool kigenChangeFlg = false;    // 賞味期限変更フラグ    No.176 Add
                 #region 通常売上
                 if (row.RowState == DataRowState.Deleted)
                 {
@@ -1354,9 +1578,24 @@ namespace KyoeiSystem.Application.WCFService
                     // オリジナル(変更前数量)と比較して差分数量を加減算
                     if (row.HasVersion(DataRowVersion.Original))
                     {
-                        decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
-                        stockQty = (orgQty - urdtl.数量);
-
+                        // No.176 Mod Start
+                        // 賞味期限が変更された場合
+                        // 旧賞味期限の在庫プラスし、新賞味期限の在庫をマイナス
+                        if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
+                        {
+                            kigenChangeFlg = true;
+                            // 旧賞味期限の在庫数
+                            oldstockQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
+                            // 新賞味期限の在庫数
+                            stockQty = urdtl.数量 * -1;
+                        }
+                        else
+                        {
+                            // 数量が変更された場合
+                            decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
+                            stockQty = (urdtl.数量 - orgQty) * -1;
+                        }
+                        // No.176 Mod End 
                     }
 
                 }
@@ -1392,11 +1631,33 @@ namespace KyoeiSystem.Application.WCFService
                 stok.品番コード = urdtl.品番コード;
                 stok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
                 stok.在庫数 = stockQty;
-
+                
                 if (row.RowState != DataRowState.Unchanged)
                 {
+                    // No.176 Add Start
+                    // 賞味期限が変更された場合
+                    if (kigenChangeFlg)
+                    {
+                        DateTime dt;
+                        S03_STOK oldStok = new S03_STOK();
+                        oldStok.倉庫コード = stok.倉庫コード;
+                        oldStok.品番コード = stok.品番コード;
+                        oldStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                                            DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                        oldStok.在庫数 = oldstockQty;
+                        
+                        // 旧賞味期限の在庫を加算
+                        S03Service.S03_STOK_Update(oldStok);
+                    }
+                    if (row.RowState == DataRowState.Deleted)
+                    {
+                        DateTime date;
+                        stok.賞味期限 = DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out date) ? date : DateTime.Parse(DateTime.MaxValue.ToString("yyyy/MM/dd"));
+                    }
+                    // No.176 Add End
+
                     S03Service.S03_STOK_Update(stok);
-                }
+                }                
 
                 #region 出庫履歴の作成
                 S04_HISTORY history = new S04_HISTORY();
@@ -1419,32 +1680,125 @@ namespace KyoeiSystem.Application.WCFService
                         // No.156-3 Mod End
                         { S04.COLUMNS_NAME_伝票番号,  history.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() },
+                        { S04.COLUMNS_NAME_賞味期限, row.HasVersion(DataRowVersion.Original) == false ?
+                                                        urdtl.賞味期限.ToString() : row["賞味期限", DataRowVersion.Original] == DBNull.Value ?
+                                                            null : string.Format("{0:yyyy/MM/dd}", row["賞味期限", DataRowVersion.Original])},         // No.176 Add
                         { S04.COLUMNS_NAME_入出庫区分, history.入出庫区分.ToString() }
                     };
 
+                // No.176 Mod Start
+                // 入力SpreadからKey重複レコードを取得
+                var keyRec = dtlTbl.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                                         && x["伝票番号"].ToString().Equals(history.伝票番号.ToString())
+                                                         && x["品番コード"].ToString().Equals(history.品番コード.ToString())
+                                                         && x["賞味期限"].ToString().Equals(history.賞味期限.ToString())).ToList();
+                
+
+                // DB登録済データの取得
+                var dbRec = context.S04_HISTORY.Where(x => x.入出庫日 == history.入出庫日
+                                                         && x.倉庫コード == history.倉庫コード
+                                                         && x.伝票番号 == history.伝票番号
+                                                         && x.品番コード == history.品番コード
+                                                         && ((x.賞味期限 == null && history.賞味期限 == null) || x.賞味期限 == history.賞味期限)
+                                                         && x.入出庫区分 == history.入出庫区分
+                                                         && x.削除日時 == null).FirstOrDefault();
+
+                DateTime? old賞味期限 = null;
+                DateTime wk;
+                if (row.HasVersion(DataRowVersion.Original))
+                {
+                    old賞味期限 = DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out wk) ? wk : (DateTime?)null;
+                }
+
+                // 入力SpreadからKey重複レコードを取得(旧賞味期限)
+                var keyRecBef = dtlTbl.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                                            && x["伝票番号"].ToString().Equals(history.伝票番号.ToString())
+                                                            && x["品番コード"].ToString().Equals(history.品番コード.ToString())
+                                                            && x["賞味期限"].ToString().Equals(old賞味期限.ToString())).ToList();
+
+                // DB登録済データの取得(旧賞味期限)
+                var dbRecBef = context.S04_HISTORY.Where(x => x.入出庫日 == history.入出庫日
+                                                    && x.倉庫コード == history.倉庫コード
+                                                    && x.伝票番号 == history.伝票番号
+                                                    && x.品番コード == history.品番コード
+                                                    && ((x.賞味期限 == null && old賞味期限 == null) || x.賞味期限 == old賞味期限)
+                                                    && x.入出庫区分 == history.入出庫区分
+                                                    && x.削除日時 == null).FirstOrDefault();
+
+
+                // Spreadに重複データありの場合
+                if (keyRec.Count() > 1 )
+                {
+                    // Keyデータの合計数量を設定
+                    history.数量 = (int)keyRec.Select(x => x.Field<decimal>("数量")).Sum();
+                }
+
                 if (row.RowState == DataRowState.Added)
                 {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(history);
+                    // Spreadに重複データありかつDBに既存データが存在する場合
+                    if (keyRec.Count() > 1 && dbRec != null)
+                    {
+                        // 履歴更新
+                        S04Service.UpdateProductHistory(history, hstDic);
+                    }
+                    else
+                    {
+                        // 売上作成の為、履歴作成
+                        S04Service.CreateProductHistory(history);
+                    }
                 }
                 else if (row.RowState == DataRowState.Deleted)
                 {
-                    S04Service.DeleteProductHistory(hstDic);
+                    // Spreadに重複データがなければ、削除
+                    if (keyRecBef.Count() == 0)
+                    {
+                        S04Service.DeleteProductHistory(hstDic);
+                    }
                 }
                 // No.156-3 Mod Start
-                else
+                else  // (DataRowState.Unchanged、DataRowState.Modified)
                 {
-                    // 売上更新の為、履歴更新 (DataRowState.Unchanged、DataRowState.Modified)
-                    S04Service.UpdateProductHistory(history, hstDic);
+                    // 賞味期限が変更されている場合 旧データをDEL　新データをINS
+                    if (kigenChangeFlg)
+                    {
+                        // 入力spreadにKey重複レコード(旧賞味期限)が存在しない
+                        if (keyRecBef.Count() == 0)
+                        {
+                            // 既存データ(旧賞味期限)削除
+                            S04Service.DeleteProductHistory(hstDic);
+                        }
+
+                        // DBに登録済データがない場合は新規登録
+                        if (dbRec == null)
+                        {
+                            // 新規登録(新賞味期限)
+                            S04Service.CreateProductHistory(history);
+                        }
+                    }
+                    else
+                    {
+                        if (dbRec == null)
+                        {
+                            // 売上作成の為、履歴作成
+                            S04Service.CreateProductHistory(history);
+                        }
+                        else
+                        {
+                            // 売上更新の為、履歴更新 
+                            S04Service.UpdateProductHistory(history, hstDic);
+                        }
+                    }
                 }
+                context.SaveChanges();
                 // No.156-3 Mod End
+                // No.176 Mod End
                 #endregion
 
             }
 
         }
         #endregion
-
+        
         #region << 販社在庫情報更新処理 >>
         /// <summary>
         /// 販社の移動在庫情報の更新をおこなう
@@ -1453,7 +1807,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="dtlTbl">売上明細データテーブル</param>
         /// <param name="difSouk">自社倉庫と在庫倉庫が異なる場合</param>
         /// <param name="befZaiSouk">前回在庫倉庫</param>
-        private void setS03_HAN_STOK_Update(T02_URHD urhd, DataTable dtlTbl, bool difSouk, int befZaiSouk, DataRow orghd)
+        private void setS03_HAN_STOK_Update(TRAC3Entities context, T02_URHD urhd, DataTable dtlTbl, bool difSouk, int befZaiSouk, DataRow orghd)
         {
             // マルセン仕入のチェック状態で生成データが変わる
             // ⇒チェックオンは仕入先→販社への入出庫
@@ -1536,7 +1890,7 @@ namespace KyoeiSystem.Application.WCFService
                                 {
                                     // 前回の移動在庫を削除
                                     decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
-                                    setS04_HAN_HISTORY_ZAI_Create(urhd, urdtl, DataRowState.Deleted, orgQty, befZaiSouk, orghd);
+                                    setS04_HAN_HISTORY_ZAI_Create(context, urhd, urdtl, DataRowState.Deleted, orgQty, befZaiSouk, orghd, row, dtlTbl);  // No.176 Mod
                                 }
 
                                 // 新規登録
@@ -1583,7 +1937,7 @@ namespace KyoeiSystem.Application.WCFService
                 }
 
                 // 今回の移動在庫を適用
-                setS04_HAN_HISTORY_ZAI_Create(urhd, urdtl, 行状態, stockQty, outSouk, orghd);  // No.156-3 Add
+                setS04_HAN_HISTORY_ZAI_Create(context, urhd, urdtl, 行状態, stockQty, outSouk, orghd, row, dtlTbl);  // No.176 Mod
             }
 
         }
@@ -1595,7 +1949,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="urhd"></param>
         /// <param name="dtlDt"></param>
-        private void setS03_MA_STOK_Update(T02_URHD urhd, DataTable dtlDt, DataRow orghd)
+        private void setS03_MA_STOK_Update(TRAC3Entities context, T02_URHD urhd, DataTable dtlDt, DataRow orghd)
         {
 
             foreach (DataRow row in dtlDt.Rows)
@@ -1639,6 +1993,7 @@ namespace KyoeiSystem.Application.WCFService
                 #endregion
 
                 // ⇒マルセン(自社)への入庫処理
+                DateTime dt;
                 S03_STOK outStok = new S03_STOK();
 
                 int inSouk = getStockpileFromJis(); // マルセン(自社)を強制で設定
@@ -1647,6 +2002,40 @@ namespace KyoeiSystem.Application.WCFService
                 outStok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
                 outStok.在庫数 = stockQty;
 
+                // No.176 Add Start
+                // 賞味期限が変更された場合
+                // 旧賞味期限の在庫を加算(もとに戻す)新賞味期限の在庫を減算
+                if (row.RowState == DataRowState.Modified)
+                {
+                    decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
+
+                    // 数量が変更された場合
+                    if (!row["数量"].Equals(row["数量", DataRowVersion.Original]))
+                    {
+                        outStok.在庫数 = urdtl.数量 - orgQty;
+                    }
+
+                    // 賞味期限が変更された場合、賞味期限変更＋数量変更
+                    // (入荷分)旧賞味期限の在庫を減算(もとに戻す)新賞味期限の在庫を加算
+                    if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
+                    {
+                        S03_STOK oldStok = new S03_STOK();
+                        oldStok.倉庫コード = inSouk;
+                        oldStok.品番コード = urdtl.品番コード;
+                        oldStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                            DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                        oldStok.在庫数 = orgQty * -1;
+                        outStok.在庫数 = urdtl.数量;
+
+                        S03Service.S03_STOK_Update(oldStok);
+                    }
+                }
+                else if (row.RowState == DataRowState.Deleted)
+                {
+                    outStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                            DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                }
+                // No.176 Add End
                 // No.156-3 Mod Start
                 if (row.RowState != DataRowState.Unchanged)
                 {
@@ -1675,25 +2064,107 @@ namespace KyoeiSystem.Application.WCFService
                         { S04.COLUMNS_NAME_倉庫コード, outHistory.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, outHistory.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, outHistory.品番コード.ToString() },
-                        { S04.COLUMNS_NAME_入出庫区分, outHistory.入出庫区分.ToString() }
+                        { S04.COLUMNS_NAME_入出庫区分, outHistory.入出庫区分.ToString() },
+                        { S04.COLUMNS_NAME_賞味期限, row.HasVersion(DataRowVersion.Original) == false ?
+                                                        urdtl.賞味期限.ToString() : row["賞味期限", DataRowVersion.Original] == DBNull.Value ?
+                                                            null : string.Format("{0:yyyy/MM/dd}", row["賞味期限", DataRowVersion.Original])},         // No.176 Add
                     };
+
+                // No.176 Mod Start
+                // 入力SpreadからKey重複レコードを取得
+                var keyRec = dtlDt.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                                         && x["伝票番号"].ToString().Equals(outHistory.伝票番号.ToString())
+                                                         && x["品番コード"].ToString().Equals(outHistory.品番コード.ToString())
+                                                         && x["賞味期限"].ToString().Equals(outHistory.賞味期限.ToString())).ToList();
+
+
+                // DB登録済データの取得
+                var dbRec = context.S04_HISTORY.Where(x => x.入出庫日 == outHistory.入出庫日
+                                                         && x.倉庫コード == outHistory.倉庫コード
+                                                         && x.伝票番号 == outHistory.伝票番号
+                                                         && x.品番コード == outHistory.品番コード
+                                                         && ((x.賞味期限 == null && outHistory.賞味期限 == null) || x.賞味期限 == outHistory.賞味期限)
+                                                         && x.入出庫区分 == outHistory.入出庫区分
+                                                         && x.削除日時 == null).FirstOrDefault();
+
+                // 入力SpreadからKey重複レコードを取得(旧賞味期限)
+                DateTime? old賞味期限 = null;
+                DateTime wk;
+                if (row.HasVersion(DataRowVersion.Original))
+                {
+                    old賞味期限 = DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out wk) ? wk : (DateTime?)null;
+                }
+                var keyRecBef = dtlDt.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                                            && x["伝票番号"].ToString().Equals(urdtl.伝票番号.ToString())
+                                                            && x["品番コード"].ToString().Equals(urdtl.品番コード.ToString())
+                                                            && x["賞味期限"].ToString().Equals(old賞味期限.ToString())).ToList();
+
+                // Spreadに重複データありの場合
+                if (keyRec.Count() > 1)
+                {
+                    // Keyデータの合計数量を設定
+                    outHistory.数量 = (int)keyRec.Select(x => x.Field<decimal>("数量")).Sum();
+                }
 
                 if (row.RowState == DataRowState.Added)
                 {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(outHistory);
+                    // Spreadに重複データありかつDBに既存データが存在する場合
+                    if (keyRec.Count() > 1 && dbRec != null)
+                    {
+                        // 履歴更新
+                        S04Service.UpdateProductHistory(outHistory, hstDic);
+                    }
+                    else
+                    {
+                        // 売上作成の為、履歴作成
+                        S04Service.CreateProductHistory(outHistory);
+                    }
                 }
                 else if (row.RowState == DataRowState.Deleted)
                 {
-                    S04Service.DeleteProductHistory(hstDic);
+                    // Spreadに重複データがなければ、削除
+                    if (keyRecBef.Count() == 0)
+                    {
+                        S04Service.DeleteProductHistory(hstDic);
+                    }
                 }
                 // No.156-3 Mod Start
                 else
                 {
-                    // 売上更新の為、履歴更新 (DataRowState.Modified、DataRowState.Unchanged)
-                    S04Service.UpdateProductHistory(outHistory, hstDic);
+                    // 賞味期限が変更されている場合 旧データをDEL　新データをINS
+                    if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
+                    {
+                        // 入力spreadにKey重複レコード(旧賞味期限)が存在しない
+                        if (keyRecBef.Count() == 0)
+                        {
+                            // 既存データ(旧賞味期限)削除
+                            S04Service.DeleteProductHistory(hstDic);
+                        }
+
+                        // DBに登録済データがない場合は新規登録
+                        if (dbRec == null)
+                        {
+                            // 新規登録(新賞味期限)
+                            S04Service.CreateProductHistory(outHistory);
+                        }
+                    }
+                    else
+                    {
+                        if (dbRec == null)
+                        {
+                            // 売上作成の為、履歴作成
+                            S04Service.CreateProductHistory(outHistory);
+                        }
+                        else
+                        {
+                            // 売上更新の為、履歴更新 
+                            S04Service.UpdateProductHistory(outHistory, hstDic);
+                        }
+                    }
                 }
+                context.SaveChanges();
                 // No.156-3 Mod End
+                // No.176 Mod End
                 #endregion
 
             }
@@ -1705,19 +2176,55 @@ namespace KyoeiSystem.Application.WCFService
         /// <summary>
         /// 販社の入出庫在庫、履歴の登録・更新をおこなう
         /// </summary>
-        /// <param name="urhd">仕入ヘッダデータ</param>
-        /// <param name="urdtl">仕入明細データテーブル</param>
+        /// <param name="urhd">売上ヘッダデータ</param>
+        /// <param name="urdtl">売上明細データテーブル</param>
         /// <param name="行状態">登録・削除・編集</param>
         /// <param name="stockQty">移動数</param>
         /// <param name="outSouk">移動元倉庫</param>
-        /// /// <param name="urhd">変更前仕入ヘッダデータ</param>
-        private void setS04_HAN_HISTORY_ZAI_Create(T02_URHD urhd, T02_URDTL urdtl, DataRowState 行状態, decimal stockQty, int outSouk, DataRow orghd)
+        /// <param name="orghd">変更前売上ヘッダデータ</param>
+        /// <param name="urdtlRow">spread行情報</param>
+        /// <param name="history数量">spreadテーブル情報</param>
+        private void setS04_HAN_HISTORY_ZAI_Create(TRAC3Entities context, T02_URHD urhd, T02_URDTL urdtl, DataRowState 行状態, decimal stockQty, int outSouk, DataRow orghd, DataRow urdtlRow, DataTable dtlTbl)
         {
+            DateTime dt;
             S03_STOK outStok = new S03_STOK();
             outStok.倉庫コード = outSouk;
             outStok.品番コード = urdtl.品番コード;
             outStok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
             outStok.在庫数 = stockQty;
+
+            // No.176 Add Start
+            if (urdtlRow.RowState == DataRowState.Modified)
+            {
+                decimal orgQty = ParseNumeric<decimal>(urdtlRow["数量", DataRowVersion.Original]);
+
+                // 数量が変更された場合
+                if (!urdtlRow["数量"].Equals(urdtlRow["数量", DataRowVersion.Original]))
+                {
+                    outStok.在庫数 = (urdtl.数量 - orgQty) * -1;
+                }
+
+                // 賞味期限が変更された場合、賞味期限変更＋数量変更
+                // (出荷分)旧賞味期限の在庫を加算(もとに戻す)新賞味期限の在庫を減算
+                if (!urdtlRow["賞味期限"].Equals(urdtlRow["賞味期限", DataRowVersion.Original]))
+                {
+                    S03_STOK oldStok = new S03_STOK();
+                    oldStok.倉庫コード = urhd.在庫倉庫コード;
+                    oldStok.品番コード = urdtl.品番コード;
+                    oldStok.賞味期限 = urdtlRow["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                        DateTime.TryParse(urdtlRow["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                    oldStok.在庫数 = orgQty;
+                    outStok.在庫数 = urdtl.数量 * -1;
+
+                    S03Service.S03_STOK_Update(oldStok);
+                }
+            }
+            else if (urdtlRow.RowState == DataRowState.Deleted)
+            {
+                outStok.賞味期限 = urdtlRow["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                        DateTime.TryParse(urdtlRow["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+            }
+            // No.176 Add End
 
             S03Service.S03_STOK_Update(outStok);
 
@@ -1742,28 +2249,109 @@ namespace KyoeiSystem.Application.WCFService
                         { S04.COLUMNS_NAME_倉庫コード, outHistory.倉庫コード.ToString()},
                         { S04.COLUMNS_NAME_伝票番号, outHistory.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, outHistory.品番コード.ToString() },
-                        { S04.COLUMNS_NAME_入出庫区分, outHistory.入出庫区分.ToString() }
+                        { S04.COLUMNS_NAME_入出庫区分, outHistory.入出庫区分.ToString() },
+                        { S04.COLUMNS_NAME_賞味期限, urdtlRow.HasVersion(DataRowVersion.Original) == false ?
+                                                        urdtl.賞味期限.ToString() : urdtlRow["賞味期限", DataRowVersion.Original] == DBNull.Value ?
+                                                            null : string.Format("{0:yyyy/MM/dd}", urdtlRow["賞味期限", DataRowVersion.Original])},         // No.176 Add
                     };
 
+            // No.176 Mod Start
+            // 入力SpreadからKey重複レコードを取得
+            var keyRec = dtlTbl.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                             && x["伝票番号"].ToString().Equals(urdtl.伝票番号.ToString())
+                                             && x["品番コード"].ToString().Equals(urdtl.品番コード.ToString())
+                                             && x["賞味期限"].ToString().Equals(urdtl.賞味期限.ToString())).ToList();
+
+            // 入力SpreadからKey重複レコードを取得(旧賞味期限)
+            DateTime? old賞味期限 = null;
+            DateTime wk;
+            if (urdtlRow.HasVersion(DataRowVersion.Original))
+            {
+                old賞味期限 = DateTime.TryParse(urdtlRow["賞味期限", DataRowVersion.Original].ToString(), out wk) ? wk : (DateTime?)null;
+            }
+            var keyRecBef = dtlTbl.AsEnumerable().Where(x => x.RowState != DataRowState.Deleted
+                                                        && x["伝票番号"].ToString().Equals(urdtl.伝票番号.ToString())
+                                                        && x["品番コード"].ToString().Equals(urdtl.品番コード.ToString())
+                                                        && x["賞味期限"].ToString().Equals(old賞味期限.ToString())).ToList();
+
+            // DB登録済データの取得
+            var dbOutRec = context.S04_HISTORY.Where(x => x.入出庫日 == outHistory.入出庫日
+                                                     && x.倉庫コード == outHistory.倉庫コード
+                                                     && x.伝票番号 == outHistory.伝票番号
+                                                     && x.品番コード == outHistory.品番コード
+                                                     && ((x.賞味期限 == null && outHistory.賞味期限 == null) || x.賞味期限 == outHistory.賞味期限)
+                                                     && x.入出庫区分 == outHistory.入出庫区分
+                                                     && x.削除日時 == null).FirstOrDefault();
+
+            // Spreadに重複データありの場合
+            if (keyRec.Count() > 1)
+            {
+                // Keyデータの合計数量を設定
+                outHistory.数量 = (int)keyRec.Select(x => x.Field<decimal>("数量")).Sum();
+            }
+            
             if (行状態 == DataRowState.Added)
             {
-                // 売上作成の為、履歴作成
-                S04Service.CreateProductHistory(outHistory);
+                // Spreadに重複データありかつDBに既存データが存在する場合
+                if (keyRec.Count() > 1 && dbOutRec != null)
+                {
+                    // 履歴更新
+                    S04Service.UpdateProductHistory(outHistory, hstDic);
+                }
+                else
+                {
+                    // 売上作成の為、履歴作成
+                    S04Service.CreateProductHistory(outHistory);
+                }
             }
             else if (行状態 == DataRowState.Deleted)
             {
-                S04Service.DeleteProductHistory(hstDic);
+                // Spreadに重複データがなければ、削除
+                if (keyRecBef.Count() == 0)
+                {
+                    S04Service.DeleteProductHistory(hstDic);
+                }
             }
             else if (行状態 == DataRowState.Modified)
             {
-                // 売上更新の為、履歴更新
-                S04Service.UpdateProductHistory(outHistory, hstDic);
+                // 賞味期限が変更されている場合 旧データをDEL　新データをINS
+                if (!urdtlRow["賞味期限"].Equals(urdtlRow["賞味期限", DataRowVersion.Original]))
+                {
+                    // 入力spreadにKey重複レコード(旧賞味期限)が存在しない
+                    if (keyRecBef.Count() == 0)
+                    {
+                        // 既存データ(旧賞味期限)削除
+                        S04Service.DeleteProductHistory(hstDic);
+                    }
+
+                    // DBに登録済データがない場合は新規登録
+                    if (dbOutRec == null)
+                    {
+                        // 新規登録(新賞味期限)
+                        S04Service.CreateProductHistory(outHistory);
+                    }
+                }
+                else
+                {
+                    if (dbOutRec == null)
+                    {
+                        // 売上作成の為、履歴作成
+                        S04Service.CreateProductHistory(outHistory);
+                    }
+                    else
+                    {
+                        // 売上更新の為、履歴更新 
+                        S04Service.UpdateProductHistory(outHistory, hstDic);
+                    }
+                }
             }
             else
             {
                 // 対象なし(DataRowState.Unchanged)
                 return;
             }
+            context.SaveChanges();
+            // No.176 Mod End
             #endregion
 
             // ⇒販社への入庫処理
@@ -1776,7 +2364,41 @@ namespace KyoeiSystem.Application.WCFService
             inStok.賞味期限 = AppCommon.DateTimeToDate(urdtl.賞味期限, DateTime.MaxValue);
             inStok.在庫数 = stockQty * -1;
 
-            S03Service.S03_STOK_Update(inStok);
+            // No.176 Add Start
+            if (urdtlRow.RowState == DataRowState.Modified)
+            {
+                decimal orgQty = ParseNumeric<decimal>(urdtlRow["数量", DataRowVersion.Original]);
+
+                // 数量が変更された場合
+                if (!urdtlRow["数量"].Equals(urdtlRow["数量", DataRowVersion.Original]))
+                {
+                    inStok.在庫数 = urdtl.数量 - orgQty;
+                }
+
+                // 賞味期限が変更された場合、賞味期限変更＋数量変更
+                // (入荷分)旧賞味期限の在庫を減算(もとに戻す)新賞味期限の在庫を加算
+                if (!urdtlRow["賞味期限"].Equals(urdtlRow["賞味期限", DataRowVersion.Original]))
+                {
+                    S03_STOK oldStok = new S03_STOK();
+                    oldStok.倉庫コード = inSouk;
+                    oldStok.品番コード = urdtl.品番コード;
+                    oldStok.賞味期限 = urdtlRow["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                        DateTime.TryParse(urdtlRow["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                    oldStok.在庫数 = orgQty * -1;
+                    inStok.在庫数 = urdtl.数量;
+
+                    S03Service.S03_STOK_Update(oldStok);
+                }
+
+            }
+            else if (urdtlRow.RowState == DataRowState.Deleted)
+            {
+                inStok.賞味期限 = urdtlRow["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                        DateTime.TryParse(urdtlRow["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+            }
+            // No.176 Add End
+
+            S03Service.S03_STOK_Update(inStok);            
 
             // 入庫履歴の作成
             #region 入庫履歴の作成
@@ -1800,29 +2422,91 @@ namespace KyoeiSystem.Application.WCFService
                         { S04.COLUMNS_NAME_倉庫コード, inHistory.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, inHistory.伝票番号.ToString() },
                         { S04.COLUMNS_NAME_品番コード, inHistory.品番コード.ToString() },
-                        { S04.COLUMNS_NAME_入出庫区分, inHistory.入出庫区分.ToString() }
+                        { S04.COLUMNS_NAME_入出庫区分, inHistory.入出庫区分.ToString() },
+                        { S04.COLUMNS_NAME_賞味期限, urdtlRow.HasVersion(DataRowVersion.Original) == false ?
+                                                        urdtl.賞味期限.ToString() : urdtlRow["賞味期限", DataRowVersion.Original] == DBNull.Value ?
+                                                            null : string.Format("{0:yyyy/MM/dd}", urdtlRow["賞味期限", DataRowVersion.Original])},         // No.176 Add
 
                     };
 
+            // No.176 Mod Start
+            // DB登録済データの取得
+            var dbInRec = context.S04_HISTORY.Where(x => x.入出庫日 == inHistory.入出庫日
+                                                     && x.倉庫コード == inHistory.倉庫コード
+                                                     && x.伝票番号 == inHistory.伝票番号
+                                                     && x.品番コード == inHistory.品番コード
+                                                     && ((x.賞味期限 == null && inHistory.賞味期限 == null) || x.賞味期限 == inHistory.賞味期限)
+                                                     && x.入出庫区分 == inHistory.入出庫区分
+                                                     && x.削除日時 == null).FirstOrDefault();
+
+            // Spreadに重複データありの場合
+            if (keyRec.Count() > 1)
+            {
+                // Keyデータの合計数量を設定
+                inHistory.数量 = (int)keyRec.Select(x => x.Field<decimal>("数量")).Sum();
+            }
+
             if (行状態 == DataRowState.Added)
             {
-                // 売上作成の為、履歴作成
-                S04Service.CreateProductHistory(inHistory);
+                if (keyRec.Count() > 1 && dbInRec != null)
+                {
+                    // 履歴更新
+                    S04Service.UpdateProductHistory(inHistory, hstDic);
+                }
+                else
+                {
+                    // 売上作成の為、履歴作成
+                    S04Service.CreateProductHistory(inHistory);
+                }
             }
             else if (行状態 == DataRowState.Deleted)
             {
-                S04Service.DeleteProductHistory(hstDic);
+                // Spreadに重複データがなければ、削除
+                if (keyRecBef.Count() == 0)
+                {
+                    S04Service.DeleteProductHistory(hstDic);
+                }
             }
             else if (行状態 == DataRowState.Modified)
             {
-                // 売上更新の為、履歴更新
-                S04Service.UpdateProductHistory(inHistory, hstDic);
+                // 賞味期限が変更されている場合 旧データをDEL　新データをINS
+                if (!urdtlRow["賞味期限"].Equals(urdtlRow["賞味期限", DataRowVersion.Original]))
+                {
+                    // 入力spreadにKey重複レコード(旧賞味期限)が存在しない
+                    if (keyRecBef.Count() == 0)
+                    {
+                        // 既存データ(旧賞味期限)削除
+                        S04Service.DeleteProductHistory(hstDic);
+                    }
+
+                    // DBに登録済データがない場合は新規登録
+                    if (dbInRec == null)
+                    {
+                        // 新規登録(新賞味期限)
+                        S04Service.CreateProductHistory(inHistory);
+                    }
+                }
+                else
+                {
+                    if (dbInRec == null)
+                    {
+                        // 売上作成の為、履歴作成
+                        S04Service.CreateProductHistory(inHistory);
+                    }
+                    else
+                    {
+                        // 売上更新の為、履歴更新 
+                        S04Service.UpdateProductHistory(inHistory, hstDic);
+                    }
+                }
             }
             else
             {
                 // 対象なし(DataRowState.Unchanged)
                 return;
             }
+            context.SaveChanges();
+            // No.176 Mod End
             #endregion
 
         }
