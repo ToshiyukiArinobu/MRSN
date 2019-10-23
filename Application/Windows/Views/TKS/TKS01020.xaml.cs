@@ -581,7 +581,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // 第1引数　帳票タイトル
             // 第2引数　帳票ファイルPass
             // 第3以上　帳票の開始点(0で良い)
-            view.MakeReport("納品書", REPORT_FILE_PATH);
+            view.MakeReport("請求書", REPORT_FILE_PATH);
 
             var parms = new List<FwPreview.ReportParameter>()
                 {
