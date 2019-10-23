@@ -239,18 +239,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<M99_ZIP> _m99_ZIP;
     
-        public ObjectSet<S01_SEIDTL> S01_SEIDTL
-        {
-            get { return _s01_SEIDTL  ?? (_s01_SEIDTL = CreateObjectSet<S01_SEIDTL>("S01_SEIDTL")); }
-        }
-        private ObjectSet<S01_SEIDTL> _s01_SEIDTL;
-    
-        public ObjectSet<S02_SHRDTL> S02_SHRDTL
-        {
-            get { return _s02_SHRDTL  ?? (_s02_SHRDTL = CreateObjectSet<S02_SHRDTL>("S02_SHRDTL")); }
-        }
-        private ObjectSet<S02_SHRDTL> _s02_SHRDTL;
-    
         public ObjectSet<S03_STOK> S03_STOK
         {
             get { return _s03_STOK  ?? (_s03_STOK = CreateObjectSet<S03_STOK>("S03_STOK")); }
@@ -430,6 +418,18 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s02_SHRHD  ?? (_s02_SHRHD = CreateObjectSet<S02_SHRHD>("S02_SHRHD")); }
         }
         private ObjectSet<S02_SHRHD> _s02_SHRHD;
+    
+        public ObjectSet<S01_SEIDTL> S01_SEIDTL
+        {
+            get { return _s01_SEIDTL  ?? (_s01_SEIDTL = CreateObjectSet<S01_SEIDTL>("S01_SEIDTL")); }
+        }
+        private ObjectSet<S01_SEIDTL> _s01_SEIDTL;
+    
+        public ObjectSet<S02_SHRDTL> S02_SHRDTL
+        {
+            get { return _s02_SHRDTL  ?? (_s02_SHRDTL = CreateObjectSet<S02_SHRDTL>("S02_SHRDTL")); }
+        }
+        private ObjectSet<S02_SHRDTL> _s02_SHRDTL;
 
         #endregion
 

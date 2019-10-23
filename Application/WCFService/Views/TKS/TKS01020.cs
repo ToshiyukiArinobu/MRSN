@@ -127,6 +127,8 @@ namespace KyoeiSystem.Application.WCFService
 
             public int 伝票番号 { get; set; }               // No-181 Mod
             public string 売上日 { get; set; }
+            public string 自社品番 { get; set; }
+            public string 相手品番 { get; set; }
             public string 品番名称 { get; set; }
             public decimal 数量 { get; set; }
             public decimal 単価 { get; set; }
@@ -405,6 +407,12 @@ namespace KyoeiSystem.Application.WCFService
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (a, b) => new { SDTL = a.x, HIN = b })
+                            .GroupJoin(context.M10_TOKHIN.Where(w => w.削除日時 == null && w.取引先コード == mem.得意先コード && w.枝番 == mem.得意先枝番),
+                                        x => x.HIN.品番コード,
+                                        y => y.品番コード,
+                                        (x, y) => new { x, y })
+                                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                                        (c, d) => new { c.x.SDTL, c.x.HIN, TOKHIN = d })
                             .ToList()
                             .Select(x => new PrintDetailMember
                             {
@@ -419,6 +427,8 @@ namespace KyoeiSystem.Application.WCFService
 
                                 伝票番号 = x.SDTL.伝票番号,              // No-181 Mod
                                 売上日 = x.SDTL.売上日.ToString("yyyy/MM/dd"),
+                                自社品番 = x.HIN.自社品番,
+                                相手品番 = x.TOKHIN == null ? "" : x.TOKHIN.得意先品番コード,
                                 品番名称 = x.HIN.自社品名,
                                 数量 = x.SDTL.数量,
                                 単価 = x.SDTL.単価,
@@ -471,6 +481,8 @@ namespace KyoeiSystem.Application.WCFService
 
                                         伝票番号 = x.NYU.HD.伝票番号,              // No-181 Mod
                                         売上日 = x.NYU.HD.入金日.ToString("yyyy/MM/dd"),
+                                        自社品番 = string.Empty,
+                                        相手品番 = string.Empty,
                                         品番名称 = x.CMB.表示名 == null ? string.Empty: x.CMB.表示名,
                                         数量 = 0,
                                         単価 = 0,
