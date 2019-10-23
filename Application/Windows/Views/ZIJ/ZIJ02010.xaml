@@ -13,7 +13,7 @@
     mc:Ignorable="d" d:DesignWidth="300"
     WindowStyle="SingleBorderWindow" AllowsTransparency="False"
     MinHeight="728" MinWidth="1024" Height="768" Width="1024"  WindowStartupLocation="CenterOwner" Left="0" Top="0"
-    Title="支払明細問合せ(ZIJ02010)"
+    Title="仕入明細問合せ(ZIJ02010)"
     Loaded="MainWindow_Loaded" Closed="MainWindow_Closed">
 
   <Grid>

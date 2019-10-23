@@ -22,8 +22,8 @@ namespace KyoeiSystem.Application.WCFService
             public string 支払日 { get; set; }         // No.130-3 Mod
             public string 仕入区分 { get; set; }
             public string 入力区分 { get; set; }
-            public int 伝票番号 { get; set; }
-            public int? 元伝票番号 { get; set; }
+            public string 伝票番号 { get; set; }        // No.200 Mod
+            public string 元伝票番号 { get; set; }      // No.200 Mod
             public int 行番号 { get; set; }
             public string 仕入先名 { get; set; }
             public int 品番コード { get; set; }
@@ -154,8 +154,8 @@ namespace KyoeiSystem.Application.WCFService
                                 入力区分 = x.SHD.入力区分 == (int)CommonConstants.入力区分.仕入入力 ? CommonConstants.入力区分_仕入入力 :
                                            x.SHD.入力区分 == (int)CommonConstants.入力区分.売上入力 ? CommonConstants.入力区分_売上入力 :
                                            string.Empty,
-                                伝票番号 = x.SHD.伝票番号,
-                                元伝票番号 = x.SHD.元伝票番号,
+                                伝票番号 = x.SHD.伝票番号.ToString(),
+                                元伝票番号 = x.SHD.元伝票番号 != null ? x.SHD.元伝票番号.ToString() : string.Empty,
                                 行番号 = x.SDTL.行番号,
                                 仕入先名 = x.TOK.得意先名１,
                                 品番コード = x.SDTL.品番コード,
