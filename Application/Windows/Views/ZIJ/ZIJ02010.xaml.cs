@@ -13,7 +13,7 @@ namespace KyoeiSystem.Application.Windows.Views
     using WinForms = System.Windows.Forms;
 
     /// <summary>
-    /// 支払明細問合せ フォームクラス
+    /// 仕入明細問合せ フォームクラス
     /// </summary>
     public partial class ZIJ02010 : RibbonWindowViewBase
     {

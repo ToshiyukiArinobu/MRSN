@@ -2096,6 +2096,8 @@ namespace Hakobou.Data.ZIJ {
             
             private global::System.Data.DataColumn column元伝票番号;
             
+            private global::System.Data.DataColumn column行番号;
+            
             private global::System.Data.DataColumn column仕入先名;
             
             private global::System.Data.DataColumn column自社品番;
@@ -2180,6 +2182,14 @@ namespace Hakobou.Data.ZIJ {
             public global::System.Data.DataColumn 元伝票番号Column {
                 get {
                     return this.column元伝票番号;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 行番号Column {
+                get {
+                    return this.column行番号;
                 }
             }
             
@@ -2308,13 +2318,30 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public 支払明細問合せRow Add支払明細問合せRow(System.DateTime 仕入日, System.DateTime 支払日, string 伝票番号, string 元伝票番号, string 仕入先名, string 自社品番, string 自社品名, string 自社色, System.DateTime 賞味期限, decimal 単価, decimal 数量, string 単位, int 金額, int 発注番号, string 摘要) {
+            public 支払明細問合せRow Add支払明細問合せRow(
+                        System.DateTime 仕入日, 
+                        System.DateTime 支払日, 
+                        string 伝票番号, 
+                        string 元伝票番号, 
+                        int 行番号, 
+                        string 仕入先名, 
+                        string 自社品番, 
+                        string 自社品名, 
+                        string 自社色, 
+                        System.DateTime 賞味期限, 
+                        decimal 単価, 
+                        decimal 数量, 
+                        string 単位, 
+                        int 金額, 
+                        int 発注番号, 
+                        string 摘要) {
                 支払明細問合せRow row支払明細問合せRow = ((支払明細問合せRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         仕入日,
                         支払日,
                         伝票番号,
                         元伝票番号,
+                        行番号,
                         仕入先名,
                         自社品番,
                         自社品名,
@@ -2352,6 +2379,7 @@ namespace Hakobou.Data.ZIJ {
                 this.column支払日 = base.Columns["支払日"];
                 this.column伝票番号 = base.Columns["伝票番号"];
                 this.column元伝票番号 = base.Columns["元伝票番号"];
+                this.column行番号 = base.Columns["行番号"];
                 this.column仕入先名 = base.Columns["仕入先名"];
                 this.column自社品番 = base.Columns["自社品番"];
                 this.column自社品名 = base.Columns["自社品名"];
@@ -2376,6 +2404,8 @@ namespace Hakobou.Data.ZIJ {
                 base.Columns.Add(this.column伝票番号);
                 this.column元伝票番号 = new global::System.Data.DataColumn("元伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column元伝票番号);
+                this.column行番号 = new global::System.Data.DataColumn("行番号", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column行番号);
                 this.column仕入先名 = new global::System.Data.DataColumn("仕入先名", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column仕入先名);
                 this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
@@ -2940,6 +2970,8 @@ namespace Hakobou.Data.ZIJ {
             
             private global::System.Data.DataColumn column元伝票番号;
             
+            private global::System.Data.DataColumn column行番号;
+            
             private global::System.Data.DataColumn column得意先;
             
             private global::System.Data.DataColumn column自社品番;
@@ -3026,6 +3058,14 @@ namespace Hakobou.Data.ZIJ {
             public global::System.Data.DataColumn 元伝票番号Column {
                 get {
                     return this.column元伝票番号;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 行番号Column {
+                get {
+                    return this.column行番号;
                 }
             }
             
@@ -3167,6 +3207,7 @@ namespace Hakobou.Data.ZIJ {
                         System.DateTime 請求日, 
                         string 伝票番号, 
                         string 元伝票番号, 
+                        int 行番号, 
                         string 得意先, 
                         string 自社品番, 
                         string 自社品名, 
@@ -3185,6 +3226,7 @@ namespace Hakobou.Data.ZIJ {
                         請求日,
                         伝票番号,
                         元伝票番号,
+                        行番号,
                         得意先,
                         自社品番,
                         自社品名,
@@ -3223,6 +3265,7 @@ namespace Hakobou.Data.ZIJ {
                 this.column請求日 = base.Columns["請求日"];
                 this.column伝票番号 = base.Columns["伝票番号"];
                 this.column元伝票番号 = base.Columns["元伝票番号"];
+                this.column行番号 = base.Columns["行番号"];
                 this.column得意先 = base.Columns["得意先"];
                 this.column自社品番 = base.Columns["自社品番"];
                 this.column自社品名 = base.Columns["自社品名"];
@@ -3248,6 +3291,8 @@ namespace Hakobou.Data.ZIJ {
                 base.Columns.Add(this.column伝票番号);
                 this.column元伝票番号 = new global::System.Data.DataColumn("元伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column元伝票番号);
+                this.column行番号 = new global::System.Data.DataColumn("行番号", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column行番号);
                 this.column得意先 = new global::System.Data.DataColumn("得意先", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column得意先);
                 this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
@@ -5559,6 +5604,22 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 行番号 {
+                get {
+                    try {
+                        return ((int)(this[this.table支払明細問合せ.行番号Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'支払明細問合せ\' にある列 \'行番号\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table支払明細問合せ.行番号Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 仕入先名 {
                 get {
                     try {
@@ -5779,6 +5840,18 @@ namespace Hakobou.Data.ZIJ {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set元伝票番号Null() {
                 this[this.table支払明細問合せ.元伝票番号Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is行番号Null() {
+                return this.IsNull(this.table支払明細問合せ.行番号Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set行番号Null() {
+                this[this.table支払明細問合せ.行番号Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6345,6 +6418,22 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 行番号 {
+                get {
+                    try {
+                        return ((int)(this[this.table請求明細問合せ.行番号Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'請求明細問合せ\' にある列 \'行番号\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table請求明細問合せ.行番号Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 得意先 {
                 get {
                     try {
@@ -6581,6 +6670,18 @@ namespace Hakobou.Data.ZIJ {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set元伝票番号Null() {
                 this[this.table請求明細問合せ.元伝票番号Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is行番号Null() {
+                return this.IsNull(this.table請求明細問合せ.行番号Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set行番号Null() {
+                this[this.table請求明細問合せ.行番号Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
