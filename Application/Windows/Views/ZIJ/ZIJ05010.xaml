@@ -131,7 +131,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="33" />
+            <RowDefinition Height="30" />
           </Grid.RowDefinitions>
 
           <!-- 自社コード -->
@@ -141,6 +141,7 @@
                                    Label_Context="自社コード" Label_Width="100"
                                    Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
                                    Text2Width="250" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderThickness="0" Text2AcceptsTab="False" Text2VerticalContentAlignment="Center"
+                                   cText1Changed="myCompany_cText1Changed"
           />
 
           <!-- 売上日 -->
@@ -152,39 +153,67 @@
               Label1Text="～"
               Text2Width="80" Text2MaxLength="10" Text2ValidationType="Date" Text2Mask="yyyy/MM/dd" Text2VerticalContentAlignment="Center"
           />
-
-          <!-- 売上区分 -->
-          <ctls:UcLabelComboBox
-              x:Name="cmbSalesKbn" Grid.Row="2" HorizontalAlignment="Left" Margin="5,3,0,0"
-              Label_Context="売上区分" Label_Width="100"
-              Combo_Width="170"
-              ComboListingParams="随時,請求明細問合せ,売上区分"
-          />
-
-          <Grid Grid.Row="3" Margin="5,3,0,0">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition Width="150" />
-              <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-
-            <!-- 得意先 -->
-            <uc:M01_TOK_TextBox
-                x:Name="TOK" Grid.Column="0" HorizontalAlignment="Left"
-                Label_Context="得意先指定" Label_Width="100"
-                DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
-                Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
-                Label1Text="－"
-                Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2VerticalContentAlignment="Center"
-                Label2Text=""
-            />
-
-          </Grid>
+            
+         <Grid Grid.Row="2" Margin="5,3,0,0">
+          <Grid.ColumnDefinitions>
+             <ColumnDefinition Width="300" />
+             <ColumnDefinition Width="100" />
+             <ColumnDefinition Width="auto" />
+          </Grid.ColumnDefinitions>
+          
+              <!-- 売上区分 -->
+              <ctls:UcLabelComboBox
+                  x:Name="cmbSalesKbn" Grid.Row="2" HorizontalAlignment="Left" 
+                  Label_Context="売上区分" Label_Width="100"
+                  Combo_Width="170"
+                  ComboListingParams="随時,請求明細問合せ,売上区分"
+              />
+          
+              <!-- 自社品番指定 -->
+              <ctls:UcLabelTwinTextBox
+                  Name="txtProduct" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left"
+                  DataAccessName="M09_MYHIN" DataAccessMode="On"
+                  Label_Context="自社品番指定" Label_Width="100"
+                  Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                  Text1Width="90" Text1IMEType="Off" Text1MaxLength="12" Text1VerticalContentAlignment="Center"
+                  Text2Width="200" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+               />
+           
+           </Grid>
+            
+           <Grid Grid.Row="3" Margin="5,3,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+               
+                <!-- 売上先 -->
+                <ctls:UcLabelTextRadioButton
+                    x:Name="rdoUrisaki" Grid.Row="3" Grid.Column="0"
+                    Label_Content="売上先" Label_Width="100"
+                    RadioSelectButton="One" RadioViewCount="Two"
+                    RadioOne_Content="得意先" RadioSecond_Content="販社"
+                    Text1VerticalContentAlignment="Center" 
+                    Text="{Binding Path=売上先, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                    TargetUpdated="rdoUrisaki_TargetUpdated"
+                 />
+            
+                <!-- 得意先 -->
+                <uc:M01_TOK_TextBox
+                    x:Name="TOK" Grid.Column="3" HorizontalAlignment="Left"
+                    Label_Context="得意先指定" Label_Width="100"
+                    DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
+                    Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                    Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
+                    Label1Text="－"
+                    Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2VerticalContentAlignment="Center"
+                    Label2Text=""
+                />
+            </Grid>
 
           <!-- 検索ボタン -->
-          <Button Name="btnSearch" Grid.Row="0" Grid.RowSpan="2" Width="50" Height="50" Margin="430,0,0,0"
+          <Button Name="btnSearch" Grid.Row="0" Grid.RowSpan="2" Width="50" Height="50" Margin="670,0,0,0"
                   HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0"
                   Click="Button_Click">
             <Image Source="../Images/検索実行ボタン.png" Stretch="Fill" />
