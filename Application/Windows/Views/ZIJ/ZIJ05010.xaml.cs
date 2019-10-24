@@ -9,6 +9,7 @@ using System.Windows.Input;
 
 namespace KyoeiSystem.Application.Windows.Views
 {
+    using KyoeiSystem.Framework.Windows.Controls;
     using FwRepPreview = KyoeiSystem.Framework.Reports.Preview;
     using WinForms = System.Windows.Forms;
 
@@ -46,6 +47,14 @@ namespace KyoeiSystem.Application.Windows.Views
             委託売上返品 = 95,
             預け売上返品 = 96,
         }
+
+        // No.199 Add Start
+        public enum 売上先 : int
+        {
+            得意先 = 0,
+            販社 = 2,
+        }
+        // No.199 Add End
 
         #endregion
 
@@ -85,11 +94,13 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string FORM_PARAMS_SALES_DATE_TO = "売上日To";
         private const string FORM_PARAMS_SALES_KBN_CODE = "売上区分";
         private const string FORM_PARAMS_SALES_KBN_NAME = "売上区分名";
+        private const string FORM_PARAMS_PRODUCT_CODE = "自社品番";
         private const string FORM_PARAMS_BILLING_DATE_FROM = "請求日From";
         private const string FORM_PARAMS_BILLING_DATE_TO = "請求日To";
         private const string FORM_PARAMS_TOK_CODE = "得意先コード";
         private const string FORM_PARAMS_TOK_EDA = "得意先枝番";
         private const string FORM_PARAMS_TOK_NAME = "得意先名";
+        private const string FORM_PARAMS_URIAGESAKI = "売上先";   // No.199 Add
 
         #endregion
 
@@ -138,6 +149,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             base.MasterMaintenanceWindowList.Add("M01_TOK_TOKU_SCH", new List<Type> { typeof(MST02010), typeof(SCHM01_TOK) });
             base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
+            base.MasterMaintenanceWindowList.Add("M09_MYHIN", new List<Type> { typeof(MST02010), typeof(SCHM09_MYHIN) });       // No.205 Add
 
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
@@ -258,6 +270,19 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
                 else
                 {
+                    // No.199 Add Start
+                    if (this.rdoUrisaki.Text == 売上先.得意先.GetHashCode().ToString())
+                    {
+                        // 得意先、相殺
+                        m01Text.LinkItem = "0,3";
+                    }
+                    else
+                    {
+                        // 販社
+                        m01Text.LinkItem = "4";
+                    }
+                    // No.199 Add End
+
                     m01Text.OpenSearchWindow(this);
 
                 }
@@ -308,6 +333,7 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region F8　リボン　印刷
         /// <summary>
         /// F8　リボン　印刷
         /// </summary>
@@ -318,7 +344,9 @@ namespace KyoeiSystem.Application.Windows.Views
             PrintOut();
 
         }
+        #endregion
 
+        #region F11　リボン　終了
         /// <summary>
         /// F11　リボン　終了
         /// </summary>
@@ -328,6 +356,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.Close();
         }
+        #endregion
 
         #endregion
 
@@ -455,10 +484,33 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region 自社コードが変更された時のイベント処理 // No.199 Add
+        /// <summary>
+        /// 自社コードが変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void myCompany_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            TOK.Text1 = string.Empty;
+            TOK.Text2 = string.Empty;
+        }
+        #endregion
+
+        #region 売上先ラジオボタンが変更された時のイベント処理  // No.199 Add
+        /// <summary>
+        /// 売上先ラジオボタンが変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rdoUrisaki_TargetUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        {
+            TOK.Text1 = string.Empty;
+            TOK.Text2 = string.Empty;
+        }
+        #endregion
 
         #region << 機能処理群 >>
-
-
 
         #region 検索条件部の初期設定
 
@@ -480,10 +532,17 @@ namespace KyoeiSystem.Application.Windows.Views
             AppCommon.SetutpComboboxList(this.cmbSalesKbn, false);
             this.cmbSalesKbn.SelectedIndex = 0;
 
+            // 売上先
+            this.rdoUrisaki.Text = "0";
+            if (ccfg.自社販社区分 != 自社販社区分.自社.GetHashCode())
+            {
+                this.rdoUrisaki.RadioViewCount = UcLabelTextRadioButton.RadioButtonCount.One;
+            }
         }
 
         #endregion
 
+        #region 検索パラメータを設定する
         /// <summary>
         /// 検索パラメータを設定する
         /// </summary>
@@ -519,6 +578,7 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add(FORM_PARAMS_BILLING_DATE_FROM, string.Empty);
             paramDic.Add(FORM_PARAMS_BILLING_DATE_TO, string.Empty);
             paramDic.Add(FORM_PARAMS_SALES_KBN_CODE, cmbSalesKbn.SelectedValue.ToString());
+            paramDic.Add(FORM_PARAMS_PRODUCT_CODE, txtProduct.Text1);           // No.205 Add
             paramDic.Add(FORM_PARAMS_TOK_CODE, TOK.Text1);
             paramDic.Add(FORM_PARAMS_TOK_EDA, TOK.Text2);
 
@@ -526,8 +586,11 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add(FORM_PARAMS_SALES_KBN_NAME, salesKbnDic[int.Parse(cmbSalesKbn.SelectedValue.ToString())]);
             paramDic.Add(FORM_PARAMS_TOK_NAME, TOK.Label2Text);
 
+            paramDic.Add(FORM_PARAMS_URIAGESAKI, rdoUrisaki.Text);              // No.199 Add
         }
+        #endregion
 
+        #region 帳票印刷処理
         /// <summary>
         /// 帳票印刷処理
         /// </summary>
@@ -559,7 +622,10 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = "請求日From", VALUE = getReportParameterValue(FORM_PARAMS_BILLING_DATE_FROM)},
                     new FwRepPreview.ReportParameter(){ PNAME = "請求日To", VALUE = getReportParameterValue(FORM_PARAMS_BILLING_DATE_TO)},
                     new FwRepPreview.ReportParameter(){ PNAME = "売上区分", VALUE = getReportParameterValue(FORM_PARAMS_SALES_KBN_NAME)},
-                    new FwRepPreview.ReportParameter(){ PNAME = "得意先名", VALUE = getReportParameterValue(FORM_PARAMS_TOK_NAME)}
+                    new FwRepPreview.ReportParameter(){ PNAME = "自社品番", VALUE = getReportParameterValue(FORM_PARAMS_PRODUCT_CODE)},     // No.205 Add
+                    new FwRepPreview.ReportParameter(){ PNAME = "得意先名", VALUE = getReportParameterValue(FORM_PARAMS_TOK_NAME)},
+                    new FwRepPreview.ReportParameter(){ PNAME = "売上先", VALUE = getReportParameterValue(FORM_PARAMS_URIAGESAKI) == 売上先.得意先.GetHashCode().ToString()? 
+                                                                                                                                売上先.得意先.ToString() : 売上先.販社.ToString()}     // No.199 Add
                 };
 
                 // REMARKS:テーブル名は帳票DataTableの名前と合わせる
@@ -587,7 +653,9 @@ namespace KyoeiSystem.Application.Windows.Views
                 appLog.Error("売上明細問合せ一覧表の印刷時に例外が発生しました。", ex);
             }
         }
+        #endregion
 
+        #region 指定された検索時条件値を取得する
         /// <summary>
         /// 指定された検索時条件値を取得する
         /// </summary>
@@ -598,6 +666,7 @@ namespace KyoeiSystem.Application.Windows.Views
             return !string.IsNullOrEmpty(paramDic[keyName]) ? paramDic[keyName] : string.Empty;
 
         }
+        #endregion
 
         #endregion
 
