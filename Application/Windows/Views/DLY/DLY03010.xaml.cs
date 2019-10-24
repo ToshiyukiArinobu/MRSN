@@ -48,6 +48,9 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T02_GetData = "T02_GetData";
         /// <summary>売上情報更新</summary>
         private const string T02_Update = "T02_Update";
+        /// <summary>納品書売上情報更新</summary>
+        private const string T02_UpdateForPrint = "T02_UpdateForPrint";
+        
         /// <summary>売上情報削除</summary>
         private const string T02_Delete = "T02_Delete";
 
@@ -56,10 +59,17 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>更新用_在庫数チェック</summary>
         private const string UpdateData_StockCheck = "UpdateData_CheckStock";
 
+        /// <summary>納品書用_在庫数チェック</summary>
+        private const string UpdateData_StockCheck_Print = "UpdateData_CheckStock_Print";
         /// <summary>取引先名称取得</summary>
         private const string MasterCode_Supplier = "UcSupplier";
         /// <summary>得意先品番情報取得</summary>
         private const string MasterCode_CustomerProduct = "UcCustomerProduct";
+
+        /// <summary>納品書 出力データ取得</summary>
+        private const string DLY11010_PRINTOUT = "DLY11010_Print";
+        /// <summary>納品書 帳票定義パス</summary>
+        private const string rptFullPathName = @"Files\DLY\DLY11010.rpt";
         #endregion
 
         #region 使用テーブル名定義
@@ -348,6 +358,28 @@ namespace KyoeiSystem.Application.Windows.Views
                         ScreenClear();
                         break;
 
+                    case T02_UpdateForPrint:
+                        //登録後納品書出力
+                        base.SendRequest(
+                                new CommunicationObject(
+                                    MessageType.UpdateData,
+                                    DLY11010_PRINTOUT,
+                                    new object[] {
+                                        null,
+                                        null,
+                                        this.txt得意先.Text1,
+                                        this.txt得意先.Text2,
+                                        this.SearchHeader["伝票番号"].ToString(),
+                                        this.SearchHeader["伝票番号"].ToString(),
+                                        int.Parse(txt自社名.Text1)
+                                    }));
+                        break;
+
+                    case DLY11010_PRINTOUT:
+                        printPreviewDisp(tbl);
+                        //納品書プレビュー画面閉じた後は表示を残しておく
+                        break;
+
                     case T02_Delete:
                         MessageBox.Show(AppConst.SUCCESS_DELETE, "削除完了", MessageBoxButton.OK, MessageBoxImage.Information);
                         // コントロール初期化
@@ -469,9 +501,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 行インデックス取得
                             int ridx =
-                        tempSearchDetail.Rows.IndexOf(tempSearchDetail.AsEnumerable()
-                            .Where(a => a.Field<int>("行番号") == rowNum)
-                            .FirstOrDefault());
+                                tempSearchDetail.Rows.IndexOf(tempSearchDetail.AsEnumerable()
+                                    .Where(a => a.Field<int>("行番号") == rowNum)
+                                    .FirstOrDefault());
 
                             gcSpreadGrid.Rows[ridx].ValidationErrors.Clear();
 
@@ -514,7 +546,33 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         Update();
                         break;
+                    case UpdateData_StockCheck_Print:
+                        // 在庫数チェック結果受信
+                        updateList = data as Dictionary<int, string>;
+                        zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
+                        zaiMBImage = MessageBoxImage.Question;
 
+                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
+                        {
+                            int rowNum = row.Field<int>("行番号");
+
+                            //メーカー以外
+                            if (!メーカー区分.Contains(this.cmb売上区分.SelectedValue.ToString()) && updateList.ContainsKey(rowNum))
+                            {
+                                zaiMBImage = MessageBoxImage.Warning;
+                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n納品書を印刷してよろしいでしょうか？";
+                            }
+                        }
+
+                        if (MessageBox.Show(zaiUpdateMessage,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                zaiMBImage,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                            return;
+
+                        Update(true);
+                        break;
                     default:
                         break;
 
@@ -915,6 +973,44 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region F8 納品書印刷
+        /// <summary>
+        /// F08　リボン　納品書印刷
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF8Key(object sender, KeyEventArgs e)
+        {
+
+            gcSpreadGrid.CommitCellEdit();          // No-173 Add
+
+            if (MaintenanceMode == null)
+                return;
+
+            // 業務入力チェックをおこなう
+            if (!isFormValidation())
+                return;
+
+            // 全項目エラーチェック
+            if (!base.CheckAllValidation())
+            {
+                this.txt売上日.Focus();
+                return;
+            }
+
+            //在庫ﾁｪｯｸ
+            base.SendRequest(
+               new CommunicationObject(
+                   MessageType.RequestData,
+                   UpdateData_StockCheck_Print,
+                   new object[] {
+                            this.txt在庫倉庫.Text1,
+                            SearchDetail.DataSet
+                        }));
+
+        }
+        #endregion
+
         #region F9 登録
         /// <summary>
         /// F09　リボン　登録
@@ -1116,7 +1212,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>
         /// 売上情報の登録処理をおこなう
         /// </summary>
-        private void Update()
+        private void Update(bool pPrintFlg = false)
         {
             // -- 送信用データを作成 --
             // 消費税をヘッダに設定
@@ -1149,15 +1245,31 @@ namespace KyoeiSystem.Application.Windows.Views
 
             ds.Tables.Add(SearchDetail.Copy());
 
-            base.SendRequest(
-                new CommunicationObject(
-                    MessageType.UpdateData,
-                    T02_Update,
-                    new object[] {
+            if (pPrintFlg)
+            {
+                //登録後納品書出力
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.UpdateData,
+                        T02_UpdateForPrint,
+                        new object[] {
                         //SearchDetail.DataSet,
                         ds,
                         ccfg.ユーザID
-                    }));
+                        }));
+            }
+            else
+            {
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.UpdateData,
+                        T02_Update,
+                        new object[] {
+                        //SearchDetail.DataSet,
+                        ds,
+                        ccfg.ユーザID
+                        }));
+            }
 
         }
 
@@ -1177,7 +1289,44 @@ namespace KyoeiSystem.Application.Windows.Views
                     }));
 
         }
+        /// <summary>
+        /// 納品書のプレビュー画面を表示する
+        /// </summary>
+        /// <param name="tbl"></param>
+        private void printPreviewDisp(DataTable tbl)
+        {
+            try
+            {
+                if (tbl.Rows.Count < 1)
+                {
+                    this.ErrorMessage = "対象データが存在しません。";
+                    return;
+                }
 
+                // 印刷処理
+                KyoeiSystem.Framework.Reports.Preview.ReportPreview view = new KyoeiSystem.Framework.Reports.Preview.ReportPreview();
+                view.PrinterName = frmcfg.PrinterName;
+                // 第1引数　帳票タイトル
+                // 第2引数　帳票ファイルPass
+                // 第3以上　帳票の開始点(0で良い)
+                view.MakeReport("納品書", rptFullPathName, "トレイ1");
+
+                // 帳票ファイルに送るデータ。
+                // 帳票データの列と同じ列名を保持したDataTableを引数とする
+                view.SetReportData(tbl);
+                view.PrinterName = frmcfg.PrinterName;
+                //view.PageSettings.PaperSource.SourceName = "トレイ2";
+                view.ShowPreview();
+                view.Close();
+                frmcfg.PrinterName = view.PrinterName;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         #endregion
 
         #region << 入力検証処理 >>

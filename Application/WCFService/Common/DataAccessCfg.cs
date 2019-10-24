@@ -289,8 +289,10 @@ namespace KyoeiSystem.Application.WCFService
             // 売上入力
             new WCFDataAccessConfig() { Name = "T02_GetData", ServiceClass = "DLY03010", MethodName = "GetData", Descprition = "売上入力情報取得" },
             new WCFDataAccessConfig() { Name = "T02_Update", ServiceClass = "DLY03010", MethodName = "Update", Descprition = "売上入力情報登録・更新" },
+            new WCFDataAccessConfig() { Name = "T02_UpdateForPrint", ServiceClass = "DLY03010", MethodName = "Update", Descprition = "売上入力情報登録・更新" },
             new WCFDataAccessConfig() { Name = "T02_Delete", ServiceClass = "DLY03010", MethodName = "Delete", Descprition = "売上入力情報削除" },
             new WCFDataAccessConfig() { Name = "T02_CheckStock", ServiceClass = "DLY03010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
+            new WCFDataAccessConfig() { Name = "UpdateData_CheckStock_Print", ServiceClass = "DLY03010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
             new WCFDataAccessConfig() { Name = "UpdateData_CheckStock", ServiceClass = "DLY03010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
 
             // 売上(返品)入力

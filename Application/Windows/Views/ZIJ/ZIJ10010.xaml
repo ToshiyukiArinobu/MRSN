@@ -173,7 +173,7 @@
             <uc:M01_TOK_TextBox
                 x:Name="TOK" Grid.Column="0" HorizontalAlignment="Left"
                 Label_Context="加工先指定" Label_Width="100"
-                DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
+                DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="2,3"
                 Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                 Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
                 Label1Text="－"

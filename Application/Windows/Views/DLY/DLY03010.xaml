@@ -74,7 +74,8 @@
                     <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
                 </RibbonGroup>
                 <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                    <RibbonButton LargeImageSource="../Images/23印刷.png" Click="RibbonButton_Click" KeyTip="F8" Height="50"
+                                  Label="納品書" ToolTipTitle="納品書印刷(F8)" ToolTipDescription="納品書を印刷します"  ToolTipImageSource="../Images/23印刷.png"/>
                 </RibbonGroup>
                 <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
                     <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"

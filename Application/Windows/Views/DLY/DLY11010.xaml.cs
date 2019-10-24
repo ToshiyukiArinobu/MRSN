@@ -385,7 +385,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 第1引数　帳票タイトル
                 // 第2引数　帳票ファイルPass
                 // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("納品書", rptFullPathName, "トレイ2");
+                view.MakeReport("納品書", rptFullPathName, "トレイ1");
 
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする

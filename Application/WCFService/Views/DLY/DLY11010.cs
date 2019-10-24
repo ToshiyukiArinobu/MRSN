@@ -249,15 +249,26 @@ namespace KyoeiSystem.Application.WCFService
             DateTime dateVal;
             int iVal;
 
-            if (!DateTime.TryParse(売上日From, out dateVal))
+            if (string.IsNullOrEmpty(売上日From))
+            {
+                dateVal = DateTime.MinValue;
+            }
+            else if (!DateTime.TryParse(売上日From, out dateVal))
+            {
                 throw new Exception("必須パラメータ不足");
-
+            }
             DateTime DateFrom = dateVal;
 
-            if (!DateTime.TryParse(売上日To, out dateVal))
+            if (string.IsNullOrEmpty(売上日To))
+            {
+                dateVal = DateTime.MaxValue;
+            }
+            else if (!DateTime.TryParse(売上日To, out dateVal))
+            {
                 throw new Exception("必須パラメータ不足");
-
+            }
             DateTime DateTo = dateVal;
+
             int? code = int.TryParse(得意先コード, out iVal) ? iVal : (int?)null;
             int? eda = int.TryParse(得意先枝番, out iVal) ? iVal : (int?)null;
             int? denFrom = int.TryParse(伝票番号From, out iVal) ? iVal : (int?)null;
