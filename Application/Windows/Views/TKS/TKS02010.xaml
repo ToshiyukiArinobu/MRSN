@@ -16,7 +16,7 @@
   Left="0" Top="0"
   MinHeight="728" MinWidth="1024"
   Height="768" Width="1024"
-  Title="売上一覧表(TKS02010)"
+  Title="売上データ一覧表(TKS02010)"
   WindowStartupLocation="CenterOwner"
   Loaded="RibbonWindow_Loaded" Closed="MainWindow_Closed">
 
