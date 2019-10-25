@@ -162,7 +162,7 @@
 
         <!-- 支払先 -->
         <uc:M01_TOK_TextBox x:Name="Customer" Grid.Row="3" HorizontalAlignment="Left" IsKeyItem="False" Margin="5,5,0,0"
-                            DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,3"
+                            DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,2,3,4"
                             Label_Context="支払先指定" Label_Width="100"
                             Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                             Text1Width="60" Text1MaxLength="4" Text1IMEType="Off" Text1VerticalContentAlignment="Center"

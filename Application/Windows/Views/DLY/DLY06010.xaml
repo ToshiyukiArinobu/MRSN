@@ -212,7 +212,7 @@
             />
             <uc:M01_TOK_TextBox
                 x:Name="txt得意先" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" IsKeyItem="False" Focusable="True" Margin="2,0,0,0"
-                DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,2,3"
+                DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,2,3,4"
                 Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                 Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
                 Label1Text="－"
