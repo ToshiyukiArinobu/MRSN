@@ -239,7 +239,7 @@ namespace KyoeiSystem.Application.WCFService
                                     .Select(s => new CodeTextString_Member
                                     {
                                         コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                        名称 = s.得意先名１
+                                        名称 = s.略称名 == null ? s.得意先名１ : s.略称名     // No.199 Mod
                                     }).ToList();
                         }
                         break;
@@ -717,7 +717,7 @@ namespace KyoeiSystem.Application.WCFService
                                     {
                                         コード = SqlFunctions.StringConvert((double)s.取引先コード),
                                         サブコード = SqlFunctions.StringConvert((double)s.枝番),
-                                        名称 = s.得意先名１,
+                                        名称 = s.略称名 == null ? s.得意先名１ : s.略称名,        // No.199 Mod
                                         Ｓ税区分ID = s.Ｓ税区分ID,
                                         Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
                                         Ｔ税区分ID = s.Ｔ税区分ID,
@@ -785,7 +785,7 @@ namespace KyoeiSystem.Application.WCFService
                                     .Select(s => new M01_TOK_SearchMember
                                         {
                                             コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                            名称 = s.得意先名１,
+                                            名称 = s.略称名 == null ? s.得意先名１ : s.略称名,   // No.199 Mod
                                             Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
                                             Ｓ税区分ID = s.Ｓ税区分ID
                                         }).ToList();
@@ -800,7 +800,7 @@ namespace KyoeiSystem.Application.WCFService
                                     .Select(s => new M01_TOK_SearchMember
                                         {
                                             コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                            名称 = s.得意先名１,
+                                            名称 = s.略称名 == null ? s.得意先名１ : s.略称名,   // No.199 Mod
                                             Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
                                             Ｓ税区分ID = s.Ｓ税区分ID
                                         }).ToList();
@@ -813,7 +813,7 @@ namespace KyoeiSystem.Application.WCFService
                                 .Select(s => new M01_TOK_SearchMember
                                     {
                                         コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                        名称 = s.得意先名１,
+                                        名称 = s.略称名 == null ? s.得意先名１ : s.略称名,   // No.199 Mod
                                         Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
                                         Ｓ税区分ID = s.Ｓ税区分ID
                                     }).ToList();

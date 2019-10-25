@@ -463,12 +463,12 @@ namespace KyoeiSystem.Application.Windows.Views
                     {
                         this.TwinTextBox.Text1 = row[COLUM_ID].ToString();
                         this.TwinTextBox.Text2 = row["枝番"].ToString();// TODO:フォーカスがあたっていないと値が設定されない仕様っぽい？？
-                        this.TwinTextBox.Text3 = row["得意先名１"].ToString();
+                        this.TwinTextBox.Text3 = row["略称名"] == null ? row["得意先名１"].ToString() : row["略称名"].ToString();      // No.199 Mod
 
                         // 他情報を設定
                         int ival;
                         this._支払消費税区分 = int.TryParse(row["Ｓ支払消費税区分"].ToString(), out ival) ? ival : 1;  // 1:一括、2:個別
-                        this._税区分 = int.TryParse(string.Format("{0}", row["Ｓ税区分"]), out ival) ? ival : 9;       // 0:得意先、1:仕入先、2:加工先、3:相殺、4:販社
+                        this._税区分 = int.TryParse(string.Format("{0}", row["Ｓ税区分ID"]), out ival) ? ival : 9;       // 1：切捨て、2：四捨五入、3：切上げ、9：税なし
 
                     }
 
