@@ -1174,6 +1174,7 @@ namespace KyoeiSystem.Application.WCFService
                 context.S01_SEIHD.Where(w =>
                     w.自社コード == hdData.自社コード &&
                     w.請求年月 == hdData.請求年月 &&
+                    w.請求締日 == hdData.請求締日 &&
                     w.請求先コード == hdData.請求先コード &&
                     w.請求先枝番 == hdData.請求先枝番 &&
                     w.入金日 == hdData.入金日 &&

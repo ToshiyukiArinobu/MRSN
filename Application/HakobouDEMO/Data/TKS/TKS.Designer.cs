@@ -482,6 +482,10 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column得意先名称;
             
+            private global::System.Data.DataColumn column得意先名称２;
+            
+            private global::System.Data.DataColumn column得意先部課名称;
+            
             private global::System.Data.DataColumn column自社名称;
             
             private global::System.Data.DataColumn column自社郵便番号;
@@ -668,6 +672,22 @@ namespace Hakobou.Data.TKS {
             public global::System.Data.DataColumn 得意先名称Column {
                 get {
                     return this.column得意先名称;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先名称２Column {
+                get {
+                    return this.column得意先名称２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 得意先部課名称Column {
+                get {
+                    return this.column得意先部課名称;
                 }
             }
             
@@ -899,6 +919,8 @@ namespace Hakobou.Data.TKS {
                         string 請求先住所１, 
                         string 請求先住所２, 
                         string 得意先名称, 
+                        string 得意先名称２, 
+                        string 得意先部課名称, 
                         string 自社名称, 
                         string 自社郵便番号, 
                         string 自社住所, 
@@ -937,6 +959,8 @@ namespace Hakobou.Data.TKS {
                         請求先住所１,
                         請求先住所２,
                         得意先名称,
+                        得意先名称２,
+                        得意先部課名称,
                         自社名称,
                         自社郵便番号,
                         自社住所,
@@ -995,6 +1019,8 @@ namespace Hakobou.Data.TKS {
                 this.column請求先住所１ = base.Columns["請求先住所１"];
                 this.column請求先住所２ = base.Columns["請求先住所２"];
                 this.column得意先名称 = base.Columns["得意先名称"];
+                this.column得意先名称２ = base.Columns["得意先名称２"];
+                this.column得意先部課名称 = base.Columns["得意先部課名称"];
                 this.column自社名称 = base.Columns["自社名称"];
                 this.column自社郵便番号 = base.Columns["自社郵便番号"];
                 this.column自社住所 = base.Columns["自社住所"];
@@ -1050,6 +1076,10 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column請求先住所２);
                 this.column得意先名称 = new global::System.Data.DataColumn("得意先名称", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column得意先名称);
+                this.column得意先名称２ = new global::System.Data.DataColumn("得意先名称２", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先名称２);
+                this.column得意先部課名称 = new global::System.Data.DataColumn("得意先部課名称", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column得意先部課名称);
                 this.column自社名称 = new global::System.Data.DataColumn("自社名称", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column自社名称);
                 this.column自社郵便番号 = new global::System.Data.DataColumn("自社郵便番号", typeof(string), null, global::System.Data.MappingType.Element);
@@ -3812,6 +3842,38 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先名称２ {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS01020_H請求書.得意先名称２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'得意先名称２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.得意先名称２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 得意先部課名称 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS01020_H請求書.得意先部課名称Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'得意先部課名称\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.得意先部課名称Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 自社名称 {
                 get {
                     try {
@@ -4328,6 +4390,30 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set得意先名称Null() {
                 this[this.tableTKS01020_H請求書.得意先名称Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先名称２Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.得意先名称２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先名称２Null() {
+                this[this.tableTKS01020_H請求書.得意先名称２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is得意先部課名称Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.得意先部課名称Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set得意先部課名称Null() {
+                this[this.tableTKS01020_H請求書.得意先部課名称Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

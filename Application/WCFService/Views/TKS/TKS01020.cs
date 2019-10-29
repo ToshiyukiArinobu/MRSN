@@ -69,6 +69,8 @@ namespace KyoeiSystem.Application.WCFService
             public string 請求先住所１ { get; set; }
             public string 請求先住所２ { get; set; }
             public string 得意先名称 { get; set; }
+            public string 得意先名称２ { get; set; }
+            public string 得意先部課名称 { get; set; }
             public string 自社名称 { get; set; }
             public string 自社郵便番号 { get; set; }
             public string 自社住所 { get; set; }
@@ -186,10 +188,19 @@ namespace KyoeiSystem.Application.WCFService
 
                     // 取引先の指定があれば条件を追加
                     if (customerCd != null && customerEda != null)
+                    {
                         result = result.Where(w =>
                                 w.SEIHD.請求先コード == customerCd &&
                                 w.SEIHD.請求先枝番 == customerEda)
                             .ToList();
+                    }
+                    else if (customerCd != null)
+                    {
+                        result = result.Where(w =>
+                                w.SEIHD.請求先コード == customerCd)
+                            .ToList();
+                    }
+
 
                     // 返却用にデータを整形
                     var dataList =
@@ -198,7 +209,7 @@ namespace KyoeiSystem.Application.WCFService
                             印刷区分 = true,
                             得意先コード = x.SEIHD.請求先コード,
                             得意先枝番 = x.SEIHD.請求先枝番,
-                            得意先名 = x.TOK.得意先名１,
+                            得意先名 = x.TOK.略称名,
                             回数 = x.SEIHD.回数,
                             集計期間 = string.Format("{0:yyyy/MM/dd}～{1:yyyy/MM/dd}", x.SEIHD.集計開始日, x.SEIHD.集計最終日),
                             当月請求額 = x.SEIHD.当月請求額,
@@ -357,6 +368,8 @@ namespace KyoeiSystem.Application.WCFService
                             請求先住所１ = x.TOK.住所１,
                             請求先住所２ = x.TOK.住所２,
                             得意先名称 = x.TOK.得意先名１,
+                            得意先名称２ = x.TOK.得意先名２,
+                            得意先部課名称 = x.TOK.部課名称,
                             自社名称 = x.JIS.自社名,
                             自社郵便番号 = x.JIS.郵便番号,
                             自社住所 = x.JIS.住所１.Trim() + x.JIS.住所２.Trim(),

@@ -532,14 +532,14 @@ namespace KyoeiSystem.Application.Windows.Views
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了1.GetHashCode()));
 
                 }
-                else if (closingDate != null && DateTime.Parse(row["終了日付1"].ToString()) > closingDate)          // No-100 Mod
-                {
-                    isDetailErr = true;
-                    msg = "１回目の終了日付が締日を超えています。";
-                    sp請求データ一覧.Rows[rIdx]
-                        .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了1.GetHashCode()));
+                //else if (closingDate != null && DateTime.Parse(row["終了日付1"].ToString()) > closingDate)          // No-100 Mod
+                //{
+                //    isDetailErr = true;
+                //    msg = "１回目の終了日付が締日を超えています。";
+                //    sp請求データ一覧.Rows[rIdx]
+                //        .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了1.GetHashCode()));
 
-                }
+                //}
 
                 #endregion
 
@@ -571,14 +571,14 @@ namespace KyoeiSystem.Application.Windows.Views
                             }
                         }
 
-                        if (closingDate != null && DateTime.Parse(row["開始日付2"].ToString()) > closingDate)          // No-100 Mod
-                        {
-                            isDetailErr = true;
-                            msg = "２回目の開始日付が締日を超えています。";
-                            sp請求データ一覧.Rows[rIdx]
-                                .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始2.GetHashCode()));
+                        //if (closingDate != null && DateTime.Parse(row["開始日付2"].ToString()) > closingDate)          // No-100 Mod
+                        //{
+                        //    isDetailErr = true;
+                        //    msg = "２回目の開始日付が締日を超えています。";
+                        //    sp請求データ一覧.Rows[rIdx]
+                        //        .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始2.GetHashCode()));
 
-                        }
+                        //}
 
                     }
 
@@ -594,14 +594,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
                 else if (!string.IsNullOrWhiteSpace(row["終了日付2"].ToString()))
                 {
-                    if (closingDate != null && DateTime.Parse(row["終了日付2"].ToString()) > closingDate)          // No-100 Mod
-                    {
-                        isDetailErr = true;
-                        msg = "２回目の終了日付が締日を超えています。";
-                        sp請求データ一覧.Rows[rIdx]
-                            .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了2.GetHashCode()));
+                    //if (closingDate != null && DateTime.Parse(row["終了日付2"].ToString()) > closingDate)          // No-100 Mod
+                    //{
+                    //    isDetailErr = true;
+                    //    msg = "２回目の終了日付が締日を超えています。";
+                    //    sp請求データ一覧.Rows[rIdx]
+                    //        .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了2.GetHashCode()));
 
-                    }
+                    //}
 
                 }
                 #endregion
@@ -634,14 +634,14 @@ namespace KyoeiSystem.Application.Windows.Views
                             }
                         }
 
-                        if (closingDate != null && DateTime.Parse(row["開始日付3"].ToString()) > closingDate)          // No-100 Mod
-                        {
-                            isDetailErr = true;
-                            msg = "３回目の開始日付が締日を超えています。";
-                            sp請求データ一覧.Rows[rIdx]
-                                .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始3.GetHashCode()));
+                        //if (closingDate != null && DateTime.Parse(row["開始日付3"].ToString()) > closingDate)          // No-100 Mod
+                        //{
+                        //    isDetailErr = true;
+                        //    msg = "３回目の開始日付が締日を超えています。";
+                        //    sp請求データ一覧.Rows[rIdx]
+                        //        .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始3.GetHashCode()));
 
-                        }
+                        //}
 
                     }
 
@@ -657,14 +657,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
                 else if (!string.IsNullOrWhiteSpace(row["終了日付3"].ToString()))
                 {
-                    if (closingDate != null && DateTime.Parse(row["終了日付3"].ToString()) > closingDate)          // No-100 Mod
-                    {
-                        isDetailErr = true;
-                        msg = "３回目の終了日付が締日を超えています。";
-                        sp請求データ一覧.Rows[rIdx]
-                            .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了3.GetHashCode()));
+                    //if (closingDate != null && DateTime.Parse(row["終了日付3"].ToString()) > closingDate)          // No-100 Mod
+                    //{
+                    //    isDetailErr = true;
+                    //    msg = "３回目の終了日付が締日を超えています。";
+                    //    sp請求データ一覧.Rows[rIdx]
+                    //        .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了3.GetHashCode()));
 
-                    }
+                    //}
 
                 }
 
