@@ -135,6 +135,9 @@
       <DependentUpon>DLY12010.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\DLY\DLY02011.xaml.cs">
+      <DependentUpon>DLY02011.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MST\MST02011.xaml.cs">
       <DependentUpon>MST02011.xaml</DependentUpon>
     </Compile>
@@ -372,6 +375,13 @@
     <Resource Include="Views\MST\MST01011G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\DLY\DLY02011G1.sgxml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\DLY\DLY02011G2.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Views\TKS\TKS09010G1.sgxml" />
     <Resource Include="Views\ZIJ\ZIJ10010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -560,6 +570,10 @@
     <Page Include="Views\DLY\DLY12010.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DLY\DLY02011.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MST\MST02011.xaml">
       <Generator>MSBuild:Compile</Generator>

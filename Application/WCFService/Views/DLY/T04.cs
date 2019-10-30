@@ -22,6 +22,8 @@ namespace KyoeiSystem.Application.WCFService
         private const string TABLE_DETAIL = "T04_AGRDTL";
         /// <summary>部材明細テーブル名</summary>
         private const string TABLE_MAISAI = "T04_AGRDTB";
+        /// <summary>部材明細テーブル名</summary>
+        private const string TABLE_MAISAI_EXTENT = "T04_AGRDTB_Extension";
         /// <summary>在庫テーブル名</summary>
         private const string TABLE_STOCK = "M73_ZEI";
 
@@ -65,16 +67,20 @@ namespace KyoeiSystem.Application.WCFService
         public class T04_AGRDTB_Extension
         {
             public int セット品番コード { get; set; }
+            public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
             public string 自社品名 { get; set; }
             public string 自社色 { get; set; }
             public string 自社色名 { get; set; }
-            public int 品番コード { get; set; }
             public DateTime? 賞味期限 { get; set; }
             public decimal 数量 { get; set; }
             public string 単位 { get; set; }
             public decimal 必要数量 { get; set; }
             public decimal 在庫数量 { get; set; }
+            public int 行番号 { get; set; }
+            public int 部材行番号 { get; set; }
+            /// <summary>1:食品、2:繊維、3:その他</summary>
+            public int 商品分類 { get; set; }
         }
 
         #endregion
@@ -160,6 +166,7 @@ namespace KyoeiSystem.Application.WCFService
         /// 揚りデータセット
         /// [0:T04_AGRHD、1:T04_AGRDTL]
         /// </param>
+        /// <param name="ds">データセット</param>
         /// <param name="userId">ログインユーザID</param>
         /// <returns></returns>
         public int Update(DataSet ds, int userId)
@@ -172,20 +179,25 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     try
                     {
-                        // 1>> ヘッダ情報更新
                         DataRow hdRow = ds.Tables[TABLE_HEADER].Rows[0];
+                        DataTable dtDetail = ds.Tables[TABLE_DETAIL];
+                        DataTable dtAgrdtb = ds.Tables[TABLE_MAISAI_EXTENT];
+                        
+                        // 1>> ヘッダ情報更新
                         setT04_AGRHD_Update(context, hdRow, userId);
 
                         // 2>> 明細情報更新
-                        setT04_AGRDTL_Update(context, ds.Tables[TABLE_DETAIL], userId);
+                        setT04_AGRDTL_Update(context, dtDetail, userId);
 
                         // 3>> 部材明細更新
-                        setT04_AGRDTB_Update(context, ParseNumeric<int>(hdRow["伝票番号"]), userId);
+                        setT04_AGRDTB_Update(context, ParseNumeric<int>(hdRow["伝票番号"]), dtAgrdtb, userId);
 
                         // 4>> 在庫情報更新
+                        // 部材在庫更新
                         setS03_STOK_DTB_Update(context, ds, userId);
                         context.SaveChanges();      // No.124 Add
 
+                        // セット品在庫更新
                         setS03_STOK_Update(context, ds, userId);
 
                         // 変更状態を確定
@@ -878,7 +890,10 @@ namespace KyoeiSystem.Application.WCFService
                                     自社色名 = h.色名称,
                                     賞味期限 = g.e.DTB.賞味期限,
                                     数量 = g.e.DTB.数量 ?? 0,
-                                    単位 = g.e.HIN.単位
+                                    単位 = g.e.HIN.単位,
+                                    行番号 = g.e.DTB.行番号, 
+                                    部材行番号 = g.e.DTB.部材行番号,
+                                    商品分類 = g.e.HIN.商品分類 ?? 3 
                                 })
                             .GroupJoin(context.M10_SHIN.Where(w => w.削除日時 == null),
                                 x => new { 親品番 = x.セット品番コード, 子品番 = x.品番コード },
@@ -896,7 +911,10 @@ namespace KyoeiSystem.Application.WCFService
                                     賞味期限 = k.i.賞味期限,
                                     数量 = k.i.数量,
                                     単位 = k.i.単位,
-                                    必要数量 = l == null ? 0 : l.使用数量
+                                    必要数量 = l == null ? 0 : l.使用数量,
+                                    行番号 = k.i.行番号,
+                                    部材行番号 = k.i.部材行番号, 
+                                    商品分類 = k.i.商品分類
                                 })
                             .GroupJoin(context.S03_STOK.Where(w => w.削除日時 == null),
                                 x => new { 会社コード = companyCode, 品番 = x.品番コード, 賞味期限 = (x.賞味期限 ?? maxDate) },
@@ -915,8 +933,11 @@ namespace KyoeiSystem.Application.WCFService
                                     数量 = o.m.数量,
                                     単位 = o.m.単位,
                                     必要数量 = o.m.必要数量,
-                                    在庫数量 = p == null ? 0m : p.在庫数
-                                });
+                                    在庫数量 = p == null ? 0m : p.在庫数,
+                                    行番号 = o.m.行番号,
+                                    部材行番号 = o.m.部材行番号,
+                                    商品分類 = o.m.商品分類
+                               });
 
                     return result.ToList();
 
@@ -935,8 +956,9 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="productCode">品番コード</param>
         /// <param name="companyCode">入荷先コード</param>
+        /// <param name="expirationDate">賞味期限</param>
         /// <returns></returns>
-        public List<T04_AGRDTB_Extension> getT04_AGRDTB_Create(string productCode, string companyCode)
+        public List<T04_AGRDTB_Extension> getT04_AGRDTB_Create(string productCode, string companyCode, DateTime expirationDate)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -953,7 +975,7 @@ namespace KyoeiSystem.Application.WCFService
                                 x => x.構成品番コード,
                                 y => y.品番コード,
                                 (c, d) => new { SHIN = c, HIN = d })
-                            .GroupJoin(context.S03_STOK.Where(w => w.削除日時 == null),
+                            .GroupJoin(context.S03_STOK.Where(w => w.削除日時 == null && w.賞味期限 >= expirationDate),
                                 x => new { 会社コード = code, 品番コード = x.SHIN.構成品番コード },
                                 y => new { 会社コード = y.倉庫コード, y.品番コード },
                                 (c, d) => new { c.SHIN, c.HIN, d })
@@ -968,7 +990,9 @@ namespace KyoeiSystem.Application.WCFService
                                         賞味期限 = f.賞味期限,
                                         単位 = e.HIN.単位,
                                         必要数量 = e.SHIN.使用数量,
-                                        在庫数量 = f == null ? 0m : f.在庫数
+                                        在庫数量 = f == null ? 0m : f.在庫数,
+                                        部材行番号 = e.SHIN.部品行,
+                                        商品分類 = e.HIN.商品分類 ?? 3
                                     })
                             .GroupJoin(
                                 context.M06_IRO.Where(w => w.削除日時 == null),
@@ -988,7 +1012,10 @@ namespace KyoeiSystem.Application.WCFService
                                         //数量 = i.g.数量,
                                         単位 = i.g.単位,
                                         必要数量 = i.g.必要数量,
-                                        在庫数量 = i.g.在庫数量
+                                        在庫数量 = i.g.在庫数量,
+                                        行番号 = 1,
+                                        部材行番号 = i.g.部材行番号,
+                                        商品分類 = i.g.商品分類
                                     });
 
                     if (result.ToList().Count == 0)
@@ -1010,7 +1037,8 @@ namespace KyoeiSystem.Application.WCFService
                                         品番コード = c.HIN.品番コード,
                                         賞味期限 = d.賞味期限,
                                         単位 = c.HIN.単位,
-                                        在庫数量 = d == null ? 0m : d.在庫数
+                                        在庫数量 = d == null ? 0m : d.在庫数,
+                                        商品分類 = c.HIN.商品分類 ?? 3
                                     })
                                 .GroupJoin(
                                     context.M06_IRO.Where(w => w.削除日時 == null),
@@ -1030,7 +1058,10 @@ namespace KyoeiSystem.Application.WCFService
                                         //数量 = i.g.数量,
                                         単位 = g.g.単位,
                                         必要数量 = 0m,
-                                        在庫数量 = g.g.在庫数量
+                                        在庫数量 = g.g.在庫数量,
+                                        行番号 = 1,
+                                        部材行番号 = 1,
+                                        商品分類 = g.g.商品分類
                                     });
 
                     }
@@ -1052,9 +1083,10 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="context"></param>
         /// <param name="slipNumber">伝票番号</param>
+        /// <param name="dt"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        private int setT04_AGRDTB_Update(TRAC3Entities context, int slipNumber, int userId)
+        private int setT04_AGRDTB_Update(TRAC3Entities context, int slipNumber, DataTable dt, int userId)
         {
             // 部材明細の対象伝票データを削除
             var delResult =
@@ -1062,67 +1094,23 @@ namespace KyoeiSystem.Application.WCFService
             foreach (var data in delResult)
                 context.T04_AGRDTB.DeleteObject(data);
 
-            // 対象伝票の明細情報を取得
-            var dtlResult =
-                context.T04_AGRDTL.Where(w => w.伝票番号 == slipNumber)
-                    .OrderBy(o => o.行番号);
-
-            foreach (var data in dtlResult)
+            foreach (DataRow row in dt.Rows)
             {
                 int dtlRowNum = 1;
+                
+                T04_AGRDTB dtb = new T04_AGRDTB();
+                dtb = convertDataRowToT04_AGRDTB_Entity(row, slipNumber);
 
-                // セット品番情報を取得
-                var setResult =
-                    context.M10_SHIN
-                        .Where(w => w.削除日時 == null && w.品番コード == data.品番コード)
-                        .OrderBy(o => o.部品行);
+                // 下記以外はconvertDataRowToT04_AGRDTB_Entityで移送済み
+                dtb.伝票番号 = slipNumber;
+                dtb.登録者 = userId;
+                dtb.登録日時 = DateTime.Now;
+                dtb.最終更新者 = userId;
+                dtb.最終更新日時 = DateTime.Now;
 
-                if (setResult == null || setResult.Count() == 0)
-                {
-                    // セット品番情報なし
-                    // ⇒自身の情報を部材明細として設定
-                    T04_AGRDTB dtb = new T04_AGRDTB();
+                context.T04_AGRDTB.ApplyChanges(dtb);
 
-                    dtb.伝票番号 = data.伝票番号;
-                    dtb.行番号 = data.行番号;
-                    dtb.部材行番号 = dtlRowNum;
-                    dtb.品番コード = data.品番コード;
-                    dtb.賞味期限 = data.賞味期限;
-                    dtb.数量 = data.数量;
-                    dtb.登録者 = userId;
-                    dtb.登録日時 = DateTime.Now;
-                    dtb.最終更新者 = userId;
-                    dtb.最終更新日時 = DateTime.Now;
-
-                    context.T04_AGRDTB.ApplyChanges(dtb);
-
-                    dtlRowNum++;
-
-                }
-                else
-                {
-                    foreach (var set in setResult)
-                    {
-                        T04_AGRDTB dtb = new T04_AGRDTB();
-
-                        dtb.伝票番号 = data.伝票番号;
-                        dtb.行番号 = data.行番号;
-                        dtb.部材行番号 = dtlRowNum;
-                        dtb.品番コード = set.構成品番コード;
-                        dtb.賞味期限 = null;
-                        dtb.数量 = set.使用数量 * data.数量;
-                        dtb.登録者 = userId;
-                        dtb.登録日時 = DateTime.Now;
-                        dtb.最終更新者 = userId;
-                        dtb.最終更新日時 = DateTime.Now;
-
-                        context.T04_AGRDTB.ApplyChanges(dtb);
-
-                        dtlRowNum++;
-
-                    }
-
-                }
+                dtlRowNum++;
 
             }
 
@@ -1145,6 +1133,8 @@ namespace KyoeiSystem.Application.WCFService
         /// 揚りデータセット
         /// [0:T04_AGRHD、1:T04_AGRDTL]
         /// </param>
+        /// <param name="context"></param>
+        /// <param name="ds"></param>
         /// <param name="userId">ユーザID</param>
         /// <returns></returns>
         private int setS03_STOK_Update(TRAC3Entities context, DataSet ds, int userId)
@@ -1285,6 +1275,8 @@ namespace KyoeiSystem.Application.WCFService
         /// 揚りデータセット
         /// [0:T04_AGRHD、1:T04_AGRDTL]
         /// </param>
+        /// <param name="context"></param>
+        /// <param name="ds"></param>
         /// <param name="userId">ログインユーザID</param>
         /// <returns></returns>
         private int setS03_STOK_DTB_Update(TRAC3Entities context, DataSet ds, int userId)
@@ -1296,99 +1288,82 @@ namespace KyoeiSystem.Application.WCFService
 
             int 倉庫コード = get倉庫コード(context, hdRow.入荷先コード);
 
+            // 揚り明細（DataRowStateの判定に使用）
             DataTable dtlTbl = ds.Tables[TABLE_DETAIL];
-            foreach (DataRow row in dtlTbl.Rows)
+            DataTable dtAgrdtb = ds.Tables[TABLE_MAISAI_EXTENT];
+
+            foreach (DataRow rowDtl in dtlTbl.Rows)
             {
-                T04_AGRDTL dtlRow = convertDataRowToT04_AGRDTL_Entity(row);
+                T04_AGRDTL rowAgrDtl = convertDataRowToT04_AGRDTL_Entity(rowDtl);
+                int slipNumber = rowAgrDtl.伝票番号; 
 
-                if (dtlRow.品番コード <= 0)
-                    continue;
-
-                // 対象のセット品番を取得
-                var agrdtbList =
-                    context.M10_SHIN
-                        .Where(w => w.削除日時 == null && w.品番コード == dtlRow.品番コード);
-
-                // 構成品番がない場合は処理しない
-                if (agrdtbList.Count() == 0)
-                    continue;
-
-                // 構成品番毎に在庫処理をおこなう
-                foreach (var data in agrdtbList)
+                if (rowAgrDtl.品番コード  <= 0)
                 {
-                    S03_STOK stok = new S03_STOK();
-                    DateTime dt = AppCommon.DateTimeToDate(dtlRow.賞味期限, DateTime.MaxValue);
+                    continue;
+                }
 
-                    // 賞味期限の一番古い在庫を取得
+                // 揚り部材明細よりセット品番コードに紐づく構成品情報を取得する
+                var varRow = dtAgrdtb.AsEnumerable()
+                    .Where(w => w.Field<int>("セット品番コード") == rowAgrDtl.品番コード)
+                    .ToArray();
+
+                foreach (DataRow rowAgrdtb in varRow)
+                {
+                    T04_AGRDTB dtlAgrdtbRow = convertDataRowToT04_AGRDTB_Entity(rowAgrdtb, slipNumber);
+
+                    S03_STOK stok = new S03_STOK();
+                    DateTime dt = AppCommon.DateTimeToDate(dtlAgrdtbRow.賞味期限, DateTime.MaxValue);
+
+                    // 賞味期限が一致する在庫を取得
                     var targetStok =
                         context.S03_STOK
                             .Where(x =>
                                 x.倉庫コード == 倉庫コード &&
-                                x.品番コード == data.構成品番コード)
-                            .OrderBy(o => o.賞味期限)
+                                x.品番コード == dtlAgrdtbRow.品番コード &&
+                                x.賞味期限 == dt)
                             .FirstOrDefault();
 
                     bool isAddData = (targetStok == null);
                     decimal stockQty = 0;
                     int intQuantity = 0;         // No.131 Mod
 
-                    if (row.RowState == DataRowState.Deleted)
+                    if (rowDtl.RowState == DataRowState.Added)
                     {
-                        // No.131 Add Start
-                        if (row.HasVersion(DataRowVersion.Original))
-                        {
-                            intQuantity = Convert.ToInt32(row["数量", DataRowVersion.Original]);
-                        }
-                        else
-                        {
-                            intQuantity = Convert.ToInt32(row["数量"]);
-                        }
-                        // No.131 Add End
-
-                        // 数量分在庫数を加算
-                        stockQty = data.使用数量 * intQuantity;             // No-64
-                    }
-                    else if (row.RowState == DataRowState.Added)
-                    {
-                        intQuantity = Convert.ToInt32(row["数量"]);
+                        intQuantity = Convert.ToInt32(rowAgrdtb["数量"]);
                         // 数量分在庫数を減算
-                        stockQty = (data.使用数量 * intQuantity) * -1;      // No-64
+                        stockQty = intQuantity * -1;      // No-64
                     }
-                    // No-87 Start    
-                    //if (row.RowState == DataRowState.Modified)
-                    //{
-                    //    // オリジナル(変更前数量)と比較して差分数量を加減算
-                    //    if (row.HasVersion(DataRowVersion.Original))
-                    //    {
-                    //        decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
-                    //        stockQty = (data.使用数量 * orgQty) - (data.使用数量 * intQuantity);
-                    //    }
-                    //}
-                    // No-87 End 
-                    
 
                     #region 入出庫データ作成
-
                     S04_HISTORY history = new S04_HISTORY();
 
                     history.入出庫日 = hdRow.仕上り日;
                     history.入出庫時刻 = DateTime.Now.TimeOfDay;
                     history.倉庫コード = 倉庫コード;
-                    history.入出庫区分 =  (int)Const.入出庫区分.ID02_出庫;      // No.156-5 Mod
-                    history.品番コード = data.構成品番コード;
+                    history.入出庫区分 = (int)Const.入出庫区分.ID02_出庫;      // No.156-5 Mod
+                    history.品番コード = dtlAgrdtbRow.品番コード;
                     //20190724CB-S
                     //history.賞味期限 = targetStok.賞味期限;
-                    if (targetStok == null)
+                    //if (targetStok == null)
+                    //{
+                    //    history.賞味期限 = null;
+                    //}
+                    //else
+                    //{
+                    //    history.賞味期限 = targetStok.賞味期限 == DateTime.MaxValue.Date ? (DateTime?)null : targetStok.賞味期限;    // No.129 Mod
+                    //}
+                    //20190724CB-E
+                    if (dt == DateTime.MaxValue.Date)
                     {
                         history.賞味期限 = null;
                     }
                     else
                     {
-                        history.賞味期限 = targetStok.賞味期限 == DateTime.MaxValue.Date ? (DateTime?)null : targetStok.賞味期限;    // No.129 Mod
+                        history.賞味期限 = dt;
                     }
-                    //20190724CB-E
-                    history.数量 = row.RowState == DataRowState.Deleted ? 
-                        Convert.ToInt32(row["数量", DataRowVersion.Original]) : data.使用数量 * Convert.ToInt32(row["数量"]);        // No.156-5 Mod
+
+                    history.数量 = rowDtl.RowState == DataRowState.Deleted ?
+                        Convert.ToInt32(rowAgrdtb["数量", DataRowVersion.Original]) : Convert.ToInt32(rowAgrdtb["数量"]);        // No.156-5 Mod
                     history.伝票番号 = hdRow.伝票番号;
 
                     // No.156-5 Mod Start
@@ -1401,35 +1376,26 @@ namespace KyoeiSystem.Application.WCFService
                         { S04.COLUMNS_NAME_入出庫区分, history.入出庫区分.ToString() }
                     };
 
-                    if (row.RowState == DataRowState.Added)
+                    if (rowDtl.RowState == DataRowState.Added)
                     {
                         // 揚り作成の為、履歴作成
                         historyService.CreateProductHistory(history);
-                    }
-                    else if (row.RowState == DataRowState.Deleted)
-                    {
-                        historyService.DeleteProductHistory(hstDic);
-                    }
-                    else
-                    {
-                        // 揚り更新の為、履歴更新 (DataRowState.Unchanged、DataRowState.Modified)
-                        historyService.UpdateProductHistory(history, hstDic);
                     }
                     // No.156-5 Mod End
 
                     #endregion
 
                     // 対象データ設定
-                    if (row.RowState == DataRowState.Added || row.RowState == DataRowState.Deleted )         // No.156-5 Add
+                    if (rowDtl.RowState == DataRowState.Added || rowDtl.RowState == DataRowState.Deleted)         // No.156-5 Add
                     {
                         if (isAddData)
                         {
                             stok.倉庫コード = 倉庫コード;
                             // 20190724CB-S
                             //stok.品番コード = targetStok.品番コード;
-                            stok.品番コード = data.構成品番コード;
+                            stok.品番コード = dtlAgrdtbRow.品番コード;
                             //stok.賞味期限 = AppCommon.DateTimeToDate(targetStok.賞味期限, DateTime.MaxValue);
-                            stok.賞味期限 = DateTime.MaxValue;
+                            stok.賞味期限 = dt;
                             // 20190724CB-E
                             stok.在庫数 = stockQty;
                             stok.登録者 = userId;
@@ -1451,15 +1417,17 @@ namespace KyoeiSystem.Application.WCFService
                             targetStok.AcceptChanges();
 
                         }
+
                     }
-
                 }
-
+                // 変更状態を確定
+                context.SaveChanges();
             }
 
             return 1;
 
         }
+
 
         #endregion
 
@@ -1560,6 +1528,33 @@ namespace KyoeiSystem.Application.WCFService
         }
 
         /// <summary>
+        /// DataRow型をT04_AGRDTBに変換する
+        /// </summary>
+        /// <param name="drow"></param>
+        /// <returns></returns>
+        protected T04_AGRDTB convertDataRowToT04_AGRDTB_Entity(DataRow row, int intslipNumber)
+        {
+            T04_AGRDTB agrdtb = new T04_AGRDTB();
+
+            agrdtb.伝票番号 = intslipNumber;
+            agrdtb.行番号 = ParseNumeric<int>(row["行番号"]);
+            agrdtb.部材行番号 = ParseNumeric<int>(row["部材行番号"]);
+            agrdtb.品番コード = ParseNumeric<int>(row["品番コード"]);
+            if (row["賞味期限"] == null || string.IsNullOrEmpty(row["賞味期限"].ToString()))
+            {
+                agrdtb.賞味期限 = null;
+            }
+            else
+            {
+                agrdtb.賞味期限 = DateTime.Parse(row["賞味期限"].ToString());
+            }
+            agrdtb.数量 = ParseNumeric<decimal>(row["数量"]);
+
+            return agrdtb;
+
+        }
+    
+        /// <summary>
         /// オブジェクトを数値型に変換した結果を返す
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -1613,6 +1608,58 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        /// <summary>
+        /// セット品マスタの構成品情報取得
+        /// </summary>
+        /// <param name="p品番コード"></param>
+        /// <returns></returns>
+        public List<M10_SHIN> GetM10_Shin(int p品番コード)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                var m10 = context.M10_SHIN
+                    .Where(w => w.削除日時 == null && w.品番コード == p品番コード)
+                    .ToList();
+
+                return m10;
+            }
+
+        }
+
+        /// <summary>
+        /// セット品マスタの構成品情報取得（複数品番）
+        /// </summary>
+        /// <param name="dsAgrDtl">揚り部材明細データセット</param>
+        /// <returns></returns>
+        public List<M10_SHIN> GetM10_ShinForDataTable(DataSet dsAgrDtl)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+                DataTable dtAgrDtl = dsAgrDtl.Tables[TABLE_DETAIL];
+
+                var m10 =
+                    dtAgrDtl.AsEnumerable()
+                        .Join(context.M10_SHIN.Where(w => w.削除日時 == null),
+                            x => new { 品番コード = x.Field<int>("品番コード") },
+                            y => new { 品番コード = y.品番コード },
+                            (a, b) => new { AGRDTL = a, SHIN = b })
+                        .Select(z => new M10_SHIN
+                        {
+                            品番コード = z.SHIN.品番コード,
+                            部品行 = z.SHIN.部品行,
+                            構成品番コード = z.SHIN.構成品番コード,
+                            使用数量 = z.SHIN.使用数量
+                        })
+                        .ToList();
+
+                return m10;
+            }
+
+        }
+
         // 20190528CB-S
         /// <summary>
         /// セット品番の構成品登録件数取得
@@ -1633,7 +1680,6 @@ namespace KyoeiSystem.Application.WCFService
             }
 
         }
-
         // 20190528CB-E
 
         // 20190724CB-S
@@ -1660,6 +1706,8 @@ namespace KyoeiSystem.Application.WCFService
                     int 倉庫コード = get倉庫コード(context, hdRow.入荷先コード);
 
                     DataTable dtlTbl = ds.Tables[TABLE_DETAIL];
+                    DataTable dtAgrdtb = ds.Tables[TABLE_MAISAI_EXTENT];
+
                     foreach (DataRow row in dtlTbl.Rows)
                     {
                         T04_AGRDTL dtlRow = convertDataRowToT04_AGRDTL_Entity(row);
@@ -1669,8 +1717,8 @@ namespace KyoeiSystem.Application.WCFService
 
                         // 対象のセット品番を取得
                         var agrdtbList =
-                            context.M10_SHIN
-                                .Where(w => w.削除日時 == null && w.品番コード == dtlRow.品番コード);
+                            dtAgrdtb.AsEnumerable()
+                                .Where(w => w.Field<int>("セット品番コード") == dtlRow.品番コード);
 
                         // 構成品番がない場合は処理しない
                         if (agrdtbList.Count() == 0)
@@ -1680,14 +1728,16 @@ namespace KyoeiSystem.Application.WCFService
                         foreach (var data in agrdtbList)
                         {
                             S03_STOK stok = new S03_STOK();
+                            int intHinCode = data.Field<int>("品番コード");
                             DateTime dt = AppCommon.DateTimeToDate(dtlRow.賞味期限, DateTime.MaxValue);
 
-                            // 賞味期限の一番古い在庫を取得
+                            // 賞味期限が一致する在庫を取得
                             var targetStok =
                                 context.S03_STOK
                                     .Where(x =>
                                         x.倉庫コード == 倉庫コード &&
-                                        x.品番コード == data.構成品番コード)
+                                        x.品番コード == intHinCode &&
+                                        x.賞味期限 == dt)
                                     .OrderBy(o => o.賞味期限)
                                     .FirstOrDefault();
 
@@ -1708,12 +1758,9 @@ namespace KyoeiSystem.Application.WCFService
 
             }
 
-            
-
         }
 
         // 20190724CB-E
-
     }
 
 

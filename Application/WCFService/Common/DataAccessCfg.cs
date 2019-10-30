@@ -192,7 +192,6 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "M16_HINGUN_GetCsv", ServiceClass = "M16", MethodName = "GetCsv", Descprition = "商品群マスタCSVデータ出力", },
             new WCFDataAccessConfig() { Name = "M16_HINGUN_GetRpt", ServiceClass = "M16", MethodName = "GetRpt", Descprition = "商品群マスタ帳票出力", },
 
-
             #endregion
 
             #region マスタ(M21 - M30)
@@ -318,6 +317,8 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "M10_GetCount", ServiceClass = "T04", MethodName = "M10_GetCount", Descprition = "セット品番構成品の登録件数取得" },
             // 20190528CB-E
             new WCFDataAccessConfig() { Name = "T04_STOK_CHECK", ServiceClass = "T04", MethodName = "STOK_CHECK", Descprition = "セット品の在庫存在確認" },
+            new WCFDataAccessConfig() { Name = "T04_GetM10_Shin", ServiceClass = "T04", MethodName = "GetM10_Shin", Descprition = "セット品番構成品取得" },     // No-184 Add
+            new WCFDataAccessConfig() { Name = "T04_GetM10_ShinForDataTable", ServiceClass = "T04", MethodName = "GetM10_ShinForDataTable", Descprition = "セット品番構成品取得(DataTable)" },     // No-184 Add
 
             // 移動入力
             new WCFDataAccessConfig() { Name = "T05_GetData", ServiceClass = "DLY04010", MethodName = "GetData", Descprition = "移動入力情報取得" },
