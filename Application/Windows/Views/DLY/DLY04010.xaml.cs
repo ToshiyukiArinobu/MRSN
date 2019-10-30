@@ -483,7 +483,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 20190704CB-S
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.品番コード].Locked = true;
-                            gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.賞味期限].Locked = true;
+                            //gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.賞味期限].Locked = true;         No-206 Mod     
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.摘要].Locked = true;
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Locked = true;
                             gcSpreadGrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Locked = true;
