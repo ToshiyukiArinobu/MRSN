@@ -872,6 +872,32 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        
+        /// <summary>
+        /// 特殊集計期間設定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnIrregular_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchList == null)
+            {
+                this.ErrorMessage = "検索を行ってからボタンを押下してください。";
+                MessageBox.Show("検索を行ってからボタンを押下してください。");
+                return;
+            }
+
+            DateTime dtStart = DateTime.Parse(CreateYearMonth.Text + "/27");
+            DateTime dtEnd = dtStart.AddMonths(1).AddDays(-1);
+
+
+            foreach (DataRow dr in SearchList.Rows)
+            {
+                dr["開始日付1"] = dtStart;
+                dr["終了日付1"] = dtEnd;
+            }
+        }
+
     }
 
 }
