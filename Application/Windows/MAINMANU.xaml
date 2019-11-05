@@ -436,7 +436,7 @@
                                                 </Grid.RowDefinitions>
 
                                                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                                                    <Button  Name="SHR01010" Content="    1. 仕入データ一覧表" Click="Click_Dmy" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Disable}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" KeyDown="OnKeyUP" DataContext="3" />
+                                                    <Button  Name="SHR01010" Content="    1. 仕入データ一覧表" Click="Click_SHR01010"  Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" KeyDown="OnKeyUP" DataContext="3" />
                                                     <Button  Name="SHR02010" Content="    2. 仕入伝票" Click="Click_Dmy" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Disable}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" KeyDown="OnKeyUP" DataContext="3" />
                                                 </StackPanel>
 

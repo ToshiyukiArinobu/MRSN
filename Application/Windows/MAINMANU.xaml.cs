@@ -1162,6 +1162,22 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 支払先管理[F4]
+        /// <summary>
+        /// 仕入データ一覧
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_SHR01010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(SHR01010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         /// <summary>
         /// 支払締集計

@@ -411,6 +411,25 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="SHR01010_仕入データ一覧表" msprop:Generator_TableClassName="SHR01010_仕入データ一覧表DataTable" msprop:Generator_TableVarName="tableSHR01010_仕入データ一覧表" msprop:Generator_RowChangedName="SHR01010_仕入データ一覧表RowChanged" msprop:Generator_TablePropName="SHR01010_仕入データ一覧表" msprop:Generator_RowDeletingName="SHR01010_仕入データ一覧表RowDeleting" msprop:Generator_RowChangingName="SHR01010_仕入データ一覧表RowChanging" msprop:Generator_RowEvHandlerName="SHR01010_仕入データ一覧表RowChangeEventHandler" msprop:Generator_RowDeletedName="SHR01010_仕入データ一覧表RowDeleted" msprop:Generator_RowClassName="SHR01010_仕入データ一覧表Row" msprop:Generator_UserTableName="SHR01010_仕入データ一覧表" msprop:Generator_RowEvArgName="SHR01010_仕入データ一覧表RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="仕入先コード" msprop:Generator_ColumnVarNameInTable="column仕入先コード" msprop:Generator_ColumnPropNameInRow="仕入先コード" msprop:Generator_ColumnPropNameInTable="仕入先コードColumn" msprop:Generator_UserColumnName="仕入先コード" type="xs:string" minOccurs="0" />
+              <xs:element name="仕入先名称" msprop:Generator_ColumnVarNameInTable="column仕入先名称" msprop:Generator_ColumnPropNameInRow="仕入先名称" msprop:Generator_ColumnPropNameInTable="仕入先名称Column" msprop:Generator_UserColumnName="仕入先名称" type="xs:string" minOccurs="0" />
+              <xs:element name="前月繰越" msprop:Generator_ColumnVarNameInTable="column前月繰越" msprop:Generator_ColumnPropNameInRow="前月繰越" msprop:Generator_ColumnPropNameInTable="前月繰越Column" msprop:Generator_UserColumnName="前月繰越" type="xs:decimal" minOccurs="0" />
+              <xs:element name="出金金額" msprop:Generator_ColumnVarNameInTable="column出金金額" msprop:Generator_ColumnPropNameInRow="出金金額" msprop:Generator_ColumnPropNameInTable="出金金額Column" msprop:Generator_UserColumnName="出金金額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="値引額" msprop:Generator_ColumnVarNameInTable="column値引額" msprop:Generator_ColumnPropNameInRow="値引額" msprop:Generator_ColumnPropNameInTable="値引額Column" msprop:Generator_UserColumnName="値引額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="通常税率対象支払額" msprop:Generator_ColumnVarNameInTable="column通常税率対象支払額" msprop:Generator_ColumnPropNameInRow="通常税率対象支払額" msprop:Generator_ColumnPropNameInTable="通常税率対象支払額Column" msprop:Generator_UserColumnName="通常税率対象支払額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="軽減税率対象支払額" msprop:Generator_ColumnVarNameInTable="column軽減税率対象支払額" msprop:Generator_ColumnPropNameInRow="軽減税率対象支払額" msprop:Generator_ColumnPropNameInTable="軽減税率対象支払額Column" msprop:Generator_UserColumnName="軽減税率対象支払額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="非課税支払額" msprop:Generator_ColumnVarNameInTable="column非課税支払額" msprop:Generator_ColumnPropNameInRow="非課税支払額" msprop:Generator_ColumnPropNameInTable="非課税支払額Column" msprop:Generator_UserColumnName="非課税支払額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="通常税消費税" msprop:Generator_ColumnVarNameInTable="column通常税消費税" msprop:Generator_ColumnPropNameInRow="通常税消費税" msprop:Generator_ColumnPropNameInTable="通常税消費税Column" msprop:Generator_UserColumnName="通常税消費税" type="xs:decimal" minOccurs="0" />
+              <xs:element name="軽減税消費税" msprop:Generator_ColumnVarNameInTable="column軽減税消費税" msprop:Generator_ColumnPropNameInRow="軽減税消費税" msprop:Generator_ColumnPropNameInTable="軽減税消費税Column" msprop:Generator_UserColumnName="軽減税消費税" type="xs:decimal" minOccurs="0" />
+              <xs:element name="税込支払額" msprop:Generator_ColumnVarNameInTable="column税込支払額" msprop:Generator_ColumnPropNameInRow="税込支払額" msprop:Generator_ColumnPropNameInTable="税込支払額Column" msprop:Generator_UserColumnName="税込支払額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="軽減税込支払額" msprop:Generator_ColumnVarNameInTable="column軽減税込支払額" msprop:Generator_ColumnPropNameInRow="軽減税込支払額" msprop:Generator_ColumnPropNameInTable="軽減税込支払額Column" msprop:Generator_UserColumnName="軽減税込支払額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="当月支払額" msprop:Generator_ColumnVarNameInTable="column当月支払額" msprop:Generator_ColumnPropNameInRow="当月支払額" msprop:Generator_ColumnPropNameInTable="当月支払額Column" msprop:Generator_UserColumnName="当月支払額" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

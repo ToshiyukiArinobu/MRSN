@@ -41,6 +41,7 @@
           <EntitySet Name="S04_HISTORY" EntityType="TRAC3Model.Store.S04_HISTORY" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S05_STOK_MONTH" EntityType="TRAC3Model.Store.S05_STOK_MONTH" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S06_URIHD" EntityType="TRAC3Model.Store.S06_URIHD" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="S07_SRIHD" EntityType="TRAC3Model.Store.S07_SRIHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URDTL" EntityType="TRAC3Model.Store.T02_URDTL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URDTL_HAN" EntityType="TRAC3Model.Store.T02_URDTL_HAN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URHD" EntityType="TRAC3Model.Store.T02_URHD" store:Type="Tables" Schema="dbo" />
@@ -929,6 +930,41 @@
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="S07_SRIHD">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="支払年月" />
+            <PropertyRef Name="支払締日" />
+            <PropertyRef Name="支払先コード" />
+            <PropertyRef Name="支払先枝番" />
+            <PropertyRef Name="支払日" />
+            <PropertyRef Name="回数" />
+          </Key>
+          <Property Name="自社コード" Type="int" Nullable="false" />
+          <Property Name="支払年月" Type="int" Nullable="false" />
+          <Property Name="支払締日" Type="int" Nullable="false" />
+          <Property Name="支払先コード" Type="int" Nullable="false" />
+          <Property Name="支払先枝番" Type="int" Nullable="false" />
+          <Property Name="支払日" Type="int" Nullable="false" />
+          <Property Name="回数" Type="int" Nullable="false" />
+          <Property Name="支払年月日" Type="date" Nullable="false" />
+          <Property Name="集計開始日" Type="date" />
+          <Property Name="集計最終日" Type="date" />
+          <Property Name="前月残高" Type="bigint" Nullable="false" />
+          <Property Name="出金額" Type="bigint" Nullable="false" />
+          <Property Name="繰越残高" Type="bigint" Nullable="false" />
+          <Property Name="通常税率対象金額" Type="bigint" Nullable="false" />
+          <Property Name="軽減税率対象金額" Type="bigint" Nullable="false" />
+          <Property Name="値引額" Type="bigint" Nullable="false" />
+          <Property Name="非課税支払額" Type="bigint" Nullable="false" />
+          <Property Name="支払額" Type="bigint" Nullable="false" />
+          <Property Name="通常税率消費税" Type="bigint" Nullable="false" />
+          <Property Name="軽減税率消費税" Type="bigint" Nullable="false" />
+          <Property Name="消費税" Type="bigint" Nullable="false" />
+          <Property Name="当月支払額" Type="bigint" Nullable="false" />
+          <Property Name="登録者" Type="int" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="T02_URDTL">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -1619,6 +1655,7 @@
           <EntitySet Name="S02_SHRHD" EntityType="TRAC3Model.S02_SHRHD" />
           <EntitySet Name="S01_SEIDTL" EntityType="TRAC3Model.S01_SEIDTL" />
           <EntitySet Name="S02_SHRDTL" EntityType="TRAC3Model.S02_SHRDTL" />
+          <EntitySet Name="S07_SRIHD" EntityType="TRAC3Model.S07_SRIHD" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
@@ -2924,6 +2961,41 @@
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="S07_SRIHD">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="支払年月" />
+            <PropertyRef Name="支払締日" />
+            <PropertyRef Name="支払先コード" />
+            <PropertyRef Name="支払先枝番" />
+            <PropertyRef Name="支払日" />
+            <PropertyRef Name="回数" />
+          </Key>
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="Int32" Name="支払年月" Nullable="false" />
+          <Property Type="Int32" Name="支払締日" Nullable="false" />
+          <Property Type="Int32" Name="支払先コード" Nullable="false" />
+          <Property Type="Int32" Name="支払先枝番" Nullable="false" />
+          <Property Type="Int32" Name="支払日" Nullable="false" />
+          <Property Type="Int32" Name="回数" Nullable="false" />
+          <Property Type="DateTime" Name="支払年月日" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="集計開始日" Precision="0" />
+          <Property Type="DateTime" Name="集計最終日" Precision="0" />
+          <Property Type="Int64" Name="前月残高" Nullable="false" />
+          <Property Type="Int64" Name="出金額" Nullable="false" />
+          <Property Type="Int64" Name="繰越残高" Nullable="false" />
+          <Property Type="Int64" Name="通常税率対象金額" Nullable="false" />
+          <Property Type="Int64" Name="軽減税率対象金額" Nullable="false" />
+          <Property Type="Int64" Name="値引額" Nullable="false" />
+          <Property Type="Int64" Name="非課税支払額" Nullable="false" />
+          <Property Type="Int64" Name="支払額" Nullable="false" />
+          <Property Type="Int64" Name="通常税率消費税" Nullable="false" />
+          <Property Type="Int64" Name="軽減税率消費税" Nullable="false" />
+          <Property Type="Int64" Name="消費税" Nullable="false" />
+          <Property Type="Int64" Name="当月支払額" Nullable="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4188,6 +4260,36 @@
                 <ScalarProperty Name="仕入日" ColumnName="仕入日" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
                 <ScalarProperty Name="行" ColumnName="行" />
+                <ScalarProperty Name="回数" ColumnName="回数" />
+                <ScalarProperty Name="支払日" ColumnName="支払日" />
+                <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />
+                <ScalarProperty Name="支払先コード" ColumnName="支払先コード" />
+                <ScalarProperty Name="支払締日" ColumnName="支払締日" />
+                <ScalarProperty Name="支払年月" ColumnName="支払年月" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S07_SRIHD">
+            <EntityTypeMapping TypeName="TRAC3Model.S07_SRIHD">
+              <MappingFragment StoreEntitySet="S07_SRIHD">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
+                <ScalarProperty Name="消費税" ColumnName="消費税" />
+                <ScalarProperty Name="軽減税率消費税" ColumnName="軽減税率消費税" />
+                <ScalarProperty Name="通常税率消費税" ColumnName="通常税率消費税" />
+                <ScalarProperty Name="支払額" ColumnName="支払額" />
+                <ScalarProperty Name="非課税支払額" ColumnName="非課税支払額" />
+                <ScalarProperty Name="値引額" ColumnName="値引額" />
+                <ScalarProperty Name="軽減税率対象金額" ColumnName="軽減税率対象金額" />
+                <ScalarProperty Name="通常税率対象金額" ColumnName="通常税率対象金額" />
+                <ScalarProperty Name="繰越残高" ColumnName="繰越残高" />
+                <ScalarProperty Name="出金額" ColumnName="出金額" />
+                <ScalarProperty Name="前月残高" ColumnName="前月残高" />
+                <ScalarProperty Name="集計最終日" ColumnName="集計最終日" />
+                <ScalarProperty Name="集計開始日" ColumnName="集計開始日" />
+                <ScalarProperty Name="支払年月日" ColumnName="支払年月日" />
                 <ScalarProperty Name="回数" ColumnName="回数" />
                 <ScalarProperty Name="支払日" ColumnName="支払日" />
                 <ScalarProperty Name="支払先枝番" ColumnName="支払先枝番" />

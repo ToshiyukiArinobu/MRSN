@@ -430,6 +430,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s02_SHRDTL  ?? (_s02_SHRDTL = CreateObjectSet<S02_SHRDTL>("S02_SHRDTL")); }
         }
         private ObjectSet<S02_SHRDTL> _s02_SHRDTL;
+    
+        public ObjectSet<S07_SRIHD> S07_SRIHD
+        {
+            get { return _s07_SRIHD  ?? (_s07_SRIHD = CreateObjectSet<S07_SRIHD>("S07_SRIHD")); }
+        }
+        private ObjectSet<S07_SRIHD> _s07_SRIHD;
 
         #endregion
 

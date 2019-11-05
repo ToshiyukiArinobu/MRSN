@@ -412,6 +412,10 @@ namespace KyoeiSystem.Application.WCFService
             #endregion
 
             #region 支払先管理
+            // 仕入データ一覧
+            new WCFDataAccessConfig() { Name = "SalesAggregation", ServiceClass = "SHR01010", MethodName = "BuyAggregation", Descprition = "仕入集計処理" },
+            new WCFDataAccessConfig() { Name = "SHR01010_GetCsvData", ServiceClass = "SHR01010", MethodName = "GetCsvData", Descprition = "仕入集計、一覧表ＣＳＶデータ取得" },
+            new WCFDataAccessConfig() { Name = "SHR01010_GetPrintData", ServiceClass = "SHR01010", MethodName = "GetPrintData", Descprition = "仕入集計処理、一覧表印刷データ取得" },
 
             // 支払締集計
             new WCFDataAccessConfig() { Name = "SHR03010_GetDataList", ServiceClass = "SHR03010", MethodName = "GetListData", Descprition = "支払集計対象取得" },
