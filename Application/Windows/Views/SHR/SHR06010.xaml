@@ -16,7 +16,7 @@
   Left="0" Top="0"
   MinHeight="728" MinWidth="1024"
   Height="768" Width="1024"
-  Title="出金予定実績表(SHR06010)"
+  Title="出金予定表(SHR06010)"
   WindowStartupLocation="CenterOwner"
   Loaded="RibbonWindow_Loaded" Closed="MainWindow_Closed">
 
