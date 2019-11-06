@@ -131,7 +131,7 @@ namespace KyoeiSystem.Application.WCFService
                                 加工区分 = x.KBN.表示名,
                                 伝票番号 = x.AGRHD.伝票番号.ToString(),
                                 行番号 = x.AGRDTL.行番号,
-                                外注先 = x.TOK != null ? x.TOK.得意先名１ : (x.KBN.コード == 3 ? "自社" : string.Empty),
+                                外注先 = x.TOK != null ? x.TOK.略称名 : (x.KBN.コード == 3 ? "自社" : string.Empty),
                                 品番コード = x.AGRDTL.品番コード,
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
                                 自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
