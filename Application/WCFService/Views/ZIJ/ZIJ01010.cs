@@ -164,7 +164,7 @@ namespace KyoeiSystem.Application.WCFService
                                 入力区分名 = CommonConstants.Get入力区分Dic()[x.SRHD.入力区分],
                                 仕入先コード = x.SRHD.仕入先コード.ToString(),
                                 仕入先枝番 = x.SRHD.仕入先枝番.ToString(),
-                                仕入先名 = x.TOK != null ? x.TOK.得意先名１ : "",
+                                仕入先名 = x.TOK != null ? x.TOK.略称名 : "",
                                 入荷先コード = x.SRHD.入荷先コード.ToString(),
                                 入荷先名 = x.JIS2 != null ? x.JIS2.自社名 : "",
                                 発注番号 = x.SRHD.発注番号.ToString(),
