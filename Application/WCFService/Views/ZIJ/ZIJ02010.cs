@@ -157,7 +157,7 @@ namespace KyoeiSystem.Application.WCFService
                                 伝票番号 = x.SHD.伝票番号.ToString(),
                                 元伝票番号 = x.SHD.元伝票番号 != null ? x.SHD.元伝票番号.ToString() : string.Empty,
                                 行番号 = x.SDTL.行番号,
-                                仕入先名 = x.TOK.得意先名１,
+                                仕入先名 = x.TOK.略称名,
                                 品番コード = x.SDTL.品番コード,
                                 自社品番 = x.HIN.自社品番,
                                 自社品名 = x.HIN.自社品名,
