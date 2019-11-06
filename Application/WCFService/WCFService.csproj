@@ -116,6 +116,7 @@
     <Content Include="Views\MST\M88.svc" />
     <Content Include="Views\MST\MST02011.svc" />
     <Content Include="Views\MST\MST01011.svc" />
+    <Content Include="Views\MST\MST03011.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -329,6 +330,9 @@
     </Compile>
     <Compile Include="Views\MST\MST01011.svc.cs">
       <DependentUpon>MST01011.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MST\MST03011.svc.cs">
+      <DependentUpon>MST03011.svc</DependentUpon>
     </Compile>
     <Compile Include="Views\SCH\SCHS03_STOK.cs" />
     <Compile Include="Views\SHR\SHR03010.cs" />

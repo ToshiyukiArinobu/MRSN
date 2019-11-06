@@ -602,6 +602,10 @@
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left">
+                                                    <Button Name="MST03011" Content="   17. 製品原価一括修正" Click="Click_MST03011" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}"/>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
                                                 </StackPanel>
 
 
