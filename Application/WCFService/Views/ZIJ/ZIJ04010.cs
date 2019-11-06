@@ -150,7 +150,7 @@ namespace KyoeiSystem.Application.WCFService
                                 出金先販社名 = x.JIS2 == null ? "" : x.JIS2.自社名 ?? "",
                                 得意先コード = x.PHD.得意先コード.ToString(),
                                 得意先枝番 = x.PHD.得意先枝番.ToString(),
-                                得意先名 = x.TOK == null ? "" : x.TOK.得意先名１ ?? "",
+                                得意先名 = x.TOK == null ? "" : x.TOK.略称名 ?? "",
                                 金種コード = x.PDTL.金種コード.ToString(),
                                 金種名 = x.NM == null ? "" : x.NM.表示名 ?? "",
                                 金額 = x.PDTL.金額,
