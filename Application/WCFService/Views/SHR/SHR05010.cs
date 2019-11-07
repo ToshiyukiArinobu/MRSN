@@ -175,7 +175,7 @@ namespace KyoeiSystem.Application.WCFService
                 .Select(x => new PrintMember
                 {
                     仕入先コード = string.Format("{0:000} - {1:00}", x.NHD.支払先コード, x.NHD.支払先枝番),      // No-149 Mod
-                    仕入先名称 = x.TOK == null ? "" : x.TOK.得意先名１,
+                    仕入先名称 = x.TOK == null ? "" : x.TOK.略称名,
                     支払締日 = x.NHD.支払締日.ToString(),
                     前月残高 = x.NHD.前月残高,
                     出金金額 = x.PAY == null ? 0 : x.PAY.出金額,
