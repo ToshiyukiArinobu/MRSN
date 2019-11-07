@@ -240,14 +240,9 @@
                 <sg:BindingDataField Binding="{Binding 印刷区分}"/>
               </sg:Column.DataField>
             </sg:Column>
-            <sg:Column Locked="True">
-              <sg:Column.DataField>
-                <sg:BindingDataField Binding="{Binding 得意先コード}"/>
-              </sg:Column.DataField>
-            </sg:Column>
-            <sg:Column Locked="True">
-              <sg:Column.DataField>
-                <sg:BindingDataField Binding="{Binding 得意先枝番}"/>
+            <sg:Column HorizontalAlignment="Center" Locked="True">
+                <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding ID}"/>
               </sg:Column.DataField>
             </sg:Column>
             <sg:Column Locked="True">
