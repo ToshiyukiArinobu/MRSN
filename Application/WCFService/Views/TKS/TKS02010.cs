@@ -465,7 +465,7 @@ namespace KyoeiSystem.Application.WCFService
                     })
                     .Select(x => new PrintMember
                     {
-                        得意先コード = string.Format("{0:000} - {1:00}", x.Key.請求先コード, x.Key.請求先枝番),
+                        得意先コード = string.Format("{0:D4} - {1:D2}", x.Key.請求先コード, x.Key.請求先枝番),   // No.223 Mod
                         得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                         前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
                         入金額 = (long)x.Sum(s => s.UHD.入金額),
@@ -518,7 +518,7 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(x => new PrintMember
                         {
-                            得意先コード = string.Format("{0:0000} - {1:00}", x.Key.請求先コード, x.Key.請求先枝番),
+                            得意先コード = string.Format("{0:D4} - {1:D2}", x.Key.請求先コード, x.Key.請求先枝番),
                             得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                             前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
                             入金額 = (long)x.Sum(s => s.UHD.入金額),
