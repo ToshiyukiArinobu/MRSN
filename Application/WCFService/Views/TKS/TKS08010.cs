@@ -224,7 +224,7 @@ namespace KyoeiSystem.Application.WCFService
                             {
                                 得意先コード = s.TOK.取引先コード.ToString(),
                                 得意先枝番 = s.TOK.枝番.ToString(),
-                                得意先名 = s.TOK.得意先名１,
+                                得意先名 = s.TOK.略称名,  // No.229 Mod
                                 // No.101-4 Mod Start
                                 入金日 = s.TOK.Ｔ入金日１ ?? 31,
                                 サイト = s.TOK.Ｔサイト１ ?? 0,
