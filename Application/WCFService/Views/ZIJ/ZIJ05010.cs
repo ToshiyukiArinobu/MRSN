@@ -175,7 +175,7 @@ namespace KyoeiSystem.Application.WCFService
                                 伝票番号 = x.UHD.伝票番号.ToString(),
                                 元伝票番号 = x.UHD.元伝票番号 != null ? x.UHD.元伝票番号.ToString() : string.Empty,
                                 行番号 = x.UDTL.行番号,
-                                得意先 = x.TOK != null ? x.TOK.得意先名１ : string.Empty,
+                                得意先 = x.TOK != null ? x.TOK.略称名 : string.Empty,
                                 品番コード = x.UDTL.品番コード,
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
                                 自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
