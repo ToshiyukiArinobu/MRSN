@@ -267,7 +267,7 @@
             </sg:Column>
             <sg:Column Locked="True">
               <sg:Column.CellType>
-                <sg:TextCellType MaxLength="30" MaxLengthUnit="Byte" ImeState="On" />
+                <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
               </sg:Column.CellType>
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding 摘要}" />

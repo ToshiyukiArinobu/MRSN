@@ -150,7 +150,7 @@ namespace KyoeiSystem.Application.WCFService
                                 入金元販社名 = x.JIS2 == null ? "" : x.JIS2.自社名 ?? "",
                                 得意先コード = x.NHD.得意先コード.ToString(),
                                 得意先枝番 = x.NHD.得意先枝番.ToString(),
-                                得意先名 = x.TOK == null ? "" : x.TOK.得意先名１ ?? "",
+                                得意先名 = x.TOK == null ? "" : x.TOK.略称名 ?? "",  // No.229 Mod
                                 金種コード = x.NDTL.金種コード.ToString(),
                                 金種名 = x.NM == null ? "" : x.NM.表示名 ?? "",
                                 金額 = x.NDTL.金額,
