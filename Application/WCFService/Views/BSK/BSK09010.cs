@@ -79,8 +79,8 @@ namespace KyoeiSystem.Application.WCFService
                         .ToList()
                         .Select(s => new BSK09010_PrintMember
                         {
-                            得意先コード = string.Format("{0:D4}", s.取引先コード),     // No.233 Mod
-                            得意先枝番 = string.Format("{0:D2}", s.枝番),               // No.233 Mod
+                            得意先コード = string.Format("{0:D4}", s.取引先コード),     // No.223 Mod
+                            得意先枝番 = string.Format("{0:D2}", s.枝番),               // No.223 Mod
                             得意先名 = s.取引先名,
                             入金日 = DateTime.TryParseExact(s.入金日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt.ToShortDateString() : DateTime.Now.ToShortDateString(),        // No-168 Mod
                             支払日 = DateTime.TryParseExact(s.支払日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt.ToShortDateString() : DateTime.Now.ToShortDateString(),        // No-168 Mod
