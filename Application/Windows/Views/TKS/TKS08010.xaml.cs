@@ -548,6 +548,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
             if (sfd.ShowDialog() == WinForms.DialogResult.OK)
             {
+                tbl.Columns.Remove("得意先枝番");    // No.223 Add
+
                 // CSVファイル出力
                 CSVData.SaveCSV(tbl, sfd.FileName, true, true, false, ',');
                 MessageBox.Show("CSVファイルの出力が完了しました。");
