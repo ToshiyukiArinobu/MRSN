@@ -171,12 +171,8 @@
     />
 
     <!-- 計算期間の再計算 -->
-    <!-- TODO:利用内容が不明の為一旦非表示 -->
-    <WrapPanel Grid.Row="5" Margin="105,5,0,0" Visibility="Hidden" >
-      <CheckBox Name="Kotei" Width="150" FontSize="15" Focusable="False"
-                Content="計算期間の再計算"
-      />
-    </WrapPanel>
+        <Button  Grid.Row="5" Name="BtnIrregular" Width="150" FontSize="15" Focusable="False" HorizontalAlignment="Right"
+                    Content="特殊集計期間設定" Click="BtnIrregular_Click"/>
 
     <!-- 検索ボタン -->
     <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" Margin="5,5,0,0">
