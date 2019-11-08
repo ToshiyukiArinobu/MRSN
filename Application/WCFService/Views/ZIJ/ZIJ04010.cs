@@ -148,8 +148,8 @@ namespace KyoeiSystem.Application.WCFService
                                 出金日 = x.PHD.出金日.ToString("yyyy/MM/dd"),
                                 出金先販社コード = x.PHD.出金先販社コード.ToString(),
                                 出金先販社名 = x.JIS2 == null ? "" : x.JIS2.自社名 ?? "",
-                                得意先コード = x.PHD.得意先コード.ToString(),
-                                得意先枝番 = x.PHD.得意先枝番.ToString(),
+                                得意先コード = string.Format("{0:D4}", x.PHD.得意先コード),     // No.223 Mod
+                                得意先枝番 = string.Format("{0:D2}", x.PHD.得意先枝番),         // No.223 Mod
                                 得意先名 = x.TOK == null ? "" : x.TOK.略称名 ?? "",
                                 金種コード = x.PDTL.金種コード.ToString(),
                                 金種名 = x.NM == null ? "" : x.NM.表示名 ?? "",
