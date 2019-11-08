@@ -142,7 +142,7 @@ namespace KyoeiSystem.Application.WCFService
                         {
                             BSK02010_PrintMember print = new BSK02010_PrintMember();
                             print.得意先コード = string.Format("{0:000} - {1:00}", tokRow.取引先コード, tokRow.枝番);     // No.132-3 Mod
-                            print.得意先名 = tokRow.得意先名１;
+                            print.得意先名 = tokRow.略称名;     // No.229 Mod
                             print.集計合計額 += tallyList[i].金額;
 
                             #region monthCountにより設定列分け
