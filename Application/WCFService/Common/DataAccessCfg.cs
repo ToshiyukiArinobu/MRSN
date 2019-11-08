@@ -141,6 +141,11 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "MST01011_Update", ServiceClass = "MST01011", MethodName = "Update", Descprition = "取引先データ　更新" },
             new WCFDataAccessConfig() { Name = "MST01011_GetM72", ServiceClass = "MST01011", MethodName = "GetM72", Descprition = "担当データ　取得" },
 
+            // 製品原価一括更新
+            new WCFDataAccessConfig() { Name = "MST03011_GetData", ServiceClass = "MST03011", MethodName = "GetData", Descprition = "商品データ　取得" },
+            new WCFDataAccessConfig() { Name = "MST03011_Update", ServiceClass = "MST03011", MethodName = "Update", Descprition = "商品データ　更新" },
+            new WCFDataAccessConfig() { Name = "MST03011_GetMasterDataSet", ServiceClass = "MST03011", MethodName = "GetMasterDataSet", Descprition = "マスタデータ 取得" },
+            
 
             #endregion
 
@@ -412,6 +417,10 @@ namespace KyoeiSystem.Application.WCFService
             #endregion
 
             #region 支払先管理
+            // 仕入データ一覧
+            new WCFDataAccessConfig() { Name = "SalesAggregation", ServiceClass = "SHR01010", MethodName = "BuyAggregation", Descprition = "仕入集計処理" },
+            new WCFDataAccessConfig() { Name = "SHR01010_GetCsvData", ServiceClass = "SHR01010", MethodName = "GetCsvData", Descprition = "仕入集計、一覧表ＣＳＶデータ取得" },
+            new WCFDataAccessConfig() { Name = "SHR01010_GetPrintData", ServiceClass = "SHR01010", MethodName = "GetPrintData", Descprition = "仕入集計処理、一覧表印刷データ取得" },
 
             // 支払締集計
             new WCFDataAccessConfig() { Name = "SHR03010_GetDataList", ServiceClass = "SHR03010", MethodName = "GetListData", Descprition = "支払集計対象取得" },

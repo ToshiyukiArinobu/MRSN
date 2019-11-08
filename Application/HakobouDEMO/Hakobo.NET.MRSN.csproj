@@ -290,10 +290,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MST.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Data\SHR\SHR.cs">
+      <DependentUpon>SHR.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\SHR\SHR.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SHR.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TKS\TKS.cs">
+      <DependentUpon>TKS.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data\TKS\TKS.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -413,6 +420,13 @@
       <DependentUpon>SAMPLE.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Files\SHR\SHR01010.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SHR01010.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Files\SHR\SHR05010.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -446,6 +460,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TKS02010.rpt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Files\TKS\TKS03010.cs">
       <AutoGen>True</AutoGen>
@@ -728,6 +743,11 @@
       <LastGenOutput>TKS02010.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Files\SHR\SHR01010.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SHR01010.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

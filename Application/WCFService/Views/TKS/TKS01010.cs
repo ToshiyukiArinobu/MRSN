@@ -155,10 +155,10 @@ namespace KyoeiSystem.Application.WCFService
                     .ToList()
                     .Select(x => new TKS01010_SearchMember
                     {
-                        ID = string.Format("{0:D3} - {1:D2}", x.TOK.取引先コード, x.TOK.枝番),
+                        ID = string.Format("{0:D4} - {1:D2}", x.TOK.取引先コード, x.TOK.枝番),  // No.223 Mod
                         得意先コード = x.TOK.取引先コード,
                         得意先枝番 = x.TOK.枝番,
-                        得意先名 = x.TOK.得意先名１,
+                        得意先名 = x.TOK.略称名,
                         締日 = x.TOK.Ｔ締日 ?? 31,
                         区分 = x.SH1 == null ? "新規" : "",
                         開始日付1 = x.SH1 == null ? (DateTime?)null : x.SH1.集計開始日,

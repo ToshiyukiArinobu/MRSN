@@ -144,6 +144,9 @@
     <Compile Include="Views\MST\MST01011.xaml.cs">
       <DependentUpon>MST01011.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MST\MST03011.xaml.cs">
+      <DependentUpon>MST03011.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SCH\SCHS03_STOK.xaml.cs">
       <DependentUpon>SCHS03_STOK.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,9 @@
     </Compile>
     <Compile Include="Views\SHR\SHR06010.xaml.cs">
       <DependentUpon>SHR06010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SHR\SHR01010.xaml.cs">
+      <DependentUpon>SHR01010.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TKS\TKS01020.xaml.cs">
       <DependentUpon>TKS01020.xaml</DependentUpon>
@@ -382,6 +388,10 @@
     <Resource Include="Views\DLY\DLY02011G2.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\MST\MST03011G1.sgxml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Views\TKS\TKS09010G1.sgxml" />
     <Resource Include="Views\ZIJ\ZIJ10010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -583,6 +593,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MST\MST03011.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SCH\SCHS03_STOK.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -600,6 +614,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SHR\SHR06010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SHR\SHR01010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

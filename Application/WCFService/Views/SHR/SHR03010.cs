@@ -206,7 +206,7 @@ namespace KyoeiSystem.Application.WCFService
                         ID = string.Format("{0:D3} - {1:D2}", x.TOK.取引先コード, x.TOK.枝番),
                         支払先コード = x.TOK.取引先コード,
                         支払先枝番 = x.TOK.枝番,
-                        支払先名 = x.TOK.得意先名１,
+                        支払先名 = x.TOK.略称名,  // No.229 Mod
                         締日 = x.TOK.Ｓ締日 ?? 31,
                         区分 = x.SH1 == null ? "新規" : "",
                         開始日付1 = x.SH1 == null ? (DateTime?)null : x.SH1.集計開始日,

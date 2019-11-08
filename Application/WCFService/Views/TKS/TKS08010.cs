@@ -222,9 +222,9 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(s => new TKS08010_Member
                             {
-                                得意先コード = s.TOK.取引先コード.ToString(),
-                                得意先枝番 = s.TOK.枝番.ToString(),
-                                得意先名 = s.TOK.得意先名１,
+                                得意先コード = string.Format("{0:D4}", s.TOK.取引先コード), // No.223 Mod
+                                得意先枝番 = string.Format("{0:D2}", s.TOK.枝番),           // No.223 Mod
+                                得意先名 = s.TOK.略称名,  // No.229 Mod
                                 // No.101-4 Mod Start
                                 入金日 = s.TOK.Ｔ入金日１ ?? 31,
                                 サイト = s.TOK.Ｔサイト１ ?? 0,
@@ -273,7 +273,7 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(s => new TKS08010_Member
                         {
-                            得意先コード = s.Key.得意先コード,
+                            得意先コード = string.Format("{0:D4} - {1:D2}", s.Key.得意先コード, s.Key.得意先枝番),       // No.223 Mod
                             得意先枝番 = s.Key.得意先枝番,
                             得意先名 = s.Key.得意先名,
                             入金日 = s.Key.入金日,

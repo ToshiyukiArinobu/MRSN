@@ -11,15 +11,14 @@ using System.Windows.Input;
 namespace KyoeiSystem.Application.Windows.Views
 {
     using KyoeiSystem.Framework.Windows.Controls;
-    using System.Text.RegularExpressions;
-    using FwPreview = KyoeiSystem.Framework.Reports.Preview;
     using FwReportPreview = KyoeiSystem.Framework.Reports.Preview.ReportPreview;
+    using FwPreview = KyoeiSystem.Framework.Reports.Preview;
     using WinForms = System.Windows.Forms;
 
     /// <summary>
-    /// 入金予定実績表画面クラス
+    /// 支払データ一覧表 画面クラス
     /// </summary>
-    public partial class TKS08010 : WindowReportBase
+    public partial class SHR01010 : WindowReportBase
     {
         #region << 列挙型定義 >>
 
@@ -38,16 +37,13 @@ namespace KyoeiSystem.Application.Windows.Views
         #region 定数定義
 
         /// <summary>CSVファイル出力データ取得</summary>
-        private const string SEARCH_TKS08010_CSV = "TKS08010_GetCsvData";
+        private const string SEARCH_SHR01010_CSV = "SHR01010_GetCsvData";
 
         /// <summary>帳票印刷データ取得</summary>
-        private const string SEARCH_TKS08010_PRT = "TKS08010_GetPrintData";
+        private const string SEARCH_SHR01010_PRT = "SHR01010_GetPrintData";
 
         /// <summary>帳票定義ファイル 格納パス</summary>
-        private const string ReportTemplateFileName = @"Files\TKS\TKS08010.rpt";
-
-        /// <summary>参照対象月数</summary>
-        private const int REF_MONTHS = 6;
+        private const string ReportTemplateFileName = @"Files\SHR\SHR01010.rpt";
 
         #endregion
 
@@ -62,12 +58,12 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 画面固有設定項目のクラス定義
         /// ※ 必ず public で定義する。
         /// </summary>
-        public class ConfigTKS08010 : FormConfigBase
+        public class ConfigSHR01010 : FormConfigBase
         {
 
         }
         /// ※ 必ず public で定義する。
-        public ConfigTKS08010 frmcfg = null;
+        public ConfigSHR01010 frmcfg = null;
 
         #endregion
 
@@ -75,19 +71,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        #region << クラス変数定義 >>
-
-        /// <summary>パラメータ辞書</summary>
-        Dictionary<string, string> paramDic = new Dictionary<string, string>();
-
-        #endregion
-
         #region << 初期表示処理 >>
 
         /// <summary>
-        /// 入金予定実績表 コンストラクタ
+        /// 支払データ一覧表 コンストラクタ
         /// </summary>
-        public TKS08010()
+        public SHR01010()
         {
             InitializeComponent();
             this.DataContext = this;
@@ -103,12 +92,12 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
-            frmcfg = (ConfigTKS08010)ucfg.GetConfigValue(typeof(ConfigTKS08010));
+            frmcfg = (ConfigSHR01010)ucfg.GetConfigValue(typeof(ConfigSHR01010));
             ccfg = (CommonConfig)ucfg.GetConfigValue(typeof(CommonConfig));
 
             if (frmcfg == null)
             {
-                frmcfg = new ConfigTKS08010();
+                frmcfg = new ConfigSHR01010();
                 ucfg.SetConfigValue(frmcfg);
 
             }
@@ -140,9 +129,9 @@ namespace KyoeiSystem.Application.Windows.Views
             myCompany.Text1 = ccfg.自社コード.ToString();
             myCompany.IsEnabled = ccfg.自社販社区分 == 自社販社区分.自社.GetHashCode();
 
-            ReferenceYearMonth.Text = DateTime.Now.ToString("yyyy/MM");
+            CreateYearMonth.Text = DateTime.Now.ToString("yyyy/MM");
 
-			SetFocusToTopControl();
+            SetFocusToTopControl();
             ErrorMessage = string.Empty;
 
         }
@@ -158,6 +147,8 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
+                base.SetFreeForInput();
+
                 var data = message.GetResultData();
 
                 if (data is DataTable)
@@ -166,12 +157,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     switch (message.GetMessageName())
                     {
-                        case SEARCH_TKS08010_PRT:
+                        case SEARCH_SHR01010_PRT:
                             // 検索結果取得時
                             DispPreviw(tbl);
                             break;
 
-                        case SEARCH_TKS08010_CSV:
+                        case SEARCH_SHR01010_CSV:
                             OutPutCSV(tbl);
                             break;
 
@@ -231,7 +222,7 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region F5 ＣＳＶ出力
+        #region F5 CSV出力
         /// <summary>
         /// F5　リボン　CSV出力
         /// </summary>
@@ -251,15 +242,23 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
+            if (!CheckInputErr())
+            {
+                MessageBox.Show("入力エラーがあります。");
+                return;
+            }
+
             Dictionary<string, string> paramDic = createParamDic();
 
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.RequestDataWithBusy,
-                    SEARCH_TKS08010_CSV,
+                    SEARCH_SHR01010_CSV,
                     new object[] {
                         paramDic
                     }));
+
+            base.SetBusyForInput();
 
         }
         #endregion
@@ -271,14 +270,14 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public override void OnF8Key(object sender, KeyEventArgs e)
-		{
-			PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
-			if (ret.Result == false)
-			{
-				this.ErrorMessage = "プリンタドライバーがインストールされていません！";
-				return;
-			}
-			frmcfg.PrinterName = ret.PrinterName;
+        {
+            PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
+            if (ret.Result == false)
+            {
+                this.ErrorMessage = "プリンタドライバーがインストールされていません！";
+                return;
+            }
+            frmcfg.PrinterName = ret.PrinterName;
 
             if (!base.CheckAllValidation())
             {
@@ -292,20 +291,28 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
+            if (!CheckInputErr())
+            {
+                MessageBox.Show("入力エラーがあります。");
+                return;
+            }
+
             Dictionary<string, string> paramDic = createParamDic();
 
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.RequestDataWithBusy,
-                    SEARCH_TKS08010_PRT,
+                    SEARCH_SHR01010_PRT,
                     new object[] {
                         paramDic
                     }));
 
+            base.SetBusyForInput();
+
         }
         #endregion
 
-        #region F11 終了
+        #region 終了
         /// <summary>
         /// F11　リボン　終了
         /// </summary>
@@ -317,138 +324,6 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #endregion
-
-        #region <<　コントロールイベント群 >>
-
-        #region 締日テキスト変更イベント
-        /// <summary>
-        /// 作成締日のテキストが変更された時のイベント処理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ClosingDate_TextChanged(object sender, RoutedEventArgs e)
-        {
-            UcLabelTextBox tb = sender as UcLabelTextBox;
-
-            // 作成締日が空値の場合に自動で全締日をチェック
-            // 値が設定された場合は自動でチェックオフにする
-            isPaymentAllDays.IsChecked = string.IsNullOrWhiteSpace(tb.Text);
-
-        }
-        #endregion
-
-        #region Mindoow_Closed
-        /// <summary>
-        /// 画面が閉じられた時、データを保持する
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainWindow_Closed(object sender, EventArgs e)
-        {
-            frmcfg.Top = this.Top;
-            frmcfg.Left = this.Left;
-            frmcfg.Height = this.Height;
-            frmcfg.Width = this.Width;
-
-            ucfg.SetConfigValue(frmcfg);
-
-        }
-        #endregion
-
-        #endregion
-
-        #region << 業務処理群 >>
-
-        #region 業務入力チェック
-        /// <summary>
-        /// 業務バリデーションチェックをおこなう
-        /// </summary>
-        /// <returns></returns>
-        private bool CheckFormValid()
-        {
-            // 自社コードの必須入力チェック
-            if (string.IsNullOrEmpty(myCompany.Text1))
-            {
-                myCompany.SetFocus();
-                ErrorMessage = "自社コードが入力されていません。";
-                return false;
-            }
-
-            // 基準年月の必須入力チェック
-            if (string.IsNullOrEmpty(ReferenceYearMonth.Text))
-            {
-                ReferenceYearMonth.Focus();
-                ErrorMessage = "基準年月が入力されていません。";
-                return false;
-            }
-
-            if (isPaymentAllDays.IsChecked == true)
-            {
-                // 全入金日の状態チェック(作成入金日入力かつチェックオンはエラー)
-                if (!string.IsNullOrEmpty(ClosingDay.Text))
-                {
-                    isPaymentAllDays.Focus();
-                    ErrorMessage = "作成締日が設定されている場合はチェックをオフにしてください。";
-                    return false;
-                }
-
-            }
-            else
-            {
-                // 入金締日の入力チェック(全入金日チェック無しの場合)
-                if (string.IsNullOrEmpty(ClosingDay.Text))
-                {
-                    ClosingDay.Focus();
-                    ErrorMessage = "入金締日が入力されていません。";
-                    return false;
-                }
-
-            }
-
-            return true;
-
-        }
-        #endregion
-
-        #region 検索条件生成
-        /// <summary>
-        /// 検索条件を作成して返す
-        /// </summary>
-        /// <returns></returns>
-        private Dictionary<string, string> createParamDic()
-        {
-            paramDic.Clear();
-
-            paramDic.Add("自社コード", myCompany.Text1);
-            paramDic.Add("基準年月", ReferenceYearMonth.Text);
-            paramDic.Add("入金締日", ClosingDay.Text);
-            paramDic.Add("全入金日", isPaymentAllDays.IsChecked.ToString());
-            paramDic.Add("得意先コード", Customer.Text1 == null ? string.Empty : Customer.Text1);
-            paramDic.Add("得意先枝番", Customer.Text2 == null ? string.Empty : Customer.Text2);
-            paramDic.Add("作成区分", CreateType.SelectedValue.ToString());
-
-            // 以下帳票出力用パラメータ
-            int yearMonth = int.Parse(ReferenceYearMonth.Text.Replace("/", "")),
-                year = yearMonth / 100,
-                month = yearMonth % 100;
-            DateTime date = new DateTime(year, month, 1);
-
-            paramDic.Add("自社名", myCompany.Text2);
-            paramDic.Add("対象年", year.ToString());
-            paramDic.Add("対象月", month.ToString());
-            paramDic.Add("得意先名", Customer.Label2Text);
-            paramDic.Add("作成区分名", CreateType.Text);
-            for (int i = 1; i <= REF_MONTHS; i++)
-            {
-                string key = string.Format("対象年月{0}", hanToZenNum(i.ToString()));
-                string value = date.AddMonths((REF_MONTHS - (i - 1)) * -1).ToString("yyyy年 M月");
-                paramDic.Add(key, value);
-            }
-
-            return paramDic;
-
-        }
         #endregion
 
         #region プレビュー画面
@@ -470,33 +345,23 @@ namespace KyoeiSystem.Application.Windows.Views
                 FwReportPreview view = new FwReportPreview();
 
                 // 印字用にパラメータを編集
-                int yearMonth = int.Parse(getSearchParamValue("基準年月").Replace("/", ""));
+                int yearMonth = int.Parse(CreateYearMonth.Text.Replace("/", ""));
                 int year = yearMonth / 100;
                 int month = yearMonth % 100;
-                bool isAllDays = bool.Parse(getSearchParamValue("全入金日"));
-                string closingText = isAllDays == true ?
-                    isPaymentAllDays.Content.ToString() : string.Format("{0}日入金分", getSearchParamValue("入金締日"));
 
                 var parms = new List<FwPreview.ReportParameter>()
                 {
-                    new FwPreview.ReportParameter(){ PNAME="自社名", VALUE=getSearchParamValue("自社名")},
-                    new FwPreview.ReportParameter(){ PNAME="対象年", VALUE=(year)},
-                    new FwPreview.ReportParameter(){ PNAME="対象月", VALUE=(month)},
-                    new FwPreview.ReportParameter(){ PNAME="入金締日", VALUE=(closingText)},
-                    new FwPreview.ReportParameter(){ PNAME="作成区分", VALUE=getSearchParamValue("作成区分名")},
-                    new FwPreview.ReportParameter(){ PNAME="得意先名", VALUE=getSearchParamValue("得意先名")},
-                    new FwPreview.ReportParameter(){ PNAME="対象年月１", VALUE=getSearchParamValue("対象年月１")},
-                    new FwPreview.ReportParameter(){ PNAME="対象年月２", VALUE=getSearchParamValue("対象年月２")},
-                    new FwPreview.ReportParameter(){ PNAME="対象年月３", VALUE=getSearchParamValue("対象年月３")},
-                    new FwPreview.ReportParameter(){ PNAME="対象年月４", VALUE=getSearchParamValue("対象年月４")},
-                    new FwPreview.ReportParameter(){ PNAME="対象年月５", VALUE=getSearchParamValue("対象年月５")},
-                    new FwPreview.ReportParameter(){ PNAME="対象年月６", VALUE=getSearchParamValue("対象年月６")}
+                    new FwPreview.ReportParameter(){ PNAME="自社名", VALUE=(this.myCompany.Text2)},
+                    new FwPreview.ReportParameter(){ PNAME="支払年", VALUE=(year)},
+                    new FwPreview.ReportParameter(){ PNAME="支払月", VALUE=(month)},
+                    new FwPreview.ReportParameter(){ PNAME="支払先名", VALUE=(this.Customer.Label2Text)},
+                    new FwPreview.ReportParameter(){ PNAME="作成区分", VALUE=(this.CreateType.Text)},
                 };
 
                 // 第1引数　帳票タイトル
                 // 第2引数　帳票ファイルPass
                 // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("入金予定実績表", ReportTemplateFileName, 0, 0, 0);
+                view.MakeReport("仕入データ一覧表", ReportTemplateFileName, 0, 0, 0);
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする
                 view.SetReportData(tbl);
@@ -548,7 +413,15 @@ namespace KyoeiSystem.Application.Windows.Views
 
             if (sfd.ShowDialog() == WinForms.DialogResult.OK)
             {
-                tbl.Columns.Remove("得意先枝番");    // No.223 Add
+                // カラム名を変更
+                tbl.Columns["通常税率対象支払額"].ColumnName = "仕入(通常)";
+                tbl.Columns["軽減税率対象支払額"].ColumnName = "仕入(軽減)";
+                tbl.Columns["非課税支払額"].ColumnName = "仕入(非課税)";
+                tbl.Columns["通常税消費税"].ColumnName = "消費税(通常)";
+                tbl.Columns["軽減税消費税"].ColumnName = "消費税(軽減)";
+                tbl.Columns["税込支払額"].ColumnName = "通常分計";
+                tbl.Columns["軽減税込支払額"].ColumnName = "軽減分計";
+                tbl.Columns["当月支払額"].ColumnName = "当月仕入額";
 
                 // CSVファイル出力
                 CSVData.SaveCSV(tbl, sfd.FileName, true, true, false, ',');
@@ -558,51 +431,96 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region 半角数⇒全角数変換
+        #region Mindoow_Closed
         /// <summary>
-        /// 半角数字を全角数字に変換して返す
+        /// 画面が閉じられた時、データを保持する
         /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        private string hanToZenNum(string val)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_Closed(object sender, EventArgs e)
         {
-            return Regex.Replace(val, "[0-9]", p => ((char)(p.Value[0] - '0' + '０')).ToString());
-        }
-        #endregion
+            frmcfg.Top = this.Top;
+            frmcfg.Left = this.Left;
+            frmcfg.Height = this.Height;
+            frmcfg.Width = this.Width;
 
-        #region 検索パラメータ取得
-        /// <summary>
-        /// 指定の検索時パラメータ値を取得する
-        /// </summary>
-        /// <param name="keyName"></param>
-        /// <returns></returns>
-        private string getSearchParamValue(string keyName)
-        {
-            if (paramDic.ContainsKey(keyName))
-                return paramDic[keyName];
-
-            else
-                return string.Empty;
+            ucfg.SetConfigValue(frmcfg);
 
         }
         #endregion
 
+        #region 業務バリデーションチェックをおこなう
+        /// <summary>
+        /// 業務バリデーションチェックをおこなう
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckFormValid()
+        {
+            // 自社コードの必須入力チェック
+            if (string.IsNullOrEmpty(myCompany.Text1))
+            {
+                myCompany.SetFocus();
+                ErrorMessage = "自社コードが入力されていません。";
+                return false;
+            }
+
+            // 作成年月の必須入力チェック
+            if (string.IsNullOrEmpty(CreateYearMonth.Text))
+            {
+                CreateYearMonth.Focus();
+                ErrorMessage = "作成年月が入力されていません。";
+                return false;
+            }
+
+            return true;
+        }
         #endregion
 
-        #region Enterキー(F8)
+        #region 入力チェック
+        /// <summary>
+        /// 入力チェック
+        /// </summary>
+        /// <returns>true:OK　false:NG</returns>
+        private bool CheckInputErr()
+        {
+            int p会社コード;
+            if (!int.TryParse(myCompany.Text1, out p会社コード))
+            {
+                myCompany.SetFocus();
+                ErrorMessage = "自社コードが設定されていません。";
+                return false;
+            }
 
-        //private void F8(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.Enter)
-        //    {
-        //        var yesno = MessageBox.Show("プレビューを表示しますか？", "確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
-        //        if (yesno == MessageBoxResult.Yes)
-        //            OnF8Key(sender, null);
+            DateTime p作成年月日;
+            if (!DateTime.TryParse(CreateYearMonth.Text, out p作成年月日))
+            {
+                CreateYearMonth.Focus();
+                ErrorMessage = "作成年月の内容が正しくありません。";
+                return false;
+            }
+            return true;
+        }
+        #endregion
 
-        //    }
+        #region 検索条件を作成して返す
+        /// <summary>
+        /// 検索条件を作成して返す
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, string> createParamDic()
+        {
+            Dictionary<string, string> paramDic = new Dictionary<string, string>();
 
-        //}
+            paramDic.Add("自社コード", myCompany.Text1);
+            paramDic.Add("作成年月", CreateYearMonth.Text);
+            paramDic.Add("仕入先コード", Customer.Text1 == null ? string.Empty : Customer.Text1);
+            paramDic.Add("仕入先枝番", Customer.Text2 == null ? string.Empty : Customer.Text2);
+            paramDic.Add("作成区分", CreateType.SelectedValue.ToString());
+            paramDic.Add("userId", ccfg.ユーザID.ToString());
 
+            return paramDic;
+
+        }
         #endregion
 
     }

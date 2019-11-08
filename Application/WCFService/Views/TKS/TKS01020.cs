@@ -33,6 +33,7 @@ namespace KyoeiSystem.Application.WCFService
         public class SearchDataMember
         {
             public bool 印刷区分 { get; set; }
+            public string ID { get; set; }  // No.233 Add
             public int 得意先コード { get; set; }
             public int 得意先枝番 { get; set; }
             public string 得意先名 { get; set; }
@@ -207,6 +208,7 @@ namespace KyoeiSystem.Application.WCFService
                         result.Select(x => new SearchDataMember
                         {
                             印刷区分 = true,
+                            ID = string.Format("{0:D4} - {1:D2}", x.SEIHD.請求先コード, x.SEIHD.請求先枝番),   // No.223 Add
                             得意先コード = x.SEIHD.請求先コード,
                             得意先枝番 = x.SEIHD.請求先枝番,
                             得意先名 = x.TOK.略称名,
@@ -359,8 +361,8 @@ namespace KyoeiSystem.Application.WCFService
                             請求年月 = x.SEIHD.請求年月.ToString(),
                             請求先コード = x.SEIHD.請求先コード.ToString(),
                             請求先枝番 = x.SEIHD.請求先枝番.ToString(),
-                            得意先コード = x.SEIHD.請求先コード.ToString(),
-                            得意先枝番 = x.SEIHD.請求先枝番.ToString(),
+                            得意先コード = string.Format("{0:D4}", x.SEIHD.請求先コード),   // No.223 Mod
+                            得意先枝番 = string.Format("{0:D2}", x.SEIHD.請求先枝番),       // No.233 Mod
                             回数 = x.SEIHD.回数,
                             請求年 = x.SEIHD.請求年月 / 100,
                             請求月 = x.SEIHD.請求年月 % 100,
@@ -434,8 +436,8 @@ namespace KyoeiSystem.Application.WCFService
                                 請求年月 = x.SDTL.請求年月.ToString(),
                                 請求先コード = x.SDTL.請求先コード.ToString(),
                                 請求先枝番 = x.SDTL.請求先枝番.ToString(),
-                                得意先コード = x.SDTL.請求先コード.ToString(),
-                                得意先枝番 = x.SDTL.請求先枝番.ToString(),
+                                得意先コード = string.Format("{0:D4}", x.SDTL.請求先コード),    // No.223 Mod
+                                得意先枝番 = string.Format("{0:D2}", x.SDTL.請求先枝番),        // No.223 Mod
                                 回数 = x.SDTL.回数,
 
                                 伝票番号 = x.SDTL.伝票番号,              // No-181 Mod
@@ -488,8 +490,8 @@ namespace KyoeiSystem.Application.WCFService
                                         請求年月 = createYM.ToString(),
                                         請求先コード = mem.得意先コード.ToString(),
                                         請求先枝番 = mem.得意先枝番.ToString(),
-                                        得意先コード = mem.得意先コード.ToString(),
-                                        得意先枝番 = mem.得意先枝番.ToString(),
+                                        得意先コード = string.Format("{0:D4}", mem.得意先コード),   // No.223 Mod
+                                        得意先枝番 = string.Format("{0:D2}", mem.得意先枝番),       // No.223 Mod
                                         回数 = mem.回数,
 
                                         伝票番号 = x.NYU.HD.伝票番号,              // No-181 Mod

@@ -184,7 +184,7 @@
                               Label_Context="得意先指定" Label_Width="100"
                               DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3,4"
                               Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                              Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
+                              Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
                               Label1Text="－"
                               Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2VerticalContentAlignment="Center"
                               Label2Text=""
@@ -267,7 +267,7 @@
             </sg:Column>
             <sg:Column Locked="True">
               <sg:Column.CellType>
-                <sg:TextCellType MaxLength="30" MaxLengthUnit="Byte" ImeState="On" />
+                <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
               </sg:Column.CellType>
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding 摘要}" />

@@ -293,7 +293,7 @@ namespace KyoeiSystem.Application.WCFService
 
             // 前月残高の再設定
             S06_URIHD befData = getLastChargeInfo(context, myCompanyCode, yearMonth, code, eda, cnt);
-            urdata.前月残高 = befData == null ? 0 : befData.繰越残高;
+            urdata.前月残高 = befData == null ? 0 : befData.当月請求額;
 
             // 繰越金額、当月残高の再計算
             urdata.繰越残高 = urdata.前月残高 - urdata.入金額;
@@ -465,7 +465,7 @@ namespace KyoeiSystem.Application.WCFService
                     })
                     .Select(x => new PrintMember
                     {
-                        得意先コード = string.Format("{0:000} - {1:00}", x.Key.請求先コード, x.Key.請求先枝番),
+                        得意先コード = string.Format("{0:D4} - {1:D2}", x.Key.請求先コード, x.Key.請求先枝番),   // No.223 Mod
                         得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                         前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
                         入金額 = (long)x.Sum(s => s.UHD.入金額),
@@ -518,7 +518,7 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(x => new PrintMember
                         {
-                            得意先コード = string.Format("{0:000} - {1:00}", x.Key.請求先コード, x.Key.請求先枝番),
+                            得意先コード = string.Format("{0:D4} - {1:D2}", x.Key.請求先コード, x.Key.請求先枝番),
                             得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                             前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
                             入金額 = (long)x.Sum(s => s.UHD.入金額),
@@ -554,7 +554,7 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(x => new PrintMember
                         {
-                            得意先コード = string.Format("{0:000} - 00", x.Key.請求先コード),
+                            得意先コード = string.Format("{0:0000} - 00", x.Key.請求先コード),
                             得意先名称 = x.Key.得意先名１ == null ? "" : x.Key.得意先名１,
                             前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
                             入金額 = (long)x.Sum(s => s.UHD.入金額),
@@ -591,15 +591,17 @@ namespace KyoeiSystem.Application.WCFService
         /// <returns></returns>
         private List<S06_URIHD> getHeaderData(TRAC3Entities context, int company, int yearMonth, List<M01_TOK> tokList)
         {
-            
-            List<int> codeList = tokList.Select(s => s.取引先コード).ToList();
-            List<int> edaList = tokList.Select(s => s.枝番).ToList();
+            List<S06_URIHD> uriList = new List<S06_URIHD>();
+            foreach (M01_TOK tok in tokList)
+            {
+                List<S06_URIHD> wk = context.S06_URIHD.Where(w => w.自社コード == company && w.請求年月 == yearMonth &&
+                                                w.請求先コード == tok.取引先コード && w.請求先枝番 == tok.枝番 &&
+                                                w.当月請求額 != 0).ToList();
 
-            var uhd = context.S06_URIHD.Where(w => w.自社コード == company && w.請求年月 == yearMonth &&
-                                                codeList.Contains(w.請求先コード) && edaList.Contains(w.請求先枝番) &&
-                                                w.売上額 != 0);
+                uriList = uriList.Concat(wk).ToList();
+            }
 
-            return uhd.ToList();
+            return uriList;
         }
 
         #endregion
