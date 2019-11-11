@@ -314,7 +314,8 @@ namespace KyoeiSystem.Application.WCFService
                             hdList = hdList.Where(w => w.伝票番号 == iSlipNumber && w.削除日時 == null && w.売上区分 < 通常売上返品区分);
 
                             if (hdList.Count() == 0)
-                                return string.Empty;
+                                // この場合は存在しない明細番号が指定されている
+                                return slipNum;     // No.238 Mod
                             // No.137 Mod End
                         }
                         else

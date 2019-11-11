@@ -1291,6 +1291,8 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column軽減税率適用;
             
+            private global::System.Data.DataColumn column摘要;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TKS01020_D請求書DataTable() {
@@ -1462,6 +1464,14 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 摘要Column {
+                get {
+                    return this.column摘要;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1514,7 +1524,8 @@ namespace Hakobou.Data.TKS {
                         int 数量, 
                         decimal 単価, 
                         decimal 金額, 
-                        string 軽減税率適用) {
+                        string 軽減税率適用, 
+                        string 摘要) {
                 TKS01020_D請求書Row rowTKS01020_D請求書Row = ((TKS01020_D請求書Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PagingKey,
@@ -1533,7 +1544,8 @@ namespace Hakobou.Data.TKS {
                         数量,
                         単価,
                         金額,
-                        軽減税率適用};
+                        軽減税率適用,
+                        摘要};
                 rowTKS01020_D請求書Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTKS01020_D請求書Row);
                 return rowTKS01020_D請求書Row;
@@ -1573,6 +1585,7 @@ namespace Hakobou.Data.TKS {
                 this.column単価 = base.Columns["単価"];
                 this.column金額 = base.Columns["金額"];
                 this.column軽減税率適用 = base.Columns["軽減税率適用"];
+                this.column摘要 = base.Columns["摘要"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1612,6 +1625,8 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column金額);
                 this.column軽減税率適用 = new global::System.Data.DataColumn("軽減税率適用", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column軽減税率適用);
+                this.column摘要 = new global::System.Data.DataColumn("摘要", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column摘要);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4969,6 +4984,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 摘要 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS01020_D請求書.摘要Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_D請求書\' にある列 \'摘要\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_D請求書.摘要Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPagingKeyNull() {
                 return this.IsNull(this.tableTKS01020_D請求書.PagingKeyColumn);
             }
@@ -5169,6 +5200,18 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set軽減税率適用Null() {
                 this[this.tableTKS01020_D請求書.軽減税率適用Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is摘要Null() {
+                return this.IsNull(this.tableTKS01020_D請求書.摘要Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set摘要Null() {
+                this[this.tableTKS01020_D請求書.摘要Column] = global::System.Convert.DBNull;
             }
         }
         
