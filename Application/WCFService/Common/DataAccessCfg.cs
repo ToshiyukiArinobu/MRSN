@@ -311,6 +311,7 @@ namespace KyoeiSystem.Application.WCFService
             // 仕入(返品)入力
             new WCFDataAccessConfig() { Name = "T03_GetRtData", ServiceClass = "DLY01020", MethodName = "ReturnsSearch", Descprition = "仕入返品入力情報取得" },
             new WCFDataAccessConfig() { Name = "T03_ReturnsUpdate", ServiceClass = "DLY01020", MethodName = "ReturnsUpdate", Descprition = "仕入返品入力情報登録・更新" },
+            new WCFDataAccessConfig() { Name = "T03_UpdateData_CheckStock", ServiceClass = "DLY01020", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },        // No-222 Add
 
             // 揚り入力
             new WCFDataAccessConfig() { Name = "T04_GetData", ServiceClass = "T04", MethodName = "GetData", Descprition = "揚り入力情報取得" },
@@ -321,13 +322,14 @@ namespace KyoeiSystem.Application.WCFService
             // 20190528CB-S
             new WCFDataAccessConfig() { Name = "M10_GetCount", ServiceClass = "T04", MethodName = "M10_GetCount", Descprition = "セット品番構成品の登録件数取得" },
             // 20190528CB-E
-            new WCFDataAccessConfig() { Name = "T04_STOK_CHECK", ServiceClass = "T04", MethodName = "STOK_CHECK", Descprition = "セット品の在庫存在確認" },
             new WCFDataAccessConfig() { Name = "T04_GetM10_Shin", ServiceClass = "T04", MethodName = "GetM10_Shin", Descprition = "セット品番構成品取得" },     // No-184 Add
             new WCFDataAccessConfig() { Name = "T04_GetM10_ShinForDataTable", ServiceClass = "T04", MethodName = "GetM10_ShinForDataTable", Descprition = "セット品番構成品取得(DataTable)" },     // No-184 Add
+            new WCFDataAccessConfig() { Name = "T04_UpdateData_CheckStock", ServiceClass = "T04", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },        // No-222 Add
 
             // 移動入力
             new WCFDataAccessConfig() { Name = "T05_GetData", ServiceClass = "DLY04010", MethodName = "GetData", Descprition = "移動入力情報取得" },
             new WCFDataAccessConfig() { Name = "T05_Update", ServiceClass = "DLY04010", MethodName = "Update", Descprition = "移動入力情報登録・更新" },
+            new WCFDataAccessConfig() { Name = "T05_UpdateData_CheckStock", ServiceClass = "DLY04010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },        // No-222 Add
 
             // 揚り依頼入力
             new WCFDataAccessConfig() { Name = "DLY07010_GetData", ServiceClass = "DLY07010", MethodName = "GetData", Descprition = "揚り依頼入力情報取得" },

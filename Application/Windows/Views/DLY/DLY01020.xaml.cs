@@ -81,6 +81,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T03_Update = "T03_ReturnsUpdate";
         /// <summary>仕入情報削除</summary>
         private const string T03_Delete = "T03_ReturnsDelete";
+        /// <summary>更新用_在庫数チェック</summary>
+        private const string UpdateData_StockCheck = "T03_UpdateData_CheckStock";       // No-222 Add
         #endregion
 
         #region 使用テーブル名定義
@@ -258,6 +260,36 @@ namespace KyoeiSystem.Application.Windows.Views
                         // コントロール初期化
                         ScreenClear();
                         break;
+
+                    // No-222 Add Start
+                    case UpdateData_StockCheck:
+                        // 在庫数チェック結果受信
+                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
+                        var zaiMBImage = MessageBoxImage.Question;
+
+                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
+                        {
+                            int rowNum = row.Field<int>("行番号");
+
+                            if (updateList.ContainsKey(rowNum) == true)
+                            {
+                                zaiMBImage = MessageBoxImage.Warning;
+                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
+                                break;
+                            }
+                        }
+
+                        if (MessageBox.Show(zaiUpdateMessage,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                zaiMBImage,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                            return;
+
+                        Update();
+                        break;
+                    // No-222 Add End
 
                     default:
                         break;
@@ -505,39 +537,18 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                return;
-
-            // -- 送信用データを作成 --
-            // 消費税をヘッダに設定
-            SearchHeader["消費税"] = AppCommon.IntParse(this.c消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
-            // No-94 Add Start
-            SearchHeader["通常税率対象金額"] = AppCommon.IntParse(this.lbl通常税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["軽減税率対象金額"] = AppCommon.IntParse(this.lbl軽減税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.lbl通常税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.lbl軽減税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
-            // No-94 Add End
-            // No-95 Add Start
-            SearchHeader["小計"] = AppCommon.IntParse(this.c小計.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["総合計"] = AppCommon.IntParse(this.c総合計.Content.ToString(), System.Globalization.NumberStyles.Number);
-            // No-95 Add End
-
-            DataSet ds = new DataSet();
-            ds.Tables.Add(SearchHeader.Table.Copy());
-            ds.Tables.Add(SearchDetail.Copy());
-
+            // No-222 Add Start
+            //在庫ﾁｪｯｸ
             base.SendRequest(
-                new CommunicationObject(
-                    MessageType.UpdateData,
-                    T03_Update,
-                    new object[] {
-                        ds,
-                        ccfg.ユーザID
-                    }));
+               new CommunicationObject(
+                   MessageType.RequestData,
+                   UpdateData_StockCheck,
+                   new object[] {
+                            this.c入荷先.Text1,
+                            SearchDetail.DataSet,
+                            ccfg.ユーザID
+                        }));
+            // No-222 Add End
 
         }
         #endregion
@@ -594,6 +605,45 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
         #endregion
+
+        #endregion
+
+        #region << 検索データ設定・登録・削除処理 >>
+        // No-222 Add Start
+        /// <summary>
+        /// 仕入情報の登録処理をおこなう
+        /// </summary>
+        private void Update()
+        {
+            // -- 送信用データを作成 --
+            // 消費税をヘッダに設定
+            SearchHeader["消費税"] = AppCommon.IntParse(this.c消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-94 Add Start
+            SearchHeader["通常税率対象金額"] = AppCommon.IntParse(this.lbl通常税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率対象金額"] = AppCommon.IntParse(this.lbl軽減税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.lbl通常税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.lbl軽減税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-94 Add End
+            // No-95 Add Start
+            SearchHeader["小計"] = AppCommon.IntParse(this.c小計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["総合計"] = AppCommon.IntParse(this.c総合計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-95 Add End
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(SearchHeader.Table.Copy());
+            ds.Tables.Add(SearchDetail.Copy());
+
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.UpdateData,
+                    T03_Update,
+                    new object[] {
+                        ds,
+                        ccfg.ユーザID
+                    }));
+
+        }
+        // No-222 Add End
 
         #endregion
 
@@ -780,13 +830,6 @@ namespace KyoeiSystem.Application.Windows.Views
                     row.SetAdded();
 
                 this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
-
-                //// No-94 Add Start
-                //foreach (var row in gcSpreadGrid.Rows)
-                //{
-                //    row.Cells[(int)GridColumnsMapping.税区分].Locked = true;
-                //}
-                //// No-94 Add End
 
                 this.c返品日.Focus();
 

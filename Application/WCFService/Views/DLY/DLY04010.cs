@@ -700,6 +700,78 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        #region << 在庫チェック >>
+        // No-222 Add Start
+
+        /// <summary>
+        /// 在庫数チェックを行う
+        /// </summary>
+        /// <param name="strStoreHouseCode">倉庫コード</param>
+        /// <param name="ds">データセット</param>
+        /// <param name="intUserId">ユーザID</param>
+        /// <returns></returns>
+        public Dictionary<int, string> CheckStockQty(string strStoreHouseCode, DataSet ds, int intUserId)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+
+                Dictionary<int, string> resultDic = new Dictionary<int, string>();
+
+                DataTable dt = ds.Tables[TABLE_DETAIL];
+                List<T05_IDODTL> dtlList = getDetailDataList(dt);
+
+                // 入荷先から対象の倉庫を取得
+
+                Common com = new Common();
+                int intSouk = int.Parse(strStoreHouseCode);
+
+                foreach (T05_IDODTL row in dtlList)
+                {
+                    if (string.IsNullOrEmpty(row.品番コード.ToString()))
+                    {
+                        continue;
+                    }
+
+                    decimal nowStockQty = 0;
+                    if (!com.CheckStokItemQty(intSouk, row.品番コード, row.賞味期限, out nowStockQty, row.数量))
+                    {
+                        // キー：行番号、値：エラーメッセージ
+                        resultDic.Add(row.行番号, string.Format("在庫数が不足しています。(現在庫数：{0:#,0.##})", nowStockQty));
+                    }
+
+                }
+
+                return resultDic;
+            }
+        }
+
+        /// <summary>
+        /// T05_IDODTLデータ型変換(DataTable→List)
+        /// </summary>
+        /// <param name="DataTable">データテーブル</param>
+        /// <returns></returns>        
+        private List<T05_IDODTL> getDetailDataList(DataTable dt)
+        {
+            var resultList =
+                dt.Select("", "", DataViewRowState.CurrentRows).AsEnumerable()
+                .Where(c => !string.IsNullOrEmpty(c.Field<string>("自社品番")))
+                    .Select(s => new T05_IDODTL
+                    {
+                        伝票番号 = s.Field<int>("伝票番号"),
+                        行番号 = s.Field<int>("行番号"),
+                        品番コード = s.Field<int>("品番コード"),
+                        賞味期限 = s.Field<DateTime?>("賞味期限"),
+                        数量 = s.Field<decimal>("数量"),
+                        摘要 = s.Field<string>("摘要")
+                    })
+                    .ToList();
+
+            return resultList;
+
+        }
+        // No-222 Add End
+        #endregion
+
     }
 
 }

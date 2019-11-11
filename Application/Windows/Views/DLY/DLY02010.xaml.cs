@@ -76,8 +76,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T04_GetDTB = "T04_GetDtb";
         /// <summary>揚り部材明細情報作成</summary>
         private const string T04_CreateDTB = "T04_CreateDtb";
-        /// <summary>在庫の存在チェック</summary>
-        private const string T04_STOK_CHECK = "T04_STOK_CHECK";
+        /// <summary>更新用_在庫数チェック</summary>
+        private const string UpdateData_StockCheck = "T04_UpdateData_CheckStock";       // No-222 Add
 
         /// <summary>外注先ベースのデータ取得</summary>
         private const string SearchTableToOutsource = "M04_BAIKA_GetData_Outsource";
@@ -440,29 +440,34 @@ namespace KyoeiSystem.Application.Windows.Views
                         }
                         break;
 
-                    //20190724CB-S
-                    case T04_STOK_CHECK:
+                    case UpdateData_StockCheck:
+                        // No-222 Add Start
+                        // 在庫数チェック結果受信
+                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
+                        var zaiMBImage = MessageBoxImage.Question;
 
-                        if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                                return;
-
-                        if (!(bool)data) 
+                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
                         {
-                            if (MessageBox.Show("構成品の在庫が足りないですが、登録しますか？",
+                            if (updateList.Count > 0)
+                            {
+                                zaiMBImage = MessageBoxImage.Warning;
+                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
+                                break;
+                            }
+                        }
+
+                        if (MessageBox.Show(zaiUpdateMessage,
                                 "登録確認",
                                 MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
+                                zaiMBImage,
                                 MessageBoxResult.Yes) == MessageBoxResult.No)
-                                return;
-                        }
+                            return;
+                        // No-222 Add End
 
                         // セット品データ（明細行全件）を取得する
                         sendSearchForShinAll(SearchDetail);
-                        
+
                         break;
 
                     case SearchTableToShinForDataTable:
@@ -472,7 +477,6 @@ namespace KyoeiSystem.Application.Windows.Views
                         Update();
 
                         break;
-                    //20190724CB-E
 
                     case T04_Update:
                         MessageBox.Show(AppConst.SUCCESS_UPDATE, "登録完了", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1604,17 +1608,15 @@ namespace KyoeiSystem.Application.Windows.Views
             // 揚り情報の設定
             DataSet ds = setAgrDataToDataSet();
 
-            //20190724CB-S
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.UpdateData,
-                    T04_STOK_CHECK,
+                    UpdateData_StockCheck,
                     new object[] {
-                        SearchDetail.DataSet,
+                        ds,
                         ccfg.ユーザID
                     }));
-            //Update();
-            //20190724CB-E
+
         }
         #endregion
 
