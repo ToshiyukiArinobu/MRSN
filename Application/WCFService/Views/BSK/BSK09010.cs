@@ -67,7 +67,7 @@ namespace KyoeiSystem.Application.WCFService
                             {
                                 s.TOK.取引先コード,
                                 s.TOK.枝番,
-                                取引先名 = s.TOK.得意先名１,
+                                取引先名 = s.TOK.略称名,     // No.229 Mod
                                 s.SEI.入金日,
                                 s.SHR.支払日,
                                 s.SEI.当月請求額,

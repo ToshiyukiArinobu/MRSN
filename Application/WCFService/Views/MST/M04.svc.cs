@@ -32,6 +32,7 @@ namespace KyoeiSystem.Application.WCFService
             public int? 商品区分 { get; set; }
             public string 外注先名１ { get; set; }
             public string 外注先名２ { get; set; }
+            public string 外注先略称名 { get; set; }
             public bool 論理削除 { get; set; }
         }
 
@@ -56,7 +57,7 @@ namespace KyoeiSystem.Application.WCFService
                                     x => new { コード = x.外注先コード, 枝番 = x.枝番 },
                                     y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                                     (a, b) => new { a, b })
-                              .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { x, 外注先名１ = y.得意先名１, 外注先名２ = y.得意先名２ })
+                              .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { x, 外注先名１ = y.得意先名１, 外注先名２ = y.得意先名２, 外注先略称名 = y.略称名 })
                               .GroupJoin(context.M09_HIN, x => x.x.a.品番コード, y => y.品番コード, (c, d) => new { c, d })
                               .SelectMany(x => x.d.DefaultIfEmpty(), (x, y) =>
                                   new M04_BAIKA_Search
@@ -71,6 +72,7 @@ namespace KyoeiSystem.Application.WCFService
                                       商品区分 = y.商品形態分類,
                                       外注先名１ = x.c.外注先名１,
                                       外注先名２ = x.c.外注先名２,
+                                      外注先略称名 = x.c.外注先略称名,
                                       論理削除 = false
                                   });
 
@@ -115,6 +117,7 @@ namespace KyoeiSystem.Application.WCFService
                                             商品区分 = p.c.HIN.商品形態分類,
                                             外注先名１ = q.得意先名１,
                                             外注先名２ = q.得意先名２,
+                                            外注先略称名 = q.略称名,
                                             論理削除 = false
                                         })
                                     .ToList();
@@ -142,6 +145,7 @@ namespace KyoeiSystem.Application.WCFService
                                             商品区分 = p.c.HIN.商品形態分類,
                                             外注先名１ = q.得意先名１,
                                             外注先名２ = q.得意先名２,
+                                            外注先略称名 = q.略称名,
                                             論理削除 = false
                                         })
                                     .ToList();

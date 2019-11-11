@@ -620,7 +620,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     // 仕入先の場合は個別に処理
                     // REMARKS:消費税関連の情報を取得する為
                     var twinText = ViewBaseCommon.FindVisualParent<UcLabelTwinTextBox>(elmnt as Control);
-                    if (twinText.Name == this.c仕入先.Name)
+                    if (twinText != null && twinText.Name == this.c仕入先.Name)
                         SearchSupplier_cTextChanged(this.c仕入先, null);
 
                 }

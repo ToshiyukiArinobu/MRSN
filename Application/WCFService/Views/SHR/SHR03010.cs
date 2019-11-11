@@ -203,7 +203,7 @@ namespace KyoeiSystem.Application.WCFService
                     .ToList()
                     .Select(x => new SHR03010_SearchMember
                     {
-                        ID = string.Format("{0:D3} - {1:D2}", x.TOK.取引先コード, x.TOK.枝番),
+                        ID = string.Format("{0:D4} - {1:D2}", x.TOK.取引先コード, x.TOK.枝番),      // No.223 Mod
                         支払先コード = x.TOK.取引先コード,
                         支払先枝番 = x.TOK.枝番,
                         支払先名 = x.TOK.略称名,  // No.229 Mod
