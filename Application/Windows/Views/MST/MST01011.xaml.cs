@@ -200,6 +200,11 @@ namespace KyoeiSystem.Application.Windows.Views
                         ds.Tables.Add(SearchResult);
                         SetData(tbl);
                     }
+                    else
+                    {
+                        this.ErrorMessage = "対象データが存在しません。";
+                        return;
+                    }
 
                     break;
 
@@ -455,7 +460,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 //枝番
                 spGridList[iSpdRowIndex, GridColumnsMapping.枝番.GetHashCode()].Value = tbl.Rows[row]["枝番"].ToString();
                 //正式名称
-                spGridList[iSpdRowIndex, GridColumnsMapping.得意先名.GetHashCode()].Value = tbl.Rows[row]["得意先名"].ToString();
+                spGridList[iSpdRowIndex, GridColumnsMapping.得意先名.GetHashCode()].Value = tbl.Rows[row]["得意先略称名"].ToString();
                 //請求担当者コード
                 spGridList[iSpdRowIndex, GridColumnsMapping.請求担当者コード.GetHashCode()].Value = tbl.Rows[row]["請求担当者コード"].ToString();
                 //請求担当者名
