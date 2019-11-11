@@ -70,6 +70,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>自社品番情報取得</summary>
         private const string MasterCode_MyProduct = "UcMyProduct";
+        /// <summary>更新用_在庫数チェック</summary>
+        private const string UpdateData_StockCheck = "T05_UpdateData_CheckStock";       // No-222 Add
 
         /// <summary>移動ヘッダ テーブル名</summary>
         private const string T05_HEADER_TABLE_NAME = "T05_IDOHD";
@@ -394,6 +396,36 @@ namespace KyoeiSystem.Application.Windows.Views
                         }
                         break;
 
+                    // No-222 Add Start
+                    case UpdateData_StockCheck:
+                        // 在庫数チェック結果受信
+                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
+                        var zaiMBImage = MessageBoxImage.Question;
+
+                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
+                        {
+                            int rowNum = row.Field<int>("行番号");
+
+                            if (updateList.ContainsKey(rowNum) == true)
+                            {
+                                zaiMBImage = MessageBoxImage.Warning;
+                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
+                                break;
+                            }
+                        }
+
+                        if (MessageBox.Show(zaiUpdateMessage,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                zaiMBImage,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                            return;
+
+                        Update();
+                        break;
+                    // No-222 Add End
+
                     case T05_Update:
                         MessageBox.Show(AppConst.SUCCESS_UPDATE, "登録完了", MessageBoxButton.OK, MessageBoxImage.Information);
                         // コントロール初期化
@@ -685,14 +717,18 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                return;
-
-            Update();
+            // No-222 Add Start
+            //在庫ﾁｪｯｸ
+            base.SendRequest(
+               new CommunicationObject(
+                   MessageType.RequestData,
+                   UpdateData_StockCheck,
+                   new object[] {
+                            this.txt移動元倉庫.Text1,
+                            SearchDetail.DataSet,
+                            ccfg.ユーザID
+                        }));
+            // No-222 Add End
 
         }
         #endregion

@@ -65,8 +65,8 @@ namespace KyoeiSystem.Application.Windows.Views
         #region 定数定義
 
         #region サービスアクセス定義
-        /// <summary>在庫の存在チェック</summary>
-        private const string T04_STOK_CHECK = "T04_STOK_CHECK";
+        /// <summary>更新用_在庫数チェック</summary>
+        private const string UpdateData_StockCheck = "T04_UpdateData_CheckStock";       // No-222 Add
         /// <summary>セット品番情報検索</summary>
         private const string SearchTableToShin = "T04_GetM10_Shin";
         /// <summary>自社品番情報取得</summary>
@@ -305,24 +305,31 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 switch (message.GetMessageName())
                 {
-                    case T04_STOK_CHECK:
+                    case UpdateData_StockCheck:
+                        // No-222 Add Start
+                        // 在庫数チェック結果受信
+                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
+                        var zaiMBImage = MessageBoxImage.Question;
 
-                        if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                                return;
-
-                        if (!(bool)data) 
+                        foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
                         {
-                            if (MessageBox.Show("構成品の在庫が足りないですが、登録しますか？",
+                            if (updateList.Count > 0)
+                            {
+                                zaiMBImage = MessageBoxImage.Warning;
+                                zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
+                                break;
+                            }
+                        }
+
+                        if (MessageBox.Show(zaiUpdateMessage,
                                 "登録確認",
                                 MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
+                                zaiMBImage,
                                 MessageBoxResult.Yes) == MessageBoxResult.No)
-                                return;
-                        }
+                            return;
+
+                        // No-222 Add End
 
                         Update();
 
@@ -715,7 +722,7 @@ namespace KyoeiSystem.Application.Windows.Views
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.UpdateData,
-                    T04_STOK_CHECK,
+                    UpdateData_StockCheck,
                     new object[] {
                         ds,
                         ccfg.ユーザID

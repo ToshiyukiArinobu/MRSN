@@ -1682,85 +1682,78 @@ namespace KyoeiSystem.Application.WCFService
         }
         // 20190528CB-E
 
-        // 20190724CB-S
+        #region << 在庫チェック >>
+        // No-222 Add Start
+
         /// <summary>
-        /// 登録データの商品がS03_STOKに存在するかのチェック
+        /// 在庫数チェックを行う
         /// </summary>
-        /// <param name="ds"></param>
-        /// <param name="userId"></param>
+        /// <param name="ds">データセット</param>
+        /// <param name="intUserId">ユーザID</param>
         /// <returns></returns>
-        public bool STOK_CHECK(DataSet ds, int userId)
+        public Dictionary<int, string> CheckStockQty(DataSet ds, int intUserId)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
-                context.Connection.Open();
+                Dictionary<int, string> resultDic = new Dictionary<int, string>();
 
-                //登録時に存在しない在庫が含まれる場合falseを返す
-                bool result = true;
-               
-                try
+                // 揚りヘッダ.入荷先より、倉庫コードを取得する
+                DataRow hrow = ds.Tables[TABLE_HEADER].Rows[0];
+                T04_AGRHD hdRow = convertDataRowToT04_AGRHD_Entity(hrow);
+                int intSouk = get倉庫コード(context, hdRow.入荷先コード);
+
+                // 揚り部材明細を取得する
+                DataTable dtAgrdtb = ds.Tables[TABLE_MAISAI_EXTENT];
+                // 構成品番・賞味期限毎に数量を集約する
+                List<T04_AGRDTB> dtlList = getDetailDataList(dtAgrdtb);
+
+                Common com = new Common();
+
+                foreach (T04_AGRDTB row in dtlList)
                 {
-                    DataRow hrow = ds.Tables[TABLE_HEADER].Rows[0];
-                    T04_AGRHD hdRow = convertDataRowToT04_AGRHD_Entity(hrow);
-
-                    int 倉庫コード = get倉庫コード(context, hdRow.入荷先コード);
-
-                    DataTable dtlTbl = ds.Tables[TABLE_DETAIL];
-                    DataTable dtAgrdtb = ds.Tables[TABLE_MAISAI_EXTENT];
-
-                    foreach (DataRow row in dtlTbl.Rows)
+                    if (string.IsNullOrEmpty(row.品番コード.ToString()))
                     {
-                        T04_AGRDTL dtlRow = convertDataRowToT04_AGRDTL_Entity(row);
-
-                        if (dtlRow.品番コード <= 0)
-                            continue;
-
-                        // 対象のセット品番を取得
-                        var agrdtbList =
-                            dtAgrdtb.AsEnumerable()
-                                .Where(w => w.Field<int>("セット品番コード") == dtlRow.品番コード);
-
-                        // 構成品番がない場合は処理しない
-                        if (agrdtbList.Count() == 0)
-                            continue;
-
-                        // 構成品番毎に在庫処理をおこなう
-                        foreach (var data in agrdtbList)
-                        {
-                            S03_STOK stok = new S03_STOK();
-                            int intHinCode = data.Field<int>("品番コード");
-                            DateTime dt = AppCommon.DateTimeToDate(dtlRow.賞味期限, DateTime.MaxValue);
-
-                            // 賞味期限が一致する在庫を取得
-                            var targetStok =
-                                context.S03_STOK
-                                    .Where(x =>
-                                        x.倉庫コード == 倉庫コード &&
-                                        x.品番コード == intHinCode &&
-                                        x.賞味期限 == dt)
-                                    .OrderBy(o => o.賞味期限)
-                                    .FirstOrDefault();
-
-                            if (targetStok == null) 
-                            {
-                                result = false;
-                            }
-
-                        }
+                        continue;
                     }
-                }
-                catch (Exception ex)
-                {
-                       
+
+                    decimal nowStockQty = 0;
+                    if (!com.CheckStokItemQty(intSouk, row.品番コード, row.賞味期限, out nowStockQty, row.数量 ?? 0))
+                    {
+                        // キー：行番号、値：エラーメッセージ
+                        resultDic.Add(row.品番コード, string.Format("在庫数が不足しています。(現在庫数：{0:#,0.##})", nowStockQty));
+                    }
+
                 }
 
-                return result;
-
+                return resultDic;
             }
+        }
+
+        /// <summary>
+        /// T04_AGRDTB集約・データ型変換(DataTable→List)
+        /// </summary>
+        /// <param name="DataTable">データテーブル</param>
+        /// <returns></returns>        
+        private List<T04_AGRDTB> getDetailDataList(DataTable dt)
+        {
+            var resultList =
+                dt.Select("", "", DataViewRowState.CurrentRows).AsEnumerable()
+                    .GroupBy(g => new { 品番コード = g.Field<int>("品番コード"), 賞味期限 = g.Field<DateTime?>("賞味期限") })
+                    .Select(s => new T04_AGRDTB
+                    {
+                        品番コード = s.Key.品番コード,
+                        賞味期限 = s.Key.賞味期限,
+                        数量 = s.Sum(m => m.Field<decimal>("数量"))
+                    })
+                    .ToList();
+
+            return resultList;
 
         }
 
-        // 20190724CB-E
+        // No-222 Add End
+        #endregion
+
     }
 
 
