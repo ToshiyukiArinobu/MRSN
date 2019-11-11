@@ -548,7 +548,84 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #endregion
 
+        #region << 在庫チェック >>
+        // No-222 Add Start
+
+        /// <summary>
+        /// 在庫数チェックを行う
+        /// </summary>
+        /// <param name="strReceiptCode">入荷先コード</param>
+        /// <param name="ds">データセット</param>
+        /// <param name="intUserId">ユーザID</param>
+        /// <returns></returns>
+        public Dictionary<int, string> CheckStockQty(string strReceiptCode, DataSet ds, int intUserId)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+
+                T03Service = new T03(context, intUserId);
+
+                Dictionary<int, string> resultDic = new Dictionary<int, string>();
+
+                DataTable dt = ds.Tables[T03_DETAIL_TABLE_NAME];
+                List<T03_SRDTL> dtlList = getDetailDataList(dt);
+
+                // 入荷先から対象の倉庫を取得
+                int intReceiptCode = int.Parse(strReceiptCode);
+                int intSouk = T03Service.get倉庫コード(intReceiptCode);
+
+                Common com = new Common();
+
+                foreach (T03_SRDTL row in dtlList)
+                {
+                    if (string.IsNullOrEmpty(row.品番コード.ToString()))
+                    {
+                        continue;
+                    }
+
+                    decimal nowStockQty = 0;
+                    if (!com.CheckStokItemQty(intSouk, row.品番コード, row.賞味期限, out nowStockQty, row.数量))
+                    {
+                        // キー：行番号、値：エラーメッセージ
+                        resultDic.Add(row.行番号, string.Format("在庫数が不足しています。(現在庫数：{0:#,0.##})", nowStockQty));
+                    }
+
+                }
+
+                return resultDic;
+            }
+        }
+
+        /// <summary>
+        /// T03_SRDTLデータ型変換(DataTable→List)
+        /// </summary>
+        /// <param name="DataTable">データテーブル</param>
+        /// <returns></returns>        
+        private List<T03_SRDTL> getDetailDataList(DataTable dt)
+        {
+            var resultList =
+                dt.Select("", "", DataViewRowState.CurrentRows).AsEnumerable()
+                .Where(c => !string.IsNullOrEmpty(c.Field<string>("自社品番")))
+                    .Select(s => new T03_SRDTL
+                    {
+                        伝票番号 = s.Field<int>("伝票番号"),
+                        行番号 = s.Field<int>("行番号"),
+                        品番コード = s.Field<int>("品番コード"),
+                        賞味期限 = s.Field<DateTime?>("賞味期限"),
+                        数量 = s.Field<decimal>("数量"),
+                        単位 = s.Field<string>("単位"),
+                        単価 = s.Field<decimal>("単価"),
+                        金額 = s.Field<int>("金額"),
+                        摘要 = s.Field<string>("摘要")
+                    })
+                    .ToList();
+
+            return resultList;
+
+        }
+        // No-222 Add End
         #endregion
 
     }
