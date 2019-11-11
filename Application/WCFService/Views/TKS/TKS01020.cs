@@ -140,6 +140,7 @@ namespace KyoeiSystem.Application.WCFService
             /// 軽減税率適用の場合に「*」を設定
             /// </summary>
             public string 軽減税率適用 { get; set; }
+			public string 摘要 { get; set; }
 
         }
 
@@ -452,8 +453,9 @@ namespace KyoeiSystem.Application.WCFService
                                 //20190902 CB mod - s 軽減税率対応
                                 //軽減税率適用 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "*" : ""
                                 軽減税率適用 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "軽"
-                                                : x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? "非" : ""
+                                                : x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? "非" : "",
                                 //20190902 CB mod - e
+								摘要 = x.SDTL.摘要
                             })
                             .OrderBy(o => o.売上日).ThenBy(o => o.伝票番号);           // No-181 Add
                     #endregion
@@ -504,6 +506,7 @@ namespace KyoeiSystem.Application.WCFService
                                         金額 = x.NYU.DTL.金額,
 
                                         軽減税率適用 = "",
+                                        摘要 = x.NYU.DTL.摘要,
                                     });
 
                     //売上日→伝票番号の順でソート

@@ -83,7 +83,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string REPORT_FILE_PATH = @"Files\TKS\TKS01020.rpt";
 
         /// <summary>帳票の(１枚あたり)最大出力行数</summary>
-        private const int MAX_PRINT_ROW_COUNT = 50;
+        //private const int MAX_PRINT_ROW_COUNT = 50; 2019/11/11 DEL
 
         #endregion
 
@@ -587,8 +587,8 @@ namespace KyoeiSystem.Application.Windows.Views
             var parms = new List<FwPreview.ReportParameter>()
                 {
                     new FwPreview.ReportParameter(){ PNAME="出力日付", VALUE=(this.PrintDate.Text)},
-                    new FwPreview.ReportParameter(){ PNAME="行数１", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
-                    new FwPreview.ReportParameter(){ PNAME="最大行数", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
+                    //new FwPreview.ReportParameter(){ PNAME="行数１", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
+                    //new FwPreview.ReportParameter(){ PNAME="最大行数", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
                     //new FwPreview.ReportParameter(){ PNAME="行数２", VALUE=(ds.Tables[0].Rows.Count)},
                 };
 
