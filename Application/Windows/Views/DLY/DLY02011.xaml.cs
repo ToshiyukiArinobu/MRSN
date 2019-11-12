@@ -912,8 +912,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 DateTime date;
                 if (!DateTime.TryParse(row["賞味期限"].ToString(), out date))
                 {
-                    // 変換に失敗かつ商品分類が「食品」の場合はエラー
-                    if (type.Equals((int)商品分類.食品))
+                    // 変換に失敗かつ商品分類が「食品」かつ数量が0以外の場合はエラー
+                    if (type.Equals((int)商品分類.食品) && row["数量"].ToString().Equals("0.00") == false)
                     {
                         gridDtb.AddValidationError(rIdx, (int)GridColumnsMapping.賞味期限, "商品分類が『食品』の為、賞味期限の設定が必要です。");
                         isDetailErr = true;

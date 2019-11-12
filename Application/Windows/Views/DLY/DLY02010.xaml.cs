@@ -2015,7 +2015,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     isDetailErr = true;
                 }
 
-                if (string.IsNullOrEmpty(row["数量"].ToString()))
+                if (string.IsNullOrEmpty(row["数量"].ToString()) || int.Parse(row["数量"].ToString()) == 0)
                 {
                     gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.数量, "数量が入力されていません。");
                     if (!isDetailErr)
@@ -2144,8 +2144,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         DateTime date;
                         if (!DateTime.TryParse(rowAgrDtb.賞味期限.ToString(), out date))
                         {
-                            // 変換に失敗かつ商品分類が「食品」の場合はエラー
-                            if (type.Equals((int)商品分類.食品))
+                            // 変換に失敗かつ商品分類が「食品」かつ数量が0以外の場合はエラー
+                            if (type.Equals((int)商品分類.食品) && rowAgrDtb.数量 != 0)
                             {
                                 gridDtl.SpreadGrid.Focus();
                                 gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.賞味期限, "構成品の商品分類が『食品』の為、賞味期限の設定が必要です。");
