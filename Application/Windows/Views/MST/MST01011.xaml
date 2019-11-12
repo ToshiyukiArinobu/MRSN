@@ -148,7 +148,7 @@
                       Name="txt正式名称" Grid.Row="0" ImeType="Native" HorizontalAlignment="Left" Margin="0,2,0,0"
                       Label_Context="得意先名" Label_Width="100"
                       cWidth="330" cMaxLength="50" cValidationType="None"
-                      Text="{Binding Path=正式名称, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                      Text="{Binding Path=得意先名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                     />
 
                     <!-- 担当会社コード -->
@@ -236,7 +236,7 @@
                         </sg:Column>
                         <sg:Column Locked="True" Focusable="True" HorizontalAlignment="Left">
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 得意先名}" />
+                                <sg:BindingDataField Binding="{Binding 得意先略称名}" />
                             </sg:Column.DataField>
                         </sg:Column>
 

@@ -246,6 +246,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
+                            c返品日.Focus();     // No.245 Add
                         }
                         break;
 

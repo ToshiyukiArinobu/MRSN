@@ -31,7 +31,9 @@ namespace KyoeiSystem.Application.WCFService
             public int? 取引先コード { get; set; }
             public int? 担当会社コード { get; set; }
             public int? 枝番 { get; set; }
-            public string 得意先名 { get; set; }
+            public string 得意先名１ { get; set; }
+            public string 得意先名２ { get; set; }
+            public string 得意先略称名 { get; set; }
             public int? 請求担当者コード { get; set; }
             public string 請求担当者名 { get; set; }
             public int? 支払担当者コード { get; set; }
@@ -75,7 +77,9 @@ namespace KyoeiSystem.Application.WCFService
                         取引先コード = m01.取引先コード,
                         担当会社コード = m01.担当会社コード,
                         枝番 = m01.枝番,
-                        得意先名 = m01.略称名,     // No.229 Mod
+                        得意先名１ = m01.得意先名１,     // No.241 Mod
+                        得意先名２ = m01.得意先名２,     // No.241 Mod
+                        得意先略称名 = m01.略称名,     // No.229 Mod
                         請求担当者コード = m01.Ｔ担当者コード,
                         請求担当者名 = TNT_t.担当者名,
                         支払担当者コード = m01.Ｓ担当者コード,
@@ -90,7 +94,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 if (!string.IsNullOrEmpty(p得意先名))
                 {
-                    result = result.Where(c => c.得意先名.Contains(p得意先名));
+                    result = result.Where(c => c.得意先名１.Contains(p得意先名) || c.得意先名２.Contains(p得意先名));     // No.241 Mod
                 }
 
                 return result.ToList();

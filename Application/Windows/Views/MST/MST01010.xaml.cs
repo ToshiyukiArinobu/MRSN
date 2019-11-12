@@ -867,15 +867,24 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             if (string.IsNullOrEmpty(TORI_NM_1.Text))
             {
+                TORI_NM_1.Focus();     // No.255 Mod
                 ErrorMessage = "正式名称が入力されていません。";
-                TORI_NM_1.Focus();
                 return false;
             }
 
+            // No.244 Add Start
+            if (string.IsNullOrEmpty(TORI_RNM.Text))
+            {
+                TORI_RNM.Focus();
+                ErrorMessage = "略称が入力されていません。";
+                return false;
+            }
+            // No.244 Add End
+
             if (string.IsNullOrEmpty(JIS_COMPANY.Text1))
             {
+                JIS_COMPANY.SetFocus();     // No.255 Mod
                 ErrorMessage = "担当会社コードが入力されていません。";
-                JIS_COMPANY.SetFocus();
                 return false;
             }
 
@@ -886,8 +895,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(T_TAX_KBN.Text))
                 {
                     // 必須入力チェック
+                    T_TAX_KBN.Focus();     // No.255 Mod
                     ErrorMessage = "消費税区分が選択されていません。";
-                    T_TAX_KBN.Focus();
                     return false;
                 }
 
@@ -895,8 +904,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(T_TAX_TANI.Text))
                 {
                     // 必須入力チェック
+                    T_TAX_TANI.Focus();     // No.255 Mod
                     ErrorMessage = "消費税単位が選択されていません。";
-                    T_TAX_TANI.Focus();
                     return false;
                 }
 
@@ -904,8 +913,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(T_SHIME_DT.Text))
                 {
                     // 必須入力チェック
+                    T_TAX_TANI.Focus();     // No.255 Mod
                     ErrorMessage = "締日が入力されていません。";
-                    T_TAX_TANI.Focus();
                     return false;
                 }
                 else
@@ -922,8 +931,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     if (!isTShimeResult)
                     {
+                        T_SHIME_DT.Focus();     // No.255 Mod
                         ErrorMessage = "締日の入力内容に誤りがあります。";
-                        T_SHIME_DT.Focus();
                         return false;
                     }
 
@@ -933,8 +942,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(T_SITE1.Text))
                 {
                     // 必須入力チェック
+                    T_SITE1.Focus();     // No.255 Mod
                     ErrorMessage = "サイト１が入力されていません。";
-                    T_SITE1.Focus();
                     return false;
                 }
 
@@ -942,8 +951,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(T_NYUKIN_DT1.Text))
                 {
                     // 必須入力チェック
+                    T_NYUKIN_DT1.Focus();     // No.255 Mod
                     ErrorMessage = "入金日１が入力されていません。";
-                    T_NYUKIN_DT1.Focus();
                     return false;
                 }
                 else
@@ -951,7 +960,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     // 数値の範囲チェック
                     bool isTNyukinResult = false;
                     int ival;
-                    if (int.TryParse(T_SHIME_DT.Text, out ival))
+                    if (int.TryParse(T_NYUKIN_DT1.Text, out ival))
                     {
                         if (ival >= 0 && ival <= 31)
                             isTNyukinResult = true;
@@ -960,8 +969,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     if (!isTNyukinResult)
                     {
+                        T_NYUKIN_DT1.Focus();     // No.255 Mod
                         ErrorMessage = "入金日１の入力内容に誤りがあります。";
-                        T_SHIME_DT.Focus();
                         return false;
                     }
 
@@ -978,8 +987,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(S_TAX_KBN.Text))
                 {
                     // 必須入力チェック
+                    S_TAX_KBN.Focus();     // No.255 Mod
                     ErrorMessage = "消費税区分が選択されていません。";
-                    S_TAX_KBN.Focus();
                     return false;
                 }
 
@@ -987,8 +996,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(S_TAX_TANI.Text))
                 {
                     // 必須入力チェック
+                    S_TAX_TANI.Focus();     // No.255 Mod
                     ErrorMessage = "消費税単位が選択されていません。";
-                    S_TAX_TANI.Focus();
                     return false;
                 }
 
@@ -996,8 +1005,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(S_SHIME_DT.Text))
                 {
                     // 必須入力チェック
+                    S_TAX_TANI.Focus();     // No.255 Mod
                     ErrorMessage = "締日が入力されていません。";
-                    S_TAX_TANI.Focus();
                     return false;
                 }
                 else
@@ -1014,8 +1023,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     if (!isSShimeResult)
                     {
+                        S_SHIME_DT.Focus();     // No.255 Mod
                         ErrorMessage = "締日の入力内容に誤りがあります。";
-                        S_SHIME_DT.Focus();
                         return false;
                     }
 
@@ -1025,8 +1034,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(S_SITE1.Text))
                 {
                     // 必須入力チェック
+                    S_SITE1.Focus();     // No.255 Mod
                     ErrorMessage = "サイト１が入力されていません。";
-                    S_SITE1.Focus();
                     return false;
                 }
 
@@ -1034,8 +1043,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(S_NYUKIN_DT1.Text))
                 {
                     // 必須入力チェック
+                    S_NYUKIN_DT1.Focus();     // No.255 Mod
                     ErrorMessage = "入金日１が入力されていません。";
-                    S_NYUKIN_DT1.Focus();
                     return false;
                 }
                 else
@@ -1043,7 +1052,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     // 数値の範囲チェック
                     bool isSNyukinResult = false;
                     int ival;
-                    if (int.TryParse(S_SHIME_DT.Text, out ival))
+                    if (int.TryParse(S_NYUKIN_DT1.Text, out ival))
                     {
                         if (ival >= 1 && ival <= 31)
                             isSNyukinResult = true;
@@ -1052,8 +1061,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     if (!isSNyukinResult)
                     {
+                        S_NYUKIN_DT1.Focus();     // No.255 Mod
                         ErrorMessage = "入金日１の入力内容に誤りがあります。";
-                        S_SHIME_DT.Focus();
                         return false;
                     }
 
