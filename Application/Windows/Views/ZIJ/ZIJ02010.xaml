@@ -227,7 +227,7 @@
       <Grid Grid.Row="1">
 
         <sg:GcSpreadGrid
-            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="12" Height="350"
+            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="17" Height="350"
             ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,5,10,1"
             ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
             DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIJ/ZIJ02010G1.sgxml"
