@@ -337,8 +337,6 @@ namespace KyoeiSystem.Application.Windows.Views
                         if (ds != null)
                         {
                             SetTblData(ds);
-                            ChangeKeyItemChangeable(false);
-                            txt売上日.Focus();
                         }
                         else
                         {
@@ -1093,6 +1091,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 入力元画面　販社売上修正
                 InputSource_DLY12010 = true;
 
+                ChangeKeyItemChangeable(false);     // No.245 Add
                 this.txt売上日.Focus();
 
             }
@@ -1129,6 +1128,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     row.Cells[(int)GridColumnsMapping.税区分].Locked = true;               // No-94 Add
                 }
 
+                ChangeKeyItemChangeable(false);     // No.245 Add
                 gridCtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);
 
 

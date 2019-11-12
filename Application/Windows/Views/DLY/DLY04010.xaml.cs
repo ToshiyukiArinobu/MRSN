@@ -376,9 +376,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         // 伝票検索または新規伝票の場合
                         DataSet ds = data as DataSet;
                         if (ds != null)
-                        {
+                        {                  
                             SetTblData(ds);
-                            ChangeKeyItemChangeable(false);
 
                             // No-156-1 Add Start
                             bool blnEnabled = true;
@@ -818,7 +817,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
                 F6.IsEnabled = true;
-
+                ChangeKeyItemChangeable(false);     // No.245 Add
                 this.txt移動日.Focus();
 
             }
@@ -835,6 +834,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;
                 }
 
+                ChangeKeyItemChangeable(false);     // No.245 Add
                 this.gcSpreadGrid.Focus();
                 this.gcSpreadGrid.ActiveCellPosition = new CellPosition(0, (int)GridColumnsMapping.自社品番);
 
