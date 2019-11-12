@@ -268,6 +268,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
+                            this.txt入金日.Focus();     // No.245 Add
                         }
                         else
                         {

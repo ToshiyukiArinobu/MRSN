@@ -308,7 +308,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     case UpdateData_StockCheck:
                         // No-222 Add Start
                         // 在庫数チェック結果受信
-                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        Dictionary<string, string> updateList = data as Dictionary<string, string>;
                         string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
                         var zaiMBImage = MessageBoxImage.Question;
 

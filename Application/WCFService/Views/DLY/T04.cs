@@ -1691,11 +1691,11 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="ds">データセット</param>
         /// <param name="intUserId">ユーザID</param>
         /// <returns></returns>
-        public Dictionary<int, string> CheckStockQty(DataSet ds, int intUserId)
+        public Dictionary<string, string> CheckStockQty(DataSet ds, int intUserId)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
-                Dictionary<int, string> resultDic = new Dictionary<int, string>();
+                Dictionary<string, string> resultDic = new Dictionary<string, string>();
 
                 // 揚りヘッダ.入荷先より、倉庫コードを取得する
                 DataRow hrow = ds.Tables[TABLE_HEADER].Rows[0];
@@ -1716,11 +1716,17 @@ namespace KyoeiSystem.Application.WCFService
                         continue;
                     }
 
+                    if (row.数量 == null || row.数量 == 0)
+                    {
+                        continue;
+                    }
+
                     decimal nowStockQty = 0;
                     if (!com.CheckStokItemQty(intSouk, row.品番コード, row.賞味期限, out nowStockQty, row.数量 ?? 0))
                     {
-                        // キー：行番号、値：エラーメッセージ
-                        resultDic.Add(row.品番コード, string.Format("在庫数が不足しています。(現在庫数：{0:#,0.##})", nowStockQty));
+                        // キー：品番コード+賞味期限、値：エラーメッセージ
+                        string strDicKey = string.Concat(row.品番コード.ToString(), "-", row.賞味期限.ToString());
+                        resultDic.Add(strDicKey, string.Format("在庫数が不足しています。(現在庫数：{0:#,0.##})", nowStockQty));
                     }
 
                 }

@@ -443,7 +443,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     case UpdateData_StockCheck:
                         // No-222 Add Start
                         // 在庫数チェック結果受信
-                        Dictionary<int, string> updateList = data as Dictionary<int, string>;
+                        Dictionary<string, string> updateList = data as Dictionary<string, string>;
                         string zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
                         var zaiMBImage = MessageBoxImage.Question;
 
@@ -1865,10 +1865,13 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     foreach (T04_AGRDTB_Extension row in T04_AGRDTB_List[inti])
                     {
-                        row.行番号 = inti + 1;
-                        row.部材行番号 = intj++;
-
-                        listAgrDtb.Add(row);
+                        // 数量が0以外のレコードを登録対象とする
+                        if (row.数量 != 0)
+                        {
+                            row.行番号 = inti + 1;
+                            row.部材行番号 = intj++;
+                            listAgrDtb.Add(row);
+                        }    
                     }
                 }
             }

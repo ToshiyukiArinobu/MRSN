@@ -442,6 +442,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
+            DataTable SearchResultCsvData = SearchResult.Copy();
+
+            SearchResultCsvData.Columns.Remove("SEQ");
+
             WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
             // はじめに表示されるフォルダを指定する
             sfd.InitialDirectory = @"C:\";
@@ -456,7 +460,7 @@ namespace KyoeiSystem.Application.Windows.Views
             if (sfd.ShowDialog() == WinForms.DialogResult.OK)
             {
                 // CSVファイル出力
-                CSVData.SaveCSV(SearchResult, sfd.FileName, true, true, false, ',', true);
+                CSVData.SaveCSV(SearchResultCsvData, sfd.FileName, true, true, false, ',', true);
                 MessageBox.Show("CSVファイルの出力が完了しました。");
 
             }
