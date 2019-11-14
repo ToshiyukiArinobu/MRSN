@@ -15,7 +15,7 @@
     AllowsTransparency="False" WindowStartupLocation="Manual" Language="ja-JP"
     MinHeight="728" MinWidth="1024" Height="800" Width="1024"
     Loaded="Window_Loaded" Closed="Window_Closed"
-    Title="仕入返品入力(DLY01020)">
+    Title="仕入返品(DLY01020)">
 
   <Window.Resources>
     <!-- DataGridのHeader背景色 -->
@@ -168,7 +168,7 @@
             <ColumnDefinition Width="100" />
           </Grid.ColumnDefinitions>
 
-          <Label x:Name="FuncTitle" Content="仕入返品入力" Grid.Column="0" FontSize="16" />
+          <Label x:Name="FuncTitle" Content="仕入返品" Grid.Column="0" FontSize="16" />
           <ctls:UcLabelTwinTextBox
               x:Name="c会社名" Label_Context="会社名" Grid.Column="1" Width="350"
               DataAccessName="M70_JIS" DataAccessMode="On" IsKeyItem="True"

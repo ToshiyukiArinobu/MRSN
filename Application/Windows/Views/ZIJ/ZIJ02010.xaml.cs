@@ -641,7 +641,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 };
 
                 DataTable 印刷データ = SearchResult.Copy();
-                印刷データ.TableName = "支払明細問合せ";
+                印刷データ.TableName = "仕入明細問合せ";
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
                 view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
