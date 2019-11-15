@@ -436,6 +436,18 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s07_SRIHD  ?? (_s07_SRIHD = CreateObjectSet<S07_SRIHD>("S07_SRIHD")); }
         }
         private ObjectSet<S07_SRIHD> _s07_SRIHD;
+    
+        public ObjectSet<S08_URIKAKE> S08_URIKAKE
+        {
+            get { return _s08_URIKAKE  ?? (_s08_URIKAKE = CreateObjectSet<S08_URIKAKE>("S08_URIKAKE")); }
+        }
+        private ObjectSet<S08_URIKAKE> _s08_URIKAKE;
+    
+        public ObjectSet<S09_KAIKAKE> S09_KAIKAKE
+        {
+            get { return _s09_KAIKAKE  ?? (_s09_KAIKAKE = CreateObjectSet<S09_KAIKAKE>("S09_KAIKAKE")); }
+        }
+        private ObjectSet<S09_KAIKAKE> _s09_KAIKAKE;
 
         #endregion
 

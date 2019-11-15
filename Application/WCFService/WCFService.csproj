@@ -252,6 +252,12 @@
     <Compile Include="S07_SRIHD.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
+    <Compile Include="S08_URIKAKE.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="S09_KAIKAKE.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
     <Compile Include="T02_URDTL.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
@@ -444,6 +450,7 @@
     <Compile Include="Views\TKS\TKS07010.cs" />
     <Compile Include="Views\TKS\TKS08010.cs" />
     <Compile Include="Views\TKS\TKS09010.cs" />
+    <Compile Include="Views\TKS\TKS02011.cs" />
     <Compile Include="Views\ZIJ\S03.cs" />
     <Compile Include="Views\ZIJ\S04.cs" />
     <Compile Include="Views\ZIJ\ZIJ02010.cs" />
