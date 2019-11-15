@@ -141,8 +141,9 @@ namespace KyoeiSystem.Application.WCFService
 
                         if (data != null)
                         {
-                            data.Ｔ担当者コード = row.請求担当者コード;
-                            data.Ｓ担当者コード = row.支払担当者コード;
+                            // 担当者コードが担当者マスタになければnullを代入
+                            data.Ｔ担当者コード = context.M72_TNT.Any(c => c.担当者ID == row.請求担当者コード) ? row.請求担当者コード : (int?)null;
+                            data.Ｓ担当者コード = context.M72_TNT.Any(c => c.担当者ID == row.支払担当者コード) ? row.支払担当者コード : (int?)null;
                             
                             data.最終更新者 = pLoginUserCode;
                             data.最終更新日時 = DateTime.Now;
@@ -174,11 +175,14 @@ namespace KyoeiSystem.Application.WCFService
         {
             MST01011_spread data = new MST01011_spread();
 
+            int SeikyuTantoCd;
+            int ShiharaiTantoCd;
+
             data.取引先コード = int.Parse(rw["取引先コード"].ToString());
             data.枝番 = int.Parse(rw["枝番"].ToString());
 
-            data.請求担当者コード = int.Parse(rw["請求担当者コード"].ToString());
-            data.支払担当者コード = int.Parse(rw["支払担当者コード"].ToString());
+            data.請求担当者コード = int.TryParse(rw["請求担当者コード"].ToString(), out SeikyuTantoCd) ? SeikyuTantoCd : (int?)null;
+            data.支払担当者コード = int.TryParse(rw["支払担当者コード"].ToString(), out ShiharaiTantoCd) ? ShiharaiTantoCd : (int?)null;
             return data;
 
         }
@@ -189,7 +193,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="p担当者コード"></param>
         /// <returns></returns>
-        public string GetM72(int p担当者コード)
+        public string GetM72(int? p担当者コード)
         { 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {

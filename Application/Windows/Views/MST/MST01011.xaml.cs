@@ -76,6 +76,16 @@ namespace KyoeiSystem.Application.Windows.Views
 
         private Dictionary<string, string> paramDic = new Dictionary<string, string>();
 
+        /// <summary>
+        /// 対象行番号
+        /// </summary>
+        private int targetRowIdx;
+
+        /// <summary>
+        /// 対象列番号
+        /// </summary>
+        private int targetColIdx;
+
         #endregion
 
         #region バインディングプロパティ
@@ -220,15 +230,17 @@ namespace KyoeiSystem.Application.Windows.Views
                 case MST01011_GetM72:
                     var ctl = FocusManager.GetFocusedElement(this);
                     var spgrid = ViewBaseCommon.FindVisualParent<GcSpreadGrid>(ctl as Control);
+                    if (spgrid == null) return;
 
-                    if (data != null) 
+                    //担当者名を表示
+                    if (data != null)
                     {
-                        int cIdx = spgrid.ActiveColumnIndex;
-                        int rIdx = spgrid.ActiveRowIndex;
-
-                        //担当者名を表示
-                        spgrid.Cells[rIdx - 1, cIdx + 1].Value = data.ToString();
-
+                        spgrid.Cells[targetRowIdx, targetColIdx + 1].Value = data.ToString();
+                    }
+                    else
+                    {
+                        spgrid.Cells[targetRowIdx, targetColIdx].Value = null;
+                        spgrid.Cells[targetRowIdx, targetColIdx + 1].Value = string.Empty;
                     }
 
                     break;
@@ -352,7 +364,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
-
+                spGridList.CommitCellEdit();
                 if (SearchResult == null)
                     return;
 
@@ -561,11 +573,15 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             GcSpreadGrid grid = sender as GcSpreadGrid;
             string targetColumn = grid.ActiveCellPosition.ColumnName;
+            int? i担当者コード = null;
 
             //明細行が存在しない場合は処理しない
             if (SearchResult == null) return;
 
             Row targetRow = grid.Rows[grid.ActiveRowIndex];
+
+            targetRowIdx = targetRow.Index;
+            targetColIdx = grid.ActiveColumnIndex;
 
             //編集したセルの値を取得
             var CellValue = grid[grid.ActiveRowIndex, targetColumn].Value;
@@ -573,24 +589,29 @@ namespace KyoeiSystem.Application.Windows.Views
 
 
             //担当者コードが入力された際担当者名をDBから取得
-            if (CellValue.ToString().Length > 0)
+            if (CellValue != null && CellValue.ToString().Length > 0)
             {
-                SearchResult.Rows[targetRow.Index][targetColumn] = CellValue;
+                i担当者コード = int.Parse(CellValue.ToString());
+            }
+            else
+            {
+                CellValue = DBNull.Value;
+            }
 
-                if (targetColumn == "請求担当者コード" || targetColumn == "支払担当者コード")
-                {
-                    int i担当者コード = int.Parse(CellValue.ToString());
+            SearchResult.Rows[targetRow.Index][targetColumn] = CellValue;
 
-                    base.SendRequest(
-                    new CommunicationObject(MessageType.RequestData, MST01011_GetM72, new object[]
+            if (targetColumn == "請求担当者コード" || targetColumn == "支払担当者コード")
+            {
+
+                base.SendRequest(
+                new CommunicationObject(MessageType.RequestData, MST01011_GetM72, new object[]
                         {
 
                            i担当者コード 
 
                         }));
-                }
-
             }
+
 
         }
         #endregion
