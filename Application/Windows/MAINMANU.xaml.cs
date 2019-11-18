@@ -1041,6 +1041,23 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// 売掛台帳
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_TKS02011(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(TKS02011));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 納品書出力
         /// </summary>
         /// <param name="sender"></param>

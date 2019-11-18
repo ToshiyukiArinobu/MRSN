@@ -15,7 +15,7 @@
   MinHeight="728" MinWidth="1024" Height="768" Width="1024"
   WindowStartupLocation="CenterOwner"
   Language="ja-JP"
-  Title="入金伝票問合せ(ZIJ03010)"
+  Title="入金明細問合せ(ZIJ03010)"
   Loaded="MainWindow_Loaded_1" Closed="Window_Closed">
 
   <Grid>

@@ -359,7 +359,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 第1引数　帳票タイトル
                 // 第2引数　帳票ファイルPass
                 // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("在庫締集計表", ReportTemplateFileName, 0, 0, 0);
+                view.MakeReport("月次在庫集計", ReportTemplateFileName, 0, 0, 0);
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする
                 view.SetReportData(tbl);
