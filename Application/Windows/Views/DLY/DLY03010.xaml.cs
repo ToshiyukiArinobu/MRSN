@@ -1942,12 +1942,12 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
 
             // 小計・消費税・総合計の再計算をおこなう
-            decimal subTotal =
-                SearchDetail.Select("", "", DataViewRowState.CurrentRows)
-                    .AsEnumerable()
-                    .Where(w => w.Field<decimal?>("金額") != null)
-                    .Select(x => x.Field<decimal>("金額"))
-                    .Sum();
+            //decimal subTotal =
+            //    SearchDetail.Select("", "", DataViewRowState.CurrentRows)
+            //        .AsEnumerable()
+            //        .Where(w => w.Field<decimal?>("金額") != null)
+            //        .Select(x => x.Field<decimal>("金額"))
+            //        .Sum();
             decimal conTax = 0;
             DateTime date = DateTime.Now;
 
@@ -1956,6 +1956,7 @@ namespace KyoeiSystem.Application.Windows.Views
             int intKeigen = 0;
             int intTaxTsujyo = 0;
             int intTaxKeigen = 0;
+            int subTotal = 0;
             // No-94 Add End
 
             if (DateTime.TryParse(txt売上日.Text, out date))
@@ -1973,7 +1974,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");
-                    int intKingakuWk =  Decimal.ToInt32(row.Field<decimal>("金額"));
+                    int intKingakuWk =  Decimal.ToInt32(Math.Round(row.Field<decimal>("金額"),0,MidpointRounding.AwayFromZero));
                     int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId));
                     switch (intZeikbn)
                     {
@@ -1989,6 +1990,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         default:
                             break;
                     }
+                    subTotal += intKingakuWk;
                     conTax += intTaxWk;
                     // No-94 Mod End
                 }
@@ -2060,7 +2062,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     decimal cost = gridCtl.GetCellValueToDecimal((int)GridColumnsMapping.単価) ?? 0;
                     decimal qty = gridCtl.GetCellValueToDecimal((int)GridColumnsMapping.数量) ?? 0;
 
-                    gridCtl.SetCellValue((int)GridColumnsMapping.金額, decimal.Multiply(cost, qty));
+                    gridCtl.SetCellValue((int)GridColumnsMapping.金額, Math.Round(decimal.Multiply(cost, qty), 0, MidpointRounding.AwayFromZero));
 
                     // グリッド内容の再計算を実施
                     summaryCalculation();
