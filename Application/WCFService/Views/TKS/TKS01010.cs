@@ -397,7 +397,32 @@ namespace KyoeiSystem.Application.WCFService
         {
             // 明細情報取得
             List<S01_SEIDTL> dtlList = getDetailInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId);
-            
+
+            //▼Add Start Arinobu 2019/11/18 売上明細が存在しない時Deleteされない(入金明細のみ存在する場合不具合となる)
+            // 登録済みのデータを削除
+            int i入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
+            int? i締日 = context.M01_TOK.Where(t => t.取引先コード == code && t.枝番 == eda).FirstOrDefault().Ｔ締日;
+            if (i締日 == null)
+            {
+                i締日 = 31;
+            }
+            var delList =
+                context.S01_SEIDTL
+                    .Where(w =>
+                        w.自社コード == company &&
+                        w.請求年月 == yearMonth &&
+                        w.請求締日 == i締日 &&
+                        w.請求先コード == code &&
+                        w.請求先枝番 == eda &&
+                        w.入金日 == i入金日 &&
+                        w.回数 == cnt);
+
+            foreach (var delData in delList)
+            {
+                context.S01_SEIDTL.DeleteObject(delData);
+            }
+            //▲Add End Arinobu 2019/11/18 売上明細が存在しない時Deleteされない(入金明細のみ存在する場合不具合となる)
+
             // 明細情報の登録
             S01_SEIDTL_Update(context, dtlList.ToList());
 
@@ -419,6 +444,31 @@ namespace KyoeiSystem.Application.WCFService
         {
             // 明細情報取得
             List<S01_SEIDTL> dtlList = getDetailInfoHan(context, myCompanyCode, yearMonth, salesCompanyCode, cnt, targetStDate, targetEdDate, paymentDate, userId);
+            
+            //▼Add Start Arinobu 2019/11/18 売上明細が存在しない時Deleteされない(入金明細のみ存在する場合不具合となる)
+            // 登録済みのデータを削除
+            int i入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
+            //販社の自社コードから取引先コード・枝番を取得
+            M70_JIS m70jis = context.M70_JIS.Where(t => t.自社コード == salesCompanyCode ).FirstOrDefault();
+            M01_TOK m01tok = context.M01_TOK.Where(t => t.取引先コード == m70jis.取引先コード && t.枝番 == m70jis.枝番).FirstOrDefault();
+
+
+            var delList =
+                context.S01_SEIDTL
+                    .Where(w =>
+                        w.自社コード == myCompanyCode &&
+                        w.請求年月 == yearMonth &&
+                        w.請求締日 == m01tok.Ｔ締日 &&
+                        w.請求先コード == m01tok.取引先コード &&
+                        w.請求先枝番 == m01tok.枝番 &&
+                        w.入金日 == i入金日 &&
+                        w.回数 == cnt);
+
+            foreach (var delData in delList)
+            {
+                context.S01_SEIDTL.DeleteObject(delData);
+            }
+            //▲Add End Arinobu 2019/11/18 売上明細が存在しない時Deleteされない(入金明細のみ存在する場合不具合となる)
 
             // 明細情報の登録
             S01_SEIDTL_Update(context, dtlList.ToList());
@@ -1261,20 +1311,21 @@ namespace KyoeiSystem.Application.WCFService
             int rowCnt = 1;
             foreach (var dtlData in list)
             {
+                //▼Del Start Arinobu 2019/11/18 売上明細が存在しない時Deleteされない(入金明細のみ存在する場合不具合となる)
                 // 登録済みのデータを削除
-                var delList =
-                    context.S01_SEIDTL
-                        .Where(w =>
-                            w.自社コード == dtlData.自社コード &&
-                            w.請求年月 == dtlData.請求年月 &&
-                            w.請求締日 == dtlData.請求締日 &&
-                            w.請求先コード == dtlData.請求先コード &&
-                            w.請求先枝番 == dtlData.請求先枝番 &&
-                            w.入金日 == dtlData.入金日 &&
-                            w.回数 == dtlData.回数);
-
-                foreach (var delData in delList)
-                    context.S01_SEIDTL.DeleteObject(delData);
+                //var delList =
+                //    context.S01_SEIDTL
+                //        .Where(w =>
+                //            w.自社コード == dtlData.自社コード &&
+                //            w.請求年月 == dtlData.請求年月 &&
+                //            w.請求締日 == dtlData.請求締日 &&
+                //            w.請求先コード == dtlData.請求先コード &&
+                //            w.請求先枝番 == dtlData.請求先枝番 &&
+                //            w.入金日 == dtlData.入金日 &&
+                //            w.回数 == dtlData.回数);
+                //foreach (var delData in delList)
+                //    context.S01_SEIDTL.DeleteObject(delData);
+                //▲Del End Arinobu 2019/11/18 売上明細が存在しない時Deleteされない(入金明細のみ存在する場合不具合となる)
 
                 // 作成データの登録
                 dtlData.行 = rowCnt++;

@@ -269,13 +269,22 @@ namespace KyoeiSystem.Application.WCFService
             {
                 context.Connection.Open();
 
-                int iCompCd = int.Parse(compCd),
-                    iSlipNumber;
+                int? iCompCd;
+
+                if (string.IsNullOrEmpty(compCd))
+                {
+                    iCompCd = null;
+                }
+                else
+                {
+                    iCompCd = int.Parse(compCd);
+                }
+                int iSlipNumber;
                 bool isConv = int.TryParse(slipNum, out iSlipNumber);
 
                 int 通常売上返品区分 = CommonConstants.売上区分.通常売上返品.GetHashCode();
                 var hdList =
-                    context.T02_URHD.Where(w => w.削除日時 == null && w.会社名コード == iCompCd && w.売上区分 < 通常売上返品区分);
+                    context.T02_URHD.Where(w => w.削除日時 == null && (w.会社名コード == iCompCd|| iCompCd == null) && w.売上区分 < 通常売上返品区分);
 
                 switch (pageParam)
                 {
@@ -286,7 +295,7 @@ namespace KyoeiSystem.Application.WCFService
                             // 明細番号指定あり
                             hdList =
                                 hdList.Where(w => w.伝票番号 ==
-                                    context.T02_URHD.Where(v => v.会社名コード == iCompCd && v.伝票番号 < iSlipNumber && v.削除日時 == null && v.売上区分 < 通常売上返品区分)
+                                    context.T02_URHD.Where(v => (v.会社名コード == iCompCd || iCompCd == null) && v.伝票番号 < iSlipNumber && v.削除日時 == null && v.売上区分 < 通常売上返品区分)
                                         .Max(m => m.伝票番号));
 
                             if (hdList.Count() == 0)
@@ -301,7 +310,7 @@ namespace KyoeiSystem.Application.WCFService
                             // 明細番号指定なし
                             hdList =
                                 hdList.Where(w => w.伝票番号 ==
-                                    context.T02_URHD.Where(v => v.会社名コード == iCompCd && v.削除日時 == null && v.売上区分 < 通常売上返品区分).Min(m => m.伝票番号));
+                                    context.T02_URHD.Where(v => (v.会社名コード == iCompCd || iCompCd == null) && v.削除日時 == null && v.売上区分 < 通常売上返品区分).Min(m => m.伝票番号));
                         }
                         #endregion
                         break;
@@ -330,7 +339,7 @@ namespace KyoeiSystem.Application.WCFService
                             // 明細番号指定あり
                             hdList =
                                 hdList.Where(w => w.伝票番号 ==
-                                    context.T02_URHD.Where(v => v.会社名コード == iCompCd && v.伝票番号 > iSlipNumber && v.削除日時 == null && v.売上区分 < 通常売上返品区分)
+                                    context.T02_URHD.Where(v => (v.会社名コード == iCompCd || iCompCd == null) && v.伝票番号 > iSlipNumber && v.削除日時 == null && v.売上区分 < 通常売上返品区分)
                                         .Min(m => m.伝票番号));
 
                             if (hdList.Count() == 0)
@@ -345,7 +354,7 @@ namespace KyoeiSystem.Application.WCFService
                             // 明細番号指定なし
                             hdList =
                                 hdList.Where(w => w.伝票番号 ==
-                                    context.T02_URHD.Where(v => v.会社名コード == iCompCd && v.削除日時 == null && v.売上区分 < 通常売上返品区分).Max(m => m.伝票番号));
+                                    context.T02_URHD.Where(v => (v.会社名コード == iCompCd || iCompCd == null) && v.削除日時 == null && v.売上区分 < 通常売上返品区分).Max(m => m.伝票番号));
                         }
                         #endregion
                         break;
@@ -381,11 +390,20 @@ namespace KyoeiSystem.Application.WCFService
             {
                 context.Connection.Open();
 
-                int code, num;
-                if (int.TryParse(companyCode, out code) && int.TryParse(slipNumber, out num))
+                int? code;
+                int num;
+                if (string.IsNullOrEmpty(companyCode))
+                {
+                    code = null;
+                }
+                else
+                {
+                    code = int.Parse(companyCode);
+                }
+                if (int.TryParse(slipNumber, out num))
                 {
                     var result =
-                        context.T02_URHD.Where(w => w.削除日時 == null && w.会社名コード == code && w.伝票番号 == num)
+                        context.T02_URHD.Where(w => w.削除日時 == null && (w.会社名コード == code || code == null) && w.伝票番号 == num)
                             .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
                                 x => new { コード = x.得意先コード, 枝番 = x.得意先枝番 },
                                 y => new { コード = y.取引先コード, 枝番 = y.枝番 },
@@ -491,13 +509,22 @@ namespace KyoeiSystem.Application.WCFService
             {
                 context.Connection.Open();
 
-                int code, num;
-                if (int.TryParse(myCompany, out code) && int.TryParse(slipNumber, out num))
+                int? code;
+                int num;
+                if (string.IsNullOrEmpty(myCompany))
+                {
+                    code = null;
+                }
+                else
+                {
+                    code = int.Parse(myCompany);
+                }
+                if (int.TryParse(slipNumber, out num))
                 {
                     // 伝票番号から売上ヘッダ情報を取得
                     var urhd =
                         context.T02_URHD
-                            .Where(w => w.削除日時 == null && w.会社名コード == code && w.伝票番号 == num)
+                            .Where(w => w.削除日時 == null && (w.会社名コード == code || code == null )&& w.伝票番号 == num)
                             .FirstOrDefault();
 
                     if (urhd == null)

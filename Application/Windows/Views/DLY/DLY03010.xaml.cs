@@ -1140,6 +1140,10 @@ namespace KyoeiSystem.Application.Windows.Views
             SearchHeader = tblHd.Rows[0];
             SearchHeader.AcceptChanges();
 
+            if (string.IsNullOrEmpty(txt自社名.Text1))
+            {
+                txt自社名.Text1 = tblHd.Rows[0]["会社名コード"].ToString();
+            }
             // 売上明細情報設定
             DataTable tblDtl = ds.Tables[T02_DETAIL_TABLE_NAME];
             SearchDetail = tblDtl;
@@ -1206,6 +1210,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // グリッド内容の再計算を実施
             summaryCalculation();
+
 
         }
 
@@ -1722,11 +1727,11 @@ namespace KyoeiSystem.Application.Windows.Views
             if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
                 // 検索項目検証
-                if (!isKeyItemValidation())
-                {
-                    this.txt伝票番号.Focus();
-                    return;
-                }
+                //if (!isKeyItemValidation())
+                //{
+                //    this.txt伝票番号.Focus();
+                //    return;
+                //}
 
                 // 全項目エラーチェック
                 if (!base.CheckKeyItemValidation())
