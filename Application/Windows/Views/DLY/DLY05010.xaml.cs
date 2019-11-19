@@ -369,6 +369,99 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
+        // No-271 Add Start
+        #region F5 行追加
+        /// <summary>
+        /// F5　リボン　行追加
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF5Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode == null)
+                return;
+
+            if (SearchDetail.Rows.Count >= 10)
+            {
+                MessageBox.Show("明細行数が上限に達している為、これ以上追加できません。", "明細上限", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            DataRow dtlRow = SearchDetail.NewRow();
+
+            dtlRow["伝票番号"] = this.txt伝票番号.Text;
+            if (SearchDetail.Rows.Count > 0)
+            {
+                dtlRow["行番号"] = (int)SearchDetail.Rows[SearchDetail.Rows.Count - 1]["行番号"] + 1;
+            }
+            else
+            {
+                dtlRow["行番号"] = 1;
+            }
+
+            SearchDetail.Rows.Add(dtlRow);
+
+            // 行追加後は追加行を選択させる
+            int newRowIdx = SearchDetail.Rows.Count - 1;
+            gcSpreadGrid.ActiveCellPosition = new CellPosition(newRowIdx, (int)GridColumnsMapping.金種コード);
+        }
+        #endregion
+
+        #region F6 行削除
+        /// <summary>
+        /// F6　リボン　行削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF6Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode == null)
+                return;
+
+            if (gcSpreadGrid.ActiveRowIndex < 0)
+            {
+                this.ErrorMessage = "行を選択してください";
+                return;
+            }
+
+            if (MessageBox.Show(
+                    AppConst.CONFIRM_DELETE_ROW,
+                    "行削除確認",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question,
+                    MessageBoxResult.No) == MessageBoxResult.No)
+                return;
+
+            int intDelRowIdx = gcSpreadGrid.ActiveRowIndex;                              // 削除行Index
+
+            // 選択行の削除
+            // Spreadより該当行を削除する
+            try
+            {
+                gcSpreadGrid.Rows.Remove(intDelRowIdx);
+            }
+            catch
+            {
+                SearchDetail.Rows.Remove(SearchDetail.Rows[intDelRowIdx]);
+            }
+
+            // SearchDetailより該当行を削除する
+            try
+            {
+                if (gcSpreadGrid.Rows.Count != SearchDetail.Rows.Count)
+                {
+                    SearchDetail.Rows.Remove(SearchDetail.Rows[intDelRowIdx]);
+                }
+            }
+            catch
+            {
+                // エラー処理なし
+            }
+
+        }
+        #endregion
+        // No-271 Add End
+
         /// <summary>
         /// F09　リボン　登録
         /// </summary>
@@ -598,7 +691,15 @@ namespace KyoeiSystem.Application.Windows.Views
             #region 【明細】入力チェック
 
             // 【明細】詳細データが１件もない場合はエラー
-            if (SearchDetail == null || SearchDetail.Rows.Count == 0 || SearchDetail.Select("金種コード > 0").Count() == 0)
+
+            // No-271 Mod Start
+            // 金種コード入力件数取得
+            int intInpCnt = SearchDetail.AsEnumerable()
+                                .Where(w => w.Field<string>("金種コード") != null && !w.Field<string>("金種コード").Equals("0"))
+                                .Count();
+            // 明細件数チェック
+            if (SearchDetail == null || SearchDetail.Rows.Count == 0 || intInpCnt == 0)
+            // No-271 Mod End
             {
                 base.ErrorMessage = string.Format("明細情報が１件もありません。");
                 return isResult;
