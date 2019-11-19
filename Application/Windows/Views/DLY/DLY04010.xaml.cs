@@ -983,19 +983,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 // エラー情報をクリア
                 gcSpreadGrid.Rows[rIdx].ValidationErrors.Clear();
 
-                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
-                int? row品番コード = DBNull.Value.Equals(row["品番コード"]) ? (int?)null : Convert.ToInt32(row["品番コード"]);
-                if (CurrentDetail.Where(x => x.Field<int?>("品番コード") == row品番コード && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
-                {
-                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
-                    gcSpreadGrid.Rows[rIdx]
-                       .ValidationErrors.Add(new SpreadValidationError("同じ商品が存在するので、一つに纏めて下さい。", null, rIdx, (int)GridColumnsMapping.品番コード));
-                    if (!isDetailErr)
-                        gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, (int)GridColumnsMapping.品番コード);
-
-                    isDetailErr = true;
-                }
-
                 if (string.IsNullOrEmpty(row["数量"].ToString()))
                 {
                     gcSpreadGrid.Rows[rIdx]

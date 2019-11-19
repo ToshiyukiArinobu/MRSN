@@ -246,6 +246,28 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        // No-258 Add Start
+        /// <summary>
+        /// 入出庫履歴(物理)削除
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="slipNumber"></param>
+        /// <returns></returns>
+        public void PhysicalDeletionProductHistory(TRAC3Entities context, int slipNumber)
+        {
+            // 登録済みデータを物理削除
+            var delData = context.S04_HISTORY.Where(w => w.伝票番号 == slipNumber).ToList();
+            if (delData != null)
+            {
+                foreach (S04_HISTORY dtl in delData)
+                    context.S04_HISTORY.DeleteObject(dtl);
+
+                context.SaveChanges();
+
+            }
+        }
+        // No-258 Add End
+
         #region 検索条件パラメータ展開
         /// <summary>
         /// 検索条件パラメータを展開する

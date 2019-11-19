@@ -177,15 +177,15 @@ namespace KyoeiSystem.Application.WCFService
                         // (出荷元からの引落し)
                         if (idohd.出荷元倉庫コード != null)
                         {
-                            setS03_STOK_Update(idohd, dtlTbl, true);
-                            setS04_HISTORY_Update(idohd, dtlTbl, true);
+                            setS03_STOK_Update(context, idohd, dtlTbl, true);           // No-258 Mod
+                            setS04_HISTORY_Update(context, idohd, dtlTbl, true);
                         }
 
                         // (出荷先への積上げ)
                         if (idohd.出荷先倉庫コード != null)
                         {
-                            setS03_STOK_Update(idohd, dtlTbl, false);
-                            setS04_HISTORY_Update(idohd, dtlTbl, false);
+                            setS03_STOK_Update(context, idohd, dtlTbl, false);           // No-258 Mod
+                            setS04_HISTORY_Update(context, idohd, dtlTbl, false);
                         }
 
                         // 変更状態を確定
@@ -514,10 +514,11 @@ namespace KyoeiSystem.Application.WCFService
         /// <summary>
         /// 在庫情報の更新をおこなう
         /// </summary>
+        /// <param name="context"></param>
         /// <param name="idohd">移動ヘッダデータ</param>
         /// <param name="dtlTbl">移動明細データテーブル</param>
         /// <param name="isSubtract">減算フラグ(True:減算,False:減算しない)</param>
-        private void setS03_STOK_Update(T05_IDOHD idohd, DataTable dtlTbl, bool isSubtract)
+        private void setS03_STOK_Update(TRAC3Entities context, T05_IDOHD idohd, DataTable dtlTbl, bool isSubtract)          // No-258 Mod
         {
             foreach (DataRow row in dtlTbl.Rows)
             {
@@ -530,6 +531,9 @@ namespace KyoeiSystem.Application.WCFService
 
                 #region 在庫数計算
                 decimal stockQty = 0;
+                decimal oldstockQty = 0;
+                bool iskigenChangeFlg = false;    // 賞味期限変更フラグ    No-258 Add
+
                 if (row.RowState == DataRowState.Deleted)
                 {
                     // 数量分在庫数を加減算
@@ -542,12 +546,25 @@ namespace KyoeiSystem.Application.WCFService
                 }
                 else if (row.RowState == DataRowState.Modified)
                 {
-                    // オリジナル(変更前数量)と比較して差分数量を加減算
-                    if (row.HasVersion(DataRowVersion.Original))
+                    // No-258 Mod Start
+                    if (!row["賞味期限"].Equals(row["賞味期限", DataRowVersion.Original]))
                     {
+                        // 賞味期限が変更された場合
+                        // 　減算フラグ(True:減算)の場合：旧賞味期限の在庫を加算、新賞味期限の在庫を減算する
+                        // 　減算フラグ(True:False)の場合：旧賞味期限の在庫を減算、新賞味期限の在庫を加算する
+                        iskigenChangeFlg = true;
+                        // 旧賞味期限の在庫数
+                        oldstockQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]) * (isSubtract ? 1 : -1);
+                        // 新賞味期限の在庫数
+                        stockQty = dtlRow.数量 * (isSubtract ? -1 : 1);
+                    }
+                    else
+                    {
+                        // 数量が変更された場合
                         decimal orgQty = ParseNumeric<decimal>(row["数量", DataRowVersion.Original]);
                         stockQty = (dtlRow.数量 - orgQty) * (isSubtract ? -1 : 1);
                     }
+                    // No-258 Mod End
 
                 }
                 else
@@ -557,6 +574,23 @@ namespace KyoeiSystem.Application.WCFService
                 }
                 #endregion
 
+                // No-258 Add Start
+                // 賞味期限が変更された場合
+                if (iskigenChangeFlg == true)
+                {
+                    DateTime dt;
+                    S03_STOK oldStok = new S03_STOK();
+                    oldStok.倉庫コード = souko;
+                    oldStok.品番コード = dtlRow.品番コード;
+                    oldStok.賞味期限 = row["賞味期限", DataRowVersion.Original] == DBNull.Value ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) :
+                                        DateTime.TryParse(row["賞味期限", DataRowVersion.Original].ToString(), out dt) ? dt : AppCommon.DateTimeToDate(null, DateTime.MaxValue);
+                    oldStok.在庫数 = oldstockQty;
+
+                    // 旧賞味期限の在庫を更新
+                    S03Service.S03_STOK_Update(oldStok);
+                }
+                // No-258 Add End
+
                 // 対象データ設定
                 S03_STOK stok = new S03_STOK();
                 stok.倉庫コード = souko;
@@ -564,7 +598,11 @@ namespace KyoeiSystem.Application.WCFService
                 stok.賞味期限 = AppCommon.DateTimeToDate(dtlRow.賞味期限, DateTime.MaxValue);
                 stok.在庫数 = stockQty;
 
+                // 新賞味期限の在庫を更新
                 S03Service.S03_STOK_Update(stok);
+                
+                // 変更状態を確定
+                context.SaveChanges();              // No-258 Add
 
             }
 
@@ -573,60 +611,80 @@ namespace KyoeiSystem.Application.WCFService
         /// <summary>
         /// 入出庫履歴の登録・更新をおこなう
         /// </summary>
+        /// <param name="context"></param>
         /// <param name="idohd">移動ヘッダデータ</param>
         /// <param name="dtlTbl">移動明細データテーブル</param>
         /// <param name="orghd">変更前仕入ヘッダデータ</param>
         /// <param name="isSubtract">減算フラグ(True:減算,False:減算しない)</param>
-        private void setS04_HISTORY_Update(T05_IDOHD idohd, DataTable dtlTbl, bool isSubtract)
+        private void setS04_HISTORY_Update(TRAC3Entities context, T05_IDOHD idohd, DataTable dtlTbl, bool isSubtract)
         {
+            // No-258 Mod Start
+            if (isSubtract == true)
+            {
+                // 登録済み入出庫データの削除
+                int intSlipNumber = idohd.伝票番号;
+                // 入出庫データの物理削除
+                S04Service.PhysicalDeletionProductHistory(context, intSlipNumber);
+            }
+
+            // 不要レコード除去
+            DataTable dtlTblTmp = dtlTbl.Clone();
             foreach (DataRow row in dtlTbl.Rows)
             {
                 T05_IDODTL dtlRow = convertDataRowToT05_IDODTL_Entity(row);
 
                 if (dtlRow.品番コード <= 0)
+                {
                     continue;
+                }
 
+                dtlTblTmp.ImportRow(row);
+            }
+
+            // 入出庫データ作成単位に集約    
+            var dtlTblWk = dtlTblTmp.AsEnumerable()
+                            .Where(x => x.RowState != DataRowState.Deleted)
+                            .GroupBy(g => new { 伝票番号 = g.Field<int>("伝票番号")
+                                                , 品番コード = g.Field<int>("品番コード")
+                                                , 賞味期限 = g.Field<DateTime?>("賞味期限") })
+                            .Select(s => new T05_IDODTL
+                            {
+                                伝票番号 = s.Key.伝票番号,
+                                品番コード = s.Key.品番コード,
+                                賞味期限 = s.Key.賞味期限,
+                                数量 = s.Sum(m => m.Field<decimal>("数量"))
+                            })
+                            .ToList();
+
+            foreach (T05_IDODTL row in dtlTblWk)
+            {
                 int souko = isSubtract ? (int)idohd.出荷元倉庫コード : (int)idohd.出荷先倉庫コード;
 
                 decimal stockQtyhist = 0;                               // No-155 Add
-                stockQtyhist = dtlRow.数量;
+                stockQtyhist = row.数量;
                 S04_HISTORY history = new S04_HISTORY();
 
                 history.入出庫日 = idohd.日付;
                 history.入出庫時刻 = com.GetDbDateTime().TimeOfDay;
                 history.倉庫コード = souko;
                 history.入出庫区分 = !isSubtract ? (int)CommonConstants.入出庫区分.ID01_入庫 : (int)CommonConstants.入出庫区分.ID02_出庫;
-                history.品番コード = dtlRow.品番コード;
-                history.賞味期限 = dtlRow.賞味期限;
+                history.品番コード = row.品番コード;
+                history.賞味期限 = row.賞味期限;
                 history.数量 = decimal.ToInt32(stockQtyhist);         // No-155 Mod
-                history.伝票番号 = dtlRow.伝票番号;
+                history.伝票番号 = row.伝票番号;
 
                 Dictionary<string, string> hstDic = new Dictionary<string, string>()
                     {
                         { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
                         { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
                         { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
-                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() }
+                        { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() },
                     };
 
-                if (row.RowState == DataRowState.Added)
-                {
-                    // 売上作成の為、履歴作成
-                    S04Service.CreateProductHistory(history);
-                }
-                else if (row.RowState == DataRowState.Deleted)
-                {
-                    S04Service.DeleteProductHistory(hstDic);
-                }
-                else
-                {
-                    // (DataRowState.Modified、DataRowState.Unchanged)
-                    // 履歴更新
-                    S04Service.UpdateProductHistory(history, hstDic);
-                }
-
+                // 売上作成の為、履歴作成
+                S04Service.CreateProductHistory(history);
             }
-
+            // No-258 Mod End
         }
 
         #endregion
