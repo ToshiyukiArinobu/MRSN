@@ -24,7 +24,6 @@ namespace KyoeiSystem.Application.WCFService
             public string 入金元販社コード { get; set; }
             public string 入金元販社名 { get; set; }
             public string 得意先コード { get; set; }
-            public string 得意先枝番 { get; set; }
             public string 得意先名 { get; set; }
             public string 金種コード { get; set; }
             public string 金種名 { get; set; }
@@ -148,8 +147,7 @@ namespace KyoeiSystem.Application.WCFService
                                 入金日 = x.NHD.入金日.ToString("yyyy/MM/dd"),
                                 入金元販社コード = x.NHD.入金元販社コード.ToString(),
                                 入金元販社名 = x.JIS2 == null ? "" : x.JIS2.自社名 ?? "",
-                                得意先コード = string.Format("{0:D4}", x.NHD.得意先コード),     // No.223 Mod
-                                得意先枝番 = string.Format("{0:D2}", x.NHD.得意先枝番),         // No.223 Mod
+                                得意先コード = x.NHD.得意先コード == null ? "" : string.Format("{0:D4} - {1:D2}", x.NHD.得意先コード, x.NHD.得意先枝番),     // No.227,228 Mod
                                 得意先名 = x.TOK == null ? "" : x.TOK.略称名 ?? "",  // No.229 Mod
                                 金種コード = x.NDTL.金種コード.ToString(),
                                 金種名 = x.NM == null ? "" : x.NM.表示名 ?? "",

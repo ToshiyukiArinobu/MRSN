@@ -17,16 +17,18 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class SearchDataMember
         {
-              public string 倉庫コード { get; set; }
-              public string 倉庫名称 { get; set; }
-              public string 品番コード { get; set; }
-              public string 自社品番コード { get; set; }
-              public string 自社色コード { get; set; }
-              public string 品番名称 { get; set; }
-              public string 色名称 { get; set; }
-              public string 賞味期限 { get; set; }
-              public decimal 在庫数量 { get; set; }
-              public string 単位 { get; set; }
+            public int 自社コード { get; set; }        // No.227,228 Add
+            public string 自社名 { get; set; }         // No.227,228 Add
+            public string 倉庫コード { get; set; }
+            public string 倉庫名称 { get; set; }
+            public string 品番コード { get; set; }
+            public string 自社品番コード { get; set; }
+            public string 自社色コード { get; set; }
+            public string 品番名称 { get; set; }
+            public string 色名称 { get; set; }
+            public string 賞味期限 { get; set; }
+            public decimal 在庫数量 { get; set; }
+            public string 単位 { get; set; }
         }
 
         #endregion
@@ -98,18 +100,17 @@ namespace KyoeiSystem.Application.WCFService
                             .Where(w => w.削除日時 == null && w.自社コード == p自社コード)
                             .FirstOrDefault();
 
+                    // 販社の場合は、販社倉庫、マルセン倉庫(xxx確保)の在庫を抽出
+                    // 自社の場合は、すべての倉庫の在庫を抽出
                     if (jis != null && jis.自社区分 == CommonConstants.自社区分.販社.GetHashCode())
                     {
-                        stockList =
-                            stockList.Where(w =>
-                                w.STOK.倉庫コード ==
-                                    context.M22_SOUK.Where(v =>
+                        // No.270 Mod Start
+                        var soukList = context.M22_SOUK.Where(v =>
                                             v.削除日時 == null &&
-                                            (v.場所会社コード == p自社コード ||
-                                             v.寄託会社コード == p自社コード))
-                                        .Select(s => s.倉庫コード)
-                                        .FirstOrDefault())
-                                .ToList();
+                                            (v.寄託会社コード == p自社コード))
+                                        .Select(s => s.倉庫コード).ToList();
+                        stockList =
+                            stockList.Where(w => soukList.Contains(w.STOK.倉庫コード)).ToList();
                     }
 
                     // 検索データ取得
@@ -127,8 +128,16 @@ namespace KyoeiSystem.Application.WCFService
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (c, d) => new { c.x.STOK, c.x.HIN, c.x.SOUK, IRO = d })
+                            .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                x => x.SOUK.寄託会社コード,
+                                y => y.自社コード,
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (e, f) => new {e.x.STOK, e.x.HIN, e.x.SOUK, e.x.IRO, JIS = f})
                             .Select(x => new SearchDataMember
                             {
+                                自社コード = x.JIS.自社コード,                  // No.227,228 Add
+                                自社名 = x.JIS.自社名 ?? "",                    // No.227,228 Add
                                 倉庫コード = x.STOK.倉庫コード.ToString(),
                                 倉庫名称 = x.SOUK != null ? x.SOUK.倉庫名 : "",
                                 品番コード = x.STOK.品番コード.ToString(),

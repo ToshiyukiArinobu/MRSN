@@ -17,12 +17,15 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class SearchDataMember
         {
+            public int 会社名コード { get; set; }  // No.227,228 Add
+            public string 自社名 { get; set; }     // No.227,228 Add
             public string 売上日 { get; set; }     // No.130-1 Mod
             public string 請求日 { get; set; }     // No.130-1 Mod
             public string 売上区分 { get; set; }
             public string 伝票番号 { get; set; }
             public string 元伝票番号 { get; set; }
             public int 行番号 { get; set; }
+            public string 得意先コード { get; set; }  // No.227,228 Add
             public string 得意先 { get; set; }
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
@@ -159,6 +162,12 @@ namespace KyoeiSystem.Application.WCFService
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (e, f) => new { e.x.UHD, e.x.UDTL, e.x.KBN, e.x.TOK, e.x.HIN, IRO = f })
+                            .GroupJoin(context.M70_JIS.Where(x => x.削除日時 == null),
+                                x => x.UHD.会社名コード,
+                                y => y.自社コード,
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (g, h) => new { g.x.UHD, g.x.UDTL, g.x.KBN, g.x.TOK, g.x.HIN, g.x.IRO, JIS = h })
                             .OrderBy(o => o.UHD.得意先コード)
                             .ThenBy(t => t.UHD.得意先枝番)
                             .ThenBy(t => t.UHD.売上日)
@@ -167,6 +176,8 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
+                                会社名コード = x.UHD.会社名コード,                // No.227,228 Add
+                                自社名 = x.JIS.自社名 ?? "",                      // No.227,228 Add
                                 売上日 = x.UHD.売上日.ToShortDateString(),        // No.130-1 Mod
                                 請求日 = x.UHD.売上日.Day >= x.TOK.Ｔ締日 ?
                                     AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 1).ToShortDateString() :     // No.130-1 Mod
@@ -175,6 +186,7 @@ namespace KyoeiSystem.Application.WCFService
                                 伝票番号 = x.UHD.伝票番号.ToString(),
                                 元伝票番号 = x.UHD.元伝票番号 != null ? x.UHD.元伝票番号.ToString() : string.Empty,
                                 行番号 = x.UDTL.行番号,
+                                得意先コード = string.Format("{0:D4} - {1:D2}", x.UHD.得意先コード, x.UHD.得意先枝番),           // No.227,228 Add
                                 得意先 = x.TOK != null ? x.TOK.略称名 : string.Empty,
                                 品番コード = x.UDTL.品番コード,
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
@@ -309,6 +321,8 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
+                                会社名コード = x.UHD.会社名コード,              // No.227,228 Add
+                                自社名 = x.JIS.自社名 ?? "",                    // No.227,228 Add
                                 売上日 = x.UHD.売上日.ToShortDateString(),
                                 請求日 = x.UHD.売上日.Day >= x.TOK.Ｔ締日 ?
                                     AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 1).ToShortDateString() : 
@@ -317,6 +331,7 @@ namespace KyoeiSystem.Application.WCFService
                                 伝票番号 = x.UHD.伝票番号.ToString(),
                                 元伝票番号 = string.Empty,
                                 行番号 = x.UDTL.行番号,
+                                得意先コード = string.Format("{0:D4} - {1:D2}", x.JIS.取引先コード, x.JIS.枝番),  // No.227,228 Add
                                 得意先 = x.TOK != null ? x.TOK.略称名 : string.Empty,
                                 品番コード = x.UDTL.品番コード,
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,

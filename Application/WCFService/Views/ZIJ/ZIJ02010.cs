@@ -18,6 +18,7 @@ namespace KyoeiSystem.Application.WCFService
         public class SearchDataMember
         {
             public int 会社名コード { get; set; }
+            public string 自社名 { get; set; }         // No.227,228 Add
             public string 仕入日 { get; set; }         // No.130-3 Mod
             public string 支払日 { get; set; }         // No.130-3 Mod
             public string 仕入区分 { get; set; }
@@ -25,6 +26,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 伝票番号 { get; set; }        // No.200 Mod
             public string 元伝票番号 { get; set; }      // No.200 Mod
             public int 行番号 { get; set; }
+            public string 仕入先コード { get; set; }    // No.227,228 Add
             public string 仕入先名 { get; set; }
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
@@ -136,10 +138,17 @@ namespace KyoeiSystem.Application.WCFService
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (e, f) => new { e.x.SHD, e.x.SDTL, e.x.TOK, e.x.HIN, IRO = f })
+                            .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                x => x.SHD.会社名コード,
+                                y => y.自社コード,
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (g, h) => new { g.x.SHD, g.x.SDTL, g.x.TOK, g.x.HIN, g.x.IRO, JIS= h })
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
                                 会社名コード = x.SHD.会社名コード,
+                                自社名 = x.JIS.自社名 ?? "",                  // No.227,228 Add
                                 仕入日 = x.SHD.仕入日.ToShortDateString(),    // No.130-3 Mod
                                 // No-128 Mod Start
                                 支払日 = x.TOK.Ｓ入金日１ == 0 ? string.Empty : x.SHD.仕入日.Day >= (x.TOK.Ｓ締日 ?? 31) ?
@@ -157,6 +166,7 @@ namespace KyoeiSystem.Application.WCFService
                                 伝票番号 = x.SHD.伝票番号.ToString(),
                                 元伝票番号 = x.SHD.元伝票番号 != null ? x.SHD.元伝票番号.ToString() : string.Empty,
                                 行番号 = x.SDTL.行番号,
+                                仕入先コード = string.Format("{0:D4} - {1:D2}", x.SHD.仕入先コード, x.SHD.仕入先枝番),   // No.227,228
                                 仕入先名 = x.TOK.略称名,
                                 品番コード = x.SDTL.品番コード,
                                 自社品番 = x.HIN.自社品番,

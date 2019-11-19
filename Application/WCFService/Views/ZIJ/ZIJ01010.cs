@@ -28,7 +28,6 @@ namespace KyoeiSystem.Application.WCFService
             //public string 仕入区分 { get; set; }
             //public string 仕入区分名 { get; set; }
             public string 仕入先コード { get; set; }
-            public string 仕入先枝番 { get; set; }
             public string 仕入先名 { get; set; }
             public string 入荷先コード { get; set; }
             public string 入荷先名 { get; set; }
@@ -162,8 +161,7 @@ namespace KyoeiSystem.Application.WCFService
                                 支払日 = "",// TODO:一応足しておく
                                 入力区分 = x.SRHD.入力区分.ToString(),
                                 入力区分名 = CommonConstants.Get入力区分Dic()[x.SRHD.入力区分],
-                                仕入先コード = string.Format("{0:D4}", x.SRHD.仕入先コード),        // No.223 Mod
-                                仕入先枝番 = string.Format("{0:D2}", x.SRHD.仕入先枝番),            // No.223 Mod
+                                仕入先コード = string.Format("{0:D4} - {1:D2}", x.SRHD.仕入先コード, x.SRHD.仕入先枝番), // No.227,228 Mod
                                 仕入先名 = x.TOK != null ? x.TOK.略称名 : "",
                                 入荷先コード = x.SRHD.入荷先コード.ToString(),
                                 入荷先名 = x.JIS2 != null ? x.JIS2.自社名 : "",
@@ -320,8 +318,7 @@ namespace KyoeiSystem.Application.WCFService
                             支払日 = "",// TODO:一応足しておく
                             入力区分 = CommonConstants.入力区分.売上入力.GetHashCode().ToString(),
                             入力区分名 = CommonConstants.Get入力区分Dic()[CommonConstants.入力区分.売上入力.GetHashCode()],
-                            仕入先コード = x.SRHD.仕入先コード.ToString(),
-                            仕入先枝番 = "",
+                            仕入先コード = string.Format("{0:D4} - {1:D2}",x.SJIS.取引先コード, x.SJIS.枝番),     // No.227,228 Mod
                             仕入先名 = x.SJIS != null ? x.SJIS.自社名 : "",
                             入荷先コード = x.SRHD.入荷先コード.ToString(),
                             入荷先名 = x.NJIS != null ? x.NJIS.自社名 : "",

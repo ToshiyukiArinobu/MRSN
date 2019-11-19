@@ -19,6 +19,7 @@ namespace KyoeiSystem.Application.WCFService
         {
             public DateTime 移動日 { get; set; }
             public string 伝票番号 { get; set; }
+            public int 会社名コード { get; set; }
             public string 自社名 { get; set; }
             public string 移動区分 { get; set; }
             public string 移動元倉庫 { get; set; }
@@ -98,6 +99,7 @@ namespace KyoeiSystem.Application.WCFService
                         {
                             移動日 = x.IHD.日付,
                             伝票番号 = x.IHD.伝票番号.ToString(),
+                            会社名コード = x.IHD.会社名コード,       // No.227,228 Add
                             自社名 = x.JIS.自社名,
                             移動区分 = x.IHD.移動区分 == (int)CommonConstants.移動区分.通常移動 ? CommonConstants.移動区分_通常移動 :
                                        x.IHD.移動区分 == (int)CommonConstants.移動区分.売上移動 ? CommonConstants.移動区分_売上移動 :

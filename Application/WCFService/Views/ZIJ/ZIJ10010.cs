@@ -17,10 +17,13 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class SearchDataMember
         {
+            public int 会社名コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }         // No.227,228 Add
             public string 仕上日 { get; set; }         // No.130-2 Mod
             public string 加工区分 { get; set; }
             public string 伝票番号 { get; set; }
             public int 行番号 { get; set; }
+            public string 外注先コード { get; set; }   // No.227,228 Add
             public string 外注先 { get; set; }
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
@@ -119,6 +122,12 @@ namespace KyoeiSystem.Application.WCFService
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (e, f) => new { AGRHD = e.x.AGRHD, AGRDTL = e.x.AGRDTL, e.x.KBN, e.x.TOK, e.x.HIN, IRO = f })
+                            .GroupJoin(context.M70_JIS.Where(x => x.削除日時 == null),
+                                x => x.AGRHD.会社名コード,
+                                y => y.自社コード,
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (g, h) => new { AGRHD = g.x.AGRHD, AGRDTL = g.x.AGRDTL, g.x.KBN, g.x.TOK, g.x.HIN, g.x.IRO, JIS = h })
                             .OrderBy(o => o.AGRHD.外注先コード)
                             .ThenBy(t => t.AGRHD.外注先枝番)
                             .ThenBy(t => t.AGRHD.仕上り日)
@@ -127,10 +136,13 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
+                                会社名コード = x.AGRHD.会社名コード,               // No.227,228 Add
+                                自社名 = x.JIS.自社名 ?? "",                        // No.227,228 Add
                                 仕上日 = x.AGRHD.仕上り日.ToShortDateString(),     // No.130-2 Mod
                                 加工区分 = x.KBN.表示名,
                                 伝票番号 = x.AGRHD.伝票番号.ToString(),
                                 行番号 = x.AGRDTL.行番号,
+                                外注先コード = string.Format("{0:D4} - {1:D2}", x.AGRHD.外注先コード, x.AGRHD.外注先枝番),   // No.227,228 Add
                                 外注先 = x.TOK != null ? x.TOK.略称名 : (x.KBN.コード == 3 ? "自社" : string.Empty),
                                 品番コード = x.AGRDTL.品番コード,
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
