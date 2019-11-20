@@ -13,6 +13,30 @@ namespace KyoeiSystem.Application.WCFService
     {
 
         #region 項目クラス定義
+        // No.227,228 Add Start
+        /// <summary>
+        /// S01_SEIHD_Data + 自社名
+        /// </summary>
+        public class S01_SEIHD_Data
+        {
+            public int 自社コード { get; set;}
+            public string 自社名 { get; set;}
+            public int 請求年月 { get; set;}
+            public int 請求締日 { get; set; }
+            public int 請求先コード { get; set; }
+            public int 請求先枝番 { get; set; }
+            public int 入金日 { get; set; }
+            public int 回数 { get; set; }
+            public DateTime? 集計最終日 { get; set; }
+            public long 前月残高 { get; set; }
+            public long 入金額 { get; set; }
+            public long 繰越残高 { get; set; }
+            public long 非税売上額 { get; set; }
+            public long 売上額 { get; set; }
+            public long 消費税 { get; set; }
+            public long 当月請求額 { get; set; }
+        }
+        // No.227,228 Add End
 
         /// <summary>
         /// T11_NYKNHD + DTL 項目定義クラス
@@ -43,6 +67,8 @@ namespace KyoeiSystem.Application.WCFService
             //public long 当月請求額 { get; set; }
             //public long 件数 { get; set; }
 
+            public int 自社コード { get; set; }          // No.227,228 Add
+            public string 自社名 { get; set; }           // No.227,228 Add
             public string 得意先コード { get; set; }
             public string 得意先名称 { get; set; }
             public long 回数 { get; set; }
@@ -127,11 +153,11 @@ namespace KyoeiSystem.Application.WCFService
             getFormParams(condition, out myCompany, out createYearMonth, out closingDay, out isAllDays, out customerCode, out customerEda, out createType);
 
             // ベースとなる請求ヘッダ情報を取得
-            List<S01_SEIHD> hdList = getHeaderData(condition);
+            List<S01_SEIHD_Data> hdList = getHeaderData(condition);     // No.227,228 Mod
             var hdData =
                 //20190906 mod-s CB 軽減税率対応 集計最終日をキーに含める
                 //hdList.GroupBy(g => new { g.自社コード, g.請求年月, g.請求締日, g.請求先コード, g.請求先枝番 })
-                hdList.GroupBy(g => new { g.自社コード
+                hdList.GroupBy(g => new { g.自社コード, g.自社名
                     , g.請求年月, g.請求締日
                     , g.請求先コード, g.請求先枝番
                     , g.入金日, g.集計最終日 })
@@ -139,6 +165,7 @@ namespace KyoeiSystem.Application.WCFService
                     .Select(s => new
                     {
                         s.Key.自社コード,
+                        s.Key.自社名,                      // No.227,228 Mod
                         s.Key.請求年月,
                         s.Key.請求締日,
                         s.Key.請求先コード,
@@ -240,6 +267,8 @@ namespace KyoeiSystem.Application.WCFService
                 .ToList()
                 .Select(x => new PrintMember
                 {
+                    自社コード = x.NHD.自社コード,            // No.227,228 Add
+                    自社名 = x.NHD.自社名,                    // No.227,228 Add
                     得意先コード = string.Format("{0:D4} - {1:D2}", x.NHD.請求先コード, x.NHD.請求先枝番),  // No.132-1,No.223 Mod
                     得意先名称 = x.TOK == null ? "" : x.TOK.略称名,  // No.229 Mod
 
@@ -342,7 +371,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        private List<S01_SEIHD> getHeaderData(Dictionary<string, string> condition)
+        private List<S01_SEIHD_Data> getHeaderData(Dictionary<string, string> condition)
         {
             // 検索パラメータを展開
             int myCompany, createYearMonth, createType;
@@ -351,10 +380,36 @@ namespace KyoeiSystem.Application.WCFService
 
             getFormParams(condition, out myCompany, out createYearMonth, out closingDay, out isAllDays, out customerCode, out customerEda, out createType);
 
+            // No.227,228 Mod Start
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
                 var shd =
-                    context.S01_SEIHD.Where(w => w.自社コード == myCompany && w.請求年月 == createYearMonth);
+                    context.S01_SEIHD.Where(w => w.自社コード == myCompany && w.請求年月 == createYearMonth)
+                    .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                        x => x.自社コード,
+                        y => y.自社コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                        (a, b) => new { SEIH = a.x, JIS = b })
+                    .Select(x => new S01_SEIHD_Data
+                    {
+                        自社コード = x.SEIH.自社コード,
+                        自社名 = x.JIS.自社名,
+                        請求年月 = x.SEIH.請求年月,
+                        請求締日 = x.SEIH.請求締日,
+                        請求先コード = x.SEIH.請求先コード,
+                        請求先枝番 = x.SEIH.請求先枝番,
+                        入金日 = x.SEIH.入金日,
+                        回数 = x.SEIH.回数,
+                        集計最終日 = x.SEIH.集計最終日,
+                        前月残高 = x.SEIH.前月残高,
+                        入金額 = x.SEIH.入金額,
+                        繰越残高 = x.SEIH.繰越残高,
+                        非税売上額 = x.SEIH.非税売上額,
+                        売上額 = x.SEIH.売上額,
+                        消費税 = x.SEIH.消費税,
+                        当月請求額 = x.SEIH.当月請求額
+                    });
 
                 if (!isAllDays)
                     shd = shd.Where(w => w.請求締日 == closingDay);
@@ -368,7 +423,7 @@ namespace KyoeiSystem.Application.WCFService
                 return shd.ToList();
 
             }
-
+            // No.227,228 Mod End
         }
         #endregion
 
@@ -411,7 +466,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        private List<T11_NYKN_Data> getNyukinData(int year, int month, List<S01_SEIHD> hdList)
+        private List<T11_NYKN_Data> getNyukinData(int year, int month, List<S01_SEIHD_Data> hdList)
         {
             List<T11_NYKN_Data> nykList = new List<T11_NYKN_Data>();
 
@@ -458,7 +513,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="hdList"></param>
         /// <returns></returns>
-        private List<M01_TOK> getTokData(List<S01_SEIHD> hdList)
+        private List<M01_TOK> getTokData(List<S01_SEIHD_Data> hdList)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {

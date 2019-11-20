@@ -137,19 +137,23 @@ namespace KyoeiSystem.Application.WCFService
         private int _行番号;
     
         [DataMember]
-        public Nullable<int> 品番コード
+        public int 品番コード
         {
             get { return _品番コード; }
             set
             {
                 if (_品番コード != value)
                 {
+                    if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
+                    {
+                        throw new InvalidOperationException("The property '品番コード' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                    }
                     _品番コード = value;
                     OnPropertyChanged("品番コード");
                 }
             }
         }
-        private Nullable<int> _品番コード;
+        private int _品番コード;
     
         [DataMember]
         public Nullable<int> 金種コード

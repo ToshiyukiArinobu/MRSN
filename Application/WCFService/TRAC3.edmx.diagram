@@ -54,7 +54,7 @@
         <EntityTypeShape EntityType="TRAC3Model.V_M09_HIN" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.V_M10_TOKHIN" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.V_S04_HISTORY" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.V_SHR06010" Width="1.5" PointX="14.75" PointY="0.74999999999999911" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.V_SHR06010" Width="1.5" PointX="14.762254901617046" PointY="0.73774509838295643" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.V_TKS08010" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.T02_URHD" Width="1.5" PointX="14.75" PointY="2.7499999999999991" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.T02_URHD_HAN" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="false" />

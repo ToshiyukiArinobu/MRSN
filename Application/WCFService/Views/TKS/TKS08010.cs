@@ -14,6 +14,8 @@ namespace KyoeiSystem.Application.WCFService
         #region 入金予定実績表メンバクラス
         public class TKS08010_Member
         {
+            public int? 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public string 得意先コード { get; set; }
             public string 得意先枝番 { get; set; }
             public string 得意先名 { get; set; }
@@ -135,13 +137,19 @@ namespace KyoeiSystem.Application.WCFService
                         .Where(w => w.削除日時 == null && w.自社コード == myCompany)
                         .FirstOrDefault();
 
+                // No.227,228 Mod Start
                 var baseTok =
                     context.M01_TOK
-                        .Where(w => w.削除日時 == null && w.担当会社コード == myCompany);
+                        .Where(w => w.削除日時 == null && w.担当会社コード == myCompany)
+                        .Join(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => x.担当会社コード,
+                            y => y.自社コード,
+                            (x, y) => new { x, y });
+                // No.227,228 Mod End
 
                 // -- 検索条件適用：得意先
                 if (customerCode != null && customerEda != null)
-                    baseTok = baseTok.Where(w => w.取引先コード == customerCode && w.枝番 == customerEda);
+                    baseTok = baseTok.Where(w => w.x.取引先コード == customerCode && w.x.枝番 == customerEda);
 
                 List<int> kbnList = new List<int>();
                 kbnList.Add((int)CommonConstants.取引区分.得意先);
@@ -208,7 +216,7 @@ namespace KyoeiSystem.Application.WCFService
                     var data =
                         baseTok
                             .GroupJoin(context.S01_SEIHD.Where(w => w.自社コード == myCompany && w.請求年月 == yearMonth),
-                                x => new { code = x.取引先コード, eda = x.枝番 },
+                                x => new { code = x.x.取引先コード, eda = x.x.枝番 },
                                 y => new { code = y.請求先コード, eda = y.請求先枝番 },
                                 (x, y) => new { x, y })
                             .SelectMany(s => s.y.DefaultIfEmpty(),
@@ -222,12 +230,14 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(s => new TKS08010_Member
                             {
-                                得意先コード = string.Format("{0:D4}", s.TOK.取引先コード), // No.223 Mod
-                                得意先枝番 = string.Format("{0:D2}", s.TOK.枝番),           // No.223 Mod
-                                得意先名 = s.TOK.略称名,  // No.229 Mod
+                                自社コード = s.TOK.y.自社コード,    // No.227,228 Add
+                                自社名 = s.TOK.y.自社名,            // No.227,228 Add
+                                得意先コード = string.Format("{0:D4}", s.TOK.x.取引先コード), // No.223 Mod
+                                得意先枝番 = string.Format("{0:D2}", s.TOK.x.枝番),           // No.223 Mod
+                                得意先名 = s.TOK.x.略称名,  // No.229 Mod
                                 // No.101-4 Mod Start
-                                入金日 = s.TOK.Ｔ入金日１ ?? 31,
-                                サイト = s.TOK.Ｔサイト１ ?? 0,
+                                入金日 = s.TOK.x.Ｔ入金日１ ?? 31,
+                                サイト = s.TOK.x.Ｔサイト１ ?? 0,
                                 // No.101-4 Mod End
                                 対象年月１ = refYearMonth.AddMonths(REF_MONTHS * -1).ToString("yyyy/MM"),
                                 入金予定額１ = (i == REF_MONTHS && s.SHD != null) ? s.SHD.当月請求額 : (long?)null,
@@ -259,6 +269,8 @@ namespace KyoeiSystem.Application.WCFService
                     stackList.AsEnumerable()
                         .GroupBy(g => new
                         {
+                            g.自社コード,    // No.227,228 Add
+                            g.自社名,        // No.227,228 Add
                             g.得意先コード,
                             g.得意先枝番,
                             g.得意先名,
@@ -273,6 +285,8 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(s => new TKS08010_Member
                         {
+                            自社コード = s.Key.自社コード,    // No.227,228 Add
+                            自社名 = s.Key.自社名,            // No.227,228 Add
                             得意先コード = string.Format("{0:D4} - {1:D2}", s.Key.得意先コード, s.Key.得意先枝番),       // No.223 Mod
                             得意先枝番 = s.Key.得意先枝番,
                             得意先名 = s.Key.得意先名,

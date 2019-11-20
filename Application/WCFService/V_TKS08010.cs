@@ -23,23 +23,38 @@ namespace KyoeiSystem.Application.WCFService
         #region Simple Properties
     
         [DataMember]
-        public int K自社コード
+        public int 自社コード
         {
-            get { return _k自社コード; }
+            get { return _自社コード; }
             set
             {
-                if (_k自社コード != value)
+                if (_自社コード != value)
                 {
                     if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
                     {
-                        throw new InvalidOperationException("The property 'K自社コード' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                        throw new InvalidOperationException("The property '自社コード' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
                     }
-                    _k自社コード = value;
-                    OnPropertyChanged("K自社コード");
+                    _自社コード = value;
+                    OnPropertyChanged("自社コード");
                 }
             }
         }
-        private int _k自社コード;
+        private int _自社コード;
+    
+        [DataMember]
+        public string 自社名
+        {
+            get { return _自社名; }
+            set
+            {
+                if (_自社名 != value)
+                {
+                    _自社名 = value;
+                    OnPropertyChanged("自社名");
+                }
+            }
+        }
+        private string _自社名;
     
         [DataMember]
         public Nullable<int> K入金年月
