@@ -202,7 +202,8 @@
           </EntitySet>
           <EntitySet Name="V_SHR06010" EntityType="TRAC3Model.Store.V_SHR06010" store:Type="Views" store:Schema="dbo" store:Name="V_SHR06010">
             <DefiningQuery>SELECT 
-      [V_SHR06010].[K自社コード] AS [K自社コード], 
+      [V_SHR06010].[自社コード] AS [自社コード], 
+      [V_SHR06010].[自社名] AS [自社名], 
       [V_SHR06010].[K支払年月] AS [K支払年月], 
       [V_SHR06010].[K入金日] AS [K入金日], 
       [V_SHR06010].[K支払先コード] AS [K支払先コード], 
@@ -976,6 +977,7 @@
             <PropertyRef Name="日付" />
             <PropertyRef Name="伝票番号" />
             <PropertyRef Name="行番号" />
+            <PropertyRef Name="品番コード" />
           </Key>
           <Property Name="自社コード" Type="int" Nullable="false" />
           <Property Name="得意先コード" Type="int" Nullable="false" />
@@ -983,7 +985,7 @@
           <Property Name="日付" Type="date" Nullable="false" />
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="行番号" Type="int" Nullable="false" />
-          <Property Name="品番コード" Type="int" />
+          <Property Name="品番コード" Type="int" Nullable="false" />
           <Property Name="金種コード" Type="int" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単価" Type="decimal" Nullable="false" Precision="10" Scale="2" />
@@ -1004,6 +1006,7 @@
             <PropertyRef Name="日付" />
             <PropertyRef Name="伝票番号" />
             <PropertyRef Name="行番号" />
+            <PropertyRef Name="品番コード" />
           </Key>
           <Property Name="自社コード" Type="int" Nullable="false" />
           <Property Name="得意先コード" Type="int" Nullable="false" />
@@ -1011,7 +1014,7 @@
           <Property Name="日付" Type="date" Nullable="false" />
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="行番号" Type="int" Nullable="false" />
-          <Property Name="品番コード" Type="int" />
+          <Property Name="品番コード" Type="int" Nullable="false" />
           <Property Name="金種コード" Type="int" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単価" Type="decimal" Nullable="false" Precision="10" Scale="2" />
@@ -1602,14 +1605,15 @@
       -->
         <EntityType Name="V_SHR06010">
           <Key>
-            <PropertyRef Name="K自社コード" />
+            <PropertyRef Name="自社コード" />
             <PropertyRef Name="K支払年月" />
             <PropertyRef Name="K支払先コード" />
             <PropertyRef Name="K支払先枝番" />
             <PropertyRef Name="支払先コード" />
             <PropertyRef Name="締日" />
           </Key>
-          <Property Name="K自社コード" Type="int" Nullable="false" />
+          <Property Name="自社コード" Type="int" Nullable="false" />
+          <Property Name="自社名" Type="varchar" MaxLength="40" />
           <Property Name="K支払年月" Type="int" Nullable="false" />
           <Property Name="K入金日" Type="int" />
           <Property Name="K支払先コード" Type="int" Nullable="false" />
@@ -2710,14 +2714,15 @@
         </EntityType>
         <EntityType Name="V_SHR06010">
           <Key>
-            <PropertyRef Name="K自社コード" />
             <PropertyRef Name="K支払年月" />
             <PropertyRef Name="K支払先コード" />
             <PropertyRef Name="K支払先枝番" />
             <PropertyRef Name="支払先コード" />
             <PropertyRef Name="締日" />
+            <PropertyRef Name="自社コード" />
           </Key>
-          <Property Type="Int32" Name="K自社コード" Nullable="false" />
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="String" Name="自社名" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="K支払年月" Nullable="false" />
           <Property Type="Int32" Name="K入金日" />
           <Property Type="Int32" Name="K支払先コード" Nullable="false" />
@@ -3067,6 +3072,7 @@
             <PropertyRef Name="日付" />
             <PropertyRef Name="伝票番号" />
             <PropertyRef Name="行番号" />
+            <PropertyRef Name="品番コード" />
           </Key>
           <Property Type="Int32" Name="自社コード" Nullable="false" />
           <Property Type="Int32" Name="得意先コード" Nullable="false" />
@@ -3074,7 +3080,7 @@
           <Property Type="DateTime" Name="日付" Nullable="false" Precision="0" />
           <Property Type="Int32" Name="伝票番号" Nullable="false" />
           <Property Type="Int32" Name="行番号" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
           <Property Type="Int32" Name="金種コード" />
           <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
@@ -3095,6 +3101,7 @@
             <PropertyRef Name="日付" />
             <PropertyRef Name="伝票番号" />
             <PropertyRef Name="行番号" />
+            <PropertyRef Name="品番コード" />
           </Key>
           <Property Type="Int32" Name="自社コード" Nullable="false" />
           <Property Type="Int32" Name="得意先コード" Nullable="false" />
@@ -3102,7 +3109,7 @@
           <Property Type="DateTime" Name="日付" Nullable="false" Precision="0" />
           <Property Type="Int32" Name="伝票番号" Nullable="false" />
           <Property Type="Int32" Name="行番号" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
           <Property Type="Int32" Name="金種コード" />
           <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
@@ -4108,6 +4115,8 @@
           <EntitySetMapping Name="V_SHR06010">
             <EntityTypeMapping TypeName="TRAC3Model.V_SHR06010">
               <MappingFragment StoreEntitySet="V_SHR06010">
+                <ScalarProperty Name="自社名" ColumnName="自社名" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
                 <ScalarProperty Name="当月支払額" ColumnName="当月支払額" />
                 <ScalarProperty Name="締日" ColumnName="締日" />
                 <ScalarProperty Name="支払年月" ColumnName="支払年月" />
@@ -4121,7 +4130,6 @@
                 <ScalarProperty Name="K支払先コード" ColumnName="K支払先コード" />
                 <ScalarProperty Name="K入金日" ColumnName="K入金日" />
                 <ScalarProperty Name="K支払年月" ColumnName="K支払年月" />
-                <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

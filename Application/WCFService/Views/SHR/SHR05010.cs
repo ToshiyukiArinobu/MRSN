@@ -13,6 +13,31 @@ namespace KyoeiSystem.Application.WCFService
     {
 
         #region 項目クラス定義
+        // No.227,228 Add Start
+        /// <summary>
+        /// S01_SHRHD_Data + 自社名
+        /// </summary>
+        public class S02_SHRHD_Data
+        {
+            public int 自社コード { get; set; }
+            public string 自社名 { get; set; }
+            public int 支払年月 { get; set; }
+            public int 支払締日 { get; set; }
+            public int 支払先コード { get; set; }
+            public int 支払先枝番 { get; set; }
+            public int 支払日 { get; set; }
+            public int 回数 { get; set; }
+            public DateTime? 集計最終日 { get; set; }
+            public long 前月残高 { get; set; }
+            public long 出金額 { get; set; }
+            public long 繰越残高 { get; set; }
+            public long 値引額 { get; set; }
+            public long 非課税支払額 { get; set; }
+            public long 支払額 { get; set; }
+            public long 消費税 { get; set; }
+            public long 当月支払額 { get; set; }
+        }
+        // No.227,228 Add End
 
         /// <summary>
         /// T12_PAYHD + DTL 項目定義クラス
@@ -30,6 +55,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         private class PrintMember
         {
+            public int 自社コード { get; set; }          // No.227,228 Add
+            public string 自社名 { get; set; }           // No.227,228 Add
             public string 仕入先コード { get; set; }
             public string 仕入先名称 { get; set; }
             public string 支払締日 { get; set; }
@@ -111,12 +138,13 @@ namespace KyoeiSystem.Application.WCFService
             getFormParams(condition, out myCompany, out createYearMonth, out closingDay, out isAllDays, out customerCode, out customerEda, out createType);
 
             // ベースとなる支払ヘッダ情報を取得
-            List<S02_SHRHD> hdList = getHeaderData(condition);
+            List<S02_SHRHD_Data> hdList = getHeaderData(condition);
             var hdData =
-                hdList.GroupBy(g => new { g.自社コード, g.支払年月, g.支払締日, g.支払先コード, g.支払先枝番 })
+                hdList.GroupBy(g => new { g.自社コード, g.自社名, g.支払年月, g.支払締日, g.支払先コード, g.支払先枝番 })
                     .Select(s => new
                     {
                         s.Key.自社コード,
+                        s.Key.自社名,              // No.227,228 Add
                         s.Key.支払年月,
                         s.Key.支払締日,
                         s.Key.支払先コード,
@@ -174,6 +202,8 @@ namespace KyoeiSystem.Application.WCFService
                 .ToList()
                 .Select(x => new PrintMember
                 {
+                    自社コード = x.NHD.自社コード,            // No.227,228 Add
+                    自社名 = x.NHD.自社名,                    // No.227,228 Add
                     仕入先コード = string.Format("{0:D4} - {1:D2}", x.NHD.支払先コード, x.NHD.支払先枝番),      // No-149, No.223 Mod
                     仕入先名称 = x.TOK == null ? "" : x.TOK.略称名,
                     支払締日 = x.NHD.支払締日.ToString(),
@@ -233,7 +263,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        private List<S02_SHRHD> getHeaderData(Dictionary<string, string> condition)
+        private List<S02_SHRHD_Data> getHeaderData(Dictionary<string, string> condition)
         {
             // 検索パラメータを展開
             int myCompany, createYearMonth, createType;
@@ -244,8 +274,36 @@ namespace KyoeiSystem.Application.WCFService
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
+                // No.227,228 Mod Start
                 var shd =
-                    context.S02_SHRHD.Where(w => w.自社コード == myCompany && w.支払年月 == createYearMonth);
+                    context.S02_SHRHD.Where(w => w.自社コード == myCompany && w.支払年月 == createYearMonth)
+                    .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                        x => x.自社コード,
+                        y => y.自社コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                        (a, b) => new { SHRHD = a.x, JIS = b})
+                    .Select(x => new S02_SHRHD_Data
+                    {
+                        自社コード = x.SHRHD.自社コード,
+                        自社名 = x.JIS.自社名,
+                        支払年月 = x.SHRHD.支払年月,
+                        支払締日 = x.SHRHD.支払締日,
+                        支払先コード = x.SHRHD.支払先コード,
+                        支払先枝番 = x.SHRHD.支払先枝番,
+                        支払日 = x.SHRHD.支払日,
+                        回数 = x.SHRHD.回数,
+                        集計最終日 = x.SHRHD.集計最終日,
+                        前月残高 = x.SHRHD.前月残高,
+                        出金額 = x.SHRHD.出金額,
+                        繰越残高 = x.SHRHD.繰越残高,
+                        値引額 = x.SHRHD.値引額,
+                        非課税支払額 = x.SHRHD.非課税支払額,
+                        支払額 = x.SHRHD.支払額,
+                        消費税 = x.SHRHD.消費税,
+                        当月支払額 = x.SHRHD.当月支払額
+                    });
+                // No.227,228 Mod End
 
                 if (!isAllDays)
                     shd = shd.Where(w => w.支払締日 == closingDay);
@@ -302,7 +360,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        private List<T12_PAY_Data> getPayData(int year, int month, List<S02_SHRHD> hdList)
+        private List<T12_PAY_Data> getPayData(int year, int month, List<S02_SHRHD_Data> hdList)
         {
             List<T12_PAY_Data> payList = new List<T12_PAY_Data>();
 
@@ -349,7 +407,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="hdList"></param>
         /// <returns></returns>
-        private List<M01_TOK> getTokData(List<S02_SHRHD> hdList)
+        private List<M01_TOK> getTokData(List<S02_SHRHD_Data> hdList)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {

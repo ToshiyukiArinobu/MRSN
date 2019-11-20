@@ -28,6 +28,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         private class PrintMember
         {
+            public int 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public string 仕入先コード { get; set; }
             public string 仕入先名称 { get; set; }
             public long 前月繰越 { get; set; }
@@ -173,7 +175,7 @@ namespace KyoeiSystem.Application.WCFService
             DateTime targetStDate = new DateTime(yearMonth / 100, yearMonth % 100, 1);
             DateTime targetEdDate = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(1).AddDays(-1);
 
-            // 対象の取引先が「販社」の場合は販社仕入を参照する為、ロジックを分岐する
+            // 対象の取引先が「自社」の場合は販社仕入を参照する為、ロジックを分岐する
             var tokdata =
                 context.M01_TOK.Where(w => w.削除日時 == null && w.取引先コード == code && w.枝番 == eda)
                     .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null && w.取引先コード != null && w.枝番 != null),
@@ -197,7 +199,7 @@ namespace KyoeiSystem.Application.WCFService
                 paymentDate = new DateTime(targetStDate.Year, targetStDate.Month, DateTime.DaysInMonth(targetStDate.Year, targetStDate.Month));
             }
 
-            if (tokdata.JIS != null && tokdata.JIS.自社区分 == CommonConstants.自社区分.販社.GetHashCode())
+            if (tokdata.JIS != null && tokdata.JIS.自社区分 == CommonConstants.自社区分.自社.GetHashCode())
             {
                 // ヘッダ情報の登録
                 setHeaderInfoHan(context, company, yearMonth, tokdata.JIS.自社コード, targetStDate, targetEdDate, code, eda, paymentDate, userId);
@@ -443,9 +445,16 @@ namespace KyoeiSystem.Application.WCFService
                         (x, y) => new { x, y })
                     .SelectMany(x => x.y,
                         (a, b) => new { SHD = a.x, TOK = b })
+                    .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                        x => x.SHD.自社コード,
+                        y => y.自社コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                        (c, d) => new { c.x.SHD, c.x.TOK, JIS = d})
                     .GroupBy(g => new
                     {
                         g.SHD.自社コード,
+                        g.JIS.自社名,
                         g.SHD.支払年月,
                         g.SHD.支払先コード,
                         g.SHD.支払先枝番,
@@ -454,6 +463,8 @@ namespace KyoeiSystem.Application.WCFService
                     })
                     .Select(x => new PrintMember
                     {
+                        自社コード = x.Key.自社コード,        // No.227,228 Add
+                        自社名 = x.Key.自社名,                // No.227,228 Add
                         仕入先コード = string.Format("{0:0000} - {1:00}", x.Key.支払先コード, x.Key.支払先枝番),
                         仕入先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                         前月繰越 = (long)x.Sum(s => s.SHD.前月残高),
@@ -496,9 +507,16 @@ namespace KyoeiSystem.Application.WCFService
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y,
                             (a, b) => new { SHD = a.x, TOK = b })
+                        .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => x.SHD.自社コード,
+                            y => y.自社コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (c, d) => new { c.x.SHD, c.x.TOK, JIS = d})
                         .GroupBy(g => new
                         {
                             g.SHD.自社コード,
+                            g.JIS.自社名,
                             g.SHD.支払年月,
                             g.SHD.支払先コード,
                             g.SHD.支払先枝番,
@@ -507,6 +525,8 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(x => new PrintMember
                         {
+                            自社コード = x.Key.自社コード,    // No.227,228 Add
+                            自社名 = x.Key.自社名,            // No.227,228 Add
                             仕入先コード = string.Format("{0:0000} - {1:00}", x.Key.支払先コード, x.Key.支払先枝番),
                             仕入先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                             前月繰越 = (long)x.Sum(s => s.SHD.前月残高),
@@ -534,9 +554,16 @@ namespace KyoeiSystem.Application.WCFService
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y,
                             (a, b) => new { SHD = a.x, TOK = b })
+                        .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => x.SHD.自社コード,
+                            y => y.自社コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (c, d) => new { c.x.SHD, c.x.TOK, JIS = d})
                         .GroupBy(g => new
                         {
                             g.SHD.自社コード,
+                            g.JIS.自社名,
                             g.SHD.支払年月,
                             g.SHD.支払先コード,
                             g.TOK.得意先名１
@@ -544,6 +571,8 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(x => new PrintMember
                         {
+                            自社コード = x.Key.自社コード,        // No.227,228 Add
+                            自社名 = x.Key.自社名,                // No.227,228 Add
                             仕入先コード = string.Format("{0:0000} - 00", x.Key.支払先コード),
                             仕入先名称 = x.Key.得意先名１ == null ? "" : x.Key.得意先名１,
                             前月繰越 = (long)x.Sum(s => s.SHD.前月残高),
