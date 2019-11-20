@@ -32,7 +32,6 @@ namespace KyoeiSystem.Application.WCFService
             DataTable dt = getCommonData(condition);
 
             // 出力に不要な列を削除する
-            dt.Columns.Remove("K自社コード");
             dt.Columns.Remove("K入金年月");
             dt.Columns.Remove("K入金日");
             dt.Columns.Remove("K得意先コード");
@@ -98,7 +97,7 @@ namespace KyoeiSystem.Application.WCFService
             {
                 var baseList =
                     context.V_TKS08010
-                        .Where(w => w.K自社コード == myCompany && w.K入金年月 == paymentYearMonth);
+                        .Where(w => w.自社コード == myCompany && w.K入金年月 == paymentYearMonth);
 
                 #region 任意入力条件の適用
                 if (customerCode != null && customerEda != null)
@@ -118,7 +117,7 @@ namespace KyoeiSystem.Application.WCFService
                 // データを入金年月日順でソート
                 baseList =
                     baseList
-                        .OrderBy(o => o.K自社コード)
+                        .OrderBy(o => o.自社コード)
                         .ThenBy(t => t.K入金年月)
                         .ThenBy(t => t.K入金日)
                         .ThenBy(t => t.K得意先コード)

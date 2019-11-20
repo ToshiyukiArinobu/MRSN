@@ -220,7 +220,8 @@
           </EntitySet>
           <EntitySet Name="V_TKS08010" EntityType="TRAC3Model.Store.V_TKS08010" store:Type="Views" store:Schema="dbo" store:Name="V_TKS08010">
             <DefiningQuery>SELECT 
-      [V_TKS08010].[K自社コード] AS [K自社コード], 
+      [V_TKS08010].[自社コード] AS [自社コード], 
+      [V_TKS08010].[自社名] AS [自社名], 
       [V_TKS08010].[K入金年月] AS [K入金年月], 
       [V_TKS08010].[K入金日] AS [K入金日], 
       [V_TKS08010].[K得意先コード] AS [K得意先コード], 
@@ -1628,13 +1629,14 @@
       -->
         <EntityType Name="V_TKS08010">
           <Key>
-            <PropertyRef Name="K自社コード" />
+            <PropertyRef Name="自社コード" />
             <PropertyRef Name="K得意先コード" />
             <PropertyRef Name="K得意先枝番" />
             <PropertyRef Name="得意先コード" />
             <PropertyRef Name="締日" />
           </Key>
-          <Property Name="K自社コード" Type="int" Nullable="false" />
+          <Property Name="自社コード" Type="int" Nullable="false" />
+          <Property Name="自社名" Type="varchar" MaxLength="40" />
           <Property Name="K入金年月" Type="int" />
           <Property Name="K入金日" Type="int" />
           <Property Name="K得意先コード" Type="int" Nullable="false" />
@@ -2732,13 +2734,14 @@
         </EntityType>
         <EntityType Name="V_TKS08010">
           <Key>
-            <PropertyRef Name="K自社コード" />
             <PropertyRef Name="K得意先コード" />
             <PropertyRef Name="K得意先枝番" />
             <PropertyRef Name="得意先コード" />
             <PropertyRef Name="締日" />
+            <PropertyRef Name="自社コード" />
           </Key>
-          <Property Type="Int32" Name="K自社コード" Nullable="false" />
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="String" Name="自社名" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="K入金年月" />
           <Property Type="Int32" Name="K入金日" />
           <Property Type="Int32" Name="K得意先コード" Nullable="false" />
@@ -4125,6 +4128,8 @@
           <EntitySetMapping Name="V_TKS08010">
             <EntityTypeMapping TypeName="TRAC3Model.V_TKS08010">
               <MappingFragment StoreEntitySet="V_TKS08010">
+                <ScalarProperty Name="自社名" ColumnName="自社名" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
                 <ScalarProperty Name="当月入金額" ColumnName="当月入金額" />
                 <ScalarProperty Name="締日" ColumnName="締日" />
                 <ScalarProperty Name="請求年月" ColumnName="請求年月" />
@@ -4138,7 +4143,6 @@
                 <ScalarProperty Name="K得意先コード" ColumnName="K得意先コード" />
                 <ScalarProperty Name="K入金日" ColumnName="K入金日" />
                 <ScalarProperty Name="K入金年月" ColumnName="K入金年月" />
-                <ScalarProperty Name="K自社コード" ColumnName="K自社コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

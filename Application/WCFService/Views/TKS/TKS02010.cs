@@ -35,6 +35,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         private class PrintMember
         {
+            public int 自社コード { get; set; }          // No.227,228 Add
+            public string 自社名 { get; set; }           // No.227,228 Add
             public string 得意先コード { get; set; }
             public string 得意先名称 { get; set; }
             public long 前月繰越 { get; set; }
@@ -454,9 +456,16 @@ namespace KyoeiSystem.Application.WCFService
                         (x, y) => new { x, y })
                     .SelectMany(x => x.y,
                         (a, b) => new { UHD = a.x, TOK = b })
+                    .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                        x => x.UHD.自社コード,
+                        y => y.自社コード,
+                        (x, y) => new { x, y})
+                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                        (c, d) => new {c.x.UHD, c.x.TOK, JIS = d})
                     .GroupBy(g => new
                     {
                         g.UHD.自社コード,
+                        g.JIS.自社名,
                         g.UHD.請求年月,
                         g.UHD.請求先コード,
                         g.UHD.請求先枝番,
@@ -465,6 +474,8 @@ namespace KyoeiSystem.Application.WCFService
                     })
                     .Select(x => new PrintMember
                     {
+                        自社コード = x.Key.自社コード,        // No.227,228 Add
+                        自社名 = x.Key.自社名,                // No.227,228 Add
                         得意先コード = string.Format("{0:D4} - {1:D2}", x.Key.請求先コード, x.Key.請求先枝番),   // No.223 Mod
                         得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                         前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
@@ -507,9 +518,16 @@ namespace KyoeiSystem.Application.WCFService
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y,
                             (a, b) => new { UHD = a.x, TOK = b })
+                        .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => x.UHD.自社コード,
+                            y => y.自社コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (c, d) => new { c.x.UHD, c.x.TOK, JIS = d})
                         .GroupBy(g => new
                         {
                             g.UHD.自社コード,
+                            g.JIS.自社名,
                             g.UHD.請求年月,
                             g.UHD.請求先コード,
                             g.UHD.請求先枝番,
@@ -518,6 +536,8 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(x => new PrintMember
                         {
+                            自社コード = x.Key.自社コード,        // No.227,228 Add
+                            自社名 = x.Key.自社名,                // No.227,228 Add
                             得意先コード = string.Format("{0:D4} - {1:D2}", x.Key.請求先コード, x.Key.請求先枝番),
                             得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                             前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
@@ -545,15 +565,24 @@ namespace KyoeiSystem.Application.WCFService
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y,
                             (a, b) => new { UHD = a.x, TOK = b })
+                        .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => x.UHD.自社コード,
+                            y => y.自社コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (c, d) => new { c.x.UHD, c.x.TOK, JIS = d })
                         .GroupBy(g => new
                         {
                             g.UHD.自社コード,
+                            g.JIS.自社名,
                             g.UHD.請求年月,
                             g.UHD.請求先コード,
                             g.TOK.得意先名１
                         })
                         .Select(x => new PrintMember
                         {
+                            自社コード = x.Key.自社コード,        // No.227,228 Add
+                            自社名 = x.Key.自社名,                // No.227,228 Add
                             得意先コード = string.Format("{0:0000} - 00", x.Key.請求先コード),
                             得意先名称 = x.Key.得意先名１ == null ? "" : x.Key.得意先名１,
                             前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
