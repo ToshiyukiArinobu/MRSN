@@ -309,145 +309,154 @@
           <sg:BorderLine Color="Orange" Style="Thick"/>
         </sg:GcSpreadGrid.SelectionBorder>
 
-        <sg:GcSpreadGrid.Columns>
-          <!-- 伝票番号 -->
-          <sg:Column Locked="True" IsVisible="False" Focusable="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 伝票番号, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 品番コード -->
-          <sg:Column Locked="True" IsVisible="False" Focusable="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 品番コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 自社品番 -->
-          <sg:Column Locked="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off" TextWrapping="NoWrap" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 自社品名 -->
-          <sg:Column Locked="True" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 賞味期限 -->
-          <sg:Column Locked="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType MaxLength="10" ImeState="Off" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 賞味期限, TargetNullValue='', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 数量 -->
-          <sg:Column Locked="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:NumberCellType MinValue="-9999999.99" MaxValue="999999.99" SpinButtonVisibility="NotShow" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 単位 -->
-          <sg:Column Locked="True" Focusable="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 単位, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 単価 -->
-          <sg:Column Locked="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 単価, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 金額 -->
-          <sg:Column Locked="True" Focusable="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:NumberCellType IsReadOnly="True" SpinButtonVisibility="NotShow" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 税区分 -->
-          <sg:Column Locked="True" Focusable="True" CanUserResize="False" HorizontalAlignment="Center">
-            <sg:Column.CellType>
-              <sg:TextCellType MaxLength="25" MaxLengthUnit="Byte" ImeState="On" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 税区分, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 摘要 -->
-          <sg:Column Locked="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType ImeState="On" MaxLength="40" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 摘要, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 消費税区分 -->
-          <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 消費税区分, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 商品分類 -->
-          <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 商品分類, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 色コード -->
-          <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-          <!-- 自社色 -->
-          <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
-            <sg:Column.CellType>
-              <sg:TextCellType IsReadOnly="True" />
-            </sg:Column.CellType>
-            <sg:Column.DataField>
-              <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-            </sg:Column.DataField>
-          </sg:Column>
-        </sg:GcSpreadGrid.Columns>
+                <sg:GcSpreadGrid.Columns>
+                    <!-- 伝票番号 -->
+                    <sg:Column Locked="True" IsVisible="False" Focusable="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 伝票番号, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 品番コード -->
+                    <sg:Column Locked="True" IsVisible="False" Focusable="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 品番コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 自社品番 -->
+                    <sg:Column Locked="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType MaxLength="12" MaxLengthUnit="Byte" ImeState="Off" TextWrapping="NoWrap" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 自社品番, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 自社品名 -->
+                    <sg:Column Locked="True" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 賞味期限 -->
+                    <sg:Column Locked="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType MaxLength="10" ImeState="Off" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 賞味期限, TargetNullValue='', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 数量 -->
+                    <sg:Column Locked="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:NumberCellType MinValue="-9999999.99" MaxValue="999999.99" SpinButtonVisibility="NotShow" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 単位 -->
+                    <sg:Column Locked="True" Focusable="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 単位, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 単価 -->
+                    <sg:Column Locked="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 単価, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- d金額 -->
+                    <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding d金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 税区分 -->
+                    <sg:Column Locked="True" Focusable="False" CanUserResize="False" HorizontalAlignment="Center">
+                        <sg:Column.CellType>
+                            <sg:TextCellType MaxLength="25" MaxLengthUnit="Byte" ImeState="On" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 税区分, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 摘要 -->
+                    <sg:Column Locked="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType ImeState="On" MaxLength="40" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 摘要, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 消費税区分 -->
+                    <sg:Column Locked="True" IsVisible="False" Focusable="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 消費税区分, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 商品分類 -->
+                    <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 商品分類, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 色コード -->
+                    <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 自社色, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 自社色 -->
+                    <sg:Column Locked="True" IsVisible="False" CanUserResize="False">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 自社色名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                    <!-- 金額 非表示　DB取得・更新用-->
+                    <sg:Column Locked="True" IsVisible="False" >
+                        <sg:Column.CellType>
+                            <sg:NumberCellType IsReadOnly="True" SpinButtonVisibility="NotShow" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
+                </sg:GcSpreadGrid.Columns>
 
-      </sg:GcSpreadGrid>
+            </sg:GcSpreadGrid>
 
       <!-- フッター部(合計表示領域) -->
       <Grid x:Name="FooterArea" Grid.Row="2" Margin="15,0,0,0">
