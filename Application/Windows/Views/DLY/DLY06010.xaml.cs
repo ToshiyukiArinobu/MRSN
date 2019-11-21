@@ -692,8 +692,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // 【明細】詳細データが１件もない場合はエラー
 
-            // hyu-test
-            //if (SearchDetail == null || SearchDetail.Rows.Count == 0 || SearchDetail.Select("金種コード > 0").Count() == 0)
             // No-271 Mod Start
             // 金種コード入力件数取得
             int intInpCnt = SearchDetail.AsEnumerable()
