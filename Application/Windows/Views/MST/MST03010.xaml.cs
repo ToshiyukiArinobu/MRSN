@@ -47,6 +47,7 @@ namespace KyoeiSystem.Application.Windows.Views
             public string _材料品名;
             public string _材料色;
             public string _数量;
+            public string _自社色;
 
             public string 自社品名 { get { return _自社品名; } set { _自社品名 = value; NotifyPropertyChanged(); } }
             public int 品番コード { get { return _品番コード; } set { _品番コード = value; NotifyPropertyChanged(); } }
@@ -55,6 +56,7 @@ namespace KyoeiSystem.Application.Windows.Views
             public string 材料品名 { get { return _材料品名; } set { _材料品名 = value; NotifyPropertyChanged(); } }
             public string 材料色 { get { return _材料色; } set { _材料色 = value; NotifyPropertyChanged(); } }
             public string 数量 { get { return _数量; } set { _数量 = value; NotifyPropertyChanged(); } }
+            public string 自社色 { get { return _自社色; } set { _自社色 = value; NotifyPropertyChanged(); } }
 
 
             #region INotifyPropertyChanged メンバー
@@ -305,16 +307,52 @@ namespace KyoeiSystem.Application.Windows.Views
                 row.Cells[0].Value = 0;
                 row.Cells[3].Value = string.Empty;
                 row.Cells[4].Value = string.Empty;
+                row.Cells[6].Value = string.Empty;
 
                 return;
             }
 
-            DataRow dr = tbl.Rows[0];
+            if (tbl.Rows.Count == 1)
+            {
 
-            row.Cells[0].Value = int.Parse(dr["品番コード"].ToString());
-            row.Cells[2].Value = dr["自社品番"].ToString();
-            row.Cells[3].Value = dr["自社品名"].ToString();
-            row.Cells[4].Value = dr["自社色名"].ToString();
+                DataRow dr = tbl.Rows[0];
+                row.Cells[0].Value = dr["品番コード"].ToString();
+                row.Cells[2].Value = dr["自社品番"].ToString();
+                row.Cells[3].Value = dr["自社色"].ToString();
+                row.Cells[4].Value = dr["自社色名"].ToString();
+                row.Cells[5].Value = dr["自社品名"].ToString();
+            }
+            else
+            {
+                //商品検索画面出力
+                string hinCode = row.Cells[2].Value.ToString();
+                UcLabelTwinTextBox dmy = new UcLabelTwinTextBox();
+                SCHM09_MYHIN myHin = new SCHM09_MYHIN();
+                myHin.chkItemClass_1.IsChecked = false;
+                myHin.chkItemClass_1.IsEnabled = false;
+                myHin.txtCode.Text = hinCode;
+                myHin.TwinTextBox = dmy;
+                if (myHin.ShowDialog(this) ?? false)
+                {
+
+                    int myCode = (int)myHin.SelectedRowData["品番コード"];
+                    int cnt = SetKouseihin.Where(x => x.品番コード == myCode).Count();
+                    if (cnt > 0)
+                    {
+                        MessageBox.Show("同じ材料品番が既に登録されています。");
+                        return;
+                    }
+
+                    row.Cells[0].Value = myHin.SelectedRowData["品番コード"].ToString();
+                    row.Cells[2].Value = myHin.SelectedRowData["自社品番"].ToString();
+                    row.Cells[3].Value = myHin.SelectedRowData["自社色"].ToString();
+                    row.Cells[4].Value = myHin.SelectedRowData["自社色名"].ToString();
+                    row.Cells[5].Value = myHin.SelectedRowData["自社品名"].ToString();
+
+                    NotifyPropertyChanged();
+
+                }
+            }
 
         }
 
@@ -359,6 +397,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 member.材料品名 = dr["材料品名"].ToString();
                 member.材料色 = dr["材料色"].ToString();
                 member.数量 = dr["数量"].ToString();
+                member.自社色 = dr["自社色"].ToString();
 
             }
             else if (dataRow is SpreadGridRow)
@@ -373,6 +412,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 member.材料品名 = sgr.Cells[3].Value == null ? string.Empty : sgr.Cells[3].Value.ToString();
                 member.材料色 = sgr.Cells[4].Value == null ? string.Empty : sgr.Cells[4].Value.ToString();
                 member.数量 = sgr.Cells[5].Value == null ? string.Empty : sgr.Cells[5].Value.ToString();
+                member.自社色 = sgr.Cells[6].Value == null ? string.Empty : sgr.Cells[5].Value.ToString();
 
             }
 
@@ -412,8 +452,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             {
                                 SpreadGridRow row = spComponent.Rows[spComponent.ActiveRowIndex];
 
-                                string myCode = myHin.SelectedRowData["自社品番"].ToString();
-                                int cnt = SetKouseihin.Where(x => x.材料品番 == myCode).Count();
+                                int myCode = (int)myHin.SelectedRowData["品番コード"];
+                                int cnt = SetKouseihin.Where(x => x.品番コード == myCode).Count();
                                 if (cnt > 0)
                                 {
                                     MessageBox.Show("同じ材料品番が既に登録されています。");
@@ -421,9 +461,10 @@ namespace KyoeiSystem.Application.Windows.Views
                                 }
 
                                 row.Cells[0].Value = myHin.SelectedRowData["品番コード"].ToString();
-                                row.Cells[2].Value = myCode;
-                                row.Cells[3].Value = myHin.SelectedRowData["自社品名"].ToString();
+                                row.Cells[2].Value = myHin.SelectedRowData["自社品番"].ToString();
+                                row.Cells[3].Value = myHin.SelectedRowData["自社色"].ToString();
                                 row.Cells[4].Value = myHin.SelectedRowData["自社色名"].ToString();
+                                row.Cells[5].Value = myHin.SelectedRowData["自社品名"].ToString();
 
                                 NotifyPropertyChanged();
 
@@ -541,8 +582,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBox.Show("新規登録データは削除できません。");
                     SetFocusToTopControl();
                     return;
-
                 }
+
+                var yesno = MessageBox.Show("構成品を削除してよろしいですか？", "登録確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                if (yesno == MessageBoxResult.No)
+                    return;
 
                 // 削除用の空データセットを作成
                 DataSet ds = new DataSet();
@@ -666,39 +710,22 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 // 編集列が『材料品番』の場合
-                if (spGrid.ActiveColumn.Index == 2)
+                if (spGrid.ActiveColumn.Index == 2 || spGrid.ActiveColumn.Index == 3)
                 {
                     SpreadGridRow row = spGrid.Rows[e.CellPosition.Row];
                     string myCode = (string)row.Cells[spGrid.Columns["材料品番"].Index].Value;
+                    string myColor = (string)row.Cells[spGrid.Columns["自社色"].Index].Value;
 
-                    if (string.IsNullOrEmpty(myCode))
-                    {
-                        // 材料品番が空値の場合は各項目を初期化する
-                        ClearSpreadRow(myCode);
-                        NotifyPropertyChanged();
-
-                    }
-                    else
-                    {
-                        int cnt = SetKouseihin.Where(x => x.材料品番 == myCode).Count();
-                        if (cnt > 1)
-                        {
-                            MessageBox.Show("同じ材料品番が既に登録されています。");
-                            return;
-                        }
-
-                        // 入力値より品番情報を取得
-                        this.SendRequest(
-                            new CommunicationObject(
-                                MessageType.RequestData,
-                                TargetTableNm_GetProduct,
-                                new object[] {
+                    // 入力値より品番情報を取得
+                    this.SendRequest(
+                        new CommunicationObject(
+                            MessageType.RequestData,
+                            TargetTableNm_GetProduct,
+                            new object[] {
                                     myCode,
+                                    myColor,
                                     new int[] { 2, 3, 4 }     // 対象商品形態：2:単品・材料、3:雑コード、4:副資材
                                 }));
-
-                    }
-
                 }
 
             }
@@ -811,28 +838,37 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             string errMsg = string.Empty;
 
-            int line = 1;
-            foreach (var data in SetKouseihin)
+            for (int i = 0; i < SetKouseihin.Count(); i++)
             {
+                var data = SetKouseihin[i];
                 if (string.IsNullOrEmpty(data.材料品番))
                     continue;
 
                 if (string.IsNullOrEmpty(data.材料品名))
                 {
                     // 名称＝空値 => 対象外(SET品)の品番 or 品番登録なし
-                    errMsg = string.Format("{0}行目：品番は登録されていません。", line);
+                    errMsg = string.Format("{0}行目：品番は登録されていません。", i + 1);
                     return errMsg;
                 }
 
                 if (string.IsNullOrEmpty(data.数量))
                 {
                     // 数量は必須
-                    errMsg = string.Format("{0}行目：数量が入力されていません。", line);
+                    errMsg = string.Format("{0}行目：数量が入力されていません。", i + 1);
                     return errMsg;
                 }
 
-                line++;
+                for (int j = i + 1; j < SetKouseihin.Count(); j++)
+                {
+                    var nextdata = SetKouseihin[j];
 
+                    if (data.品番コード == nextdata.品番コード)
+                    {
+                        // 名称＝空値 => 対象外(SET品)の品番 or 品番登録なし
+                        errMsg = string.Format("{0}行目：同じ品番が複数行存在しています。", i + 1);
+                        return errMsg;
+                    }
+                }
             }
 
             return string.Empty;

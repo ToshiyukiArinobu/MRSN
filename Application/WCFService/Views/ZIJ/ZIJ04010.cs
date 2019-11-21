@@ -99,23 +99,23 @@ namespace KyoeiSystem.Application.WCFService
 
                     #region 検索条件絞込
 
-                    // 入金日From
+                    // 出金日From
                     DateTime wkFromDate;
                     string fromDate = cond["出金日From"];
                     if (!string.IsNullOrEmpty(fromDate) && DateTime.TryParse(fromDate, out wkFromDate))
                         payDataList = payDataList.Where(w => w.PHD.出金日 >= wkFromDate).ToList();
 
-                    // 入金日To
+                    // 出金日To
                     DateTime wkToDate;
                     string toDate = cond["出金日To"];
                     if (!string.IsNullOrEmpty(toDate) && DateTime.TryParse(toDate, out wkToDate))
                         payDataList = payDataList.Where(w => w.PHD.出金日 <= wkToDate).ToList();
 
-                    // 入金元販社
+                    // 出金先販社
                     int wkJisCode;
                     string jisCode = cond["出金先販社コード"];
                     if (!string.IsNullOrEmpty(jisCode) && int.TryParse(jisCode, out wkJisCode))
-                        payDataList = payDataList.Where(w => w.PHD.出金先販社コード >= wkJisCode).ToList();
+                        payDataList = payDataList.Where(w => w.PHD.出金先販社コード == wkJisCode).ToList();
 
                     // 得意先
                     int wkCode, wkEda;

@@ -23,6 +23,7 @@ namespace KyoeiSystem.Application.WCFService
         {
             public string 自社品名 { get; set; }
             public int 品番コード { get; set; }
+            public string 自社色 { get; set; }
             public int 行 { get; set; }
             public string 材料品番 { get; set; }
             public string 材料品名 { get; set; }
@@ -143,6 +144,7 @@ namespace KyoeiSystem.Application.WCFService
                                 行 = m.SHIN.部品行,
                                 材料品番 = mkousei.自社品番,
                                 材料品名 = mkousei.自社品名,
+                                自社色 = mkousei.自社色,
                                 材料色 = iro.色名称,
                                 数量 = SqlFunctions.StringConvert((double?)m.SHIN.使用数量)
                             }).AsQueryable();

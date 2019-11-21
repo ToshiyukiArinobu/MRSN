@@ -211,14 +211,22 @@
                                 <sg:Column.DataField>
                                     <sg:BindingDataField Binding="{Binding Path=材料品番, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />                                </sg:Column.DataField>
                             </sg:Column>
-                            <sg:Column Focusable="True" Locked="True">
+                            <sg:Column Focusable="True">
+                                <sg:Column.CellType>
+                                    <sg:TextCellType ImeConversionMode="Native" />
+                                </sg:Column.CellType>
                                 <sg:Column.DataField>
-                                    <sg:BindingDataField Binding="{Binding Path=材料品名}" />
-                                </sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding Path=自社色, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />                                </sg:Column.DataField>
                             </sg:Column>
                             <sg:Column Focusable="True" Locked="True">
                                 <sg:Column.DataField>
                                     <sg:BindingDataField Binding="{Binding Path=材料色}" />
+                                </sg:Column.DataField>
+                            </sg:Column>
+
+                            <sg:Column Focusable="True" Locked="True">
+                                <sg:Column.DataField>
+                                    <sg:BindingDataField Binding="{Binding Path=材料品名}" />
                                 </sg:Column.DataField>
                             </sg:Column>
                             <sg:Column Focusable="True" HorizontalAlignment="Right">

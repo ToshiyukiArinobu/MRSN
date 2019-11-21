@@ -349,7 +349,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="myProductCode">自社品番</param>
         /// <param name="itemType">商品形態分類の配列</param>
         /// <returns></returns>
-        public List<M09_HIN_NAMED> GetNamedData(string myProductCode, int[] itemType)
+        public List<M09_HIN_NAMED> GetNamedData(string myProductCode,string myColor, int[] itemType)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -359,9 +359,14 @@ namespace KyoeiSystem.Application.WCFService
                 if (itemType == null || itemTypeList.Count == 0)
                     itemTypeList = new List<int>() { 1, 2, 3, 4 };  // デフォルト値として全指定状態を設定
 
+                if (string.IsNullOrEmpty(myColor))
+                {
+                    myColor = null;
+                }
+
                 var result =
                     context.M09_HIN.Where(w =>
-                            (w.削除日時 == null || w.論理削除 == 論理削除) && w.自社品番 == myProductCode && itemTypeList.Contains(w.商品形態分類 ?? 0))
+                            (w.削除日時 == null || w.論理削除 == 論理削除) && w.自社品番 == myProductCode && (w.自社色 == myColor || myColor == null) && itemTypeList.Contains(w.商品形態分類 ?? 0))
                     .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
                         x => x.自社色, y => y.色コード, (x, y) => new { x, y })
                     .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { HIN = p.x, 色名称 = q.色名称 })
@@ -380,7 +385,7 @@ namespace KyoeiSystem.Application.WCFService
                     .GroupJoin(context.M16_HINGUN.Where(w => w.削除日時 == null),
                         x => x.HIN.品群, y => y.品群コード, (x, y) => new { x, y })
                     .SelectMany(m => m.y.DefaultIfEmpty(), (p, q) => new { p.x.HIN, p.x.色名称, p.x.大分類名, p.x.TYU, p.x.ブランド名, p.x.シリーズ名, 品群名 = q.品群名 })
-                    .Where(c => c.HIN.大分類 == c.TYU.大分類コード).DefaultIfEmpty() //暫定
+                    .Where(c => c.HIN.大分類 == c.TYU.大分類コード)//.DefaultIfEmpty() //暫定
                     .Select(t => new M09_HIN_NAMED
                     {
                         品番コード = t.HIN.品番コード,

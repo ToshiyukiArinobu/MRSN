@@ -115,7 +115,7 @@ namespace KyoeiSystem.Application.WCFService
                     int wkJisCode;
                     string jisCode = cond["入金元販社コード"];
                     if (!string.IsNullOrEmpty(jisCode) && int.TryParse(jisCode, out wkJisCode))
-                        nkDataList = nkDataList.Where(w => w.NHD.入金元販社コード >= wkJisCode).ToList();
+                        nkDataList = nkDataList.Where(w => w.NHD.入金元販社コード == wkJisCode).ToList();
 
                     // 得意先
                     int wkCode, wkEda;
