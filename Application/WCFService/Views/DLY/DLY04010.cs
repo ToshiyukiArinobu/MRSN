@@ -681,7 +681,7 @@ namespace KyoeiSystem.Application.WCFService
                         { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() },
                     };
 
-                // 売上作成の為、履歴作成
+                // 履歴作成
                 S04Service.CreateProductHistory(history);
             }
             // No-258 Mod End

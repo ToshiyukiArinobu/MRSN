@@ -57,10 +57,14 @@
           <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
         </RibbonGroup>
         <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+          <RibbonButton LargeImageSource="../Images/行追加.png" Margin="0,-1,0,0"
+                        Label="行追加" Click="RibbonButton_Click" KeyTip="F5" Height="50"
+          />
         </RibbonGroup>
         <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+          <RibbonButton LargeImageSource="../Images/28削除.png" Margin="0,-1,0,0"
+                        Label="行削除" Click="RibbonButton_Click" KeyTip="F6" Height="50"
+          />
         </RibbonGroup>
         <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
           <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
@@ -249,7 +253,7 @@
         </Grid>
 
         <!-- 出金明細 -->
-        <sg:GcSpreadGrid Name="gcSpreadGrid" Grid.Row="2" HorizontalAlignment="Left" AutoFitType="CellWithHeader" LayoutMode="Cell"
+        <sg:GcSpreadGrid Name="gcSpreadGrid" Grid.Row="2" HorizontalAlignment="Left" LayoutMode="Cell"
                          AutoGenerateColumns="False" HighlightHeader="None" RowCount="10" OperationMode="Normal"
                          Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" MaxHeight="470" Margin="80,5,0,0"
                          DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY06010G1.sgxml"
