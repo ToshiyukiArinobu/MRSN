@@ -153,6 +153,50 @@ namespace KyoeiSystem.Application.WCFService
 
         }
 
+        /// <summary>
+        /// 入金入力情報を論理削除する
+        /// </summary>
+        /// <param name="ds"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public int Delete(DataSet ds, int userId)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                using (var tran = context.Connection.BeginTransaction(System.Data.IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        // 1>> ヘッダ情報論理削除
+                        DataRow hdRow = ds.Tables[TABLE_HEADER].Rows[0];
+
+                        setT11_NYKNHD_Delete(context, hdRow, userId);
+
+                        // 2>> 明細情報論理削除
+                        setT11_NYKNDTL_Delete(context, ds.Tables[TABLE_DETAIL], userId);
+
+                        // 変更状態を確定
+                        context.SaveChanges();
+
+                        tran.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+
+            }
+
+            return 1;
+
+        }
+
         #endregion
 
 
@@ -257,6 +301,36 @@ namespace KyoeiSystem.Application.WCFService
 
         }
 
+
+        /// <summary>
+        /// 入金ヘッダ情報の論理削除をおこなう
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="hdRow"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private int setT11_NYKNHD_Delete(TRAC3Entities context, DataRow hdRow, int userId)
+        {
+            // 入力情報
+            T11_NYKNHD t11Data = convertDataRowToT11_NYKNHD_Entity(hdRow);
+
+            // 登録データ取得
+            var hdData = context.T11_NYKNHD
+                            .Where(w => w.伝票番号 == t11Data.伝票番号)
+                            .FirstOrDefault();
+
+            if (hdData != null)
+            {
+                // データを論理削除
+                hdData.削除者 = userId;
+                hdData.削除日時 = DateTime.Now;
+
+                hdData.AcceptChanges();
+            }
+
+            return 1;
+
+        }
         #endregion
 
         #region << 入金明細 >>
@@ -355,6 +429,33 @@ namespace KyoeiSystem.Application.WCFService
             }
 
             context.SaveChanges();
+
+            return 1;
+
+        }
+
+        /// <summary>
+        /// 入金明細情報の論理削除をおこなう
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="dt"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private int setT11_NYKNDTL_Delete(TRAC3Entities context, DataTable dt, int userId)
+        {
+            // 登録済みデータを物理削除
+            int i伝票番号 = AppCommon.IntParse(dt.DataSet.Tables[TABLE_HEADER].Rows[0]["伝票番号"].ToString());
+
+            var delData = context.T11_NYKNDTL.Where(w => w.伝票番号 == i伝票番号).ToList();
+            if (delData != null)
+            {
+                foreach (T11_NYKNDTL dtl in delData)
+                {
+                    dtl.削除者 = userId;
+                    dtl.削除日時 = DateTime.Now;
+                    dtl.AcceptChanges();
+                }
+            }
 
             return 1;
 

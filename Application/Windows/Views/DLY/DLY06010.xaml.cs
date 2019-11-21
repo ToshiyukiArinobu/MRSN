@@ -37,7 +37,7 @@ namespace KyoeiSystem.Application.Windows.Views
     using DebugLog = System.Diagnostics.Debug;
 
     /// <summary>
-    /// 支払入力
+    /// 出金入力
     /// </summary>
     public partial class DLY06010 : RibbonWindowViewBase
     {
@@ -67,7 +67,9 @@ namespace KyoeiSystem.Application.Windows.Views
 		private const string T12_GetData = "T12_GetData";
         /// <summary>出金情報更新</summary>
         private const string T12_Update = "T12_Update";
-
+        /// <summary>出金情報削除</summary>
+        private const string T12_Delete = "T12_Delete";
+        
         /// <summary>出金ヘッダ テーブル名</summary>
         private const string T12_HEADER_TABLE_NAME = "T12_PAYHD";
         /// <summary>出金明細 テーブル名</summary>
@@ -240,7 +242,15 @@ namespace KyoeiSystem.Application.Windows.Views
             this.txt会社名.IsEnabled = ccfg.自社販社区分.Equals(自社販社区分.自社.GetHashCode());
 
             this.txt伝票番号.Focus();
-
+            //削除機能制御
+            if (ccfg.自社販社区分 == (int)自社販社区分.自社)
+            {
+                rbnF12.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                rbnF12.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
 
         #endregion
@@ -283,6 +293,11 @@ namespace KyoeiSystem.Application.Windows.Views
                         ScreenClear();
                         break;
 
+                    case T12_Delete:
+                        MessageBox.Show(AppConst.SUCCESS_DELETE, "削除完了", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // コントロール初期化
+                        ScreenClear();
+                        break;
                     default:
                         break;
 
@@ -541,6 +556,28 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
+        /// <summary>
+        /// F12　リボン　削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF12Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode != AppConst.MAINTENANCEMODE_EDIT)
+            {
+                return;
+            }
+
+            if (rbnF12.Visibility == Visibility.Visible)
+            {
+                var yesno = MessageBox.Show("表示中の伝票を削除してもよろしいですか？", "削除確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (yesno == MessageBoxResult.Yes)
+                {
+                    Delete();
+                }
+            }
+        }
+
         #endregion
 
         #region << 検索データ設定・登録・削除処理 >>
@@ -624,6 +661,22 @@ namespace KyoeiSystem.Application.Windows.Views
                 new CommunicationObject(
                     MessageType.UpdateData,
                     T12_Update,
+                    new object[] {
+                        SearchDetail.DataSet,
+                        ccfg.ユーザID
+                    }));
+
+        }
+
+        /// <summary>
+        /// 入金情報の削除処理をおこなう
+        /// </summary>
+        private void Delete()
+        {
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.UpdateData,
+                    T12_Delete,
                     new object[] {
                         SearchDetail.DataSet,
                         ccfg.ユーザID

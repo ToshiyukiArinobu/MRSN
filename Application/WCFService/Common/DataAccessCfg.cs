@@ -338,10 +338,12 @@ namespace KyoeiSystem.Application.WCFService
             // 入金入力
             new WCFDataAccessConfig() { Name = "T11_GetData", ServiceClass = "T11", MethodName = "GetData", Descprition = "入金入力情報取得" },
             new WCFDataAccessConfig() { Name = "T11_Update", ServiceClass = "T11", MethodName = "Update", Descprition = "入金入力情報登録・更新" },
+            new WCFDataAccessConfig() { Name = "T11_Delete", ServiceClass = "T11", MethodName = "Delete", Descprition = "入金入力情報登録・更新" },
 
             // 支払入力
             new WCFDataAccessConfig() { Name = "T12_GetData", ServiceClass = "T12", MethodName = "GetData", Descprition = "支払入力情報取得" },
             new WCFDataAccessConfig() { Name = "T12_Update", ServiceClass = "T12", MethodName = "Update", Descprition = "支払入力情報登録・更新" },
+            new WCFDataAccessConfig() { Name = "T12_Delete", ServiceClass = "T12", MethodName = "Delete", Descprition = "入金入力情報登録・更新" },
 
             // 販社売上修正
             new WCFDataAccessConfig() { Name = "DLY12010_GetData", ServiceClass = "DLY12010", MethodName = "GetData", Descprition = "販社売上入力情報取得" },
