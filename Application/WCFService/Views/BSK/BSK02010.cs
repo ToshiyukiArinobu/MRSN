@@ -23,6 +23,8 @@ namespace KyoeiSystem.Application.WCFService
             /// 帳票で改ページさせる為、
             /// 「コード」「枝番」を結合して設定
             /// </remarks>
+            public int 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public string 得意先コード { get; set; }
             public string 得意先名 { get; set; }
             public long 集計売上額０１ { get; set; }
@@ -48,6 +50,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class TallyMember
         {
+            public int 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public long 金額 { get; set; }
         }
 
@@ -107,6 +111,7 @@ namespace KyoeiSystem.Application.WCFService
                         int yearMonth = targetMonth.Year * 100 + targetMonth.Month;
 
                         #region linq
+                        // No.227,228 Mod Start
                         var dtlList =
                             context.S01_SEIDTL
                                 .Where(w =>
@@ -114,11 +119,20 @@ namespace KyoeiSystem.Application.WCFService
                                     w.請求年月 == yearMonth &&
                                     w.請求先コード == tokRow.取引先コード &&
                                     w.請求先枝番 == tokRow.枝番)
-                                .GroupBy(g => new { g.自社コード, g.請求年月, g.請求先コード, g.請求先枝番 })
+                                .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                    x => x.自社コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(x => x.y.DefaultIfEmpty(),
+                                    (a, b) => new { SEIDH = a.x, JIS = b})
+                                .GroupBy(g => new { g.SEIDH.自社コード, g.JIS.自社名, g.SEIDH.請求年月, g.SEIDH.請求先コード, g.SEIDH.請求先枝番 })
                                 .Select(s => new TallyMember
                                 {
-                                    金額 = s.Sum(m => m.金額)
+                                    自社コード = s.Key.自社コード,
+                                    自社名 = s.Key.自社名,
+                                    金額 = s.Sum(m => m.SEIDH.金額)
                                 });
+                        // No.227,228 Mod End
                         #endregion
 
                         // 対象月の集計データを格納
@@ -141,7 +155,9 @@ namespace KyoeiSystem.Application.WCFService
                         for (int i = 0; i < tallyList.Count; i++)
                         {
                             BSK02010_PrintMember print = new BSK02010_PrintMember();
-                            print.得意先コード = string.Format("{0:000} - {1:00}", tokRow.取引先コード, tokRow.枝番);     // No.132-3 Mod
+                            print.自社コード = tallyList[i].自社コード;       // No.227,228 Add
+                            print.自社名 = tallyList[i].自社名;               // No.227,228 Add
+                            print.得意先コード = string.Format("{0:D4} - {1:D2}", tokRow.取引先コード, tokRow.枝番);     // No.132-3 Mod
                             print.得意先名 = tokRow.略称名;     // No.229 Mod
                             print.集計合計額 += tallyList[i].金額;
 
@@ -222,9 +238,11 @@ namespace KyoeiSystem.Application.WCFService
 
                 resultList =
                     resultList.AsEnumerable()
-                        .GroupBy(g => new { g.得意先コード, g.得意先名 })
+                        .GroupBy(g => new { g.自社コード, g.自社名, g.得意先コード, g.得意先名 })
                         .Select(s => new BSK02010_PrintMember
                         {
+                            自社コード = s.Key.自社コード,        // No.227,228 Add
+                            自社名 = s.Key.自社名,                // No.227,228 Add
                             得意先コード = s.Key.得意先コード,
                             得意先名 = s.Key.得意先名,
                             集計売上額０１ = s.Sum(m => m.集計売上額０１),
