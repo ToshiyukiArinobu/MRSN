@@ -252,11 +252,14 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="context"></param>
         /// <param name="slipNumber"></param>
+        /// <param name="CreateId"></param>
         /// <returns></returns>
-        public void PhysicalDeletionProductHistory(TRAC3Entities context, int slipNumber)
+        public void PhysicalDeletionProductHistory(TRAC3Entities context, int slipNumber, int CreateId)
         {
             // 登録済みデータを物理削除
-            var delData = context.S04_HISTORY.Where(w => w.伝票番号 == slipNumber).ToList();
+            var delData = context.S04_HISTORY.Where(w => w.伝票番号 == slipNumber
+                                                    && w.作成機能ID == CreateId)
+                                                    .ToList();
             if (delData != null)
             {
                 foreach (S04_HISTORY dtl in delData)

@@ -624,7 +624,7 @@ namespace KyoeiSystem.Application.WCFService
                 // 登録済み入出庫データの削除
                 int intSlipNumber = idohd.伝票番号;
                 // 入出庫データの物理削除
-                S04Service.PhysicalDeletionProductHistory(context, intSlipNumber);
+                S04Service.PhysicalDeletionProductHistory(context, intSlipNumber, (int)S04.機能ID.商品移動振替入力);
             }
 
             // 不要レコード除去
