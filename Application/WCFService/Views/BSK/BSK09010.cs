@@ -19,8 +19,9 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class BSK09010_PrintMember
         {
+            public int 自社コード { get; set; }        // No.227,228 Add
+            public string 自社名 { get; set; }         // No.227,228 Add
             public string 得意先コード { get; set; }   // No.223 Mod
-            public string 得意先枝番 { get; set; }     // No.223 Mod
             public string 得意先名 { get; set; }
             public string 入金日 { get; set; }         // No-168 Mod
             public string 支払日 { get; set; }         // No-168 Mod
@@ -62,9 +63,17 @@ namespace KyoeiSystem.Application.WCFService
                             (x, y) => new { x, y })
                         .SelectMany(z => z.y.DefaultIfEmpty(),
                             (c, d) => new { c.x.TOK, c.x.SEI, SHR = d })
+                        .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => x.SEI.自社コード,
+                            y => y.自社コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (e, f) => new { e.x.TOK, e.x.SEI, e.x.SHR, JIS = f})
                         .Where(w => w.SEI != null && w.SHR != null)
                         .Select(s => new
                             {
+                                s.JIS.自社コード,            // No.227,228 Add
+                                s.JIS.自社名,                // No.227,228 Add
                                 s.TOK.取引先コード,
                                 s.TOK.枝番,
                                 取引先名 = s.TOK.略称名,     // No.229 Mod
@@ -79,8 +88,9 @@ namespace KyoeiSystem.Application.WCFService
                         .ToList()
                         .Select(s => new BSK09010_PrintMember
                         {
-                            得意先コード = string.Format("{0:D4}", s.取引先コード),     // No.223 Mod
-                            得意先枝番 = string.Format("{0:D2}", s.枝番),               // No.223 Mod
+                            自社コード = s.自社コード,
+                            自社名 = s.自社名,
+                            得意先コード = string.Format("{0:D4} - {0:D2}", s.取引先コード, s.枝番),     // No.223 Mod
                             得意先名 = s.取引先名,
                             入金日 = DateTime.TryParseExact(s.入金日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt.ToShortDateString() : DateTime.Now.ToShortDateString(),        // No-168 Mod
                             支払日 = DateTime.TryParseExact(s.支払日.ToString(), "yyyyMMdd", null, DateTimeStyles.None, out wdt) ? wdt.ToShortDateString() : DateTime.Now.ToShortDateString(),        // No-168 Mod

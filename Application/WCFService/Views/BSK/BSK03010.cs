@@ -23,6 +23,8 @@ namespace KyoeiSystem.Application.WCFService
             /// 帳票で改ページさせる為、
             /// 「コード」「枝番」を結合して設定
             /// </remarks>
+            public int 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public string シリーズコード { get; set; }
             public string シリーズ名 { get; set; }
             public int 品番コード { get; set; }
@@ -51,6 +53,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class TallyMember
         {
+            public int 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public int 品番コード { get; set; }
             public string 自社色 { get; set; }
             public string シリーズ { get; set; }
@@ -118,6 +122,7 @@ namespace KyoeiSystem.Application.WCFService
                         int yearMonth = targetMonth.Year * 100 + targetMonth.Month;
 
                         #region linq
+                        // No.227,228 Mod Start
                         var dtlList =
                             context.S01_SEIDTL
                                 .Where(w =>
@@ -143,11 +148,31 @@ namespace KyoeiSystem.Application.WCFService
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
                                     (e, f) => new { e.x.SD, e.x.HN, e.x.IR, SR = f })
+                                .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                    x => x.SD.自社コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(z => z.y.DefaultIfEmpty(),
+                                    (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.SR, JIS = h})
                                 .GroupBy(g => new
-                                { g.SD.自社コード, g.SD.請求年月, g.SD.請求先コード, g.SD.請求先枝番, g.SD.品番コード,
-                                    g.HN.自社品番, g.HN.自社色, g.HN.シリーズ, g.SR.シリーズ名, g.HN.自社品名, g.IR.色名称 })
+                                {
+                                    g.SD.自社コード,
+                                    g.JIS.自社名,
+                                    g.SD.請求年月,
+                                    g.SD.請求先コード,
+                                    g.SD.請求先枝番,
+                                    g.SD.品番コード,
+                                    g.HN.自社品番,
+                                    g.HN.自社色,
+                                    g.HN.シリーズ,
+                                    g.SR.シリーズ名,
+                                    g.HN.自社品名,
+                                    g.IR.色名称
+                                })
                                 .Select(s => new TallyMember
                                 {
+                                    自社コード = s.Key.自社コード,        // No.227,228 Add
+                                    自社名 = s.Key.自社名,                // No.227,228 Add
                                     品番コード = s.Key.品番コード,
                                     自社色 = s.Key.自社色,
                                     シリーズ = s.Key.シリーズ,
@@ -157,6 +182,7 @@ namespace KyoeiSystem.Application.WCFService
                                     色名称 = s.Key.色名称,
                                     金額 = s.Sum(m => m.SD.金額)
                                 });
+                        // No.227,228 Mod End
                         #endregion
 
                         // シリーズ指定がある場合は絞り込み
@@ -184,6 +210,8 @@ namespace KyoeiSystem.Application.WCFService
                         for (int i = 0; i < tallyList.Count; i++)
                         {
                             BSK03010_PrintMember print = new BSK03010_PrintMember();
+                            print.自社コード = tallyList[i].自社コード;       // No.227,228 Add
+                            print.自社名 = tallyList[i].自社名;               // No.227,228 Add
                             print.シリーズコード = tallyList[i].シリーズ;
                             print.シリーズ名 = tallyList[i].シリーズ名;
                             print.品番コード = tallyList[i].品番コード;
@@ -259,9 +287,11 @@ namespace KyoeiSystem.Application.WCFService
                     #region データリストを集計して最終データを作成
                     printList =
                         printList.AsEnumerable()
-                            .GroupBy(g => new { シリーズコード = g.シリーズコード, シリーズ名 = g.シリーズ名, g.品番コード, g.品番名称, g.色名称 })
+                            .GroupBy(g => new { 自社コード = g.自社コード, 自社名 = g.自社名, シリーズコード = g.シリーズコード, シリーズ名 = g.シリーズ名, g.品番コード, g.品番名称, g.色名称 })   // No.227,228 Mod
                             .Select(s => new BSK03010_PrintMember
                             {
+                                自社コード = s.Key.自社コード,    // No.227,228 Add
+                                自社名 = s.Key.自社名,            // No.227,228 Add
                                 シリーズコード = s.Key.シリーズコード,
                                 シリーズ名 = s.Key.シリーズ名,
                                 品番コード = s.Key.品番コード,
@@ -295,6 +325,8 @@ namespace KyoeiSystem.Application.WCFService
                 resultList =
                     resultList
                         .GroupBy(g => new {
+                            自社コード = g.自社コード,        // No.227,228 Add
+                            自社名 = g.自社名,                // No.227,228 Add
                             シリーズコード = g.シリーズコード,
                             シリーズ名 = g.シリーズ名,
                             品番コード = g.品番コード,
@@ -303,6 +335,8 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .Select(s => new BSK03010_PrintMember
                         {
+                            自社コード = s.Key.自社コード,            // No.227,228 Add
+                            自社名 = s.Key.自社名,                    // No.227,228 Add
                             シリーズコード = s.Key.シリーズコード,
                             シリーズ名 = s.Key.シリーズ名,
                             品番コード = s.Key.品番コード,

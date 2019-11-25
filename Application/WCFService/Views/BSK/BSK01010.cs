@@ -23,6 +23,8 @@ namespace KyoeiSystem.Application.WCFService
             /// 帳票で改ページさせる為、
             /// 「コード」「枝番」を結合して設定
             /// </remarks>
+            public int 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public string 得意先コード { get; set; }
             public string 得意先名 { get; set; }
             public int 品番コード { get; set; }
@@ -51,6 +53,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class TallyMember
         {
+            public int 自社コード { get; set; }      // No.227,228 Add
+            public string 自社名 { get; set; }       // No.227,228 Add
             public int 品番コード { get; set; }
             public string 自社色 { get; set; }
             public string シリーズ { get; set; }
@@ -142,11 +146,30 @@ namespace KyoeiSystem.Application.WCFService
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
                                     (a, b) => new { a.x.SD, a.x.HN, IR = b })
+                                .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                    x => x.SD.自社コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(z => z.y.DefaultIfEmpty(),
+                                    (c, d) => new { c.x.SD, c.x.HN, c.x.IR, JIS = d})
                                 .GroupBy(g => new
-                                { g.SD.自社コード, g.SD.請求年月, g.SD.請求先コード, g.SD.請求先枝番, g.SD.品番コード,
-                                    g.HN.自社品番, g.HN.自社色, g.HN.シリーズ, g.HN.自社品名, g.IR.色名称 })
+                                {
+                                    g.SD.自社コード,
+                                    g.JIS.自社名,          // No.227,228 Add
+                                    g.SD.請求年月,
+                                    g.SD.請求先コード,
+                                    g.SD.請求先枝番,
+                                    g.SD.品番コード,
+                                    g.HN.自社品番,
+                                    g.HN.自社色,
+                                    g.HN.シリーズ,
+                                    g.HN.自社品名,
+                                    g.IR.色名称
+                                })
                                 .Select(s => new TallyMember
                                 {
+                                    自社コード = s.Key.自社コード,        // No.227,228 Add
+                                    自社名 = s.Key.自社名,                // No.227,228 Add
                                     品番コード = s.Key.品番コード,
                                     自社色 = s.Key.自社色,
                                     シリーズ = s.Key.シリーズ,
@@ -177,7 +200,9 @@ namespace KyoeiSystem.Application.WCFService
                         for (int i = 0; i < tallyList.Count; i++)
                         {
                             BSK01010_PrintMember print = new BSK01010_PrintMember();
-                            print.得意先コード = string.Format("{0:000} - {1:00}", tokRow.取引先コード, tokRow.枝番);     // No.132-2 Mod
+                            print.自社コード = tallyList[i].自社コード;
+                            print.自社名 = tallyList[i].自社名;
+                            print.得意先コード = string.Format("{0:D4} - {1:D2}", tokRow.取引先コード, tokRow.枝番);     // No.132-2 Mod
                             print.得意先名 = tokRow.略称名;  // No.229 Mod
                             print.品番コード = tallyList[i].品番コード;
                             print.品番名称 = tallyList[i].自社品名;
@@ -257,9 +282,11 @@ namespace KyoeiSystem.Application.WCFService
 
                     printList =
                         printList.AsEnumerable()
-                            .GroupBy(g => new { g.得意先コード, g.得意先名, g.品番コード, g.品番名称, g.色名称 })
+                            .GroupBy(g => new { g.自社コード, g.自社名, g.得意先コード, g.得意先名, g.品番コード, g.品番名称, g.色名称 }) // No.227,228 Mod
                             .Select(s => new BSK01010_PrintMember
                             {
+                                自社コード = s.Key.自社コード,        // No.227,228 Mod
+                                自社名 = s.Key.自社名,                // No.227,228 Mod
                                 得意先コード = s.Key.得意先コード,
                                 得意先名 = s.Key.得意先名,
                                 品番コード = s.Key.品番コード,
