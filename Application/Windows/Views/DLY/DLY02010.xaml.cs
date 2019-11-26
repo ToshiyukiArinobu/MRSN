@@ -590,6 +590,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番の場合
                             SCHM09_MYHIN myhin = new SCHM09_MYHIN(code, eda);
                             myhin.TwinTextBox = new UcLabelTwinTextBox();
+                            myhin.IsItemStatusType = true;
                             myhin.txtCode.Text = colVal;
                             myhin.txtCode.IsEnabled = false;
                             myhin.TwinTextBox.LinkItem = 2;
@@ -1101,8 +1102,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 intRowcnt ++;
             }
 
-            // 引き当てのない在庫が存在する場合
-            if (dcmCalcQuantity > 0)
+            // 引き当てのない在庫が存在するまたはマイナス数量入力の場合
+            if (dcmCalcQuantity > 0 || dcmQuantity < 0)
             {
                 // 新規行を追加する
                 rowBuff["賞味期限"] = DBNull.Value;
