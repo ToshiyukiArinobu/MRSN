@@ -140,6 +140,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // 20190606CB-E
 
             構成部品 = 13,
+            商品形態分類 = 14
         }
 
         /// <summary>
@@ -499,9 +500,22 @@ namespace KyoeiSystem.Application.Windows.Views
                         break;
 
                     case T04_CreateDTB:
+
+                        // No-279 Mod Start
+                        int intIdx = gridDtl.ActiveRowIndex;
+                        int intSuryo = gridDtl.GetCellValueToInt((int)GridColumnsMapping.数量) ?? 0;
+                        
                         // 揚り部材明細情報(新規用)を表示用に加工する
                         InnerDetail = T04_AGRDTB_NewDataDisplayConvert(tbl);
- 
+
+                        // セット品マスタを主とした取得でない場合
+                        if (InnerDetail.Rows.Count == 0)
+                         {
+                            // 品番マスタから取得したレコードを表示編集する
+                            InnerDetail = T04_AGRDTB_NewDataDisplayConvertForHin(intSuryo, tbl);
+                        }
+                        // No-279 Mod End
+
                         // 揚り部材明細 配列に追加する
                         AddAgrDtbList(gridDtl.ActiveRowIndex, InnerDetail);
                         break;
@@ -551,11 +565,11 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.商品分類, (int)商品分類.その他);
 
                             // 20190530CB-S
-
                             gridDtl.SetCellValue((int)GridColumnsMapping.色コード, string.Empty);
                             gridDtl.SetCellValue((int)GridColumnsMapping.色名称, string.Empty);
-
                             // 20190530CB-E
+
+                            gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, 0);       // No-279 Add
 
                         }
                         else if (tbl.Rows.Count > 1)
@@ -622,6 +636,8 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridDtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
                                 // 20190530CB-E
 
+                                gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, myhin.SelectedRowData["商品形態分類"]);       // No-279 Add
+
                                 // 集計計算をおこなう
                                 summaryCalculation();
 
@@ -675,6 +691,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.色コード, drow["自社色"]);
                             gridDtl.SetCellValue((int)GridColumnsMapping.色名称, drow["色名称"]);                 // No-65 Mod
                             // 20190530CB-E
+
+                            gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, drow["商品形態分類"]);       // No-279 Add
 
                             sp製品一覧.CommitCellEdit();
                             // 自社品番のセルをロック
@@ -869,10 +887,16 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 }
 
-                // 20190528CB-S
-                // セット品番の構成品が登録されているかチェック
-                base.SendRequest(new CommunicationObject(MessageType.RequestData, M10_GetCount, new object[] { num }));
-                // 20190528CB-E
+                // 商品形態分類を取得
+                var syohinkeitaibunrui = getSpreadGridValue(gridDtl.ActiveRowIndex, GridColumnsMapping.商品形態分類);
+                // セット品の場合
+                if (int.Parse(syohinkeitaibunrui.ToString()) == 1)
+                {
+                    // 20190528CB-S
+                    // セット品番の構成品が登録されているかチェック
+                    base.SendRequest(new CommunicationObject(MessageType.RequestData, M10_GetCount, new object[] { num }));
+                    // 20190528CB-E
+                }
 
                 if (string.IsNullOrEmpty(this.txt入荷先.Text1))
                 {
@@ -1236,6 +1260,39 @@ namespace KyoeiSystem.Application.Windows.Views
             return dtResult;
         }
 
+		// No-279 Add Start
+        /// <summary>
+        /// 揚り部材明細情報(新規用)を表示用に加工する(品番マスタから取得したレコード編集)
+        /// </summary>
+        /// <param name="intSuryo">揚り明細で入力された数量</param>
+        /// <param name="dtBuzaiDetail">揚り部材明細データテーブル</param>
+        /// <returns>DataTable</returns>
+        private DataTable T04_AGRDTB_NewDataDisplayConvertForHin(int intSuryo, DataTable dtBuzaiDetail)
+        {
+            DataTable dtResult = dtBuzaiDetail.Clone();
+            DateTime DatMaxDate = AppCommon.GetMaxDate();       // 最大日（項目非表示制御）
+
+            foreach (DataRow rowBuzai in dtBuzaiDetail.Rows)
+            {
+                if (rowBuzai["賞味期限"].ToString().Length > 0)
+                {
+                    // 賞味期限が最大値の場合は賞味期限を表示させない
+                    if (DateTime.Parse(rowBuzai["賞味期限"].ToString()).Equals(DatMaxDate))
+                    {
+                        rowBuzai["賞味期限"] = DBNull.Value;
+                    }
+                }
+                // 揚り明細で入力された数量を設定する
+                rowBuzai["数量"] = intSuryo;
+                rowBuzai["必要数量"] = 1m;
+
+                dtResult.ImportRow(rowBuzai);
+            }
+
+            return dtResult;
+        }
+		// No-279 Add End
+
         #endregion
 
         #region 外注先売価取得
@@ -1394,6 +1451,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
                             gridDtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
                             // 20195030CB-E
+
+                            gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, myhin.SelectedRowData["商品形態分類"]);       // No-279 Add
 
                             // 設定自社品番の編集を不可とする
                             gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
@@ -1850,10 +1909,23 @@ namespace KyoeiSystem.Application.Windows.Views
             // 揚りヘッダ追加
             dsResult.Tables.Add(SearchHeader.Table.Copy());
 
-            // 揚り明細追加
+            // 揚り明細  行番号採番
+            int intIdx = 1;
+            foreach (DataRow row in SearchDetail.Rows)
+            {
+                // 追加行未入力レコードはスキップ
+                if (row["品番コード"] == null || string.IsNullOrEmpty(row["品番コード"].ToString()) || row["品番コード"].ToString().Equals("0"))
+                {
+                    continue;
+                }
+
+                row["行番号"] = intIdx;
+                intIdx++;
+            }
+
+            // 揚り部材明細　行番号、部材行番号採番
             dsResult.Tables.Add(SearchDetail.Copy());
 
-            // 揚り部材明細追加
             List<T04_AGRDTB_Extension> listAgrDtb = new List<T04_AGRDTB_Extension>();
             DataTable dtInnerDetail = new DataTable("T04_AGRDTB_Extension");
 
@@ -1875,6 +1947,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
                 }
             }
+            // 揚り部材明細追加
             AppCommon.ConvertToDataTable(listAgrDtb, dtInnerDetail);
             dsResult.Tables.Add(dtInnerDetail.Copy());
 
@@ -2002,20 +2075,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // エラー情報をクリア
                 gridDtl.ClearValidationErrors(rIdx);
 
-                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
-                int? row品番コード = DBNull.Value.Equals(row["品番コード"]) ? (int?)null : Convert.ToInt32(row["品番コード"]);
-                if (CurrentDetail.Where(x => x.Field<int?>("品番コード") == row品番コード && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
-                {
-                    gridDtl.SpreadGrid.Focus();
-                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
-                    gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "同じ商品が存在するので、一つに纏めて下さい。");
-                    if (!isDetailErr)
-                        gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
-
-                    isDetailErr = true;
-                }
-
-                if (string.IsNullOrEmpty(row["数量"].ToString()) || int.Parse(row["数量"].ToString()) == 0)
+                if (string.IsNullOrEmpty(row["数量"].ToString()) || decimal.Parse(row["数量"].ToString()) == 0)
                 {
                     gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.数量, "数量が入力されていません。");
                     if (!isDetailErr)
@@ -2100,15 +2160,19 @@ namespace KyoeiSystem.Application.Windows.Views
                     dtSetHin.ImportRow(rowSetHin);
                 }
 
-                if (dtSetHin.Rows.Count <= 0)
-                { 
-                    // セット品マスタに登録がない場合
-                    gridDtl.SpreadGrid.Focus();
-                    gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "セット品マスタに登録がありません。");
-                    if (!isDetailErr)
-                        gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
+                // 商品形態分類がセット品の場合、エラーチェックを行う
+                if (int.Parse(row["商品形態分類"].ToString()) == 1)           // No-279 Add
+                {
+                    if (dtSetHin.Rows.Count <= 0)
+                    {
+                        // セット品マスタに登録がない場合
+                        gridDtl.SpreadGrid.Focus();
+                        gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "セット品マスタに登録がありません。");
+                        if (!isDetailErr)
+                            gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
 
-                    isDetailErr = true;
+                        isDetailErr = true;
+                    }
                 }
 
                 // 揚り部材明細のチェックを行う
@@ -2157,15 +2221,19 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         }
 
-                        // セット品番マスタチェック（構成しない部材の入力判定）
-                        if (DLY02010.isCheckShinNotExist(dtSetHin, rowAgrDtb.品番コード.ToString()) == false)
+                        // 商品形態分類がセット品の場合、エラーチェックを行う
+                        if (int.Parse(row["商品形態分類"].ToString()) == 1)           // No-279 Add
                         {
-                            gridDtl.SpreadGrid.Focus();
-                            gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "構成品に製品を構成しない部材が入力されています。");
-                            if (!isDetailErr)
-                                gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
+                            // セット品番マスタチェック（構成しない部材の入力判定）
+                            if (DLY02010.isCheckShinNotExist(dtSetHin, rowAgrDtb.品番コード.ToString()) == false)
+                            {
+                                gridDtl.SpreadGrid.Focus();
+                                gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "構成品に製品を構成しない部材が入力されています。");
+                                if (!isDetailErr)
+                                    gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
 
-                            blnWarningFlg = true;
+                                blnWarningFlg = true;
+                            }
                         }
 
                         intDataCnt++;
@@ -2190,27 +2258,31 @@ namespace KyoeiSystem.Application.Windows.Views
                     DataTable dtInnerDetailTmp = new DataTable();
                     AppCommon.ConvertToDataTable(T04_AGRDTB_List[intListIdx], dtInnerDetailTmp);
 
-                    // セット品番マスタチェック（構成部材の入力判定）
-                    if (DLY02010.isCheckShinUnnecessary(dtSetHin, dtInnerDetailTmp) == false)
+                    // 商品形態分類がセット品の場合、エラーチェックを行う
+                    if (int.Parse(row["商品形態分類"].ToString()) == 1)           // No-279 Add
                     {
-                        gridDtl.SpreadGrid.Focus();
-                        gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "構成品に製品を構成する部材が入力されていません。");
-                        if (!isDetailErr)
-                            gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
+                        // セット品番マスタチェック（構成部材の入力判定）
+                        if (DLY02010.isCheckShinUnnecessary(dtSetHin, dtInnerDetailTmp) == false)
+                        {
+                            gridDtl.SpreadGrid.Focus();
+                            gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "構成品に製品を構成する部材が入力されていません。");
+                            if (!isDetailErr)
+                                gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
 
-                        blnWarningFlg = true;
-                    }
+                            blnWarningFlg = true;
+                        }
 
-                    // セット品番マスタチェック（数量）
-                    string strErrMsg = string.Empty;
-                    if (DLY02010.isCheckShinQuantity(dtSetHin, dtSearchDetailTmp, dtInnerDetailTmp, out strErrMsg) == false)
-                    {
-                        gridDtl.SpreadGrid.Focus();
-                        gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, strErrMsg);
-                        if (!isDetailErr)
-                            gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
+                        // セット品番マスタチェック（数量）
+                        string strErrMsg = string.Empty;
+                        if (DLY02010.isCheckShinQuantity(dtSetHin, dtSearchDetailTmp, dtInnerDetailTmp, out strErrMsg) == false)
+                        {
+                            gridDtl.SpreadGrid.Focus();
+                            gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, strErrMsg);
+                            if (!isDetailErr)
+                                gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
 
-                        blnWarningFlg = true;
+                            blnWarningFlg = true;
+                        }
                     }
                     rIdx++;
                     intListIdx++;
@@ -2659,6 +2731,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     // グリッド内容の再計算を実施
                     summaryCalculation();
 
+                    SearchDetail.Rows[gridDtl.ActiveRowIndex].EndEdit();
+
                     break;
 
                 case "数量":
@@ -2670,6 +2744,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     // グリッド内容の再計算を実施
                     summaryCalculation();
+
+                    // セット品情報を取得する
+                    sendSearchForShin(gridDtl.GetCellValueToString((int)GridColumnsMapping.品番コード) ?? "0");
 
                     // 揚り部材明細情報を取得する
                     sendSearchForAgrDtb();

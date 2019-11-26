@@ -212,8 +212,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 // SET商品のみを選択可とする
                 chkItemClass_2.IsEnabled = false;
                 chkItemClass_2.IsChecked = false;
-                chkItemClass_3.IsEnabled = false;
-                chkItemClass_3.IsChecked = false;
+                // No-279 Del Start
+                //chkItemClass_3.IsEnabled = false;
+                //chkItemClass_3.IsChecked = false;
+                // No-279 Del End
                 chkItemClass_4.IsEnabled = false;
                 chkItemClass_4.IsChecked = false;
 

@@ -853,8 +853,15 @@ namespace KyoeiSystem.Application.Windows.Views
         private bool isFormValidation()
         {
             bool isResult = false;
+            int intSyohinkeitaibunrui = 0;
 
             blnWarningFlg = false;
+
+            // 揚り明細より情報を取得する
+            foreach (DataRow row in SearchDetail.Rows)
+            {
+                intSyohinkeitaibunrui = int.Parse(row["商品形態分類"].ToString());
+            }
 
             // 現在の明細行を取得
             var CurrentDetail = InnerDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable();
@@ -921,32 +928,39 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 }
 
-                // セット品番マスタチェック（存在しない）
-                if (DLY02010.isCheckShinNotExist(SetHin, row["品番コード"].ToString()) == false)
+                // 商品形態分類がセット品の場合、エラーチェックを行う
+                if (intSyohinkeitaibunrui == 1)           // No-279 Add
                 {
-                    gridDtb.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "製品を構成しない部材が入力されています。");
-                    blnWarningFlg = true;
+                    // セット品番マスタチェック（存在しない）
+                    if (DLY02010.isCheckShinNotExist(SetHin, row["品番コード"].ToString()) == false)
+                    {
+                        gridDtb.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "製品を構成しない部材が入力されています。");
+                        blnWarningFlg = true;
+                    }
                 }
-
                 rIdx++;
 
             }
 
-            // セット品番マスタチェック（構成しない部材）
-            if (DLY02010.isCheckShinUnnecessary(SetHin, InnerDetail) == false)
-            {
-                gridDtb.SpreadGrid.Focus();
-                base.ErrorMessage = string.Format("製品を構成する部材が入力されていません。");
-                blnWarningFlg = true;
-            }
+            // 商品形態分類がセット品の場合、エラーチェックを行う
+            if (intSyohinkeitaibunrui == 1)           // No-279 Add
+                {
+                // セット品番マスタチェック（構成しない部材）
+                if (DLY02010.isCheckShinUnnecessary(SetHin, InnerDetail) == false)
+                {
+                    gridDtb.SpreadGrid.Focus();
+                    base.ErrorMessage = string.Format("製品を構成する部材が入力されていません。");
+                    blnWarningFlg = true;
+                }
 
-            // セット品番マスタチェック（数量）
-            string strErrMsg = string.Empty;
-            if (DLY02010.isCheckShinQuantity(SetHin, SearchDetail, InnerDetail, out strErrMsg) == false)
-            {
-                gridDtb.SpreadGrid.Focus();
-                base.ErrorMessage = string.Format(strErrMsg);
-                blnWarningFlg = true;
+                // セット品番マスタチェック（数量）
+                string strErrMsg = string.Empty;
+                if (DLY02010.isCheckShinQuantity(SetHin, SearchDetail, InnerDetail, out strErrMsg) == false)
+                {
+                    gridDtb.SpreadGrid.Focus();
+                    base.ErrorMessage = string.Format(strErrMsg);
+                    blnWarningFlg = true;
+                }
             }
 
             if (isDetailErr)

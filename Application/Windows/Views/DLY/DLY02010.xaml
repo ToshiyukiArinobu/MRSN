@@ -388,6 +388,14 @@
                             <sg:ButtonCellType Content="構成部品" />
                         </sg:Column.CellType>
                     </sg:Column>
+                    <sg:Column Locked="True" Focusable="False" Width="0">
+                        <sg:Column.CellType>
+                            <sg:TextCellType IsReadOnly="True" />
+                        </sg:Column.CellType>
+                        <sg:Column.DataField>
+                            <sg:BindingDataField Binding="{Binding 商品形態分類}" />
+                        </sg:Column.DataField>
+                    </sg:Column>
                 </sg:GcSpreadGrid.Columns>
 
             </sg:GcSpreadGrid>
