@@ -1247,6 +1247,8 @@ namespace KyoeiSystem.Application.WCFService
                     S03Service.S03_STOK_Update(stok);
                 }
 
+                // 変更状態を確定
+                context.SaveChanges();
             }
 
             return 1;
