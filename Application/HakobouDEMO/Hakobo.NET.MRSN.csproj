@@ -301,6 +301,7 @@
     </Compile>
     <Compile Include="Data\TKS\TKS.cs">
       <DependentUpon>TKS.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\TKS\TKS.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -459,6 +460,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TKS02010.rpt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Files\TKS\TKS02011.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TKS02011.rpt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Component</SubType>
     </Compile>
@@ -746,6 +754,11 @@
     <EmbeddedResource Include="Files\SHR\SHR01010.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SHR01010.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Files\TKS\TKS02011.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TKS02011.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />

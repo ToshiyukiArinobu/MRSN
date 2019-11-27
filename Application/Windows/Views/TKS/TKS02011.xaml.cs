@@ -35,11 +35,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 定数定義
-        /// <summary>売上データ集計、出力データ取得処理</summary>
-        private const string SALES_AGGREGATE_PRT = "TKS02011_GetPrintData";
-        
-        /// <summary>売上データ集計、CSVファイル出力データ取得</summary>
-        private const string SALES_AGGREGATE_PRT_CSV = "TKS02011_GetCsvData";
+        /// <summary>売掛データ集計、出力データ取得処理</summary>
+        private const string ACCOUNTS_RECEIVABLE_PRT = "TKS02011_GetPrintData";
+
+        /// <summary>売掛データ集計、CSVファイル出力データ取得</summary>
+        private const string ACCOUNTS_RECEIVABLE_PRT_CSV = "TKS02011_GetCsvData";
 
         /// <summary>帳票定義ファイル 格納パス</summary>
         private const string ReportTemplateFileName = @"Files\TKS\TKS02011.rpt";
@@ -73,7 +73,7 @@ namespace KyoeiSystem.Application.Windows.Views
         #region << 初期表示処理 >>
 
         /// <summary>
-        /// 請求一覧表 コンストラクタ
+        /// 売掛台帳 コンストラクタ
         /// </summary>
         public TKS02011()
         {
@@ -128,7 +128,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             CreateYearMonth.Text = DateTime.Now.ToString("yyyy/MM");
 
-			SetFocusToTopControl();
+            SetFocusToTopControl();
             ErrorMessage = string.Empty;
 
         }
@@ -154,11 +154,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     switch (message.GetMessageName())
                     {
-                        case SALES_AGGREGATE_PRT:
+                        case ACCOUNTS_RECEIVABLE_PRT:
                             DispPreviw(tbl);
                             break;
 
-                        case SALES_AGGREGATE_PRT_CSV:
+                        case ACCOUNTS_RECEIVABLE_PRT_CSV:
                             OutPutCSV(tbl);
                             break;
                     }
@@ -240,34 +240,34 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             Dictionary<string, string> paramDic = createParamDic();
-            
+
             base.SendRequest(
                     new CommunicationObject(
                         MessageType.RequestDataWithBusy,
-                        SALES_AGGREGATE_PRT_CSV,
+                        ACCOUNTS_RECEIVABLE_PRT_CSV,
                         new object[]{
                             paramDic
                         }));
 
             base.SetBusyForInput();
         }
-       
+
         /// <summary>
         /// F8　リボン　印刷
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public override void OnF8Key(object sender, KeyEventArgs e)
-		{
+        {
             if (F8.IsEnabled == false) return;
 
-			PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
-			if (ret.Result == false)
-			{
-				this.ErrorMessage = "プリンタドライバーがインストールされていません！";
-				return;
-			}
-			frmcfg.PrinterName = ret.PrinterName;
+            PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
+            if (ret.Result == false)
+            {
+                this.ErrorMessage = "プリンタドライバーがインストールされていません！";
+                return;
+            }
+            frmcfg.PrinterName = ret.PrinterName;
 
             if (!base.CheckAllValidation())
             {
@@ -292,7 +292,7 @@ namespace KyoeiSystem.Application.Windows.Views
             base.SendRequest(
                     new CommunicationObject(
                         MessageType.RequestDataWithBusy,
-                        SALES_AGGREGATE_PRT,
+                        ACCOUNTS_RECEIVABLE_PRT,
                         new object[]{
                             paramDic
                         }));
@@ -347,15 +347,15 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 第1引数　帳票タイトル
                 // 第2引数　帳票ファイルPass
                 // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("売上データ一覧表", ReportTemplateFileName, 0, 0, 0);
+                view.MakeReport("売掛台帳", ReportTemplateFileName, 0, 0, 0);
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする
-				view.SetReportData(tbl);
-				view.PrinterName = frmcfg.PrinterName;
+                view.SetReportData(tbl);
+                view.PrinterName = frmcfg.PrinterName;
                 view.SetupParmeters(parms);
                 view.ShowPreview();
-				view.Close();
-				frmcfg.PrinterName = view.PrinterName;
+                view.Close();
+                frmcfg.PrinterName = view.PrinterName;
 
                 // 印刷した場合
                 if (view.IsPrinted)
@@ -400,14 +400,14 @@ namespace KyoeiSystem.Application.Windows.Views
             if (sfd.ShowDialog() == WinForms.DialogResult.OK)
             {
                 // カラム名を変更
-                tbl.Columns["通常税率対象売上額"].ColumnName = "売上(通常)";
-                tbl.Columns["軽減税率対象売上額"].ColumnName = "売上(軽減)";
-                tbl.Columns["非課税売上額"].ColumnName = "売上(非課税)";
-                tbl.Columns["通常税消費税"].ColumnName = "消費税(通常)";
-                tbl.Columns["軽減税消費税"].ColumnName = "消費税(軽減)";
-                tbl.Columns["税込売上額"].ColumnName = "通常分計";
-                tbl.Columns["軽減税込売上額"].ColumnName = "軽減分計";
-                
+                tbl.Columns["通常税率消費税"].ColumnName = "消費税(通常)";
+                tbl.Columns["軽減税率消費税"].ColumnName = "消費税(軽減)";
+                tbl.Columns["得意先名称"].ColumnName = "得意先名";
+
+                // フォーマットした日付を出力
+                tbl.Columns.Remove("日付");
+                tbl.Columns["s日付"].ColumnName = "日付";
+
                 // CSVファイル出力
                 CSVData.SaveCSV(tbl, sfd.FileName, true, true, false, ',');
                 MessageBox.Show("CSVファイルの出力が完了しました。");

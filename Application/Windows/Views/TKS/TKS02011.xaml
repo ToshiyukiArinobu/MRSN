@@ -79,7 +79,7 @@
                     </RibbonGroup>
                     <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
                         <RibbonButton Name="F8"  Label="印刷" KeyTip="F8" Height="50" LargeImageSource="../Images/23印刷.png"
-                          ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します" ToolTipImageSource="../Images/23印刷.png" IsEnabled="False"
+                          ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します" ToolTipImageSource="../Images/23印刷.png"
                           Click="RibbonButton_Click"
             />
                     </RibbonGroup>
