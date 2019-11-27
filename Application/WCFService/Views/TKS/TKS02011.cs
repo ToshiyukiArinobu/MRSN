@@ -270,6 +270,14 @@ namespace KyoeiSystem.Application.WCFService
             // 売掛情報を登録
             foreach (S08_URIKAKE_Extension row in accountsRecList)
             {
+
+                // 最初の行のみ消費税を設定
+                if (accountsRecList.Where(c => c.伝票番号 == row.伝票番号).First().行番号 != row.行番号)
+                {
+                    row.通常税率消費税 = 0;
+                    row.軽減税率消費税 = 0;
+                }
+
                 // 残高の再計算
                 残高 = 残高 + (row.金額 + row.通常税率消費税 + row.軽減税率消費税) - row.入金額;
                 row.残高 = 残高;
@@ -325,6 +333,13 @@ namespace KyoeiSystem.Application.WCFService
             // 売掛情報を登録
             foreach (S08_URIKAKE_Extension row in accountsRecHanList)
             {
+                // 最初の行のみ消費税を設定
+                if (accountsRecHanList.Where(c => c.伝票番号 == row.伝票番号).First().行番号 != row.行番号)
+                {
+                    row.通常税率消費税 = 0;
+                    row.軽減税率消費税 = 0;
+                }
+
                 // 残高の再計算
                 if (row.前月繰越 == 0)
                 {
@@ -621,10 +636,10 @@ namespace KyoeiSystem.Application.WCFService
                             単価 = x.URDTL.単価,
                             金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
                                     x.URDTL.金額 ?? 0 : (x.URDTL.金額 ?? 0) * -1,
-                            通常税率消費税 = x.URDTL.行番号 == 1 ? (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
-                                    x.URHD.通常税率消費税 ?? 0 : (x.URHD.通常税率消費税 ?? 0) * -1) : 0,
-                            軽減税率消費税 = x.URDTL.行番号 == 1 ? (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
-                                    x.URHD.軽減税率消費税 ?? 0 : (x.URHD.軽減税率消費税 ?? 0) * -1) : 0,
+                            通常税率消費税 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                    x.URHD.通常税率消費税 ?? 0 : (x.URHD.通常税率消費税 ?? 0) * -1,
+                            軽減税率消費税 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                    x.URHD.軽減税率消費税 ?? 0 : (x.URHD.軽減税率消費税 ?? 0) * -1,
                             入金額 = 0,
                             前月繰越 = 0,
                             残高 = 0,
@@ -685,10 +700,10 @@ namespace KyoeiSystem.Application.WCFService
                             単価 = x.URDTL.単価,
                             金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
                                     x.URDTL.金額 ?? 0 : (x.URDTL.金額 ?? 0) * -1,
-                            通常税率消費税 = x.URDTL.行番号 == 1 ? (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
-                                      x.URHD.通常税率消費税 ?? 0 : (x.URHD.通常税率消費税 ?? 0) * -1) : 0,
-                            軽減税率消費税 = x.URDTL.行番号 == 1 ? (x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
-                                    x.URHD.軽減税率消費税 ?? 0 : (x.URHD.軽減税率消費税 ?? 0) * -1) : 0,
+                            通常税率消費税 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                      x.URHD.通常税率消費税 ?? 0 : (x.URHD.通常税率消費税 ?? 0) * -1,
+                            軽減税率消費税 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
+                                    x.URHD.軽減税率消費税 ?? 0 : (x.URHD.軽減税率消費税 ?? 0) * -1,
                             入金額 = 0,
                             前月繰越 = 0,
                             残高 = 0,
