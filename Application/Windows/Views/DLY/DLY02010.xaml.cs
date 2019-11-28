@@ -1102,8 +1102,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 intRowcnt ++;
             }
 
-            // 引き当てのない在庫が存在するまたはマイナス数量入力の場合
-            if (dcmCalcQuantity > 0 || dcmQuantity < 0)
+            // 引き当てのない在庫が存在する　または　数量マイナス入力かつ算出用数量がマイナスかつ引当が未充足の場合
+            if (dcmCalcQuantity > 0 || (dcmQuantity < 0 && dcmCalcQuantity < 0 && blnRowDelete == false))
             {
                 // 新規行を追加する
                 rowBuff["賞味期限"] = DBNull.Value;
