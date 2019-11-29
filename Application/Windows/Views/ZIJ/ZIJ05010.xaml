@@ -313,7 +313,7 @@
             </sg:Column>
             <sg:Column Locked="True" HorizontalAlignment="Right">
               <sg:Column.CellType>
-                <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-," />
+                <sg:NumberCellType  MaxValue="999999999" MinValue="-999999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0.##,,,-," />
               </sg:Column.CellType>
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding 単価}" />

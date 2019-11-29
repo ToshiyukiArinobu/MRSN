@@ -467,7 +467,8 @@ namespace KyoeiSystem.Application.WCFService
                                     c.得意先コード == mem.得意先コード &&
                                     c.得意先枝番 == mem.得意先枝番 &&
                                     c.入金日 >= seihd.集計開始日 &&
-                                    c.入金日 <= seihd.集計最終日
+                                    c.入金日 <= seihd.集計最終日 &&
+                                    c.削除日時 == null
                                     )
                                     .GroupJoin(context.T11_NYKNDTL.Where(c => c.削除日時 == null),
                                         x => x.伝票番号,
@@ -500,7 +501,7 @@ namespace KyoeiSystem.Application.WCFService
                                         売上日 = x.NYU.HD.入金日.ToString("yyyy/MM/dd"),
                                         自社品番 = string.Empty,
                                         相手品番 = string.Empty,
-                                        品番名称 = x.CMB.表示名 == null ? string.Empty: x.CMB.表示名,
+                                        品番名称 = x.CMB.表示名 == null ? string.Empty : x.CMB.表示名,
                                         数量 = 0,
                                         単価 = 0,
                                         金額 = x.NYU.DTL.金額,
@@ -509,8 +510,9 @@ namespace KyoeiSystem.Application.WCFService
                                         摘要 = x.NYU.DTL.摘要,
                                     });
 
-                    //売上日→伝票番号の順でソート
-                    var dtl = dtlResult.Concat(nyukinDtl).OrderBy(o => o.売上日).ThenBy(o => o.伝票番号);
+                    
+                        //売上日→伝票番号の順でソート
+                        var dtl = dtlResult.Concat(nyukinDtl).OrderBy(o => o.売上日).ThenBy(o => o.伝票番号);
 
                     #endregion
 
