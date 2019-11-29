@@ -116,7 +116,7 @@ namespace KyoeiSystem.Application.WCFService
 
                     // 集計得意先を取得
                     List<M01_TOK> tokList =
-                                context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分)).ToList();
+                                context.M01_TOK.Where(w => w.削除日時 == null && (kbnList.Contains(w.取引区分) || (w.取引先コード == 0 && w.枝番 == 1))).ToList();       // No-268 Mod
 
                     // 取引先が指定されていれば条件追加
                     if (customerCode != null && customerEda != null)
@@ -270,7 +270,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="eda"></param>
         /// <param name="paymentDate"></param>
         /// <param name="userId"></param>
-        private void setHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, DateTime targetStDate, DateTime targetEdDate, 
+        private void setHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, DateTime targetStDate, DateTime targetEdDate,
                                         int code, int eda, DateTime paymentDate, int userId)
         {
             int cnt = 1;
@@ -450,7 +450,7 @@ namespace KyoeiSystem.Application.WCFService
                         y => y.自社コード,
                         (x, y) => new { x, y })
                     .SelectMany(x => x.y.DefaultIfEmpty(),
-                        (c, d) => new { c.x.SHD, c.x.TOK, JIS = d})
+                        (c, d) => new { c.x.SHD, c.x.TOK, JIS = d })
                     .GroupBy(g => new
                     {
                         g.SHD.自社コード,
@@ -512,7 +512,7 @@ namespace KyoeiSystem.Application.WCFService
                             y => y.自社コード,
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y.DefaultIfEmpty(),
-                            (c, d) => new { c.x.SHD, c.x.TOK, JIS = d})
+                            (c, d) => new { c.x.SHD, c.x.TOK, JIS = d })
                         .GroupBy(g => new
                         {
                             g.SHD.自社コード,
@@ -559,7 +559,7 @@ namespace KyoeiSystem.Application.WCFService
                             y => y.自社コード,
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y.DefaultIfEmpty(),
-                            (c, d) => new { c.x.SHD, c.x.TOK, JIS = d})
+                            (c, d) => new { c.x.SHD, c.x.TOK, JIS = d })
                         .GroupBy(g => new
                         {
                             g.SHD.自社コード,
@@ -617,7 +617,7 @@ namespace KyoeiSystem.Application.WCFService
                                                     w.支払先コード == tok.取引先コード && w.支払先枝番 == tok.枝番 &&
                                                     w.当月支払額 != 0).ToList();
 
-                shdList = shdList.Concat(wk).ToList(); 
+                shdList = shdList.Concat(wk).ToList();
             }
 
             return shdList;
@@ -652,7 +652,7 @@ namespace KyoeiSystem.Application.WCFService
             createYearMonth = int.Parse(condition["作成年月"].Replace("/", ""));
             customerCode = int.TryParse(condition["仕入先コード"], out ival) ? ival : (int?)null;
             customerEda = int.TryParse(condition["仕入先枝番"], out ival) ? ival : (int?)null;
-            createType = int.Parse(condition["作成区分"]);            
+            createType = int.Parse(condition["作成区分"]);
             userId = int.Parse(condition["userId"]);
 
         }

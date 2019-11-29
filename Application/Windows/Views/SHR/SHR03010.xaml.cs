@@ -83,6 +83,18 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region バインド変数
+
+        // [0]:取引区分、[1]:マルセン追加フラグ
+        private string[] _得意先リンクアイテム = new string[] { "1,2,3,4", "1" };
+        public string[] 得意先リンクアイテム
+        {
+            get { return _得意先リンクアイテム; }
+            set { _得意先リンクアイテム = value; NotifyPropertyChanged(); }
+        }
+
+        #endregion
+
         #region 明細クリック時のアクション定義
         /// <summary>
         /// 明細クリック時のアクション定義

@@ -131,7 +131,7 @@ namespace KyoeiSystem.Application.WCFService
                 // REMARKS:自社と同一の取引先は含まない
                 var TOK =
                     context.M01_TOK
-                        .Where(w => 
+                        .Where(w =>
                             w.削除日時 == null &&
                             w.担当会社コード == company &&
                             kbnList.Contains(w.取引区分) &&
@@ -156,8 +156,7 @@ namespace KyoeiSystem.Application.WCFService
                     TOK =
                         TOK.Union(
                             context.M01_TOK.Where(w =>
-                                w.削除日時 == null &&
-                                kbnList.Contains(w.取引区分) &&
+                                w.削除日時 == null && 
                                 w.取引先コード == wkJis.取引先コード &&
                                 w.枝番 == wkJis.枝番
                             )
@@ -880,6 +879,7 @@ namespace KyoeiSystem.Application.WCFService
                         .ToList()
                         .Select(x => new S02_SHRHD
                         {
+                            自社コード = myCompanyCode,
                             支払年月 = yearMonth,
                             支払締日 = x.Ｓ締日 ?? 31,
                             支払先コード = x.取引先コード,
