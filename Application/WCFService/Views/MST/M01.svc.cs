@@ -63,7 +63,7 @@ namespace KyoeiSystem.Application.WCFService
                     return result.ToList();
                 }
 
-                switch(option)
+                switch (option)
                 {
                     case (int)Const.PagingOption.Paging_Code:
                         // コード指定
@@ -76,11 +76,11 @@ namespace KyoeiSystem.Application.WCFService
                                 .Where(x => x.削除日時 == null)
                                 .AsQueryable();
 
-                            result =
-                                result.Where(w =>
-                                    w.取引先コード == fsub.Min(m => m.取引先コード) &&
-                                                        w.枝番 == fsub.Where(s => s.取引先コード == fsub.Min(m => m.取引先コード))
-                                                            .Min(m => m.枝番));
+                        result =
+                            result.Where(w =>
+                                w.取引先コード == fsub.Min(m => m.取引先コード) &&
+                                                    w.枝番 == fsub.Where(s => s.取引先コード == fsub.Min(m => m.取引先コード))
+                                                        .Min(m => m.枝番));
                         break;
 
                     case (int)Const.PagingOption.Paging_Before:
@@ -286,7 +286,7 @@ namespace KyoeiSystem.Application.WCFService
         /// 取引先マスタをリストで取得する
         /// </summary>
         /// <returns></returns>
-        public List<M01_TOK> GetDataList(int? 表示区分, int 自社コード)
+        public List<M01_TOK> GetDataList(int? 表示区分, int 自社コード, int マルセン追加フラグ)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -301,7 +301,17 @@ namespace KyoeiSystem.Application.WCFService
                 if (表示区分 != null && 表示区分 != 9)
                 {
                     // 表示区分が設定されている場合は更に絞り込みをおこなう
-                    result = result.Where(w => w.取引区分 == 表示区分);
+                    // No-268 Mod Start
+                    if (表示区分 == 1 && マルセン追加フラグ == 1)
+                    {
+                        // 仕入先にマルセンを追加
+                        result = result.Where(w => w.取引区分 == 表示区分 || (w.取引先コード == 0 && w.枝番 == 1));
+                    }
+                    else
+                    {
+                        result = result.Where(w => w.取引区分 == 表示区分);
+                    }
+                    // No-268 Mod End
                 }
 
                 var myKbn =

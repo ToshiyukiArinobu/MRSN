@@ -122,6 +122,13 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        private int _マルセン追加フラグ = 0;
+        public int マルセン追加フラグ
+        {
+            get { return this._マルセン追加フラグ; }
+            set { this._マルセン追加フラグ = value; NotifyPropertyChanged(); }
+        }
+
         #endregion
 
         #region SCHM01_TOK
@@ -165,7 +172,24 @@ namespace KyoeiSystem.Application.Windows.Views
             // 呼び出し元から表示区分を取ってくる。
             if (this.TwinTextBox.LinkItem != null)
             {
-                string[] ary = this.TwinTextBox.LinkItem.ToString().Split(',');
+                // No-268 Mod Start
+                // linkitemがリストかどうか判定し取引区分を取得
+                string s取引区分;
+                if (this.TwinTextBox.LinkItem is string[])
+                {
+                    int linkAddVal = 0;
+                    string[] linkItemList = (this.TwinTextBox.LinkItem as string[]);
+                    s取引区分 = linkItemList[0].ToString();
+                    マルセン追加フラグ = int.TryParse(linkItemList[1].ToString(), out linkAddVal) ? linkAddVal : 0;
+                }
+                else
+                {
+                    s取引区分 = this.TwinTextBox.LinkItem.ToString();
+                }
+
+                string[] ary = s取引区分.Split(',');
+                // No-268 Mod End
+
                 if (ary.Length <= 1)
                 {
                     // TwinTextLinkItem設定
@@ -174,7 +198,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         this.cmbDealings.Combo_IsEnabled = false;
 
                     this.cmbDealings.SelectedValue = linkVal;
-                
+
                 }
                 else
                 {
@@ -256,7 +280,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         TabelNmList,
                         new object[] {
                             this.cmbDealings.SelectedValue,
-                            ccfg.自社コード
+                            ccfg.自社コード,
+                            マルセン追加フラグ
                         }));
 
             }
@@ -316,8 +341,16 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     if (selectKbn < 9)
                     {
+                        // No-268 Mod Start
                         // 取引区分=9(全取引)より下でフィルタ処理
-                        sb.AppendFormat("{0} 取引区分 = {1}", sb.Length == 0 ? string.Empty : " AND", selectKbn);
+                        sb.AppendFormat("{0} ( 取引区分 = {1}", sb.Length == 0 ? string.Empty : " AND", selectKbn);
+
+                        if (マルセン追加フラグ == 1)
+                        {
+                            sb.AppendFormat(" OR ( 取引先コード = {0} AND 枝番 = {1} )", "0", "1");
+                        }
+                        sb.Append(")");
+                        // No-268 Mod End
                     }
 
                     // フィルタリング設定

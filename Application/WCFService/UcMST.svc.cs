@@ -14,19 +14,19 @@ using KyoeiSystem.Framework.Common;
 
 namespace KyoeiSystem.Application.WCFService
 {
-	public class UcMST
-	{
+    public class UcMST
+    {
         private const int 論理削除 = 9;
 
         //// データメンバー定義
-		[DataContract]
-		public class CodeTextInt_Member
-		{
-			[DataMember]
-			public int コード { get; set; }
-			[DataMember]
-			public string 名称 { get; set; }
-		}
+        [DataContract]
+        public class CodeTextInt_Member
+        {
+            [DataMember]
+            public int コード { get; set; }
+            [DataMember]
+            public string 名称 { get; set; }
+        }
 
         [DataContract]
         public class TwinCodeText_Member
@@ -46,28 +46,28 @@ namespace KyoeiSystem.Application.WCFService
             [DataMember]
             public int Ｔ税区分ID { get; set; }
         }
-       
-		[DataContract]
-		public class CodeTextString_Member
-		{
-			[DataMember]
-			public string コード { get; set; }
-			[DataMember]
-			public string 名称 { get; set; }
+
+        [DataContract]
+        public class CodeTextString_Member
+        {
+            [DataMember]
+            public string コード { get; set; }
+            [DataMember]
+            public string 名称 { get; set; }
             [DataMember]
             public string 締日 { get; set; }
             [DataMember]
             public string 集金日 { get; set; }
             [DataMember]
             public string サイト { get; set; }
-		}
+        }
 
-		public class Combobox_List_Member
-		{
-			public int コード { get; set; }
-			public int 表示順 { get; set; }
-			public string 表示名 { get; set; }
-		}
+        public class Combobox_List_Member
+        {
+            public int コード { get; set; }
+            public int 表示順 { get; set; }
+            public string 表示名 { get; set; }
+        }
 
         [DataContract]
         public class CodeTextAll_Member
@@ -96,20 +96,20 @@ namespace KyoeiSystem.Application.WCFService
         {
             // REMARKS:不足項目のみ定義
             public string 得意先品番コード { get; set; }
-            public string 色名称 { get; set; } 
+            public string 色名称 { get; set; }
 
         }
 
-		public List<Combobox_List_Member> GetComboboxList(string param)
-		{
-			List<Combobox_List_Member> result = new List<Combobox_List_Member>();
+        public List<Combobox_List_Member> GetComboboxList(string param)
+        {
+            List<Combobox_List_Member> result = new List<Combobox_List_Member>();
 
-			using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
-			{
-				//int idx = 0;
-				context.Connection.Open();
-				switch (param)
-				{
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                //int idx = 0;
+                context.Connection.Open();
+                switch (param)
+                {
                     //case "@SYK":
                     //    result.AddRange(
                     //        (from mst in context.M78_SYK
@@ -207,14 +207,14 @@ namespace KyoeiSystem.Application.WCFService
 
             }
 
-			return result;
-		}
+            return result;
+        }
 
 
-		public List<CodeTextString_Member> GetDataMasterTable(string pコード, string DataAccessName, object LinkItem)
-		{
-			List<CodeTextString_Member> Member = new List<CodeTextString_Member>();
-			int Code = 0;
+        public List<CodeTextString_Member> GetDataMasterTable(string pコード, string DataAccessName, object LinkItem)
+        {
+            List<CodeTextString_Member> Member = new List<CodeTextString_Member>();
+            int Code = 0;
             int LinkCode = 0;
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
@@ -483,11 +483,11 @@ namespace KyoeiSystem.Application.WCFService
                 }
 
                 switch (DataAccessName)
-				{
+                {
                     case "M01_TOK_ALL":     //得意先用検索画面SCH01010
                         if (int.TryParse(pコード, out Code))
                         {
-                            List<int> targetKbn = new List<int> {1, 2, 3, 4};
+                            List<int> targetKbn = new List<int> { 1, 2, 3, 4 };
                             Member =
                                 context.M01_TOK.Where(x => x.削除日時 == null && x.取引先コード == Code && targetKbn.Contains(x.取引区分))
                                     .Select(s => new CodeTextString_Member
@@ -553,121 +553,121 @@ namespace KyoeiSystem.Application.WCFService
                         }
                         break;
                     case "M01_TOK_SHIHARAI_SCH":
-					if (int.TryParse(pコード, out Code))
-					{
-                        Member =
-                            context.M01_TOK.Select(s => new CodeTextString_Member
-                                {
-                                    コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                    名称 = s.略称名,
-                                }).ToList();
-                    }
-					break;
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                context.M01_TOK.Select(s => new CodeTextString_Member
+                                    {
+                                        コード = SqlFunctions.StringConvert((double)s.取引先コード),
+                                        名称 = s.略称名,
+                                    }).ToList();
+                        }
+                        break;
 
                     case "M01_KEI":     //経費先マスタ
-                    if (int.TryParse(pコード, out Code))
-                    {
-                        Member =
-                            context.M01_TOK.Select(s => new CodeTextString_Member
-                                {
-                                    コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                    名称 = s.略称名,
-                                }).ToList();
-                    }
-                    break;
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                context.M01_TOK.Select(s => new CodeTextString_Member
+                                    {
+                                        コード = SqlFunctions.StringConvert((double)s.取引先コード),
+                                        名称 = s.略称名,
+                                    }).ToList();
+                        }
+                        break;
 
                     case "M01_ZEN_SHIHARAI":     //全支払先マスタ
-                    if (int.TryParse(pコード, out Code))
-                    {
-                        Member =
-                            context.M01_TOK.Select(s => new CodeTextString_Member
-                                {
-                                    コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                    名称 = s.略称名,
-                                }).ToList();
-                    }
-                    break;
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                context.M01_TOK.Select(s => new CodeTextString_Member
+                                    {
+                                        コード = SqlFunctions.StringConvert((double)s.取引先コード),
+                                        名称 = s.略称名,
+                                    }).ToList();
+                        }
+                        break;
 
                     case "M01_TOK_JIS":     //取引先マスタ（住所取得）
-					if (int.TryParse(pコード, out Code))
-					{
-                        Member =
-                            context.M01_TOK.Where(s => s.取引先コード == Code)
-                                .Select(s => new CodeTextString_Member
-                                    {
-                                        コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                        名称 = s.略称名,
-                                    }).ToList();
-					}
-					break;
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                context.M01_TOK.Where(s => s.取引先コード == Code)
+                                    .Select(s => new CodeTextString_Member
+                                        {
+                                            コード = SqlFunctions.StringConvert((double)s.取引先コード),
+                                            名称 = s.略称名,
+                                        }).ToList();
+                        }
+                        break;
 
                     case "M01_ALL_TOK":         //得意先用 コード,名称,締日,集金日,サイト
-                    if (int.TryParse(pコード, out Code))
-                    {
-                        Member =
-                            context.M01_TOK.Where(w => w.削除日時 == null && w.取引先コード == Code)
-                                .Select(s => new CodeTextString_Member
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                context.M01_TOK.Where(w => w.削除日時 == null && w.取引先コード == Code)
+                                    .Select(s => new CodeTextString_Member
+                                        {
+                                            コード = SqlFunctions.StringConvert((double)s.取引先コード),
+                                            名称 = s.略称名,
+                                            締日 = SqlFunctions.StringConvert((double)s.Ｔ締日),
+                                            集金日 = SqlFunctions.StringConvert((double)s.Ｔ入金日１),
+                                            サイト = SqlFunctions.StringConvert((double)s.Ｔサイト１),
+                                        }).ToList();
+                        }
+                        break;
+
+                    case "M01_ALL_SHR":         //支払先用 コード,名称,締日,集金日,サイト
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                context.M01_TOK.Where(w => w.削除日時 == null && w.取引先コード == Code)
+                                    .Select(s => new CodeTextString_Member
                                     {
                                         コード = SqlFunctions.StringConvert((double)s.取引先コード),
                                         名称 = s.略称名,
-                                        締日 =  SqlFunctions.StringConvert((double)s.Ｔ締日),
-                                        集金日 = SqlFunctions.StringConvert((double)s.Ｔ入金日１),
-                                        サイト = SqlFunctions.StringConvert((double)s.Ｔサイト１),
+                                        締日 = SqlFunctions.StringConvert((double)s.Ｓ締日),
+                                        集金日 = SqlFunctions.StringConvert((double)s.Ｓ入金日１),
+                                        サイト = SqlFunctions.StringConvert((double)s.Ｓサイト１),
                                     }).ToList();
-                    }
-                    break;
+                        }
+                        break;
 
-                    case "M01_ALL_SHR":         //支払先用 コード,名称,締日,集金日,サイト
-                    if (int.TryParse(pコード, out Code))
-                    {
-                        Member =
-                            context.M01_TOK.Where(w => w.削除日時 == null && w.取引先コード == Code)
-                                .Select(s => new CodeTextString_Member
-                                {
-                                    コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                    名称 = s.略称名,
-                                    締日 = SqlFunctions.StringConvert((double)s.Ｓ締日),
-                                    集金日 = SqlFunctions.StringConvert((double)s.Ｓ入金日１),
-                                    サイト = SqlFunctions.StringConvert((double)s.Ｓサイト１),
-                                }).ToList();
-                    }
-                    break;
+                    case "M09_HIN":    //商品マスタ
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                context.M09_HIN.Where(x => x.品番コード == Code && x.削除日時 == null)
+                                    .Select(c => new CodeTextString_Member
+                                 {
+                                     コード = SqlFunctions.StringConvert((double)c.品番コード),
+                                     名称 = c.自社品名,
+                                 }).ToList();
+                        }
+                        break;
 
-                case "M09_HIN":    //商品マスタ
-                    if (int.TryParse(pコード, out Code))
-                    {
-                        Member =
-                            context.M09_HIN.Where(x => x.品番コード == Code && x.削除日時 == null)
-                                .Select(c => new CodeTextString_Member
-                             {
-                                 コード = SqlFunctions.StringConvert((double)c.品番コード),
-                                 名称 = c.自社品名,
-                             }).ToList();
-                    }
-                    break;
+                    case "M11_TEK":    //摘要マスタ
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            Member =
+                                (from x in context.M11_TEK
+                                 where (x.摘要ID == Code && x.削除日時 == null)
+                                 select new CodeTextInt_Member
+                                 {
+                                     コード = x.摘要ID,
+                                     名称 = x.摘要名,
+                                 })
+                                 .ToList()
+                                 .Select(c => new CodeTextString_Member
+                                 {
+                                     コード = c.コード.ToString(),
+                                     名称 = c.名称,
+                                 })
+                                 .ToList();
+                        }
+                        break;
 
-                case "M11_TEK":    //摘要マスタ
-                    if (int.TryParse(pコード, out Code))
-                    {
-                        Member =
-                            (from x in context.M11_TEK
-                             where (x.摘要ID == Code && x.削除日時 == null)
-                             select new CodeTextInt_Member
-                             {
-                                 コード = x.摘要ID,
-                                 名称 = x.摘要名,
-                             })
-                             .ToList()
-                             .Select(c => new CodeTextString_Member
-                             {
-                                 コード = c.コード.ToString(),
-                                 名称 = c.名称,
-                             })
-                             .ToList();
-                    }
-                    break;
-
-				}
+                }
 
             }
 
@@ -688,10 +688,29 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     case "M01_TOK":
                         #region 取引先マスタ
+
+                        // No-268 Mod Start
+                        string s取引区分;
+                        int マルセン追加フラグ = 0;
+
                         LinkItem = LinkItem == null ? "" : LinkItem;
+
+                        // linkitemがリストかどうか判定し取引区分を取得
+                        if (LinkItem is string[])
+                        {
+                            int linkAddVal = 0;
+                            string[] linkItemList = (LinkItem as string[]);
+                            s取引区分 = linkItemList[0].ToString();
+                            マルセン追加フラグ = int.TryParse(linkItemList[1].ToString(), out linkAddVal) ? linkAddVal : 0;
+                        }
+                        else
+                        {
+                            s取引区分 = LinkItem.ToString();
+                        }
+
                         List<int> targetKbn = new List<int>();
-                        foreach (string str in LinkItem.ToString().Split(','))
-                            if(!string.IsNullOrEmpty(str))
+                        foreach (string str in s取引区分.Split(','))
+                            if (!string.IsNullOrEmpty(str))
                                 targetKbn.Add(int.Parse(str));
 
                         // LinkItemの設定がない場合は全ての取引区分を対象とする
@@ -706,28 +725,39 @@ namespace KyoeiSystem.Application.WCFService
 
                         if (int.TryParse(pコード, out Code) && int.TryParse(pサブコード, out Eda))
                         {
+                            var query = context.M01_TOK.Where(x => x.削除日時 == null);
+
+                            if (マルセン追加フラグ == 1)
+                            {
+                                query = query.Where(c => targetKbn.Contains(c.取引区分) || (c.取引先コード == 0 && c.枝番 == 1));
+                            }
+                            else
+                            {
+                                query = query.Where(c => targetKbn.Contains(c.取引区分));
+                            }
+
+                            // コードで絞込
                             Member =
-                                context.M01_TOK
-                                    .Where(x =>
-                                        x.削除日時 == null &&
-                                        x.取引先コード == Code &&
-                                        x.枝番 == Eda &&
-                                        targetKbn.Contains(x.取引区分))
-                                    .Select(s => new TwinCodeText_Member
-                                    {
-                                        コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                        サブコード = SqlFunctions.StringConvert((double)s.枝番),
-                                        名称 = s.略称名 == null ? s.得意先名１ : s.略称名,        // No.199 Mod
-                                        Ｓ税区分ID = s.Ｓ税区分ID,
-                                        Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
-                                        Ｔ税区分ID = s.Ｔ税区分ID,
-                                        Ｔ消費税区分 = s.Ｔ消費税区分
-                                    }).ToList();
+                               query
+                                   .Where(x =>
+                                       x.取引先コード == Code &&
+                                       x.枝番 == Eda)
+                                   .Select(s => new TwinCodeText_Member
+                                   {
+                                       コード = SqlFunctions.StringConvert((double)s.取引先コード),
+                                       サブコード = SqlFunctions.StringConvert((double)s.枝番),
+                                       名称 = s.略称名 == null ? s.得意先名１ : s.略称名,        // No.199 Mod
+                                       Ｓ税区分ID = s.Ｓ税区分ID,
+                                       Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
+                                       Ｔ税区分ID = s.Ｔ税区分ID,
+                                       Ｔ消費税区分 = s.Ｔ消費税区分
+                                   }).ToList();
                         }
+                        // No-268 Mod End
                         #endregion
 
                         break;
-                    
+
                 }
 
             }
@@ -747,7 +777,7 @@ namespace KyoeiSystem.Application.WCFService
         public List<M01_TOK_SearchMember> GetDataMasterTable_Product(string DataAccessName, string 取引先コード, string 枝番, object LinkItem)
         {
             List<M01_TOK_SearchMember> Member = new List<M01_TOK_SearchMember>();
-			int Code = -1;
+            int Code = -1;
             int Eda = -1;
             List<int> tradingKbnList = new List<int>();
 
@@ -835,8 +865,8 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="zip">郵便番号</param>
         /// <returns></returns>
-		public List<M99_ZIP> GetAddressByZip(string zip)
-		{
+        public List<M99_ZIP> GetAddressByZip(string zip)
+        {
             // 郵便番号ハイフンを除去
             zip = zip.Replace("-", "");
 
@@ -845,16 +875,16 @@ namespace KyoeiSystem.Application.WCFService
                 return new List<M99_ZIP>();
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
-			{
-				try { context.Connection.Open(); }
-				catch (Exception ex) { throw new DBOpenException(ex); }
+            {
+                try { context.Connection.Open(); }
+                catch (Exception ex) { throw new DBOpenException(ex); }
 
                 var zipList = context.M99_ZIP
                                     .Where(w => w.郵便番号 == zip)
                                     .OrderBy(o => o.地区コード)
                                     .ThenBy(t => t.郵便番号);
 
-				return zipList.ToList();
+                return zipList.ToList();
 
             }
 

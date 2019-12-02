@@ -149,7 +149,7 @@
 
           <!-- 仕入先 -->
           <uc:M01_TOK_TextBox x:Name="Customer" Grid.Row="3" Grid.ColumnSpan="2" IsKeyItem="False" HorizontalAlignment="Left" Margin="0,3,0,0"
-                              DataAccessMode="On" DataAccessName="M01_TOK" LinkItem="1,3"
+                              DataAccessMode="On" DataAccessName="M01_TOK" LinkItem="{Binding Path=得意先リンクアイテム, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                               Label_Context="仕入先指定" Label_Width="100"
                               Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                               Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
