@@ -405,7 +405,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             //gridCtl.SetCellValue((int)GridColumnsMapping.単価, drow["原価"] == DBNull.Value ? 0 : Convert.ToInt32(drow["原価"]));
                             //gridCtl.SetCellValue((int)GridColumnsMapping.金額, drow["原価"] == DBNull.Value ? 0 : Convert.ToInt32(drow["原価"]));
                             gridCtl.SetCellValue((int)GridColumnsMapping.単価, drow["原価"] == DBNull.Value ? 0 : Convert.ToDecimal(drow["原価"]));
-                            gridCtl.SetCellValue((int)GridColumnsMapping.金額, drow["原価"] == DBNull.Value ? 0 : Convert.ToInt32(drow["原価"]));
+                            //gridCtl.SetCellValue((int)GridColumnsMapping.金額, drow["原価"] == DBNull.Value ? 0 : Convert.ToInt32(drow["原価"]));
+                            gridCtl.SetCellValue((int)GridColumnsMapping.d金額, AppCommon.DecimalParse(drow["原価"].ToString()));
+
                             gridCtl.SetCellValue((int)GridColumnsMapping.税区分, taxCalc.getTaxRareKbnString(drow["消費税区分"]));        // No-94 Add
                             gridCtl.SetCellValue((int)GridColumnsMapping.消費税区分, drow["消費税区分"]);
                             gridCtl.SetCellValue((int)GridColumnsMapping.商品分類, drow["商品分類"]);
@@ -1154,18 +1156,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // エラー情報をクリア
                 gridCtl.ClearValidationErrors(rIdx);
-
-                DateTime? row賞味期限 = DBNull.Value.Equals(row["賞味期限"]) ? (DateTime?)null : Convert.ToDateTime(row["賞味期限"]);
-                int? row品番コード = DBNull.Value.Equals(row["品番コード"]) ? (int?)null : Convert.ToInt32(row["品番コード"]);
-                if (CurrentDetail.Where(x => x.Field<int?>("品番コード") == row品番コード && x.Field<DateTime?>("賞味期限") == row賞味期限).Count() > 1)
-                {
-                    base.ErrorMessage = string.Format("同じ商品が存在するので、一つに纏めて下さい。");
-                    gridCtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "同じ商品が存在するので、一つに纏めて下さい。");
-                    if (!isDetailErr)
-                        gridCtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
-
-                    isDetailErr = true;
-                }
 
                 if (string.IsNullOrEmpty(row["数量"].ToString()))
                 {
