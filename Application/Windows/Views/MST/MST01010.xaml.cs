@@ -924,7 +924,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     int ival;
                     if (int.TryParse(T_SHIME_DT.Text, out ival))
                     {
-                        if (ival >= 1 && ival <= 31)
+                        if (ival >= 0 && ival <= 31)
                             isTShimeResult = true;
 
                     }

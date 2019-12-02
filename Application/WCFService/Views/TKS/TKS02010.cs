@@ -624,8 +624,9 @@ namespace KyoeiSystem.Application.WCFService
             foreach (M01_TOK tok in tokList)
             {
                 List<S06_URIHD> wk = context.S06_URIHD.Where(w => w.自社コード == company && w.請求年月 == yearMonth &&
-                                                w.請求先コード == tok.取引先コード && w.請求先枝番 == tok.枝番 &&
-                                                w.当月請求額 != 0).ToList();
+                                                w.請求先コード == tok.取引先コード && w.請求先枝番 == tok.枝番
+                                                && (w.当月請求額 != 0 || w.売上額 != 0)
+                                                ).ToList();
 
                 uriList = uriList.Concat(wk).ToList();
             }
