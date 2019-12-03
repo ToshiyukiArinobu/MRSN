@@ -39,6 +39,7 @@ namespace KyoeiSystem.Application.WCFService
             public DateTime クリア開始日付 { get; set; }
             public DateTime クリア終了日付 { get; set; }
             public DateTime 入金日 { get; set; }
+            public string 作成年月 { get; set; }
         }
 
         #endregion
@@ -190,6 +191,7 @@ namespace KyoeiSystem.Application.WCFService
                     row.クリア開始日付 = startDate;
                     row.クリア終了日付 = endDate;
                     row.入金日 = paymentDate;
+                    row.作成年月 = 作成年月;
 
                 }
 

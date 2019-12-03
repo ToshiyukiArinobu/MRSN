@@ -278,62 +278,52 @@
           <ctls:UcLabelTextBox Name="CompanyName" Label_Context="自社名" Grid.Row="2" Label_Width="100" cWidth="400"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Native" cMaxLength="40"
                                Text="{Binding 自社名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
           <ctls:UcLabelTextBox Name="RepresentativeName" Label_Context="代表者名" Grid.Row="4" Label_Width="100" cWidth="400"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Native" cMaxLength="40"
                                Text="{Binding 代表者名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
 
           <ctls:UcLabelTextBox Name="PostCode" Label_Context="郵便番号" Grid.Row="6" Label_Width="100" cWidth="120"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Off" cMaxLength="8"
                                Text="{Binding 郵便番号, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown" SourceUpdated="YUBIN_NO_SourceUpdated"
+                               SourceUpdated="YUBIN_NO_SourceUpdated"
                                      
           />
           <ctls:UcLabelTextBox Name="Address1" Label_Context="住所１" Grid.Row="8" Label_Width="100" cWidth="400"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Native" cMaxLength="40"
                                Text="{Binding 住所１, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
           <ctls:UcLabelTextBox Name="Address2" Label_Context="住所２" Grid.Row="10" Label_Width="100" cWidth="400"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Native" cMaxLength="40"
                                Text="{Binding 住所２, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
 
           <ctls:UcLabelTextBox Name="PhoneNumber" Label_Context="電話番号" Grid.Row="12" Label_Width="100" cWidth="120"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Off" cMaxLength="15"
                                Text="{Binding 電話番号, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
           <ctls:UcLabelTextBox Name="FaxNumber" Label_Context="ＦＡＸ番号" Grid.Row="14" Label_Width="100" cWidth="120"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Off" cMaxLength="15"
                                Text="{Binding ＦＡＸ番号, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
 
           <ctls:UcLabelTextBox Name="BankPayee1" Label_Context="振込先銀行１" Grid.Row="16" Label_Width="100" cWidth="500"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Native" cMaxLength="50"
                                Text="{Binding 振込先銀行１, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
           <ctls:UcLabelTextBox Name="BankPayee2" Label_Context="振込先銀行２" Grid.Row="18" Label_Width="100" cWidth="500"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Native" cMaxLength="50"
                                Text="{Binding 振込先銀行２, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
           <ctls:UcLabelTextBox Name="BankPayee3" Label_Context="振込先銀行３" Grid.Row="20" Label_Width="100" cWidth="500"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Native" cMaxLength="50"
                                Text="{Binding 振込先銀行３, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
 
           <ctls:UcLabelTextBox Name="CorporationNumber" Label_Context="法人ナンバー" Grid.Row="22" Label_Width="100" cWidth="150"
                                HorizontalAlignment="Left" cTextAlignment="Left" ImeType="Off" cMaxLength="20"
                                Text="{Binding 法人ナンバー, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                               PreviewKeyDown="TextBox_Update_PreviewKeyDown"
           />
 
           <ctls:UcLabelTextRadioButton Name="DisplayType" RadioViewCount="Two" Label_Content="自社区分" Grid.Row="24" Label_Width="100" Margin="0,0,0,0" IsRequired="True" Validation.ErrorTemplate="{StaticResource validationTemplate}"

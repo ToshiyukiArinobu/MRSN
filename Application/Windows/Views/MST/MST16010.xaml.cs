@@ -728,6 +728,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 MstData["取引先コード"] = TryParseInteger(取引先コード);
                 MstData["枝番"] = TryParseInteger(取引先コード枝番);
                 MstData["ロゴ画像"] = ロゴ画像;
+                MstData["決算月"] = 決算月;
 
                 // 更新実行
                 base.SendRequest(

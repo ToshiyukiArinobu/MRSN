@@ -203,6 +203,7 @@ namespace KyoeiSystem.Application.WCFService
                     m70.取引先コード = pUpdateData.取引先コード;
                     m70.枝番 = pUpdateData.枝番;
                     m70.ロゴ画像 = pUpdateData.ロゴ画像;
+                    m70.決算月 = pUpdateData.決算月;
                     m70.登録者 = pLoginUserCode;
                     m70.登録日時 = DateTime.Now;
                     m70.最終更新者 = pLoginUserCode;
@@ -229,6 +230,7 @@ namespace KyoeiSystem.Application.WCFService
                     data.取引先コード = pUpdateData.取引先コード;
                     data.枝番 = pUpdateData.枝番;
                     data.ロゴ画像 = pUpdateData.ロゴ画像;
+                    data.決算月 = pUpdateData.決算月;
                     data.最終更新者 = pLoginUserCode;
                     data.最終更新日時 = DateTime.Now;
                     data.削除者 = null;

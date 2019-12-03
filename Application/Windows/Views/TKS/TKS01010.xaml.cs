@@ -257,7 +257,14 @@ namespace KyoeiSystem.Application.Windows.Views
                                 MessageBoxImage.Question);
 
                         if (result == MessageBoxResult.Yes)
+                        {
                             this.Close();
+                        }
+                        else
+                        {
+                            //検索をクリアして再度実施する時は検索ボタンの押下を促す。
+                            SearchList = null;
+                        }
                         break;
 
                 }
@@ -358,9 +365,10 @@ namespace KyoeiSystem.Application.Windows.Views
             p作成年月 = p作成年月日.Year * 100 + p作成年月日.Month;
 
             // リスト内容の入力検証
-            if (!isListValidation())
+            string errMsg = isListValidation();
+            if (string.IsNullOrEmpty(errMsg) == false)
             {
-                MessageBox.Show("入力エラーがあります。");
+                MessageBox.Show(errMsg);
                 return;
             }
 
@@ -462,11 +470,12 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 集計開始時の入力検証をおこなう
         /// </summary>
         /// <returns></returns>
-        private bool isListValidation()
+        private string isListValidation()
         {
-            bool isResult = false;
-            bool isDetailErr = false;
+            //bool isResult = false;
+            //bool isDetailErr = false;
             int rIdx = 0;
+            string msg = string.Empty;
 
             foreach (DataRow row in SearchList.Rows)
             {
@@ -504,12 +513,18 @@ namespace KyoeiSystem.Application.Windows.Views
                 // エラー情報をクリア
                 sp請求データ一覧.Rows[rIdx].ValidationErrors.Clear();
 
-                string msg = string.Empty;
+
+                if (CreateYearMonth.Text != row["作成年月"].ToString())
+                {
+                    //isDetailErr = true;
+                    msg = "検索条件の作成年月と表内の作成年月が一致しません。\r\n再度検索を行って下さい。";
+                }
+
                 #region 【１回目】
 
                 if (string.IsNullOrWhiteSpace(row["開始日付1"].ToString()))
                 {
-                    isDetailErr = true;
+                    //isDetailErr = true;
                     msg = "１回目の開始日付が設定されていません。";
                     sp請求データ一覧.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始1.GetHashCode()));
@@ -517,7 +532,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
                 else if (closingDate != null && DateTime.Parse(row["開始日付1"].ToString()) > closingDate)          // No-100 Mod
                 {
-                    isDetailErr = true;
+                    //isDetailErr = true;
                     msg = "１回目の開始日付が締日を超えています。";
                     sp請求データ一覧.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始1.GetHashCode()));
@@ -526,7 +541,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if(string.IsNullOrWhiteSpace(row["終了日付1"].ToString()))
                 {
-                    isDetailErr = true;
+                    //isDetailErr = true;
                     msg = "１回目の終了日付が設定されていません。";
                     sp請求データ一覧.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了1.GetHashCode()));
@@ -547,7 +562,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if (string.IsNullOrWhiteSpace(row["開始日付2"].ToString()) && !string.IsNullOrWhiteSpace(row["終了日付2"].ToString()))
                 {
-                    isDetailErr = true;
+                    //isDetailErr = true;
                     msg = "２回目の開始日付が設定されていません。";
                     sp請求データ一覧.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始2.GetHashCode()));
@@ -563,7 +578,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             if (date1.AddDays(1) != date2)
                             {
-                                isDetailErr = true;
+                                //isDetailErr = true;
                                 msg = "２回目の開始日付が正しくありません。";
                                 sp請求データ一覧.Rows[rIdx]
                                     .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始2.GetHashCode()));
@@ -586,7 +601,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if (string.IsNullOrWhiteSpace(row["終了日付2"].ToString()) && !string.IsNullOrWhiteSpace(row["開始日付2"].ToString()))
                 {
-                    isDetailErr = true;
+                    //isDetailErr = true;
                     msg = "２回目の終了日付が設定されていません。";
                     sp請求データ一覧.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了2.GetHashCode()));
@@ -610,7 +625,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if (string.IsNullOrWhiteSpace(row["開始日付3"].ToString()) && !string.IsNullOrWhiteSpace(row["終了日付3"].ToString()))
                 {
-                    isDetailErr = true;
+                    //isDetailErr = true;
                     msg = "３回目の開始日付が設定されていません。";
                     sp請求データ一覧.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始3.GetHashCode()));
@@ -626,7 +641,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             if (date1.AddDays(1) != date2)
                             {
-                                isDetailErr = true;
+                                //isDetailErr = true;
                                 msg = "３回目の開始日付が正しくありません。";
                                 sp請求データ一覧.Rows[rIdx]
                                     .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間開始3.GetHashCode()));
@@ -649,7 +664,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if (string.IsNullOrWhiteSpace(row["終了日付3"].ToString()) && !string.IsNullOrWhiteSpace(row["開始日付3"].ToString()))
                 {
-                    isDetailErr = true;
+                    //isDetailErr = true;
                     msg = "３回目の終了日付が設定されていません。";
                     sp請求データ一覧.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError(msg, null, rIdx, GridColumnsMapping.期間終了3.GetHashCode()));
@@ -674,12 +689,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
-            if (isDetailErr)
-                return isResult;
+            //if (isDetailErr)
+            //    return isResult;
 
-            isResult = true;
+            //isResult = true;
 
-            return isResult;
+            return msg;
 
         }
 
