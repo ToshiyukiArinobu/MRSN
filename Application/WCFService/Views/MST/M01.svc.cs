@@ -18,6 +18,16 @@ namespace KyoeiSystem.Application.WCFService
     // 注意: このサービスをテストするために WCF テスト クライアントを起動するには、ソリューション エクスプローラーで DataDriveLogService.svc または DataDriveLogService.svc.cs を選択し、デバッグを開始してください。
     public class M01
     {
+
+        #region << 拡張クラス定義 >>
+
+        public class M01_TOK_Extension : M01_TOK
+        {
+            public int? 自社区分 { get; set; }
+        }
+
+        #endregion
+
         /// <summary>
         /// 取引先情報取得
         /// </summary>
@@ -290,7 +300,7 @@ namespace KyoeiSystem.Application.WCFService
         /// 取引先マスタをリストで取得する
         /// </summary>
         /// <returns></returns>
-        public List<M01_TOK> GetDataList(int? 表示区分, int 自社コード, int マルセン追加フラグ)
+        public List<M01_TOK_Extension> GetDataList(int? 表示区分, int 自社コード, int マルセン追加フラグ)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -301,22 +311,6 @@ namespace KyoeiSystem.Application.WCFService
                         .Where(w => w.削除日時 == null)
                         .OrderBy(o => o.取引先コード)
                         .AsQueryable();
-
-                if (表示区分 != null && 表示区分 != 9)
-                {
-                    // 表示区分が設定されている場合は更に絞り込みをおこなう
-                    // No-268 Mod Start
-                    if (表示区分 == 1 && マルセン追加フラグ == 1)
-                    {
-                        // 仕入先にマルセンを追加
-                        result = result.Where(w => w.取引区分 == 表示区分 || (w.取引先コード == 0 && w.枝番 == 1));
-                    }
-                    else
-                    {
-                        result = result.Where(w => w.取引区分 == 表示区分);
-                    }
-                    // No-268 Mod End
-                }
 
                 var myKbn =
                     context.M70_JIS
@@ -329,8 +323,91 @@ namespace KyoeiSystem.Application.WCFService
                     result =
                         result.Where(w => w.担当会社コード == 自社コード);
 
-                return result.ToList();
+                // No-268 Mod Start
+                if (表示区分 != null && 表示区分 != 9)
+                {
+                    // 表示区分が設定されている場合は更に絞り込みをおこなう
+                    result = result.Where(w => w.取引区分 == 表示区分);
 
+                    if (マルセン追加フラグ == 1)
+                    {
+                        // 自社(マルセン)を仕入先として追加する
+                        var jisTok =
+                               context.M70_JIS
+                                   .Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.自社)
+                                   .FirstOrDefault();
+
+                        result = result.Union(
+                             context.M01_TOK.Where(w =>
+                                 w.削除日時 == null &&
+                                 w.取引先コード == jisTok.取引先コード &&
+                                 w.枝番 == jisTok.枝番));
+                    }
+                }
+
+                // 画面側でマルセン追加の条件検索ができるよう自社区分を追加
+                var ret = result.GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => new { code = x.取引先コード, eda = x.枝番 },
+                            y => new { code = (int)y.取引先コード, eda = (int)y.枝番 },
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(), (a, b) => new { TOK = a.x, JIS = b })
+                        .Select(c => new M01_TOK_Extension
+                        {
+                            取引先コード = c.TOK.取引先コード,
+                            枝番 = c.TOK.枝番,
+                            取引区分 = c.TOK.取引区分,
+                            得意先名１ = c.TOK.得意先名１,
+                            得意先名２ = c.TOK.得意先名２,
+                            部課名称 = c.TOK.部課名称,
+                            略称名 = c.TOK.略称名,
+                            郵便番号 = c.TOK.郵便番号,
+                            住所１ = c.TOK.住所１,
+                            住所２ = c.TOK.住所２,
+                            電話番号 = c.TOK.電話番号,
+                            ＦＡＸ = c.TOK.ＦＡＸ,
+                            かな読み = c.TOK.かな読み,
+                            担当会社コード = c.TOK.担当会社コード,
+                            Ｔ消費税区分 = c.TOK.Ｔ消費税区分,
+                            Ｔ税区分ID = c.TOK.Ｔ税区分ID,
+                            Ｔ締日 = c.TOK.Ｔ締日,
+                            Ｔ請求条件 = c.TOK.Ｔ請求条件,
+                            Ｔ請求区分 = c.TOK.Ｔ請求区分,
+                            Ｔサイト１ = c.TOK.Ｔサイト１,
+                            Ｔサイト２ = c.TOK.Ｔサイト２,
+                            Ｔ入金日１ = c.TOK.Ｔ入金日１,
+                            Ｔ入金日２ = c.TOK.Ｔ入金日２,
+                            Ｓ支払消費税区分 = c.TOK.Ｓ支払消費税区分,
+                            Ｓ税区分ID = c.TOK.Ｓ税区分ID,
+                            Ｓ締日 = c.TOK.Ｓ締日,
+                            Ｓ支払条件 = c.TOK.Ｓ支払条件,
+                            Ｓ支払区分 = c.TOK.Ｓ支払区分,
+                            Ｓサイト１ = c.TOK.Ｓサイト１,
+                            Ｓサイト２ = c.TOK.Ｓサイト２,
+                            Ｓ入金日１ = c.TOK.Ｓ入金日１,
+                            Ｓ入金日２ = c.TOK.Ｓ入金日２,
+                            与信枠 = c.TOK.与信枠,
+                            Ｔ担当者コード = c.TOK.Ｔ担当者コード,
+                            Ｓ担当者コード = c.TOK.Ｓ担当者コード,
+                            自社備考１ = c.TOK.自社備考１,
+                            自社備考２ = c.TOK.自社備考２,
+                            論理削除 = c.TOK.論理削除,
+                            集約取引先コード = c.TOK.集約取引先コード,
+                            集約取引先枝番 = c.TOK.集約取引先枝番,
+                            参照取引先コード１ = c.TOK.参照取引先コード１,
+                            参照取引先枝番１ = c.TOK.参照取引先枝番１,
+                            参照取引先コード２ = c.TOK.参照取引先コード２,
+                            参照取引先枝番２ = c.TOK.参照取引先枝番２,
+                            参照取引先コード３ = c.TOK.参照取引先コード３,
+                            参照取引先枝番３ = c.TOK.参照取引先枝番３,
+                            集計コード１ = c.TOK.集計コード１,
+                            集計コード２ = c.TOK.集計コード２,
+                            集計コード３ = c.TOK.集計コード３,
+                            自社区分 = c.JIS.自社区分,
+                        });
+
+
+                return ret.ToList();
+                // No-268 Mod End
             }
 
         }
