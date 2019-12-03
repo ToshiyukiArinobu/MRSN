@@ -169,7 +169,14 @@
         <DataGridTextColumn Header="品群" Binding="{Binding 品群}" />
         <DataGridTextColumn Header="品群名" Binding="{Binding 品群名}" />
         <DataGridTextColumn Header="単位" Binding="{Binding 単位}" />
-        <DataGridTextColumn Header="原価" Binding="{Binding 原価}">
+        <DataGridTextColumn Header="仕入先原価" Binding="{Binding 原価}">
+            <DataGridTextColumn.ElementStyle>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Right" />
+                </Style>
+            </DataGridTextColumn.ElementStyle>
+        </DataGridTextColumn>
+        <DataGridTextColumn Header="マスタ原価" Binding="{Binding マスタ原価}">
           <DataGridTextColumn.ElementStyle>
             <Style TargetType="TextBlock">
               <Setter Property="TextAlignment" Value="Right" />
