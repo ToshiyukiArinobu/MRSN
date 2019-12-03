@@ -727,23 +727,13 @@ namespace KyoeiSystem.Application.WCFService
                         {
                             var query = context.M01_TOK.Where(x => x.削除日時 == null);
 
-                            query = query.Where(c => targetKbn.Contains(c.取引区分));
-
                             if (マルセン追加フラグ == 1)
                             {
-                                // No-268 Mod Start
-                                // 自社(マルセン)を仕入先として追加する
-                                var jisTok = context.M70_JIS
-                                            .Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.自社)
-                                            .FirstOrDefault();
-
-                                query = query.Union(
-                                        context.M01_TOK.Where(w =>
-                                        w.削除日時 == null &&
-                                        w.取引先コード == jisTok.取引先コード &&
-                                        w.枝番 == jisTok.枝番)
-                                     );
-                                // No-268 Mod End
+                                query = query.Where(c => targetKbn.Contains(c.取引区分) || (c.取引先コード == 0 && c.枝番 == 1));
+                            }
+                            else
+                            {
+                                query = query.Where(c => targetKbn.Contains(c.取引区分));
                             }
 
                             // コードで絞込

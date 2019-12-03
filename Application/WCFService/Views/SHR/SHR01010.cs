@@ -114,18 +114,9 @@ namespace KyoeiSystem.Application.WCFService
                     // 対象として取引区分：仕入先、相殺、販社を対象とする
                     List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.仕入先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };
 
-                    // No-268 Mod Start
                     // 集計得意先を取得
-                    var Tok = context.M01_TOK.Where(w => w.削除日時 == null && (kbnList.Contains(w.取引区分)));
-
-                    // 自社(マルセン)を仕入先として追加する
-                    var jisTok =
-                      context.M70_JIS
-                          .Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.自社)
-                          .FirstOrDefault();
-
-                    List<M01_TOK> tokList = Tok.Union(context.M01_TOK.Where(w => w.削除日時 == null && w.取引先コード == jisTok.取引先コード && w.枝番 == jisTok.枝番)).ToList();
-                    // No-268 Mod End
+                    List<M01_TOK> tokList =
+                                context.M01_TOK.Where(w => w.削除日時 == null && (kbnList.Contains(w.取引区分) || (w.取引先コード == 0 && w.枝番 == 1))).ToList();       // No-268 Mod
 
                     // 取引先が指定されていれば条件追加
                     if (customerCode != null && customerEda != null)

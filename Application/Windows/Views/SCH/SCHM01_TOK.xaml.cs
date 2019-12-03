@@ -51,19 +51,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        #region << 列挙型定義 >>
-
-        /// <summary>
-        /// 自社販社区分 内包データ
-        /// </summary>
-        private enum 自社販社区分 : int
-        {
-            自社 = 0,
-            販社 = 1
-        }
-
-        #endregion
-
         #region 定数定義
 
         /// <summary>取引先マスタデータリスト取得</summary>
@@ -175,6 +162,13 @@ namespace KyoeiSystem.Application.Windows.Views
             this.CancelButton.FontSize = 9;
             this.CancelButton.Content = "\n\n\n終了(F1)";
 
+            AppCommon.SetutpComboboxList(this.OrderColumn, false);
+            AppCommon.SetutpComboboxList(this.cmbDealings, false);
+
+            // 呼び出し時にコードが設定されている場合は初期値として設定する
+            if (!string.IsNullOrEmpty(this.TwinTextBox.Text1))
+                コード = this.TwinTextBox.Text1;
+
             // 呼び出し元から表示区分を取ってくる。
             if (this.TwinTextBox.LinkItem != null)
             {
@@ -226,15 +220,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 this.cmbDealings.SelectedValue = 9;
             }
 
-            // No-291 Mod Start
-            AppCommon.SetutpComboboxList(this.OrderColumn, false);
-            AppCommon.SetutpComboboxList(this.cmbDealings, false);
-
-            // 呼び出し時にコードが設定されている場合は初期値として設定する
-            if (!string.IsNullOrEmpty(this.TwinTextBox.Text1))
-                コード = this.TwinTextBox.Text1;
-            // No-291 Mod End
-
             GridOutPut();
             this.OrderColumn.SelectionChanged += this.OrderColumn_SelectionChanged;
 
@@ -276,7 +261,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 this.OrderColumn.SelectedIndex = frmcfg.Combo_Copy;
 
             }
-            #endregion        
+            #endregion
 
         }
         #endregion
@@ -360,9 +345,9 @@ namespace KyoeiSystem.Application.Windows.Views
                         // 取引区分=9(全取引)より下でフィルタ処理
                         sb.AppendFormat("{0} ( 取引区分 = {1}", sb.Length == 0 ? string.Empty : " AND", selectKbn);
 
-                        if (selectKbn == 1 && マルセン追加フラグ == 1)
+                        if (マルセン追加フラグ == 1)
                         {
-                            sb.AppendFormat(" OR  自社区分 = {0}", (int)自社販社区分.自社);
+                            sb.AppendFormat(" OR ( 取引先コード = {0} AND 枝番 = {1} )", "0", "1");
                         }
                         sb.Append(")");
                         // No-268 Mod End
@@ -386,12 +371,6 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
 
                     SearchResult = dv.ToTable();
-
-                    // No-268 Mod Start
-                    int jisKbnIndex = SearchResult.Columns.IndexOf("自社区分");
-                    SearchGrid.Columns[jisKbnIndex].Visibility = System.Windows.Visibility.Hidden;
-                    // No-268 Mod End
-
                     SearchGrid.SelectedIndex = 0;
 
                     break;
@@ -563,12 +542,6 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             SearchResult = view.ToTable();
-
-            // No-268 Mod Start
-            int jisKbnIndex = SearchResult.Columns.IndexOf("自社区分");
-            SearchGrid.Columns[jisKbnIndex].Visibility = System.Windows.Visibility.Hidden;
-            // No-268 Mod End
-
             SearchGrid.SelectedIndex = 0;
 
         }
