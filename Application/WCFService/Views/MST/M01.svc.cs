@@ -242,20 +242,24 @@ namespace KyoeiSystem.Application.WCFService
             entity.ＦＡＸ = data.ＦＡＸ;
             entity.かな読み = data.かな読み;
             entity.担当会社コード = data.担当会社コード;
-            entity.Ｔ消費税区分 = data.Ｔ消費税区分;
-            entity.Ｔ税区分ID = data.Ｔ税区分ID;
+            // No-281 Mod Start
+            entity.Ｔ消費税区分 = (data.Ｔ消費税区分 == 0) ? (int)CommonConstants.消費税区分.ID01_一括 : data.Ｔ消費税区分;
+            entity.Ｔ税区分ID = (data.Ｔ税区分ID == 0) ? (int)CommonConstants.税区分.ID01_切捨て : data.Ｔ税区分ID;
+            // No-281 Mod End
             entity.Ｔ締日 = data.Ｔ締日;
             entity.Ｔ請求条件 = data.Ｔ請求条件;
-            entity.Ｔ請求区分 = data.Ｔ請求区分;
+            entity.Ｔ請求区分 = (data.Ｔ請求区分 == 0) ? (int)CommonConstants.請求・支払区分.ID01_以上 : data.Ｔ請求区分;          // No-281 Mod
             entity.Ｔサイト１ = data.Ｔサイト１;
             entity.Ｔサイト２ = data.Ｔサイト２;
             entity.Ｔ入金日１ = data.Ｔ入金日１;
             entity.Ｔ入金日２ = data.Ｔ入金日２;
-            entity.Ｓ支払消費税区分 = data.Ｓ支払消費税区分;
-            entity.Ｓ税区分ID = data.Ｓ税区分ID;
+            // No-281 Mod Start
+            entity.Ｓ支払消費税区分 = (data.Ｓ支払消費税区分 == 0) ? (int)CommonConstants.消費税区分.ID01_一括 : data.Ｓ支払消費税区分;
+            entity.Ｓ税区分ID = (data.Ｓ税区分ID == 0) ? (int)CommonConstants.税区分.ID01_切捨て : data.Ｓ税区分ID;
+            // No-281 Mod End
             entity.Ｓ締日 = data.Ｓ締日;
             entity.Ｓ支払条件 = data.Ｓ支払条件;
-            entity.Ｓ支払区分 = data.Ｓ支払区分;
+            entity.Ｓ支払区分 = (data.Ｓ支払区分 == 0) ? (int)CommonConstants.請求・支払区分.ID01_以上 : data.Ｓ支払区分;          // No-281 Mod
             entity.Ｓサイト１ = data.Ｓサイト１;
             entity.Ｓサイト２ = data.Ｓサイト２;
             entity.Ｓ入金日１ = data.Ｓ入金日１;

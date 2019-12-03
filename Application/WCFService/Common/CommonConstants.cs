@@ -221,6 +221,14 @@ namespace KyoeiSystem.Application.WCFService
             ID09_税なし = 9
         }
 
+        // No-281 Add Start
+        public enum 請求・支払区分 : int
+        {
+            ID01_以上 = 1,
+            ID02_以下 = 2
+        }
+        // No-281 Add End
+
         public enum 商品消費税区分 : int
         {
             通常税率 = 0,
