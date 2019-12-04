@@ -675,8 +675,11 @@ namespace KyoeiSystem.Application.WCFService
             // 4.入出庫履歴の生成(入庫)
             setS04_HISTORY_Create(urhd, dtlTbl, orghd);         // No.156-4
 
-            // 5.仕入ヘッダの更新
-            setT03_SRHD_Update(urhd, CommonConstants.仕入区分.返品);
+            // 5-1.仕入ヘッダ金額の再計算
+            T02_URHD recalcData = reCalcT03_SRHD(urhd, dtlTbl);           // No.272 Add
+
+            // 5-2.仕入ヘッダの更新
+            setT03_SRHD_Update(recalcData, CommonConstants.仕入区分.返品);
 
             // 6.仕入詳細の更新
             setT03_SRDTL_Update(urhd, dtlTbl, false);
@@ -847,6 +850,9 @@ namespace KyoeiSystem.Application.WCFService
             setS04_HISTORY_HANReturns_Update(urhd, dtlTbl, hdRow, true);    // No.156-4 MOd
 
             #region 13.仕入ヘッダの更新(メーカー⇒マルセン)
+            // 仕入ヘッダ金額の再計算
+            T02_URHD recalcData = reCalcT03_SRHD(urhd, dtlTbl);           // No.272 Add
+
             T03_SRHD srhd = new T03_SRHD();
 
             srhd.伝票番号 = urhd.伝票番号;
@@ -861,16 +867,16 @@ namespace KyoeiSystem.Application.WCFService
             srhd.備考 = urhd.備考;
             srhd.元伝票番号 = urhd.元伝票番号;
             // No-94 Add Start
-            srhd.通常税率対象金額 = urhd.通常税率対象金額;
-            srhd.軽減税率対象金額 = urhd.軽減税率対象金額;
-            srhd.通常税率消費税 = urhd.通常税率消費税;
-            srhd.軽減税率消費税 = urhd.軽減税率消費税;
+            srhd.通常税率対象金額 = recalcData.通常税率対象金額;
+            srhd.軽減税率対象金額 = recalcData.軽減税率対象金額;
+            srhd.通常税率消費税 = recalcData.通常税率消費税;
+            srhd.軽減税率消費税 = recalcData.軽減税率消費税;
             // No-94 Add End
             // No-95 Add Start
-            srhd.小計 = urhd.小計;
-            srhd.総合計 = urhd.総合計;
+            srhd.小計 = recalcData.小計;
+            srhd.総合計 = recalcData.総合計;
             // No-95 Add End
-            srhd.消費税 = urhd.消費税;
+            srhd.消費税 = recalcData.消費税;
 
             T03Service.T03_SRHD_Update(srhd);
             #endregion
@@ -1046,7 +1052,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 decimal dcmCost = getWholesalePrice(dtl.品番コード);
                 int intKingakuWk = Decimal.ToInt32(decimal.Parse(((decimal)(dcmCost * dtl.数量)).ToString()));
-                int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(strUriageDate, tok.Ｔ税区分ID, dtl.品番コード, dtl.数量));       // No-101 Mod
+                int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(strUriageDate, tok.Ｔ税区分ID, dtl.品番コード, dtl.数量, tok.Ｓ支払消費税区分));       // No-101, 272 Mod
 
                 switch (intZeikbn)
                 {
@@ -1111,7 +1117,6 @@ namespace KyoeiSystem.Application.WCFService
                 int wk自社コード;
 
                 // TODO:切り捨て固定で設定しているが変更する可能性あり
-                int wkＴ税区分ID = 1;                           // No-101 Mod
                 switch (urhdData.売上区分)
                 {
                     case (int)CommonConstants.売上区分.販社売上:
@@ -1154,6 +1159,16 @@ namespace KyoeiSystem.Application.WCFService
                 int intTaxTsujyo = 0;
                 int intTaxKeigen = 0;
 
+                // No.272 Add Start
+                // 販社の税区分を取得する
+                List<M70_JIS> jisList = M70.GetHanList();
+                var jis = jisList.Where(w => w.自社コード == urhdData.会社名コード).FirstOrDefault();
+                int code = Int32.Parse(jis.取引先コード.ToString());
+                int eda = Int32.Parse(jis.枝番.ToString());
+                M01_TOK tok = M01.M01_TOK_Single_GetData(code, eda);
+                int Ｔ消費税区分 = tok != null ? tok.Ｔ消費税区分 : 1;
+                int Ｔ税区分ID = tok != null ? tok.Ｔ税区分ID : 1;
+
                 foreach (DataRow dtlRow in dt.Rows)
                 {
                     T02_URDTL dtl = convertDataRowToT02_URDTL_Entity(dtlRow);
@@ -1177,7 +1192,7 @@ namespace KyoeiSystem.Application.WCFService
 
                     decimal dcmCost = getWholesalePrice(dtl.品番コード);
                     int intKingakuWk = Decimal.ToInt32(decimal.Parse(((decimal)(dcmCost * dtl.数量)).ToString()));
-                    int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(strUriageDate, wkＴ税区分ID, dtl.品番コード, dtl.数量));             // No-101 Mod
+                    int intTaxWk = Decimal.ToInt32(T05Service.getCalcSalesTax(strUriageDate, Ｔ税区分ID, dtl.品番コード, dtl.数量, Ｔ消費税区分));             // No-101,272 Mod
 
                     switch (intZeikbn)
                     {
@@ -1702,7 +1717,7 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
         // No-97 Add End
-        
+
         #endregion
 
         #endregion

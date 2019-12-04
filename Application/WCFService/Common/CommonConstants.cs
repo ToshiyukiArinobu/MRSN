@@ -210,7 +210,8 @@ namespace KyoeiSystem.Application.WCFService
         public enum 消費税区分 : int
         {
             ID01_一括 = 1,
-            ID02_個別 = 2
+            ID02_個別 = 2,
+            ID03_請求無 = 3        // No.272 Add
         }
 
         public enum 税区分 : int
@@ -263,6 +264,15 @@ namespace KyoeiSystem.Application.WCFService
             ID93_売上返品 = 93
         }
 
+        // No.272 Add Start
+        public enum 単価種別 : int
+        {
+            原価 = 1,
+            加工原価 = 2,
+            卸値 = 3,
+            売価 = 4
+        }
+        // No.272 Add End
         #endregion
 
         #region << コード区分 ディクショナリ定義 >>

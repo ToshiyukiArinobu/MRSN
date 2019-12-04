@@ -183,7 +183,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private int _salesTaxKbn = 1;
         /// <summary>
         /// Ｓ支払消費税区分
-        /// 1:一括、2:個別
+        /// 1:一括、2:個別、3:請求無
         /// </summary>
         [BindableAttribute(false)]
         public int SalesTaxKbn
@@ -210,8 +210,8 @@ namespace KyoeiSystem.Application.Windows.Views
         #region 請求消費税区分
         private int _claimTaxKbn = 1;
         /// <summary>
-        /// Ｔ支払消費税区分
-        /// 1:一括、2:個別
+        /// Ｔ消費税区分
+        /// 1:一括、2:個別、3:請求無
         /// </summary>
         [BindableAttribute(false)]
         public int ClaimTaxKbn
@@ -562,6 +562,12 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 this.Text2 = string.Empty;
                 this.Label2Text = string.Empty;
+                // No.272 Add Start
+                this.ClaimTaxKbn = 1;
+                this.ClaimTaxId = 1;
+                this.SalesTaxKbn = 1;
+                this.SalesTaxId = 1;
+                // No.272 Add End
                 return;
             }
             try
@@ -693,9 +699,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             string[] textlist = (tbl.Rows[0]["名称"] as string).Split(new char[] { '\t' });
                             this.Label2Text = textlist[0];
                             this._salesTaxKbn = int.TryParse(string.Format("{0}", tbl.Rows[0]["Ｓ支払消費税区分"]), out ival) ? ival : 1;
-                            this._salesTaxId = int.TryParse(string.Format("{0}", tbl.Rows[0]["Ｓ税区分ID"]), out ival) ? ival : 9;
+                            this._salesTaxId = int.TryParse(string.Format("{0}", tbl.Rows[0]["Ｓ税区分ID"]), out ival) ? ival : 1;          // No.272 Mod
                             this._claimTaxKbn = int.TryParse(string.Format("{0}", tbl.Rows[0]["Ｔ消費税区分"]), out ival) ? ival : 1;
-                            this._claimTaxId = int.TryParse(string.Format("{0}", tbl.Rows[0]["Ｔ税区分ID"]), out ival) ? ival : 9;
+                            this._claimTaxId = int.TryParse(string.Format("{0}", tbl.Rows[0]["Ｔ税区分ID"]), out ival) ? ival : 1;          // No.272 Mod
 
                             if (textlist.Length == 1)
                             {

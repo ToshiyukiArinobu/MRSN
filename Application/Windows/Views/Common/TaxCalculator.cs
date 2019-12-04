@@ -45,6 +45,17 @@ namespace KyoeiSystem.Application.Windows.Views.Common
         }
         // No-94 Add End
 
+        // No.272 Add Start
+        /// <summary>
+        ///  M01_消費税区分
+        /// </summary>
+        private enum M01_消費税区分 : int
+        {
+            一括 = 0,
+            個別 = 1,
+            請求なし = 3
+        }
+        // No.272 Add End
         #endregion
 
         #region << クラス変数定義 >>
@@ -134,8 +145,9 @@ namespace KyoeiSystem.Application.Windows.Views.Common
         /// <param name="price">対象金額</param>
         /// <param name="taxRateKbn">消費税区分[M09_HIN.消費税区分]0:通常税率、1:軽減税率、2:非課税</param>
         /// <param name="taxKbnId">税区分ID[M01_TOK.税区分ID]1:切捨て、2:四捨五入、3:切上げ</param>
+        /// <param name="taxKbn">消費税区分[M01_TOK.T消費税区分(S支払消費税区分)] 1:一括、2:個別、3:請求無し</param>
         /// <returns>消費税額</returns>
-        public decimal CalculateTax(DateTime baseDate, decimal price, int taxRateKbn, int taxKbnId)
+        public decimal CalculateTax(DateTime baseDate, decimal price, int taxRateKbn, int taxKbnId, int taxKbn)
         {
             decimal conTax = 0;
 
@@ -143,6 +155,13 @@ namespace KyoeiSystem.Application.Windows.Views.Common
             decimal taxRate = getTargetTaxRate(baseDate, taxRateKbn);
             // 税額計算
             decimal calcValue = decimal.Multiply(price, decimal.Divide(taxRate, 100m));
+
+            // No.272 Add Start
+            if (taxKbn == (int)M01_消費税区分.請求なし)
+            {
+                return conTax;
+            }
+            // No.272 End Start
 
             switch (taxKbnId)
             {
@@ -197,13 +216,14 @@ namespace KyoeiSystem.Application.Windows.Views.Common
         /// <param name="qty">対象の数量</param>
         /// <param name="taxRateKbn">消費税区分[M09_HIN.消費税区分]0:通常税率、1:軽減税率、2:非課税</param>
         /// <param name="taxKbnId">税区分ID[M01_TOK.税区分ID]1:切捨て、2:四捨五入、3:切上げ</param>
+        /// <param name="taxKbn">消費税区分[M01_TOK.T消費税区分(S支払消費税区分)] 1:一括、2:個別、3:請求無し</param>
         /// <returns>消費税額</returns>
-        public decimal CalculateTax(DateTime baseDate, int cost, int qty, int taxRateKbn, int taxKbnId)
+        public decimal CalculateTax(DateTime baseDate, int cost, int qty, int taxRateKbn, int taxKbnId, int taxKbn)
         {
             // 金額算出
             long price = ((long)cost * qty);
 
-            return CalculateTax(baseDate, price, taxRateKbn, taxKbnId);
+            return CalculateTax(baseDate, price, taxRateKbn, taxKbnId, taxKbn);         // No.272 Mod
 
         }
         #endregion

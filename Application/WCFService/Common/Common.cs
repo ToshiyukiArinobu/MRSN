@@ -159,6 +159,140 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 消費税関連
+
+        #region 消費税計算
+        /// <summary>
+        /// 品番から消費税計算をおこなう
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="salesDate">売上日</param>
+        /// <param name="productCode">品番コード</param>
+        /// <param name="price">単価</param>
+        /// <param name="qty">数量</param>
+        /// /// <param name="taxKbn">税区分ID</param>
+        /// <param name="taxKbn">消費税区分[M01_TOK.T消費税区分(S支払消費税区分)] 1:一括、2:個別、3:請求無し</param>
+        /// <returns></returns>
+        public decimal CalculateTax(DateTime salesDate, int productCode, decimal price, decimal qty, int taxKbnId, int taxKbn )
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                var hin =
+                    context.M09_HIN
+                        .Where(w => w.削除日時 == null && w.品番コード == productCode)
+                        .FirstOrDefault();
+
+                if (hin == null)
+                    return 0;
+
+                decimal conTax = 0;
+                decimal taxRate = getTargetTaxRate(salesDate, hin.消費税区分 ?? 0);
+                decimal calcValue = decimal.Multiply(price * qty, decimal.Divide(taxRate, 100m));
+
+                if (taxKbn == (int)CommonConstants.消費税区分.ID03_請求無)
+                {
+                    return conTax;
+                }
+
+                switch (taxKbnId)
+                {
+                    case 1:
+                        // 切捨て
+                        if (calcValue > 0)
+                        {
+                            conTax += Math.Floor(calcValue);
+                        }
+                        else
+                        {
+                            conTax += Math.Ceiling(calcValue);
+                        }
+                        break;
+
+                    case 2:
+                        // 四捨五入
+                        conTax += Math.Round(calcValue, 0);
+                        break;
+
+                    case 3:
+                        // 切上げ
+                        if (calcValue > 0)
+                        {
+                            conTax += Math.Ceiling(calcValue);
+                        }
+                        else
+                        {
+                            conTax += Math.Floor(calcValue);
+                        }
+                        break;
+
+                    default:
+                        // 上記以外は税計算なしとする
+                        break;
+                }
+
+                return conTax;
+            }
+        }
+        #endregion
+
+        #region 指定日時点の消費税率取得
+        /// <summary>
+        /// 指定日時点の消費税を取得する
+        /// </summary>
+        /// <param name="targetDate">対象となる日付</param>
+        /// <param name="option">消費税区分(0:対象外、1:対象)</param>
+        /// <returns></returns>
+        private int getTargetTaxRate(DateTime? targetDate, int option = 0)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                int rate = 0;
+
+                // 対象となる開始日を取得
+                var maxDate =
+                    context.M73_ZEI
+                        .Where(w => w.削除日時 == null && w.適用開始日付 <= targetDate)
+                        .Max(m => m.適用開始日付);
+
+                // 対象日付が取得できない場合は以下を処理しない
+                if (maxDate == null)
+                    return rate;
+
+                // 対象開始日と一致する消費税情報を取得
+                var targetRow =
+                    context.M73_ZEI
+                        .Where(x => x.適用開始日付 == maxDate)
+                        .FirstOrDefault();
+
+                switch (option)
+                {
+                    case 0:
+                        // 通常税率
+                        rate = targetRow.消費税率 ?? 0;
+                        break;
+
+                    case 1:
+                        // 軽減税率
+                        rate = targetRow.軽減税率 ?? 0;
+                        break;
+
+                    case 2:
+                        // 非課税
+                        rate = 0;
+                        break;
+
+                    default:
+                        break;
+
+                }
+
+                return rate;
+            }
+        }
+        #endregion
+
+
+        #endregion
     }
 
     public static class AppCommon

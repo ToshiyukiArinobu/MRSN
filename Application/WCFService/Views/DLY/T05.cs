@@ -236,8 +236,9 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="taxKbn">税区分ID</param>
         /// <param name="productCode">品番コード</param>
         /// <param name="qty">数量</param>
+        /// <param name="taxKbn">消費税区分[M01_TOK.T消費税区分(S支払消費税区分)] 1:一括、2:個別、3:請求無し</param>
         /// <returns></returns>
-        public decimal getCalcSalesTax(DateTime salesDate, int taxKbn, int productCode, decimal qty)
+        public decimal getCalcSalesTax(DateTime salesDate, int taxKbnId, int productCode, decimal qty, int taxKbn)
         {
             var hin =
                 _context.M09_HIN
@@ -251,7 +252,14 @@ namespace KyoeiSystem.Application.WCFService
             decimal taxRate = getTargetTaxRate(salesDate, hin.消費税区分 ?? 0);
             decimal calcValue = decimal.Multiply((hin.卸値 ?? 0) * qty, decimal.Divide(taxRate, 100m));
 
-            switch (taxKbn)
+            // No.272 Add Start
+            if (taxKbn == (int)CommonConstants.消費税区分.ID03_請求無)
+            {
+                return conTax;
+            }
+            // No.272 Add End
+
+            switch (taxKbnId)
             {
                 case 1:
                     // 切捨て

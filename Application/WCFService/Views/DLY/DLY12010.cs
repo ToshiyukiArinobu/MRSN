@@ -110,6 +110,22 @@ namespace KyoeiSystem.Application.WCFService
 
         }
 
+        // No.272 Add Start
+        /// <summary>
+        /// 消費税再計算結果
+        /// </summary>
+        public class RECALC_RESULT
+        {
+            public int? 通常税率対象金額 { get; set; }
+            public int? 軽減税率対象金額 { get; set; }
+            public int? 通常税率消費税 { get; set; }
+            public int? 軽減税率消費税 { get; set; }
+            public int? 小計 { get; set; }
+            public int? 総合計 { get; set; }
+            public int? 消費税 { get; set; }
+
+        }
+        // No.272 Add End
         #endregion
 
 
@@ -744,6 +760,15 @@ namespace KyoeiSystem.Application.WCFService
             // 売上対象の自社情報・取引先情報を取得する
             var m70自社 = getFromJis();
 
+            // No.272 Mod Start
+            //消費税を再計算する
+            M70_JIS srJis = getM70_JISFromM22_SOUK(t02Data.在庫倉庫コード);
+            M01_TOK tok = M01.M01_TOK_Single_GetData(srJis.取引先コード ?? 0, srJis.枝番 ?? 0);
+            int 税区分 = tok.Ｓ税区分ID == 0 ? 1 : tok.Ｓ税区分ID;
+            int 消費税区分 = tok.Ｓ支払消費税区分 == 0 ? 1 : tok.Ｓ支払消費税区分;
+            RECALC_RESULT reCalc = reCalcHeder(t02Data, dtlTbl, 税区分, 消費税区分);
+            // No.272 Mod End
+
             T03_SRHD_HAN srhdhan = new T03_SRHD_HAN();
 
             srhdhan.伝票番号 = t02Data.伝票番号;
@@ -755,16 +780,16 @@ namespace KyoeiSystem.Application.WCFService
             srhdhan.発注番号 = t02Data.受注番号;
             srhdhan.備考 = t02Data.備考;
             // No-94 Add Start
-            srhdhan.通常税率対象金額 = t02Data.通常税率対象金額;
-            srhdhan.軽減税率対象金額 = t02Data.軽減税率対象金額;
-            srhdhan.通常税率消費税 = t02Data.通常税率消費税;
-            srhdhan.軽減税率消費税 = t02Data.軽減税率消費税;
+            srhdhan.通常税率対象金額 = reCalc.通常税率対象金額;
+            srhdhan.軽減税率対象金額 = reCalc.軽減税率対象金額;
+            srhdhan.通常税率消費税 = reCalc.通常税率消費税;
+            srhdhan.軽減税率消費税 = reCalc.軽減税率消費税;
             // No-94 Add End
             // No-95 Add Start
-            srhdhan.小計 = t02Data.小計;
-            srhdhan.総合計 = t02Data.総合計;
+            srhdhan.小計 = reCalc.小計;
+            srhdhan.総合計 = reCalc.総合計;
             // No-95 Add End
-            srhdhan.消費税 = t02Data.消費税;
+            srhdhan.消費税 = reCalc.消費税;
 
             T03Service.T03_SRHD_HAN_Update(srhdhan);
 
@@ -835,6 +860,7 @@ namespace KyoeiSystem.Application.WCFService
                 #region 売上区分により仕入先を切り替える
                 ////// ※会社名コードは必ずマルセン(自社)になる
                 int wk自社コード;
+                var m70自社 = _context.M70_JIS.Where(c => c.自社区分 == (int)CommonConstants.自社区分.自社).FirstOrDefault();
 
                 switch (urhdData.売上区分)
                 {
@@ -843,7 +869,6 @@ namespace KyoeiSystem.Application.WCFService
                         // >>仕入先にはマルセン(自社)
                         // >>在庫倉庫には販社倉庫
                         //   が設定されている想定
-                        var m70自社 = _context.M70_JIS.Where(c => c.自社区分 == (int)CommonConstants.自社区分.自社).FirstOrDefault();
                         // ⇒会社名コード = 仕入先より取得
                         wk自社コード = m70自社.自社コード;
 
@@ -865,6 +890,15 @@ namespace KyoeiSystem.Application.WCFService
                 }
                 #endregion
 
+                // No.272 Mod Start
+                //消費税を再計算する
+                // 自社の税区分を取得する
+                M01_TOK tok = M01.M01_TOK_Single_GetData(m70自社.取引先コード?? 0, m70自社.枝番?? 0);
+                int 消費税区分 = tok != null ? tok.Ｔ消費税区分 : 1;
+                int 税区分ID = tok != null ? tok.Ｔ税区分ID : 1;
+                RECALC_RESULT reCalc = reCalcHeder(urhdData, dt, 税区分ID, 消費税区分);
+                // No.272 Mod End
+
                 T02_URHD_HAN urhd = new T02_URHD_HAN();
 
                 urhd.伝票番号 = urhdData.伝票番号;
@@ -881,16 +915,16 @@ namespace KyoeiSystem.Application.WCFService
                 urhd.仕入先枝番 = urhdData.仕入先枝番;
                 urhd.備考 = urhdData.備考;
                 // No-94 Add Start
-                urhd.通常税率対象金額 = urhdData.通常税率対象金額;
-                urhd.軽減税率対象金額 = urhdData.軽減税率対象金額;
-                urhd.通常税率消費税 = urhdData.通常税率消費税;
-                urhd.軽減税率消費税 = urhdData.軽減税率消費税;
+                urhd.通常税率対象金額 = reCalc.通常税率対象金額;
+                urhd.軽減税率対象金額 = reCalc.軽減税率対象金額;
+                urhd.通常税率消費税 = reCalc.通常税率消費税;
+                urhd.軽減税率消費税 = reCalc.軽減税率消費税;
                 // No-94 Add End
                 // No-95 Add Start
-                urhd.小計 = urhdData.小計;
-                urhd.総合計 = urhdData.総合計;
+                urhd.小計 = reCalc.小計;
+                urhd.総合計 = reCalc.総合計;
                 // No-95 Add End
-                urhd.消費税 = urhdData.消費税;
+                urhd.消費税 = (int)reCalc.消費税;
 
                 // 販社売上ヘッダの登録実行
                 T02Service.T02_URHD_HAN_Update(urhd);
@@ -1213,6 +1247,83 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 仕入ヘッダ消費税額を再計算する
+        // No.272 Add Start
+        /// <summary>
+        /// 仕入ヘッダ消費税額を再計算する
+        /// </summary>
+        /// <param name="t02Data">売上ヘッダ</param>
+        /// <param name="dtlTbl">売上明細</param>
+        /// <param name="税区分ID">(仕入)Ｓ税区分ID</param>
+        /// <param name="消費税区分">(仕入)Ｓ支払消費税区分</param>
+        /// <returns></returns>
+        private RECALC_RESULT reCalcHeder(T02_URHD t02Data, DataTable dtlTbl, int 税区分ID, int 消費税区分)
+        {
+            RECALC_RESULT ret = new RECALC_RESULT();
+            Common Com = new Common();
+
+            int setTax = 0;
+            int intTsujyo = 0;
+            int intKeigen = 0;
+            int intHikazei = 0;
+            int intTaxTsujyo = 0;
+            int intTaxKeigen = 0;
+
+            // 全商品でない可能性があるのでチェックされている商品の消費税を再計算する
+            foreach (DataRow dtlRow in dtlTbl.Rows)
+            {
+                T02_URDTL dtl = convertDataRowToT02_URDTL_Entity(dtlRow);
+
+                // 商品未設定レコードは処理対象外とする
+                if (dtl.品番コード <= 0)
+                    continue;
+
+                // 削除されたレコードは処理対象外とする
+                if (DataRowState.Deleted == dtlRow.RowState)
+                    continue;
+
+                // 販社売上の場合、マルセン仕入チェックを行う
+                bool bval,
+                   仕入チェック = bool.TryParse(dtlRow["マルセン仕入"].ToString(), out bval) ? bval : false;
+                if (t02Data.売上区分 == (int)CommonConstants.売上区分.販社売上 &&
+                    !仕入チェック)
+                    continue;   // チェックされていない商品は読み飛ばし
+
+                int intKingakuWk = Decimal.ToInt32(decimal.Parse(((decimal)(dtl.単価 * dtl.数量)).ToString()));
+                int intTaxWk = (int)Com.CalculateTax(t02Data.売上日, dtl.品番コード, dtl.単価, dtl.数量, 税区分ID, 消費税区分);
+                int intZeikbn = int.Parse(dtlRow["消費税区分"].ToString());
+
+                switch (intZeikbn)
+                {
+                    case (int)CommonConstants.商品消費税区分.通常税率:
+                        intTsujyo += intKingakuWk;
+                        intTaxTsujyo += intTaxWk;
+                        break;
+                    case (int)CommonConstants.商品消費税区分.軽減税率:
+                        intKeigen += intKingakuWk;
+                        intTaxKeigen += intTaxWk;
+                        break;
+                    case (int)CommonConstants.商品消費税区分.非課税:
+                        intHikazei += intKingakuWk;
+                        break;
+                    default:
+                        break;
+                }
+                setTax += intTaxWk;
+            }
+
+            ret.通常税率対象金額 = intTsujyo;
+            ret.軽減税率対象金額 = intKeigen;
+            ret.通常税率消費税 = intTaxTsujyo;
+            ret.軽減税率消費税 = intTaxKeigen;
+            ret.小計 = intTsujyo + intKeigen + intHikazei;
+            ret.総合計 = ret.小計 + setTax;
+            ret.消費税 = setTax;
+
+            return ret;
+        }
+        // No,272 Add End
+        #endregion
         #endregion
 
     }

@@ -631,6 +631,7 @@ namespace KyoeiSystem.Application.WCFService
                                         (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                         (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 0 :
+                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID03_請求無 ? 0 :      // No.272 Add
                             (long)x.Sum(s => s.Data.通常税率消費税),
                         軽減税率消費税 =
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
@@ -645,6 +646,7 @@ namespace KyoeiSystem.Application.WCFService
                                         (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                         (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 0 :
+                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID03_請求無 ? 0 :      // No.272 Add
                             (long)x.Sum(s => s.Data.軽減税率消費税),
                         // No.135-1 Mod End
                         // No-94 Add End
@@ -859,6 +861,7 @@ namespace KyoeiSystem.Application.WCFService
                                         (long)Math.Ceiling((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                         (long)Math.Floor((double)(x.Sum(s => s.Data.通常税率対象金額) * x.Key.消費税率 / (double)100)) :
                                 0 :
+                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID03_請求無 ? 0 :      // No.272 Add
                             (long)x.Sum(s => s.Data.通常税率消費税),
                         軽減税率消費税 =
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
@@ -873,6 +876,7 @@ namespace KyoeiSystem.Application.WCFService
                                         (long)Math.Ceiling((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                         (long)Math.Floor((double)(x.Sum(s => s.Data.軽減税率対象金額) * x.Key.軽減税率 / (double)100)) :
                                 0 :
+                            x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID03_請求無 ? 0 :      // No.272 Add
                             (long)x.Sum(s => s.Data.軽減税率消費税),
                         // No.135-1 Mod End
                         // No-94 Add End

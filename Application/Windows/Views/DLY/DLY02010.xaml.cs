@@ -2663,9 +2663,12 @@ namespace KyoeiSystem.Application.Windows.Views
                     if (string.IsNullOrEmpty(row["自社品番"].ToString()))
                         continue;
 
-                    int taxKbnId = int.Parse(SearchHeader["Ｓ税区分ID"].ToString());
-                    conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId);
-
+                    // No.272 Mod Start
+                    int ival = 0;
+                    int taxKbnId = int.TryParse(SearchHeader["Ｓ税区分ID"].ToString(), out ival)? ival : 1;
+                    int salesTaxKbn = int.TryParse(SearchHeader["Ｓ支払消費税区分"].ToString(), out ival)? ival : 1;
+                    conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId, salesTaxKbn);
+                    // No.272 Mod End
                 }
 
                 long total = (long)(subTotal + conTax);

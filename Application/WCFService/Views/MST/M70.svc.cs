@@ -132,7 +132,7 @@ namespace KyoeiSystem.Application.WCFService
         /// 自社マスタより販社データをリストで取得する
         /// </summary>
         /// <returns></returns>
-        public List<M70_JIS> GetHanList()
+        public static List<M70_JIS> GetHanList()
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {

@@ -136,7 +136,6 @@ namespace KyoeiSystem.Application.Windows.Views
             軽減税率 = 1,
             非課税 = 2
         }
-        #endregion
 
         public enum 税区分 : int
         {
@@ -145,6 +144,7 @@ namespace KyoeiSystem.Application.Windows.Views
             ID03_切上げ = 3,
             ID09_税なし = 9
         }
+        #endregion
 
         #region バインディングデータ
 
@@ -1468,7 +1468,7 @@ namespace KyoeiSystem.Application.Windows.Views
             this.txt納品伝票番号.Text = string.Empty;
             this.txt受注番号.Text = string.Empty;
             this.txt備考.Text1 = string.Empty;
-
+            
             string initValue = string.Format("{0:#,0}", 0);
             // No-94 Add Start
             lbl通常税率対象金額.Content = initValue;
@@ -1772,7 +1772,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");
                     int intKingakuWk = Decimal.ToInt32(row.Field<decimal>("金額"));
-                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId));
+                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId, txt得意先.ClaimTaxKbn));  // No.272 Mod
+
                     switch (intZeikbn)
                     {
                         case (int)消費税区分.通常税率:

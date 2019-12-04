@@ -284,7 +284,7 @@ namespace KyoeiSystem.Application.WCFService
                             {
                                 // No.101-3 Mod Start
                                 sumTax += decimal.ToInt32(
-                                    zeiService.getCalculatTax(hanData.TOK.Ｔ消費税区分, data.売上日, row.品番コード, row.調整金額 ?? 0, row.数量));
+                                    zeiService.getCalculatTax(hanData.TOK.Ｔ税区分ID, data.売上日, row.品番コード, row.調整金額 ?? 0, row.数量, hanData.TOK.Ｔ消費税区分));     // No.272 Mod
                                 // No.101-3 Mod End
                             }
 

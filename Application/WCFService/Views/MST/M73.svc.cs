@@ -290,12 +290,18 @@ namespace KyoeiSystem.Application.WCFService
         /// <summary>
         /// 消費税計算をおこなう
         /// </summary>
+        /// <param name="taxKbn">税区分ID[M01_TOK.税区分ID]1:切捨て、2:四捨五入、3:切上げ</param>
+        /// <param name="salesDate">計算基準日</param>
+        /// <param name="productCode">品番コード</param>
+        /// <param name="cost">対象金額</param>
+        /// <param name="qty">数量</param>
+        /// <param name="taxKbnId">消費税区分[M01_TOK.T消費税区分(S支払消費税区分)] 1:一括、2:個別、3:請求無し</param>
         /// <returns></returns>
-        public decimal getCalculatTax(int taxKbn, DateTime salesDate, int productCode, int cost, decimal qty)
+        public decimal getCalculatTax(int taxKbnId, DateTime salesDate, int productCode, int cost, decimal qty, int taxKbn)
         {
             decimal taxRate = 0;
             decimal calcValue = 0;
-
+            　
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
                 var hin =
@@ -312,7 +318,15 @@ namespace KyoeiSystem.Application.WCFService
             }
 
             decimal conTax = 0;
-            switch (taxKbn)
+
+            // No.272 Add Start
+            if (taxKbn == (int)CommonConstants.消費税区分.ID03_請求無)
+            {
+                return conTax;
+            }
+            // No.272 Add End
+
+            switch (taxKbnId)
             {
                 case 1:
                     // 切捨て

@@ -1018,7 +1018,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");
                     int intKingakuWk = Decimal.ToInt32(row.Field<int>("金額"));
-                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId));
+                    // No.272 Mod Start
+                    int salesTaxKbn = this.c仕入先.SalesTaxKbn;
+                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId, salesTaxKbn));
+                    // No.272 Mod End
+
                     switch (intZeikbn)
                     {
                         case (int)消費税区分.通常税率:

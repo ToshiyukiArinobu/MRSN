@@ -1980,7 +1980,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");
                     int intKingakuWk =  Decimal.ToInt32(Math.Round(row.Field<decimal>("金額"),0,MidpointRounding.AwayFromZero));
-                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId));
+                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId, txt得意先.ClaimTaxKbn));      // No.272 Mod
+
                     switch (intZeikbn)
                     {
                         case (int)消費税区分.通常税率:
