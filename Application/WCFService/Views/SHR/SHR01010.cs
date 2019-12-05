@@ -111,8 +111,8 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     context.Connection.Open();
 
-                    // 対象として取引区分：仕入先、相殺、販社を対象とする
-                    List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.仕入先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };
+                    // 対象として取引区分：仕入先、相殺、販社、加工先を対象とする
+                    List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.仕入先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社, (int)CommonConstants.取引区分.加工先 };
 
                     // No-268 Mod Start
                     // 集計得意先を取得

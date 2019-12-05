@@ -70,7 +70,7 @@ namespace KyoeiSystem.Application.Windows.Views
         #region バインド用プロパティ
 
         // [0]:取引区分、[1]:マルセン追加フラグ
-        private string[] _得意先リンクアイテム = new string[] { "1,3", "1" };
+        private string[] _得意先リンクアイテム = new string[] { "1,2,3", "1" };
         public string[] 得意先リンクアイテム
         {
             get { return _得意先リンクアイテム; }
