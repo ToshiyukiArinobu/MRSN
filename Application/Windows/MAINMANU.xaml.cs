@@ -1338,6 +1338,23 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// 担当者･得意先別売上統計表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_BSK04010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(BSK04010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 年次販社売上調整
         /// </summary>
         /// <param name="sender"></param>

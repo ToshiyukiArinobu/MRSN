@@ -93,6 +93,9 @@
     <Compile Include="Views\BSK\BSK09010.xaml.cs">
       <DependentUpon>BSK09010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BSK\BSK04010.xaml.cs">
+      <DependentUpon>BSK04010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\AppCommon.cs" />
     <Compile Include="Views\Common\AppCommonData.cs" />
     <Compile Include="Views\Common\CodeList.cs" />
@@ -537,6 +540,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BSK\BSK09010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BSK\BSK04010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

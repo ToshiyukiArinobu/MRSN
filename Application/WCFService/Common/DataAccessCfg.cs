@@ -471,6 +471,10 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "BSK03010_GetPrintList", ServiceClass = "BSK03010", MethodName = "GetPrintList", Descprition = "帳票印字データを取得" },
             new WCFDataAccessConfig() { Name = "BSK03010_GetCsvList", ServiceClass = "BSK03010", MethodName = "GetPrintList", Descprition = "CSV出力データを取得" },
 
+            // 担当者・得意先別売上統計表
+            new WCFDataAccessConfig() { Name = "BSK04010_GetPrintList", ServiceClass = "BSK04010", MethodName = "GetPrintList", Descprition = "帳票印字データを取得" },
+            new WCFDataAccessConfig() { Name = "BSK04010_GetCsvList", ServiceClass = "BSK04010", MethodName = "GetPrintList", Descprition = "CSV出力データを取得" },
+
             // 年次販社売上調整
             new WCFDataAccessConfig() { Name = "BSK05010_GetDataList", ServiceClass = "BSK05010", MethodName = "GetDataList", Descprition = "売上調整計算をおこなう" },
             new WCFDataAccessConfig() { Name = "BSK05010_SetCalculate", ServiceClass = "BSK05010", MethodName = "SetCalculate", Descprition = "売上調整計算をおこなう" },

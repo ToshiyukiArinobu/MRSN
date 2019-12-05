@@ -318,6 +318,7 @@
     <Compile Include="Views\BSK\BSK03010.cs" />
     <Compile Include="Views\BSK\BSK05010.cs" />
     <Compile Include="Views\BSK\BSK09010.cs" />
+    <Compile Include="Views\BSK\BSK04010.cs" />
     <Compile Include="Views\DLY\DLY01010.cs" />
     <Compile Include="Views\DLY\DLY01020.cs" />
     <Compile Include="Views\DLY\DLY03010.cs" />
