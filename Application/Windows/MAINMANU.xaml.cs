@@ -1197,6 +1197,23 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// 買掛台帳
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_SHR02010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(SHR02010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 支払締集計
         /// </summary>
         /// <param name="sender"></param>

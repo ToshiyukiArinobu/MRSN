@@ -430,6 +430,10 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "SHR01010_GetCsvData", ServiceClass = "SHR01010", MethodName = "GetCsvData", Descprition = "仕入集計、一覧表ＣＳＶデータ取得" },
             new WCFDataAccessConfig() { Name = "SHR01010_GetPrintData", ServiceClass = "SHR01010", MethodName = "GetPrintData", Descprition = "仕入集計処理、一覧表印刷データ取得" },
 
+            // 買掛台帳
+            new WCFDataAccessConfig() { Name = "SHR02010_GetCsvData", ServiceClass = "SHR02010", MethodName = "GetCsvData", Descprition = "買掛集計、一覧表ＣＳＶデータ取得" },
+            new WCFDataAccessConfig() { Name = "SHR02010_GetPrintData", ServiceClass = "SHR02010", MethodName = "GetPrintData", Descprition = "買掛集計処理、一覧表印刷データ取得" },
+
             // 支払締集計
             new WCFDataAccessConfig() { Name = "SHR03010_GetDataList", ServiceClass = "SHR03010", MethodName = "GetListData", Descprition = "支払集計対象取得" },
             new WCFDataAccessConfig() { Name = "SHR03010_PaymentAggregation", ServiceClass = "SHR03010", MethodName = "PaymentAggregation", Descprition = "支払締集計処理" },
@@ -1245,14 +1249,6 @@ namespace KyoeiSystem.Application.WCFService
             //new WCFDataAccessConfig() { Name = "S14_CARSB_UP_Kotei", ServiceClass = "S14SB", MethodName = "Update_Kotei", Descprition = "車輌月次経費入力", },
             //new WCFDataAccessConfig() { Name = "S14_CARSB_DEL_Kotei", ServiceClass = "S14SB", MethodName = "Delete_Kotei", Descprition = "車輌月次経費入力", },
             //new WCFDataAccessConfig() { Name = "S14_CARSB_SCH_Kotei", ServiceClass = "S14SB", MethodName = "GetDataSCH_Kotei", Descprition = "車輌月次経費入力検索用", },
-
-			// SHR02010 支払先明細書 [社内用] 
-            //new WCFDataAccessConfig() { Name = "SEARCH_SHR02010", ServiceClass = "SHR02010", MethodName = "GetListSHR02010", Descprition = "支払先明細書印刷(SHR02010)", },
-
-			// SHR02010 支払先明細書 [社外用] 
-            //new WCFDataAccessConfig() { Name = "SEARCH_SHR02010S", ServiceClass = "SHR02010", MethodName = "GetDataHinList2", Descprition = "支払先明細書印刷(SHR02010)", },
-            //new WCFDataAccessConfig() { Name = "SEARCH_SHR02010_CSV", ServiceClass = "SHR02010", MethodName = "GetListSHR02010", Descprition = "支払先明細書印刷(SHR02010)", },
-            //new WCFDataAccessConfig() { Name = "SPREAD_SHR02010", ServiceClass = "SHR02010", MethodName = "GetListSHR02010_SPREAD", Descprition = "請求書発行内訳別SPREAD(SHR02010)", },
 
 			// NNG01010 得意先別月別売上合計表 
             //new WCFDataAccessConfig() { Name = "SEARCH_NNG01010", ServiceClass = "NNG01010", MethodName = "SEARCH_NNG01010_GetDataList", Descprition = "得意先別月別売上合計表(NNG01010)", },

@@ -562,12 +562,16 @@ namespace KyoeiSystem.Application.WCFService
                 context.T11_NYKNHD
                     .Where(w => w.削除日時 == null &&
                         w.入金先自社コード == company &&
-                        (w.入金日 >= targetStDate && w.入金日 <= targetEdDate) &&
-                        w.得意先コード == code && w.得意先枝番 == eda)
+                        (w.入金日 >= targetStDate && w.入金日 <= targetEdDate))
                     .Join(context.T11_NYKNDTL.Where(w => w.削除日時 == null),
                         x => x.伝票番号,
                         y => y.伝票番号,
                         (x, y) => new { NYKNHD = x, NYKNDTL = y })
+                        .GroupJoin(context.M70_JIS.Where(c => c.削除日時 == null),
+                        x => x.NYKNHD.入金元販社コード,
+                        y => y.自社コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(m => m.y.DefaultIfEmpty(), (c, d) => new { c.x.NYKNHD, c.x.NYKNDTL, TOKJIS = d })
                     .Select(s => new S08_URIKAKE_Extension
                     {
                         自社コード = s.NYKNHD.入金先自社コード,
@@ -576,11 +580,13 @@ namespace KyoeiSystem.Application.WCFService
                         行番号 = s.NYKNDTL.行番号,
                         品番コード = 0,
                         金種コード = s.NYKNDTL.金種コード,
-                        得意先コード = s.NYKNHD.得意先コード ?? 0,
-                        得意先枝番 = s.NYKNHD.得意先枝番 ?? 0,
+                        得意先コード = s.NYKNHD.得意先コード != null ? (int)s.NYKNHD.得意先コード : (int)s.TOKJIS.取引先コード,
+                        得意先枝番 = s.NYKNHD.得意先枝番 != null ? (int)s.NYKNHD.得意先枝番 : (int)s.TOKJIS.枝番,
                         入金額 = s.NYKNDTL.金額
                     })
                     .ToList();
+
+            nyukinList = nyukinList.Where(c => c.得意先コード == code && c.得意先枝番 == eda).ToList();
 
             return nyukinList;
 

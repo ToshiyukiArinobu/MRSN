@@ -342,6 +342,7 @@
       <DependentUpon>MST03011.svc</DependentUpon>
     </Compile>
     <Compile Include="Views\SCH\SCHS03_STOK.cs" />
+    <Compile Include="Views\SHR\SHR02010.cs" />
     <Compile Include="Views\SHR\SHR03010.cs" />
     <Compile Include="Views\SHR\SHR05010.cs" />
     <Compile Include="Views\SHR\SHR06010.cs" />
