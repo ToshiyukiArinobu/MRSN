@@ -1007,6 +1007,7 @@
             <PropertyRef Name="伝票番号" />
             <PropertyRef Name="行番号" />
             <PropertyRef Name="品番コード" />
+            <PropertyRef Name="作成機能ID" />
           </Key>
           <Property Name="自社コード" Type="int" Nullable="false" />
           <Property Name="得意先コード" Type="int" Nullable="false" />
@@ -1015,6 +1016,7 @@
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
+          <Property Name="作成機能ID" Type="int" Nullable="false" />
           <Property Name="金種コード" Type="int" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単価" Type="decimal" Nullable="false" Precision="10" Scale="2" />
@@ -3102,6 +3104,7 @@
             <PropertyRef Name="伝票番号" />
             <PropertyRef Name="行番号" />
             <PropertyRef Name="品番コード" />
+            <PropertyRef Name="作成機能ID" />
           </Key>
           <Property Type="Int32" Name="自社コード" Nullable="false" />
           <Property Type="Int32" Name="得意先コード" Nullable="false" />
@@ -3110,6 +3113,7 @@
           <Property Type="Int32" Name="伝票番号" Nullable="false" />
           <Property Type="Int32" Name="行番号" Nullable="false" />
           <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="Int32" Name="作成機能ID" Nullable="false" />
           <Property Type="Int32" Name="金種コード" />
           <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
@@ -4466,6 +4470,7 @@
                 <ScalarProperty Name="単価" ColumnName="単価" />
                 <ScalarProperty Name="数量" ColumnName="数量" />
                 <ScalarProperty Name="金種コード" ColumnName="金種コード" />
+                <ScalarProperty Name="作成機能ID" ColumnName="作成機能ID" />
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="行番号" ColumnName="行番号" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />

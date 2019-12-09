@@ -156,6 +156,25 @@ namespace KyoeiSystem.Application.WCFService
         private int _品番コード;
     
         [DataMember]
+        public int 作成機能ID
+        {
+            get { return _作成機能ID; }
+            set
+            {
+                if (_作成機能ID != value)
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
+                    {
+                        throw new InvalidOperationException("The property '作成機能ID' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                    }
+                    _作成機能ID = value;
+                    OnPropertyChanged("作成機能ID");
+                }
+            }
+        }
+        private int _作成機能ID;
+    
+        [DataMember]
         public Nullable<int> 金種コード
         {
             get { return _金種コード; }

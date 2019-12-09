@@ -70,6 +70,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 出金額 { get; set; }
             public int 前月繰越 { get; set; }
             public int 残高 { get; set; }
+            public int 作成機能ID { get; set; }
         }
 
         #endregion
@@ -420,28 +421,29 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="context"></param>
         /// <param name="hdData"></param>
-        private void S09_KAIKAKE_Update(TRAC3Entities context, S09_KAIKAKE_Extension urData, int userId)
+        private void S09_KAIKAKE_Update(TRAC3Entities context, S09_KAIKAKE_Extension srData, int userId)
         {
             //INSERTで登録する
 
             S09_KAIKAKE data = new S09_KAIKAKE();
-            data.自社コード = urData.自社コード;
-            data.得意先コード = urData.得意先コード;
-            data.得意先枝番 = urData.得意先枝番;
-            data.日付 = urData.日付;
-            data.伝票番号 = urData.伝票番号;
-            data.行番号 = urData.行番号;
-            data.品番コード = urData.品番コード;
-            data.金種コード = urData.金種コード;
-            data.数量 = urData.数量;
-            data.単価 = urData.単価;
-            data.金額 = urData.金額;
-            data.通常税率消費税 = urData.通常税率消費税;
-            data.軽減税率消費税 = urData.軽減税率消費税;
-            data.出金額 = urData.出金額;
-            data.前月繰越 = urData.前月繰越;
-            data.残高 = urData.残高;
+            data.自社コード = srData.自社コード;
+            data.得意先コード = srData.得意先コード;
+            data.得意先枝番 = srData.得意先枝番;
+            data.日付 = srData.日付;
+            data.伝票番号 = srData.伝票番号;
+            data.行番号 = srData.行番号;
+            data.品番コード = srData.品番コード;
+            data.金種コード = srData.金種コード;
+            data.数量 = srData.数量;
+            data.単価 = srData.単価;
+            data.金額 = srData.金額;
+            data.通常税率消費税 = srData.通常税率消費税;
+            data.軽減税率消費税 = srData.軽減税率消費税;
+            data.出金額 = srData.出金額;
+            data.前月繰越 = srData.前月繰越;
+            data.残高 = srData.残高;
             data.登録者 = userId;
+            data.作成機能ID = srData.作成機能ID;
             data.登録日時 = DateTime.Now;
 
             context.S09_KAIKAKE.ApplyChanges(data);
@@ -502,7 +504,7 @@ namespace KyoeiSystem.Application.WCFService
                 context.M99_COMBOLIST
                     .Where(w => w.分類 == "随時" && w.機能 == "出金問合せ" && w.カテゴリ == "金種");
 
-            var UrikakeList = context.S09_KAIKAKE
+            var KaikakeList = context.S09_KAIKAKE
                     .Where(w => w.自社コード == company &&
                          w.日付 >= targetStDate && w.日付 <= targetEdDate &&
                         w.得意先コード == (customerCode == null ? w.得意先コード : customerCode) &&
@@ -548,12 +550,12 @@ namespace KyoeiSystem.Application.WCFService
                     .ToList();
 
             // 日付をCSV出力用に整形
-            foreach (var row in UrikakeList)
+            foreach (var row in KaikakeList)
             {
                 row.s日付 = row.日付.ToString("yyyy/MM/dd");
             }
 
-            var resultList = UrikakeList.OrderBy(c => c.自社コード).ThenBy(c => c.得意先コード).ThenBy(c => c.得意先枝番).ThenBy(c => c.日付)
+            var resultList = KaikakeList.OrderBy(c => c.自社コード).ThenBy(c => c.得意先コード).ThenBy(c => c.得意先枝番).ThenBy(c => c.日付)
                 .ThenBy(c => c.伝票番号).ThenBy(c => c.行番号).ToList();
             dt = KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList.ToList());
 
@@ -667,6 +669,7 @@ namespace KyoeiSystem.Application.WCFService
                 出金額 = 0,
                 前月繰越 = 0,
                 残高 = 0,
+                作成機能ID = 1,
             }).ToList();
 
             return urList;
@@ -731,6 +734,7 @@ namespace KyoeiSystem.Application.WCFService
                         出金額 = 0,
                         前月繰越 = 0,
                         残高 = 0,
+                        作成機能ID = 1,
                     }).ToList();
 
             return srList;
@@ -784,6 +788,7 @@ namespace KyoeiSystem.Application.WCFService
                         出金額 = 0,
                         前月繰越 = 0,
                         残高 = 0,
+                        作成機能ID = 2,
                     }).ToList();
 
             return agrList;
