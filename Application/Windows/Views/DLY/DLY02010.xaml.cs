@@ -2765,6 +2765,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     break;
 
                 default:
+                    if (gridDtl.ActiveRowIndex >= 0)
+                    {
+                        // EndEditが行われずに登録すると変更内容が反映されないため処理追加
+                        SearchDetail.Rows[gridDtl.ActiveRowIndex].EndEdit();
+                    }
                     break;
 
             }
