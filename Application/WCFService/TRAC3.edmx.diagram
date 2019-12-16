@@ -67,6 +67,7 @@
         <EntityTypeShape EntityType="TRAC3Model.S07_SRIHD" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.S08_URIKAKE" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.S09_KAIKAKE" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S10_STOCKTAKING" Width="1.5" PointX="8.4587334489723354" PointY="17.218483783872092" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

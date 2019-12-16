@@ -44,6 +44,7 @@
           <EntitySet Name="S07_SRIHD" EntityType="TRAC3Model.Store.S07_SRIHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S08_URIKAKE" EntityType="TRAC3Model.Store.S08_URIKAKE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.Store.S09_KAIKAKE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.Store.S10_STOCKTAKING" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URDTL" EntityType="TRAC3Model.Store.T02_URDTL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URDTL_HAN" EntityType="TRAC3Model.Store.T02_URDTL_HAN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URHD" EntityType="TRAC3Model.Store.T02_URHD" store:Type="Tables" Schema="dbo" />
@@ -1029,6 +1030,27 @@
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="S10_STOCKTAKING">
+          <Key>
+            <PropertyRef Name="棚卸日" />
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="賞味期限" />
+          </Key>
+          <Property Name="棚卸日" Type="date" Nullable="false" />
+          <Property Name="倉庫コード" Type="int" Nullable="false" />
+          <Property Name="品番コード" Type="int" Nullable="false" />
+          <Property Name="賞味期限" Type="date" Nullable="false" />
+          <Property Name="実在庫数" Type="decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="品番追加FLG" Type="int" Nullable="false" />
+          <Property Name="更新済みFLG" Type="int" Nullable="false" />
+          <Property Name="登録者" Type="int" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="最終更新者" Type="int" />
+          <Property Name="最終更新日時" Type="datetime" />
+          <Property Name="削除者" Type="int" />
+          <Property Name="削除日時" Type="datetime" />
+        </EntityType>
         <EntityType Name="T02_URDTL">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -1724,6 +1746,7 @@
           <EntitySet Name="S07_SRIHD" EntityType="TRAC3Model.S07_SRIHD" />
           <EntitySet Name="S08_URIKAKE" EntityType="TRAC3Model.S08_URIKAKE" />
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.S09_KAIKAKE" />
+          <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.S10_STOCKTAKING" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
@@ -3126,6 +3149,27 @@
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="S10_STOCKTAKING">
+          <Key>
+            <PropertyRef Name="棚卸日" />
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="賞味期限" />
+          </Key>
+          <Property Type="DateTime" Name="棚卸日" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="0" />
+          <Property Type="Decimal" Name="実在庫数" Nullable="false" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="品番追加FLG" Nullable="false" />
+          <Property Type="Int32" Name="更新済みFLG" Nullable="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4478,6 +4522,25 @@
                 <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
                 <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
                 <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S10_STOCKTAKING">
+            <EntityTypeMapping TypeName="TRAC3Model.S10_STOCKTAKING">
+              <MappingFragment StoreEntitySet="S10_STOCKTAKING">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="更新済みFLG" ColumnName="更新済みFLG" />
+                <ScalarProperty Name="品番追加FLG" ColumnName="品番追加FLG" />
+                <ScalarProperty Name="実在庫数" ColumnName="実在庫数" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+                <ScalarProperty Name="棚卸日" ColumnName="棚卸日" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

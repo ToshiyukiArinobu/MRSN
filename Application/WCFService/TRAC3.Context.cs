@@ -448,6 +448,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s09_KAIKAKE  ?? (_s09_KAIKAKE = CreateObjectSet<S09_KAIKAKE>("S09_KAIKAKE")); }
         }
         private ObjectSet<S09_KAIKAKE> _s09_KAIKAKE;
+    
+        public ObjectSet<S10_STOCKTAKING> S10_STOCKTAKING
+        {
+            get { return _s10_STOCKTAKING  ?? (_s10_STOCKTAKING = CreateObjectSet<S10_STOCKTAKING>("S10_STOCKTAKING")); }
+        }
+        private ObjectSet<S10_STOCKTAKING> _s10_STOCKTAKING;
 
         #endregion
 
