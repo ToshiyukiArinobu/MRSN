@@ -159,7 +159,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     T05Service = new T05(context, userId);
                     S03Service = new S03(context, userId);
-                    S04Service = new S04(context, userId, S04.機能ID.商品移動振替入力);
+                    S04Service = new S04(context, userId, S04.機能ID.棚卸更新);
 
                     try
                     {
@@ -624,7 +624,7 @@ namespace KyoeiSystem.Application.WCFService
                 // 登録済み入出庫データの削除
                 int intSlipNumber = idohd.伝票番号;
                 // 入出庫データの物理削除
-                S04Service.PhysicalDeletionProductHistory(context, intSlipNumber, (int)S04.機能ID.商品移動振替入力);
+                S04Service.PhysicalDeletionProductHistory(context, intSlipNumber, (int)S04.機能ID.商品移動入力);
             }
 
             // 不要レコード除去

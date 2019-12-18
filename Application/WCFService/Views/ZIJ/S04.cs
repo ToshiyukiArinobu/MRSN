@@ -17,7 +17,9 @@ namespace KyoeiSystem.Application.WCFService
             仕入入力 = 1,
             揚り入力 = 2,
             売上入力 = 3,
-            商品移動振替入力 = 4,
+            商品移動入力 = 4,
+            振替入力 = 5,
+            棚卸更新 = 6,
             仕入返品 = 91,
             売上返品 = 93
         }
