@@ -175,7 +175,8 @@ namespace KyoeiSystem.Application.WCFService
         {
             通常移動 = 1,
             売上移動 = 2,
-            調整移動 = 3
+            調整移動 = 3,
+            振替移動 = 4
         }
 
         public enum 入力区分 : int

@@ -327,6 +327,7 @@
     <Compile Include="Views\DLY\DLY03010.cs" />
     <Compile Include="Views\DLY\DLY03020.cs" />
     <Compile Include="Views\DLY\DLY04010.cs" />
+    <Compile Include="Views\DLY\DLY04011.cs" />
     <Compile Include="Views\DLY\DLY07010.cs" />
     <Compile Include="Views\DLY\DLY11010.cs" />
     <Compile Include="Views\DLY\T04.cs" />

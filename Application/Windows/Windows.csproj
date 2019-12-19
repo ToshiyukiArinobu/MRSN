@@ -141,6 +141,9 @@
     <Compile Include="Views\DLY\DLY02011.xaml.cs">
       <DependentUpon>DLY02011.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DLY\DLY04011.xaml.cs">
+      <DependentUpon>DLY04011.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MST\MST02011.xaml.cs">
       <DependentUpon>MST02011.xaml</DependentUpon>
     </Compile>
@@ -595,6 +598,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DLY\DLY02011.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DLY\DLY04011.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
