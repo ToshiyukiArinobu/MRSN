@@ -146,7 +146,21 @@ namespace KyoeiSystem.Application.Windows.Views
                 NotifyPropertyChanged();
             }
         }
+        //▼課題No299 Add Start 2019/12/20
+        private int _通常税率消費税;
+        public int 通常税率消費税
+        {
+            get { return _通常税率消費税; }
+            set { _通常税率消費税 = value; NotifyPropertyChanged(); }
+        }
 
+        private int _軽減税率消費税;
+        public int 軽減税率消費税
+        {
+            get { return _軽減税率消費税; }
+            set { _軽減税率消費税 = value; NotifyPropertyChanged(); }
+        }
+        //▲課題No299 Add End 2019/12/20
         // No-58 Strat
         // 削除済みレコード情報
         public DataTable SearchDeleteDetail;
@@ -304,7 +318,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             SearchHeader["Ｓ支払消費税区分"] = 1;   // 1:一括
                             SearchHeader["Ｓ税区分ID"] = 9; // 9:税なし
                         }
-                        summaryCalculation();
+                        //▼課題No299 Del Start 2019/12/20
+                        //summaryCalculation();
+                        //▲課題No299 Del End 2019/12/20
 
                         break;
 
@@ -549,8 +565,18 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
+            //▼課題No299 Mod Start 2019/12/20
             // グリッド内容の再計算を実施
-            summaryCalculation();
+            //summaryCalculation();
+            // ヘッダの情報を設定
+            this.c消費税.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["消費税"].ToString()));
+            this.lbl通常税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["通常税率対象金額"].ToString()));
+            this.lbl軽減税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["軽減税率対象金額"].ToString()));
+            this.txb通常税率消費税.Text = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["通常税率消費税"].ToString()));
+            this.txb軽減税率消費税.Text = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["軽減税率消費税"].ToString()));
+            this.c小計.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["小計"].ToString()));
+            this.c総合計.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["総合計"].ToString()));
+            //▲課題No299 Mod End 2019/12/20
 
         }
 
@@ -601,8 +627,10 @@ namespace KyoeiSystem.Application.Windows.Views
             // No-94 Add Start
             lbl通常税率対象金額.Content = initValue;
             lbl軽減税率対象金額.Content = initValue;
-            lbl通常税率消費税.Content = initValue;
-            lbl軽減税率消費税.Content = initValue;
+            //▼課題No299 Mod Start 2019/12/20
+            txb通常税率消費税.Text = initValue;
+            txb軽減税率消費税.Text = initValue;
+            //▲課題No299 Mod End 2019/12/20
             // No-94 Add End
             this.c小計.Content = initValue;
             this.c消費税.Content = initValue;
@@ -937,8 +965,10 @@ namespace KyoeiSystem.Application.Windows.Views
             // No-94 Add Start
             SearchHeader["通常税率対象金額"] = AppCommon.IntParse(this.lbl通常税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
             SearchHeader["軽減税率対象金額"] = AppCommon.IntParse(this.lbl軽減税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.lbl通常税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.lbl軽減税率消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            //▼課題No299 Mod Start 2019/12/20
+            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.txb通常税率消費税.Text, System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.txb軽減税率消費税.Text, System.Globalization.NumberStyles.Number);
+            //▲課題No299 Mod End 2019/12/20
             // No-94 Add End
             // No-95 Add Start
             SearchHeader["小計"] = AppCommon.IntParse(this.c小計.Content.ToString(), System.Globalization.NumberStyles.Number);
@@ -1281,8 +1311,10 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void c仕入日_cTextChanged(object sender, RoutedEventArgs e)
         {
+            //▼課題No299 Del Start 2019/12/20
             // グリッド内容の再計算を実施
-            summaryCalculation();
+            //summaryCalculation();
+            //▲課題No299 Del End 2019/12/20
         }
         // No.175-2 Add End
 
@@ -1312,6 +1344,18 @@ namespace KyoeiSystem.Application.Windows.Views
                         }));
 
         }
+
+        //▼課題No299 Add Start 2019/12/20
+        /// <summary>
+        /// 仕入先ロストフォーカス時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void c仕入先_LostFocus(object sender, RoutedEventArgs e)
+        {
+            summaryCalculation();
+        }
+        //▲課題No299 Add End 2019/12/20
 
         #endregion
 
@@ -1471,8 +1515,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 // No-94 Add Start
                 lbl通常税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intTsujyo);
                 lbl軽減税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intKeigen);
-                lbl通常税率消費税.Content = string.Format(PRICE_FORMAT_STRING, intTaxTsujyo);
-                lbl軽減税率消費税.Content = string.Format(PRICE_FORMAT_STRING, intTaxKeigen);
+                //▼課題No299 Mod Start 2019/12/20
+                txb通常税率消費税.Text = string.Format(PRICE_FORMAT_STRING, intTaxTsujyo);
+                txb軽減税率消費税.Text = string.Format(PRICE_FORMAT_STRING, intTaxKeigen);
+                //▲課題No299 Mod End 2019/12/20
                 // No-94 Add End
 
                 c小計.Content = string.Format(PRICE_FORMAT_STRING, subTotal);
@@ -1483,6 +1529,36 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
+        //▼課題No299 Add Start 2019/12/20
+        /// <summary>
+        /// フッタ消費税編集時再計算
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txb消費税_LostFocus(object sender, RoutedEventArgs e)
+        {
+            int intTsujyo;
+            int intKeigen;
+            if (int.TryParse(txb通常税率消費税.Text, System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign, null, out intTsujyo) == false)
+            {
+                ErrorMessage = "消費税は整数で入力してください。";
+                return;
+            }
+            if (int.TryParse(txb軽減税率消費税.Text, System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign, null, out intKeigen) == false)
+            {
+                ErrorMessage = "消費税は整数で入力してください。";
+                return;
+            }
+            int subTotal;
+            if (int.TryParse(c小計.Content.ToString(), System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign, null, out subTotal) == false)
+            {
+                return;
+            }
+
+            c消費税.Content = string.Format(PRICE_FORMAT_STRING, intTsujyo + intKeigen);
+            c総合計.Content = string.Format(PRICE_FORMAT_STRING, subTotal + intTsujyo + intKeigen);
+        }
+        //▲課題No299 Add End 2019/12/20
         #endregion
 
 
