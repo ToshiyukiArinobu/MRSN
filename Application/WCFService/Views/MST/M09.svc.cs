@@ -256,7 +256,7 @@ namespace KyoeiSystem.Application.WCFService
 
                     hin.品番コード = updData.品番コード;
                     hin.自社品番 = updData.自社品番;
-                    hin.自社色 = updData.自社色;
+                    hin.自社色 = string.IsNullOrEmpty(updData.自社色) ? null : updData.自社色;
                     hin.商品形態分類 = updData.商品形態分類;
                     hin.商品分類 = updData.商品分類;
                     hin.大分類 = updData.大分類;
@@ -295,7 +295,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     // 登録済(更新)
                     m09.自社品番 = updData.自社品番;
-                    m09.自社色 = updData.自社色;
+                    m09.自社色 = string.IsNullOrEmpty(updData.自社色) ? null : updData.自社色;
                     m09.商品形態分類 = updData.商品形態分類;
                     m09.商品分類 = updData.商品分類;
                     m09.大分類 = updData.大分類;
