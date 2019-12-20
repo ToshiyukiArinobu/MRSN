@@ -973,6 +973,28 @@ namespace KyoeiSystem.Application.WCFService
         }
 
         /// <summary>
+        /// 自社品番のみで品番情報を取得する
+        /// </summary>
+        /// <param name="myPCode">自社品番</param>
+        /// <returns></returns>
+        public List<M09_HIN> GetMyProductList(string myPCode)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                try { context.Connection.Open(); }
+                catch (Exception ex) { throw new DBOpenException(ex); }
+
+                var result = context.M09_HIN
+                                .Where(x => x.削除日時 == null && x.自社品番 == myPCode);
+
+                return result.ToList();
+
+            }
+
+        }
+
+
+        /// <summary>
         /// 自社品番より品番情報を取得する
         /// </summary>
         /// <param name="myPCode">自社品番</param>

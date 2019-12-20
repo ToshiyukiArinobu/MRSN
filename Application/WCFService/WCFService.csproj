@@ -258,6 +258,9 @@
     <Compile Include="S09_KAIKAKE.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
+    <Compile Include="S10_STOCKTAKING.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
     <Compile Include="T02_URDTL.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
@@ -324,6 +327,7 @@
     <Compile Include="Views\DLY\DLY03010.cs" />
     <Compile Include="Views\DLY\DLY03020.cs" />
     <Compile Include="Views\DLY\DLY04010.cs" />
+    <Compile Include="Views\DLY\DLY04011.cs" />
     <Compile Include="Views\DLY\DLY07010.cs" />
     <Compile Include="Views\DLY\DLY11010.cs" />
     <Compile Include="Views\DLY\T04.cs" />
@@ -464,7 +468,10 @@
     <Compile Include="Views\ZIJ\ZIJ01010.cs" />
     <Compile Include="Views\ZIJ\ZIJ07010.cs" />
     <Compile Include="Views\ZIJ\ZIJ10010.cs" />
+    <Compile Include="Views\ZIK\S10.cs" />
+    <Compile Include="Views\ZIK\ZIK04010.cs" />
     <Compile Include="Views\ZIK\ZIK01010.cs" />
+    <Compile Include="Views\ZIK\ZIK05010.cs" />
     <Compile Include="V_M01_TOK.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
