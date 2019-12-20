@@ -200,9 +200,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     // TwinTextLinkItem設定
                     int linkVal = 9;
-                    if (int.TryParse(this.TwinTextBox.LinkItem.ToString(), out linkVal))
+                    if (int.TryParse(ary[0], out linkVal))
                         this.cmbDealings.Combo_IsEnabled = false;
 
+                    AppCommon.SetutpComboboxList(this.cmbDealings, false);
                     this.cmbDealings.SelectedValue = linkVal;
 
                 }
@@ -227,8 +228,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // No-291 Mod Start
-            AppCommon.SetutpComboboxList(this.OrderColumn, false);
-            AppCommon.SetutpComboboxList(this.cmbDealings, false);
+            AppCommon.SetutpComboboxList(this.OrderColumn, false);            
 
             // 呼び出し時にコードが設定されている場合は初期値として設定する
             if (!string.IsNullOrEmpty(this.TwinTextBox.Text1))
