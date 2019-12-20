@@ -33,6 +33,15 @@ namespace KyoeiSystem.Application.WCFService
             public decimal 金額 { get; set; }
         }
 
+        /// <summary>
+        /// ZIK05010 直近仕入単価取得 検索メンバー
+        /// </summary>
+        public class SearchDataUnitPrice
+        {
+            public int 品番コード { get; set; }
+            public decimal 仕入単価 { get; set; }
+        }
+
         #endregion
 
         #region 商品在庫残高一覧表情報取得
@@ -58,7 +67,10 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     int yearMonth = int.Parse(pDate.Replace("/", ""));
 
-                    // 在庫基本情報
+                    // ===========================
+                    // 在庫基本情報取得
+                    // ===========================
+                    // 月次在庫情報取得
                     var stocktakingList =
                         context.S05_STOK_MONTH.Where(w => w.締年月 == yearMonth)
                         .Join(context.M09_HIN.Where(w => w.削除日時 == null),
@@ -121,13 +133,52 @@ namespace KyoeiSystem.Application.WCFService
 
                     #endregion
 
-                    // TODO:直近の仕入単価(最少額)を取得
+                    // ===========================
                     // 直近の仕入単価(最少額)を取得
+                    // ===========================
+                    // 月末日の取得
+                    DateTime dteEndofMonth = getDateEndofMonth(yearMonth);
+
+                    // 品番毎の直近日付を取得する
+                    var LatestList =
+                         context.T03_SRHD.Where(w => w.削除日時 == null && w.仕入日 < dteEndofMonth)
+                            .Join(context.T03_SRDTL.Where(w => w.削除日時 == null),
+                                x => x.伝票番号,
+                                y => y.伝票番号,
+                                (x, y) => new { SHD = x, SDTL = y })
+                        .GroupBy(g => new { g.SDTL.品番コード})
+                        .Select(s => new 
+                        {
+                            品番コード = s.Key.品番コード,
+                            仕入日 = s.Max(m => m.SHD.仕入日),
+                        })
+                        .OrderBy(o => o.品番コード)
+                        .ToList();
 
 
+                    // 直近の仕入単価(最少額)を取得
+                    var PurchaseList =
+                        LatestList
+                            .Join(context.T03_SRHD.Where(w => w.削除日時 == null),
+                                x => x.仕入日,
+                                y => y.仕入日,
+                                (x, y) => new { Latest = x, SRHD = y })
+                            .Join(context.T03_SRDTL.Where(w => w.削除日時 == null),
+                                x => new { dno = x.SRHD.伝票番号, hin = x.Latest.品番コード},
+                                y => new { dno = y.伝票番号, hin = y.品番コード},
+                                (x, y) => new { x.Latest, x.SRHD, SDTL = y })
+                        .GroupBy(g => new { g.SDTL.品番コード})
+                        .Select(s => new SearchDataUnitPrice
+                        {
+                            品番コード = s.Key.品番コード,
+                            仕入単価 = s.Min(m => m.SDTL.単価),
+                        })
+                        .OrderBy(o => o.品番コード)
+                        .ToList();
 
- 
-                    // 検索データ取得
+                    // ===========================
+                    // 帳票データ取得
+                    // ===========================
                     var dataList =
                         stocktakingList
                             .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
@@ -141,13 +192,19 @@ namespace KyoeiSystem.Application.WCFService
                                 y => y.自社コード,
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
-                                (e, f) => new { e.x.STOK_MONTH, e.x.HIN, e.x.SOUK, e.x.IRO, JIS = f })
+                                (c, d) => new { c.x.STOK_MONTH, c.x.HIN, c.x.SOUK, c.x.IRO, JIS = d })
+                            .GroupJoin(PurchaseList.Where(w => w.品番コード > 0),
+                                x => x.STOK_MONTH.品番コード,
+                                y => y.品番コード,
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (e, f) => new { e.x.STOK_MONTH, e.x.HIN, e.x.SOUK, e.x.IRO, e.x.JIS , Purchase = f })
                             .Select(x => new SearchDataMember
                             {
                                 自社コード = x.JIS.自社コード,
                                 自社名 = x.JIS.自社名 ?? "",
                                 倉庫コード = x.STOK_MONTH.倉庫コード.ToString(),
-                                倉庫名称 = x.SOUK != null ? x.SOUK.倉庫名 : "",
+                                倉庫名称 = x.SOUK != null ? x.SOUK.倉庫略称名 : "",
                                 品番コード = x.STOK_MONTH.品番コード.ToString(),
                                 自社品番コード = x.HIN.自社品番,
                                 自社色コード = x.HIN.自社色,
@@ -156,9 +213,8 @@ namespace KyoeiSystem.Application.WCFService
                                 賞味期限 = AppCommon.GetMaxDate() == x.STOK_MONTH.賞味期限 ? "" : x.STOK_MONTH.賞味期限.ToString("yyyy/MM/dd"),
                                 数量 = x.STOK_MONTH.在庫数量,
                                 単位 = x.HIN.単位,
-                                単価 = 1,
-                                金額　= 100
-
+                                単価 = x.Purchase != null ? x.Purchase.仕入単価 : x.HIN.原価 ?? 0,
+                                金額 = x.STOK_MONTH.在庫数量 * (x.Purchase != null ? x.Purchase.仕入単価 : x.HIN.原価 ?? 0)
                             });
 
                     return dataList.ToList();
@@ -174,6 +230,29 @@ namespace KyoeiSystem.Application.WCFService
                 }
 
             }
+
+        }
+        #endregion
+
+        #region 関数
+        /// <summary>
+        /// 年月の末尾を取得する
+        /// </summary>
+        /// <param name="作成年月"></param>
+        /// <param name="targetRow"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        private DateTime getDateEndofMonth(int pYearMonth)
+        {
+            int intYear = pYearMonth / 100;
+            int intMonth = pYearMonth % 100;
+
+            var theDay = new DateTime(intYear, intMonth, 01);
+
+            DateTime lastDayOfMonth = (new DateTime(theDay.Year, theDay.Month, theDay.Day)) 
+                                  .AddMonths(1) 
+                                  .AddDays(-1.0);
+            return lastDayOfMonth;
 
         }
         #endregion

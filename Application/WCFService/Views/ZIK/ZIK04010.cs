@@ -159,7 +159,7 @@ namespace KyoeiSystem.Application.WCFService
                 using (var tran = context.Connection.BeginTransaction(System.Data.IsolationLevel.Serializable))
                 {
                     S03Service = new S03(context, pUserId);
-                    S04Service = new S04(context, pUserId, S04.機能ID.仕入入力);
+                    S04Service = new S04(context, pUserId, S04.機能ID.棚卸更新);
                     S10Service = new S10(context, pUserId);
 
                     try

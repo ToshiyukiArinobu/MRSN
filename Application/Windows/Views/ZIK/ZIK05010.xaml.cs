@@ -440,44 +440,6 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region 帳票パラメータ取得
-        /// <summary>
-        /// 帳票パラメータを取得する
-        /// </summary>
-        /// <returns></returns>
-        private Dictionary<string, DateTime> getPrintParameter()
-        {
-            // TODO:ロジック整理後に記述
-            // 期間を算出
-            //int year = int.Parse(paramDic["処理年度"].Replace("/", "")),
-            //    pMonth = DEFAULT_SETTLEMENT_MONTH,
-            //    pYear = pMonth < 4 ? year + 1 : year,
-            //    mCounter = 1;
-
-            //DateTime lastMonth = new DateTime(pYear, pMonth, 1);
-            //DateTime targetMonth = lastMonth.AddMonths(-11);
-
-            Dictionary<string, DateTime> printDic = new Dictionary<string, DateTime>();
-            //printDic.Add(REPORT_PARAM_NAME_PRIOD_START, targetMonth);
-            //printDic.Add(REPORT_PARAM_NAME_PRIOD_END, lastMonth);
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH01, targetMonth);
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH02, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH03, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH04, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH05, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH06, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH07, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH08, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH09, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH10, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH11, targetMonth.AddMonths(mCounter++));
-            //printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH12, lastMonth);
-
-            return printDic;
-
-        }
-        #endregion
-
         #region ＣＳＶデータ出力
         /// <summary>
         /// ＣＳＶデータの出力をおこなう
@@ -490,9 +452,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 MessageBox.Show("出力対象のデータがありません。");
                 return;
             }
-
-            // CSV出力用に列名を編集する
-            changeColumnsName(tbl);
 
             WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
             // はじめに表示されるフォルダを指定する
@@ -547,8 +506,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 itemTypeDic.Add(2, "繊維");
                 itemTypeDic.Add(3, "その他");
 
-                Dictionary<string, DateTime> printParams = getPrintParameter();
-
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
                     #region 印字パラメータ設定
@@ -574,7 +531,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 view.PrinterName = frmcfg.PrinterName;
                 view.IsCustomMode = true;
-                setPrinterInfoA3(view);
                 view.ShowPreview();
                 view.Close();
                 frmcfg.PrinterName = view.PrinterName;
@@ -586,91 +542,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 this.ErrorMessage = "システムエラーが発生しました。サポートにお問い合わせください。";
                 appLog.Error("商品在庫残高一覧表の印刷時に例外が発生しました。", ex);
             }
-
-        }
-        #endregion
-
-        #region A3用紙設定
-        /// <summary>
-        /// A3用紙設定をプリンタに設定する
-        /// </summary>
-        /// <param name="view"></param>
-        private void setPrinterInfoA3(FwRepPreview.ReportPreview view)
-        {
-            view.PrinterInfo = new FwRepPreview.FwPrinterInfo();
-            view.PrinterInfo.paperSizeName = "A3";
-            view.PrinterInfo.landscape = true;
-            view.PrinterInfo.margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
-
-        }
-        #endregion
-
-        #region 列名編集
-        /// <summary>
-        /// テーブル列名をCSV出力用に変更して返す
-        /// </summary>
-        /// <param name="tbl"></param>
-        /// <returns></returns>
-        private void changeColumnsName(DataTable tbl)
-        {
-            // TODO:ロジック整理後に記述する
-            //Dictionary<string, DateTime> printParams = getPrintParameter();
-
-            //foreach (DataColumn col in tbl.Columns)
-            //{
-            //    switch (col.ColumnName)
-            //    {
-            //        case "集計売上額０１":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH01].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０２":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH02].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０３":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH03].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０４":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH04].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０５":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH05].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０６":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH06].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０７":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH07].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０８":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH08].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額０９":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH09].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額１０":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH10].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額１１":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH11].ToString("yyyy年M月");
-            //            break;
-
-            //        case "集計売上額１２":
-            //            col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH12].ToString("yyyy年M月");
-            //            break;
-
-            //    }
-
-            //}
 
         }
         #endregion
