@@ -370,6 +370,12 @@
     <Compile Include="Views\ZIK\ZIK01010.xaml.cs">
       <DependentUpon>ZIK01010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ZIK\ZIK04010.xaml.cs">
+      <DependentUpon>ZIK04010.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZIK\ZIK05010.xaml.cs">
+      <DependentUpon>ZIK05010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowControler.xaml.cs">
       <DependentUpon>WindowControler.xaml</DependentUpon>
     </Compile>
@@ -894,6 +900,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ZIK\ZIK01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIK\ZIK04010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIK\ZIK05010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1316,6 +1316,75 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        /// <summary>
+        /// 棚卸入力
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIK02010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Start(typeof(ZIK02010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 差異表印刷
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIK03010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Start(typeof(ZIK03010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 棚卸入力
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIK04010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(ZIK04010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 在庫残高一覧表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIK05010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(ZIK05010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
         #endregion
 
         #region 分析資料[F6]

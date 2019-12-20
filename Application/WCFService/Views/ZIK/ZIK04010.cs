@@ -35,13 +35,13 @@ namespace KyoeiSystem.Application.WCFService
 
         #region 棚卸更新実行済確認
         /// <summary>
-        /// 対象年月日の棚卸更新が実行されているかを確認する
+        /// 対象年月日の棚卸更新の実行済み確認、棚卸入力確認を行う
         /// </summary>
         /// <param name="pMyCompany">会社コード</param>
         /// <param name="pStocktakingDate">棚卸日</param>
         /// <param name="pParamDic">パラメータ辞書</param>
         /// <returns>0:対象あり、-1:棚卸未入力、1:棚卸更新済み</returns>
-        public int IsCheckStocktaking(int pMyCompany, string pStocktakingDate, Dictionary<string, string> paramDic)
+        public int IsCheckStocktaking(int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic)
         {
             DateTime dteStocktaking = DateTime.Parse(pStocktakingDate);
             int intResult = 0;                      // 0:対象あり
@@ -69,37 +69,49 @@ namespace KyoeiSystem.Application.WCFService
                 #region 入力項目による絞込
 
                 // 倉庫の条件チェック
-                string Warehouse = paramDic["倉庫"];
-                if (!string.IsNullOrEmpty(Warehouse))
+                string Warehouse = pParamDic["倉庫"];
+                if (string.IsNullOrEmpty(Warehouse) == false)
+                {
                     stocktakingList = stocktakingList.Where(w => w.STOCKTAKING.倉庫コード == int.Parse(Warehouse)).ToList();
+                }
 
                 // 自社品番の条件チェック
-                string myProduct = paramDic["自社品番"];
-                if (!string.IsNullOrEmpty(myProduct))
+                string myProduct = pParamDic["自社品番"];
+                if (string.IsNullOrEmpty(myProduct) == false)
+                {
                     stocktakingList = stocktakingList.Where(w => w.HIN.自社品番 == myProduct).ToList();
+                }
 
                 // 品名の条件チェック
-                string productName = paramDic["自社品名"];
-                if (!string.IsNullOrEmpty(productName))
+                string productName = pParamDic["自社品名"];
+                if (string.IsNullOrEmpty(productName) == false)
+                {
                     stocktakingList = stocktakingList.Where(w => w.HIN.自社品名 != null && w.HIN.自社品名.Contains(productName)).ToList();
+                }
 
                 // 商品分類の条件チェック
                 int itemType;
-                if (int.TryParse(paramDic["商品分類"], out itemType))
+                if (int.TryParse(pParamDic["商品分類"], out itemType) == true)
                 {
                     if (itemType >= CommonConstants.商品分類.食品.GetHashCode())
+                    {
                         stocktakingList = stocktakingList.Where(w => w.HIN.商品分類 == itemType).ToList();
+                    }
                 }
 
                 // ブランドの条件チェック
-                string brand = paramDic["ブランド"];
-                if (!string.IsNullOrEmpty(brand))
+                string brand = pParamDic["ブランド"];
+                if (string.IsNullOrEmpty(brand) == false)
+                {
                     stocktakingList = stocktakingList.Where(w => w.HIN.ブランド == brand).ToList();
+                }
 
                 // シリーズの条件チェック
-                string series = paramDic["シリーズ"];
-                if (!string.IsNullOrEmpty(series))
+                string series = pParamDic["シリーズ"];
+                if (string.IsNullOrEmpty(series) == false)
+                {
                     stocktakingList = stocktakingList.Where(w => w.HIN.シリーズ == series).ToList();
+                }
 
                 #endregion
 
@@ -161,37 +173,27 @@ namespace KyoeiSystem.Application.WCFService
                         foreach (StocktakingDataMember row in lstResult)
                         {
 
-                            // ---------------------------
                             // 処理対象チェック
-                            // ---------------------------
                             bool bolRetTarget = CheckTargetRecord(context, row);
                             if (bolRetTarget == false)
                             {
                                 continue;
                             }
 
-                            // ---------------------------
                             // 入出庫履歴テーブル更新チェック
-                            // ---------------------------
                             bool bolRetUpd = CheckS04_HISTORYUpdate(context, row);
 
                             if (bolRetUpd == true)
                             {
-                                // ---------------------------
                                 // 入出庫履歴テーブル　更新
-                                // ---------------------------
-                                Update_S04_HISTORY(context, pMyCompany, pStocktakingDate, row, pUserId);
+                                Update_S04_HISTORY(context, row);
                             }
 
-                            // ---------------------------
                             // 在庫テーブル　更新
-                            // ---------------------------
-                            Update_S03_STOK(context, pMyCompany, pStocktakingDate, row, pUserId);
+                            Update_S03_STOK(context, row);
 
-                            // ---------------------------
                             // 棚卸在庫テーブル　更新
-                            // ---------------------------
-                            Update_S10_STOCKTAKING(context, pMyCompany, pStocktakingDate, row, pUserId);
+                            Update_S10_STOCKTAKING(context, row);
 
                         }
 
@@ -258,37 +260,48 @@ namespace KyoeiSystem.Application.WCFService
 
             // 倉庫の条件チェック
             string Warehouse = pParamDic["倉庫"];
-            if (!string.IsNullOrEmpty(Warehouse))
+            if (string.IsNullOrEmpty(Warehouse) == false)
+            {
                 stocktakingList = stocktakingList.Where(w => w.STOCKTAKING.倉庫コード == int.Parse(Warehouse)).ToList();
+            }
 
             // 自社品番の条件チェック
             string myProduct = pParamDic["自社品番"];
-            if (!string.IsNullOrEmpty(myProduct))
+            if (string.IsNullOrEmpty(myProduct) == false)
+            {
                 stocktakingList = stocktakingList.Where(w => w.HIN.自社品番 == myProduct).ToList();
+            }
 
             // 品名の条件チェック
             string productName = pParamDic["自社品名"];
-            if (!string.IsNullOrEmpty(productName))
+            if (string.IsNullOrEmpty(productName) == false)
+            {
                 stocktakingList = stocktakingList.Where(w => w.HIN.自社品名 != null && w.HIN.自社品名.Contains(productName)).ToList();
+            }
 
             // 商品分類の条件チェック
             int itemType;
-            if (int.TryParse(pParamDic["商品分類"], out itemType))
+            if (int.TryParse(pParamDic["商品分類"], out itemType) == true)
             {
                 if (itemType >= CommonConstants.商品分類.食品.GetHashCode())
+                {
                     stocktakingList = stocktakingList.Where(w => w.HIN.商品分類 == itemType).ToList();
+                }
             }
 
             // ブランドの条件チェック
             string brand = pParamDic["ブランド"];
-            if (!string.IsNullOrEmpty(brand))
+            if (string.IsNullOrEmpty(brand) == false)
+            {
                 stocktakingList = stocktakingList.Where(w => w.HIN.ブランド == brand).ToList();
+            }
 
             // シリーズの条件チェック
             string series = pParamDic["シリーズ"];
-            if (!string.IsNullOrEmpty(series))
+            if (string.IsNullOrEmpty(series) == false)
+            {
                 stocktakingList = stocktakingList.Where(w => w.HIN.シリーズ == series).ToList();
-
+            }
             #endregion
 
             // ---------------------------
@@ -351,11 +364,8 @@ namespace KyoeiSystem.Application.WCFService
         /// 入出庫履歴テーブル　更新
         /// </summary>
         /// <param name="context">TRAC3Entities</param>
-        /// <param name="pMyCompany">自社コード</param>
-        /// <param name="pStocktakingDate">棚卸日</param>
         /// <param name="pRow">StocktakingDataMember</param>
-        /// <param name="userId">ログインユーザID</param>
-        private void Update_S04_HISTORY(TRAC3Entities context, int pMyCompany, string pStocktakingDate, StocktakingDataMember pRow, int userId)
+        private void Update_S04_HISTORY(TRAC3Entities context, StocktakingDataMember pRow)
         {
 
             // 入出庫履歴テーブル　編集
@@ -401,11 +411,8 @@ namespace KyoeiSystem.Application.WCFService
         /// 在庫テーブル　更新
         /// </summary>
         /// <param name="context">TRAC3Entities</param>
-        /// <param name="pMyCompany">自社コード</param>
-        /// <param name="pStocktakingDate">棚卸日</param>
         /// <param name="pRow">StocktakingDataMember</param>
-        /// <param name="userId">ログインユーザID</param>
-        private void Update_S03_STOK(TRAC3Entities context, int pMyCompany, string pStocktakingDate, StocktakingDataMember pRow, int userId)
+        private void Update_S03_STOK(TRAC3Entities context, StocktakingDataMember pRow)
         {
             // 在庫テーブル　編集
             S03_STOK stok = new S03_STOK();
@@ -425,11 +432,8 @@ namespace KyoeiSystem.Application.WCFService
         /// 棚卸在庫テーブル　更新
         /// </summary>
         /// <param name="context">TRAC3Entities</param>
-        /// <param name="pMyCompany">自社コード</param>
-        /// <param name="pStocktakingDate">棚卸日</param>
         /// <param name="pRow">StocktakingDataMember</param>
-        /// <param name="userId">ログインユーザID</param>
-        private void Update_S10_STOCKTAKING(TRAC3Entities context, int pMyCompany, string pStocktakingDate, StocktakingDataMember pRow, int userId)
+        private void Update_S10_STOCKTAKING(TRAC3Entities context, StocktakingDataMember pRow)
         {
             // 棚卸在庫テーブル　編集
             S10_STOCKTAKING stocktaking = new S10_STOCKTAKING();
