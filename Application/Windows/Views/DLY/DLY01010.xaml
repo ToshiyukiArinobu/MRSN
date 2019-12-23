@@ -246,7 +246,7 @@
                 Label1Text="－"
                 Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
                 Text2="{Binding SearchHeader[仕入先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-                cText1Changed="SearchSupplier_cTextChanged" cText2Changed="SearchSupplier_cTextChanged"
+                LostFocus="c仕入先_LostFocus" cText1Changed="SearchSupplier_cTextChanged" cText2Changed="SearchSupplier_cTextChanged"
             />
             <Label x:Name="c仕入先名" Grid.Column="1" BorderBrush="Gray" BorderThickness="0" Margin="0,1,0,1" />
           </Grid>
@@ -458,97 +458,102 @@
 
             </sg:GcSpreadGrid>
 
-      <!-- フッター部(合計表示領域) -->
-      <Grid x:Name="FooterArea" Grid.Row="2" Margin="15,0,0,0">
-        <Grid.Resources>
-          <Style TargetType="{x:Type Border}" >
-            <Setter Property="BorderBrush" Value="Black" />
-          </Style>
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="30" />
-          <RowDefinition Height="30" />
-          <RowDefinition Height="30" />
-          <RowDefinition Height="30" />
-          <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="464" />
-          <ColumnDefinition Width="84" />
-          <ColumnDefinition Width="84" />
-          <ColumnDefinition Width="84" />
-          <ColumnDefinition Width="100" />
-          <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
+            <!-- フッター部(合計表示領域) -->
+            <Grid x:Name="FooterArea" Grid.Row="2" Margin="15,0,0,0">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Border}" >
+                        <Setter Property="BorderBrush" Value="Black" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="464" />
+                    <ColumnDefinition Width="84" />
+                    <ColumnDefinition Width="84" />
+                    <ColumnDefinition Width="84" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
-        <ctls:UcLabel Content="備　　考" Grid.Row="0" Grid.Column="0" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                <ctls:UcLabel Content="備　　考" Grid.Row="0" Grid.Column="0" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
-        />
-        <ctls:UcLabelTwinTextBox
-            x:Name="c備考" Grid.Row="1" Grid.Column="0" Margin="2" DataAccessName="M11_TEK" DataAccessMode="On"
-            Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-            Text1Width="40"
-            Text2="{Binding SearchHeader[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-        />
+                />
+                <ctls:UcLabelTwinTextBox
+                    x:Name="c備考" Grid.Row="1" Grid.Column="0" Margin="2" DataAccessName="M11_TEK" DataAccessMode="On"
+                    Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                    Text1Width="40"
+                    Text2="{Binding SearchHeader[備考], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                />
 
-        <ctls:UcLabel Content="小　計" Grid.Row="1" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                <ctls:UcLabel Content="小　計" Grid.Row="1" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
-        />
-        <Label x:Name="c小計" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                />
+                <Label x:Name="c小計" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-        <ctls:UcLabel Content="消費税" Grid.Row="2" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                <ctls:UcLabel Content="消費税" Grid.Row="2" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
-        />
-        <Label x:Name="c消費税" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                />
+                <Label x:Name="c消費税" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-        <ctls:UcLabel Content="最大10行伝票" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
+                <ctls:UcLabel Content="最大10行伝票" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" />
 
-        <ctls:UcLabel Content="総合計" Grid.Row="3" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0" Grid.ColumnSpan="3" 
+                <ctls:UcLabel Content="総合計" Grid.Row="3" Grid.Column="1" TextBlock.TextAlignment="Center" Padding="0,6,0,0" Grid.ColumnSpan="3" 
                       Background="{StaticResource DataGridSummaryBackground}"
-        />
-        <Label x:Name="c総合計" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                />
+                <Label x:Name="c総合計" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-        <ctls:UcLabel Content="通常税" Grid.Row="0" Grid.Column="2" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                <ctls:UcLabel Content="通常税" Grid.Row="0" Grid.Column="2" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
-        />
-        <ctls:UcLabel Content="軽減税" Grid.Row="0" Grid.Column="3" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                />
+                <ctls:UcLabel Content="軽減税" Grid.Row="0" Grid.Column="3" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
-        />
-        <ctls:UcLabel Content="合　計" Grid.Row="0" Grid.Column="4" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                />
+                <ctls:UcLabel Content="合　計" Grid.Row="0" Grid.Column="4" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                       Background="{StaticResource DataGridSummaryBackground}"
-        />
+                />
 
-        <Label x:Name="lbl通常税率対象金額" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
-        <Label x:Name="lbl軽減税率対象金額" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />
-        <Label x:Name="lbl通常税率消費税" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
-        <Label x:Name="lbl軽減税率消費税" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />
+                <Label x:Name="lbl通常税率対象金額" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
+                <Label x:Name="lbl軽減税率対象金額" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />
+                <!--<Label x:Name="lbl通常税率消費税" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />-->
+                <ctls:UcTextBox x:Name="txb通常税率消費税" Grid.Row="2" Grid.Column="2" Width="82" Height="28" IsKeyItem="False" Background="White"
+                                    Text="{Binding 通常税率消費税,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,StringFormat=#\,0,UpdateSourceTrigger=LostFocus}"
+                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-9999999" MaxValue="9999999" LostFocus="txb消費税_LostFocus"/>
+                <!--<Label x:Name="lbl軽減税率消費税" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />-->
+                <ctls:UcTextBox x:Name="txb軽減税率消費税" Grid.Row="2" Grid.Column="3" Width="82" Height="28" IsKeyItem="False" Background="White"
+                                    Text="{Binding 軽減税率消費税,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,StringFormat=#\,0,UpdateSourceTrigger=LostFocus}"
+                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-9999999" MaxValue="9999999" LostFocus="txb消費税_LostFocus"/>
+                <Label x:Name="lbl税区分説明" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Padding="0,6,5,0" 
+                        Content="軽は軽減税率対象商品、非は非課税対象商品"/>
 
-        <Label x:Name="lbl税区分説明" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Padding="0,6,5,0" 
-               Content="軽は軽減税率対象商品、非は非課税対象商品"/>
+                <!-- 枠線描画 -->
+                <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,0,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="3" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="4" Grid.Row="0" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+                <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,1,0,1" Panel.ZIndex="9" />
+                <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="3" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="4" Grid.Row="1" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+                <Border Grid.Column="1" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="2" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="3" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                <Border Grid.Column="4" Grid.Row="2" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+                <Border Grid.Column="1" Grid.Row="3" BorderThickness="1,1,0,1" Panel.ZIndex="9" Grid.ColumnSpan="3" />
+                <Border Grid.Column="2" Grid.Row="3" BorderThickness="0,0,0,1" Panel.ZIndex="9" />
+                <Border Grid.Column="3" Grid.Row="3" BorderThickness="0,0,0,1" Panel.ZIndex="9" />
+                <Border Grid.Column="4" Grid.Row="3" BorderThickness="1,1,1,1" Panel.ZIndex="9" />
 
-        <!-- 枠線描画 -->
-        <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,0,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="3" Grid.Row="0" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="4" Grid.Row="0" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
-        <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,1,0,1" Panel.ZIndex="9" />
-        <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="3" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="4" Grid.Row="1" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
-        <Border Grid.Column="1" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="2" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="3" Grid.Row="2" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-        <Border Grid.Column="4" Grid.Row="2" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
-        <Border Grid.Column="1" Grid.Row="3" BorderThickness="1,1,0,1" Panel.ZIndex="9" Grid.ColumnSpan="3" />
-        <Border Grid.Column="2" Grid.Row="3" BorderThickness="0,0,0,1" Panel.ZIndex="9" />
-        <Border Grid.Column="3" Grid.Row="3" BorderThickness="0,0,0,1" Panel.ZIndex="9" />
-        <Border Grid.Column="4" Grid.Row="3" BorderThickness="1,1,1,1" Panel.ZIndex="9" />
+            </Grid>
 
-      </Grid>
-
-    </Grid>
+        </Grid>
 
   </Grid>
 </fw:WindowReportBase>

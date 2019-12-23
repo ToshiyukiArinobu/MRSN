@@ -584,8 +584,14 @@
                     <Label x:Name="lbl通常税率対象金額" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
                     <Label x:Name="lbl軽減税率対象金額" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />
 
-                    <Label x:Name="lbl通常税率消費税" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />
-                    <Label x:Name="lbl軽減税率消費税" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />
+                    <!--<Label x:Name="lbl通常税率消費税" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Padding="0,6,5,0" />-->
+                    <ctls:UcTextBox x:Name="txb通常税率消費税" Grid.Row="2" Grid.Column="2" Width="82" Height="28" IsKeyItem="False" Background="White"
+                                    Text="{Binding 通常税率消費税,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,StringFormat=#\,0,UpdateSourceTrigger=LostFocus}"
+                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-9999999" MaxValue="9999999" LostFocus="txb消費税_LostFocus"/>
+                    <!--<Label x:Name="lbl軽減税率消費税" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Padding="0,6,5,0" />-->
+                    <ctls:UcTextBox x:Name="txb軽減税率消費税" Grid.Row="2" Grid.Column="3" Width="82" Height="28" IsKeyItem="False" Background="White"
+                                    Text="{Binding 軽減税率消費税,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,StringFormat=#\,0,UpdateSourceTrigger=LostFocus}"
+                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-9999999" MaxValue="9999999" LostFocus="txb消費税_LostFocus"/>
 
                     <Label x:Name="lbl税区分説明" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Padding="0,6,5,0" 
                            Content="軽は軽減税率対象商品、非は非課税対象商品"/>
