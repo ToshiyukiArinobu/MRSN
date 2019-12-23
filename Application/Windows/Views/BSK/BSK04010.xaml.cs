@@ -10,11 +10,12 @@ using System.Windows.Input;
 
 namespace KyoeiSystem.Application.Windows.Views
 {
+    using System.Text;
     using FwRepPreview = KyoeiSystem.Framework.Reports.Preview;
     using WinForms = System.Windows.Forms;
 
     /// <summary>
-    /// 得意先・商品別売上統計表 フォームクラス
+    /// 担当者・得意先別売上統計表 フォームクラス
     /// </summary>
     public partial class BSK04010 : WindowReportBase
     {
@@ -41,28 +42,16 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        #region 一覧データテーブル定義
-
-        private DataTable _searchList;
-        public DataTable SearchList
-        {
-            get { return _searchList; }
-            set
-            {
-                _searchList = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        #endregion
-
         #region << 定数定義 >>
-
-        private const string GET_PRINT_LIST = "BSK04010_GetPrintList";
-        private const string GET_CSV_LIST = "BSK04010_GetCsvList";
+        private const string GET_JISHA_INFO = "BSK04010_GetJisInfo";
+        private const string GET_PRINT_LIST_MONTH = "BSK04010_GetPrintList_Month";
+        private const string GET_PRINT_LIST_DAY = "BSK04010_GetPrintList_Day";
+        private const string GET_CSV_LIST_MONTH = "BSK04010_GetCsvList_Month";
+        private const string GET_CSV_LIST_DAY = "BSK04010_GetCsvList_Day";
 
         /// <summary>帳票定義体ファイルパス</summary>
-        private const string ReportFileName = @"Files\BSK\BSK04010_1.rpt";
+        private const string ReportFileName_Month = @"Files\BSK\BSK04010m.rpt";
+        private const string ReportFileName_Day = @"Files\BSK\BSK04010d.rpt";
 
         /// <summary>初期決算月</summary>
         private const int DEFAULT_SETTLEMENT_MONTH = 3;
@@ -70,12 +59,21 @@ namespace KyoeiSystem.Application.Windows.Views
         // 画面パラメータ名
         private const string PARAMS_NAME_FISCAL_YEAR = "処理年度";
         private const string PARAMS_NAME_COMPANY  = "自社コード";
+        private const string PARAMS_NAME_TANTOU = "担当者コード";
         private const string PARAMS_NAME_CUSTOMER_CODE  = "得意先コード";
         private const string PARAMS_NAME_CUSTOMER_EDA  = "得意先枝番";
+        private const string PARAMS_NAME_START_YM = "作成開始年月";
+        private const string PARAMS_NAME_END_YM = "作成終了年月";
+        private const string PARAMS_NAME_CREATE_YM = "作成月";
+        private const string PARAMS_NAME_URIAGESAKI = "売上先";
+        private const string PARAMS_NAME_OUTPUT_KIND = "出力帳票";
+        private const string PARAMS_NAME_CREATE_TYPE = "作成区分";
+
 
         // 帳票パラメータ名
         private const string REPORT_PARAM_NAME_PRIOD_START = "期間開始";
         private const string REPORT_PARAM_NAME_PRIOD_END = "期間終了";
+        private const string REPORT_PARAM_NAME_END_DAY = "終了日";
         private const string REPORT_PARAM_NAME_YEAR_MONTH01 = "集計年月１";
         private const string REPORT_PARAM_NAME_YEAR_MONTH02 = "集計年月２";
         private const string REPORT_PARAM_NAME_YEAR_MONTH03 = "集計年月３";
@@ -92,12 +90,22 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region << クラス変数定義 >>
+        /// <summary>
+        /// M70_JISMember
+        /// </summary>
+        public class M70_JISMember
+        {
+            public int 自社コード { get; set; }
+            public string 自社名 { get; set; }
+            public int 取引先コード { get; set; }
+            public int 枝番 { get; set; }
+            public int 決算月 { get; set; }
+        }
 
         /// <summary>検索時パラメータ保持用</summary>
         Dictionary<string, string> paramDic = new Dictionary<string, string>();
 
         #endregion
-
 
         #region << 画面初期処理 >>
 
@@ -147,23 +155,18 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // 権限設定を呼び出す(ucfgを取得した後のに入れる)
             ccfg = (CommonConfig)ucfg.GetConfigValue(typeof(CommonConfig));
-            // 登録ボタン設定
-            if (!権限Get.Authority_Update_Button(ccfg, this.GetType().Name))
-            {
-                DataUpdateVisible = System.Windows.Visibility.Hidden;
-            }
-
-            if (frmcfg.spConfig != null)
-            {
-                //AppCommon.LoadSpConfig(this.sp請求データ一覧, frmcfg.spConfig);
-            }
 
             #endregion
 
-            base.MasterMaintenanceWindowList.Add("M01_TOK", new List<Type> { typeof(MST01010), typeof(SCHM01_TOK) });
             base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
+            base.MasterMaintenanceWindowList.Add("M72_TNT", new List<Type> { typeof(MST23010), typeof(SCHM72_TNT) });
+            base.MasterMaintenanceWindowList.Add("M01_TOK", new List<Type> { typeof(MST01010), typeof(SCHM01_TOK) });
 
+            // 画面初期化
             ScreenClear();
+
+            // コントロール初期化
+            InitControl();
 
             SetFocusToTopControl();
 
@@ -190,11 +193,22 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 switch (message.GetMessageName())
                 {
-                    case GET_CSV_LIST:
+                    case GET_JISHA_INFO:
+                        // 作成期間の再設定
+                        set決算月(tbl);
+                        break;
+                    case GET_CSV_LIST_MONTH:
+                    case GET_CSV_LIST_DAY:
                         outputCsv(tbl);
                         break;
 
-                    case GET_PRINT_LIST:
+                    // (月別)売上統計表
+                    case GET_PRINT_LIST_MONTH:
+                        outputReport(tbl);
+                        break;
+
+                    // (日別)売上統計表
+                    case GET_PRINT_LIST_DAY:
                         outputReport(tbl);
                         break;
 
@@ -247,7 +261,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 else
                 {
                     ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
-
                 }
 
             }
@@ -269,18 +282,32 @@ namespace KyoeiSystem.Application.Windows.Views
         public override void OnF5Key(object sender, KeyEventArgs e)
         {
             // 入力チェック
-            if (!formValidation())
+            if (!CheckFormValidation())
                 return;
 
             // パラメータ情報設定
             setSearchParams();
 
-            base.SendRequest(
-                new CommunicationObject(
-                    MessageType.RequestData,
-                    GET_CSV_LIST,
-                    paramDic
-                ));
+            if (this.rdo出力帳票.Text == "0")
+            {
+                // (月別)
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.RequestData,
+                        GET_CSV_LIST_MONTH,
+                        paramDic
+                    ));
+            }
+            else
+            {
+                // (日別)
+                base.SendRequest(
+                 new CommunicationObject(
+                     MessageType.RequestData,
+                     GET_CSV_LIST_DAY,
+                     paramDic
+                 ));
+            }
 
             base.SetBusyForInput();
 
@@ -296,18 +323,36 @@ namespace KyoeiSystem.Application.Windows.Views
         public override void OnF8Key(object sender, KeyEventArgs e)
         {
             // 入力チェック
-            if (!formValidation())
+            if (!CheckFormValidation())
+                return;
+
+            // 作成期間整合性チェック
+            if (!CheckPeriodValidation())
                 return;
 
             // パラメータ情報設定
             setSearchParams();
 
-            base.SendRequest(
-                new CommunicationObject(
-                    MessageType.RequestData,
-                    GET_PRINT_LIST,
-                    paramDic
-                ));
+            if (this.rdo出力帳票.Text == "0")
+            {
+                // (月別)
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.RequestData,
+                        GET_PRINT_LIST_MONTH,
+                        paramDic
+                    ));
+            }
+            else
+            {
+                // (日別)
+                base.SendRequest(
+                 new CommunicationObject(
+                     MessageType.RequestData,
+                     GET_PRINT_LIST_DAY,
+                     paramDic
+                 ));
+            }
 
             base.SetBusyForInput();
 
@@ -330,7 +375,6 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region << 機能処理関連 >>
-
         #region 画面初期化
         /// <summary>
         /// 画面初期化
@@ -339,39 +383,40 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.MaintenanceMode = null;
 
-            // 自社の入力値クリア
-            this.MyCompany.Text1 = string.Empty;
-
-            // 処理年度の初期値設定
-            int fiscalYear = getFiscalYear(DateTime.Now.Year, DateTime.Now.Month, DEFAULT_SETTLEMENT_MONTH);
-            this.FiscalYear.Text = fiscalYear.ToString();
-
-            // 得意先の入力値クリア
-            this.Customer.Text1 = string.Empty;
-            this.Customer.Text2 = string.Empty;
+            this.txt自社.Text1 = string.Empty;
+            this.txt担当者.Text1 = string.Empty;
+            this.rdo売上先.Text = "0";
+            this.txt得意先.Text1 = string.Empty;
+            this.txt得意先.Text2 = string.Empty;
+            this.txt作成月.Text = string.Empty;
+            this.rdo出力帳票.Text = "0";
+            this.cmb作成区分.SelectedIndex = 0;
 
             ResetAllValidation();
-            SetFocusToTopControl();
 
         }
         #endregion
 
-        #region 決算年度算出
-        /// <summary>
-        /// 決算年度を算出して返す
-        /// </summary>
-        /// <param name="year">年</param>
-        /// <param name="month">月</param>
-        /// <param name="settlementMonth">決算月</param>
-        /// <returns></returns>
-        private int getFiscalYear(int year, int month, int settlementMonth)
+        #region コントロール初期化
+        private void InitControl()
         {
-            int fiscalYear = year;
-            // 決算月以前の場合は前年を年度として指定
-            if (month <= settlementMonth)
-                fiscalYear -= 1;
+            // 処理年度の初期値設定
+            this.txt処理年度.Text = get処理年度(DateTime.Now.Year, DateTime.Now.Month, DEFAULT_SETTLEMENT_MONTH).ToString();
+            
+            // 対象自社の初期設定
+            this.txt自社.Text1 = ccfg.自社コード.ToString();
 
-            return fiscalYear;
+            // 担当者の初期設定
+            this.txt担当者.Text1 = ccfg.ユーザID.ToString();
+
+            // 作成月の初期設定
+            this.txt作成月.Text = DateTime.Now.Month.ToString("D2");
+            
+            // 作成区分コンボボックス設定
+            AppCommon.SetutpComboboxList(this.cmb作成区分, false);
+
+            // 作成期間の初期設定
+            get決算月();
 
         }
         #endregion
@@ -381,24 +426,91 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 業務入力チェックをおこなう
         /// </summary>
         /// <returns></returns>
-        private bool formValidation()
+        private bool CheckFormValidation()
         {
-            if (string.IsNullOrEmpty(FiscalYear.Text))
+            int ival = 0;
+
+            if (string.IsNullOrEmpty(txt処理年度.Text))
             {
-                FiscalYear.Focus();
+                txt処理年度.Focus();
                 ErrorMessage = "処理年度が入力されていません。";
                 return false;
             }
 
-            if (string.IsNullOrEmpty(MyCompany.Text1))
+            // 月別
+            if (this.rdo出力帳票.Text == "0")
             {
-                MyCompany.Focus();
-                ErrorMessage = "対象自社が設定されていません。";
-                return false;
+                if (string.IsNullOrEmpty(txt作成期間.Text1) || string.IsNullOrEmpty(txt作成期間.Text2))
+                {
+                    txt作成期間.Focus();
+                    ErrorMessage = "作成期間が入力されていません。";
+                    return false;
+                }
+            }
+            // 日別
+            else
+            {
+                if (string.IsNullOrEmpty(txt作成月.Text))
+                {
+                    txt作成月.Focus();
+                    ErrorMessage = "作成月が入力されていません。";
+                    return false;
+                }
+
+                int nYear = Int32.TryParse(txt処理年度.Text, out ival)? ival : 0;
+                int nMonth = Int32.TryParse(txt作成月.Text, out ival)? ival : 0;
+                DateTime targetYearMonth = new DateTime(nYear, nMonth,1);
+                
+                if (DateTime.Now < targetYearMonth)
+                {
+                    txt作成月.Focus();
+                    ErrorMessage = "作成月が未来日です。";
+                    return false;
+                }
             }
 
             return true;
 
+        }
+        #endregion
+
+        #region 作成期間整合性チェック
+        /// <summary>
+        /// 作成期間整合性チェック
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckPeriodValidation()
+        {
+            // 日別
+            if (this.rdo出力帳票.Text == "1")
+            {
+                return true;
+            }
+            
+            DateTime dWk;
+            StringBuilder startYM = new StringBuilder();
+            StringBuilder endYM = new StringBuilder();
+            startYM.Append(this.txt作成期間.Text1).Append("/01");
+            endYM.Append(this.txt作成期間.Text2).Append("/01");
+            DateTime dStartYm = DateTime.TryParse(startYM.ToString(), out dWk)? dWk: DateTime.Today;
+            DateTime dEndYm = DateTime.TryParse(endYM.ToString(), out dWk) ? dWk : DateTime.Today;
+
+            if (dStartYm > dEndYm)
+            {
+                txt作成期間.Focus();
+                ErrorMessage = "作成期間が不正です。";
+                return false;
+            }
+
+            int priodMonth = (dEndYm.Year - dStartYm.Year) * 12 + (dEndYm.Month - dStartYm.Month);
+            if (priodMonth > 11)
+            {
+                txt作成期間.Focus();
+                ErrorMessage = "作成期間が不正です。";
+                return false;
+            }
+
+            return true;
         }
         #endregion
 
@@ -410,47 +522,158 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             paramDic.Clear();
 
-            paramDic.Add(PARAMS_NAME_FISCAL_YEAR, FiscalYear.Text);
-            paramDic.Add(PARAMS_NAME_COMPANY, MyCompany.Text1);
-            paramDic.Add(PARAMS_NAME_CUSTOMER_CODE, Customer.Text1);
-            paramDic.Add(PARAMS_NAME_CUSTOMER_EDA, Customer.Text2);
+            paramDic.Add(PARAMS_NAME_FISCAL_YEAR, txt処理年度.Text);
+            paramDic.Add(PARAMS_NAME_COMPANY, txt自社.Text1 == null ? null : txt自社.Text1);
+            paramDic.Add(PARAMS_NAME_TANTOU, txt担当者.Text1 == null ? null : txt担当者.Text1);
+            paramDic.Add(PARAMS_NAME_CUSTOMER_CODE, txt得意先.Text1 == null ? null : txt得意先.Text1);
+            paramDic.Add(PARAMS_NAME_CUSTOMER_EDA, txt得意先.Text2 == null ? null : txt得意先.Text2);
+            paramDic.Add(PARAMS_NAME_START_YM, txt作成期間.Text1 == null ? null : txt作成期間.Text1);
+            paramDic.Add(PARAMS_NAME_END_YM, txt作成期間.Text2 == null ? null : txt作成期間.Text2);
+            paramDic.Add(PARAMS_NAME_CREATE_YM, txt作成月.Text == null ? null : txt作成月.Text);
+            paramDic.Add(PARAMS_NAME_URIAGESAKI, rdo売上先.Text);
+            paramDic.Add(PARAMS_NAME_CREATE_TYPE, cmb作成区分.SelectedIndex.ToString());
 
         }
         #endregion
 
-        #region 帳票パラメータ取得
+        #region 決算月取得
+        /// <summary>
+        /// 対象自社の決算月を取得する
+        /// </summary>
+        private void get決算月()
+        {
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    GET_JISHA_INFO,
+                    txt自社.Text1
+                ));
+        }
+        #endregion
+
+        #region 決算月の設定
+        /// <summary>
+        /// 決算月の算出
+        /// </summary>
+        /// <param name="dt"></param>
+        private void set決算月(DataTable dt)
+        {
+            if (dt == null)
+            {
+                return;
+            }
+
+            List<M70_JISMember>jisList = (List<M70_JISMember>)AppCommon.ConvertFromDataTable(typeof(List<M70_JISMember>), dt);
+
+            int val = 1;
+            int n決算月 = Int32.TryParse(jisList[0].決算月.ToString(), out val) ? val : DEFAULT_SETTLEMENT_MONTH;
+            
+            int n処理年度 = get処理年度(DateTime.Now.Year, DateTime.Now.Month, n決算月);
+
+            // 処理年度の設定
+            this.txt処理年度.Text = n処理年度.ToString();
+
+
+            // 決算月から作成期間を算出する
+            int nYear = n決算月 < 4 ? n処理年度 + 1 : n処理年度;
+            DateTime dEndMonth = new DateTime(nYear, n決算月, 1);
+            DateTime dStartMonth = dEndMonth.AddMonths(-11);
+            this.txt作成期間.Text1 = dStartMonth.ToString("yyyy/MM");
+            this.txt作成期間.Text2 = dEndMonth.ToString("yyyy/MM");
+            
+        }
+        #endregion
+
+        #region 決算年度算出
+        /// <summary>
+        /// 決算年度を算出して返す
+        /// </summary>
+        /// <param name="year">年</param>
+        /// <param name="month">月</param>
+        /// <param name="settlementMonth">決算月</param>
+        /// <returns></returns>
+        private int get処理年度(int year, int month, int settlementMonth)
+        {
+            int n処理年度 = year;
+            // 決算月以前の場合は前年を年度として指定
+            if (month < settlementMonth)
+                n処理年度 -= 1;
+
+            return n処理年度;
+
+        }
+        #endregion
+
+        #region (月)帳票パラメータ取得
         /// <summary>
         /// 帳票パラメータを取得する
         /// </summary>
         /// <returns></returns>
-        private Dictionary<string, DateTime> getPrintParameter()
+        private List<FwRepPreview.ReportParameter> getMonthPrintParameter()
         {
-            // 期間を算出
-            int year = int.Parse(paramDic["処理年度"].Replace("/", "")),
-                pMonth = DEFAULT_SETTLEMENT_MONTH,
-                pYear = pMonth < 4 ? year + 1 : year,
-                mCounter = 1;
+            int    mCounter = 1;
+            DateTime dtVal;
+            DateTime? stDate = DateTime.TryParse(txt作成期間.Text1, out dtVal) ? dtVal : (DateTime?)null;
+            DateTime? edDate = DateTime.TryParse(txt作成期間.Text2, out dtVal) ? dtVal : (DateTime?)null;
+            
+            if (stDate == null || edDate == null)
+            {
+                return null;
+            }
+            // 末日を設定
+            edDate = edDate.Value.AddMonths(1).AddDays(-1);
+            
+            var parms = new List<FwRepPreview.ReportParameter>()
+            {
+                // 印字パラメータ設定
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = stDate.Value},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = edDate.Value},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = stDate.Value},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH04, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH05, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH06, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH07, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH08, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH09, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH10, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH11, VALUE = stDate.Value.AddMonths(mCounter++)},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = stDate.Value.AddMonths(mCounter++)},
+            };
+            
+            return parms;
+        }
+        #endregion
 
-            DateTime lastMonth = new DateTime(pYear, pMonth, 1);
-            DateTime targetMonth = lastMonth.AddMonths(-11);
+        #region (日別)帳票パラメータ取得
+        /// <summary>
+        /// 帳票パラメータを取得する
+        /// </summary>
+        /// <returns></returns>
+        private List<FwRepPreview.ReportParameter> getDayPrintParameter()
+        {
+            DateTime dtVal;
+            StringBuilder sbCreateYm = new StringBuilder();
+            sbCreateYm.Append(txt処理年度.Text).Append("/").Append(txt作成月.Text).Append("/01");
 
-            Dictionary<string, DateTime> printDic = new Dictionary<string, DateTime>();
-            printDic.Add(REPORT_PARAM_NAME_PRIOD_START, targetMonth);
-            printDic.Add(REPORT_PARAM_NAME_PRIOD_END, lastMonth);
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH01, targetMonth);
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH02, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH03, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH04, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH05, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH06, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH07, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH08, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH09, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH10, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH11, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH12, lastMonth);
+            DateTime? stDate = DateTime.TryParse(sbCreateYm.ToString(), out dtVal) ? dtVal : (DateTime?)null;
+            DateTime? edDate = stDate != null ? stDate.Value.AddMonths(1).AddDays(-1) : (DateTime?)null;
 
-            return printDic;
+            if (stDate == null || edDate == null)
+            {
+                return null;
+            }
+
+            var parms = new List<FwRepPreview.ReportParameter>()
+            {
+                // 印字パラメータ設定
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = stDate.Value},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = edDate.Value},
+                new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_END_DAY, VALUE = edDate.Value.Day},
+            };
+
+            return parms;
 
         }
         #endregion
@@ -467,9 +690,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 MessageBox.Show("出力対象のデータがありません。");
                 return;
             }
-
-            // CSV出力用に列名を編集する
-            changeColumnsName(tbl);
 
             WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
             // はじめに表示されるフォルダを指定する
@@ -499,6 +719,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="tbl"></param>
         private void outputReport(DataTable tbl)
         {
+            string reportFileName;
+            List<FwRepPreview.ReportParameter> parms;
+
             PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
             if (ret.Result == false)
             {
@@ -517,33 +740,42 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetBusyForInput();
 
-                Dictionary<string, DateTime> printParams = getPrintParameter();
-
-                var parms = new List<FwRepPreview.ReportParameter>()
+                // 月別
+                if (rdo出力帳票.Text == "0")
                 {
-                    #region 印字パラメータ設定
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_START]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_END]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH01]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH02]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH03]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH04, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH04]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH05, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH05]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH06, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH06]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH07, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH07]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH08, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH08]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH09, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH09]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH10, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH10]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH11, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH11]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH12]},
-                    #endregion
-                };
-
+                    parms = getMonthPrintParameter();
+                    reportFileName = ReportFileName_Month;
+                }
+                // 日別
+                else
+                {
+                    parms = getDayPrintParameter();
+                    reportFileName = ReportFileName_Day;
+                    DateTime endDay = (DateTime)parms[1].VALUE;
+                    switch (endDay.Day)
+                    {
+                        case 28:
+                            tbl.Columns.Remove("集計売上額２９");
+                            tbl.Columns.Remove("集計売上額３０");
+                            tbl.Columns.Remove("集計売上額３１");
+                            break;
+                        case 29:
+                            tbl.Columns.Remove("集計売上額３０");
+                            tbl.Columns.Remove("集計売上額３１");
+                            break;
+                        case 30:
+                            tbl.Columns.Remove("集計売上額３１");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
                 DataTable 印刷データ = tbl.Copy();
-                印刷データ.TableName = "得意先・商品別売上統計表";
+                印刷データ.TableName = "担当者・得意先別売上統計表";
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
-                view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
+                view.MakeReport(印刷データ.TableName, reportFileName, 0, 0, 0);
                 view.SetReportData(印刷データ);
 
                 view.SetupParmeters(parms);
@@ -562,7 +794,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetFreeForInput();
                 this.ErrorMessage = "システムエラーが発生しました。サポートにお問い合わせください。";
-                appLog.Error("得意先・商品別売上統計表の印刷時に例外が発生しました。", ex);
+                appLog.Error("担当者・得意先別売上統計表の印刷時に例外が発生しました。", ex);
             }
 
         }
@@ -583,75 +815,6 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region 列名編集
-        /// <summary>
-        /// テーブル列名をCSV出力用に変更して返す
-        /// </summary>
-        /// <param name="tbl"></param>
-        /// <returns></returns>
-        private void changeColumnsName(DataTable tbl)
-        {
-            Dictionary<string, DateTime> printParams = getPrintParameter();
-
-            foreach (DataColumn col in tbl.Columns)
-            {
-                switch (col.ColumnName)
-                {
-                    case "集計売上額０１":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH01].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０２":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH02].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０３":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH03].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０４":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH04].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０５":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH05].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０６":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH06].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０７":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH07].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０８":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH08].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額０９":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH09].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額１０":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH10].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額１１":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH11].ToString("yyyy年M月");
-                        break;
-
-                    case "集計売上額１２":
-                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH12].ToString("yyyy年M月");
-                        break;
-
-                }
-
-            }
-
-        }
-        #endregion
-
         #endregion
 
         #region Window_Closed
@@ -662,8 +825,6 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
-            SearchList = null;
-
             frmcfg.Top = this.Top;
             frmcfg.Left = this.Left;
             frmcfg.Height = this.Height;
@@ -673,6 +834,50 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region << コントロールイベント処理 >>
+        #region 対象自社が変更された時のイベント処理
+        /// <summary>
+        /// 対象自社が変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt自社_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            txt担当者.Text1 = string.Empty;
+            txt担当者.Text2 = string.Empty;
+        }
+        #endregion
+
+        #region 売上先が変更された時のイベント処理
+        /// <summary>
+        /// 売上先が変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rdo売上先_TargetUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        {
+            this.txt得意先.Text1 = string.Empty;
+            this.txt得意先.Text2 = string.Empty;
+
+            // 得意先
+            if (this.rdo売上先.Text == "0")
+            {
+                this.txt得意先.LinkItem = "0,3";
+            }
+            // 販社
+            else if (this.rdo売上先.Text == "1")
+            {
+                this.txt得意先.LinkItem = "4";
+            }
+            // 両方
+            else
+            {
+                this.txt得意先.LinkItem = "0,3,4";
+            }
+        }
+        #endregion
+
+        #endregion
     }
 
 }

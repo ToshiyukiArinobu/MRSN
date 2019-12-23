@@ -490,8 +490,11 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "BSK03010_GetCsvList", ServiceClass = "BSK03010", MethodName = "GetPrintList", Descprition = "CSV出力データを取得" },
 
             // 担当者・得意先別売上統計表
-            new WCFDataAccessConfig() { Name = "BSK04010_GetPrintList", ServiceClass = "BSK04010", MethodName = "GetPrintList", Descprition = "帳票印字データを取得" },
-            new WCFDataAccessConfig() { Name = "BSK04010_GetCsvList", ServiceClass = "BSK04010", MethodName = "GetPrintList", Descprition = "CSV出力データを取得" },
+            new WCFDataAccessConfig() { Name = "BSK04010_GetPrintList_Month", ServiceClass = "BSK04010", MethodName = "GetPrintList_Month", Descprition = "(月別)帳票印字データを取得" },
+            new WCFDataAccessConfig() { Name = "BSK04010_GetPrintList_Day", ServiceClass = "BSK04010", MethodName = "GetPrintList_Day", Descprition = "(日別)帳票印字データを取得" },
+            new WCFDataAccessConfig() { Name = "BSK04010_GetCsvList_Month", ServiceClass = "BSK04010", MethodName = "GetPrintList_Month", Descprition = "(月別)CSV出力データを取得" },
+            new WCFDataAccessConfig() { Name = "BSK04010_GetCsvList_Day", ServiceClass = "BSK04010", MethodName = "GetPrintList_Day", Descprition = "(日別)CSV出力データを取得" },
+            new WCFDataAccessConfig() { Name = "BSK04010_GetJisInfo", ServiceClass = "BSK04010", MethodName = "GetJisInfo", Descprition = "対象自社データを取得" },
 
             // 年次販社売上調整
             new WCFDataAccessConfig() { Name = "BSK05010_GetDataList", ServiceClass = "BSK05010", MethodName = "GetDataList", Descprition = "売上調整計算をおこなう" },

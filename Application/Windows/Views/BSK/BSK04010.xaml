@@ -21,155 +21,227 @@
     <ctls:BooleanInverter x:Key="boolInverter" />
   </vm:WindowReportBase.Resources>
 
-  <Grid Margin="5">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="auto" />
-      <!--リボン領域-->
-      <RowDefinition Height="auto" />
-      <!--検索条件領域-->
-      <RowDefinition Height="*" />
-      <!--明細表示領域-->
-    </Grid.RowDefinitions>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <!--リボン領域-->
+            <RowDefinition Height="auto" />
+            <!--検索条件領域-->
+            <RowDefinition Height="*" />
+            <!--明細表示領域-->
+        </Grid.RowDefinitions>
 
-    <!--リボン-->
-    <Ribbon HorizontalAlignment="Stretch"  Grid.ColumnSpan="2" VerticalAlignment="Stretch">
-      <!--タブ-->
-      <RibbonTab Header="ホーム" KeyTip="h" Height="75">
-        <RibbonGroup Width="90" >
-          <!-- 処理モード表示用に空けておく -->
-        </RibbonGroup>
+        <!--リボン-->
+        <Ribbon HorizontalAlignment="Stretch"  Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+            <!--タブ-->
+            <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+                <RibbonGroup Width="90" >
+                    <!-- 処理モード表示用に空けておく -->
+                </RibbonGroup>
 
-        <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/15マスタ照会.png" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
                         Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50" />
-        </RibbonGroup>
-        <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/19CSV出力.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
+                </RibbonGroup>
+                <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/19CSV出力.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
                         Label="CSV出力" ToolTipTitle="CSV出力(F5)" ToolTipDescription="CSVファイルに出力します"  ToolTipImageSource="../Images/19CSV出力.png"/>
-        </RibbonGroup>
-        <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/23印刷.png" Click="RibbonButton_Click" KeyTip="F8" Height="50"
+                </RibbonGroup>
+                <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/23印刷.png" Click="RibbonButton_Click" KeyTip="F8" Height="50"
                         Label="印刷" ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します"  ToolTipImageSource="../Images/23印刷.png"/>
-        </RibbonGroup>
-        <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+                </RibbonGroup>
+                <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
                                   Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"/>
-        </RibbonGroup>
-        <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
+                </RibbonGroup>
+                <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
 
-      </RibbonTab>
+            </RibbonTab>
 
-      <RibbonTab Header="ヘルプ" Background="Gray">
-        <RibbonGroup Header="サポート">
-          <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+            <RibbonTab Header="ヘルプ" Background="Gray">
+                <RibbonGroup Header="サポート">
+                    <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
                                   Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます" />
-          <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+                    <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
                                   Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します" />
-          <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+                    <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
                                   Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"/>
-          <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+                    <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
                                   Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"/>
-        </RibbonGroup>
-      </RibbonTab>
+                </RibbonGroup>
+            </RibbonTab>
 
-    </Ribbon>
+        </Ribbon>
 
-    <Grid Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="74"/>
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="90" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-      <!-- 編集モード領域  -->
-      <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="74"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- 編集モード領域  -->
+            <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
                  Background="{Binding MaintenanceModeBackground}">
-        <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+                <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
                FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" />
-      </DockPanel>
-      <!-- エラーメッセージ領域 -->
-      <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
-      <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+            </DockPanel>
+            <!-- エラーメッセージ領域 -->
+            <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
              Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"/>
-
-    </Grid>
-
-    <!-- メインフォーム -->
-    <Grid Grid.Row="1" Background="AliceBlue">
-
-      <!-- 枠 -->
-      <Border Grid.Row="0" BorderBrush="#2792c3" BorderThickness="1" Margin="0,5,0,0">
-
-        <Grid Margin="5">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="600" />
-          </Grid.RowDefinitions>
-
-          <!-- 処理年度 -->
-          <ctls:UcLabelTextBox
-              Name="FiscalYear" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
-              ValidationType="Integer" ImeType="Off"
-              Label_Context="処理年度" Label_Width="100"
-              cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center"
-          />
-          <TextBlock Text="年度" Grid.Row="0" VerticalAlignment="Center" Margin="150,5,0,0" />
-
-          <!-- 対象自社 -->
-          <ctls:UcLabelTwinTextBox
-              Name="MyCompany" Grid.Row="1" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
-              DataAccessName="M70_JIS" DataAccessMode="On" LinkItem="1"
-              Label_Context="対象自社" Label_Width="100"
-              Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-              Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
-              Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
-          />
-
-          <!-- 得意先 -->
-          <uc:M01_TOK_TextBox
-              x:Name="Customer" Grid.Row="2" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,5,0,0"
-              DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
-              Label_Context="得意先指定" Label_Width="100"
-              Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-              Label1Text="－"
-              Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
-              Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Number" Text2VerticalContentAlignment="Center"
-          />
 
         </Grid>
 
-      </Border>
+        <!-- メインフォーム -->
+        <Grid Grid.Row="1" Background="AliceBlue" Grid.RowSpan="2">
 
-      
+            <!-- 枠 -->
+            <Border Grid.Row="0" BorderBrush="#2792c3" BorderThickness="1" Margin="0,5,0,0" >
+
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+
+                    <!-- 処理年度 -->
+                    <ctls:UcLabelTextBox
+                      Name="txt処理年度" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
+                      ValidationType="Integer" ImeType="Off"
+                      Label_Context="処理年度" Label_Width="100"
+                      cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center"
+                    />
+                    <TextBlock Text="年度" Grid.Row="0" VerticalAlignment="Center" Margin="150,5,0,0" />
+
+                    <!-- 対象自社 -->
+                    <ctls:UcLabelTwinTextBox
+                      Name="txt自社" Grid.Row="1" HorizontalAlignment="Left" IsKeyItem="False" Margin="5,3,0,0"
+                      DataAccessName="M70_JIS" DataAccessMode="On" LinkItem="1"
+                      Label_Context="対象自社" Label_Width="100"
+                      Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                      Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
+                      Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+                      cText1Changed="txt自社_cText1Changed"
+                    />
+
+                    <!-- 担当者 -->
+                    <ctls:UcLabelTwinTextBox
+                      Name="txt担当者" Grid.Row="2" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,3,0,0"
+                      DataAccessName="M72_TNT" DataAccessMode="On"  LinkItem=""
+                      Label_Context="担当者" Label_Width="100"
+                      Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                      Text1Width="40" Text1MaxLength="5" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
+                      Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+                    />
+
+                    <Grid Grid.Row="3" Margin="5,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="380" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <!-- 売上先 -->
+                        <ctls:UcLabelTextRadioButton
+                          x:Name="rdo売上先" Grid.Row="3" Grid.Column="0" 
+                          Label_Content="売上先" Label_Width="100"
+                          RadioSelectButton="One" RadioViewCount="Three"
+                          RadioOne_Content="得意先" RadioSecond_Content="販社"  RadioThird_Content="両方"
+                          Text1VerticalContentAlignment="Center" 
+                          Text="{Binding Path=売上先, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                          TargetUpdated="rdo売上先_TargetUpdated" 
+                         />
+
+                        <!-- 得意先 -->
+                        <uc:M01_TOK_TextBox
+                          x:Name="txt得意先" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False"
+                          DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
+                          Label_Context="得意先指定" Label_Width="100"
+                          Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                          Label1Text="－" Label2Text=""
+                          Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
+                          Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Number" Text2VerticalContentAlignment="Center" 
+                        />
+                    </Grid>
+
+                    <Grid Grid.Row="4" Margin="5,3,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="380" />
+                            <ColumnDefinition Width="310" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- 出力帳票 -->
+                        <ctls:UcLabelTextRadioButton
+                          x:Name="rdo出力帳票" Grid.Row="4" Grid.Column="0" 
+                          Label_Content="出力帳票" Label_Width="100"
+                          RadioSelectButton="One" RadioViewCount="Two"
+                          RadioOne_Content="月別" RadioSecond_Content="日別"
+                          Text1VerticalContentAlignment="Center" 
+                          Text="{Binding Path=出力帳票, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                        />
+
+                        <!-- 作成期間 -->
+                        <ctls:UcLabelTwinTextBox
+                          Name="txt作成期間" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"
+                          Label_Context="作成期間" Label_Width="100"
+                          Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                          Text1Width="80" Text1MaxLength="10" Text1ValidationType="DateYYYYMM"  Text1Mask="yyyy/MM" Text1VerticalContentAlignment="Center"
+                          Label1Text="～"
+                          Text2Width="80" Text2MaxLength="10" Text2ValidationType="DateYYYYMM" Text2Mask="yyyy/MM" Text2VerticalContentAlignment="Center"
+                        />
+
+                        <!-- 作成月 -->
+                        <ctls:UcLabelTextBox 
+                          Name="txt作成月" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left"
+                          ValidationType="Integer" MinValue="1" MaxValue="12" ImeType="Off" IsRequired="False"
+                          Label_Context="作成月" Label_Width="100" cWidth="60" cVerticalContentAlignment="Center"
+                        />
+                    </Grid>
+
+                    <Grid Grid.Row="5" Margin="5,3,0,0">
+                        <!-- 作成区分 -->
+                        <ctls:UcLabelComboBox
+                          x:Name="cmb作成区分" Grid.Row="0" HorizontalAlignment="Left"
+                          Label_Context="作成区分" Label_Width="100" Combo_Width="170"
+                          ComboListingParams="分析,担当者得意先別売上統計表,作成区分"
+                        />
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+
     </Grid>
-
-  </Grid>
-
 </fw:WindowReportBase>
