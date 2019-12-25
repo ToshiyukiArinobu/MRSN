@@ -66,6 +66,7 @@ namespace KyoeiSystem.Application.WCFService
         public static string 移動区分_通常移動 = "通常移動";
         public static string 移動区分_売上移動 = "売上移動";
         public static string 移動区分_調整移動 = "調整移動";
+        public static string 移動区分_振替移動 = "振替移動";    // No.294 Add
 
         public static string 入力区分_仕入入力 = "仕入入力";
         public static string 入力区分_売上入力 = "売上入力";

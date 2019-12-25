@@ -104,6 +104,7 @@ namespace KyoeiSystem.Application.WCFService
                             移動区分 = x.IHD.移動区分 == (int)CommonConstants.移動区分.通常移動 ? CommonConstants.移動区分_通常移動 :
                                        x.IHD.移動区分 == (int)CommonConstants.移動区分.売上移動 ? CommonConstants.移動区分_売上移動 :
                                        x.IHD.移動区分 == (int)CommonConstants.移動区分.調整移動 ? CommonConstants.移動区分_調整移動 :
+                                       x.IHD.移動区分 == (int)CommonConstants.移動区分.振替移動 ? CommonConstants.移動区分_振替移動 :   // No.294 Add
                                        string.Empty,
                             移動元倉庫 = x.SOUK_A != null ? x.SOUK_A.倉庫名 : string.Empty,
                             移動先倉庫 = x.SOUK_B != null ? x.SOUK_B.倉庫名 : string.Empty,
