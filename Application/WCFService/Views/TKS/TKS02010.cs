@@ -577,6 +577,7 @@ namespace KyoeiSystem.Application.WCFService
                             g.JIS.自社名,
                             g.UHD.請求年月,
                             g.UHD.請求先コード,
+                            g.TOK.略称名,
                             g.TOK.得意先名１
                         })
                         .Select(x => new PrintMember
@@ -584,7 +585,7 @@ namespace KyoeiSystem.Application.WCFService
                             自社コード = x.Key.自社コード,        // No.227,228 Add
                             自社名 = x.Key.自社名,                // No.227,228 Add
                             得意先コード = string.Format("{0:0000} - 00", x.Key.請求先コード),
-                            得意先名称 = x.Key.得意先名１ == null ? "" : x.Key.得意先名１,
+                            得意先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                             前月繰越 = (long)x.Sum(s => s.UHD.前月残高),
                             入金額 = (long)x.Sum(s => s.UHD.入金額),
                             通常税率対象売上額 = (long)x.Sum(s => s.UHD.通常税率対象金額),

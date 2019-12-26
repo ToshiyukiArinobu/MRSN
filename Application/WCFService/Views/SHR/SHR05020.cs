@@ -24,7 +24,30 @@ namespace KyoeiSystem.Application.WCFService
             public int 得意先枝番 { get; set; }
             public long 出金額 { get; set; }
         }
-
+        /// <summary>
+        /// S01_SHRHD_Data + 自社名
+        /// </summary>
+        public class S02_SHRHD_Data
+        {
+            public int 自社コード { get; set; }
+            public string 自社名 { get; set; }
+            public int 支払年月 { get; set; }
+            public int 支払締日 { get; set; }
+            public int 支払先コード { get; set; }
+            public int 支払先枝番 { get; set; }
+            public int 支払日 { get; set; }
+            public int 回数 { get; set; }
+            public DateTime? 集計最終日 { get; set; }
+            public long 前月残高 { get; set; }
+            public long 出金額 { get; set; }
+            public long 繰越残高 { get; set; }
+            public long 値引額 { get; set; }
+            public long 非課税支払額 { get; set; }
+            public long 支払額 { get; set; }
+            public long 通常消費税 { get; set; }
+            public long 軽減消費税 { get; set; }
+            public long 当月支払額 { get; set; }
+        }
         /// <summary>
         /// SHR05010_支払一覧表帳票項目定義
         /// </summary>
@@ -42,6 +65,8 @@ namespace KyoeiSystem.Application.WCFService
             public decimal 単価 { get; set; }
             public decimal 数量 { get; set; }
             public int 金額 { get; set; }
+            public int 通常消費税 { get; set; }
+            public int 軽減消費税 { get; set; }
         }
 
         #endregion
@@ -112,9 +137,9 @@ namespace KyoeiSystem.Application.WCFService
             getFormParams(condition, out myCompany, out createYearMonth, out closingDay, out isAllDays, out customerCode, out customerEda);
 
             // ベースとなる支払ヘッダ情報を取得
-            List<SHR05010.S02_SHRHD_Data> hdList = getHeaderData(condition);
+            List<S02_SHRHD_Data> hdList = getHeaderData(condition);
             var hdData =
-                hdList.GroupBy(g => new { g.自社コード, g.自社名, g.支払年月, g.支払締日, g.支払先コード, g.支払先枝番 })
+                hdList.GroupBy(g => new { g.自社コード, g.自社名, g.支払年月, g.支払締日, g.支払先コード, g.支払先枝番,g.通常消費税,g.軽減消費税})
                     .Select(s => new
                     {
                         s.Key.自社コード,
@@ -123,6 +148,8 @@ namespace KyoeiSystem.Application.WCFService
                         s.Key.支払締日,
                         s.Key.支払先コード,
                         s.Key.支払先枝番,
+                        s.Key.通常消費税,
+                        s.Key.軽減消費税
                     });
 
             // 詳細データ件数を取得
@@ -185,6 +212,8 @@ namespace KyoeiSystem.Application.WCFService
                     単価 = x.NDTL.単価,
                     数量 = x.NDTL.数量,
                     金額 = x.NDTL.金額,
+                    通常消費税 = (int)x.NHD.通常消費税,
+                    軽減消費税 = (int)x.NHD.軽減消費税,
                 });
 
             return KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList.ToList());
@@ -230,7 +259,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="condition"></param>
         /// <returns></returns>
-        private List<SHR05010.S02_SHRHD_Data> getHeaderData(Dictionary<string, string> condition)
+        private List<S02_SHRHD_Data> getHeaderData(Dictionary<string, string> condition)
         {
             // 検索パラメータを展開
             int myCompany, createYearMonth;
@@ -250,7 +279,7 @@ namespace KyoeiSystem.Application.WCFService
                         (x, y) => new { x, y })
                     .SelectMany(x => x.y.DefaultIfEmpty(),
                         (a, b) => new { SHRHD = a.x, JIS = b })
-                    .Select(x => new SHR05010.S02_SHRHD_Data
+                    .Select(x => new S02_SHRHD_Data
                     {
                         自社コード = x.SHRHD.自社コード,
                         自社名 = x.JIS.自社名,
@@ -267,7 +296,8 @@ namespace KyoeiSystem.Application.WCFService
                         値引額 = x.SHRHD.値引額,
                         非課税支払額 = x.SHRHD.非課税支払額,
                         支払額 = x.SHRHD.支払額,
-                        消費税 = x.SHRHD.消費税,
+                        通常消費税 = x.SHRHD.通常税率消費税,
+                        軽減消費税 = x.SHRHD.軽減税率消費税,
                         当月支払額 = x.SHRHD.当月支払額
                     });
                 // No.227,228 Mod End
@@ -325,7 +355,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="hdList"></param>
         /// <returns></returns>
-        private List<M01_TOK> getTokData(List<SHR05010.S02_SHRHD_Data> hdList)
+        private List<M01_TOK> getTokData(List<S02_SHRHD_Data> hdList)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
