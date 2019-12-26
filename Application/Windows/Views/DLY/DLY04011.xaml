@@ -253,6 +253,9 @@
                                    PreviewKeyDown="txt自社品番_PreviewKeyDown" cText1Changed="自社品番_cText1Changed" 
                                    />
 
+                                <Label Grid.Row="2" Content="{Binding Path=出庫自社色情報, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                                       VerticalAlignment="Center" Padding="200,0,0,0" />
+                                
                                 <ctls:UcLabelTextBox x:Name="txt出庫賞味期限" Label_Context="賞味期限" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" IsKeyItem="False"
                                    Margin="2,0,0,0" Label_Width="100" cWidth="90" cMaxLength="10" cVerticalContentAlignment="Center" Mask="yyyy/MM/dd"  cValidationType="Date" 
                                    Text="{Binding Path=OutSearchDetail[賞味期限], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, TargetNullValue='', StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
@@ -300,6 +303,9 @@
                                    Text1Width="90" Text1MaxLength="12" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
                                    Text2BorderBrush="Transparent" Text2Background="Transparent" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
                                    />
+
+                                <Label Grid.Row="2" Content="{Binding Path=入庫自社色情報, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                                       VerticalAlignment="Center" Padding="200,0,0,0" />
 
                                 <ctls:UcLabelTextBox x:Name="txt入庫賞味期限" Label_Context="賞味期限" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" IsKeyItem="False"
                                    Margin="2,0,0,0" Label_Width="100" cWidth="90" cMaxLength="10" cVerticalContentAlignment="Center" Mask="yyyy/MM/dd" cValidationType="Date" 

@@ -72,7 +72,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string DLY04011_Delete = "DLY04011_Delete";
 
         /// <summary>自社品番情報取得</summary>
-        private const string GetMyProductList = "GetMyProductList";
+        private const string GetMyProduct = "UcMyProduct";
         /// <summary>更新用_在庫数チェック</summary>
         private const string UpdateData_StockCheck = "DLY04011_UpdateData_CheckStock";
         /// <summary>削除用_在庫数チェック</summary>
@@ -143,6 +143,30 @@ namespace KyoeiSystem.Application.Windows.Views
             set
             {
                 _outSearchDetail = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>色情報</summary>
+        private string _出庫自社色情報 = string.Empty;
+        public string 出庫自社色情報
+        {
+            get { return _出庫自社色情報; }
+            set
+            {
+                _出庫自社色情報 = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>色情報</summary>
+        private string _入庫自社色情報 = string.Empty;
+        public string 入庫自社色情報
+        {
+            get { return _入庫自社色情報; }
+            set
+            {
+                _入庫自社色情報 = value;
                 NotifyPropertyChanged();
             }
         }
@@ -341,7 +365,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         ScreenClear();
                         break;
 
-                    case GetMyProductList:
+                    case GetMyProduct:
 
                         #region 自社品番 手入力時
 
@@ -349,6 +373,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         int? p商品コード = null;
                         int? p商品分類 = null;
                         string p商品名 = string.Empty;
+                        string p自社色情報 = string.Empty;
 
                         // 対象データが存在する場合
                         if (ctbl != null && ctbl.Rows.Count > 0)
@@ -358,21 +383,23 @@ namespace KyoeiSystem.Application.Windows.Views
                                 p商品コード = int.Parse(ctbl.Rows[0]["品番コード"].ToString());
                                 p商品名 = ctbl.Rows[0]["自社品名"].ToString();
                                 p商品分類 = int.Parse(ctbl.Rows[0]["商品分類"].ToString());
+                                p自社色情報 = ctbl.Rows[0]["自社色"].ToString() + " " + ctbl.Rows[0]["自社色名"].ToString();
                             }
                             else
                             {
                                 // 対象データが複数存在する場合
-                                SCHM10_TOKHIN tokhin = new SCHM10_TOKHIN();
+                                SCHM09_MYHIN myhin = new SCHM09_MYHIN();
 
-                                tokhin.txtCode.Text = 入出庫フラグ == 1 ? txt入庫自社品番.Text1 : txt出庫自社品番.Text1;
-                                tokhin.txtCode.IsEnabled = false;
-                                tokhin.TwinTextBox = new UcLabelTwinTextBox();
-                                tokhin.TwinTextBox.LinkItem = 0;
-                                if (tokhin.ShowDialog(this) == true)
+                                myhin.txtCode.Text = 入出庫フラグ == 1 ? txt入庫自社品番.Text1 : txt出庫自社品番.Text1;
+                                myhin.txtCode.IsEnabled = false;
+                                myhin.TwinTextBox = new UcLabelTwinTextBox();
+                                myhin.TwinTextBox.LinkItem = 0;
+                                if (myhin.ShowDialog(this) == true)
                                 {
-                                    p商品コード = int.Parse(tokhin.SelectedDataRow["品番コード"].ToString());
-                                    p商品名 = tokhin.SelectedDataRow["自社品名"].ToString();
-                                    p商品分類 = int.Parse(tokhin.SelectedDataRow["商品分類"].ToString());
+                                    p商品コード = int.Parse(myhin.SelectedRowData["品番コード"].ToString());
+                                    p商品名 = myhin.SelectedRowData["自社品名"].ToString();
+                                    p商品分類 = int.Parse(myhin.SelectedRowData["商品分類"].ToString());
+                                    p自社色情報 = myhin.SelectedRowData["自社色"].ToString() + " " + myhin.SelectedRowData["自社色名"].ToString();
                                 }
                             }
                         }
@@ -398,6 +425,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             }
 
                             txt入庫自社品番.Text2 = p商品名;
+                            入庫自社色情報 = p自社色情報;
 
                         }
                         else if (入出庫フラグ == 2)
@@ -421,6 +449,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             }
 
                             txt出庫自社品番.Text2 = p商品名;
+                            出庫自社色情報 = p自社色情報;
                         }
 
                         #endregion
@@ -487,6 +516,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             txt出庫自社品番.Text2 = myhin.SelectedRowData["自社品名"].ToString();
                             OutSearchDetail["品番コード"] = myhin.SelectedRowData["品番コード"].ToString();
                             OutSearchDetail["商品分類"] = int.Parse(myhin.SelectedRowData["商品分類"].ToString());
+                            出庫自社色情報 = myhin.SelectedRowData["自社色"].ToString() + " " + myhin.SelectedRowData["自社色名"].ToString();
                             txt出庫賞味期限.Focus();
                         }
                         else if (uctext.Name == this.txt入庫自社品番.Name)
@@ -495,6 +525,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             txt入庫自社品番.Text2 = myhin.SelectedRowData["自社品名"].ToString();
                             InSearchDetail["品番コード"] = int.Parse(myhin.SelectedRowData["品番コード"].ToString());
                             InSearchDetail["商品分類"] = int.Parse(myhin.SelectedRowData["商品分類"].ToString());
+                            入庫自社色情報 = myhin.SelectedRowData["自社色"].ToString() + " " + myhin.SelectedRowData["自社色名"].ToString();
                             txt入庫賞味期限.Focus();
                         }
                     }
@@ -675,6 +706,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 取得データをセット
                 OutSearchDetail = tblOutDtl.Rows[0];
                 OutSearchDetail.AcceptChanges();
+
+                出庫自社色情報 = tblOutDtl.Rows[0]["自社色"].ToString() + " " + tblOutDtl.Rows[0]["自社色名"].ToString();
             }
 
             // 移動入庫明細
@@ -694,6 +727,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 取得データをセット
                 InSearchDetail = tblInDtl.Rows[0];
                 InSearchDetail.AcceptChanges();
+
+                入庫自社色情報 = tblInDtl.Rows[0]["自社色"].ToString() + " " + tblInDtl.Rows[0]["自社色名"].ToString();
             }
         }
 
@@ -903,6 +938,8 @@ namespace KyoeiSystem.Application.Windows.Views
             if (OutSearchDetail != null)
                 OutSearchDetail = null;
 
+            入庫自社色情報 = string.Empty;
+            出庫自社色情報 = string.Empty;
 
             ChangeKeyItemChangeable(true);
             this.txt伝票番号.Focus();
@@ -983,10 +1020,12 @@ namespace KyoeiSystem.Application.Windows.Views
             if (uctext.Name == this.txt出庫自社品番.Name)
             {
                 txt出庫自社品番.Text2 = string.Empty;
+                出庫自社色情報 = string.Empty;
             }
             else if (uctext.Name == this.txt入庫自社品番.Name)
             {
                 txt入庫自社品番.Text2 = string.Empty;
+                入庫自社色情報 = string.Empty;
             }
         }
 
@@ -1020,9 +1059,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 base.SendRequest(
                     new CommunicationObject(
                         MessageType.RequestData,
-                        GetMyProductList,
+                        GetMyProduct,
                         new object[] {
                                 p自社品番
+                                ,null
                                 ,null
                             }));
             }

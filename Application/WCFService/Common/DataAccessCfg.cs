@@ -337,7 +337,6 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "DLY04011_Delete", ServiceClass = "DLY04011", MethodName = "Delete", Descprition = "移動入力情報登録・更新" },
             new WCFDataAccessConfig() { Name = "DLY04011_UpdateData_CheckStock", ServiceClass = "DLY04011", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },
             new WCFDataAccessConfig() { Name = "DLY04011_DeleteData_CheckStock", ServiceClass = "DLY04011", MethodName = "CheckDeleteStockQty", Descprition = "削除対象の在庫数量チェック" },
-            new WCFDataAccessConfig() { Name = "GetMyProductList", ServiceClass = "UcMST", MethodName = "GetMyProductList", Descprition = "移動入庫の取得" },
 
             // 揚り依頼入力
             new WCFDataAccessConfig() { Name = "DLY07010_GetData", ServiceClass = "DLY07010", MethodName = "GetData", Descprition = "揚り依頼入力情報取得" },
