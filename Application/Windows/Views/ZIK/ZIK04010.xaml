@@ -166,9 +166,9 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <!-- 自社コード -->
+                                <!-- 会社コード -->
                             <ctls:UcLabelTwinTextBox Name="myCompany" Grid.Row="0" Grid.Column="0" DataAccessName="M70_JIS" DataAccessMode="On" IsRequired="True" Margin="0,2,0,0"
-                                        Label_Context="自社コード" Label_Width="100" HorizontalAlignment="Left"
+                                        Label_Context="会社コード" Label_Width="100" HorizontalAlignment="Left"
                                         Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                                         Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
                                         Text2Width="300" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center" Width="444"
@@ -201,19 +201,19 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="350"/>
-                                    <ColumnDefinition Width="350"/>
+                                    <ColumnDefinition Width="450"/>
                                 </Grid.ColumnDefinitions>
 
                                 <ctls:UcLabel cContent="商品指定" Width="100" />
                                 <ctls:UcLabelComboBox Name="cmbItemType" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="3,2,0,0"
                                       Label_Context="商品分類" Label_Width="100"
                                       Combo_Width="100"
-                                      ComboListingParams="随時,商品在庫問い合わせ,商品分類"
+                                      ComboListingParams="在庫,棚卸,商品分類"
                 />
                                 <ctls:UcLabelTwinTextBox Name="Product" Grid.Column="2" DataAccessName="M09_MYHIN" DataAccessMode="On" HorizontalAlignment="Left" Margin="3,0,0,0"
                                          Label_Context="自社品番" Label_Width="100" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                                          Text1Width="80" Text1IMEType="Off" Text1MaxLength="12" Text1VerticalContentAlignment="Center"
-                                         Text2Width="200" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+                                         Text2Width="300" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
                 />
                                 <ctls:UcLabelTextBox Name="ProductName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="3,2,0,0"
                                      Label_Context="自社品名" Label_Width="100"

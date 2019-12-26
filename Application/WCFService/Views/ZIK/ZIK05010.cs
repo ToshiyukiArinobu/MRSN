@@ -39,6 +39,7 @@ namespace KyoeiSystem.Application.WCFService
         public class SearchDataUnitPrice
         {
             public int 品番コード { get; set; }
+            public DateTime 賞味期限 { get; set; }
             public decimal 仕入単価 { get; set; }
         }
 
@@ -58,8 +59,9 @@ namespace KyoeiSystem.Application.WCFService
         ///  シリーズ
         ///  ブランド
         /// </param>
+        /// <param name="pCoefficient">係数</param>
         /// <returns></returns>
-        public List<SearchDataMember> GetPrintList(int pMyCompany, string pDate, Dictionary<string, string> pParamDic)
+        public List<SearchDataMember> GetPrintList(int pMyCompany, string pDate, Dictionary<string, string> pParamDic, decimal pCoefficient)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -87,7 +89,7 @@ namespace KyoeiSystem.Application.WCFService
                     #region 入力項目による絞込
 
                     // 倉庫の条件チェック
-                    string Warehouse = pParamDic["倉庫"];
+                    string Warehouse = pParamDic["倉庫コード"];
                     if (string.IsNullOrEmpty(Warehouse) == false)
                     {
                         stocktakingList = stocktakingList.Where(w => w.STOK_MONTH.倉庫コード == int.Parse(Warehouse)).ToList();
@@ -109,7 +111,7 @@ namespace KyoeiSystem.Application.WCFService
 
                     // 商品分類の条件チェック
                     int itemType;
-                    if (int.TryParse(pParamDic["商品分類"], out itemType) == true)
+                    if (int.TryParse(pParamDic["商品分類コード"], out itemType) == true)
                     {
                         if (itemType >= CommonConstants.商品分類.食品.GetHashCode())
                         {
@@ -118,14 +120,14 @@ namespace KyoeiSystem.Application.WCFService
                     }
 
                     // ブランドの条件チェック
-                    string brand = pParamDic["ブランド"];
+                    string brand = pParamDic["ブランドコード"];
                     if (string.IsNullOrEmpty(brand) == false)
                     {
                         stocktakingList = stocktakingList.Where(w => w.HIN.ブランド == brand).ToList();
                     }
 
                     // シリーズの条件チェック
-                    string series = pParamDic["シリーズ"];
+                    string series = pParamDic["シリーズコード"];
                     if (string.IsNullOrEmpty(series) == false)
                     {
                         stocktakingList = stocktakingList.Where(w => w.HIN.シリーズ == series).ToList();
@@ -136,7 +138,7 @@ namespace KyoeiSystem.Application.WCFService
                     // ===========================
                     // 直近の仕入単価(最少額)を取得
                     // ===========================
-                    // 月末日の取得
+                    // 年月末日の取得
                     DateTime dteEndofMonth = getDateEndofMonth(yearMonth);
 
                     // 品番毎の直近日付を取得する
@@ -146,10 +148,11 @@ namespace KyoeiSystem.Application.WCFService
                                 x => x.伝票番号,
                                 y => y.伝票番号,
                                 (x, y) => new { SHD = x, SDTL = y })
-                        .GroupBy(g => new { g.SDTL.品番コード})
+                        .GroupBy(g => new { g.SDTL.品番コード, g.SDTL.賞味期限})
                         .Select(s => new 
                         {
                             品番コード = s.Key.品番コード,
+                            賞味期限 = s.Key.賞味期限,
                             仕入日 = s.Max(m => m.SHD.仕入日),
                         })
                         .OrderBy(o => o.品番コード)
@@ -157,6 +160,8 @@ namespace KyoeiSystem.Application.WCFService
 
 
                     // 直近の仕入単価(最少額)を取得
+                    DateTime dteMaxDate = AppCommon.GetMaxDate();
+
                     var PurchaseList =
                         LatestList
                             .Join(context.T03_SRHD.Where(w => w.削除日時 == null),
@@ -164,13 +169,14 @@ namespace KyoeiSystem.Application.WCFService
                                 y => y.仕入日,
                                 (x, y) => new { Latest = x, SRHD = y })
                             .Join(context.T03_SRDTL.Where(w => w.削除日時 == null),
-                                x => new { dno = x.SRHD.伝票番号, hin = x.Latest.品番コード},
-                                y => new { dno = y.伝票番号, hin = y.品番コード},
+                                x => new { dno = x.SRHD.伝票番号, hin = x.Latest.品番コード, date = x.Latest.賞味期限},
+                                y => new { dno = y.伝票番号, hin = y.品番コード, date = y.賞味期限},
                                 (x, y) => new { x.Latest, x.SRHD, SDTL = y })
-                        .GroupBy(g => new { g.SDTL.品番コード})
+                        .GroupBy(g => new { g.SDTL.品番コード, g.SDTL.賞味期限})
                         .Select(s => new SearchDataUnitPrice
                         {
                             品番コード = s.Key.品番コード,
+                            賞味期限 = s.Key.賞味期限 ?? dteMaxDate,
                             仕入単価 = s.Min(m => m.SDTL.単価),
                         })
                         .OrderBy(o => o.品番コード)
@@ -194,8 +200,8 @@ namespace KyoeiSystem.Application.WCFService
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (c, d) => new { c.x.STOK_MONTH, c.x.HIN, c.x.SOUK, c.x.IRO, JIS = d })
                             .GroupJoin(PurchaseList.Where(w => w.品番コード > 0),
-                                x => x.STOK_MONTH.品番コード,
-                                y => y.品番コード,
+                                x => new { dno = x.STOK_MONTH.品番コード, date = x.STOK_MONTH.賞味期限},
+                                y => new { dno = y.品番コード, date = y.賞味期限},
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (e, f) => new { e.x.STOK_MONTH, e.x.HIN, e.x.SOUK, e.x.IRO, e.x.JIS , Purchase = f })
@@ -213,9 +219,15 @@ namespace KyoeiSystem.Application.WCFService
                                 賞味期限 = AppCommon.GetMaxDate() == x.STOK_MONTH.賞味期限 ? "" : x.STOK_MONTH.賞味期限.ToString("yyyy/MM/dd"),
                                 数量 = x.STOK_MONTH.在庫数量,
                                 単位 = x.HIN.単位,
-                                単価 = x.Purchase != null ? x.Purchase.仕入単価 : x.HIN.原価 ?? 0,
-                                金額 = x.STOK_MONTH.在庫数量 * (x.Purchase != null ? x.Purchase.仕入単価 : x.HIN.原価 ?? 0)
-                            });
+                                単価 = (x.Purchase != null ? x.Purchase.仕入単価 : x.HIN.原価 ?? 0) * pCoefficient,
+                                金額 = x.STOK_MONTH.在庫数量 * (x.Purchase != null ? x.Purchase.仕入単価 : x.HIN.原価 ?? 0) * pCoefficient
+                            })
+                            .OrderBy(o => o.自社コード)
+                            .ThenBy(t => t.倉庫コード)
+                            .ThenBy(t => t.品番コード)
+                            .ThenBy(t => t.自社色コード)
+                            .ThenBy(t => t.賞味期限)
+                            ;
 
                     return dataList.ToList();
 
@@ -236,7 +248,7 @@ namespace KyoeiSystem.Application.WCFService
 
         #region 関数
         /// <summary>
-        /// 年月の末尾を取得する
+        /// 年月の末日を取得する
         /// </summary>
         /// <param name="作成年月"></param>
         /// <param name="targetRow"></param>

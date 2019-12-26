@@ -323,6 +323,7 @@
     </Compile>
     <Compile Include="Data\ZIK\ZIK.cs">
       <DependentUpon>ZIK.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Files\BSK\BSK01010.cs">
       <AutoGen>True</AutoGen>

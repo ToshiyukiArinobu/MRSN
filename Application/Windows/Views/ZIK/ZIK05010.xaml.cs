@@ -96,14 +96,14 @@ namespace KyoeiSystem.Application.Windows.Views
             else
             {
                 //表示できるかチェック
-                var WidthCHK = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - frmcfg.Left;
-                if (WidthCHK > 10)
+                var varWidthCHK = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - frmcfg.Left;
+                if (varWidthCHK > 10)
                 {
                     this.Left = frmcfg.Left;
                 }
                 //表示できるかチェック
-                var HeightCHK = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - frmcfg.Top;
-                if (HeightCHK > 10)
+                var varHeightCHK = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - frmcfg.Top;
+                if (varHeightCHK > 10)
                 {
                     this.Top = frmcfg.Top;
                 }
@@ -166,8 +166,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 base.SetFreeForInput();
 
-                var data = message.GetResultData();
-                DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
+                var varData = message.GetResultData();
+                DataTable dtTbl = (varData is DataTable) ? (varData as DataTable) : null;
 
                 switch (message.GetMessageName())
                 {
@@ -175,14 +175,14 @@ namespace KyoeiSystem.Application.Windows.Views
                     // CSVデータ取得
                     // ===========================
                     case GET_CSV_LIST:
-                        outputCsv(tbl);
+                        OutputCsv(dtTbl);
                         break;
 
                     // ===========================
                     // 帳票データ取得
                     // ===========================
                     case GET_PRINT_LIST:
-                        outputReport(tbl);
+                        OutputReport(dtTbl);
                         break;
 
                     default:
@@ -223,12 +223,12 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
-                var ctl = FocusManager.GetFocusedElement(this);
-                var uctext = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(ctl as UIElement);
+                var varCtl = FocusManager.GetFocusedElement(this);
+                var varUctext = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(varCtl as UIElement);
 
-                if (uctext != null)
+                if (varUctext != null)
                 {
-                    uctext.OpenSearchWindow(this);
+                    varUctext.OpenSearchWindow(this);
 
                 }
                 else
@@ -260,11 +260,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
 
             // パラメータ編集
-            int companyCd;
-            int.TryParse(myCompany.Text1, out companyCd);
+            int intCompanyCd;
+            int.TryParse(myCompany.Text1, out intCompanyCd);
+
+            decimal dcmCoefficient;
+            decimal.TryParse(Coefficient.Text, out dcmCoefficient);
 
             // パラメータ辞書情報設定
-            Dictionary<string, string> cond = setSearchParams();
+            Dictionary<string, string> dicCond = setSearchParams();
 
             // データ取得
             base.SendRequest(
@@ -272,9 +275,10 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageType.RequestData,
                     GET_CSV_LIST,
                     new object[] {
-                        companyCd,
+                        intCompanyCd,
                         ClosingDate.Text,
-                        cond
+                        dicCond,
+                        dcmCoefficient
                     }));
 
             base.SetBusyForInput();
@@ -295,11 +299,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
 
             // パラメータ編集
-            int companyCd;
-            int.TryParse(myCompany.Text1, out companyCd);
+            int intCompanyCd;
+            int.TryParse(myCompany.Text1, out intCompanyCd);
+
+            decimal dcmCoefficient;
+            decimal.TryParse(Coefficient.Text, out dcmCoefficient);
 
             // パラメータ情報設定
-            Dictionary<string, string> cond = setSearchParams();
+            Dictionary<string, string> dicCond = setSearchParams();
 
             // データ取得
             base.SendRequest(
@@ -307,9 +314,10 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageType.RequestData,
                     GET_PRINT_LIST,
                     new object[] {
-                        companyCd,
+                        intCompanyCd,
                         ClosingDate.Text,
-                        cond
+                        dicCond,
+                        dcmCoefficient
                     }));
 
             base.SetBusyForInput();
@@ -369,6 +377,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.myCompany.Text1 = ccfg.自社コード.ToString();
             this.myCompany.IsEnabled = ccfg.自社販社区分 == 自社販社区分.自社.GetHashCode();
+            this.Coefficient.Text = "1.0";
 
         }
         #endregion
@@ -392,22 +401,22 @@ namespace KyoeiSystem.Application.Windows.Views
                 return bolResult;
             }
 
-            // 自社コードの入力値検証
-            int companyCd;
+            // 会社コードの入力値検証
+            int intCompanyCd;
             if (string.IsNullOrEmpty(myCompany.Text1))
             {
                 base.ErrorMessage = "自社コードは必須入力項目です。";
                 return bolResult;
             }
-            else if (!int.TryParse(myCompany.Text1, out companyCd))
+            else if (!int.TryParse(myCompany.Text1, out intCompanyCd))
             {
                 base.ErrorMessage = "自社コードの入力値に誤りがあります。";
                 return bolResult;
             }
 
             // 棚卸日
-            DateTime dtClosingDate;
-            if (!DateTime.TryParse(ClosingDate.Text, out dtClosingDate))
+            DateTime dteClosingDate;
+            if (!DateTime.TryParse(ClosingDate.Text, out dteClosingDate))
             {
                 ErrorMessage = "棚卸日の内容が正しくありません。";
                 MessageBox.Show("入力エラーがあります。");
@@ -420,22 +429,22 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region パラメータ設定
+        #region 検索パラメータ設定
         /// <summary>
-        /// パラメータを設定する
+        /// 検索パラメータを設定する
         /// </summary>
         private Dictionary<string, string> setSearchParams()
         {
             // パラメータ生成
-            Dictionary<string, string> cond = new Dictionary<string, string>();
-            cond.Add("倉庫", Warehouse.Text1);
-            cond.Add("自社品番", Product.Text1);
-            cond.Add("自社品名", ProductName.Text);
-            cond.Add("商品分類", cmbItemType.SelectedValue.ToString());
-            cond.Add("ブランド", Brand.Text1);
-            cond.Add("シリーズ", Series.Text1);
+            Dictionary<string, string> dicCond = new Dictionary<string, string>();
+            dicCond.Add("倉庫コード", Warehouse.Text1);
+            dicCond.Add("自社品番", Product.Text1);
+            dicCond.Add("自社品名", ProductName.Text);
+            dicCond.Add("商品分類コード", cmbItemType.SelectedValue.ToString());
+            dicCond.Add("ブランドコード", Brand.Text1);
+            dicCond.Add("シリーズコード", Series.Text1);
 
-            return cond;
+            return dicCond;
 
         }
         #endregion
@@ -444,10 +453,10 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>
         /// ＣＳＶデータの出力をおこなう
         /// </summary>
-        /// <param name="tbl"></param>
-        private void outputCsv(DataTable tbl)
+        /// <param name="dtTbl"></param>
+        private void OutputCsv(DataTable dtTbl)
         {
-            if (tbl == null || tbl.Rows.Count == 0)
+            if (dtTbl == null || dtTbl.Rows.Count == 0)
             {
                 MessageBox.Show("出力対象のデータがありません。");
                 return;
@@ -467,7 +476,7 @@ namespace KyoeiSystem.Application.Windows.Views
             if (sfd.ShowDialog() == WinForms.DialogResult.OK)
             {
                 // CSVファイル出力
-                CSVData.SaveCSV(tbl, sfd.FileName, true, true, false, ',');
+                CSVData.SaveCSV(dtTbl, sfd.FileName, true, true, false, ',');
                 MessageBox.Show("CSVファイルの出力が完了しました。");
             }
 
@@ -478,8 +487,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>
         /// 帳票の印刷処理をおこなう
         /// </summary>
-        /// <param name="tbl"></param>
-        private void outputReport(DataTable tbl)
+        /// <param name="dtTbl"></param>
+        private void OutputReport(DataTable dtTbl)
         {
             PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
             if (ret.Result == false)
@@ -489,7 +498,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
             frmcfg.PrinterName = ret.PrinterName;
 
-            if (tbl == null || tbl.Rows.Count == 0)
+            if (dtTbl == null || dtTbl.Rows.Count == 0)
             {
                 this.ErrorMessage = "印刷データがありません。";
                 return;
@@ -499,33 +508,41 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetBusyForInput();
 
-                int selItemType = int.Parse(cmbItemType.SelectedValue.ToString());
-                Dictionary<int, string> itemTypeDic = new Dictionary<int, string>();
-                itemTypeDic.Add(0, "指定なし");
-                itemTypeDic.Add(1, "食品");
-                itemTypeDic.Add(2, "繊維");
-                itemTypeDic.Add(3, "その他");
+                int intSelItemType = int.Parse(cmbItemType.SelectedValue.ToString());
+                Dictionary<int, string> dicItemType = new Dictionary<int, string>();
+                dicItemType.Add(0, "指定なし");
+                dicItemType.Add(1, "食品");
+                dicItemType.Add(2, "繊維");
+                dicItemType.Add(3, "その他");
 
-                var parms = new List<FwRepPreview.ReportParameter>()
+                var varParms = new List<FwRepPreview.ReportParameter>()
                 {
                     #region 印字パラメータ設定
-                    new FwRepPreview.ReportParameter() { PNAME = "自社コード", VALUE = myCompany.Text2 },
-                    new FwRepPreview.ReportParameter() { PNAME = "商品コード", VALUE = string.IsNullOrEmpty(Product.Text2) ? "" : Product.Text2  },
-                    new FwRepPreview.ReportParameter() { PNAME = "商品分類", VALUE = itemTypeDic[selItemType] },
-                    new FwRepPreview.ReportParameter() { PNAME = "商品名指定", VALUE = ProductName.Text },
-                    new FwRepPreview.ReportParameter() { PNAME = "ブランド", VALUE = string.IsNullOrEmpty(Brand.Text2) ? "" : Brand.Text2 },
-                    new FwRepPreview.ReportParameter() { PNAME = "シリーズ", VALUE = string.IsNullOrEmpty(Series.Text2) ? "" : Series.Text2 },
+                    new FwRepPreview.ReportParameter() { PNAME = "会社コード", VALUE = myCompany.Text1 },
+                    new FwRepPreview.ReportParameter() { PNAME = "会社名", VALUE = myCompany.Text2 },
+                    new FwRepPreview.ReportParameter() { PNAME = "倉庫コード", VALUE = string.IsNullOrEmpty(Warehouse.Text1) ? "" : Warehouse.Text1 },
+                    new FwRepPreview.ReportParameter() { PNAME = "倉庫名", VALUE =string.IsNullOrEmpty(Warehouse.Text2) ? "" : Warehouse.Text2 },
+                    new FwRepPreview.ReportParameter() { PNAME = "締年月", VALUE = ClosingDate.Text},
+                    new FwRepPreview.ReportParameter() { PNAME = "商品分類", VALUE = dicItemType[intSelItemType] },
+                    new FwRepPreview.ReportParameter() { PNAME = "自社品番コード", VALUE = string.IsNullOrEmpty(Product.Text1) ? "" : Product.Text1  },
+                    new FwRepPreview.ReportParameter() { PNAME = "自社品番_名称", VALUE = string.IsNullOrEmpty(Product.Text2) ? "" : Product.Text2  },
+                    new FwRepPreview.ReportParameter() { PNAME = "自社品名", VALUE = ProductName.Text },
+                    new FwRepPreview.ReportParameter() { PNAME = "ブランドコード", VALUE = string.IsNullOrEmpty(Brand.Text1) ? "" : Brand.Text1 },
+                    new FwRepPreview.ReportParameter() { PNAME = "ブランド名称", VALUE = string.IsNullOrEmpty(Brand.Text2) ? "" : Brand.Text2 },
+                    new FwRepPreview.ReportParameter() { PNAME = "シリーズコード", VALUE = string.IsNullOrEmpty(Series.Text1) ? "" : Series.Text1 },
+                    new FwRepPreview.ReportParameter() { PNAME = "シリーズ名称", VALUE = string.IsNullOrEmpty(Series.Text2) ? "" : Series.Text2 },
+                    new FwRepPreview.ReportParameter() { PNAME = "係数", VALUE = string.IsNullOrEmpty(Coefficient.Text) ? "" : Coefficient.Text },
                     #endregion
                 };
 
-                DataTable 印刷データ = tbl.Copy();
+                DataTable 印刷データ = dtTbl.Copy();
                 印刷データ.TableName = "商品在庫残高一覧表";
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
                 view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
                 view.SetReportData(印刷データ);
 
-                view.SetupParmeters(parms);
+                view.SetupParmeters(varParms);
 
                 base.SetFreeForInput();
 
