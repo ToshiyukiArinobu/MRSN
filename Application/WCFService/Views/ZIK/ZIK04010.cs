@@ -24,8 +24,6 @@ namespace KyoeiSystem.Application.WCFService
 
         #region << サービス定義 >>
 
-        /// <summary>在庫情報サービス</summary>
-        S03 S03Service;
         /// <summary>入出庫履歴サービス</summary>
         S04 S04Service;
         /// <summary>棚卸在庫サービス</summary>
@@ -69,7 +67,7 @@ namespace KyoeiSystem.Application.WCFService
                 #region 入力項目による絞込
 
                 // 倉庫の条件チェック
-                string Warehouse = pParamDic["倉庫"];
+                string Warehouse = pParamDic["倉庫コード"];
                 if (string.IsNullOrEmpty(Warehouse) == false)
                 {
                     stocktakingList = stocktakingList.Where(w => w.STOCKTAKING.倉庫コード == int.Parse(Warehouse)).ToList();
@@ -91,7 +89,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 商品分類の条件チェック
                 int itemType;
-                if (int.TryParse(pParamDic["商品分類"], out itemType) == true)
+                if (int.TryParse(pParamDic["商品分類コード"], out itemType) == true)
                 {
                     if (itemType >= CommonConstants.商品分類.食品.GetHashCode())
                     {
@@ -100,14 +98,14 @@ namespace KyoeiSystem.Application.WCFService
                 }
 
                 // ブランドの条件チェック
-                string brand = pParamDic["ブランド"];
+                string brand = pParamDic["ブランドコード"];
                 if (string.IsNullOrEmpty(brand) == false)
                 {
                     stocktakingList = stocktakingList.Where(w => w.HIN.ブランド == brand).ToList();
                 }
 
                 // シリーズの条件チェック
-                string series = pParamDic["シリーズ"];
+                string series = pParamDic["シリーズコード"];
                 if (string.IsNullOrEmpty(series) == false)
                 {
                     stocktakingList = stocktakingList.Where(w => w.HIN.シリーズ == series).ToList();
@@ -158,7 +156,6 @@ namespace KyoeiSystem.Application.WCFService
 
                 using (var tran = context.Connection.BeginTransaction(System.Data.IsolationLevel.Serializable))
                 {
-                    S03Service = new S03(context, pUserId);
                     S04Service = new S04(context, pUserId, S04.機能ID.棚卸更新);
                     S10Service = new S10(context, pUserId);
 
@@ -259,7 +256,7 @@ namespace KyoeiSystem.Application.WCFService
             #region 入力項目による絞込
 
             // 倉庫の条件チェック
-            string Warehouse = pParamDic["倉庫"];
+            string Warehouse = pParamDic["倉庫コード"];
             if (string.IsNullOrEmpty(Warehouse) == false)
             {
                 stocktakingList = stocktakingList.Where(w => w.STOCKTAKING.倉庫コード == int.Parse(Warehouse)).ToList();
@@ -281,7 +278,7 @@ namespace KyoeiSystem.Application.WCFService
 
             // 商品分類の条件チェック
             int itemType;
-            if (int.TryParse(pParamDic["商品分類"], out itemType) == true)
+            if (int.TryParse(pParamDic["商品分類コード"], out itemType) == true)
             {
                 if (itemType >= CommonConstants.商品分類.食品.GetHashCode())
                 {
@@ -290,14 +287,14 @@ namespace KyoeiSystem.Application.WCFService
             }
 
             // ブランドの条件チェック
-            string brand = pParamDic["ブランド"];
+            string brand = pParamDic["ブランドコード"];
             if (string.IsNullOrEmpty(brand) == false)
             {
                 stocktakingList = stocktakingList.Where(w => w.HIN.ブランド == brand).ToList();
             }
 
             // シリーズの条件チェック
-            string series = pParamDic["シリーズ"];
+            string series = pParamDic["シリーズコード"];
             if (string.IsNullOrEmpty(series) == false)
             {
                 stocktakingList = stocktakingList.Where(w => w.HIN.シリーズ == series).ToList();
@@ -390,16 +387,8 @@ namespace KyoeiSystem.Application.WCFService
             history.入出庫区分 = intInOutKbn;
             history.品番コード = pRow.品番コード;
             history.賞味期限 = pRow.賞味期限;
-            history.数量 = decimal.ToInt32(dcmStockQtyhist);
+            history.数量 = decimal.ToInt32(Math.Abs(dcmStockQtyhist));
             history.伝票番号 = null;
-
-            Dictionary<string, string> hstDic = new Dictionary<string, string>()
-                {
-                    { S04.COLUMNS_NAME_入出庫日, history.入出庫日.ToString("yyyy/MM/dd") },
-                    { S04.COLUMNS_NAME_倉庫コード, history.倉庫コード.ToString() },
-                    { S04.COLUMNS_NAME_伝票番号, history.伝票番号.ToString() },
-                    { S04.COLUMNS_NAME_品番コード, history.品番コード.ToString() },
-                };
 
             // ---------------------------
             // 入出庫履歴テーブル　登録
@@ -424,7 +413,7 @@ namespace KyoeiSystem.Application.WCFService
             // ---------------------------
             // 在庫テーブル　更新
             // ---------------------------
-            S03Service.S03_STOK_Update(stok);
+            S03_STOK_Update_For_Stocktaking(context, stok);
         
         }
 
@@ -452,6 +441,54 @@ namespace KyoeiSystem.Application.WCFService
         }
 
         #endregion
-    }
 
+        #region 在庫情報の登録・更新
+        /// <summary>
+        /// 在庫情報の登録・更新をおこなう
+        /// </summary>
+        /// <param name="stokData"></param>
+        private void S03_STOK_Update_For_Stocktaking(TRAC3Entities context, S03_STOK stokData)
+        {
+            var record =
+                context.S03_STOK
+                    .Where(x =>
+                        x.倉庫コード == stokData.倉庫コード &&
+                        x.品番コード == stokData.品番コード &&
+                        x.賞味期限 == stokData.賞味期限)
+                    .FirstOrDefault();
+
+            if (record == null)
+            {
+                // データなしの為追加
+                S03_STOK stok = new S03_STOK();
+
+                stok.倉庫コード = stokData.倉庫コード;
+                stok.品番コード = stokData.品番コード;
+                stok.賞味期限 = stokData.賞味期限;
+                stok.在庫数 = stokData.在庫数;
+                stok.登録者 = _loginUserId;
+                stok.登録日時 = com.GetDbDateTime();
+                stok.最終更新者 = _loginUserId;
+                stok.最終更新日時 = com.GetDbDateTime();
+
+                context.S03_STOK.ApplyChanges(stok);
+
+            }
+            else
+            {
+                // データを更新
+                record.在庫数 = stokData.在庫数;
+                record.最終更新者 = _loginUserId;
+                record.最終更新日時 = com.GetDbDateTime();
+                record.削除者 = null;
+                record.削除日時 = null;
+
+                record.AcceptChanges();
+
+            }
+
+        }
+        #endregion
+
+    }
 }

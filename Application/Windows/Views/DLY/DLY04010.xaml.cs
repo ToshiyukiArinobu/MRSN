@@ -37,7 +37,7 @@ namespace KyoeiSystem.Application.Windows.Views
     using DebugLog = System.Diagnostics.Debug;
 
     /// <summary>
-    /// 商品移動/振替入力
+    /// 商品移動入力
     /// </summary>
     public partial class DLY04010 : RibbonWindowViewBase
     {

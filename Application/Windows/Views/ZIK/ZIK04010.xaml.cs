@@ -97,13 +97,13 @@ namespace KyoeiSystem.Application.Windows.Views
             else
             {
                 // 表示できるかチェック
-                var WidthCHK = WinFormsScreen.PrimaryScreen.Bounds.Width - frmcfg.Left;
-                if (WidthCHK > 10)
+                var varWidthCHK = WinFormsScreen.PrimaryScreen.Bounds.Width - frmcfg.Left;
+                if (varWidthCHK > 10)
                     this.Left = frmcfg.Left;
 
                 // 表示できるかチェック
-                var HeightCHK = WinFormsScreen.PrimaryScreen.Bounds.Height - frmcfg.Top;
-                if (HeightCHK > 10)
+                var varHeightCHK = WinFormsScreen.PrimaryScreen.Bounds.Height - frmcfg.Top;
+                if (varHeightCHK > 10)
                     this.Top = frmcfg.Top;
 
                 this.Width = frmcfg.Width;
@@ -147,8 +147,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 base.SetFreeForInput();
 
-                var data = message.GetResultData();
-                DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
+                var varData = message.GetResultData();
+                DataTable dtTbl = (varData is DataTable) ? (varData as DataTable) : null;
 
                 switch (message.GetMessageName())
                 {
@@ -158,7 +158,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     // ===========================
                     case CHECK_STOCKTAKING:
 
-                        switch (data.ToString())
+                        switch (varData.ToString())
                         {
                             case "-1":
                                 // 棚卸未入力の場合
@@ -245,17 +245,17 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
-                var ctl = FocusManager.GetFocusedElement(this);
-                var m01Text = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(ctl as UIElement);
+                var varCtl = FocusManager.GetFocusedElement(this);
+                var varM01Text = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(varCtl as UIElement);
 
-                if (m01Text == null)
+                if (varM01Text == null)
                 {
                     ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
 
                 }
                 else
                 {
-                    m01Text.OpenSearchWindow(this);
+                    varM01Text.OpenSearchWindow(this);
 
                 }
 
@@ -351,21 +351,21 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // 自社コードの入力値検証
-            int companyCd;
+            int intCompanyCd;
             if (string.IsNullOrEmpty(myCompany.Text1))
             {
                 base.ErrorMessage = "自社コードは必須入力項目です。";
                 return bolResult;
             }
-            else if (!int.TryParse(myCompany.Text1, out companyCd))
+            else if (!int.TryParse(myCompany.Text1, out intCompanyCd))
             {
                 base.ErrorMessage = "自社コードの入力値に誤りがあります。";
                 return bolResult;
             }
 
             // 棚卸日
-            DateTime dtStocktakingDate;
-            if (!DateTime.TryParse(StocktakingDate.Text, out dtStocktakingDate))
+            DateTime dteStocktakingDate;
+            if (!DateTime.TryParse(StocktakingDate.Text, out dteStocktakingDate))
             {
                 ErrorMessage = "棚卸日の内容が正しくありません。";
                 MessageBox.Show("入力エラーがあります。");
@@ -385,15 +385,15 @@ namespace KyoeiSystem.Application.Windows.Views
         private Dictionary<string, string> setStocktakingParm()
         {
             // パラメータ生成
-            Dictionary<string, string> cond = new Dictionary<string, string>();
-            cond.Add("倉庫", Warehouse.Text1);
-            cond.Add("自社品番", Product.Text1);
-            cond.Add("自社品名", ProductName.Text);
-            cond.Add("商品分類", cmbItemType.SelectedValue.ToString());
-            cond.Add("ブランド", Brand.Text1);
-            cond.Add("シリーズ", Series.Text1);
+            Dictionary<string, string> dicCond = new Dictionary<string, string>();
+            dicCond.Add("倉庫コード", Warehouse.Text1);
+            dicCond.Add("自社品番", Product.Text1);
+            dicCond.Add("自社品名", ProductName.Text);
+            dicCond.Add("商品分類コード", cmbItemType.SelectedValue.ToString());
+            dicCond.Add("ブランドコード", Brand.Text1);
+            dicCond.Add("シリーズコード", Series.Text1);
 
-            return cond;
+            return dicCond;
 
         }
 
@@ -403,7 +403,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private void SendRequestCheckStocktaking()
         {
             // パラメータ辞書の作成を行う
-            Dictionary<string, string> cond = setStocktakingParm();
+            Dictionary<string, string> dicCond = setStocktakingParm();
 
             // 対象年月日の棚卸更新の実行済み確認、棚卸入力確認を行う
             base.SendRequest(
@@ -413,7 +413,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     new object[] {
                         int.Parse(myCompany.Text1),
                         StocktakingDate.Text,
-                        cond
+                        dicCond
                     }));
 
         }
@@ -424,7 +424,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private void SendRequestUpdateStocktaking()
         {
             // パラメータ辞書の作成を行う
-            Dictionary<string, string> cond = setStocktakingParm();
+            Dictionary<string, string> dicCond = setStocktakingParm();
 
             // 棚卸更新処理を実行する
             base.SendRequest(
@@ -434,7 +434,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     new object[] {
                         int.Parse(myCompany.Text1),
                         StocktakingDate.Text,
-                        cond,
+                        dicCond,
                         ccfg.ユーザID
                     }));
 

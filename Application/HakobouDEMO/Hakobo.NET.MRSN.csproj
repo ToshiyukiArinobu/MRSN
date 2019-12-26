@@ -32,7 +32,7 @@
     <SuiteName>パッケージ</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>39</ApplicationRevision>
+    <ApplicationRevision>40</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -323,6 +323,7 @@
     </Compile>
     <Compile Include="Data\ZIK\ZIK.cs">
       <DependentUpon>ZIK.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Files\BSK\BSK01010.cs">
       <AutoGen>True</AutoGen>

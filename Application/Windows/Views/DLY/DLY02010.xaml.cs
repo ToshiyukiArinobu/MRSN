@@ -169,6 +169,16 @@ namespace KyoeiSystem.Application.Windows.Views
             その他 = 3
         }
 
+        /// <summary>
+        /// 消費税区分
+        /// </summary>
+        private enum 消費税区分 : int
+        {
+            通常税率 = 0,
+            軽減税率 = 1,
+            非課税 = 2
+        }
+
         #endregion
 
         #region バインディングデータ
@@ -2667,7 +2677,10 @@ namespace KyoeiSystem.Application.Windows.Views
                     int ival = 0;
                     int taxKbnId = int.TryParse(SearchHeader["Ｓ税区分ID"].ToString(), out ival)? ival : 1;
                     int salesTaxKbn = int.TryParse(SearchHeader["Ｓ支払消費税区分"].ToString(), out ival)? ival : 1;
-                    conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId, salesTaxKbn);
+                    // ▼揚り入力は全て通常税率 Mod Start
+                    //conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId, salesTaxKbn);
+                    conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), (int)消費税区分.通常税率, taxKbnId, salesTaxKbn);
+                    // ▲揚り入力は全て通常税率 Mod End
                     // No.272 Mod End
                 }
 
