@@ -1036,7 +1036,7 @@ namespace KyoeiSystem.Application.WCFService
                     .SelectMany(x => x.y.DefaultIfEmpty(), (o, p) => new { o.x.HIN, o.x.IRO, o.x.DAI, o.x.TYU, o.x.BRA, o.x.SER, o.x.GUN, o.x.TBAI, SBAI = p })
                     .GroupJoin(context.M04_BAIKA.Where(w => w.削除日時 == null && w.外注先コード == code && w.枝番 == eda), x => x.HIN.品番コード, y => y.品番コード, (x, y) => new { x, y })
                     .SelectMany(x => x.y.DefaultIfEmpty(), (q, r) => new { q.x.HIN, q.x.IRO, q.x.DAI, q.x.TYU, q.x.BRA, q.x.SER, q.x.GUN, q.x.TBAI, q.x.SBAI, GBAI = r })
-                    //.Where(c => c.HIN.大分類 == c.TYU.大分類コード).DefaultIfEmpty() //暫定
+                    .Where(c => c.HIN.大分類 == c.TYU.大分類コード)         // No.296 Mod
                     .Select(t => new M09.M09_HIN_NAMED
                     {
                         品番コード = t.HIN.品番コード,
