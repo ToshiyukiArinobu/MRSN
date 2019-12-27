@@ -407,7 +407,7 @@ namespace KyoeiSystem.Application.Windows.Views
             this.txt自社.Text1 = ccfg.自社コード.ToString();
 
             // 担当者の初期設定
-            this.txt担当者.Text1 = ccfg.ユーザID.ToString();
+            //this.txt担当者.Text1 = ccfg.ユーザID.ToString();
 
             // 作成月の初期設定
             this.txt作成月.Text = DateTime.Now.Month.ToString("D2");

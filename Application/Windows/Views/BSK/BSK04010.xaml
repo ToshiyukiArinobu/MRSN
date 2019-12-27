@@ -214,7 +214,7 @@
                         <!-- 作成期間 -->
                         <ctls:UcLabelTwinTextBox
                           Name="txt作成期間" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"
-                          Label_Context="作成期間" Label_Width="100"
+                          Label_Context="作成期間(月別用)" Label_Width="100"
                           Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                           Text1Width="80" Text1MaxLength="10" Text1ValidationType="DateYYYYMM"  Text1Mask="yyyy/MM" Text1VerticalContentAlignment="Center"
                           Label1Text="～"
@@ -225,7 +225,7 @@
                         <ctls:UcLabelTextBox 
                           Name="txt作成月" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left"
                           ValidationType="Integer" MinValue="1" MaxValue="12" ImeType="Off" IsRequired="False"
-                          Label_Context="作成月" Label_Width="100" cWidth="60" cVerticalContentAlignment="Center"
+                          Label_Context="作成月(日別用)" Label_Width="100" cWidth="45" cVerticalContentAlignment="Center" cTextAlignment="Right"
                         />
                     </Grid>
 
