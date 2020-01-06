@@ -783,8 +783,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 base.SetFreeForInput();
 
                 view.PrinterName = frmcfg.PrinterName;
-                view.IsCustomMode = true;
-                setPrinterInfoA3(view);
+                //view.IsCustomMode = true;
+                //setPrinterInfoA3(view);
                 view.ShowPreview();
                 view.Close();
                 frmcfg.PrinterName = view.PrinterName;
