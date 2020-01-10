@@ -337,6 +337,9 @@
     <Compile Include="Views\TKS\TKS02011.xaml.cs">
       <DependentUpon>TKS02011.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TKS\TKS90010.xaml.cs">
+      <DependentUpon>TKS90010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControl\M01_TOK_TextBox.xaml.cs">
       <DependentUpon>M01_TOK_TextBox.xaml</DependentUpon>
     </Compile>
@@ -412,6 +415,9 @@
     </Resource>
     <None Include="Views\TKS\TKS09010G1.sgxml" />
     <Resource Include="Views\ZIJ\ZIJ10010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\TKS\TKS90010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Views\ZIK\ZIK01010G1.sgxml" />
@@ -856,6 +862,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TKS\TKS02011.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TKS\TKS90010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

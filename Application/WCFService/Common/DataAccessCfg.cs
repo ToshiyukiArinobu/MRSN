@@ -429,6 +429,9 @@ namespace KyoeiSystem.Application.WCFService
             // 都度請求締集計
             new WCFDataAccessConfig() { Name = "TKS09010_BillingAggregation", ServiceClass = "TKS09010", MethodName = "BillingAggregation", Descprition = "都度請求締集計処理" },
 
+            // 確定処理
+            new WCFDataAccessConfig() { Name = "TKS90010_GetDataList", ServiceClass = "TKS90010", MethodName = "GetListData", Descprition = "確定情報取得" },
+            
             #endregion
 
             #region 支払先管理

@@ -454,6 +454,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s10_STOCKTAKING  ?? (_s10_STOCKTAKING = CreateObjectSet<S10_STOCKTAKING>("S10_STOCKTAKING")); }
         }
         private ObjectSet<S10_STOCKTAKING> _s10_STOCKTAKING;
+    
+        public ObjectSet<S11_KAKUTEI> S11_KAKUTEI
+        {
+            get { return _s11_KAKUTEI  ?? (_s11_KAKUTEI = CreateObjectSet<S11_KAKUTEI>("S11_KAKUTEI")); }
+        }
+        private ObjectSet<S11_KAKUTEI> _s11_KAKUTEI;
 
         #endregion
 

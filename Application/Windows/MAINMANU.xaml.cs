@@ -1193,6 +1193,23 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        /// <summary>
+        /// 確定処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_TKS90010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(TKS90010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         #endregion
 
         #region 支払先管理[F4]

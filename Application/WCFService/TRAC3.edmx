@@ -45,6 +45,7 @@
           <EntitySet Name="S08_URIKAKE" EntityType="TRAC3Model.Store.S08_URIKAKE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.Store.S09_KAIKAKE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.Store.S10_STOCKTAKING" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="S11_KAKUTEI" EntityType="TRAC3Model.Store.S11_KAKUTEI" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URDTL" EntityType="TRAC3Model.Store.T02_URDTL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URDTL_HAN" EntityType="TRAC3Model.Store.T02_URDTL_HAN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T02_URHD" EntityType="TRAC3Model.Store.T02_URHD" store:Type="Tables" Schema="dbo" />
@@ -1051,6 +1052,21 @@
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
         </EntityType>
+        <EntityType Name="S11_KAKUTEI">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="取引区分" />
+            <PropertyRef Name="確定区分" />
+            <PropertyRef Name="締日" />
+          </Key>
+          <Property Name="自社コード" Type="int" Nullable="false" />
+          <Property Name="取引区分" Type="int" Nullable="false" />
+          <Property Name="確定区分" Type="int" Nullable="false" />
+          <Property Name="締日" Type="int" Nullable="false" />
+          <Property Name="確定日" Type="date" />
+          <Property Name="登録者" Type="int" />
+          <Property Name="登録日時" Type="datetime" />
+        </EntityType>
         <EntityType Name="T02_URDTL">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -1747,6 +1763,7 @@
           <EntitySet Name="S08_URIKAKE" EntityType="TRAC3Model.S08_URIKAKE" />
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.S09_KAIKAKE" />
           <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.S10_STOCKTAKING" />
+          <EntitySet Name="S11_KAKUTEI" EntityType="TRAC3Model.S11_KAKUTEI" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
@@ -3170,6 +3187,21 @@
           <Property Type="Int32" Name="削除者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
         </EntityType>
+        <EntityType Name="S11_KAKUTEI">
+          <Key>
+            <PropertyRef Name="自社コード" />
+            <PropertyRef Name="取引区分" />
+            <PropertyRef Name="締日" />
+            <PropertyRef Name="確定区分" />
+          </Key>
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="Int32" Name="取引区分" Nullable="false" />
+          <Property Type="Int32" Name="締日" Nullable="false" />
+          <Property Type="DateTime" Name="確定日" Precision="0" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Precision="3" />
+          <Property Type="Int32" Name="確定区分" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4541,6 +4573,19 @@
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
                 <ScalarProperty Name="棚卸日" ColumnName="棚卸日" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S11_KAKUTEI">
+            <EntityTypeMapping TypeName="TRAC3Model.S11_KAKUTEI">
+              <MappingFragment StoreEntitySet="S11_KAKUTEI">
+                <ScalarProperty Name="確定区分" ColumnName="確定区分" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="確定日" ColumnName="確定日" />
+                <ScalarProperty Name="締日" ColumnName="締日" />
+                <ScalarProperty Name="取引区分" ColumnName="取引区分" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

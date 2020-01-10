@@ -121,6 +121,9 @@ namespace KyoeiSystem.Application.WCFService
         public static string 消費税区分略称_非課税 = "非";
         // No-94 Add End
 
+        public static string 確定区分_請求 = "請求";
+        public static string 確定区分_支払 = "支払";
+
         #endregion
 
         #region << コード区分 列挙型定義 >>
@@ -275,6 +278,12 @@ namespace KyoeiSystem.Application.WCFService
             売価 = 4
         }
         // No.272 Add End
+
+        public enum 確定区分 : int
+        {
+            請求 = 0,
+            支払 = 1
+        }
         #endregion
 
         #region << コード区分 ディクショナリ定義 >>
