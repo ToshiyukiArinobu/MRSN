@@ -431,6 +431,7 @@ namespace KyoeiSystem.Application.WCFService
 
             // 確定処理
             new WCFDataAccessConfig() { Name = "TKS90010_GetDataList", ServiceClass = "TKS90010", MethodName = "GetListData", Descprition = "確定情報取得" },
+            new WCFDataAccessConfig() { Name = "TKS90010_Update", ServiceClass = "TKS90010", MethodName = "Update", Descprition = "確定情報登録" },
             
             #endregion
 
