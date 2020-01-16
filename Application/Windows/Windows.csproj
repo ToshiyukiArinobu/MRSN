@@ -373,6 +373,9 @@
     <Compile Include="Views\ZIK\ZIK01010.xaml.cs">
       <DependentUpon>ZIK01010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ZIK\ZIK02010.xaml.cs">
+      <DependentUpon>ZIK02010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ZIK\ZIK04010.xaml.cs">
       <DependentUpon>ZIK04010.xaml</DependentUpon>
     </Compile>
@@ -390,6 +393,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Views\ZIK\ZIK02010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Views\BSK\BSK05010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -910,6 +916,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ZIK\ZIK01010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIK\ZIK02010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
