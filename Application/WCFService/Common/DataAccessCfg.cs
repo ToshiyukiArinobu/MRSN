@@ -470,6 +470,15 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "ZIK01010_InventorySummary", ServiceClass = "ZIK01010", MethodName = "InventorySummary", Descprition = "在庫締集計処理" },
             new WCFDataAccessConfig() { Name = "ZIK01010_GetPrintData", ServiceClass = "ZIK01010", MethodName = "GetPrintData", Descprition = "在庫締帳票データ取得" },
 
+            // 場所別棚卸在庫入力
+            new WCFDataAccessConfig() { Name = "ZIK02010_IsInitialDelProcess", ServiceClass = "ZIK02010", MethodName = "IsInitialDelProcess", Descprition = "棚卸在庫画面起動時の削除処理" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_IsCheckStocktaking", ServiceClass = "ZIK02010", MethodName = "IsCheckStocktaking", Descprition = "棚卸更新済みかを取得する" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_GetStockTaking", ServiceClass = "ZIK02010", MethodName = "GetStockTaking", Descprition = "棚卸在庫データ取得" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_CheckAddRowData", ServiceClass = "ZIK02010", MethodName = "CheckAddRowData", Descprition = "棚卸在庫データ取得" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_InventoryStocktaking", ServiceClass = "ZIK02010", MethodName = "InventoryStocktaking", Descprition = "棚卸在庫データ更新処理" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_GetSOUK", ServiceClass = "ZIK02010", MethodName = "GetSOUK", Descprition = "倉庫情報取得" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_GetHIN", ServiceClass = "ZIK02010", MethodName = "GetHIN", Descprition = "品番情報取得" },
+
             new WCFDataAccessConfig() { Name = "ZIK04010_IsCheckStocktaking", ServiceClass = "ZIK04010", MethodName = "IsCheckStocktaking", Descprition = "棚卸更新済みかを取得する" },
             new WCFDataAccessConfig() { Name = "ZIK04010_InventoryStocktaking", ServiceClass = "ZIK04010", MethodName = "InventoryStocktaking", Descprition = "棚卸更新処理" },
 

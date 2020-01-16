@@ -473,6 +473,7 @@
     <Compile Include="Views\ZIJ\ZIJ07010.cs" />
     <Compile Include="Views\ZIJ\ZIJ10010.cs" />
     <Compile Include="Views\ZIK\S10.cs" />
+    <Compile Include="Views\ZIK\ZIK02010.cs" />
     <Compile Include="Views\ZIK\ZIK04010.cs" />
     <Compile Include="Views\ZIK\ZIK01010.cs" />
     <Compile Include="Views\ZIK\ZIK05010.cs" />
