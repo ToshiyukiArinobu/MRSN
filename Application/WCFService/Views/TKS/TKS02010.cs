@@ -347,80 +347,60 @@ namespace KyoeiSystem.Application.WCFService
 
         #region 売上一覧ヘッダ更新処理
         /// <summary>
-        /// 売上一覧ヘッダ更新処理
+        /// 売上一覧ヘッダ更新処理(Del/Ins)
         /// </summary>
         /// <param name="context"></param>
         /// <param name="hdData"></param>
         private void S06_URIHD_Update(TRAC3Entities context, S06_URIHD hdData)
         {
+            // No.298 Mod Start del/Insに変更
             var urihd =
                 context.S06_URIHD.Where(w =>
                     w.自社コード == hdData.自社コード &&
                     w.請求年月 == hdData.請求年月 &&
                     w.請求先コード == hdData.請求先コード &&
-                    w.請求先枝番 == hdData.請求先枝番 &&
-                    w.入金日 == hdData.入金日 &&
-                    w.回数 == hdData.回数)
-                    .FirstOrDefault();
+                    w.請求先枝番 == hdData.請求先枝番)
+                    .ToList();
 
-            if (urihd == null)
+            if (urihd.Any())
             {
-                // 登録なしなので登録をおこなう
-                S06_URIHD data = new S06_URIHD();
-
-                data.自社コード = hdData.自社コード;
-                data.請求年月 = hdData.請求年月;
-                data.請求締日 = hdData.請求締日;
-                data.請求先コード = hdData.請求先コード;
-                data.請求先枝番 = hdData.請求先枝番;
-                data.入金日 = hdData.入金日;
-                data.回数 = hdData.回数;
-                data.請求年月日 = hdData.請求年月日;
-                data.集計開始日 = hdData.集計開始日;
-                data.集計最終日 = hdData.集計最終日;
-                data.前月残高 = hdData.前月残高;
-                data.入金額 = hdData.入金額;
-                data.繰越残高 = hdData.繰越残高;
-                data.売上額 = hdData.売上額;
-                data.値引額 = hdData.値引額;
-                data.非税売上額 = hdData.非税売上額;
-                data.通常税率対象金額 = hdData.通常税率対象金額;
-                data.軽減税率対象金額 = hdData.軽減税率対象金額;
-                data.通常税率消費税 = hdData.通常税率消費税;
-                data.軽減税率消費税 = hdData.軽減税率消費税;
-                data.消費税 = hdData.消費税;
-                data.当月請求額 = hdData.当月請求額;
-                data.登録者 = hdData.登録者;
-                data.登録日時 = DateTime.Now;
-
-                context.S06_URIHD.ApplyChanges(data);
-
-            }
-            else
-            {
-                // 登録済みなので更新をおこなう
-                urihd.請求年月日 = hdData.請求年月日;
-                urihd.集計開始日 = hdData.集計開始日;
-                urihd.集計最終日 = hdData.集計最終日;
-                urihd.前月残高 = hdData.前月残高;
-                urihd.入金額 = hdData.入金額;
-                urihd.繰越残高 = hdData.繰越残高;
-                urihd.売上額 = hdData.売上額;
-                urihd.値引額 = hdData.値引額;
-                urihd.非税売上額 = hdData.非税売上額;
-                urihd.通常税率対象金額 = hdData.通常税率対象金額;
-                urihd.軽減税率対象金額 = hdData.軽減税率対象金額;
-                urihd.通常税率消費税 = hdData.通常税率消費税;
-                urihd.軽減税率消費税 = hdData.軽減税率消費税;
-                urihd.消費税 = hdData.消費税;
-                urihd.当月請求額 = hdData.当月請求額;
-                urihd.登録者 = hdData.登録者;
-                urihd.登録日時 = DateTime.Now;
-
-                urihd.AcceptChanges();
-
+                // 登録済データを削除
+                foreach (S06_URIHD dtl in urihd)
+                {
+                    context.S06_URIHD.DeleteObject(dtl);
+                }
+                context.SaveChanges();
             }
 
+            S06_URIHD data = new S06_URIHD();
+
+            data.自社コード = hdData.自社コード;
+            data.請求年月 = hdData.請求年月;
+            data.請求締日 = hdData.請求締日;
+            data.請求先コード = hdData.請求先コード;
+            data.請求先枝番 = hdData.請求先枝番;
+            data.入金日 = hdData.入金日;
+            data.回数 = hdData.回数;
+            data.請求年月日 = hdData.請求年月日;
+            data.集計開始日 = hdData.集計開始日;
+            data.集計最終日 = hdData.集計最終日;
+            data.前月残高 = hdData.前月残高;
+            data.入金額 = hdData.入金額;
+            data.繰越残高 = hdData.繰越残高;
+            data.売上額 = hdData.売上額;
+            data.値引額 = hdData.値引額;
+            data.非税売上額 = hdData.非税売上額;
+            data.通常税率対象金額 = hdData.通常税率対象金額;
+            data.軽減税率対象金額 = hdData.軽減税率対象金額;
+            data.通常税率消費税 = hdData.通常税率消費税;
+            data.軽減税率消費税 = hdData.軽減税率消費税;
+            data.消費税 = hdData.消費税;
+            data.当月請求額 = hdData.当月請求額;
+            data.登録者 = hdData.登録者;
+            data.登録日時 = DateTime.Now;
+
+            context.S06_URIHD.ApplyChanges(data);
+            // No.298 Mod End
         }
         #endregion
 
