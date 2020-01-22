@@ -72,6 +72,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string PARAMS_NAME_COMPANY  = "自社コード";
         private const string PARAMS_NAME_CUSTOMER_CODE  = "得意先コード";
         private const string PARAMS_NAME_CUSTOMER_EDA  = "得意先枝番";
+        private const string PARAMS_NAME_OUTPUT = "出力項目";
 
         // 帳票パラメータ名
         private const string REPORT_PARAM_NAME_PRIOD_START = "期間開始";
@@ -88,6 +89,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string REPORT_PARAM_NAME_YEAR_MONTH10 = "集計年月１０";
         private const string REPORT_PARAM_NAME_YEAR_MONTH11 = "集計年月１１";
         private const string REPORT_PARAM_NAME_YEAR_MONTH12 = "集計年月１２";
+        private const string REPORT_PARAM_OUTPUT_MONEY = "(金額)";
+        private const string REPORT_PARAM_OUTPUT_NUM = "(数量)";
 
         #endregion
 
@@ -414,7 +417,7 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add(PARAMS_NAME_COMPANY, MyCompany.Text1);
             paramDic.Add(PARAMS_NAME_CUSTOMER_CODE, Customer.Text1);
             paramDic.Add(PARAMS_NAME_CUSTOMER_EDA, Customer.Text2);
-
+            paramDic.Add(PARAMS_NAME_OUTPUT, radioSelect.Text);
         }
         #endregion
 
@@ -536,6 +539,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH10, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH10]},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH11, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH11]},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH12]},
+                    new FwRepPreview.ReportParameter(){ PNAME = PARAMS_NAME_OUTPUT, VALUE = radioSelect.Text == "1" ? REPORT_PARAM_OUTPUT_MONEY : REPORT_PARAM_OUTPUT_NUM},
                     #endregion
                 };
 
@@ -551,8 +555,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 base.SetFreeForInput();
 
                 view.PrinterName = frmcfg.PrinterName;
-                view.IsCustomMode = true;
-                setPrinterInfoA3(view);
                 view.ShowPreview();
                 view.Close();
                 frmcfg.PrinterName = view.PrinterName;
@@ -568,20 +570,7 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region A3用紙設定
-        /// <summary>
-        /// A3用紙設定をプリンタに設定する
-        /// </summary>
-        /// <param name="view"></param>
-        private void setPrinterInfoA3(FwRepPreview.ReportPreview view)
-        {
-            view.PrinterInfo = new FwRepPreview.FwPrinterInfo();
-            view.PrinterInfo.paperSizeName = "A3";
-            view.PrinterInfo.landscape = true;
-            view.PrinterInfo.margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
-
-        }
-        #endregion
+        
 
         #region 列名編集
         /// <summary>

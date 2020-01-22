@@ -783,8 +783,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 base.SetFreeForInput();
 
                 view.PrinterName = frmcfg.PrinterName;
-                //view.IsCustomMode = true;
-                //setPrinterInfoA3(view);
+                
                 view.ShowPreview();
                 view.Close();
                 frmcfg.PrinterName = view.PrinterName;
@@ -799,22 +798,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
         #endregion
-
-        #region A3用紙設定
-        /// <summary>
-        /// A3用紙設定をプリンタに設定する
-        /// </summary>
-        /// <param name="view"></param>
-        private void setPrinterInfoA3(FwRepPreview.ReportPreview view)
-        {
-            view.PrinterInfo = new FwRepPreview.FwPrinterInfo();
-            view.PrinterInfo.paperSizeName = "A3";
-            view.PrinterInfo.landscape = true;
-            view.PrinterInfo.margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
-
-        }
-        #endregion
-
+                
         #endregion
 
         #region Window_Closed
