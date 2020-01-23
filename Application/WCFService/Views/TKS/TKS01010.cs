@@ -492,8 +492,10 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="targetStDate">集計開始日</param>
         /// <param name="targetEdDate">集計終了日</param>
         /// <param name="paymentDate">入金日</param>
+        ///　<param name="isIncludeTday">Ｔ締日フラグ true:Ｔ締日(0)を含む/false:Ｔ締日(0)を含まない</param>
         /// <param name="userId">ログインユーザID</param>
-        public S01_SEIHD getHeaderInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        public S01_SEIHD getHeaderInfo(TRAC3Entities context, int company, int yearMonth, int code, int eda, int cnt, DateTime? targetStDate,
+                                        DateTime? targetEdDate, DateTime paymentDate, int userId, bool isIncludeTday = false)
         {
             int 得意先入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
 
@@ -686,7 +688,7 @@ namespace KyoeiSystem.Application.WCFService
                         .FirstOrDefault();
 
                 // 都度請求の場合は空ヘッダデータを作成しない
-                if (urdata.請求締日 == 0)
+                if (urdata.請求締日 == 0 && !isIncludeTday)         // No.305 Mod
                     return null;
 
             }
@@ -713,8 +715,10 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="targetStDate">集計開始日</param>
         /// <param name="targetEdDate">集計終了日</param>
         /// <param name="paymentDate">入金日</param>
+        ///　<param name="isIncludeTday">Ｔ締日フラグ true:Ｔ締日(0)を含む/false:Ｔ締日(0)を含まない</param>
         /// <param name="userId">ログインユーザID</param>
-        public S01_SEIHD getHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate, DateTime? targetEdDate, DateTime paymentDate, int userId)
+        public S01_SEIHD getHeaderInfoHan(TRAC3Entities context, int myCompanyCode, int yearMonth, int salesCompanyCode, int cnt, DateTime? targetStDate,
+                                            DateTime? targetEdDate, DateTime paymentDate, int userId, bool isIncludeTday = false)
         {
             int 販社入金日 = int.Parse(paymentDate.ToString("yyyyMMdd"));
 
@@ -917,7 +921,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // No-100 Add Start
                 // 都度請求の場合は空ヘッダデータを作成しない
-                if (urdata.請求締日 == 0)
+                if (urdata.請求締日 == 0 && !isIncludeTday)         // No.305 Mod
                     return null;
                 // No-100 Add End
             }

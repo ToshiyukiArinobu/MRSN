@@ -244,7 +244,7 @@ namespace KyoeiSystem.Application.WCFService
             TKS01010 tks01010 = new TKS01010();
 
             // ヘッダ情報取得
-            S01_SEIHD urdata = tks01010.getHeaderInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId);
+            S01_SEIHD urdata = tks01010.getHeaderInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId, true);  // No.305 Mod
 
             // 都度請求の場合はヘッダデータを作成しない
             if (urdata == null)
@@ -285,7 +285,7 @@ namespace KyoeiSystem.Application.WCFService
             TKS01010 tks01010 = new TKS01010();
             
             // ヘッダ情報取得(販社)
-            S01_SEIHD urdata = tks01010.getHeaderInfoHan(context, myCompanyCode, yearMonth, salesCompanyCode, cnt, targetStDate, targetEdDate, paymentDate, userId);
+            S01_SEIHD urdata = tks01010.getHeaderInfoHan(context, myCompanyCode, yearMonth, salesCompanyCode, cnt, targetStDate, targetEdDate, paymentDate, userId, true);  // No.305 Mod
 
             // 都度請求の場合はヘッダデータを作成しない
             if (urdata == null)
