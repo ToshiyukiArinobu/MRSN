@@ -81,6 +81,7 @@ namespace KyoeiSystem.Application.WCFService
             int company = int.Parse(paramDic["自社コード"]),
                 year = int.Parse(paramDic["処理年度"].Replace("/", ""));
             string seriesCode = paramDic["シリーズコード"];
+            string output = paramDic["出力項目"];
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -180,7 +181,7 @@ namespace KyoeiSystem.Application.WCFService
                                     自社品番 = s.Key.自社品番,
                                     自社品名 = s.Key.自社品名,
                                     色名称 = s.Key.色名称,
-                                    金額 = s.Sum(m => m.SD.金額)
+                                    金額 = output == "1" ? s.Sum(m => m.SD.金額) : (int)s.Sum(m => m.SD.数量),
                                 });
                         // No.227,228 Mod End
                         #endregion
