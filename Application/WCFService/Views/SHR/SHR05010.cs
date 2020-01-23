@@ -369,7 +369,7 @@ namespace KyoeiSystem.Application.WCFService
                 foreach (var hdRow in hdList)
                 {
                     // -- 締日の範囲日付を算出
-                    DateTime startDate = AppCommon.GetClosingDate(year, month, hdRow.支払締日, -1);
+                    DateTime startDate = AppCommon.GetClosingDate(year, month, hdRow.支払締日, -1).AddDays(1);  // No.306 Mod
                     DateTime endDate = AppCommon.GetClosingDate(year, month, hdRow.支払締日, 0);//.AddDays(-1);
 
                     var nykhd =
