@@ -188,16 +188,25 @@ namespace KyoeiSystem.Application.Windows.Views
                 base.SetFreeForInput();
 
                 var data = message.GetResultData();
-                DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
+                DataSet dataset = (data is DataSet) ? (data as DataSet) : null;
+                if (dataset == null)
+                {
+                    this.ErrorMessage = "対象データが有りません。";
+                    return;
+                }
+
+                DataTable tbl = dataset.Tables["PRINT_DATA"];
+                DataTable jistbl = dataset.Tables["M70"];
+                int i決算月 = (int)jistbl.Rows[0]["決算月"]; 
 
                 switch (message.GetMessageName())
                 {
                     case GET_CSV_LIST:
-                        outputCsv(tbl);
+                        outputCsv(tbl, i決算月);
                         break;
 
                     case GET_PRINT_LIST:
-                        outputReport(tbl);
+                        outputReport(tbl, i決算月);
                         break;
 
                     default:
@@ -425,12 +434,12 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 帳票パラメータを取得する
         /// </summary>
         /// <returns></returns>
-        private Dictionary<string, DateTime> getPrintParameter()
+        private Dictionary<string, DateTime> getPrintParameter(int pi決算月)
         {
             // 期間を算出
             int year = int.Parse(paramDic["処理年度"].Replace("/", "")),
-                pMonth = DEFAULT_SETTLEMENT_MONTH,
-                pYear = pMonth < 4 ? year + 1 : year,
+                pMonth = pi決算月,//DEFAULT_SETTLEMENT_MONTH,
+                pYear = year + 1,
                 mCounter = 1;
 
             DateTime lastMonth = new DateTime(pYear, pMonth, 1);
@@ -451,7 +460,7 @@ namespace KyoeiSystem.Application.Windows.Views
             printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH10, targetMonth.AddMonths(mCounter++));
             printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH11, targetMonth.AddMonths(mCounter++));
             printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH12, lastMonth);
-            
+
             return printDic;
 
         }
@@ -462,7 +471,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// ＣＳＶデータの出力をおこなう
         /// </summary>
         /// <param name="tbl"></param>
-        private void outputCsv(DataTable tbl)
+        private void outputCsv(DataTable tbl, int pi決算月)
         {
             if (tbl == null || tbl.Rows.Count == 0)
             {
@@ -471,7 +480,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // CSV出力用に列名を編集する
-            changeColumnsName(tbl);
+            changeColumnsName(tbl, pi決算月);
 
             WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
             // はじめに表示されるフォルダを指定する
@@ -499,7 +508,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 帳票の印刷処理をおこなう
         /// </summary>
         /// <param name="tbl"></param>
-        private void outputReport(DataTable tbl)
+        private void outputReport(DataTable tbl,int pi決算月)
         {
             PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
             if (ret.Result == false)
@@ -519,7 +528,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetBusyForInput();
 
-                Dictionary<string, DateTime> printParams = getPrintParameter();
+                Dictionary<string, DateTime> printParams = getPrintParameter(pi決算月);
 
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
@@ -570,7 +579,7 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        
+
 
         #region 列名編集
         /// <summary>
@@ -578,9 +587,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="tbl"></param>
         /// <returns></returns>
-        private void changeColumnsName(DataTable tbl)
+        private void changeColumnsName(DataTable tbl, int pi決算月)
         {
-            Dictionary<string, DateTime> printParams = getPrintParameter();
+            Dictionary<string, DateTime> printParams = getPrintParameter(pi決算月);
 
             foreach (DataColumn col in tbl.Columns)
             {

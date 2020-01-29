@@ -454,7 +454,7 @@ namespace KyoeiSystem.Application.WCFService
                     // 作成区分(売上ありのみ)が指定されている場合
                     if (createType == (int)作成区分.売上ありのみ)
                     {
-                        if (printData.集計合計額 > 0)
+                        if (printData.集計合計額 != 0)
                         {
                             resultList.Add(printData);
                         }
@@ -530,7 +530,7 @@ namespace KyoeiSystem.Application.WCFService
                             集計売上額２９ = (long)Math.Floor((double)s.Sum(m => m.RET.集計売上額２９) / 1000),
                             集計売上額３０ = (long)Math.Floor((double)s.Sum(m => m.RET.集計売上額３０) / 1000),
                             集計売上額３１ = (long)Math.Floor((double)s.Sum(m => m.RET.集計売上額３１) / 1000),
-                            集計合計額 = s.Sum(m => m.RET.集計合計額),
+                            集計合計額 = (long)Math.Floor((double)s.Sum(m => m.RET.集計合計額) / 1000),
                             構成比率 = s.Key.担当者別集計合計額 != 0 ?
                                 Math.Round(
                                     Decimal.Divide(s.Sum(m => m.RET.集計合計額), s.Key.担当者別集計合計額) * 100, 2) : 0

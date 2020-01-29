@@ -68,15 +68,20 @@ namespace KyoeiSystem.Application.WCFService
         #endregion
 
         #endregion
-
+        public class BSK03010_DATASET
+        {
+            public List<BSK03010_PrintMember> PRINT_DATA = null;
+            public List<M70_JIS> M70 = null;
+        }
         #region 集計データ取得
         /// <summary>
         /// 集計情報を取得する
         /// </summary>
         /// <param name="paramDic"></param>
         /// <returns></returns>
-        public List<BSK03010_PrintMember> GetPrintList(Dictionary<string, string> paramDic)
+        public BSK03010_DATASET GetPrintList(Dictionary<string, string> paramDic)
         {
+            BSK03010_DATASET result = new BSK03010_DATASET();
             // パラメータ展開
             int company = int.Parse(paramDic["自社コード"]),
                 year = int.Parse(paramDic["処理年度"].Replace("/", ""));
@@ -88,10 +93,11 @@ namespace KyoeiSystem.Application.WCFService
                 context.Connection.Open();
 
                 // 自社情報を取得
-                var jis =
+                result.M70 =
                     context.M70_JIS
-                        .Where(w => w.自社コード == company)
-                        .FirstOrDefault();
+                        .Where(w => w.自社コード == company).ToList();
+
+                var jis = result.M70.FirstOrDefault();
 
                 // 対象として取引区分：得意先、相殺を対象とする
                 List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺 };
@@ -110,7 +116,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     // 決算月・請求締日から売上集計期間を算出する
                     int pMonth = jis.決算月 ?? CommonConstants.DEFAULT_SETTLEMENT_MONTH,
-                        pYear = pMonth < 4 ? year + 1 : year;
+                        pYear = year + 1;
 
                     DateTime lastMonth = new DateTime(pYear, pMonth, 1);
                     DateTime targetMonth = lastMonth.AddMonths(-11);
@@ -368,7 +374,8 @@ namespace KyoeiSystem.Application.WCFService
                         })
                         .ToList();
 
-                return resultList;
+                result.PRINT_DATA = resultList;
+                return result;
 
             }
 

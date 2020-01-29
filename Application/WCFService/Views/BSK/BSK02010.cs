@@ -59,14 +59,22 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        public class BSK02010_DATASET
+        {
+            public List<BSK02010_PrintMember> PRINT_DATA = null;
+            public List<M70_JIS> M70 = null;
+        }
+
         #region 集計データ取得
         /// <summary>
         /// 集計情報を取得する
         /// </summary>
         /// <param name="paramDic"></param>
         /// <returns></returns>
-        public List<BSK02010_PrintMember> GetPrintList(Dictionary<string, string> paramDic)
+        public BSK02010_DATASET GetPrintList(Dictionary<string, string> paramDic)
         {
+            BSK02010_DATASET result = new BSK02010_DATASET();
+
             // パラメータ展開
             int company = int.Parse(paramDic["自社コード"]),
                 year = int.Parse(paramDic["処理年度"].Replace("/", ""));
@@ -76,10 +84,11 @@ namespace KyoeiSystem.Application.WCFService
                 context.Connection.Open();
 
                 // 自社情報を取得
-                var jis =
+                result.M70 =
                     context.M70_JIS
-                        .Where(w => w.自社コード == company)
-                        .FirstOrDefault();
+                        .Where(w => w.自社コード == company).ToList();
+
+                var jis = result.M70.FirstOrDefault();
 
                 // 対象として取引区分：得意先、相殺を対象とする
                 List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺 };
@@ -98,7 +107,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     // 決算月・請求締日から売上集計期間を算出する
                     int pMonth = jis.決算月 ?? CommonConstants.DEFAULT_SETTLEMENT_MONTH,
-                        pYear = pMonth < 4 ? year + 1 : year;
+                        pYear = year + 1;
 
                     DateTime lastMonth = new DateTime(pYear, pMonth, 1);
                     DateTime targetMonth = lastMonth.AddMonths(-11);
@@ -234,7 +243,10 @@ namespace KyoeiSystem.Application.WCFService
                 decimal total = Convert.ToDecimal(resultList.Sum(t => t.集計合計額));
                 // 合計がゼロとなるデータは出力対象外とする
                 if (total == 0)
-                    return new List<BSK02010_PrintMember>();
+                {
+                    result.PRINT_DATA = new List<BSK02010_PrintMember>();
+                    return result;
+                }
 
                 resultList =
                     resultList.AsEnumerable()
@@ -267,8 +279,9 @@ namespace KyoeiSystem.Application.WCFService
 
                 #endregion
 
+                result.PRINT_DATA = resultList;
 
-                return resultList;
+                return result;
 
             }
 

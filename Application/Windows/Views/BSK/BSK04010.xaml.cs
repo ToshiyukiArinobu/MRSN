@@ -567,15 +567,15 @@ namespace KyoeiSystem.Application.Windows.Views
 
             int val = 1;
             int n決算月 = Int32.TryParse(jisList[0].決算月.ToString(), out val) ? val : DEFAULT_SETTLEMENT_MONTH;
-            
-            int n処理年度 = get処理年度(DateTime.Now.Year, DateTime.Now.Month, n決算月);
+
+            int n処理年度 = int.Parse(this.txt処理年度.Text);
 
             // 処理年度の設定
-            this.txt処理年度.Text = n処理年度.ToString();
+            //this.txt処理年度.Text = n処理年度.ToString();
 
 
             // 決算月から作成期間を算出する
-            int nYear = n決算月 < 4 ? n処理年度 + 1 : n処理年度;
+            int nYear = n処理年度 + 1 ;
             DateTime dEndMonth = new DateTime(nYear, n決算月, 1);
             DateTime dStartMonth = dEndMonth.AddMonths(-11);
             this.txt作成期間.Text1 = dStartMonth.ToString("yyyy/MM");
@@ -829,6 +829,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             txt担当者.Text1 = string.Empty;
             txt担当者.Text2 = string.Empty;
+            get決算月();
         }
         #endregion
 
@@ -860,6 +861,16 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
         #endregion
+
+        /// <summary>
+        /// 年度変更時も処理年月取得
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt処理年度_LostFocus(object sender, RoutedEventArgs e)
+        {
+            get決算月();
+        }
 
         #endregion
     }

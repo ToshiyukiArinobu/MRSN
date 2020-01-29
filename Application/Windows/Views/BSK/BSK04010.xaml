@@ -141,7 +141,7 @@
                       Name="txt処理年度" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
                       ValidationType="Integer" ImeType="Off"
                       Label_Context="処理年度" Label_Width="100"
-                      cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center"
+                      cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center" LostFocus="txt処理年度_LostFocus"
                     />
                     <TextBlock Text="年度" Grid.Row="0" VerticalAlignment="Center" Margin="150,5,0,0" />
 
