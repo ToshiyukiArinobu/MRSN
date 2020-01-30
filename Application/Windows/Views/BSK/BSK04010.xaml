@@ -14,7 +14,7 @@
     MinHeight="300" MinWidth="1024"
     Height="768" Width="1024"
     WindowStartupLocation="CenterOwner" Language="ja-JP"
-    Title="得意先・商品別売上統計表(BSK04010)" ResizeMode="NoResize"
+    Title="担当者・得意先別売上統計表(BSK04010)" ResizeMode="NoResize"
     Loaded="Window_Loaded" Closed="Window_Closed">
 
   <vm:WindowReportBase.Resources>
@@ -186,7 +186,7 @@
                         <uc:M01_TOK_TextBox
                           x:Name="txt得意先" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False"
                           DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
-                          Label_Context="得意先指定" Label_Width="100"
+                          Label_Context="得意先指定" Label_Width="105"
                           Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                           Label1Text="－" Label2Text=""
                           Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
@@ -214,7 +214,7 @@
                         <!-- 作成期間 -->
                         <ctls:UcLabelTwinTextBox
                           Name="txt作成期間" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"
-                          Label_Context="作成期間(月別用)" Label_Width="100"
+                          Label_Context="作成期間(月別用)" Label_Width="105"
                           Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                           Text1Width="80" Text1MaxLength="10" Text1ValidationType="DateYYYYMM"  Text1Mask="yyyy/MM" Text1VerticalContentAlignment="Center"
                           Label1Text="～"
