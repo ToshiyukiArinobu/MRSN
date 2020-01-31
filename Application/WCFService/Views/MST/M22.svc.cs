@@ -292,7 +292,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="p自社コード"></param>
         /// <param name="pOptiion"></param>
         /// <returns>M22_SOUK_Member</returns>
-        public List<M22_SOUK_Search_Member> GetSearchData(int? p倉庫コード, int? p自社コード, int pOptiion)
+        public List<M22_SOUK_Search_Member> GetSearchData(int? p倉庫コード, int? p自社コード, int? p会社コード, int pOptiion)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -328,6 +328,10 @@ namespace KyoeiSystem.Application.WCFService
                     ret = ret.Where(c => c.寄託会社コード == p自社コード.ToString());
                 }
 
+                if (p会社コード != null)
+                {
+                    ret = ret.Where(c => c.場所会社コード == p会社コード.ToString());
+                }
 
                 return ret.ToList();
             }
