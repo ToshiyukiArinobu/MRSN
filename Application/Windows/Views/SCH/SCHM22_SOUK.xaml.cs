@@ -98,6 +98,10 @@ namespace KyoeiSystem.Application.Windows.Views
             set { this._確定コード = value; NotifyPropertyChanged(); }
         }
 
+
+        public int? 会社コード = (int?)null;
+
+
         public string SelectedCodeList = string.Empty;
         private bool _multiSelect = false;
         public bool MultiSelect
@@ -144,6 +148,14 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 //画面の左端に表示させる
                 this.Left = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Size.Width - this.Width;
+            }
+
+            if (TwinTextBox.LinkItem != null)
+            {
+                // 会社コードとして値を設定
+                int val = -1;
+                if (int.TryParse(TwinTextBox.LinkItem.ToString(), out val))
+                    会社コード = val;
             }
 
             #region 設定項目取得
@@ -221,10 +233,16 @@ namespace KyoeiSystem.Application.Windows.Views
 
             try
             {
-                int? p自社コード = ccfg.自社販社区分 == (int)自社販社区分.自社 ? (int?)null : ccfg.自社コード;
+                int? p自社コード = (int?)null;
+
+                if (TwinTextBox.LinkItem == null)
+                {
+                    p自社コード = ccfg.自社販社区分 == (int)自社販社区分.自社 ? (int?)null : ccfg.自社コード;
+                }
+                
 
                 //倉庫マスタ
-                base.SendRequest(new CommunicationObject(MessageType.RequestData, TabelNm, new object[] { searchId, p自社コード, 0 }));
+                base.SendRequest(new CommunicationObject(MessageType.RequestData, TabelNm, new object[] { searchId, p自社コード, 会社コード, 0 }));
             }
             catch (Exception)
             {
@@ -411,6 +429,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 this.TwinTextBox.Text1 = SearchResult.Rows[SearchGrid.SelectedIndex][COLUM_ID].ToString();
                 this.TwinTextBox.Text2 = SearchResult.Rows[SearchGrid.SelectedIndex][COLUM_NAME].ToString();
+                this.TwinTextBox.Text3 = SearchResult.Rows[SearchGrid.SelectedIndex]["略称名"].ToString();
 
             }
             catch (Exception)

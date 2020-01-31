@@ -404,6 +404,21 @@ namespace KyoeiSystem.Application.WCFService
                         }
                         break;
 
+                    case "M22_SOUK_BASYOC":    // 場所別倉庫
+                        if (int.TryParse(pコード, out Code))
+                        {
+                            if (LinkItem != null) int.TryParse(LinkItem.ToString(), out LinkCode);
+
+                            Member =
+                                context.M22_SOUK.Where(x => x.削除日時 == null && x.倉庫コード == Code && x.場所会社コード == (LinkItem == null ? x.場所会社コード : LinkCode))
+                                       .Select(s => new CodeTextString_Member
+                                       {
+                                           コード = SqlFunctions.StringConvert((double)s.倉庫コード),
+                                           名称 = s.倉庫略称名
+                                       }).ToList();
+                        }
+                        break;
+
                     case "M70_JIS":     //自社マスタ
                         if (int.TryParse(pコード, out Code))
                         {
