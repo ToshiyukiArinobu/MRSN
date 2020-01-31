@@ -223,6 +223,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
             else
             {
+                AppCommon.SetutpComboboxList(this.cmbDealings, false);
                 // デフォルト値(全取引先)を設定
                 this.cmbDealings.SelectedValue = 9;
             }

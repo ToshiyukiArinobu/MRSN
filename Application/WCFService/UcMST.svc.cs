@@ -1114,6 +1114,10 @@ namespace KyoeiSystem.Application.WCFService
                                 y => y.色コード,
                                 (c, d) => new { c, d })
                             .SelectMany(z => z.d.DefaultIfEmpty(), (x, y) => new { x.c.HIN, x.c.TOKHIN, IRO = y })
+                            .GroupJoin(context.M02_BAIKA.Where(w => w.削除日時 == null && w.得意先コード == iCode && w.枝番 == iEda), x => x.HIN.品番コード, y => y.品番コード, (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(), (m, n) => new { m.x.HIN, m.x.TOKHIN, m.x.IRO, TBAI = n })
+                            .GroupJoin(context.M03_BAIKA.Where(w => w.削除日時 == null && w.仕入先コード == iCode && w.枝番 == iEda), x => x.HIN.品番コード, y => y.品番コード, (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(), (o, p) => new { o.x.HIN, o.x.TOKHIN, o.x.IRO, o.x.TBAI, SBAI = p })
                             .Select(x => new M10_TOKHIN_Extension
                             {
                                 品番コード = x.HIN.品番コード,
@@ -1130,10 +1134,10 @@ namespace KyoeiSystem.Application.WCFService
                                 品群 = x.HIN.品群,
                                 自社品名 = x.HIN.自社品名,
                                 単位 = x.HIN.単位,
-                                原価 = x.HIN.原価,
+                                原価 = x.SBAI.単価 != null ? x.SBAI.単価 : x.HIN.原価,
                                 加工原価 = x.HIN.加工原価,
                                 卸値 = x.HIN.卸値,
-                                売価 = x.HIN.売価,
+                                売価 = x.TBAI != null ? x.TBAI.単価 : x.HIN.売価,
                                 掛率 = x.HIN.掛率,
                                 消費税区分 = x.HIN.消費税区分,
                                 備考１ = x.HIN.備考１,
@@ -1160,6 +1164,10 @@ namespace KyoeiSystem.Application.WCFService
                                         y => y.色コード,
                                         (c, d) => new { c, d })
                                     .SelectMany(z => z.d.DefaultIfEmpty(), (x, y) => new { x.c.HIN, x.c.TOKHIN, IRO = y })
+                                    .GroupJoin(context.M02_BAIKA.Where(w => w.削除日時 == null && w.得意先コード == iCode && w.枝番 == iEda), x => x.HIN.品番コード, y => y.品番コード, (x, y) => new { x, y })
+                                    .SelectMany(x => x.y.DefaultIfEmpty(), (m, n) => new { m.x.HIN, m.x.TOKHIN, m.x.IRO, TBAI = n })
+                                    .GroupJoin(context.M03_BAIKA.Where(w => w.削除日時 == null && w.仕入先コード == iCode && w.枝番 == iEda), x => x.HIN.品番コード, y => y.品番コード, (x, y) => new { x, y })
+                                    .SelectMany(x => x.y.DefaultIfEmpty(), (o, p) => new { o.x.HIN, o.x.TOKHIN, o.x.IRO, o.x.TBAI, SBAI = p })
                                     .Select(x => new M10_TOKHIN_Extension
                                     {
                                         品番コード = x.HIN.品番コード,
@@ -1176,10 +1184,10 @@ namespace KyoeiSystem.Application.WCFService
                                         品群 = x.HIN.品群,
                                         自社品名 = x.HIN.自社品名,
                                         単位 = x.HIN.単位,
-                                        原価 = x.HIN.原価,
+                                        原価 = x.SBAI.単価 != null ? x.SBAI.単価 : x.HIN.原価,
                                         加工原価 = x.HIN.加工原価,
                                         卸値 = x.HIN.卸値,
-                                        売価 = x.HIN.売価,
+                                        売価 = x.TBAI != null ? x.TBAI.単価 : x.HIN.売価,
                                         掛率 = x.HIN.掛率,
                                         消費税区分 = x.HIN.消費税区分,
                                         備考１ = x.HIN.備考１,
