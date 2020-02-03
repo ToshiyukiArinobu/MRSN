@@ -301,7 +301,7 @@ namespace KyoeiSystem.Application.WCFService
                                 得意先コード = s.Key.得意先コード,
                                 得意先名 = s.Key.得意先名,
                                 品番コード = s.Key.品番コード,
-                                品番名称 = s.Key.品番名称,
+                                品番名称 = string.Format("{0} {1}", s.Key.品番コード, s.Key.品番名称),   // No.321 Mod
                                 色名称 = s.Key.色名称,
                                 集計売上額０１ = s.Sum(m => m.集計売上額０１),
                                 集計売上額０２ = s.Sum(m => m.集計売上額０２),
