@@ -19,7 +19,7 @@
     <Shape ID="DesignTable:取引先別相殺管理表" ZOrder="6" X="1363" Y="418" Height="30" Width="177" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="0" OldDataTableHeight="279" SplitterPosition="26" />
     <Shape ID="DesignTable:SHR05010_支払一覧表" ZOrder="5" X="26" Y="25" Height="238" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="234" />
     <Shape ID="DesignTable:SHR06010_出金予定表" ZOrder="4" X="222" Y="25" Height="296" Width="211" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="292" />
-    <Shape ID="DesignTable:SHR05010_支払明細表" ZOrder="3" X="455" Y="21" Height="277" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="273" />
+    <Shape ID="DesignTable:SHR05010_支払明細表" ZOrder="3" X="455" Y="21" Height="257" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:SHR01010_仕入データ一覧表" ZOrder="2" X="680" Y="23" Height="283" Width="242" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="26" SplitterPosition="279" />
     <Shape ID="DesignTable:SHR02010_買掛台帳" ZOrder="1" X="964" Y="25" Height="257" Width="172" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
   </Shapes>

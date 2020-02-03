@@ -8058,6 +8058,8 @@ namespace Hakobou.Data.SHR {
             
             private global::System.Data.DataColumn column支払締日;
             
+            private global::System.Data.DataColumn column仕入日;
+            
             private global::System.Data.DataColumn column品番コード;
             
             private global::System.Data.DataColumn column自社品番;
@@ -8130,6 +8132,14 @@ namespace Hakobou.Data.SHR {
             public global::System.Data.DataColumn 支払締日Column {
                 get {
                     return this.column支払締日;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 仕入日Column {
+                get {
+                    return this.column仕入日;
                 }
             }
             
@@ -8242,12 +8252,13 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SHR05010_支払明細表Row AddSHR05010_支払明細表Row(string 仕入先コード, string 仕入先名称, string 支払締日, long 品番コード, string 自社品番, string 色コード, string 品名, decimal 単価, decimal 数量, long 金額, long 通常消費税, long 軽減消費税) {
+            public SHR05010_支払明細表Row AddSHR05010_支払明細表Row(string 仕入先コード, string 仕入先名称, string 支払締日, string 仕入日, long 品番コード, string 自社品番, string 色コード, string 品名, decimal 単価, decimal 数量, long 金額, long 通常消費税, long 軽減消費税) {
                 SHR05010_支払明細表Row rowSHR05010_支払明細表Row = ((SHR05010_支払明細表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         仕入先コード,
                         仕入先名称,
                         支払締日,
+                        仕入日,
                         品番コード,
                         自社品番,
                         色コード,
@@ -8282,6 +8293,7 @@ namespace Hakobou.Data.SHR {
                 this.column仕入先コード = base.Columns["仕入先コード"];
                 this.column仕入先名称 = base.Columns["仕入先名称"];
                 this.column支払締日 = base.Columns["支払締日"];
+                this.column仕入日 = base.Columns["仕入日"];
                 this.column品番コード = base.Columns["品番コード"];
                 this.column自社品番 = base.Columns["自社品番"];
                 this.column色コード = base.Columns["色コード"];
@@ -8302,6 +8314,8 @@ namespace Hakobou.Data.SHR {
                 base.Columns.Add(this.column仕入先名称);
                 this.column支払締日 = new global::System.Data.DataColumn("支払締日", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column支払締日);
+                this.column仕入日 = new global::System.Data.DataColumn("仕入日", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column仕入日);
                 this.column品番コード = new global::System.Data.DataColumn("品番コード", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column品番コード);
                 this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
@@ -17432,6 +17446,22 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 仕入日 {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR05010_支払明細表.仕入日Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払明細表\' にある列 \'仕入日\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払明細表.仕入日Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public long 品番コード {
                 get {
                     if (this.Is品番コードNull()) {
@@ -17608,6 +17638,18 @@ namespace Hakobou.Data.SHR {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set支払締日Null() {
                 this[this.tableSHR05010_支払明細表.支払締日Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is仕入日Null() {
+                return this.IsNull(this.tableSHR05010_支払明細表.仕入日Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set仕入日Null() {
+                this[this.tableSHR05010_支払明細表.仕入日Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -58,6 +58,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 仕入先コード { get; set; }
             public string 仕入先名称 { get; set; }
             public string 支払締日 { get; set; }
+            public string 仕入日 { get; set; }
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
             public string 色コード { get; set; }
@@ -162,6 +163,7 @@ namespace KyoeiSystem.Application.WCFService
                         s.支払締日,
                         s.支払先コード,
                         s.支払先枝番,
+                        s.仕入日,              // No.326 Add
                         s.品番コード,
                         s.単価,
                         s.数量,
@@ -203,8 +205,9 @@ namespace KyoeiSystem.Application.WCFService
                     自社コード = x.NHD.自社コード,        // No.277,288 Add
                     自社名 = x.NHD.自社名,                // No.277,288 Add
                     仕入先コード = string.Format("{0:D4} - {1:D2}", x.NHD.支払先コード, x.NHD.支払先枝番),      // No-150, No.223 Mod
-                    仕入先名称 = x.TOK == null ? "" : x.TOK.得意先名１,
+                    仕入先名称 = x.TOK == null ? "" : x.TOK.略称名,   // No.326 Mod
                     支払締日 = x.NHD.支払締日.ToString(),
+                    仕入日 = x.NDTL.仕入日.ToString(),                // No.326 Mod
                     品番コード = x.NDTL.品番コード,
                     自社品番 = x.HIN.自社品番,
                     色コード = x.HIN.自社色,
