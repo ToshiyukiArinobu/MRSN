@@ -52,21 +52,8 @@ namespace KyoeiSystem.Application.WCFService
         /// <summary>
         /// TKS03010_請求一覧表帳票項目定義
         /// </summary>
-        private class PrintMember
+        private class PrintMember : IEquatable<PrintMember>
         {
-            //20190906 add-s CB 軽減税率対応
-            //public string 得意先コード { get; set; }
-            //public string 得意先名称 { get; set; }
-            //public string 請求締日 { get; set; }
-            //public long 前月残高 { get; set; }
-            //public long 入金金額 { get; set; }
-            //public long 売上額 { get; set; }
-            //public long 値引額 { get; set; }
-            //public long 非課税売上額 { get; set; }
-            //public long 消費税 { get; set; }
-            //public long 当月請求額 { get; set; }
-            //public long 件数 { get; set; }
-
             public int 自社コード { get; set; }          // No.227,228 Add
             public string 自社名 { get; set; }           // No.227,228 Add
             public string 得意先コード { get; set; }
@@ -77,16 +64,88 @@ namespace KyoeiSystem.Application.WCFService
             public long 入金金額 { get; set; }
             public long 繰越残高 { get; set; }
             public long 売上額 { get; set; }
-            //public long 値引額 { get; set; }
             public long 非課税売上額 { get; set; }
             public long 消費税 { get; set; }
             public long 当月請求額 { get; set; }
             public long 件数 { get; set; }
 
-            public string 集計最終日 { get; set; }
-            //20190906 add-e CB 軽減税率対応
-        }
+            #region 実装無しでDistinctが動作しているためコメントアウト
+            // Object.Equals(Object)をオーバーライドする場合、オーバーライドされた実装はこのクラス内の静的なEquals(System.Object, System.Object)メソッドの呼び出しでも使用されるらしい。  
+            // 通常、ここは実装しなくても目的の動作はする。  
+            //public override bool Equals(object obj)
+            //{
+            //    // objがnullか、型が違う時は、等価でない  
+            //    if (obj == null || this.GetType() != obj.GetType())
+            //    {
+            //        return false;
+            //    }
 
+
+            //    // IDとNameで比較する。  
+            //    PrintMember src = (PrintMember)obj;
+            //    return (this.自社コード == src.自社コード
+            //        && this.自社名 == src.自社名
+            //        && this.得意先コード == src.得意先コード
+            //        && this.得意先名称 == src.得意先名称
+            //        && this.回数 == src.回数
+            //        && this.請求締日 == src.請求締日
+            //        && this.前月残高 == src.前月残高
+            //        && this.入金金額 == src.入金金額
+            //        && this.繰越残高 == src.繰越残高
+            //        && this.売上額 == src.売上額
+            //        && this.非課税売上額 == src.非課税売上額
+            //        && this.消費税 == src.消費税
+            //        && this.当月請求額 == src.当月請求額
+            //        && this.件数 == src.件数);
+            //}
+            #endregion
+
+            // GetHashCodeをオーバーライドして実装する。  
+            public override int GetHashCode()
+            {
+                // IDとNameのXORを返す。  
+                return this.自社コード.GetHashCode()
+                        ^ this.自社名.GetHashCode()
+                         ^ this.得意先コード.GetHashCode()
+                         ^ this.得意先名称.GetHashCode()
+                         ^ this.回数.GetHashCode()
+                         ^ this.請求締日.GetHashCode()
+                         ^ this.前月残高.GetHashCode()
+                         ^ this.入金金額.GetHashCode()
+                         ^ this.繰越残高.GetHashCode()
+                         ^ this.売上額.GetHashCode()
+                         ^ this.非課税売上額.GetHashCode()
+                         ^ this.消費税.GetHashCode()
+                         ^ this.当月請求額.GetHashCode()
+                         ^ this.件数.GetHashCode();
+            }
+
+            // IEquatable<T>.Equalsを実装する。  
+            bool IEquatable<PrintMember>.Equals(PrintMember other)
+            {
+                if (other == null)
+                {
+                    return false;
+                }
+
+
+                // IDとNameで比較する。  
+                return (this.自社コード == other.自社コード
+                    && this.自社名 == other.自社名
+                    && this.得意先コード == other.得意先コード
+                    && this.得意先名称 == other.得意先名称
+                    && this.回数 == other.回数
+                    && this.請求締日 == other.請求締日
+                    && this.前月残高 == other.前月残高
+                    && this.入金金額 == other.入金金額
+                    && this.繰越残高 == other.繰越残高
+                    && this.売上額 == other.売上額
+                    && this.非課税売上額 == other.非課税売上額
+                    && this.消費税 == other.消費税
+                    && this.当月請求額 == other.当月請求額
+                    && this.件数 == other.件数);
+            }
+        }
         #endregion
 
         #region CSV出力データ取得
@@ -155,13 +214,10 @@ namespace KyoeiSystem.Application.WCFService
             // ベースとなる請求ヘッダ情報を取得
             List<S01_SEIHD_Data> hdList = getHeaderData(condition);     // No.227,228 Mod
             var hdData =
-                //20190906 mod-s CB 軽減税率対応 集計最終日をキーに含める
-                //hdList.GroupBy(g => new { g.自社コード, g.請求年月, g.請求締日, g.請求先コード, g.請求先枝番 })
                 hdList.GroupBy(g => new { g.自社コード, g.自社名
                     , g.請求年月, g.請求締日
                     , g.請求先コード, g.請求先枝番
                     , g.入金日, g.集計最終日 })
-                //20190906 mod-s CB 軽減税率対応
                     .Select(s => new
                     {
                         s.Key.自社コード,
@@ -170,23 +226,12 @@ namespace KyoeiSystem.Application.WCFService
                         s.Key.請求締日,
                         s.Key.請求先コード,
                         s.Key.請求先枝番,
-                        //20190906 add-s CB 軽減税率対応
                         s.Key.入金日,
                         s.Key.集計最終日,
                         回数 = s.Sum(m => m.回数),
-                        //20190906 add-e CB 軽減税率対応
-
                         前月残高 = s.Sum(m => m.前月残高),
-
-                        //20190906 del-s CB 軽減税率対応
-                        //値引額 = s.Sum(m => m.値引額),
-                        //20190906 del-e CB 軽減税率対応
-
-                        //20190906 add-s CB 軽減税率対応
                         入金金額 = s.Sum(m => m.入金額),
                         繰越残高 = s.Sum(m => m.繰越残高),
-                        //20190906 add-e CB 軽減税率対応
-
                         売上額 = s.Sum(m => m.売上額),
                         非税売上額 = s.Sum(m => m.非税売上額),
                         消費税 = s.Sum(m => m.消費税),
@@ -194,21 +239,8 @@ namespace KyoeiSystem.Application.WCFService
 
                     });
 
-            // 詳細データ件数を取得
+            // 請求明細データ件数を取得
             List<S01_SEIDTL> dtlList = getDetailData(condition);
-
-            //20190911 mod-s CB 軽減税率対応
-            //var dtlData =
-            //    dtlList.GroupBy(g => new { g.自社コード, g.請求年月, g.請求締日, g.請求先コード, g.請求先枝番 })
-            //        .Select(s => new
-            //        {
-            //            s.Key.自社コード,
-            //            s.Key.請求年月,
-            //            s.Key.請求締日,
-            //            s.Key.請求先コード,
-            //            s.Key.請求先枝番,
-            //            件数 = s.Count()
-            //        });
 
             var dtlData =
                 dtlList.GroupBy(g => new { g.自社コード
@@ -230,7 +262,6 @@ namespace KyoeiSystem.Application.WCFService
                 s.Key.回数,
                 件数 = s.Count()
             });
-            //20190911 mod-e CB 軽減税率対応
 
             // 入金データを取得(金額集計済)
             List<T11_NYKN_Data> nykList = getNyukinData(createYearMonth / 100, createYearMonth % 100, hdList);
@@ -241,12 +272,8 @@ namespace KyoeiSystem.Application.WCFService
             // 取得データを統合して結果リストを作成
             var resultList =
                 hdData.GroupJoin(dtlData,
-                    //20190911 mod-s CB 軽減税率対応
-                    //x => new { x.自社コード, x.請求先コード, x.請求先枝番 },
-                    //y => new { y.自社コード, y.請求先コード, y.請求先枝番 },
                     x => new { x.自社コード, x.請求先コード, x.請求先枝番, x.請求年月, x.請求締日, x.入金日, x.回数 },
                     y => new { y.自社コード, y.請求先コード, y.請求先枝番, y.請求年月, y.請求締日, y.入金日, y.回数 },
-                    //20190911 mod-e CB 軽減税率対応
                     (x, y) => new { x, y })
                 .SelectMany(x => x.y.DefaultIfEmpty(),
                     (a, b) => new { NHD = a.x, NDTL = b })
@@ -271,43 +298,25 @@ namespace KyoeiSystem.Application.WCFService
                     自社名 = x.NHD.自社名,                    // No.227,228 Add
                     得意先コード = string.Format("{0:D4} - {1:D2}", x.NHD.請求先コード, x.NHD.請求先枝番),  // No.132-1,No.223 Mod
                     得意先名称 = x.TOK == null ? "" : x.TOK.略称名,  // No.229 Mod
-
-                    //20190906 add-s CB 軽減税率対応
                     回数 = x.NHD.回数,
-                    //20190906 add-e CB 軽減税率対応
-
-                    //20190906 mod-s CB 軽減税率対応
-                    //請求締日 = x.NHD.請求締日.ToString(),
-                    請求締日 = x.NHD.集計最終日.ToString(),
-                    //20190906 mod-e CB 軽減税率対応
-
+                    請求締日 = x.NHD.集計最終日.ToString(),      //都度請求のデータがあるため集計最終日
                     前月残高 = x.NHD.前月残高,
-
-                    //20190906 mod-s CB 軽減税率対応
-                    //入金金額 = x.NYKN == null ? 0 : x.NYKN.入金額,
                     入金金額 = x.NHD.入金金額,
-                    //20190906 mod-e CB 軽減税率対応
-
-                    //20190906 add-s CB 軽減税率対応
                     繰越残高 = x.NHD.繰越残高,
-                    //20190906 add-e CB 軽減税率対応
-
                     売上額 = x.NHD.売上額,
-
-                    //20190906 del-s CB 軽減税率対応
-                    //値引額 = x.NHD.値引額,
-                    //20190906 del-e CB 軽減税率対応
-
                     非課税売上額 = x.NHD.非税売上額,
                     消費税 = x.NHD.消費税,
                     当月請求額 = x.NHD.当月請求額,
                     件数 = x.NDTL == null ? 0 : x.NDTL.件数
+                }).Distinct();
 
-                });
-
-            //20190906 add-s CB 軽減税率対応 集計最終日　MM/DD 成型
             DataTable dt;
             dt = KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList.ToList());
+
+            //DataView dv = new DataView(dt);
+
+            //DataTable retdt = dv.ToTable(true,"自社コード", "自社名", "得意先コード", "得意先名称", "回数", "請求締日", "前月残高", "入金金額", "繰越残高", "売上額", "非課税売上額", "消費税", "当月請求額", "件数");
+
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -320,13 +329,7 @@ namespace KyoeiSystem.Application.WCFService
                     dr["請求締日"] =  sMMdd;
                 }
             }
-            //20190906 add-e CB 軽減税率対応 集計最終日　MM/DD 成形
-
-            //20190906 mod-s CB 軽減税率対応 
-//            return KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList.ToList());
             return dt;
-            //20190906 mod-e CB 軽減税率対応 
-
         }
         #endregion
 
