@@ -29,6 +29,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 得意先コード { get; set; }
             public string 得意先名 { get; set; }
             public int 品番コード { get; set; }
+            public string 自社品番 { get; set; }        // No.321 Add
             public string 品番名称 { get; set; }
             public string 色名称 { get; set; }
             public long 集計売上額０１ { get; set; }
@@ -216,6 +217,7 @@ namespace KyoeiSystem.Application.WCFService
                             print.得意先コード = string.Format("{0:D4} - {1:D2}", tokRow.取引先コード, tokRow.枝番);     // No.132-2 Mod
                             print.得意先名 = tokRow.略称名;  // No.229 Mod
                             print.品番コード = tallyList[i].品番コード;
+                            print.自社品番 = tallyList[i].自社品番;     // No.321 Add
                             print.品番名称 = tallyList[i].自社品名;
                             print.色名称 = tallyList[i].色名称;
                             print.集計合計額 += tallyList[i].金額;
@@ -293,7 +295,7 @@ namespace KyoeiSystem.Application.WCFService
 
                     printList =
                         printList.AsEnumerable()
-                            .GroupBy(g => new { g.自社コード, g.自社名, g.得意先コード, g.得意先名, g.品番コード, g.品番名称, g.色名称 }) // No.227,228 Mod
+                            .GroupBy(g => new { g.自社コード, g.自社名, g.得意先コード, g.得意先名, g.品番コード, g.品番名称, g.自社品番, g.色名称 }) // No.227,228 Mod No.321
                             .Select(s => new BSK01010_PrintMember
                             {
                                 自社コード = s.Key.自社コード,        // No.227,228 Mod
@@ -301,7 +303,8 @@ namespace KyoeiSystem.Application.WCFService
                                 得意先コード = s.Key.得意先コード,
                                 得意先名 = s.Key.得意先名,
                                 品番コード = s.Key.品番コード,
-                                品番名称 = string.Format("{0} {1}", s.Key.品番コード, s.Key.品番名称),   // No.321 Mod
+                                自社品番 = s.Key.自社品番,            // No.321 Add   
+                                品番名称 = string.Format("{0} {1}", s.Key.自社品番, s.Key.品番名称),   // No.321 Mod
                                 色名称 = s.Key.色名称,
                                 集計売上額０１ = s.Sum(m => m.集計売上額０１),
                                 集計売上額０２ = s.Sum(m => m.集計売上額０２),

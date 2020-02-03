@@ -28,6 +28,7 @@ namespace KyoeiSystem.Application.WCFService
             public string シリーズコード { get; set; }
             public string シリーズ名 { get; set; }
             public int 品番コード { get; set; }
+            public string 自社品番 { get; set; }     // No.322 Add
             public string 品番名称 { get; set; }
             public string 色名称 { get; set; }
             public long 集計売上額０１ { get; set; }
@@ -222,6 +223,7 @@ namespace KyoeiSystem.Application.WCFService
                             print.シリーズコード = tallyList[i].シリーズ;
                             print.シリーズ名 = tallyList[i].シリーズ名;
                             print.品番コード = tallyList[i].品番コード;
+                            print.自社品番 = tallyList[i].自社品番;           // No.322 Add
                             print.品番名称 = tallyList[i].自社品名;
                             print.色名称 = tallyList[i].色名称;
                             print.集計合計額 += tallyList[i].金額;
@@ -294,7 +296,7 @@ namespace KyoeiSystem.Application.WCFService
                     #region データリストを集計して最終データを作成
                     printList =
                         printList.AsEnumerable()
-                            .GroupBy(g => new { 自社コード = g.自社コード, 自社名 = g.自社名, シリーズコード = g.シリーズコード, シリーズ名 = g.シリーズ名, g.品番コード, g.品番名称, g.色名称 })   // No.227,228 Mod
+                            .GroupBy(g => new { 自社コード = g.自社コード, 自社名 = g.自社名, シリーズコード = g.シリーズコード, シリーズ名 = g.シリーズ名, g.品番コード, g.自社品番, g.品番名称, g.色名称 })   // No.227,228 Mod No.322
                             .Select(s => new BSK03010_PrintMember
                             {
                                 自社コード = s.Key.自社コード,    // No.227,228 Add
@@ -302,6 +304,7 @@ namespace KyoeiSystem.Application.WCFService
                                 シリーズコード = s.Key.シリーズコード,
                                 シリーズ名 = s.Key.シリーズ名,
                                 品番コード = s.Key.品番コード,
+                                自社品番 = s.Key.自社品番,        // No.322 Add
                                 品番名称 = s.Key.品番名称,
                                 色名称 = s.Key.色名称,
                                 集計売上額０１ = s.Sum(m => m.集計売上額０１),
@@ -337,6 +340,7 @@ namespace KyoeiSystem.Application.WCFService
                             シリーズコード = g.シリーズコード,
                             シリーズ名 = g.シリーズ名,
                             品番コード = g.品番コード,
+                            自社品番 = g.自社品番,            // No.322 Add
                             品番名称 = g.品番名称,
                             色名称 = g.色名称
                         })
@@ -347,7 +351,8 @@ namespace KyoeiSystem.Application.WCFService
                             シリーズコード = s.Key.シリーズコード,
                             シリーズ名 = s.Key.シリーズ名,
                             品番コード = s.Key.品番コード,
-                            品番名称 = string.Format("{0} {1}", s.Key.品番コード, s.Key.品番名称),   // No.322 Mod
+                            自社品番 = s.Key.自社品番,                // No.322 Add
+                            品番名称 = string.Format("{0} {1}", s.Key.自社品番, s.Key.品番名称),   // No.322 Mod
                             色名称 = s.Key.色名称,
                             集計売上額０１ = s.Sum(m => m.集計売上額０１),
                             集計売上額０２ = s.Sum(m => m.集計売上額０２),
