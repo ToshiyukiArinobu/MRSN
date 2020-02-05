@@ -151,6 +151,11 @@ namespace KyoeiSystem.Framework.Windows.ViewBase
 						this.MaintenanceModeForeground = new SolidColorBrush(Colors.White);
 						this.MaintenanceModeBackground = new SolidColorBrush(Colors.CornflowerBlue);
 					}
+                    else if (value.Contains("Šm"))
+                    {
+                        this.MaintenanceModeForeground = new SolidColorBrush(Colors.White);
+                        this.MaintenanceModeBackground = new SolidColorBrush(Colors.Orange);
+                    }
 					else
 					{
 						this.MaintenanceModeForeground = new SolidColorBrush(Colors.Black);

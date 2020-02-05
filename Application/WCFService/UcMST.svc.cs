@@ -100,6 +100,66 @@ namespace KyoeiSystem.Application.WCFService
 
         }
 
+        #region 比較用クラス
+        /// <summary>
+        /// M01_TOK_SearchMember_Comparer <M01_TOK_SearchMember>比較用クラス
+        /// </summary>
+        public class M01_TOK_SearchMember_Comparer : IEqualityComparer<M01_TOK_SearchMember>
+        {
+            public bool Equals(M01_TOK_SearchMember compA, M01_TOK_SearchMember compB)
+            {
+                if (compA.コード == compB.コード &&
+                    compA.名称 == compB.名称 &&
+                    compA.Ｓ支払消費税区分 == compB.Ｓ支払消費税区分 &&
+                    compA.Ｓ税区分ID == compB.Ｓ税区分ID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+
+            public int GetHashCode(M01_TOK_SearchMember mem)
+            {
+                return 0;
+            }
+
+        }
+
+        /// <summary>
+        /// TwinCodeText_Member_Comparer <TwinCodeText_Member>比較用クラス
+        /// </summary>
+        public class TwinCodeText_Member_Comparer : IEqualityComparer<TwinCodeText_Member>
+        {
+            public bool Equals(TwinCodeText_Member compA, TwinCodeText_Member compB)
+            {
+                if (compA.コード == compB.コード &&
+                    compA.サブコード == compB.サブコード &&
+                    compA.名称 == compB.名称 &&
+                    compA.Ｓ支払消費税区分 == compB.Ｓ支払消費税区分 &&
+                    compA.Ｓ税区分ID == compB.Ｓ税区分ID &&
+                    compA.Ｔ消費税区分 == compB.Ｔ消費税区分 &&
+                    compA.Ｔ税区分ID == compB.Ｔ税区分ID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+
+            public int GetHashCode(TwinCodeText_Member mem)
+            {
+                return 0;
+            }
+        }
+        #endregion
+
         public List<Combobox_List_Member> GetComboboxList(string param)
         {
             List<Combobox_List_Member> result = new List<Combobox_List_Member>();
@@ -210,7 +270,14 @@ namespace KyoeiSystem.Application.WCFService
             return result;
         }
 
-
+        #region List<CodeTextString_Member> ユーザコントロールのマスタ参照
+        /// <summary>
+        /// ユーザコントロールのマスタ参照
+        /// </summary>
+        /// <param name="pコード"></param>
+        /// <param name="DataAccessName"></param>
+        /// <param name="LinkItem"></param>
+        /// <returns></returns>
         public List<CodeTextString_Member> GetDataMasterTable(string pコード, string DataAccessName, object LinkItem)
         {
             List<CodeTextString_Member> Member = new List<CodeTextString_Member>();
@@ -689,7 +756,17 @@ namespace KyoeiSystem.Application.WCFService
             return Member;
 
         }
+        #endregion
 
+        #region List<TwinCodeText_Member> ユーザコントロールのマスタ参照(Text1、2参照) 
+        /// <summary>
+        /// List<TwinCodeText_Member>ユーザコントロールのマスタ参照(Text1、2参照)
+        /// </summary>
+        /// <param name="DataAccessName"></param>
+        /// <param name="pコード"></param>
+        /// <param name="pサブコード"></param>
+        /// <param name="LinkItem"></param>
+        /// <returns></returns>
         public List<TwinCodeText_Member> GetTwinDataMasterTable(string DataAccessName, string pコード, string pサブコード, object LinkItem)
         {
             List<TwinCodeText_Member> Member = new List<TwinCodeText_Member>();
@@ -707,6 +784,8 @@ namespace KyoeiSystem.Application.WCFService
                         // No-268 Mod Start
                         string s取引区分;
                         int マルセン追加フラグ = 0;
+                        string 対象日付 = null;
+                        int 自社コード = 0;
 
                         LinkItem = LinkItem == null ? "" : LinkItem;
 
@@ -717,6 +796,11 @@ namespace KyoeiSystem.Application.WCFService
                             string[] linkItemList = (LinkItem as string[]);
                             s取引区分 = linkItemList[0].ToString();
                             マルセン追加フラグ = int.TryParse(linkItemList[1].ToString(), out linkAddVal) ? linkAddVal : 0;
+                            if (linkItemList.Length > 3)
+                            {
+                                対象日付 = linkItemList[2].ToString();
+                                自社コード = int.TryParse(linkItemList[3].ToString(), out linkAddVal) ? linkAddVal : 0;
+                            }
                         }
                         else
                         {
@@ -744,6 +828,7 @@ namespace KyoeiSystem.Application.WCFService
 
                             query = query.Where(c => targetKbn.Contains(c.取引区分));
 
+                            #region マルセン追加フラグ
                             if (マルセン追加フラグ == 1)
                             {
                                 // No-268 Mod Start
@@ -760,6 +845,68 @@ namespace KyoeiSystem.Application.WCFService
                                      );
                                 // No-268 Mod End
                             }
+                            #endregion
+
+                            #region 対象日付
+                            IQueryable<TwinCodeText_Member> exceptFix = null;
+                            if (!string.IsNullOrEmpty(対象日付))
+                            {
+                                DateTime dt;
+                                DateTime targetDay = DateTime.TryParse(対象日付, out dt) ? dt : DateTime.Now;
+
+                                // 確定情報を取得
+                                var fixData =
+                                context.S11_KAKUTEI
+                                    .Where(w =>
+                                        w.自社コード == 自社コード &&
+                                        w.確定日 >= targetDay);
+                                fixData = fixData.Where(w => targetKbn.Contains(w.取引区分));
+
+                                // 請求確定データ
+                                var seiTok =
+                                    fixData.Where(w => w.確定区分 == (int)CommonConstants.確定区分.請求)
+                                        .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                                            x => new { jis = x.自社コード, tKbn = x.取引区分, closeDay = x.締日 },
+                                            y => new { jis = y.担当会社コード, tKbn = y.取引区分, closeDay = (int)y.Ｔ締日 },
+                                            (x, y) => new { x, y })
+                                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                                            (a, b) => new { FIX = a.x, TOK = b })
+                                        .Select(s => new TwinCodeText_Member
+                                        {
+                                            コード = SqlFunctions.StringConvert((double)s.TOK.取引先コード),
+                                            サブコード = SqlFunctions.StringConvert((double)s.TOK.枝番),
+                                            名称 = s.TOK.略称名 == null ? s.TOK.得意先名１ : s.TOK.略称名,
+                                            Ｓ税区分ID = s.TOK.Ｓ税区分ID,
+                                            Ｓ支払消費税区分 = s.TOK.Ｓ支払消費税区分,
+                                            Ｔ税区分ID = s.TOK.Ｔ税区分ID,
+                                            Ｔ消費税区分 = s.TOK.Ｔ消費税区分
+                                        });
+
+                                // 支払確定データ
+                                var shrTok =
+                                    fixData.Where(w => w.確定区分 == (int)CommonConstants.確定区分.支払)
+                                        .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                                            x => new { jis = x.自社コード, tKbn = x.取引区分, closeDay = x.締日 },
+                                            y => new { jis = y.担当会社コード, tKbn = y.取引区分, closeDay = (int)y.Ｓ締日 },
+                                            (x, y) => new { x, y })
+                                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                                            (a, b) => new { FIX = a.x, TOK = b })
+                                        .Select(s => new TwinCodeText_Member
+                                        {
+                                            コード = SqlFunctions.StringConvert((double)s.TOK.取引先コード),
+                                            サブコード = SqlFunctions.StringConvert((double)s.TOK.枝番),
+                                            名称 = s.TOK.略称名 == null ? s.TOK.得意先名１ : s.TOK.略称名,
+                                            Ｓ税区分ID = s.TOK.Ｓ税区分ID,
+                                            Ｓ支払消費税区分 = s.TOK.Ｓ支払消費税区分,
+                                            Ｔ税区分ID = s.TOK.Ｔ税区分ID,
+                                            Ｔ消費税区分 = s.TOK.Ｔ消費税区分
+                                        });
+
+                                // 請求データと支払データを結合
+                                exceptFix = seiTok.Union(shrTok);
+                                
+                            }
+                            #endregion
 
                             // コードで絞込
                             Member =
@@ -776,7 +923,15 @@ namespace KyoeiSystem.Application.WCFService
                                        Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
                                        Ｔ税区分ID = s.Ｔ税区分ID,
                                        Ｔ消費税区分 = s.Ｔ消費税区分
-                                   }).ToList();
+                                   })                                   
+                                   .ToList();
+
+                            // 確定データを除く
+                            TwinCodeText_Member_Comparer compare = new TwinCodeText_Member_Comparer();
+                            if (exceptFix != null)
+                            {
+                                Member = Member.Except(exceptFix, compare).ToList();
+                            }
                         }
                         // No-268 Mod End
                         #endregion
@@ -790,9 +945,11 @@ namespace KyoeiSystem.Application.WCFService
             return Member;
 
         }
+        #endregion
 
+        #region List<M01_TOK_SearchMember> 取引先マスタ参照用
         /// <summary>
-        /// 取引先マスタ参照用
+        /// List<M01_TOK_SearchMember> 取引先マスタ参照用
         /// </summary>
         /// <param name="DataAccessName">データアクセス名</param>
         /// <param name="取引先コード">取引先コード</param>
@@ -805,6 +962,10 @@ namespace KyoeiSystem.Application.WCFService
             int Code = -1;
             int Eda = -1;
             List<int> tradingKbnList = new List<int>();
+            string s取引区分;
+            int マルセン追加フラグ = 0;
+            string 対象日付 = null;
+            int 自社コード = 0;
 
             // 取引先コードの型変換：失敗時は処理終了
             if (!int.TryParse(取引先コード, out Code))
@@ -814,16 +975,31 @@ namespace KyoeiSystem.Application.WCFService
             if (!int.TryParse(枝番, out Eda))
                 return Member;
 
-            // LinkItemを取引区分(複数指定可)として処理
-            if (LinkItem != null)
+            if (LinkItem is string[])
             {
-                foreach (string str in LinkItem.ToString().Split(','))
+                int linkAddVal = 0;
+                string[] linkItemList = (LinkItem as string[]);
+                s取引区分 = linkItemList[0].ToString();
+                マルセン追加フラグ = int.TryParse(linkItemList[1].ToString(), out linkAddVal) ? linkAddVal : 0;
+                if (linkItemList.Length > 3)
                 {
-                    int val = -1;
-                    if (int.TryParse(str, out val))
-                        tradingKbnList.Add(val);
+                    対象日付 = linkItemList[2].ToString();
+                    自社コード = int.TryParse(linkItemList[3].ToString(), out linkAddVal) ? linkAddVal : 0;
                 }
+            }
+            else
+            {
+                s取引区分 = LinkItem.ToString();
+            }
 
+            // LinkItemを取引区分(複数指定可)として処理
+            foreach (string str in s取引区分.Split(','))
+            {
+                int val = -1;
+                if (int.TryParse(str, out val))
+                {
+                    tradingKbnList.Add(val);
+                }
             }
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
@@ -833,33 +1009,101 @@ namespace KyoeiSystem.Application.WCFService
                 switch (DataAccessName)
                 {
                     case "M01_TOK":
-                        if (tradingKbnList.Count == 0)
+                        var query = context.M01_TOK.Where(x => x.削除日時 == null);
+
+                        // 取引先区分
+                        query = query.Where(c => tradingKbnList.Contains(c.取引区分));
+
+                        #region マルセン追加フラグ
+                        if (マルセン追加フラグ == 1)
                         {
-                            Member =
-                                context.M01_TOK.Where(x => x.削除日時 == null && x.取引先コード == Code && x.枝番 == Eda)
-                                    .Select(s => new M01_TOK_SearchMember
-                                        {
-                                            コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                            名称 = s.略称名 == null ? s.得意先名１ : s.略称名,   // No.199 Mod
-                                            Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
-                                            Ｓ税区分ID = s.Ｓ税区分ID
-                                        }).ToList();
+                            // 自社(マルセン)を仕入先として追加する
+                            var jisTok = context.M70_JIS
+                                        .Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.自社)
+                                        .FirstOrDefault();
+
+                            query = query.Union(
+                                    context.M01_TOK.Where(w =>
+                                    w.削除日時 == null &&
+                                    w.取引先コード == jisTok.取引先コード &&
+                                    w.枝番 == jisTok.枝番)
+                                 );
                         }
-                        else
+                        #endregion
+
+                        #region 対象日付
+                        IQueryable<M01_TOK_SearchMember> exceptFix = null;
+                        if (!string.IsNullOrEmpty(対象日付))
                         {
-                            Member =
-                                context.M01_TOK.Where(x => x.削除日時 == null
-                                                            && x.取引先コード == Code
-                                                            && x.枝番 == Eda
-                                                            && tradingKbnList.Contains(x.取引区分))
+                            DateTime dt;
+                            DateTime targetDay = DateTime.TryParse(対象日付, out dt) ? dt : DateTime.Now;
+
+                            // 確定情報を取得
+                            var fixData =
+                                context.S11_KAKUTEI
+                                    .Where(w =>
+                                        w.自社コード == 自社コード &&
+                                        w.確定日 >= targetDay);
+                            fixData = fixData.Where(w => tradingKbnList.Contains(w.取引区分));
+                                
+                            // 請求確定データ
+                            var seiTok =
+                                fixData.Where(w => w.確定区分 == (int)CommonConstants.確定区分.請求)
+                                    .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                                        x => new { jis = x.自社コード, tKbn = x.取引区分, closeDay = x.締日 },
+                                        y => new { jis = y.担当会社コード, tKbn = y.取引区分, closeDay = (int)y.Ｔ締日 },
+                                        (x, y) => new { x, y })
+                                    .SelectMany(z => z.y.DefaultIfEmpty(),
+                                        (a, b) => new { FIX = a.x, TOK = b })
                                     .Select(s => new M01_TOK_SearchMember
-                                        {
-                                            コード = SqlFunctions.StringConvert((double)s.取引先コード),
-                                            名称 = s.略称名 == null ? s.得意先名１ : s.略称名,   // No.199 Mod
-                                            Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
-                                            Ｓ税区分ID = s.Ｓ税区分ID
-                                        }).ToList();
+                                    {
+                                        コード = SqlFunctions.StringConvert((double)s.TOK.取引先コード),
+                                        名称 = s.TOK.略称名 == null ? s.TOK.得意先名１ : s.TOK.略称名,
+                                        Ｓ支払消費税区分 = s.TOK.Ｓ支払消費税区分,
+                                        Ｓ税区分ID = s.TOK.Ｓ税区分ID
+                                    });
+
+                            // 支払確定データ
+                            var shrTok =
+                                fixData.Where(w => w.確定区分 == (int)CommonConstants.確定区分.支払)
+                                    .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                                        x => new { jis = x.自社コード, tKbn = x.取引区分, closeDay = x.締日 },
+                                        y => new { jis = y.担当会社コード, tKbn = y.取引区分, closeDay = (int)y.Ｓ締日 },
+                                        (x, y) => new { x, y })
+                                    .SelectMany(z => z.y.DefaultIfEmpty(),
+                                        (a, b) => new { FIX = a.x, TOK = b })
+                                    .Select(s => new M01_TOK_SearchMember
+                                    {
+                                        コード = SqlFunctions.StringConvert((double)s.TOK.取引先コード),
+                                        名称 = s.TOK.略称名 == null ? s.TOK.得意先名１ : s.TOK.略称名,
+                                        Ｓ支払消費税区分 = s.TOK.Ｓ支払消費税区分,
+                                        Ｓ税区分ID = s.TOK.Ｓ税区分ID
+                                    });
+
+                            // 請求データと支払データを結合
+                            exceptFix = seiTok.Union(shrTok);
                         }
+                        #endregion
+
+                        Member =
+                                query.Where(x =>
+                                    x.取引先コード == Code &&
+                                    x.枝番 == Eda)
+                                    .Select(s => new M01_TOK_SearchMember
+                                    {
+                                        コード = SqlFunctions.StringConvert((double)s.取引先コード),
+                                        名称 = s.略称名 == null ? s.得意先名１ : s.略称名,
+                                        Ｓ支払消費税区分 = s.Ｓ支払消費税区分,
+                                        Ｓ税区分ID = s.Ｓ税区分ID
+                                    }).ToList();
+
+                        // 確定データを除く
+                        M01_TOK_SearchMember_Comparer compare = new M01_TOK_SearchMember_Comparer();
+                        if (exceptFix != null)
+                        {
+                            Member = Member.Except(exceptFix, compare).ToList();
+                        }
+                        
                         break;
 
                     case "M01_TOK_ALL":
@@ -884,6 +1128,7 @@ namespace KyoeiSystem.Application.WCFService
             return Member;
 
         }
+        #endregion
 
         /// <summary>
         /// 郵便番号から住所を検索する

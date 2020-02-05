@@ -9,6 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Linq;
+using KyoeiSystem.Application.Windows.Views.Common;
+using System.Windows.Media;
+
 
 namespace KyoeiSystem.Application.Windows.Views
 {
@@ -46,15 +49,17 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private enum GridColumnsMapping : int
         {
-            区分 = 0,
-            取引区分 = 1,
-            ID = 2,
-            得意先名 = 3,
-            締日 = 4,
-            確定日 = 5,
-            確定ボタン = 6,
-            取引区分ID = 7,
-            確定区分 = 8
+            自社名 = 0,
+            区分 = 1,
+            取引区分 = 2,
+            ID = 3,
+            得意先名 = 4,
+            締日 = 5,
+            確定日 = 6,
+            確定ボタン = 7,
+            取引区分ID = 8,
+            確定区分 = 9,
+            自社コード = 10
         }
 
         #endregion
@@ -63,6 +68,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         private const string GET_LIST_SEARCH = "TKS90010_GetDataList";
         private const string UPDATE = "TKS90010_Update";
+        private const string DEFAULT_YYMMDD = "0001/01/01";
 
         #endregion
 
@@ -79,6 +85,12 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        #endregion
+
+        #region << クラス変数定義 >>
+        /// <summary>グリッドコントローラ</summary>
+        GcSpreadGridController gridCtl;
+        
         #endregion
 
         #region 明細クリック時のアクション定義
@@ -122,11 +134,12 @@ namespace KyoeiSystem.Application.Windows.Views
                     var closeDay = row.Cells[(int)GridColumnsMapping.締日].Value;
                     var toriKbn = row.Cells[(int)GridColumnsMapping.取引区分ID].Value;
                     var toriKbnNm = row.Cells[(int)GridColumnsMapping.取引区分].Value;
+                    var jisCode = row.Cells[(int)GridColumnsMapping.自社コード].Value;
                     
                     // エラー情報をクリア
                     row.ValidationErrors.Clear();
 
-                    if (fixDay == null)
+                    if (fixDay == null || fixDay.ToString() == DEFAULT_YYMMDD)
                     {
                         msg = "確定日を設定してください。";
                         CellPosition cp = new CellPosition(rowNo, GridColumnsMapping.確定日.GetHashCode());
@@ -149,7 +162,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
 
                     // 登録処理を呼び出し
-                    parent.UpdateTableData(fixKbn.ToString(), closeDay.ToString(), fixDay.ToString(), toriKbn.ToString());
+                    parent.UpdateTableData(jisCode.ToString(), fixKbn.ToString(), closeDay.ToString(), fixDay.ToString(), toriKbn.ToString());
 
                 }
             }
@@ -222,8 +235,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
             base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
 
-            ButtonCellType btn = this.sp確定データ一覧.Columns[6].CellType as ButtonCellType;
+            ButtonCellType btn = this.sp確定データ一覧.Columns[(int)GridColumnsMapping.確定ボタン].CellType as ButtonCellType;
             btn.Command = new cmd確定日登録(sp確定データ一覧);
+            gridCtl = new GcSpreadGridController(sp確定データ一覧);
 
             this.MyCompany.Text1 = ccfg.自社コード.ToString();
             this.MyCompany.Text1IsReadOnly = (ccfg.自社販社区分 != 0);
@@ -268,7 +282,10 @@ namespace KyoeiSystem.Application.Windows.Views
 
                                 // 確定ボタンを連結
                                 var spanList = tbl.AsEnumerable()
-                                                .GroupBy(g => g.Field<int>("締日"))
+                                                .GroupBy(g => new{ 
+                                                                    jis = g.Field<string>("自社名"),
+                                                                    kbn = g.Field<int>("確定区分"),
+                                                                    closeDay = g.Field<int>("締日")})
                                                 .Select(s => new
                                                 {
                                                     day = s.Key,
@@ -276,13 +293,35 @@ namespace KyoeiSystem.Application.Windows.Views
                                                 }).ToList();
                                 
                                 int rowNo = 0;
+                                int cnt = 1;
+                                var brsh = new BrushConverter();
+
                                 foreach (var span in spanList)
                                 {
+                                    // 連結
                                     sp確定データ一覧[rowNo, (int)GridColumnsMapping.締日].RowSpan = span.count;
                                     sp確定データ一覧[rowNo, (int)GridColumnsMapping.確定日].RowSpan = span.count;
                                     sp確定データ一覧[rowNo, (int)GridColumnsMapping.確定ボタン].RowSpan = span.count;
+                                    
+                                    // 背景色設定
+                                    if (cnt % 2 == 0)
+                                    {
+                                        sp確定データ一覧[rowNo, (int)GridColumnsMapping.締日].Background = new SolidColorBrush(Colors.White);
+                                        sp確定データ一覧[rowNo, (int)GridColumnsMapping.確定日].Background = new SolidColorBrush(Colors.White);
+                                        sp確定データ一覧[rowNo, (int)GridColumnsMapping.確定ボタン].Background = new SolidColorBrush(Colors.White);
+                                    }
+                                    else
+                                    {
+                                        sp確定データ一覧[rowNo, (int)GridColumnsMapping.締日].Background = (SolidColorBrush)brsh.ConvertFrom("#FFEAF1DD");
+                                        sp確定データ一覧[rowNo, (int)GridColumnsMapping.確定日].Background = (SolidColorBrush)brsh.ConvertFrom("#FFEAF1DD"); ;
+                                        sp確定データ一覧[rowNo, (int)GridColumnsMapping.確定ボタン].Background = (SolidColorBrush)brsh.ConvertFrom("#FFEAF1DD");
+                                    }
                                     rowNo += span.count;
+                                    cnt++;
                                 }
+                                
+                                gridCtl.SetCellFocus(0, 0);
+                                gridCtl.ScrollShowCell(0, 0);
                             }
                             else
                             {
@@ -300,9 +339,9 @@ namespace KyoeiSystem.Application.Windows.Views
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Information);
 
-                        if (result == MessageBoxResult.Yes)
+                        if (result == MessageBoxResult.OK)
                         {
-                            this.Close();
+                            gridCtl.SetCellFocus(0, 0);
                         }
                         
                         break;
@@ -393,41 +432,23 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region 検索条件の入力検証をおこなう
-        /// <summary>
-        /// 検索条件の入力検証をおこなう
-        /// </summary>
-        /// <returns></returns>
-        private bool isSearchValid()
-        {
-            if (string.IsNullOrWhiteSpace(this.MyCompany.Text1))
-            {
-                ErrorMessage = "自社コードが設定されていません。";
-                MessageBox.Show("入力エラーがあります。");
-                return false;
-            }
-
-            return true;
-
-        }
-        #endregion
-
         #region 確定テーブル更新
         /// <summary>
         /// 確定テーブル更新
         /// </summary>
+        /// <param name="自社コード"></param>
         /// <param name="確定区分">確定区分</param>
         /// <param name="締日">締日</param>
         /// <param name="確定日">確定日</param>
         /// <param name="取引区分">取引区分</param>
-        public void UpdateTableData(string 確定区分, string 締日, string 確定日, string 取引区分)
+        public void UpdateTableData(string 自社コード, string 確定区分, string 締日, string 確定日, string 取引区分)
         {
             base.SendRequest(
                    new CommunicationObject(
                        MessageType.RequestData,
                        UPDATE,
                        new object[] {
-                           this.MyCompany.Text1,
+                           自社コード,
                            取引区分,
                            確定区分,
                            締日,
@@ -456,9 +477,6 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBox.Show("入力エラーがあります。");
                     return;
                 }
-
-                if (!isSearchValid())
-                    return;
 
                 base.SendRequest(
                     new CommunicationObject(
@@ -501,6 +519,8 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #endregion
+
+        
 
     }
 

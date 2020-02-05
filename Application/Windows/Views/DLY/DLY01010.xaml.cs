@@ -77,6 +77,26 @@ namespace KyoeiSystem.Application.Windows.Views
             軽減税率 = 1,
             非課税 = 2
         }
+
+        /// <summary>
+        /// 取引区分
+        /// </summary>
+        private enum 取引区分 : int
+        {
+            得意先 = 0,
+            仕入先 = 1,
+            相殺 = 3
+        }
+
+        /// <summary>
+        /// 確定区分
+        /// </summary>
+        private enum 確定区分  :int
+        {
+            請求 = 0,
+            支払 = 1
+        }
+
         #endregion
 
         #region 定数定義
@@ -92,12 +112,16 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string MasterCode_Supplier = "UcSupplier";
         /// <summary>自社品番情報取得</summary>
         private const string MasterCode_MyProduct = "UcMyProduct";
+        /// <summary>確定済チェック</summary>
+        private const string FixCheck = "TKS90010_CheckFix";
+
         #endregion
 
         #region 使用テーブル名定義
         private const string HEADER_TABLE_NAME = "T03_SRHD";
         private const string DETAIL_TABLE_NAME = "T03_SRDTL";
         private const string ZEI_TABLE_NAME = "M73_ZEI";
+        private const string FIX_TABLE_NAME = "S11_KAKUTEI";
         #endregion
 
         /// <summary>金額フォーマット定義</summary>
@@ -166,6 +190,12 @@ namespace KyoeiSystem.Application.Windows.Views
         public DataTable SearchDeleteDetail;
         // No-58 End
 
+        private string[] _仕入先LinkItem = new []{ "1,3", "0", "",""};
+        public string[] 仕入先LinkItem
+        {
+            get { return this._仕入先LinkItem; }
+            set { this._仕入先LinkItem = value; NotifyPropertyChanged(); }
+        }
         #endregion
 
         #region << クラス変数定義 >>
@@ -181,8 +211,12 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private int _編集行;
 
-        #endregion
+        /// <summary>
+        /// 確定情報
+        /// </summary>
+        DataTable FixData;
 
+        #endregion
 
         #region << 画面初期処理 >>
 
@@ -263,6 +297,7 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 var data = message.GetResultData();
+                DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
 
                 switch (message.GetMessageName())
                 {
@@ -274,6 +309,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
                             SetFocusToTopControl();
+                            
                             // No.162-1 Add Start
                             bool blnEnabled = true;
                             if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
@@ -283,6 +319,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 入力制御
                             setDispHeaderEnabled(blnEnabled);
                             // No.162-1 Add End
+
+                            // 確定モード画面制御
+                            setFixDisplay(this.MaintenanceMode);
                         }
                         else
                         {
@@ -303,15 +342,33 @@ namespace KyoeiSystem.Application.Windows.Views
                         ScreenClear();
                         break;
 
+                    case FixCheck:
+                        // 確定済チェック結果受信
+                        if (IsFixCheck(tbl))
+                        {
+                            // 確定済エラー
+                            MessageBox.Show("すでに確定済の仕入先です。登録・編集できません。", "確定済仕入先", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                            return;
+                        }
+
+                        if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
+                                "登録確認",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question,
+                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                        return;
+                        
+                        Update();
+                        break;
                     case MasterCode_Supplier:
                         // 仕入先名称取得
-                        DataTable tbl = data as DataTable;
                         if (tbl != null && tbl.Rows.Count > 0)
                         {
                             this.c仕入先名.Content = tbl.Rows[0]["名称"].ToString();
                             SearchHeader["Ｓ支払消費税区分"] = tbl.Rows[0]["Ｓ支払消費税区分"];
                             SearchHeader["Ｓ税区分ID"] = tbl.Rows[0]["Ｓ税区分ID"];
                         }
+                        // 編集中に売上日変更された場合の仕入先名称
                         else
                         {
                             this.c仕入先名.Content = string.Empty;
@@ -494,12 +551,16 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << 処理ロジック群 >>
 
+        #region 取得内容を各コントロールに設定
         /// <summary>
         /// 取得内容を各コントロールに設定
         /// </summary>
         /// <param name="ds"></param>
         private void SetTblData(DataSet ds)
         {
+            // 画面表示モードを設定
+            SetDispMode(ds);
+
             // 仕入ヘッダ情報設定
             DataTable tblHd = ds.Tables[HEADER_TABLE_NAME];
             SearchHeader = tblHd.Rows[0];
@@ -543,15 +604,11 @@ namespace KyoeiSystem.Application.Windows.Views
                 this.c仕入先.Text1 = string.Empty;
                 this.c仕入先.Text2 = string.Empty;
                 this.c入荷先.Text1 = string.Empty;
-
-                this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
                 this.c仕入日.Focus();
 
             }
             else
             {
-                this.MaintenanceMode = AppConst.MAINTENANCEMODE_EDIT;
-
                 // 取得明細の自社品番をロック(編集不可)に設定
                 foreach (var row in SearchGrid.Rows)
                 {
@@ -579,7 +636,9 @@ namespace KyoeiSystem.Application.Windows.Views
             //▲課題No299 Mod End 2019/12/20
 
         }
+        #endregion
 
+        #region キー項目としてマークされた項目の入力可否を切り替える
         /// <summary>
         /// キー項目としてマークされた項目の入力可否を切り替える
         /// </summary>
@@ -591,6 +650,7 @@ namespace KyoeiSystem.Application.Windows.Views
             base.ChangeKeyItemChangeable(flag);
 
         }
+        #endregion
 
         #region 画面ヘッダ部の入力制御
         // No.162-1 Add Start
@@ -606,6 +666,39 @@ namespace KyoeiSystem.Application.Windows.Views
         // No.162-1 Add End
         #endregion
 
+        #region 確定モード時の画面制御
+        /// <summary>
+        /// 確定モード時の画面制御
+        /// </summary>
+        /// <param name="Mode">画面モード</param>
+        private void setFixDisplay(string Mode)
+        {
+            bool blnEnabled = Mode == AppConst.MAINTENANCEMODE_FIX ? true : false;
+
+            // リボンボタン表示制御
+            this.F1.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F2.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F5.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F6.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F9.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F12.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+
+            // ヘッダー項目
+            this.c会社名.IsEnabled = !blnEnabled;
+            this.c伝票番号.IsEnabled = !blnEnabled;
+            this.c仕入日.IsEnabled = !blnEnabled;
+            this.c仕入先.IsEnabled = !blnEnabled;
+            this.c仕入先名.IsEnabled = !blnEnabled;
+            this.c発注番号.IsEnabled = !blnEnabled;
+            this.c入荷先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+            this.c仕入区分.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+
+            // 明細
+            this.SearchGrid.IsEnabled = !blnEnabled;
+        }
+        #endregion
+
+        #region 画面項目の初期化をおこなう
         /// <summary>
         /// 画面項目の初期化をおこなう
         /// </summary>
@@ -621,6 +714,9 @@ namespace KyoeiSystem.Application.Windows.Views
                     SearchResult.Rows.Add(SearchResult.NewRow());
 
             }
+            if (FixData != null)
+                FixData = null;
+
             this.c備考.Text1 = string.Empty;
 
             string initValue = string.Format(PRICE_FORMAT_STRING, 0);
@@ -641,6 +737,148 @@ namespace KyoeiSystem.Application.Windows.Views
             this.c伝票番号.Focus();
 
         }
+        #endregion
+
+        #region 画面表示モードの設定
+        /// <summary>
+        /// 画面表示モードの設定
+        /// </summary>
+        /// <param name="ds"></param>
+        private void SetDispMode(DataSet ds)
+        {
+            DataTable tblHd = ds.Tables[HEADER_TABLE_NAME];
+            DataTable tblDtl = ds.Tables[DETAIL_TABLE_NAME];
+            FixData = ds.Tables[FIX_TABLE_NAME];
+
+            if (tblDtl.Rows.Count == 0)
+            {
+                // 新規モード
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
+                return;
+            }
+
+            int val = -1;
+            int 仕入先コード = int.TryParse(tblHd.Rows[0]["仕入先コード"].ToString(), out val) ? val : -1;
+            int 仕入先枝番 = int.TryParse(tblHd.Rows[0]["仕入先枝番"].ToString(), out val) ? val : -1;
+
+            // 仕入先確定データ
+            var shiData = FixData.AsEnumerable()
+                            .Where(w => w.Field<int?>("取引先コード") == 仕入先コード &&
+                                        w.Field<int?>("枝番") == 仕入先枝番);
+
+            // 相殺確定データ
+            var soData = FixData.AsEnumerable()
+                            .Where(w => w.Field<int?>("取引区分") == (int)取引区分.相殺);
+
+            DateTime? 仕入日 = tblHd.Rows[0].Field<DateTime?>("仕入日");
+            DateTime wkDt;
+            DateTime? shr確定日 = null;
+
+            shr確定日 = DateTime.TryParse(shiData.Where(w => w.Field<int?>("確定区分") == (int)確定区分.支払).Select(s => s.Field<DateTime?>("確定日")).FirstOrDefault().ToString(), out wkDt) ?
+                                wkDt : (DateTime?)null;
+
+            if (soData.Any())
+            {
+                DLY03010 dly3010 = new DLY03010();
+                shr確定日 = dly3010.getSousaiFixDay(shiData.ToList());
+            }
+
+            // 仕入先確定日が仕入日以降の場合、編集不可
+            if (shr確定日 != null && shr確定日 >= 仕入日)
+            {
+                // 確定モード
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_FIX;
+            }
+            else
+            {
+                // 編集モード
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_EDIT;
+            }
+        }
+        #endregion
+
+        #region 確定済チェック
+        /// <summary>
+        /// 確定済チェック
+        /// </summary>
+        /// <param name="fixDt"></param>
+        /// <returns>true:確定済/false:未確定</returns>
+        private bool IsFixCheck(DataTable fixDt)
+        {
+            DateTime dt;
+            DateTime? fixDay;       // 仕入先確定日
+            DateTime? shrDay;       // 仕入日
+
+            if (fixDt == null)
+            {
+                return false;
+            }
+
+            // 仕入先の確定データ
+            var shrData = fixDt.AsEnumerable().Where(w => w.Field<string>("取引先コード") == this.c仕入先.Text1 &&
+                                                        w.Field<string>("枝番") == this.c仕入先.Text2)
+                                                        .OrderByDescending(o => o.Field<DateTime?>("確定日")).ToList();
+
+            if (shrData.Any())
+            {
+                fixDay = DateTime.TryParse(shrData[0].Field<DateTime?>("確定日").ToString(), out dt) ? dt : (DateTime?)null;
+                shrDay = DateTime.TryParse(this.c仕入日.Text, out dt) ? dt : (DateTime?)null;
+
+                if (fixDay != null && shrDay != null && fixDay >= shrDay)
+                {
+                    // 確定済エラー
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region 仕入情報の登録
+        /// <summary>
+        /// 仕入情報の登録
+        /// </summary>
+        private void Update()
+        {
+            // -- 送信用データを作成 --
+            // 消費税をヘッダに設定
+            SearchHeader["消費税"] = AppCommon.IntParse(this.c消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-94 Add Start
+            SearchHeader["通常税率対象金額"] = AppCommon.IntParse(this.lbl通常税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率対象金額"] = AppCommon.IntParse(this.lbl軽減税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
+            //▼課題No299 Mod Start 2019/12/20
+            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.txb通常税率消費税.Text, System.Globalization.NumberStyles.Number);
+            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.txb軽減税率消費税.Text, System.Globalization.NumberStyles.Number);
+            //▲課題No299 Mod End 2019/12/20
+            // No-94 Add End
+            // No-95 Add Start
+            SearchHeader["小計"] = AppCommon.IntParse(this.c小計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            SearchHeader["総合計"] = AppCommon.IntParse(this.c総合計.Content.ToString(), System.Globalization.NumberStyles.Number);
+            // No-95 Add End
+
+            // No-58 Add Start
+            // 仕入明細情報（削除）を仕入明細情報に追加する
+            // (※Rows.AddだとRowStateがAddedに変更されるため1行ずつImportする)
+            if (SearchDeleteDetail.Rows.Count != 0)
+            {
+                for (int intIdx = 0; intIdx < SearchDeleteDetail.Rows.Count; intIdx++)
+                {
+                    SearchResult.ImportRow(SearchDeleteDetail.Rows[intIdx]);
+                }
+            }
+            // No-58 Add End
+
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.UpdateData,
+                    T03_Update,
+                    new object[] {
+                        SearchResult.DataSet,
+                        ccfg.ユーザID
+                    }));
+        }
+        #endregion
 
         #endregion
 
@@ -952,50 +1190,18 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                return;
-
-            // -- 送信用データを作成 --
-            // 消費税をヘッダに設定
-            SearchHeader["消費税"] = AppCommon.IntParse(this.c消費税.Content.ToString(), System.Globalization.NumberStyles.Number);
-            // No-94 Add Start
-            SearchHeader["通常税率対象金額"] = AppCommon.IntParse(this.lbl通常税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["軽減税率対象金額"] = AppCommon.IntParse(this.lbl軽減税率対象金額.Content.ToString(), System.Globalization.NumberStyles.Number);
-            //▼課題No299 Mod Start 2019/12/20
-            SearchHeader["通常税率消費税"] = AppCommon.IntParse(this.txb通常税率消費税.Text, System.Globalization.NumberStyles.Number);
-            SearchHeader["軽減税率消費税"] = AppCommon.IntParse(this.txb軽減税率消費税.Text, System.Globalization.NumberStyles.Number);
-            //▲課題No299 Mod End 2019/12/20
-            // No-94 Add End
-            // No-95 Add Start
-            SearchHeader["小計"] = AppCommon.IntParse(this.c小計.Content.ToString(), System.Globalization.NumberStyles.Number);
-            SearchHeader["総合計"] = AppCommon.IntParse(this.c総合計.Content.ToString(), System.Globalization.NumberStyles.Number);
-            // No-95 Add End
-
-            // No-58 Add Start
-            // 仕入明細情報（削除）を仕入明細情報に追加する
-            // (※Rows.AddだとRowStateがAddedに変更されるため1行ずつImportする)
-            if (SearchDeleteDetail.Rows.Count != 0)
-            {
-                for (int intIdx = 0; intIdx < SearchDeleteDetail.Rows.Count; intIdx++)
-                {
-                    SearchResult.ImportRow(SearchDeleteDetail.Rows[intIdx]);
-                }
-            }
-            // No-58 Add End
-
+            // 確定データチェック
             base.SendRequest(
-                new CommunicationObject(
-                    MessageType.UpdateData,
-                    T03_Update,
-                    new object[] {
-                        SearchResult.DataSet,
-                        ccfg.ユーザID
-                    }));
-
+               new CommunicationObject(
+                   MessageType.RequestData,
+                   FixCheck,
+                   new object[] {
+                            this.c会社名.Text1,
+                            null,
+                            null,
+                            this.c仕入先.Text1,
+                            this.c仕入先.Text2,
+                        }));
         }
         #endregion
 
@@ -1249,6 +1455,8 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region << コントロールイベント >>
+
+        #region 伝票番号でキーが押された時のイベント処理
         /// <summary>
         /// 伝票番号でキーが押された時のイベント処理
         /// </summary>
@@ -1287,7 +1495,9 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
         }
+        #endregion
 
+        #region 発注番号でキーが押された時のイベント処理
         /// <summary>
         /// 発注番号でキーが押された時のイベント処理
         /// </summary>
@@ -1302,7 +1512,9 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
         }
+        #endregion
 
+        #region 仕入日変更時のイベント処理
         // No.175-2 Add Start
         /// <summary>
         /// 仕入日変更時のイベント処理
@@ -1311,13 +1523,30 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void c仕入日_cTextChanged(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(this.c仕入日.Text))
+            {
+               if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_FIX)
+                {
+                    string[] item = { "1,3", "0" };
+                    仕入先LinkItem = item;
+                }
+                else
+                {
+                    string[] item = { "1,3", "0", this.c仕入日.Text, c会社名.Text1 };
+                    仕入先LinkItem = item;
+                }
+                // 仕入先コードを再設定
+                SearchSupplier_cTextChanged(sender, e);
+            }
             //▼課題No299 Del Start 2019/12/20
             // グリッド内容の再計算を実施
             //summaryCalculation();
             //▲課題No299 Del End 2019/12/20
         }
         // No.175-2 Add End
+        #endregion
 
+        #region 仕入先コード変更時のイベント処理
         /// <summary>
         /// 仕入先コード変更時のイベント処理
         /// </summary>
@@ -1344,7 +1573,9 @@ namespace KyoeiSystem.Application.Windows.Views
                         }));
 
         }
+        #endregion
 
+        #region 仕入先ロストフォーカス時
         //▼課題No299 Add Start 2019/12/20
         /// <summary>
         /// 仕入先ロストフォーカス時
@@ -1356,7 +1587,33 @@ namespace KyoeiSystem.Application.Windows.Views
             summaryCalculation();
         }
         //▲課題No299 Add End 2019/12/20
+        #endregion
 
+        #region 会社名変更時のイベント処理
+        /// <summary>
+        /// 会社名変更時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void c会社名_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.c仕入日.Text))
+            {
+                if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_FIX)
+                {
+                    string[] item = { "1,3", "0" };
+                    仕入先LinkItem = item;
+                }
+                else
+                {
+                    string[] item = { "1,3", "0", this.c仕入日.Text, c会社名.Text1 };
+                    仕入先LinkItem = item;
+                }
+                // 仕入先コードを再設定
+                SearchSupplier_cTextChanged(sender, e);
+            }
+        }
+        #endregion
         #endregion
 
 
@@ -1558,6 +1815,7 @@ namespace KyoeiSystem.Application.Windows.Views
             c消費税.Content = string.Format(PRICE_FORMAT_STRING, intTsujyo + intKeigen);
             c総合計.Content = string.Format(PRICE_FORMAT_STRING, subTotal + intTsujyo + intKeigen);
         }
+
         //▲課題No299 Add End 2019/12/20
         #endregion
 

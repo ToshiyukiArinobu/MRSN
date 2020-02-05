@@ -189,7 +189,7 @@ namespace KyoeiSystem.Application.Windows.Views
         public int SalesTaxKbn
         {
             get { return _salesTaxKbn; }
-            private set { _salesTaxKbn = value; }
+            set { _salesTaxKbn = value; }
         }
         #endregion
 
@@ -203,7 +203,7 @@ namespace KyoeiSystem.Application.Windows.Views
         public int SalesTaxId
         {
             get { return _salesTaxId; }
-            private set { _salesTaxId = value; }
+            set { _salesTaxId = value; }
         }
         #endregion
 
@@ -217,7 +217,7 @@ namespace KyoeiSystem.Application.Windows.Views
         public int ClaimTaxKbn
         {
             get { return _claimTaxKbn; }
-            private set { _claimTaxKbn = value; }
+            set { _claimTaxKbn = value; }
         }
         #endregion
 
@@ -231,7 +231,7 @@ namespace KyoeiSystem.Application.Windows.Views
         public int ClaimTaxId
         {
             get { return _claimTaxId; }
-            private set { _claimTaxId = value; }
+            set { _claimTaxId = value; }
         }
         #endregion
 
@@ -324,6 +324,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         private void Textbox1_TextChanged(object sender, RoutedEventArgs e)
         {
+            
             if (appLog != null) { appLog.Debug("<UC> CodeText_Changed [{0}] -> [{1}]", this.Text1, this.CodeText.Text); }
             this.Text1 = this.CodeText.Text;
             GetValueData();

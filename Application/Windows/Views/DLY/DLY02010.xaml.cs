@@ -95,6 +95,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>セット品番構成品情報取得</summary>
         private const string M10_GetCount = "M10_GetCount";
         //20190528CB-E
+        /// <summary>確定済チェック</summary>
+        private const string FixCheck = "TKS90010_CheckFix";
         #endregion
 
         #region 使用テーブル名定義
@@ -103,6 +105,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string INNER_TABLE_NAME = "T04_AGRDTB";
         private const string INNER_TABLE_NAME_EXTENT = "T04_AGRDTB_Extension";
         private const string ZEI_TABLE_NAME = "M73_ZEI";
+        private const string FIX_TABLE_NAME = "S11_KAKUTEI";
         #endregion
 
         /// <summary>金額フォーマット定義</summary>
@@ -177,6 +180,17 @@ namespace KyoeiSystem.Application.Windows.Views
             通常税率 = 0,
             軽減税率 = 1,
             非課税 = 2
+        }
+
+        /// <summary>
+        /// 取引区分
+        /// </summary>
+        private enum 取引区分 : int
+        {
+            得意先 = 0,
+            仕入先 = 1,
+            加工先 = 2,
+            相殺 = 3
         }
 
         #endregion
@@ -293,6 +307,12 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private int _編集行;
 
+        private string[] _外注先LinkItem = new[] { "2,3", "0", "", "" };
+        public string[] 外注先LinkItem
+        {
+            get { return this._外注先LinkItem; }
+            set { this._外注先LinkItem = value; NotifyPropertyChanged(); }
+        }
         #endregion
 
         #region << クラス変数定義 >>
@@ -302,6 +322,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>消費税計算</summary>
         TaxCalculator taxCalc;
+
+        /// <summary>
+        /// 確定情報
+        /// </summary>
+        DataTable FixData;
 
         /// <summary>警告フラグ(true:警告あり、false:警告なし)</summary>
         private bool blnWarningFlg = false;
@@ -433,22 +458,40 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
                             txt仕上り日.Focus();
+
                             // No.162-3 Add Start
                             bool blnEnabled = true;
                             if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
                             {
                                 blnEnabled = false;
                             }
+
                             // 入力制御
                             setDispHeaderEnabled(blnEnabled);
                             SetDispRibbonEnabled(blnEnabled);
                             // No.162-3 Add End
+
+                            // 確定モード画面制御
+                            setFixDisplay(this.MaintenanceMode);
                         }
                         else
                         {
                             MessageBox.Show("指定の伝票番号は登録されていません。", "伝票未登録", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                             this.txt伝票番号.Focus();
                         }
+                        break;
+
+                    case FixCheck:
+                        // 確定済チェック結果受信
+                        if (IsFixCheck(tbl))
+                        {
+                            // 確定済エラー
+                            MessageBox.Show("すでに確定済の外注先です。登録・編集できません。", "確定済外注先", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                            return;
+                        }
+
+                        // 在庫数チェック
+                        StockCheck();
                         break;
 
                     case UpdateData_StockCheck:
@@ -1354,6 +1397,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 Outsource.Clear();
             if (SetHin != null)
                 SetHin.Clear();
+            if (FixData != null)
+                FixData = null;
 
             clearAgrDtbList();
 
@@ -1509,7 +1554,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     // REMARKS:消費税関連の情報を取得する為
                     var twinText = ViewBaseCommon.FindVisualParent<UcLabelTwinTextBox>(elmnt as Control);
                     if (twinText.Name == this.txt外注先.Name)
+                    {
+                        string[] item = { "2,3", "0", txt仕上り日.Text, ccfg.自社コード.ToString() };
+                        外注先LinkItem = item;
                         txt外注先_cTextChanged(this.txt外注先, null);
+                    }
 
                 }
 
@@ -1675,17 +1724,18 @@ namespace KyoeiSystem.Application.Windows.Views
             if (MaintenanceMode == null || SearchDetail == null)
                 return;
 
-            // 揚り情報の設定
-            DataSet ds = setAgrDataToDataSet();
-
+            // 確定データチェック
             base.SendRequest(
-                new CommunicationObject(
-                    MessageType.UpdateData,
-                    UpdateData_StockCheck,
-                    new object[] {
-                        ds,
-                        ccfg.ユーザID
-                    }));
+               new CommunicationObject(
+                   MessageType.RequestData,
+                   FixCheck,
+                   new object[] {
+                            this.txt会社名.Text1,
+                            null,
+                            null,
+                            this.txt外注先.Text1,
+                            this.txt外注先.Text2,
+                        }));
 
         }
         #endregion
@@ -1790,6 +1840,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="ds"></param>
         private void SetTblData(DataSet ds)
         {
+            // 画面表示モードを設定
+            SetDispMode(ds);
+
             // 揚りヘッダ情報設定
             DataTable tblHd = ds.Tables[HEADER_TABLE_NAME];
             SearchHeader = tblHd.Rows[0];
@@ -1826,14 +1879,11 @@ namespace KyoeiSystem.Application.Windows.Views
                 this.txt外注先.Text2 = string.Empty;
                 this.txt入荷先.Text1 = string.Empty;
 
-                this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
                 this.txt仕上り日.Focus();
 
             }
             else
             {
-                this.MaintenanceMode = AppConst.MAINTENANCEMODE_EDIT;
-
                 // 取得明細の自社品番をロック(編集不可)に設定
                 foreach (var row in sp製品一覧.Rows)
                     row.Cells[GridColumnsMapping.自社品番.GetHashCode()].Locked = true;
@@ -1847,6 +1897,153 @@ namespace KyoeiSystem.Application.Windows.Views
             summaryCalculation();
 
         }
+
+        #region 画面表示モードの設定
+        /// <summary>
+        /// 画面表示モードの設定
+        /// </summary>
+        /// <param name="ds"></param>
+        private void SetDispMode(DataSet ds)
+        {
+            DataTable tblHd = ds.Tables[HEADER_TABLE_NAME];
+            DataTable tblDtl = ds.Tables[DETAIL_TABLE_NAME];
+            FixData = ds.Tables[FIX_TABLE_NAME];
+
+            if (tblDtl.Rows.Count == 0)
+            {
+                // 新規モード
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
+                return;
+            }
+
+            int val = -1;
+            int 外注先コード = int.TryParse(tblHd.Rows[0]["外注先コード"].ToString(), out val) ? val : -1;
+            int 外注先枝番 = int.TryParse(tblHd.Rows[0]["外注先枝番"].ToString(), out val) ? val : -1;
+
+            // 外注先確定データ
+            var gaityuData = FixData.AsEnumerable()
+                            .Where(w => w.Field<int?>("取引先コード") == 外注先コード &&
+                                        w.Field<int?>("枝番") == 外注先枝番);
+
+            // 相殺確定データ
+            var soData = FixData.AsEnumerable()
+                            .Where(w => w.Field<int?>("取引区分") == (int)取引区分.相殺);
+
+            DateTime? 仕上り日 = tblHd.Rows[0].Field<DateTime?>("仕上り日");
+            DateTime wkDt;
+            DateTime? 確定日 = null;
+
+            確定日 = DateTime.TryParse(gaityuData.Select(s => s.Field<DateTime?>("確定日")).FirstOrDefault().ToString(), out wkDt) ?
+                                wkDt : (DateTime?)null;
+
+            if (soData.Any())
+            {
+                DLY03010 dly3010 = new DLY03010();
+                確定日 = dly3010.getSousaiFixDay(gaityuData.ToList());
+            }
+
+            // 加工先確定日が仕上り日以降の場合、編集不可
+            if (確定日 != null && 確定日 >= 仕上り日)
+            {
+                // 確定モード
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_FIX;
+            }
+            else
+            {
+                // 編集モード
+                this.MaintenanceMode = AppConst.MAINTENANCEMODE_EDIT;
+            }
+        }
+        #endregion
+
+        #region 確定モード時の画面制御
+        /// <summary>
+        /// 確定モード時の画面制御
+        /// </summary>
+        /// <param name="Mode">画面モード</param>
+        private void setFixDisplay(string Mode)
+        {
+            bool blnEnabled = Mode == AppConst.MAINTENANCEMODE_FIX ? true : false;
+
+            // リボンボタン表示制御
+            this.F1.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F2.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F5.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F6.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F9.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+            this.F12.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
+
+            // ヘッダー項目
+            this.txt会社名.IsEnabled = !blnEnabled;
+            this.cmb加工区分.IsEnabled = !blnEnabled;
+
+            this.txt伝票番号.IsEnabled = !blnEnabled;
+            this.txt仕上り日.IsEnabled = !blnEnabled;
+            this.txt外注先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+            this.txt入荷先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+
+            // 明細
+            this.sp製品一覧.IsEnabled = !blnEnabled;
+        }
+        #endregion
+
+        #region 確定済チェック
+        /// <summary>
+        /// 確定済チェック
+        /// </summary>
+        /// <param name="fixDt"></param>
+        /// <returns>true:確定済/false:未確定</returns>
+        private bool IsFixCheck(DataTable fixDt)
+        {
+            DateTime dt;
+            DateTime? fixDay;       // 加工先確定日
+            DateTime? siDay;        // 仕上がり日
+
+            if (fixDt == null)
+            {
+                return false;
+            }
+
+            // 加工先の確定データ
+            var kakoData = fixDt.AsEnumerable().Where(w => w.Field<string>("取引先コード") == this.txt外注先.Text1 &&
+                                                        w.Field<string>("枝番") == this.txt外注先.Text2)
+                                                        .OrderByDescending(o => o.Field<DateTime?>("確定日")).ToList();
+
+            if (kakoData.Any())
+            {
+                fixDay = DateTime.TryParse(kakoData[0].Field<DateTime?>("確定日").ToString(), out dt) ? dt : (DateTime?)null;
+                siDay = DateTime.TryParse(this.txt仕上り日.Text, out dt) ? dt : (DateTime?)null;
+
+                if (fixDay != null && siDay != null && fixDay >= siDay)
+                {
+                    // 確定済エラー
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region 在庫数チェック
+        /// <summary>
+        /// 在庫数チェック
+        /// </summary>
+        private void StockCheck()
+        {
+            // 揚り情報の設定
+            DataSet ds = setAgrDataToDataSet();
+
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.UpdateData,
+                    UpdateData_StockCheck,
+                    new object[] {
+                        ds,
+                        ccfg.ユーザID
+                    }));
+        }
+        #endregion
 
         /// <summary>
         /// 揚り情報の登録処理をおこなう
@@ -2633,6 +2830,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
 
+        #region 仕上り日が変更された後のイベント処理
         /// <summary>
         /// 仕上り日が変更された後のイベント処理
         /// </summary>
@@ -2640,10 +2838,52 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void txt仕上り日_cTextChanged(object sender, RoutedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(this.txt仕上り日.Text))
+            {
+                if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_FIX)
+                {
+                    string[] item = { "2,3", "0" };
+                    外注先LinkItem = item;
+                }
+                else
+                {
+                    string[] item = { "2,3", "0", this.txt仕上り日.Text, this.txt会社名.Text1 };
+                    外注先LinkItem = item;
+                }
+                // 外注先コードを再設定
+                txt外注先_cTextChanged(sender, e);
+            }
+
             // 明細内容・消費税の再計算を実施
             summaryCalculation();
         }
+        #endregion
 
+        #region 会社名が変更された時のイベント処理
+        /// <summary>
+        /// 会社名が変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt会社名_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.txt仕上り日.Text))
+            {
+                if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_FIX)
+                {
+                    string[] item = { "2,3", "0" };
+                    外注先LinkItem = item;
+                }
+                else
+                {
+                    string[] item = { "2,3", "0", this.txt仕上り日.Text, this.txt会社名.Text1 };
+                    外注先LinkItem = item;
+                }
+                // 外注先コードを再設定
+                txt外注先_cTextChanged(sender, e);
+            }
+        }
+        #endregion
         #endregion
 
         #region << 消費税関連処理 >>

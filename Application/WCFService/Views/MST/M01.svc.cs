@@ -300,7 +300,7 @@ namespace KyoeiSystem.Application.WCFService
         /// 取引先マスタをリストで取得する
         /// </summary>
         /// <returns></returns>
-        public List<M01_TOK_Extension> GetDataList(int? 表示区分, int 自社コード, int マルセン追加フラグ)
+        public List<M01_TOK_Extension> GetDataList(int? 表示区分, int 自社コード, int マルセン追加フラグ, string 対象日付)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -323,6 +323,7 @@ namespace KyoeiSystem.Application.WCFService
                     result =
                         result.Where(w => w.担当会社コード == 自社コード);
 
+                #region マルセン追加フラグ条件
                 // No-268 Mod Start
                 if (表示区分 != null && 表示区分 != 9)
                 {
@@ -333,15 +334,15 @@ namespace KyoeiSystem.Application.WCFService
                     {
                         // 自社(マルセン)を仕入先として追加する
                         var jisTok =
-                               context.M70_JIS
-                                   .Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.自社)
-                                   .FirstOrDefault();
+                                context.M70_JIS
+                                    .Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.自社)
+                                    .FirstOrDefault();
 
                         result = result.Union(
-                             context.M01_TOK.Where(w =>
-                                 w.削除日時 == null &&
-                                 w.取引先コード == jisTok.取引先コード &&
-                                 w.枝番 == jisTok.枝番));
+                                context.M01_TOK.Where(w =>
+                                    w.削除日時 == null &&
+                                    w.取引先コード == jisTok.取引先コード &&
+                                    w.枝番 == jisTok.枝番));
                     }
                 }
 
@@ -404,6 +405,176 @@ namespace KyoeiSystem.Application.WCFService
                             集計コード３ = c.TOK.集計コード３,
                             自社区分 = c.JIS.自社区分,
                         });
+                #endregion
+
+                #region 対象日付条件(確定データを除く場合)
+                // 対象日が設定されている場合
+                DateTime targetDay;
+                if (!string.IsNullOrEmpty(対象日付))
+                {
+                    DateTime dt;
+                    targetDay = DateTime.TryParse(対象日付, out dt) ? dt : DateTime.Now;
+
+                    // 確定情報を取得
+                    var fixData =
+                        context.S11_KAKUTEI
+                            .Where(w =>
+                                w.自社コード == 自社コード &&
+                                w.確定日 >= targetDay);
+
+                    if (表示区分 != null && 表示区分 != 9)
+                    {
+                        fixData = fixData.Where(w => w.取引区分 == 表示区分);
+                    }
+
+                    // 請求確定データ
+                    var seiFix =
+                        fixData.Where(w => w.確定区分 == (int)CommonConstants.確定区分.請求)
+                            .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                                x => new { jis = x.自社コード, tKbn = x.取引区分, closeDay = x.締日 },
+                                y => new { jis = y.担当会社コード, tKbn = y.取引区分, closeDay = (int)y.Ｔ締日 },
+                                (x, y) => new { x, y })
+                            .SelectMany(z => z.y.DefaultIfEmpty(),
+                                (a, b) => new { FIX = a.x, TOK = b })
+                            .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                x => new { code = x.TOK.取引先コード, eda = x.TOK.枝番 },
+                                y => new { code = (int)y.取引先コード, eda = (int)y.枝番 },
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (c, d) => new { FIX = c.x.FIX, TOK = c.x.TOK, JIS = d })
+                            .Select(c => new M01_TOK_Extension
+                            {
+                                取引先コード = c.TOK.取引先コード,
+                                枝番 = c.TOK.枝番,
+                                取引区分 = c.TOK.取引区分,
+                                得意先名１ = c.TOK.得意先名１,
+                                得意先名２ = c.TOK.得意先名２,
+                                部課名称 = c.TOK.部課名称,
+                                略称名 = c.TOK.略称名,
+                                郵便番号 = c.TOK.郵便番号,
+                                住所１ = c.TOK.住所１,
+                                住所２ = c.TOK.住所２,
+                                電話番号 = c.TOK.電話番号,
+                                ＦＡＸ = c.TOK.ＦＡＸ,
+                                かな読み = c.TOK.かな読み,
+                                担当会社コード = c.TOK.担当会社コード,
+                                Ｔ消費税区分 = c.TOK.Ｔ消費税区分,
+                                Ｔ税区分ID = c.TOK.Ｔ税区分ID,
+                                Ｔ締日 = c.TOK.Ｔ締日,
+                                Ｔ請求条件 = c.TOK.Ｔ請求条件,
+                                Ｔ請求区分 = c.TOK.Ｔ請求区分,
+                                Ｔサイト１ = c.TOK.Ｔサイト１,
+                                Ｔサイト２ = c.TOK.Ｔサイト２,
+                                Ｔ入金日１ = c.TOK.Ｔ入金日１,
+                                Ｔ入金日２ = c.TOK.Ｔ入金日２,
+                                Ｓ支払消費税区分 = c.TOK.Ｓ支払消費税区分,
+                                Ｓ税区分ID = c.TOK.Ｓ税区分ID,
+                                Ｓ締日 = c.TOK.Ｓ締日,
+                                Ｓ支払条件 = c.TOK.Ｓ支払条件,
+                                Ｓ支払区分 = c.TOK.Ｓ支払区分,
+                                Ｓサイト１ = c.TOK.Ｓサイト１,
+                                Ｓサイト２ = c.TOK.Ｓサイト２,
+                                Ｓ入金日１ = c.TOK.Ｓ入金日１,
+                                Ｓ入金日２ = c.TOK.Ｓ入金日２,
+                                与信枠 = c.TOK.与信枠,
+                                Ｔ担当者コード = c.TOK.Ｔ担当者コード,
+                                Ｓ担当者コード = c.TOK.Ｓ担当者コード,
+                                自社備考１ = c.TOK.自社備考１,
+                                自社備考２ = c.TOK.自社備考２,
+                                論理削除 = c.TOK.論理削除,
+                                集約取引先コード = c.TOK.集約取引先コード,
+                                集約取引先枝番 = c.TOK.集約取引先枝番,
+                                参照取引先コード１ = c.TOK.参照取引先コード１,
+                                参照取引先枝番１ = c.TOK.参照取引先枝番１,
+                                参照取引先コード２ = c.TOK.参照取引先コード２,
+                                参照取引先枝番２ = c.TOK.参照取引先枝番２,
+                                参照取引先コード３ = c.TOK.参照取引先コード３,
+                                参照取引先枝番３ = c.TOK.参照取引先枝番３,
+                                集計コード１ = c.TOK.集計コード１,
+                                集計コード２ = c.TOK.集計コード２,
+                                集計コード３ = c.TOK.集計コード３,
+                                自社区分 = c.JIS.自社区分,
+                            });
+
+                    // 支払確定データ
+                    var shrFix =
+                        fixData.Where(w => w.確定区分 == (int)CommonConstants.確定区分.支払)
+                            .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                                x => new { jis = x.自社コード, tKbn = x.取引区分, closeDay = x.締日 },
+                                y => new { jis = y.担当会社コード, tKbn = y.取引区分, closeDay = (int)y.Ｓ締日 },
+                                (x, y) => new { x, y })
+                            .SelectMany(z => z.y.DefaultIfEmpty(),
+                                (a, b) => new { FIX = a.x, TOK = b })
+                            .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                x => new { code = x.TOK.取引先コード, eda = x.TOK.枝番 },
+                                y => new { code = (int)y.取引先コード, eda = (int)y.枝番 },
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (c, d) => new { FIX = c.x.FIX, TOK = c.x.TOK, JIS = d })
+                            .Select(c => new M01_TOK_Extension
+                            {
+                                取引先コード = c.TOK.取引先コード,
+                                枝番 = c.TOK.枝番,
+                                取引区分 = c.TOK.取引区分,
+                                得意先名１ = c.TOK.得意先名１,
+                                得意先名２ = c.TOK.得意先名２,
+                                部課名称 = c.TOK.部課名称,
+                                略称名 = c.TOK.略称名,
+                                郵便番号 = c.TOK.郵便番号,
+                                住所１ = c.TOK.住所１,
+                                住所２ = c.TOK.住所２,
+                                電話番号 = c.TOK.電話番号,
+                                ＦＡＸ = c.TOK.ＦＡＸ,
+                                かな読み = c.TOK.かな読み,
+                                担当会社コード = c.TOK.担当会社コード,
+                                Ｔ消費税区分 = c.TOK.Ｔ消費税区分,
+                                Ｔ税区分ID = c.TOK.Ｔ税区分ID,
+                                Ｔ締日 = c.TOK.Ｔ締日,
+                                Ｔ請求条件 = c.TOK.Ｔ請求条件,
+                                Ｔ請求区分 = c.TOK.Ｔ請求区分,
+                                Ｔサイト１ = c.TOK.Ｔサイト１,
+                                Ｔサイト２ = c.TOK.Ｔサイト２,
+                                Ｔ入金日１ = c.TOK.Ｔ入金日１,
+                                Ｔ入金日２ = c.TOK.Ｔ入金日２,
+                                Ｓ支払消費税区分 = c.TOK.Ｓ支払消費税区分,
+                                Ｓ税区分ID = c.TOK.Ｓ税区分ID,
+                                Ｓ締日 = c.TOK.Ｓ締日,
+                                Ｓ支払条件 = c.TOK.Ｓ支払条件,
+                                Ｓ支払区分 = c.TOK.Ｓ支払区分,
+                                Ｓサイト１ = c.TOK.Ｓサイト１,
+                                Ｓサイト２ = c.TOK.Ｓサイト２,
+                                Ｓ入金日１ = c.TOK.Ｓ入金日１,
+                                Ｓ入金日２ = c.TOK.Ｓ入金日２,
+                                与信枠 = c.TOK.与信枠,
+                                Ｔ担当者コード = c.TOK.Ｔ担当者コード,
+                                Ｓ担当者コード = c.TOK.Ｓ担当者コード,
+                                自社備考１ = c.TOK.自社備考１,
+                                自社備考２ = c.TOK.自社備考２,
+                                論理削除 = c.TOK.論理削除,
+                                集約取引先コード = c.TOK.集約取引先コード,
+                                集約取引先枝番 = c.TOK.集約取引先枝番,
+                                参照取引先コード１ = c.TOK.参照取引先コード１,
+                                参照取引先枝番１ = c.TOK.参照取引先枝番１,
+                                参照取引先コード２ = c.TOK.参照取引先コード２,
+                                参照取引先枝番２ = c.TOK.参照取引先枝番２,
+                                参照取引先コード３ = c.TOK.参照取引先コード３,
+                                参照取引先枝番３ = c.TOK.参照取引先枝番３,
+                                集計コード１ = c.TOK.集計コード１,
+                                集計コード２ = c.TOK.集計コード２,
+                                集計コード３ = c.TOK.集計コード３,
+                                自社区分 = c.JIS.自社区分,
+                            });
+
+                    // 請求データと支払データを結合
+                    var exceptTok = seiFix.Union(shrFix);
+
+                    // 得意先データから確定データを除く
+                    if (exceptTok.Any())
+                    {
+                        ret = ret.Except(exceptTok);
+                    }
+                }
+                #endregion
 
 
                 return ret.ToList();

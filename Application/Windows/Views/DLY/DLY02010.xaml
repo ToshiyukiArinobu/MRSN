@@ -44,11 +44,11 @@
                 </RibbonGroup>
 
                 <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,0,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                    <RibbonButton Name="F1" LargeImageSource="../Images/15マスタ照会.png" Margin="0,0,0,0" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
                         Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"/>
                 </RibbonGroup>
                 <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/16マスタ入力.png" Margin="0,0,0,0"
+                    <RibbonButton Name="F2" LargeImageSource="../Images/16マスタ入力.png" Margin="0,0,0,0"
                         Label="ﾏｽﾀ入力" Click="RibbonButton_Click" KeyTip="F2" Height="50"
                         ToolTipTitle="マスタ入力(F2)" ToolTipDescription="マスタの入力画面を開きます"  ToolTipImageSource="../Images/16マスタ入力.png"/>
                 </RibbonGroup>
@@ -59,11 +59,11 @@
                     <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
                 </RibbonGroup>
                 <RibbonGroup Name="RibbonF5" Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/行追加.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
+                    <RibbonButton Name="F5" LargeImageSource="../Images/行追加.png" Click="RibbonButton_Click" KeyTip="F5" Height="50"
                         Label="行追加" ToolTipTitle="行追加(F5)" ToolTipDescription="リストに新規行を追加します。" ToolTipImageSource="../Images/行追加.png" />
                 </RibbonGroup>
                 <RibbonGroup Name="RibbonF6" Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F6" Height="50"
+                    <RibbonButton Name="F6" LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F6" Height="50"
                         Label="行削除" ToolTipTitle="行削除(F6)" ToolTipDescription="選択中のリスト行を削除します" ToolTipImageSource="../Images/28削除.png" />
                 </RibbonGroup>
                 <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
@@ -73,11 +73,11 @@
                     <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
                 </RibbonGroup>
                 <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                    <RibbonButton Name="F9" LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
                         Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png" />
                 </RibbonGroup>
                 <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+                    <RibbonButton Name="F10" LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
                         Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png" />
                 </RibbonGroup>
                 <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
@@ -85,7 +85,7 @@
                         Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png" />
                 </RibbonGroup>
                 <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+                    <RibbonButton Name="F12" LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
                         Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="表示中のデータを削除します" ToolTipImageSource="../Images/28削除.png" />
                 </RibbonGroup>
 
@@ -165,6 +165,7 @@
             Label1Visibility="Collapsed" Label2Visibility="Collapsed"
             Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
             Text2BorderBrush="Transparent" Text2Background="Transparent" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
+            cText1Changed="txt会社名_cText1Changed"
         />
                 <ctls:UcLabelComboBox
             x:Name="cmb加工区分" Grid.Row="0" Grid.Column="2"
@@ -221,7 +222,7 @@
                      TextAlignment="Center" Padding="0,5,0,0"
           />
                     <ctls:UcLabelTwinTextBox
-              x:Name="txt外注先" Grid.Row="1" Grid.Column="2" DataAccessName="M01_TOK" DataAccessMode="Off" LinkItem="2,3"
+              x:Name="txt外注先" Grid.Row="1" Grid.Column="2" DataAccessName="M01_TOK" DataAccessMode="Off"
               HorizontalAlignment="Left" Margin="2,0,0,0" IsKeyItem="False"
               Label_Visibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
               Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
@@ -230,6 +231,7 @@
               Label2Text=""
               Text1="{Binding SearchHeader[外注先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
               Text2="{Binding SearchHeader[外注先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+              LinkItem="{Binding 外注先LinkItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
               cText1Changed="txt外注先_cTextChanged" cText2Changed="txt外注先_cTextChanged"
           />
 

@@ -26,6 +26,8 @@ namespace KyoeiSystem.Application.WCFService
         private const string TABLE_MAISAI_EXTENT = "T04_AGRDTB_Extension";
         /// <summary>在庫テーブル名</summary>
         private const string TABLE_STOCK = "M73_ZEI";
+        /// <summary>確定データ テーブル名</summary>
+        private const string TABLE_FIX = "S11_KAKUTEI";
 
         #endregion
 
@@ -115,6 +117,7 @@ namespace KyoeiSystem.Application.WCFService
             List<T04_AGRDTB_Extension> dtbList = null;
             M73 taxService = new M73();
             List<M73_ZEI> taxList = taxService.GetDataList();
+            List<DLY03010.S11_KAKUTEI_INFO> fixList = getS11_KAKUTEI_Extension(hdList);
 
             if (hdList.Count == 0)
             {
@@ -153,6 +156,7 @@ namespace KyoeiSystem.Application.WCFService
             DataTable dtdtl = KESSVCEntry.ConvertListToDataTable(dtlList);
             DataTable dtdtb = KESSVCEntry.ConvertListToDataTable(dtbList);
             DataTable dttax = KESSVCEntry.ConvertListToDataTable(taxList);
+            DataTable dtfix = KESSVCEntry.ConvertListToDataTable(fixList);
 
             dthd.TableName = TABLE_HEADER;
             t04ds.Tables.Add(dthd);
@@ -165,6 +169,9 @@ namespace KyoeiSystem.Application.WCFService
 
             dttax.TableName = TABLE_STOCK;
             t04ds.Tables.Add(dttax);
+
+            dtfix.TableName = TABLE_FIX;
+            t04ds.Tables.Add(dtfix);
 
             return t04ds;
 
@@ -1145,6 +1152,72 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        #region 確定情報を取得する
+        /// <summary>
+        /// 確定情報を取得する
+        /// </summary>
+        /// <param name="companyCode"></param>
+        /// <param name="urhdList"></param>
+        /// <returns></returns>
+        private List<DLY03010.S11_KAKUTEI_INFO> getS11_KAKUTEI_Extension(List<T04_AGRHD_Extension> hdList)
+        {
+            if (!hdList.Any())
+            {
+                return new List<DLY03010.S11_KAKUTEI_INFO>();
+            }
+
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                int company = hdList[0].会社名コード;
+                int code = hdList[0].外注先コード;
+                int eda = hdList[0].外注先枝番;
+
+                // 取引先情報
+                //var tokData = context.M01_TOK.Where(w => w.担当会社コード == company && w.削除日時 == null);
+                var tokData = context.M01_TOK.Where(w => w.取引先コード == code && w.枝番 == eda && w.削除日時 == null);
+
+                // 外注先確定データ
+                var shiFix =
+                    //tokData.Where(w => w.取引先コード == code && w.枝番 == eda)
+                    tokData
+                        .GroupJoin(context.S11_KAKUTEI.Where(w => w.確定区分 == (int)CommonConstants.確定区分.支払),
+                            x => new { jis = x.担当会社コード, tKbn = x.取引区分, closeDay = (int)x.Ｓ締日 },
+                            y => new { jis = y.自社コード, tKbn = y.取引区分, closeDay = y.締日 },
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (a, b) => new { TOK_S = a.x, FIX_S = b })
+                        .Select(s => new DLY03010.S11_KAKUTEI_INFO
+                        {
+                            取引先コード = s.TOK_S.取引先コード,
+                            枝番 = s.TOK_S.枝番,
+                            取引区分 = s.TOK_S.取引区分,
+                            確定区分 = s.FIX_S.確定区分,
+                            確定日 = s.FIX_S.確定日
+                        })
+                        .Union
+                        //(tokData.Where(w => w.取引先コード == code && w.枝番 == eda && w.取引区分 == (int)CommonConstants.取引区分.相殺)
+                        (tokData.Where(w => w.取引区分 == (int)CommonConstants.取引区分.相殺)
+                        .GroupJoin(context.S11_KAKUTEI.Where(w => w.確定区分 == (int)CommonConstants.確定区分.請求),
+                            x => new { jis = x.担当会社コード, tKbn = x.取引区分, closeDay = (int)x.Ｔ締日 },
+                            y => new { jis = y.自社コード, tKbn = y.取引区分, closeDay = y.締日 },
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (c, d) => new { TOK_SO = c.x, FIX_SO = d })
+                        .Select(s => new DLY03010.S11_KAKUTEI_INFO
+                        {
+                            取引先コード = s.TOK_SO.取引先コード,
+                            枝番 = s.TOK_SO.枝番,
+                            取引区分 = s.TOK_SO.取引区分,
+                            確定区分 = s.FIX_SO.確定区分,
+                            確定日 = s.FIX_SO.確定日
+                        }));
+
+                return shiFix.ToList();
+            }
+        }
+        #endregion
 
         #region << 在庫更新 >>
 

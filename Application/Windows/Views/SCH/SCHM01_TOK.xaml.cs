@@ -142,6 +142,20 @@ namespace KyoeiSystem.Application.Windows.Views
             set { this._マルセン追加フラグ = value; NotifyPropertyChanged(); }
         }
 
+        private string _対象日付 = null;
+        public string 対象日付
+        {
+            get { return this._対象日付; }
+            set { this._対象日付 = value; NotifyPropertyChanged(); }
+        }
+
+        private int _自社コード = 0;
+        public int 自社コード
+        {
+            get { return this._自社コード; }
+            set { this._自社コード = value; NotifyPropertyChanged(); }
+        }
+
         #endregion
 
         #region SCHM01_TOK
@@ -187,6 +201,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     string[] linkItemList = (this.TwinTextBox.LinkItem as string[]);
                     s取引区分 = linkItemList[0].ToString();
                     マルセン追加フラグ = int.TryParse(linkItemList[1].ToString(), out linkAddVal) ? linkAddVal : 0;
+                    if (linkItemList.Length > 3)
+                    {
+                        対象日付 = linkItemList[2].ToString();
+                        自社コード = int.TryParse(linkItemList[3].ToString(), out linkAddVal) ? linkAddVal : 0;
+                    }
                 }
                 else
                 {
@@ -295,10 +314,11 @@ namespace KyoeiSystem.Application.Windows.Views
                         MessageType.RequestData,
                         TabelNmList,
                         new object[] {
-                            this.cmbDealings.SelectedValue,
-                            ccfg.自社コード,
-                            マルセン追加フラグ
-                        }));
+                        this.cmbDealings.SelectedValue,
+                        ccfg.自社コード,
+                        マルセン追加フラグ,
+                        対象日付
+                    }));
 
             }
             catch { }

@@ -128,7 +128,7 @@
 
     <!-- 自社コード -->
     <ctls:UcLabelTwinTextBox Name="MyCompany" Grid.Row="1" DataAccessName="M70_JIS" DataAccessMode="On" HorizontalAlignment="Left" Margin="5,5,0,0"
-                             Label_Context="自社コード" Label_Width="100" IsKeyItem="True" IsRequired="True"
+                             Label_Context="自社コード" Label_Width="100" IsKeyItem="False" IsRequired="False"
                              Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                              Text1Width="60" Text1IMEType="Off" Text1VerticalContentAlignment="Center" Text1ValidationType="Number"
                              Text2Width="250" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
@@ -165,20 +165,17 @@
         <Image Source="../Images/検索実行ボタン.png" Stretch="Fill"/>
       </Button>
 
-      <!--<Button Visibility="Hidden" Content="表示項目&#10;位置ﾘｾｯﾄ" HorizontalAlignment="Left" Focusable="False"
-              Width="76" Height="50" Margin="20,0,0,0"
-              Click="ColumnReset_Click" IsEnabledChanged="Button_IsEnabledChanged"
-      />-->
+     
     </StackPanel>
 
     <!-- 確定一覧 -->
     <Grid Grid.Row="4" Grid.ColumnSpan="2" Margin="10,20,0,0">
 
       <sg:GcSpreadGrid
-        Grid.Column="1" Grid.Row="0" AutoGenerateColumns="False" Height="450" MaxWidth="800" HorizontalAlignment="Left"
+        Grid.Column="1" Grid.Row="0" AutoGenerateColumns="False" Height="450" HorizontalAlignment="Left"
         Name="sp確定データ一覧" LayoutMode="Cell" ColumnDragMode="SelectThenDrag" 
         ItemsSource="{Binding SearchList, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-        DocumentUri="/KyoeiSystem.Application.Windows;component/views/TKS/TKS90010G1.sgxml" RowCount="0"
+        DocumentUri="/KyoeiSystem.Application.Windows;component/views/TKS/TKS90010G1.sgxml" RowCount="0" 
       >
 
         <!--カーソル色変更-->
@@ -190,6 +187,11 @@
         </sg:GcSpreadGrid.SelectionBorder>
 
         <sg:GcSpreadGrid.Columns>
+            <sg:Column HorizontalAlignment="Left"  Locked="True">
+              <sg:Column.DataField>
+                <sg:BindingDataField Binding="{Binding Path=自社名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+              </sg:Column.DataField>
+            </sg:Column>
             <sg:Column HorizontalAlignment="Center" Locked="True">
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding Path=区分, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
@@ -236,6 +238,11 @@
           <sg:Column IsVisible="False">
            <sg:Column.DataField>
               <sg:BindingDataField Binding="{Binding Path=確定区分, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+           </sg:Column.DataField>
+          </sg:Column>
+          <sg:Column IsVisible="False">
+           <sg:Column.DataField>
+             <sg:BindingDataField Binding="{Binding Path=自社コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
            </sg:Column.DataField>
           </sg:Column>
        </sg:GcSpreadGrid.Columns>

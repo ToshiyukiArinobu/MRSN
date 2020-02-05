@@ -21,7 +21,8 @@ namespace KyoeiSystem.Application.WCFService
         private const string M73_ZEI_TABLE_NAME = "M73_ZEI";
         /// <summary>自社 テーブル名</summary>
         private const string M70_JIS_TABLE_NAME = "M70_JIS";
-
+        /// <summary>確定テーブル名 </summary>
+        private const string S11_FIX_TABLE_NAME = "S11_KAKUTEI";
         #endregion
 
         #region << サービス定義 >>
@@ -79,7 +80,12 @@ namespace KyoeiSystem.Application.WCFService
             public int 消費税 { get; set; }
             public int Ｔ消費税区分 { get; set; }                   // No-101 Mod
             public int Ｔ税区分ID { get; set; }                     // No-101 Mod
-
+            public DateTime? 得意先確定日 { get; set; }
+            public DateTime? 仕入先確定日 { get; set; }
+            public string 得意先名 { get; set; }
+            public string 仕入先名 { get; set; }
+            public int? 得意先取引区分 { get; set; }
+            public int? 仕入先取引区分 { get; set; }
         }
 
         /// <summary>
@@ -109,6 +115,18 @@ namespace KyoeiSystem.Application.WCFService
             /// <summary>1:食品、2:繊維、3:その他</summary>
             public int 商品分類 { get; set; }
 
+        }
+
+        /// <summary>
+        /// 確定情報
+        /// </summary>
+        public class S11_KAKUTEI_INFO
+        {
+            public int? 取引先コード { get; set; }
+            public int? 枝番 { get; set; }
+            public int? 取引区分 { get; set; }
+            public int? 確定区分 { get; set; }
+            public DateTime? 確定日 { get; set; }
         }
 
         // No.272 Add Start
@@ -148,6 +166,8 @@ namespace KyoeiSystem.Application.WCFService
             List<T02_URDTL_Search_Extension> dtlList = getT02_URDTL_Extension(companyCode, targetSlipNum);
             M73 taxService = new M73();
             List<M73_ZEI> taxList = taxService.GetDataList();
+            List<S11_KAKUTEI_INFO> fixList = getS11_KAKUTEI_Extension(hdList);
+
             // 項目制御用に自社情報(自社区分)を取得する
             M70 jisService = new M70();
             List<M70_JIS> jisList = jisService.GetData(companyCode, CommonConstants.PagingOption.Paging_Code.GetHashCode());
@@ -188,6 +208,7 @@ namespace KyoeiSystem.Application.WCFService
             DataTable dtdtl = KESSVCEntry.ConvertListToDataTable(dtlList);
             DataTable dttax = KESSVCEntry.ConvertListToDataTable(taxList);
             DataTable dtjis = KESSVCEntry.ConvertListToDataTable(jisList);
+            DataTable dtFix = KESSVCEntry.ConvertListToDataTable(fixList);
 
             dthd.TableName = T02_HEADER_TABLE_NAME;
             t02ds.Tables.Add(dthd);
@@ -200,6 +221,9 @@ namespace KyoeiSystem.Application.WCFService
 
             dtjis.TableName = M70_JIS_TABLE_NAME;
             t02ds.Tables.Add(dtjis);
+
+            dtFix.TableName = S11_FIX_TABLE_NAME;
+            t02ds.Tables.Add(dtFix);
 
             return t02ds;
 
@@ -609,6 +633,110 @@ namespace KyoeiSystem.Application.WCFService
 
             }
 
+        }
+        #endregion
+
+        #region 確定情報を取得する
+        /// <summary>
+        /// 確定情報を取得する
+        /// </summary>
+        /// <param name="companyCode"></param>
+        /// <param name="urhdList"></param>
+        /// <returns></returns>
+        private List<S11_KAKUTEI_INFO> getS11_KAKUTEI_Extension(List<T02_URHD_Search_Extension> urhdList)
+        {
+            if (!urhdList.Any())
+            {
+                return new List<S11_KAKUTEI_INFO>();
+            }
+
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                int val;
+                int 自社コード = int.TryParse(urhdList[0].会社名コード, out val) ? val : -1;
+                int 得意先コード = int.TryParse(urhdList[0].得意先コード, out val)? val : -1;
+                int 得意先枝番 = int.TryParse(urhdList[0].得意先枝番, out val) ? val : -1;
+                int 仕入先コード = int.TryParse(urhdList[0].仕入先コード, out val) ? val : -1;
+                int 仕入先枝番 = int.TryParse(urhdList[0].仕入先枝番, out val) ? val : -1;
+
+                // 得意先情報
+                var tokData = context.M01_TOK.Where(w => w.削除日時 == null);
+
+                // 得意先確定データ
+                var tokFix =
+                    tokData.Where(w => w.取引先コード == 得意先コード && w.枝番 == 得意先枝番)
+                        .GroupJoin(context.S11_KAKUTEI.Where(w => w.確定区分 == (int)CommonConstants.確定区分.請求),
+                            x => new { jis = x.担当会社コード, tKbn = x.取引区分, closeDay = (int)x.Ｔ締日 },
+                            y => new { jis = y.自社コード, tKbn = y.取引区分, closeDay = y.締日 },
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (a, b) => new { TOK_T = a.x, FIX_T = b })
+                        .Select(s => new S11_KAKUTEI_INFO
+                        {
+                            取引先コード = s.TOK_T.取引先コード,
+                            枝番 = s.TOK_T.枝番,
+                            取引区分 = s.TOK_T.取引区分,
+                            確定区分 = s.FIX_T.確定区分,
+                            確定日 = s.FIX_T.確定日
+                        })
+                        .Union
+                        (tokData.Where(w => w.取引先コード == 得意先コード && w.枝番 == 得意先枝番 && w.取引区分 == (int)CommonConstants.取引区分.相殺)
+                        .GroupJoin(context.S11_KAKUTEI.Where(w => w.確定区分 == (int)CommonConstants.確定区分.支払),
+                            x => new { jis = x.担当会社コード, tKbn = x.取引区分, closeDay = (int)x.Ｓ締日 },
+                            y => new { jis = y.自社コード, tKbn = y.取引区分, closeDay = y.締日 },
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (c, d) => new { TOK_T_S = c.x, FIX_SO = d })
+                        .Select(s => new S11_KAKUTEI_INFO 
+                        {
+                            取引先コード = s.TOK_T_S.取引先コード,
+                            枝番 = s.TOK_T_S.枝番,
+                            取引区分 = s.TOK_T_S.取引区分,
+                            確定区分 = s.FIX_SO.確定区分,
+                            確定日 = s.FIX_SO.確定日
+                        }));
+
+
+                // 仕入先確定データ
+                var shiFix =
+                    tokData.Where(w => w.取引先コード == 仕入先コード && w.枝番 == 仕入先枝番)
+                        .GroupJoin(context.S11_KAKUTEI.Where(w => w.確定区分 == (int)CommonConstants.確定区分.支払),
+                            x => new { jis = x.担当会社コード, tKbn = x.取引区分, closeDay = (int)x.Ｓ締日 },
+                            y => new { jis = y.自社コード, tKbn = y.取引区分, closeDay = y.締日 },
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (a, b) => new { TOK_S = a.x, FIX_S = b })
+                        .Select(s => new S11_KAKUTEI_INFO
+                        {
+                            取引先コード = s.TOK_S.取引先コード,
+                            枝番 = s.TOK_S.枝番,
+                            取引区分 = s.TOK_S.取引区分,
+                            確定区分 = s.FIX_S.確定区分,
+                            確定日 = s.FIX_S.確定日
+                        })
+                        .Union
+                        (tokData.Where(w => w.取引先コード == 仕入先コード && w.枝番 == 仕入先枝番 && w.取引区分 == (int)CommonConstants.取引区分.相殺)                    
+                        .GroupJoin(context.S11_KAKUTEI.Where(w => w.確定区分 == (int)CommonConstants.確定区分.請求),
+                            x => new { jis = x.担当会社コード, tKbn = x.取引区分, closeDay = (int)x.Ｔ締日 },
+                            y => new { jis = y.自社コード, tKbn = y.取引区分, closeDay = y.締日 },
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (c, d) => new { TOK_SO = c.x, FIX_SO = d })
+                        .Select(s => new S11_KAKUTEI_INFO
+                        {
+                            取引先コード = s.TOK_SO.取引先コード,
+                            枝番 = s.TOK_SO.枝番,
+                            取引区分 = s.TOK_SO.取引区分,
+                            確定区分 = s.FIX_SO.確定区分,
+                            確定日 = s.FIX_SO.確定日
+                        }));
+
+                // 請求データと支払データを結合
+                var result = tokFix.Concat(shiFix);
+                return result.ToList();
+            }
         }
         #endregion
 

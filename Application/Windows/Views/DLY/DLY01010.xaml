@@ -44,13 +44,13 @@
         </RibbonGroup>
 
         <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/15マスタ照会.png" Margin="0,-1,0,0"
+          <RibbonButton Name="F1"  LargeImageSource="../Images/15マスタ照会.png" Margin="0,-1,0,0"
                         Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"
 
           />
         </RibbonGroup>
         <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/16マスタ入力.png" Margin="0,-1,0,0"
+          <RibbonButton Name="F2" LargeImageSource="../Images/16マスタ入力.png" Margin="0,-1,0,0"
                         Label="ﾏｽﾀ入力" Click="RibbonButton_Click" KeyTip="F2" Height="50"
           />
         </RibbonGroup>
@@ -61,12 +61,12 @@
           <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
         </RibbonGroup>
         <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/行追加.png" Margin="0,-1,0,0"
+          <RibbonButton Name="F5" LargeImageSource="../Images/行追加.png" Margin="0,-1,0,0"
                         Label="行追加" Click="RibbonButton_Click" KeyTip="F5" Height="50"
           />
         </RibbonGroup>
         <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/28削除.png" Margin="0,-1,0,0"
+          <RibbonButton Name="F6" LargeImageSource="../Images/28削除.png" Margin="0,-1,0,0"
                         Label="行削除" Click="RibbonButton_Click" KeyTip="F6" Height="50"
           />
         </RibbonGroup>
@@ -77,23 +77,23 @@
           <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
         </RibbonGroup>
         <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+          <RibbonButton Name="F9" LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
                         Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                         Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png"
         />
         </RibbonGroup>
         <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+          <RibbonButton Name="F10" LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
                         Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"
           />
         </RibbonGroup>
         <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+          <RibbonButton Name="F11" LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
                         Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"
           />
         </RibbonGroup>
         <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+          <RibbonButton Name="F12" LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
                         Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="表示中のデータを削除します" ToolTipImageSource="../Images/28削除.png"
           />
         </RibbonGroup>
@@ -177,6 +177,7 @@
               Label1Visibility="Collapsed" Label2Visibility="Collapsed"
               Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
               Text2BorderBrush="Transparent" Text2Background="Transparent" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
+              cText1Changed="c会社名_cText1Changed"
           />
         </Grid>
 
@@ -239,13 +240,14 @@
             </Grid.ColumnDefinitions>
 
             <ctls:UcLabelTwinTextBox
-                x:Name="c仕入先" Grid.Column="0" HorizontalAlignment="Left" DataAccessName="M01_TOK" DataAccessMode="Off" LinkItem="1,3" Margin="2,0,0,0"
+                x:Name="c仕入先" Grid.Column="0" HorizontalAlignment="Left" DataAccessName="M01_TOK" DataAccessMode="Off" Margin="2,0,0,0"
                 LabelVisibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                 Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
                 Text1="{Binding SearchHeader[仕入先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                 Label1Text="－"
                 Text2Width="30" Text2MaxLength="2" Text2IMEType="Off" Text2ValidationType="Integer" Text2VerticalContentAlignment="Center"
                 Text2="{Binding SearchHeader[仕入先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                LinkItem="{Binding 仕入先LinkItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                 LostFocus="c仕入先_LostFocus" cText1Changed="SearchSupplier_cTextChanged" cText2Changed="SearchSupplier_cTextChanged"
             />
             <Label x:Name="c仕入先名" Grid.Column="1" BorderBrush="Gray" BorderThickness="0" Margin="0,1,0,1" />

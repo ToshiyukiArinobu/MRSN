@@ -99,6 +99,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         public static string MAINTENANCEMODE_EDIT = "編 集";
         public static string MAINTENANCEMODE_ADD = "新 規";
+        public static string MAINTENANCEMODE_FIX = "確 定";
         public static string CONFIRM_UPDATE = "登録してもよろしいですか？";
         public static string CONFIRM_DELETE = "削除してもよろしいですか？";
         public static string CONFIRM_CANCEL = "入力を取り消してもよろしいですか？";
