@@ -448,8 +448,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         if (string.IsNullOrEmpty(errMsg))
                         {
-                            //DataView dv = SearchDetail.AsDataView();
-
+                            // 新規行追加
                             var nRow = DetailDataView.AddNew();
                             nRow["棚卸日"] = DateTime.Parse(StocktakingDate.Text);
                             nRow["倉庫コード"] = (int?)sp新規明細データ.Cells[0, "倉庫コード"].Value;
@@ -458,10 +457,11 @@ namespace KyoeiSystem.Application.Windows.Views
                             nRow["自社品番"] = (string)sp新規明細データ.Cells[0, "自社品番"].Value;
                             nRow["自社品名"] = (string)sp新規明細データ.Cells[0, "自社品名"].Value;
 
-                            string p賞味期限 = (string)sp新規明細データ.Cells[0, "賞味期限"].Value;
+                            DateTime dt賞味期限;
+                            string s賞味期限 = (string)sp新規明細データ.Cells[0, "賞味期限"].Value;
+                            nRow["賞味期限"] = !DateTime.TryParse(s賞味期限, out dt賞味期限) ? AppCommon.DateTimeToDate(null, DateTime.MaxValue) : dt賞味期限;
+                            nRow["表示用賞味期限"] = s賞味期限;
 
-                            nRow["賞味期限"] = AppCommon.DatetimeParse(p賞味期限, DateTime.MaxValue);
-                            nRow["表示用賞味期限"] = p賞味期限;
                             nRow["数量"] = 0;
                             nRow["単位"] = (string)sp新規明細データ.Cells[0, "単位"].Value;
                             nRow["実在庫数"] = (decimal?)sp新規明細データ.Cells[0, "実在庫数"].Value;
@@ -1491,9 +1491,11 @@ namespace KyoeiSystem.Application.Windows.Views
             DateTime p棚卸日;
 
             // カラム名設定
-            CSVデータ.Columns.Add("棚卸日");
+            CSVデータ.Columns.Add("会社コード");
+            CSVデータ.Columns.Add("会社名");
             CSVデータ.Columns.Add("倉庫コード");
             CSVデータ.Columns.Add("倉庫名");
+            CSVデータ.Columns.Add("棚卸日");
             CSVデータ.Columns.Add("品番コード");
             CSVデータ.Columns.Add("自社品番");
             CSVデータ.Columns.Add("自社品名");
@@ -1507,10 +1509,11 @@ namespace KyoeiSystem.Application.Windows.Views
             foreach (DataRow data in tbl.Rows)
             {
                 DataRow row = CSVデータ.NewRow();
-
-                row["棚卸日"] = DateTime.TryParse(data["棚卸日"].ToString(), out p棚卸日) ? p棚卸日.ToShortDateString() : string.Empty;
+                row["会社コード"] = myCompany.Text1;
+                row["会社名"] = myCompany.Text2;
                 row["倉庫コード"] = data["倉庫コード"].ToString();
                 row["倉庫名"] = data["倉庫名"].ToString();
+                row["棚卸日"] = DateTime.TryParse(data["棚卸日"].ToString(), out p棚卸日) ? p棚卸日.ToShortDateString() : string.Empty;
                 row["品番コード"] = data["品番コード"].ToString();
                 row["自社品番"] = data["自社品番"].ToString();
                 row["自社品名"] = data["自社品名"].ToString();
@@ -1518,7 +1521,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 row["賞味期限"] = data["表示用賞味期限"].ToString();
                 row["数量"] = data["数量"].ToString();
                 row["単位"] = data["単位"].ToString();
-                row["更新在庫数量"] = data["実在庫数"].ToString();
+                row["更新在庫数量"] = (bool)writeListChk.IsChecked ? string.Empty : data["実在庫数"].ToString();
                 CSVデータ.Rows.Add(row);
             }
 

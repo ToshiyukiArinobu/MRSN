@@ -477,6 +477,7 @@
     <Compile Include="Views\ZIK\ZIK04010.cs" />
     <Compile Include="Views\ZIK\ZIK01010.cs" />
     <Compile Include="Views\ZIK\ZIK05010.cs" />
+    <Compile Include="Views\ZIK\ZIK03010.cs" />
     <Compile Include="V_M01_TOK.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
