@@ -133,8 +133,12 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="33" />
           </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
 
-          <!-- 自社コード -->
+                    <!-- 自社コード -->
           <ctls:UcLabelTwinTextBox Name="myCompany" Grid.Row="0" HorizontalAlignment="Left" Margin="5,3,0,0"
                                    DataAccessName="M70_JIS" DataAccessMode="On" 
                                    Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -161,7 +165,7 @@
               ComboListingParams="随時,揚り明細問合せ,加工区分"
           />
 
-          <Grid Grid.Row="3" Margin="5,3,0,0">
+          <Grid Grid.Row="2" Grid.Column="1" Margin="5,3,0,0">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
               <ColumnDefinition Width="auto" />
@@ -183,8 +187,14 @@
 
           </Grid>
 
-          <!-- 検索ボタン -->
-          <Button Name="btnSearch" Grid.Row="0" Grid.RowSpan="2" Width="50" Height="50" Margin="430,0,0,0"
+          <ctls:UcLabelTwinTextBox Name="MyProductCode" Grid.Row="3" DataAccessName="M09_MYHIN" DataAccessMode="On" HorizontalAlignment="Left" Margin="5,0,0,0"
+                                   Label_Context="品番指定" Label_Width="100" Label1Visibility="Collapsed" Label2Visibility="Collapsed" IsKeyItem="True" Height="27"
+                                   Text1Width="80" Text1IMEType="Off" Text1MaxLength="12" Text1VerticalContentAlignment="Center"
+                                   Text2Width="300" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+          />
+
+                    <!-- 検索ボタン -->
+          <Button Name="btnSearch" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="50" Height="50" Margin="280,0,0,0"
                   HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0"
                   Click="Button_Click">
             <Image Source="../Images/検索実行ボタン.png" Stretch="Fill" />

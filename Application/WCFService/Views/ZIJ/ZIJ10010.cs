@@ -64,42 +64,31 @@ namespace KyoeiSystem.Application.WCFService
             int salesKbn = int.Parse(cond["加工区分"]);
             int? customerCode = int.TryParse(cond["加工先コード"], out wkVal) ? wkVal : (int?)null,
                 customerEda = int.TryParse(cond["加工先枝番"], out wkVal) ? wkVal : (int?)null;
+            string myProductCode = cond["自社品番コード"];     // No.323 Add
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
                 try
                 {
+
+                    List<SearchDataMember> retResult = new List<SearchDataMember>();
+
                     // 加工区分(名称)データ取得
                     var salesKbnData =
                         context.M99_COMBOLIST
                             .Where(w => w.分類 == "日次" && w.機能 == "揚り入力" && w.カテゴリ == "加工区分");
+
+                    // ---------------------------
+                    // 情報取得
+                    // ---------------------------
+                    // 揚り情報
 
                     var agrData =
                         context.T04_AGRHD.Where(w => w.削除日時 == null && w.会社名コード == p自社コード)
                             .Join(context.T04_AGRDTL.Where(w => w.削除日時 == null),
                                 x => x.伝票番号,
                                 y => y.伝票番号,
-                                (x, y) => new { AGRHD = x, AGRDTL = y });
-
-                    #region 検索条件による絞込み
-
-                    if (salesDateFrom != null)
-                        agrData = agrData.Where(x => x.AGRHD.仕上り日 >= salesDateFrom);
-
-                    if (salesDateTo != null)
-                        agrData = agrData.Where(x => x.AGRHD.仕上り日 <= salesDateTo);
-
-                    if (salesKbn > 0)
-                        agrData = agrData.Where(w => w.AGRHD.加工区分 == salesKbn);
-
-                    if (customerCode != null && customerEda != null)
-                        agrData = agrData.Where(w => w.AGRHD.外注先コード == customerCode && w.AGRHD.外注先枝番 == customerEda);
-
-                    #endregion
-
-
-                    var resultList =
-                        agrData
+                                (x, y) => new { AGRHD = x, AGRDTL = y })
                             .Join(salesKbnData,
                                 x => x.AGRHD.加工区分,
                                 y => y.コード,
@@ -128,36 +117,63 @@ namespace KyoeiSystem.Application.WCFService
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
                                 (g, h) => new { AGRHD = g.x.AGRHD, AGRDTL = g.x.AGRDTL, g.x.KBN, g.x.TOK, g.x.HIN, g.x.IRO, JIS = h })
-                            .OrderBy(o => o.AGRHD.外注先コード)
-                            .ThenBy(t => t.AGRHD.外注先枝番)
-                            .ThenBy(t => t.AGRHD.仕上り日)
-                            .ThenBy(t => t.AGRDTL.伝票番号)
-                            .ThenBy(t => t.AGRDTL.行番号)
-                            .ToList()
-                            .Select(x => new SearchDataMember
-                            {
-                                会社名コード = x.AGRHD.会社名コード,               // No.227,228 Add
-                                自社名 = x.JIS.自社名 ?? "",                        // No.227,228 Add
-                                仕上日 = x.AGRHD.仕上り日.ToShortDateString(),     // No.130-2 Mod
-                                加工区分 = x.KBN.表示名,
-                                伝票番号 = x.AGRHD.伝票番号.ToString(),
-                                行番号 = x.AGRDTL.行番号,
-                                外注先コード = string.Format("{0:D4} - {1:D2}", x.AGRHD.外注先コード, x.AGRHD.外注先枝番),   // No.227,228 Add
-                                外注先 = x.TOK != null ? x.TOK.略称名 : (x.KBN.コード == 3 ? "自社" : string.Empty),
-                                品番コード = x.AGRDTL.品番コード,
-                                自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
-                                自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
-                                自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
-                                賞味期限 = x.AGRDTL.賞味期限 == null ? null : x.AGRDTL.賞味期限.Value.ToShortDateString(),   // No.130-2 Mod
-                                単価 = x.AGRDTL.単価 == null ? 0 : (decimal)x.AGRDTL.単価,
-                                数量 = x.AGRDTL.数量 == null ? 0 : (decimal)x.AGRDTL.数量,
-                                単位 = x.AGRDTL.単位,
-                                金額 = x.AGRDTL.金額 ?? 0,
-                                摘要 = x.AGRDTL.摘要,
-                            })
-                            .ToList();
+                            .AsQueryable();
 
-                    return resultList;
+
+                    #region 検索条件による絞込み
+
+                    if (salesDateFrom != null)
+                        agrData = agrData.Where(x => x.AGRHD.仕上り日 >= salesDateFrom);
+
+                    if (salesDateTo != null)
+                        agrData = agrData.Where(x => x.AGRHD.仕上り日 <= salesDateTo);
+
+                    if (salesKbn > 0)
+                        agrData = agrData.Where(w => w.AGRHD.加工区分 == salesKbn);
+
+                    if (customerCode != null && customerEda != null)
+                        agrData = agrData.Where(w => w.AGRHD.外注先コード == customerCode && w.AGRHD.外注先枝番 == customerEda);
+
+                    if (!string.IsNullOrEmpty(myProductCode))
+                        agrData = agrData.Where(w => w.HIN.自社品番 == myProductCode);     // No.323 Add
+
+                    #endregion
+
+                    // ---------------------------
+                    // 出力形式に成型
+                    // ---------------------------
+
+                    retResult = agrData
+                                .OrderBy(o => o.AGRHD.外注先コード)
+                                .ThenBy(t => t.AGRHD.外注先枝番)
+                                .ThenBy(t => t.AGRHD.仕上り日)
+                                .ThenBy(t => t.AGRDTL.伝票番号)
+                                .ThenBy(t => t.AGRDTL.行番号)
+                                .ToList()
+                                .Select(x => new SearchDataMember
+                                {
+                                    会社名コード = x.AGRHD.会社名コード,               // No.227,228 Add
+                                    自社名 = x.JIS.自社名 ?? "",                        // No.227,228 Add
+                                    仕上日 = x.AGRHD.仕上り日.ToShortDateString(),     // No.130-2 Mod
+                                    加工区分 = x.KBN.表示名,
+                                    伝票番号 = x.AGRHD.伝票番号.ToString(),
+                                    行番号 = x.AGRDTL.行番号,
+                                    外注先コード = string.Format("{0:D4} - {1:D2}", x.AGRHD.外注先コード, x.AGRHD.外注先枝番),   // No.227,228 Add
+                                    外注先 = x.TOK != null ? x.TOK.略称名 : (x.KBN.コード == 3 ? "自社" : string.Empty),
+                                    品番コード = x.AGRDTL.品番コード,
+                                    自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
+                                    自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
+                                    自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
+                                    賞味期限 = x.AGRDTL.賞味期限 == null ? null : x.AGRDTL.賞味期限.Value.ToShortDateString(),   // No.130-2 Mod
+                                    単価 = x.AGRDTL.単価 == null ? 0 : (decimal)x.AGRDTL.単価,
+                                    数量 = x.AGRDTL.数量 == null ? 0 : (decimal)x.AGRDTL.数量,
+                                    単位 = x.AGRDTL.単位,
+                                    金額 = x.AGRDTL.金額 ?? 0,
+                                    摘要 = x.AGRDTL.摘要,
+                                })
+                                .ToList();
+
+                    return retResult;
 
                 }
                 catch (System.ArgumentException agex)

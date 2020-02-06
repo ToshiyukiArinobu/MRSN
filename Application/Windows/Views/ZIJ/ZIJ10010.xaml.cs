@@ -76,6 +76,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string FORM_PARAMS_TOK_CODE = "加工先コード";
         private const string FORM_PARAMS_TOK_EDA = "加工先枝番";
         private const string FORM_PARAMS_TOK_NAME = "外注先名";
+        private const string FORM_PARAMS_HINBAN = "自社品番コード";
+        private const string FORM_PARAMS_HINBAN_NAME = "自社品番_名称";
 
         #endregion
 
@@ -124,6 +126,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             base.MasterMaintenanceWindowList.Add("M01_TOK_TOKU_SCH", new List<Type> { typeof(MST02010), typeof(SCHM01_TOK) });
             base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
+            base.MasterMaintenanceWindowList.Add("M09_MYHIN", new List<Type> { typeof(MST02010), typeof(SCHM09_MYHIN) });
 
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
@@ -503,6 +506,8 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add(FORM_PARAMS_JIS_NAME, myCompany.Text2);
             paramDic.Add(FORM_PARAMS_SALES_KBN_NAME, salesKbnDic[int.Parse(cmbSalesKbn.SelectedValue.ToString())]);
             paramDic.Add(FORM_PARAMS_TOK_NAME, TOK.Label2Text);
+            paramDic.Add(FORM_PARAMS_HINBAN, MyProductCode.Text1);     // No.323 Add
+            paramDic.Add(FORM_PARAMS_HINBAN_NAME, MyProductCode.Text2);     // No.323 Add
 
         }
 
@@ -535,7 +540,9 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = "仕上日From", VALUE = getReportParameterValue(FORM_PARAMS_SALES_DATE_FROM)},
                     new FwRepPreview.ReportParameter(){ PNAME = "仕上日To", VALUE = getReportParameterValue(FORM_PARAMS_SALES_DATE_TO)},
                     new FwRepPreview.ReportParameter(){ PNAME = "加工区分", VALUE = getReportParameterValue(FORM_PARAMS_SALES_KBN_NAME)},
-                    new FwRepPreview.ReportParameter(){ PNAME = "外注先名", VALUE = getReportParameterValue(FORM_PARAMS_TOK_NAME)}
+                    new FwRepPreview.ReportParameter(){ PNAME = "外注先名", VALUE = getReportParameterValue(FORM_PARAMS_TOK_NAME)},
+                    new FwRepPreview.ReportParameter(){ PNAME = "自社品番コード", VALUE = getReportParameterValue(FORM_PARAMS_HINBAN)},
+                    new FwRepPreview.ReportParameter(){ PNAME = "自社品番_名称", VALUE = getReportParameterValue(FORM_PARAMS_HINBAN_NAME)}
                 };
 
                 // REMARKS:テーブル名は帳票DataTableの名前と合わせる
