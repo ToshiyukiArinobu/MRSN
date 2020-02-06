@@ -168,16 +168,16 @@
 
                                 <!-- 会社コード -->
                             <ctls:UcLabelTwinTextBox Name="myCompany" Grid.Row="0" Grid.Column="0" DataAccessName="M70_JIS" DataAccessMode="On" IsRequired="True" Margin="0,2,0,0"
-                                        Label_Context="会社コード" Label_Width="100" HorizontalAlignment="Left"
-                                        Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                        Label_Context="会社コード" Label_Width="100" HorizontalAlignment="Left" Text1="{Binding 会社コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                        Label1Visibility="Collapsed" Label2Visibility="Collapsed" cText1Changed="myCompany_cText1Changed"
                                         Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
                                         Text2Width="300" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center" Width="444"
               />
 
                             <!-- 倉庫コード -->
-                            <ctls:UcLabelTwinTextBox Name="Warehouse" Grid.Row="0" Grid.Column="1" DataAccessName="M22_SOUK" DataAccessMode="On" IsRequired="False" Margin="0,2,0,0"
+                            <ctls:UcLabelTwinTextBox Name="Warehouse" Grid.Row="0" Grid.Column="1" DataAccessName="M22_SOUK_BASYOC" DataAccessMode="On" IsRequired="True" Margin="0,2,0,0"
                                         Label_Context="倉庫コード" Label_Width="100" HorizontalAlignment="Left"
-                                        Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                                        Label1Visibility="Collapsed" Label2Visibility="Collapsed" LinkItem="{Binding 会社コード, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                                         Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
                                         Text2Width="300" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center" Width="444"
               />
