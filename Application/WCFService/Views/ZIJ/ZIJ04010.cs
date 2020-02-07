@@ -48,6 +48,8 @@ namespace KyoeiSystem.Application.WCFService
         /// 得意先コード
         /// 得意先枝番
         /// 金種コード
+        /// 伝票番号From
+        /// 伝票番号To
         /// </param>
         /// <returns></returns>
         public List<SearchDataMember> GetDataList(int p自社コード, Dictionary<string, string> cond)
@@ -133,6 +135,20 @@ namespace KyoeiSystem.Application.WCFService
                     if (!string.IsNullOrEmpty(sGoldType) && int.TryParse(sGoldType, out wkGoldType))
                         if (wkGoldType > 0)
                             payDataList = payDataList.Where(w => w.PDTL.金種コード == wkGoldType).ToList();
+
+                    // 伝票番号From
+                    int wkSlipNoFrom;
+                    string sSlipNoFrom = cond["伝票番号From"];
+                    if (!string.IsNullOrEmpty(sSlipNoFrom) && int.TryParse(sSlipNoFrom, out wkSlipNoFrom))
+                        if (wkSlipNoFrom > 0)
+                            payDataList = payDataList.Where(w => w.PHD.伝票番号 >= wkSlipNoFrom).ToList();
+
+                    // 伝票番号To
+                    int wkSlipNoTo;
+                    string sSlipNoTo = cond["伝票番号To"];
+                    if (!string.IsNullOrEmpty(sSlipNoTo) && int.TryParse(sSlipNoTo, out wkSlipNoTo))
+                        if (wkSlipNoTo > 0)
+                            payDataList = payDataList.Where(w => w.PHD.伝票番号 <= wkSlipNoTo).ToList();
 
                     #endregion
 

@@ -133,6 +133,10 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="33" />
           </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
 
           <!-- 自社コード -->
           <ctls:UcLabelTwinTextBox
@@ -144,13 +148,31 @@
               Text2Width="250" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderThickness="0" Text2AcceptsTab="False" Text2VerticalContentAlignment="Center"
           />
 
+          <!-- 伝票番号指定 -->
+          <Grid Grid.Row="0" Grid.Column="1" Margin="5,3,0,0">
+             <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="auto" />
+               <ColumnDefinition Width="auto" />
+               <ColumnDefinition Width="auto" />
+             </Grid.ColumnDefinitions>
+
+             <ctls:UcLabelTextBox Name="slipNoFrom" Grid.Column="0" 
+                 Label_Context="伝票番号指定" Label_Width="100" ValidationType="Integer" ImeType="Off"
+                 cWidth="100" cMaxLength="7" cVerticalContentAlignment="Center"                
+             />
+             <ctls:UcLabel LabelText="～" cBackground="Transparent" cForeground="Black" Grid.Column="1"/>
+             <ctls:UcLabelTextBox Name="slipNoTo" Grid.Column="2" ValidationType="Integer" ImeType="Off"
+                 Label_Visibility="Collapsed"
+                 cWidth="100" cMaxLength="7" cVerticalContentAlignment="Center"                
+             />
+          </Grid>
+
           <!-- 出金日 -->
           <Grid Grid.Row="1" Margin="5,3,0,0">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
               <ColumnDefinition Width="auto" />
-              <ColumnDefinition Width="150" />
-              <ColumnDefinition Width="auto" />
+              <ColumnDefinition Width="150" />    
             </Grid.ColumnDefinitions>
 
             <ctls:UcLabelTextBox Name="withdrawalDateFrom" Grid.Column="0" HorizontalAlignment="Left"
@@ -162,19 +184,19 @@
                                  Label_Visibility="Hidden" Label_cIsVisible="False"
                                  cWidth="80" cMaxLength="10" ValidationType="Date" Mask="yyyy/MM/dd"
             />
-            <!-- 金種 -->
-            <ctls:UcLabelComboBox
-                Name="cmbDepositType" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Margin="5,0,0,0"
-                Label_Context="金種" Label_Width="100"
-                Combo_Width="100"
-                ComboListingParams="随時,出金問合せ,金種"
-            />
-
           </Grid>
+            
+          <!-- 金種 -->
+          <ctls:UcLabelComboBox
+              Name="cmbDepositType" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Margin="5,3,0,0"
+              Label_Context="金種" Label_Width="100" Height="27"
+              Combo_Width="100"
+              ComboListingParams="随時,出金問合せ,金種"
+          />
 
           <!-- 出金先販社(自社コード) -->
           <ctls:UcLabelTwinTextBox
-              Name="depositCompany" Grid.Row="2" HorizontalAlignment="Left" Margin="5,3,0,0"
+              Name="depositCompany" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5,3,0,0"
               DataAccessName="M70_JIS" DataAccessMode="On" 
               Label_Context="出金先販社" Label_Width="100"
               Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -184,7 +206,7 @@
 
           <!-- 得意先 -->
           <uc:M01_TOK_TextBox
-              x:Name="TOK" Grid.Row="3" HorizontalAlignment="Left" Margin="5,3,0,3"
+              x:Name="TOK" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5,3,0,3"
               Label_Context="得意先指定" Label_Width="100"
               DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,2,3,4"
               Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -195,7 +217,7 @@
           />
 
           <!-- 検索ボタン -->
-          <Button Name="btnSearch" Grid.Row="2" Grid.RowSpan="2" Width="50" Height="50" Margin="360,0,0,0"
+          <Button Name="btnSearch" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Width="50" Height="50" Margin="200,0,0,0"
                   HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0"
                   Click="Button_Click">
             <Image Source="../Images/検索実行ボタン.png" Stretch="Fill" />
