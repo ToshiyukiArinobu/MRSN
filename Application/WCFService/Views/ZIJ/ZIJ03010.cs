@@ -134,6 +134,20 @@ namespace KyoeiSystem.Application.WCFService
                         if(wkGoldType > 0)
                             nkDataList = nkDataList.Where(w => w.NDTL.金種コード == wkGoldType).ToList();
 
+                    // 伝票番号From
+                    int wkSlipNoFrom;
+                    string sSlipNoFrom = cond["伝票番号From"];
+                    if (!string.IsNullOrEmpty(sSlipNoFrom) && int.TryParse(sSlipNoFrom, out wkSlipNoFrom))
+                        if (wkSlipNoFrom > 0)
+                            nkDataList = nkDataList.Where(w => w.NHD.伝票番号 >= wkSlipNoFrom).ToList();
+
+                    // 伝票番号To
+                    int wkSlipNoTo;
+                    string sSlipNoTo = cond["伝票番号To"];
+                    if (!string.IsNullOrEmpty(sSlipNoTo) && int.TryParse(sSlipNoTo, out wkSlipNoTo))
+                        if (wkSlipNoTo > 0)
+                            nkDataList = nkDataList.Where(w => w.NHD.伝票番号 <= wkSlipNoTo).ToList();
+
                     #endregion
 
                     var resultList =

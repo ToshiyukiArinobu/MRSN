@@ -162,13 +162,13 @@ namespace KyoeiSystem.Application.Windows.Views
                     this.Top = frmcfg.Top;
 
                 this.Height = frmcfg.Height;
-				this.Width = frmcfg.Width;
+                this.Width = frmcfg.Width;
 
             }
             #endregion
 
             // AppCommon.LoadSpConfig(this.spGridList, frmcfg.spConfig20180118 != null ? frmcfg.spConfig20180118 : this.sp_Config);
-			spGridList.InputBindings.Add(new KeyBinding(spGridList.NavigationCommands.MoveNext, Key.Enter, ModifierKeys.None));
+            spGridList.InputBindings.Add(new KeyBinding(spGridList.NavigationCommands.MoveNext, Key.Enter, ModifierKeys.None));
 
             // No.145 Add Start
             // 金種の名称辞書を作成
@@ -212,9 +212,17 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
                     else
                     {
-                        SearchResult = tbl;
-                        // フッター合計欄の計算
-                        summaryCalc();
+                        if (tbl.Rows.Count == 0)
+                        {
+                            this.ErrorMessage = "該当するデータはありません。";
+                            return;
+                        }
+                        else
+                        {
+                            SearchResult = tbl;
+                            // フッター合計欄の計算
+                            summaryCalc();
+                        }
                     }
                     break;
 
@@ -479,6 +487,8 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Clear();
             paramDic.Add("入金日From", depositDateFrom.Text);
             paramDic.Add("入金日To", depositDateTo.Text);
+            paramDic.Add("伝票番号From", slipNoFrom.Text);
+            paramDic.Add("伝票番号To", slipNoTo.Text);
             paramDic.Add("金種コード", cmbDepositType.SelectedValue.ToString());
             paramDic.Add("入金元販社コード", depositCompany.Text1);
             paramDic.Add("得意先コード", TOK.Text1);
@@ -559,6 +569,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = "自社コード", VALUE = paramDic["自社名"]},
                     new FwRepPreview.ReportParameter(){ PNAME = "入金日From", VALUE = string.IsNullOrEmpty(paramDic["入金日From"]) ? "" : paramDic["入金日From"]},
                     new FwRepPreview.ReportParameter(){ PNAME = "入金日To", VALUE = string.IsNullOrEmpty(paramDic["入金日To"]) ? "" : paramDic["入金日To"]},
+                    new FwRepPreview.ReportParameter(){ PNAME = "伝票番号From", VALUE = string.IsNullOrEmpty(paramDic["伝票番号From"]) ? "" : paramDic["伝票番号From"]},
+                    new FwRepPreview.ReportParameter(){ PNAME = "伝票番号To", VALUE = string.IsNullOrEmpty(paramDic["伝票番号To"]) ? "" : paramDic["伝票番号To"]},
                     new FwRepPreview.ReportParameter(){ PNAME = "金種コード", VALUE = paramDic["金種名"]},
                     new FwRepPreview.ReportParameter(){ PNAME = "入金元販社", VALUE = string.IsNullOrEmpty(paramDic["入金元販社名"]) ? "" : paramDic["入金元販社名"]},
                     new FwRepPreview.ReportParameter(){ PNAME = "得意先", VALUE = string.IsNullOrEmpty(paramDic["得意先名"]) ? "" : paramDic["得意先名"]}

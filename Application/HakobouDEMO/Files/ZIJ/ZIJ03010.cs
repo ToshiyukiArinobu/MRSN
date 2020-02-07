@@ -98,7 +98,7 @@ namespace Hakobou.Files.ZIJ {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_入金日From {
+        public CrystalDecisions.Shared.IParameterField Parameter_金種コード {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }
@@ -106,7 +106,7 @@ namespace Hakobou.Files.ZIJ {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_入金日To {
+        public CrystalDecisions.Shared.IParameterField Parameter_入金元販社 {
             get {
                 return this.DataDefinition.ParameterFields[2];
             }
@@ -114,7 +114,7 @@ namespace Hakobou.Files.ZIJ {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_金種コード {
+        public CrystalDecisions.Shared.IParameterField Parameter_得意先 {
             get {
                 return this.DataDefinition.ParameterFields[3];
             }
@@ -122,7 +122,7 @@ namespace Hakobou.Files.ZIJ {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_入金元販社 {
+        public CrystalDecisions.Shared.IParameterField Parameter_伝票番号From {
             get {
                 return this.DataDefinition.ParameterFields[4];
             }
@@ -130,9 +130,25 @@ namespace Hakobou.Files.ZIJ {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_得意先 {
+        public CrystalDecisions.Shared.IParameterField Parameter_伝票番号To {
             get {
                 return this.DataDefinition.ParameterFields[5];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_入金日From {
+            get {
+                return this.DataDefinition.ParameterFields[6];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_入金日To {
+            get {
+                return this.DataDefinition.ParameterFields[7];
             }
         }
     }
