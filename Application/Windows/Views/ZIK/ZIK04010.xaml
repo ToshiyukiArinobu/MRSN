@@ -13,7 +13,7 @@
   WindowStyle="SingleBorderWindow" AllowsTransparency="False" WindowStartupLocation="CenterOwner"
   Language="ja-JP"
   MinHeight="728" MinWidth="1024" Height="768" Width="1024"  Left="0" Top="0"
-  Title="棚卸更新(ZIK04010)"
+  Title="棚卸在庫更新(ZIK04010)"
   Loaded="MainWindow_Loaded" Closed="Window_Closed">
 
     <Grid>

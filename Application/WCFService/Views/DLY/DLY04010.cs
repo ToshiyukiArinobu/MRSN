@@ -159,7 +159,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     T05Service = new T05(context, userId);
                     S03Service = new S03(context, userId);
-                    S04Service = new S04(context, userId, S04.機能ID.棚卸更新);
+                    S04Service = new S04(context, userId, S04.機能ID.商品移動入力);
 
                     try
                     {

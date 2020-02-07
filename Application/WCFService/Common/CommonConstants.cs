@@ -112,6 +112,8 @@ namespace KyoeiSystem.Application.WCFService
         public static string 作成機能ID_揚り = "揚り";
         public static string 作成機能ID_売上 = "売上";
         public static string 作成機能ID_移動 = "移動";
+        public static string 作成機能ID_振替 = "振替";
+        public static string 作成機能ID_棚卸 = "棚卸";
         public static string 作成機能ID_仕入返品 = "仕入返品";
         public static string 作成機能ID_売上返品 = "売上返品";
 
@@ -265,6 +267,8 @@ namespace KyoeiSystem.Application.WCFService
             ID02_揚り = 2,
             ID03_売上 = 3,
             ID04_移動 = 4,
+            ID05_振替 = 5,
+            ID06_棚卸 = 6,
             ID91_仕入返品 = 91,
             ID93_売上返品 = 93
         }
