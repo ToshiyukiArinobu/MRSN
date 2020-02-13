@@ -269,7 +269,14 @@ namespace KyoeiSystem.Application.Windows.Views
                                 MessageBoxImage.Question);
 
                         if (result == MessageBoxResult.Yes)
+                        {
                             this.Close();
+                        }
+                        else
+                        {
+                            //検索をクリアして再度実施する時は検索ボタンの押下を促す。
+                            SearchList = null;
+                        }
                         break;
 
                 }

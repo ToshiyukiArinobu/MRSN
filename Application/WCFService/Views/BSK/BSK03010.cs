@@ -377,7 +377,7 @@ namespace KyoeiSystem.Application.WCFService
                                                 .Where(w => w.シリーズコード == s.Key.シリーズコード).Sum(m => m.集計合計額)
                                             ) * 100, 2)
                         })
-                        .ToList();
+                        .OrderBy(c => c.自社品番).ToList();
 
                 result.PRINT_DATA = resultList;
                 return result;
