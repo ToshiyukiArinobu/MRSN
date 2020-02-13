@@ -186,7 +186,7 @@
                                 <!-- 締年月 -->
                                 <ctls:UcLabelTextBox x:Name="ClosingDate" Grid.Row="0" Grid.Column="2"
                             	Label_Context="締年月" Label_Width="100"
-                                ValidationType="Date" Mask="yyyy/MM" ImeType="Off"
+                                ValidationType="DateYYYYMM" Mask="yyyy/MM" ImeType="Off"
                             	cWidth="100" cMaxLength="10" cVerticalContentAlignment="Center" Height="26" VerticalAlignment="Top"
                             	Margin="0,2,0,0" HorizontalAlignment="Left" Width="206"
               />
