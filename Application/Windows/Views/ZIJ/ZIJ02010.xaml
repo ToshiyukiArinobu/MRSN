@@ -19,12 +19,10 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="300*" />
-      <RowDefinition Height="82" />
+      <RowDefinition Height="*" /> 
     </Grid.RowDefinitions>
 
-    <!-- リボン -->
+        <!-- リボン -->
     <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
       <!-- タブ -->
@@ -121,11 +119,13 @@
     <Grid Name="Func" Grid.Row="1" Background="AliceBlue">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
         <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
-
-      <Border Name="Header" BorderBrush="Black" Grid.Row="0" BorderThickness="1" Margin="10,10,10,5" Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Name="Header" BorderBrush="Black" Grid.Row="0" BorderThickness="1" Width="996" HorizontalAlignment="Left" Margin="10,10,10,5" Padding="5">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -227,7 +227,7 @@
       <Grid Grid.Row="1">
 
         <sg:GcSpreadGrid
-            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="17" Height="350"
+            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="17"  HorizontalAlignment="Left"
             ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,5,10,1"
             ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
             DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIJ/ZIJ02010G1.sgxml"
@@ -349,7 +349,7 @@
       </Grid>
 
       <!--フッダー部-->
-      <Border Visibility="Hidden" Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="10" Grid.ColumnSpan="2" Padding="5,5,5,5">
+            <Border Visibility="Hidden" Grid.Row="2" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" Width="996" HorizontalAlignment="Left"  Margin="10,10,10,50" Padding="5">
         <Grid Background="AliceBlue">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />

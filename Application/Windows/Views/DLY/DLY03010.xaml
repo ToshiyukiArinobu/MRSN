@@ -30,7 +30,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -143,9 +142,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="120" />
+                    <RowDefinition Height="20" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -382,10 +382,10 @@
                 <!-- 売上明細 -->
                 <sg:GcSpreadGrid Name="gcSpreadGrid" Grid.Row="2" HorizontalAlignment="Left" AutoFitType="CellWithHeader" LayoutMode="Template"
                          AutoGenerateColumns="False" HighlightHeader="None" RowCount="10" OperationMode="Normal"
-                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Height="290" Margin="80,5,0,0"
+                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Margin="80,5,0,0"
                          DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY03010G1.sgxml"
                          ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                         CellEditEnded="gcSpredGrid_CellEditEnded" EditElementShowing="gcSpredGrid_EditElementShowing" Width="915">
+                         CellEditEnded="gcSpredGrid_CellEditEnded" EditElementShowing="gcSpredGrid_EditElementShowing" Width="918">
 
                     <!--カーソル色変更-->
                     <sg:GcSpreadGrid.SelectionBorderUnfocused>
@@ -529,7 +529,7 @@
                 </sg:GcSpreadGrid>
 
                 <!-- フッター部(合計表示領域) -->
-                <Grid x:Name="FooterArea" Grid.Row="3" Margin="80,0,0,15">
+                <Grid x:Name="FooterArea" Grid.Row="3" Margin="80,0,0,0">
                     <Grid.Resources>
                         <Style TargetType="{x:Type Border}" >
                             <Setter Property="BorderBrush" Value="Black" />

@@ -19,9 +19,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <!-- タブ -->
@@ -133,7 +131,7 @@
         <Grid Name="MainForm" Grid.Row="1" Background="AliceBlue">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="480" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!-- 検索条件部 -->
@@ -409,6 +407,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="17" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
 
@@ -416,13 +416,13 @@
 
                     <!-- データ部 -->
                     <sg:GcSpreadGrid
-              Name="sp棚卸明細データ" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" 
-              AutoGenerateColumns="False" HighlightHeader="None" OperationMode="Normal" RowCount="0" 
-              Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" Height="330" Margin="24,0,0,0"
-              DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIK/ZIK02010G1.sgxml"
-              ItemsSource="{Binding}"
-              LostFocus="gcStokGrid_LostFocus" CellEditEnded="gcRowGrid_CellEditEnded"
-              >
+                        Name="sp棚卸明細データ" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                        AutoGenerateColumns="False" HighlightHeader="None" OperationMode="Normal" RowCount="0" 
+                        Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct"  Margin="24,0,0,0"
+                        DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIK/ZIK02010G1.sgxml"
+                        ItemsSource="{Binding}" MinHeight="300"
+                        LostFocus="gcStokGrid_LostFocus" CellEditEnded="gcRowGrid_CellEditEnded"
+                        >
 
 
                         <!--カーソル色変更-->
@@ -547,8 +547,6 @@
                         </sg:GcSpreadGrid.Columns>
 
                     </sg:GcSpreadGrid>
-
-
 
                 </Grid>
 

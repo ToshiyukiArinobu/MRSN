@@ -29,8 +29,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -128,16 +126,15 @@
 
         </Grid>
 
-        <Grid Name="grdHeader" Grid.Row="1" Background="AliceBlue"
-          HorizontalAlignment="Stretch" Height="629" VerticalAlignment="Top" Grid.RowSpan="3">
+        <Grid Name="grdHeader" Grid.Row="1" Background="AliceBlue">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="120" />
                 <RowDefinition Height="30" />
+                <RowDefinition Height="20" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -267,7 +264,7 @@
             <sg:GcSpreadGrid
           Name="sp製品一覧" Grid.Row="3" LayoutMode="Template"
           AutoGenerateColumns="False" HighlightHeader="None" RowCount="0" OperationMode="Normal"
-          Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" Height="360" MaxWidth="950" MaxHeight="360" Margin="80,5,1,1"
+          Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Margin="80,5,1,1"
           DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY02010G1.sgxml"
           ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
           CellEditEnded="sp製品一覧_CellEditEnded" SelectionChanged="sp製品一覧_SelectionChanged">

@@ -21,10 +21,8 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="300*" />
-      <RowDefinition Height="82" />
-    </Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
     <!--リボン-->
     <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -118,17 +116,19 @@
     </Grid>
 
     <!-- メインコンテンツ -->
-    <Grid Grid.Row="1" Margin="10" Background="AliceBlue">
+    <Grid Grid.Row="1"  Background="AliceBlue">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
         <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-      <!--ヘッダー-->
-      <Border Name="Header" Grid.Row="1" BorderBrush="Black" BorderThickness="1">
-
+            <!--ヘッダー-->
+            <Border Name="Header" Grid.Row="1" BorderBrush="Black" BorderThickness="1" Width="996" HorizontalAlignment="Left" Margin="10,10,10,5" Padding="5">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -232,9 +232,8 @@
       <Grid Grid.Row="2" Margin="10,10,10,5">
 
         <sg:GcSpreadGrid
-          Name="spGridList" Grid.ColumnSpan="2" AutoGenerateColumns="False" LayoutMode="Cell" ColumnDragMode="Direct"
+          Name="spGridList" Grid.ColumnSpan="2" AutoGenerateColumns="False" LayoutMode="Cell" ColumnDragMode="Direct" HorizontalAlignment="Left"
           HighlightHeader="None" CanUserSortColumns="False" ColumnCount="8" RowCount="1" Protected="True"
-          Height="380"
           ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
           DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIJ/ZIJ03010G1.sgxml">
 
@@ -299,7 +298,7 @@
       </Grid>
 
       <!--フッター-->
-      <Border Grid.Row="3" BorderBrush="Black" BorderThickness="1" Margin="0,5,0,50">
+            <Border Grid.Row="3" BorderBrush="Black" BorderThickness="1" Margin="10,10,10,50" Width="996" HorizontalAlignment="Left"  Padding="5">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="30" />
