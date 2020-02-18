@@ -186,7 +186,7 @@
                         <Button Name="LastIdButoon" Grid.Column="4" Content="≫" Margin="0,2,2,2" Width="30" Click="LastIdButoon_Click" Focusable="False"/>
                     </Grid>
 
-                    <ctls:UcLabelTextBox  Label_Context="摘要名" Grid.Row="2" Label_Width="100" Width="350" Margin="0,0,0,0" HorizontalAlignment="Left" cMaxLength="40" ImeType="Native" 
+                    <ctls:UcLabelTextBox  Label_Context="摘要名" Grid.Row="2" Label_Width="100" Width="350" Margin="0,0,0,0" HorizontalAlignment="Left" cMaxLength="30" ImeType="Native" 
                              Text="{Binding Path=摘要名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" IsRequired="True" />
                     <ctls:UcLabelTextBox Label_Context="かな読み" Grid.Row="4" Label_Width="100" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left" cMaxLength="10" ImeType="HankakuKatakana"
                              Text="{Binding Path=かな読み, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
