@@ -58,7 +58,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 仕入先コード { get; set; }
             public string 仕入先名称 { get; set; }
             public string 支払締日 { get; set; }
-            public string 仕入日 { get; set; }
+            public DateTime 仕入日 { get; set; }
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
             public string 色コード { get; set; }
@@ -68,6 +68,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 金額 { get; set; }
             public int 通常消費税 { get; set; }
             public int 軽減消費税 { get; set; }
+            public string 摘要 { get; set; }         // No.336 Add
         }
 
         #endregion
@@ -140,7 +141,7 @@ namespace KyoeiSystem.Application.WCFService
             // ベースとなる支払ヘッダ情報を取得
             List<S02_SHRHD_Data> hdList = getHeaderData(condition);
             var hdData =
-                hdList.GroupBy(g => new { g.自社コード, g.自社名, g.支払年月, g.支払締日, g.支払先コード, g.支払先枝番,g.通常消費税,g.軽減消費税})
+                hdList.GroupBy(g => new { g.自社コード, g.自社名, g.支払年月, g.支払締日, g.支払先コード, g.支払先枝番, g.通常消費税, g.軽減消費税 })
                     .Select(s => new
                     {
                         s.Key.自社コード,
@@ -168,6 +169,7 @@ namespace KyoeiSystem.Application.WCFService
                         s.単価,
                         s.数量,
                         s.金額,
+                        s.摘要,                // No.336 Add
                     });
 
 
@@ -187,7 +189,7 @@ namespace KyoeiSystem.Application.WCFService
                     (a, b) => new { NHD = a.x, NDTL = b })
                 .GroupJoin(hinList,
                     x => new { x.NDTL.品番コード },
-                    y => new { y.品番コード},
+                    y => new { y.品番コード },
                     (x, y) => new { x, y })
                 .SelectMany(x => x.y,
                     (c, d) => new { c.x.NHD, c.x.NDTL, HIN = d })
@@ -207,7 +209,7 @@ namespace KyoeiSystem.Application.WCFService
                     仕入先コード = string.Format("{0:D4} - {1:D2}", x.NHD.支払先コード, x.NHD.支払先枝番),      // No-150, No.223 Mod
                     仕入先名称 = x.TOK == null ? "" : x.TOK.略称名,   // No.326 Mod
                     支払締日 = x.NHD.支払締日.ToString(),
-                    仕入日 = x.NDTL.仕入日.ToString(),                // No.326 Mod
+                    仕入日 = x.NDTL.仕入日,                // No.326 Mod
                     品番コード = x.NDTL.品番コード,
                     自社品番 = x.HIN.自社品番,
                     色コード = x.HIN.自社色,
@@ -217,6 +219,7 @@ namespace KyoeiSystem.Application.WCFService
                     金額 = x.NDTL.金額,
                     通常消費税 = (int)x.NHD.通常消費税,
                     軽減消費税 = (int)x.NHD.軽減消費税,
+                    摘要 = x.NDTL.摘要,                    // No.336 Add
                 });
 
             return KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList.ToList());
@@ -243,7 +246,7 @@ namespace KyoeiSystem.Application.WCFService
             out int? closingDay,
             out bool isAllDays,
             out int? customerCode,
-            out int? customerEda )
+            out int? customerEda)
         {
             int ival = -1;
 
@@ -371,7 +374,7 @@ namespace KyoeiSystem.Application.WCFService
                         .Select(x => x.TOK);
 
 
-                var wkTOK = 
+                var wkTOK =
                     context.M01_TOK.Where(w => w.削除日時 == null)
                         .ToList()
                         .Where(w => hdList.Exists(v => v.支払先コード == w.取引先コード && v.支払先枝番 == w.枝番));
@@ -402,7 +405,7 @@ namespace KyoeiSystem.Application.WCFService
                 //        .Select(x => x.TOK);
 
 
-                var wkHIN = 
+                var wkHIN =
                     context.M09_HIN.Where(w => w.削除日時 == null)
                         .ToList()
                         .Where(w => hdList.Exists(v => v.品番コード == w.品番コード));
@@ -413,7 +416,7 @@ namespace KyoeiSystem.Application.WCFService
 
         }
         #endregion
-        
+
     }
 
 }
