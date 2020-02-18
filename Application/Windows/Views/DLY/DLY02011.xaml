@@ -29,8 +29,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -124,17 +122,16 @@
 
         </Grid>
 
-        <Grid Name="grdHeader" Grid.Row="1" Background="AliceBlue"
-          HorizontalAlignment="Stretch" Height="629" VerticalAlignment="Top" Grid.RowSpan="3">
+        <Grid Name="grdHeader" Grid.Row="1" Background="AliceBlue">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="476" />
-                <RowDefinition Height="0"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -290,13 +287,13 @@
             <Border Grid.Row="5" BorderThickness="0,1.5,0,0" BorderBrush="LightSlateGray" Margin="20,5,0,0" HorizontalAlignment="Left" Width="907" />
 
             <!-- 構成品(部材)明細 -->
-            <GroupBox Header="構成品明細" Grid.Row="5" BorderThickness="2" Margin="80,5,0,-12" MaxWidth="780" MaxHeight="480" HorizontalAlignment="Left" Width="847" Grid.RowSpan="3" Height="490" VerticalAlignment="Top">
+            <GroupBox Header="構成品明細" Grid.Row="5" BorderThickness="2" Margin="80,5,0,-12" MaxWidth="780" HorizontalAlignment="Left" Width="847"  VerticalAlignment="Top">
                 <sg:GcSpreadGrid Name="gcInnerSpreadGrid" AutoFitType="CellWithHeader" LayoutMode="Template"
                          AutoGenerateColumns="False" HighlightHeader="None" RowCount="9" OperationMode="Normal" SelectionUnit="Row"
-                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" Margin="5,5,0,0"
+                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" Margin="5,5,0,0" MinHeight="380"
                          DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY02011G2.sgxml"
                          ItemsSource="{Binding InnerDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
-                         CellEditEnded="gcInnerSpreadGrid_CellEditEnded" HorizontalAlignment="Left" Width="747" Height="445" VerticalAlignment="Top">
+                         CellEditEnded="gcInnerSpreadGrid_CellEditEnded" HorizontalAlignment="Left" Width="747" VerticalAlignment="Top">
 
                     <!--カーソル色変更-->
                     <sg:GcSpreadGrid.SelectionBorderUnfocused>

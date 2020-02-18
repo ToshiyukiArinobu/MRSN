@@ -120,6 +120,8 @@ namespace KyoeiSystem.Application.WCFService
                                 x.HIS.作成機能ID == (int)CommonConstants.作成機能ID.ID02_揚り ? CommonConstants.作成機能ID_揚り :
                                 x.HIS.作成機能ID == (int)CommonConstants.作成機能ID.ID03_売上 ? CommonConstants.作成機能ID_売上 :
                                 x.HIS.作成機能ID == (int)CommonConstants.作成機能ID.ID04_移動 ? CommonConstants.作成機能ID_移動 :
+                                x.HIS.作成機能ID == (int)CommonConstants.作成機能ID.ID05_振替 ? CommonConstants.作成機能ID_振替 :
+                                x.HIS.作成機能ID == (int)CommonConstants.作成機能ID.ID06_棚卸 ? CommonConstants.作成機能ID_棚卸 :
                                 x.HIS.作成機能ID == (int)CommonConstants.作成機能ID.ID91_仕入返品 ? CommonConstants.作成機能ID_仕入返品 :
                                 x.HIS.作成機能ID == (int)CommonConstants.作成機能ID.ID93_売上返品 ? CommonConstants.作成機能ID_売上返品 :
                                 string.Empty

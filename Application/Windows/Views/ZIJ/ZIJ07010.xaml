@@ -19,10 +19,8 @@
 
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />    
       <RowDefinition Height="*" />
-      <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
 
     <!-- タブ -->
@@ -136,12 +134,12 @@
     <Grid Name="MainForm" Grid.Row="1" Background="AliceBlue">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="300" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="20" />
       </Grid.RowDefinitions>
 
       <!-- 検索条件部 -->
-      <Border Name="Header" Grid.Row="0" BorderBrush="Black" Margin="10,10,62,10" Padding="0,0,0,2" BorderThickness="1">
+      <Border Name="Header" Grid.Row="0" BorderBrush="Black" Margin="10,10,0,10" Padding="0,0,0,2" Width="953" HorizontalAlignment="Left" BorderThickness="1">
 
         <!-- 条件指定 -->
         <Grid Margin="5,2,0,2">
@@ -213,7 +211,7 @@
             Name="spGridList"
             AutoGenerateColumns="False" HighlightHeader="None" LayoutMode="Cell" OperationMode="Normal" HorizontalAlignment="Left"
             Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct"
-            Height="450" MaxWidth="1020"
+            MaxWidth="1020"
             DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIJ/ZIJ07010G1.sgxml"
             ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
             LostFocus="spGridList_LostFocus">

@@ -19,9 +19,7 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="300*" />
-      <RowDefinition Height="82" />
+      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
     <!-- リボン -->
@@ -121,11 +119,11 @@
     <Grid Name="Func" Grid.Row="1" Background="AliceBlue">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="20" />
       </Grid.RowDefinitions>
 
-      <Border Name="Header" BorderBrush="Black" Grid.Row="0" BorderThickness="1" Margin="10,10,10,5" Padding="5">
+            <Border Name="Header" BorderBrush="Black" Grid.Row="0" BorderThickness="1" Width="996" HorizontalAlignment="Left" Margin="10,10,10,5" Padding="5">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -227,8 +225,8 @@
       <Grid Grid.Row="1">
 
         <sg:GcSpreadGrid
-            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Template" RowCount="0" ColumnCount="20" Height="430"
-            ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,5,10,1"
+            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Template" RowCount="0" ColumnCount="20"
+            ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,5,10,1" HorizontalAlignment="Left"
             ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
             DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIJ/ZIJ05010G1.sgxml"
             PreviewKeyDown="spGridList_PreviewKeyDown">

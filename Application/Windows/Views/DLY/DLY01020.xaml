@@ -30,8 +30,6 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto"/>
-      <RowDefinition Height="auto"/>
-      <RowDefinition Height="auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
@@ -145,9 +143,10 @@
     <Grid Grid.Row="1" Background="AliceBlue" Margin="2">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="120" />
+        <RowDefinition Height="20" />
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="30" />
       </Grid.RowDefinitions>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
@@ -370,7 +369,7 @@
           Name="gcSpreadGrid" Grid.Row="1" AutoGenerateColumns="False" RowCount="10" OperationMode="Normal"
           LayoutMode="Template" CanUserSortColumns="False" ColumnDragMode="Default" Margin="15,5,0,0"
           HorizontalAlignment="Left" MaxWidth="1000" CanUserDragCell="False" Protected="True"
-          VerticalAlignment="Top" MinHeight="50" MaxHeight="330" Height="330"
+          VerticalAlignment="Top" 
           DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY01020G1.sgxml"
           ItemsSource="{Binding SearchDetail, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
           CellEditEnded="SearchGrid_CellEditEnded">

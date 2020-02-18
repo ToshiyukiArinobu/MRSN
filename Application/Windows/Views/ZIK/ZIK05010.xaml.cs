@@ -414,11 +414,11 @@ namespace KyoeiSystem.Application.Windows.Views
                 return bolResult;
             }
 
-            // 棚卸日
+            // 棚卸月
             DateTime dteClosingDate;
             if (!DateTime.TryParse(ClosingDate.Text, out dteClosingDate))
             {
-                ErrorMessage = "棚卸日の内容が正しくありません。";
+                ErrorMessage = "棚卸月の内容が正しくありません。";
                 MessageBox.Show("入力エラーがあります。");
                 return bolResult;
             }

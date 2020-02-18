@@ -232,17 +232,26 @@ namespace KyoeiSystem.Application.Windows.Views
                 var ucText = ViewBaseCommon.FindVisualParent<UcLabelTwinTextBox>(varCtl as UIElement);
 
                 // TwinTextboxのF1処理
-                if (ucText != null && ucText.DataAccessName == "M22_SOUK_BASYOC")
+                if (ucText != null)
                 {
-                    SCHM22_SOUK souk = new SCHM22_SOUK();
-                    souk.TwinTextBox = Warehouse;
-
-                    souk.確定コード = souk.TwinTextBox.Text1;
-
-                    if (souk.ShowDialog(this) == true)
+                    switch (ucText.DataAccessName)
                     {
-                        Warehouse.Text1 = souk.TwinTextBox.Text1;  // 得意先コード
-                        Warehouse.Text2 = souk.TwinTextBox.Text3;  // 得意先略称名
+                        case "M22_SOUK_BASYOC":
+
+                            SCHM22_SOUK souk = new SCHM22_SOUK();
+                            souk.TwinTextBox = Warehouse;
+
+                            souk.確定コード = souk.TwinTextBox.Text1;
+
+                            if (souk.ShowDialog(this) == true)
+                            {
+                                Warehouse.Text1 = souk.TwinTextBox.Text1;  // 倉庫コード
+                                Warehouse.Text2 = souk.TwinTextBox.Text3;  // 倉庫略称名
+                            }
+                            break;
+                        default:
+                            ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+                            break;
                     }
                 }
                 else

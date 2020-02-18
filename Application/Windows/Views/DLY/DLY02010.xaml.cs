@@ -557,13 +557,13 @@ namespace KyoeiSystem.Application.Windows.Views
                         // No-279 Mod Start
                         int intIdx = gridDtl.ActiveRowIndex;
                         int intSuryo = gridDtl.GetCellValueToInt((int)GridColumnsMapping.数量) ?? 0;
-                        
+
                         // 揚り部材明細情報(新規用)を表示用に加工する
                         InnerDetail = T04_AGRDTB_NewDataDisplayConvert(tbl);
 
                         // セット品マスタを主とした取得でない場合
                         if (InnerDetail.Rows.Count == 0)
-                         {
+                        {
                             // 品番マスタから取得したレコードを表示編集する
                             InnerDetail = T04_AGRDTB_NewDataDisplayConvertForHin(intSuryo, tbl);
                         }
@@ -588,7 +588,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             SearchHeader["Ｓ税区分ID"] = 9; // 9:税なし
                         }
                         summaryCalculation();
-                        
+
                         // 外注先売価　情報取得
                         sendSearchForOutsource();
 
@@ -691,6 +691,12 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 20190530CB-E
 
                                 gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, myhin.SelectedRowData["商品形態分類"]);       // No-279 Add
+       
+                                // 品番入力のロック制御
+                                SetDispSpreadRowEnabled();       // No.343 Add
+
+                                // ヘッダー制御
+                                setDispHeaderEnabled(false);     // No.346 Add      
 
                                 // 集計計算をおこなう
                                 summaryCalculation();
@@ -728,7 +734,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 if (getOutsourceUnitPrice(int.Parse(drow["品番コード"].ToString()), out dcmUnitPrice) == true)
                                 {
                                     gridDtl.SetCellValue((int)GridColumnsMapping.単価, dcmUnitPrice);
-                                    gridDtl.SetCellValue((int)GridColumnsMapping.金額,  Convert.ToInt32(dcmUnitPrice));
+                                    gridDtl.SetCellValue((int)GridColumnsMapping.金額, Convert.ToInt32(dcmUnitPrice));
                                 }
                                 else
                                 {
@@ -749,21 +755,12 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, drow["商品形態分類"]);       // No-279 Add
 
                             sp製品一覧.CommitCellEdit();
-                            // 自社品番のセルをロック
-                            // 数量以外はロック
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.品番コード, true);
 
-                            // 20190704CB-S
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.自社品名, true);
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.単位, true);
-                            //gridDtl.SetCellLocked((int)GridColumnsMapping.単価, true);                          // No.110 Mod
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.金額, true);
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.消費税区分, true);
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.商品分類, true);
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.色コード, true);
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.色名称, true);
-                            // 20190704CB-E
+                            // 品番入力後のロック制御
+                            SetDispSpreadRowEnabled();                // No.343 Add
+
+                            // ヘッダー制御
+                            setDispHeaderEnabled(false);              // No.346 Add
 
                             summaryCalculation();
 
@@ -1077,11 +1074,11 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             DataTable dtResult = new DataTable();               // 戻り
             DataRow rowBuff = dtResult.NewRow();                // 新規追加行（行退避）
-            dtResult = dtBuzaiDetail.Clone();                       
+            dtResult = dtBuzaiDetail.Clone();
 
             DateTime datMaxDate = AppCommon.GetMaxDate();       // 最大日（項目非表示制御）
             DateTime datDate = DateTime.Now;                    // 仕上り日（変換用）
-            DateTime.TryParse(txt仕上り日.Text, out datDate);      
+            DateTime.TryParse(txt仕上り日.Text, out datDate);
 
             decimal dcmCalcQuantity = 0;                        // 算出用数量
             bool blnRowDelete = false;                          // 行非表示
@@ -1111,7 +1108,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 if (rowBuzai["賞味期限"].ToString().Length > 0)
                 {
-                    if (DateTime.Parse(rowBuzai["賞味期限"].ToString()) < datDate )
+                    if (DateTime.Parse(rowBuzai["賞味期限"].ToString()) < datDate)
                     {
                         // 賞味期限が過去日の場合は表示対象外とする
                         continue;
@@ -1152,7 +1149,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // レコード出力
                 dtResult.ImportRow(rowBuzai);
-                intRowcnt ++;
+                intRowcnt++;
             }
 
             // 引き当てのない在庫が存在する　または　数量マイナス入力かつ算出用数量がマイナスかつ引当が未充足の場合
@@ -1314,7 +1311,7 @@ namespace KyoeiSystem.Application.Windows.Views
             return dtResult;
         }
 
-		// No-279 Add Start
+        // No-279 Add Start
         /// <summary>
         /// 揚り部材明細情報(新規用)を表示用に加工する(品番マスタから取得したレコード編集)
         /// </summary>
@@ -1345,7 +1342,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             return dtResult;
         }
-		// No-279 Add End
+        // No-279 Add End
 
         #endregion
 
@@ -1451,12 +1448,9 @@ namespace KyoeiSystem.Application.Windows.Views
                         if (spgrid.Cells[rIdx, cIdx].Locked == true)
                             return;
 
-                        if (string.IsNullOrEmpty(this.txt外注先.Text1) || string.IsNullOrEmpty(this.txt外注先.Text2))
-                        {
-                            MessageBox.Show("外注先が設定されていません。", "外注先未設定", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                            txt外注先.SetFocus();
+                        // ヘッダー項目の入力チェックを行う
+                        if (!isHeaderValidation())                       //No.344 Add
                             return;
-                        }
 
                         int code = int.Parse(this.txt外注先.Text1);
                         int eda = int.Parse(this.txt外注先.Text2);
@@ -1499,7 +1493,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 }
                             }
                             // No-96 Mod End
-                            
+
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.消費税区分].Value = myhin.SelectedRowData["消費税区分"];
                             spgrid.Cells[rIdx, (int)GridColumnsMapping.商品分類].Value = myhin.SelectedRowData["商品分類"];
 
@@ -1510,8 +1504,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, myhin.SelectedRowData["商品形態分類"]);       // No-279 Add
 
-                            // 設定自社品番の編集を不可とする
-                            gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            // 品番入力のロック制御
+                            SetDispSpreadRowEnabled();           // No.343 Add
+
+                            // ヘッダー制御
+                            setDispHeaderEnabled(false);         // No.346 Add
 
                             // 集計計算をおこなう
                             summaryCalculation();
@@ -1831,7 +1828,7 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         #endregion
-            
+
         #region << 検索データ設定・登録・削除処理 >>
 
         /// <summary>
@@ -1886,7 +1883,18 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 // 取得明細の自社品番をロック(編集不可)に設定
                 foreach (var row in sp製品一覧.Rows)
+                {
+                    // No.344 Mod Start
                     row.Cells[GridColumnsMapping.自社品番.GetHashCode()].Locked = true;
+                    row.Cells[GridColumnsMapping.自社品名.GetHashCode()].Locked = true;
+                    row.Cells[GridColumnsMapping.単位.GetHashCode()].Locked = true;
+                    row.Cells[GridColumnsMapping.金額.GetHashCode()].Locked = true;
+                    row.Cells[GridColumnsMapping.消費税区分.GetHashCode()].Locked = true;
+                    row.Cells[GridColumnsMapping.商品分類.GetHashCode()].Locked = true;
+                    row.Cells[GridColumnsMapping.色コード.GetHashCode()].Locked = true;
+                    row.Cells[GridColumnsMapping.色名称.GetHashCode()].Locked = true;
+                    // No.344 Mod End
+                }
 
                 gridDtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);
 
@@ -1974,13 +1982,13 @@ namespace KyoeiSystem.Application.Windows.Views
             this.F12.Visibility = blnEnabled == true ? Visibility.Hidden : Visibility.Visible;
 
             // ヘッダー項目
-            this.txt会社名.IsEnabled = !blnEnabled;
-            this.cmb加工区分.IsEnabled = !blnEnabled;
-
-            this.txt伝票番号.IsEnabled = !blnEnabled;
+            //this.txt伝票番号.IsEnabled = !blnEnabled;                                                    // No.346 Del        
             this.txt仕上り日.IsEnabled = !blnEnabled;
+
+            this.txt会社名.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
             this.txt外注先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
             this.txt入荷先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+            this.cmb加工区分.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;              // No.346 Mod
 
             // 明細
             this.sp製品一覧.IsEnabled = !blnEnabled;
@@ -2050,14 +2058,17 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private void Update()
         {
-            // 業務入力チェックをおこなう
-            bool blnResult = isFormValidation();
+            // ヘッダー入力チェックをおこなう
+            bool blnResult = isHeaderValidation();
+
+            // 明細チェックをおこなう
+            bool blnResultDetail = isDetailValidation();            // No.344 Mod
 
             // 業務入力チェックをおこなう(揚り部材明細)
             bool blnResultAgrDtb = isFormValidationForAgrDtb(blnResult);
 
             // 業務入力チェックでエラーの場合、以降の処理を中止する
-            if (blnResult == false || blnResultAgrDtb == false)
+            if (blnResult == false || blnResultDetail == false || blnResultAgrDtb == false)
             {
                 return;
             }
@@ -2151,7 +2162,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             row.行番号 = inti + 1;
                             row.部材行番号 = intj++;
                             listAgrDtb.Add(row);
-                        }    
+                        }
                     }
                 }
             }
@@ -2203,10 +2214,10 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
-        /// 入力内容の検証をおこなう
+        /// ヘッダーの入力内容の検証をおこなう
         /// </summary>
         /// <returns>bool</returns>
-        private bool isFormValidation()
+        private bool isHeaderValidation()
         {
             bool isResult = false;
             // 【ヘッダ】必須入力チェック
@@ -2237,7 +2248,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
 
-            if (string.IsNullOrEmpty(this.txt外注先.Label2Text))
+            if (!(txt外注先.Text1 == 社内加工_コード && txt外注先.Text2 == 社内加工_枝番) && string.IsNullOrEmpty(this.txt外注先.Label2Text))           // No.341 Mod
             {
                 this.txt外注先.Focus();
                 base.ErrorMessage = string.Format("外注先がマスタに存在していないデータが入力されています。");
@@ -2252,6 +2263,21 @@ namespace KyoeiSystem.Application.Windows.Views
                 return isResult;
 
             }
+
+            isResult = true;
+
+            return isResult;
+
+        }
+
+        /// <summary>
+        /// 明細の入力内容の検証をおこなう
+        /// </summary>
+        /// <returns>bool</returns>
+        private bool isDetailValidation()
+        {
+            bool isResult = false;
+            // 【明細】必須入力チェック
 
             // 現在の明細行を取得
             var CurrentDetail = SearchDetail.Select("", "", DataViewRowState.CurrentRows).AsEnumerable();
@@ -2495,8 +2521,21 @@ namespace KyoeiSystem.Application.Windows.Views
                     rIdx++;
                     intListIdx++;
                 }
+                else
+                {
+                    // No.342 Add Start
+                    // 揚り部材明細データが１件もない場合はエラー
+                    gridDtl.SpreadGrid.Focus();
+                    gridDtl.AddValidationError(rIdx, (int)GridColumnsMapping.品番コード, "構成品の明細情報が１件もありません。");
+                    if (!isDetailErr)
+                        gridDtl.SetCellFocus(rIdx, (int)GridColumnsMapping.品番コード);
+
+                    isDetailErr = true;
+                    return isResult;
+                    // No.342 Add End
+                }
             }
-            
+
             if (isDetailErr)
                 return isResult;
 
@@ -2664,6 +2703,7 @@ namespace KyoeiSystem.Application.Windows.Views
             txt外注先.IsEnabled = blnEnabled;
             txt入荷先.IsEnabled = blnEnabled;
             cmb加工区分.IsEnabled = blnEnabled;
+            txt会社名.IsEnabled = blnEnabled;
         }
         #endregion
 
@@ -2681,6 +2721,29 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
         // No-162-3 Add End
+
+        // No-343 Add Start
+        #region 品番入力後の明細入力制御
+        /// <summary>
+        /// 品番入力後の明細入力制御
+        /// </summary>
+        private void SetDispSpreadRowEnabled()
+        {
+            // 20190704CB-S
+            gridDtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+            gridDtl.SetCellLocked((int)GridColumnsMapping.自社品名, true);
+            gridDtl.SetCellLocked((int)GridColumnsMapping.単位, true);
+            //gridDtl.SetCellLocked((int)GridColumnsMapping.単価, true);                          // No.110 Mod
+            gridDtl.SetCellLocked((int)GridColumnsMapping.金額, true);
+            gridDtl.SetCellLocked((int)GridColumnsMapping.消費税区分, true);
+            gridDtl.SetCellLocked((int)GridColumnsMapping.商品分類, true);
+            gridDtl.SetCellLocked((int)GridColumnsMapping.色コード, true);
+            gridDtl.SetCellLocked((int)GridColumnsMapping.色名称, true);
+            // 20190704CB-E
+        }
+
+        #endregion
+        // No-343 Add End
 
         #region << コントロールイベント >>
 
@@ -2915,11 +2978,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     // No.272 Mod Start
                     int ival = 0;
-                    int taxKbnId = int.TryParse(SearchHeader["Ｓ税区分ID"].ToString(), out ival)? ival : 1;
-                    int salesTaxKbn = int.TryParse(SearchHeader["Ｓ支払消費税区分"].ToString(), out ival)? ival : 1;
+                    int taxKbnId = int.TryParse(SearchHeader["Ｓ税区分ID"].ToString(), out ival) ? ival : 1;
+                    int salesTaxKbn = int.TryParse(SearchHeader["Ｓ支払消費税区分"].ToString(), out ival) ? ival : 1;
                     // ▼揚り入力は全て通常税率 Mod Start
                     //conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), row.Field<int>("消費税区分"), taxKbnId, salesTaxKbn);
-                    conTax += taxCalc.CalculateTax(date, row.Field<int>("金額"), (int)消費税区分.通常税率, taxKbnId, salesTaxKbn);
+                    conTax += taxCalc.CalculateTax(date, row.Field<int?>("金額") ?? 0, (int)消費税区分.通常税率, taxKbnId, salesTaxKbn);
                     // ▲揚り入力は全て通常税率 Mod End
                     // No.272 Mod End
                 }
@@ -2962,6 +3025,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 case "自社品番":
                     var target = gridDtl.GetCellValueToString();
                     if (string.IsNullOrEmpty(target))
+                        return;
+
+                    // ヘッダー項目の入力チェックを行う
+                    if (!isHeaderValidation())            // No.344 Add
                         return;
 
                     // 自社品番からデータを参照し、取得内容をグリッドに設定
@@ -3211,9 +3278,14 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="intIdx">削除Index</param>
         private void deleteAgrDtbList(int intIdx)
         {
-            T04_AGRDTB_List[intIdx].Clear();
+            // No.334 Mod Start
+            if (T04_AGRDTB_List[intIdx] != null && T04_AGRDTB_List[intIdx].Count > 0)
+            {
+                T04_AGRDTB_List[intIdx].Clear();
+            }
+            // No.334 Mod End
 
-            for(int i = intIdx + 1 ; i <= 9; i++)
+            for (int i = intIdx + 1; i <= 9; i++)
             {
                 T04_AGRDTB_List[i - 1] = T04_AGRDTB_List[i];
             }

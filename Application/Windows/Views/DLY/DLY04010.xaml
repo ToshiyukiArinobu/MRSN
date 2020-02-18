@@ -30,7 +30,6 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto"/>
-      <RowDefinition Height="auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
@@ -135,7 +134,7 @@
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
           <RowDefinition Height="auto" />
-          <RowDefinition Height="auto" />
+          <RowDefinition Height="*" />
           <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -246,7 +245,7 @@
         <!-- 移動明細 -->
         <sg:GcSpreadGrid Name="gcSpreadGrid" Grid.Row="2" HorizontalAlignment="Left" AutoFitType="CellWithHeader" LayoutMode="Template"
                          AutoGenerateColumns="False" HighlightHeader="None" RowCount="10" OperationMode="Normal"
-                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Height="470" Margin="80,5,0,0"
+                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Margin="80,5,0,0"
                          DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY04010G1.sgxml"
                          ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                          CellEditEnded="gcSpredGrid_CellEditEnded" PreviewKeyDown="gcSpredGrid_PreviewKeyDown">

@@ -9,6 +9,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using KyoeiSystem.Framework.Windows.Controls;
 
 
 namespace KyoeiSystem.Application.Windows.Views
@@ -51,6 +52,22 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string CHECK_STOCKTAKING = "ZIK04010_IsCheckStocktaking";
         /// <summary>通信キー　棚卸更新処理を実行する</summary>
         private const string STOCKTAKING = "ZIK04010_InventoryStocktaking";
+
+        #endregion
+
+        #region バインディングデータ
+
+        /// <summary>会社コード</summary>
+        private string _会社コード;
+        public string 会社コード
+        {
+            get { return _会社コード; }
+            set
+            {
+                _会社コード = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -194,7 +211,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                     base.SetBusyForInput();
                                 }
                                 break;
-                        }    
+                        }
                         break;
 
                     // ===========================
@@ -247,16 +264,39 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 var varCtl = FocusManager.GetFocusedElement(this);
                 var varM01Text = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(varCtl as UIElement);
+                var ucTwinText = ViewBaseCommon.FindVisualParent<UcLabelTwinTextBox>(varCtl as UIElement);
 
-                if (varM01Text == null)
+                if (varM01Text != null)
                 {
-                    ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+                    varM01Text.OpenSearchWindow(this);
+                }
+                else if (ucTwinText != null)
+                {
+                    // TwinTextboxのF1処理
 
+                    switch (ucTwinText.DataAccessName)
+                    {
+                        case "M22_SOUK_BASYOC":
+
+                            SCHM22_SOUK souk = new SCHM22_SOUK();
+                            souk.TwinTextBox = Warehouse;
+
+                            souk.確定コード = souk.TwinTextBox.Text1;
+
+                            if (souk.ShowDialog(this) == true)
+                            {
+                                Warehouse.Text1 = souk.TwinTextBox.Text1;  // 倉庫コード
+                                Warehouse.Text2 = souk.TwinTextBox.Text3;  // 倉庫略称名
+                            }
+                            break;
+                        default:
+                            ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+                            break;
+                    }
                 }
                 else
                 {
-                    varM01Text.OpenSearchWindow(this);
-
+                    ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
                 }
 
             }
@@ -363,6 +403,19 @@ namespace KyoeiSystem.Application.Windows.Views
                 return bolResult;
             }
 
+            // 倉庫コードの入力値検証
+            int intSoukCd;
+            if (string.IsNullOrEmpty(Warehouse.Text1))
+            {
+                base.ErrorMessage = "倉庫コードは必須入力項目です。";
+                return bolResult;
+            }
+            else if (!int.TryParse(Warehouse.Text1, out intSoukCd))
+            {
+                base.ErrorMessage = "倉庫コードの入力値に誤りがあります。";
+                return bolResult;
+            }
+
             // 棚卸日
             DateTime dteStocktakingDate;
             if (!DateTime.TryParse(StocktakingDate.Text, out dteStocktakingDate))
@@ -461,6 +514,21 @@ namespace KyoeiSystem.Application.Windows.Views
             ucfg.SetConfigValue(frmcfg);
 
         }
+        #endregion
+
+        #region 会社コード変更イベント
+
+        /// <summary>
+        /// 会社コード変更イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void myCompany_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            // 会社コードが変更された場合、クリア
+            Warehouse.Text1 = string.Empty;
+        }
+
         #endregion
 
         #endregion

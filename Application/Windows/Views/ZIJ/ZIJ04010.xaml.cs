@@ -159,7 +159,7 @@ namespace KyoeiSystem.Application.Windows.Views
             #endregion
 
             spGridList.InputBindings.Add(new KeyBinding(spGridList.NavigationCommands.MoveNext, Key.Enter, ModifierKeys.None));
-            
+
             // No.145 Add Start
             // 金種の名称辞書を作成
             Window view = System.Windows.Window.GetWindow(this);
@@ -500,6 +500,8 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add("金種名", goldNameDic[int.Parse(cmbDepositType.SelectedValue.ToString())]);
             paramDic.Add("出金先販社名", depositCompany.Text2);
             paramDic.Add("得意先名", TOK.Label2Text);
+            paramDic.Add("伝票番号From", slipNoFrom.Text);
+            paramDic.Add("伝票番号To", slipNoTo.Text);
 
         }
 
@@ -572,7 +574,9 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = "出金日To", VALUE = string.IsNullOrEmpty(paramDic["出金日To"]) ? "" : paramDic["出金日To"]},
                     new FwRepPreview.ReportParameter(){ PNAME = "金種コード", VALUE = paramDic["金種名"]},
                     new FwRepPreview.ReportParameter(){ PNAME = "出金先販社", VALUE = string.IsNullOrEmpty(paramDic["出金先販社名"]) ? "" : paramDic["出金先販社名"]},
-                    new FwRepPreview.ReportParameter(){ PNAME = "得意先", VALUE = string.IsNullOrEmpty(paramDic["得意先名"]) ? "" : paramDic["得意先名"]}
+                    new FwRepPreview.ReportParameter(){ PNAME = "得意先", VALUE = string.IsNullOrEmpty(paramDic["得意先名"]) ? "" : paramDic["得意先名"]},
+                    new FwRepPreview.ReportParameter(){ PNAME = "伝票番号From", VALUE = string.IsNullOrEmpty(paramDic["伝票番号From"]) ? "" : paramDic["伝票番号From"]},
+                    new FwRepPreview.ReportParameter(){ PNAME = "伝票番号To", VALUE = string.IsNullOrEmpty(paramDic["伝票番号To"]) ? "" : paramDic["伝票番号To"]},
                 };
 
                 DataTable 印刷データ = SearchResult.Copy();

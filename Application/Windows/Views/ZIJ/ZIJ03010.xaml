@@ -21,10 +21,8 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="300*" />
-      <RowDefinition Height="82" />
-    </Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
     <!--リボン-->
     <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -118,17 +116,19 @@
     </Grid>
 
     <!-- メインコンテンツ -->
-    <Grid Grid.Row="1" Margin="10" Background="AliceBlue">
+    <Grid Grid.Row="1"  Background="AliceBlue">
       <Grid.RowDefinitions>
         <RowDefinition Height="auto" />
         <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
         <RowDefinition Height="auto" />
       </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-      <!--ヘッダー-->
-      <Border Name="Header" Grid.Row="1" BorderBrush="Black" BorderThickness="1">
-
+            <!--ヘッダー-->
+            <Border Name="Header" Grid.Row="1" BorderBrush="Black" BorderThickness="1" Width="996" HorizontalAlignment="Left" Margin="10,10,10,5" Padding="5">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -137,10 +137,10 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" /><!-- 予備 -->
           </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-          </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
           <!-- 自社コード -->
           <ctls:UcLabelTwinTextBox Name="myCompany" Grid.Row="0" HorizontalAlignment="Left" Margin="5,3,0,0"
@@ -151,6 +151,26 @@
                                    Text2Width="250" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderThickness="0" Text2AcceptsTab="False" Text2VerticalContentAlignment="Center"
           />
 
+          <!-- 伝票番号指定 -->
+          <Grid Grid.Row="0" Grid.Column="1" Margin="5,3,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+          <ctls:UcLabelTextBox Name="slipNoFrom" Grid.Column="0" 
+                               Label_Context="伝票番号指定" Label_Width="100" ValidationType="Integer" ImeType="Off"
+                               cWidth="100" cMaxLength="7" cVerticalContentAlignment="Center"     
+          />
+          <ctls:UcLabel LabelText="～" cBackground="Transparent" cForeground="Black" Grid.Column="1"/>
+          <ctls:UcLabelTextBox Name="slipNoTo" Grid.Column="2" ValidationType="Integer" ImeType="Off"
+                               Label_Visibility="Collapsed"
+                               cWidth="100" cMaxLength="7" cVerticalContentAlignment="Center"
+                              
+          />
+          </Grid>
+            
           <!-- 入金日 -->
           <Grid Grid.Row="1" Margin="5,3,0,0">
             <Grid.ColumnDefinitions>
@@ -170,8 +190,15 @@
             />
           </Grid>
 
+          <!-- 金種 -->
+          <ctls:UcLabelComboBox Name="cmbDepositType" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="5,3,0,0"
+                                Label_Context="金種" Label_Width="100"
+                                Combo_Width="100"
+                                ComboListingParams="随時,入金問合せ,金種"
+          />
+
           <!-- 入金元販社(自社コード) -->
-          <ctls:UcLabelTwinTextBox Name="depositCompany" Grid.Row="2" HorizontalAlignment="Left" Margin="5,3,0,0"
+          <ctls:UcLabelTwinTextBox Name="depositCompany" Grid.Row="2"  Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5,3,0,0"
                                    DataAccessName="M70_JIS" DataAccessMode="On" 
                                    Label_Context="入金元販社" Label_Width="100"
                                    Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -180,7 +207,7 @@
           />
 
           <!-- 得意先 -->
-          <uc:M01_TOK_TextBox x:Name="TOK" Grid.Row="3" HorizontalAlignment="Left" Margin="5,3,0,3"
+          <uc:M01_TOK_TextBox x:Name="TOK" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="5,3,0,3"
                               Label_Context="得意先指定" Label_Width="100"
                               DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3,4"
                               Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -190,15 +217,8 @@
                               Label2Text=""
           />
 
-          <!-- 金種 -->
-          <ctls:UcLabelComboBox Name="cmbDepositType" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="5,3,0,0"
-                                Label_Context="金種" Label_Width="100"
-                                Combo_Width="100"
-                                ComboListingParams="随時,入金問合せ,金種"
-          />
-
           <!-- 検索ボタン -->
-          <Button Name="btnSearch" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Margin="5,0,0,0"
+          <Button Name="btnSearch" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Margin="200,0,0,0"
                   HorizontalAlignment="Left" VerticalAlignment="Stretch"
                   Width="50" Height="50" BorderThickness="0"
                   Click="btnSearch_Click">
@@ -212,9 +232,8 @@
       <Grid Grid.Row="2" Margin="10,10,10,5">
 
         <sg:GcSpreadGrid
-          Name="spGridList" Grid.ColumnSpan="2" AutoGenerateColumns="False" LayoutMode="Cell" ColumnDragMode="Direct"
+          Name="spGridList" Grid.ColumnSpan="2" AutoGenerateColumns="False" LayoutMode="Cell" ColumnDragMode="Direct" HorizontalAlignment="Left"
           HighlightHeader="None" CanUserSortColumns="False" ColumnCount="8" RowCount="1" Protected="True"
-          Height="380"
           ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
           DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIJ/ZIJ03010G1.sgxml">
 
@@ -279,7 +298,7 @@
       </Grid>
 
       <!--フッター-->
-      <Border Grid.Row="3" BorderBrush="Black" BorderThickness="1" Margin="0,5,0,50">
+            <Border Grid.Row="3" BorderBrush="Black" BorderThickness="1" Margin="10,10,10,50" Width="996" HorizontalAlignment="Left"  Padding="5">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="30" />

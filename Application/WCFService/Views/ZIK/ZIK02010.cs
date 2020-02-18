@@ -532,17 +532,13 @@ namespace KyoeiSystem.Application.WCFService
             List<StocktakingDataMember> retResult = new List<StocktakingDataMember>();
 
             var delList =
-                 context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.棚卸日 <= pStocktakingDate && w.更新済みFLG == 0)
-                 .Join(context.M22_SOUK.Where(w => w.削除日時 == null && w.場所会社コード == pMyCompany),
+                context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.棚卸日 <= pStocktakingDate && w.更新済みFLG == 0)
+                .Join(context.M22_SOUK.Where(w => w.削除日時 == null && w.場所会社コード == pMyCompany),
                         x => x.倉庫コード,
                         y => y.倉庫コード,
                         (a, b) => new { STOCKTAKING = a, SOUK = b })
-                 .GroupJoin(context.S03_STOK.Where(w => w.削除日時 == null)
-                 , x => new { 倉庫コード = x.STOCKTAKING.倉庫コード, 品番コード = x.STOCKTAKING.品番コード, 賞味期限 = x.STOCKTAKING.賞味期限 }
-                 , y => new { 倉庫コード = y.倉庫コード, 品番コード = y.品番コード, 賞味期限 = y.賞味期限 }, (x, y) => new { x, y })
-                .SelectMany(x => x.y.DefaultIfEmpty(), (c, d) => new { c.x.STOCKTAKING, c.x.SOUK, STOK = d })
                 .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null), x => x.STOCKTAKING.品番コード, y => y.品番コード, (x, y) => new { x, y })
-                .SelectMany(x => x.y.DefaultIfEmpty(), (g, h) => new { g.x.STOCKTAKING, g.x.SOUK, g.x.STOK, HIN = h })
+                .SelectMany(x => x.y.DefaultIfEmpty(), (c, d) => new { c.x.STOCKTAKING, c.x.SOUK, HIN = d })
                 .AsQueryable();
 
 

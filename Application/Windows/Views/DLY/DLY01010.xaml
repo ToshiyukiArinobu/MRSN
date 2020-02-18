@@ -16,161 +16,160 @@
     Loaded="Window_Loaded" Closed="Window_Closed"
     Title="仕入入力(DLY01010)">
 
-  <Window.Resources>
-    <!-- DataGridのHeader背景色 -->
-    <LinearGradientBrush x:Key="DataGridHeaderBackground" EndPoint="0,1" StartPoint="0,0">
-      <GradientStop Color="#3b5998" Offset="0"/>
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="DataGridSummaryBackground" EndPoint="0,1" StartPoint="0,0">
-      <GradientStop Color="#f0e68c" Offset="0"/>
-    </LinearGradientBrush>
-  </Window.Resources>
+    <Window.Resources>
+        <!-- DataGridのHeader背景色 -->
+        <LinearGradientBrush x:Key="DataGridHeaderBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#3b5998" Offset="0"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="DataGridSummaryBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#f0e68c" Offset="0"/>
+        </LinearGradientBrush>
+    </Window.Resources>
 
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="auto"/>
-      <RowDefinition Height="auto"/>
-      <RowDefinition Height="auto"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-    <!-- リボン -->
-    <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <!-- リボン -->
+        <Ribbon HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-      <!-- タブ -->
-      <RibbonTab Header="ホーム" KeyTip="h" Height="75">
-        <RibbonGroup Width="90" >
-          <!-- 処理モード表示用に空けておく -->
-        </RibbonGroup>
+            <!-- タブ -->
+            <RibbonTab Header="ホーム" KeyTip="h" Height="75">
+                <RibbonGroup Width="90" >
+                    <!-- 処理モード表示用に空けておく -->
+                </RibbonGroup>
 
-        <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F1"  LargeImageSource="../Images/15マスタ照会.png" Margin="0,-1,0,0"
+                <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F1"  LargeImageSource="../Images/15マスタ照会.png" Margin="0,-1,0,0"
                         Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50"
 
           />
-        </RibbonGroup>
-        <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F2" LargeImageSource="../Images/16マスタ入力.png" Margin="0,-1,0,0"
+                </RibbonGroup>
+                <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F2" LargeImageSource="../Images/16マスタ入力.png" Margin="0,-1,0,0"
                         Label="ﾏｽﾀ入力" Click="RibbonButton_Click" KeyTip="F2" Height="50"
           />
-        </RibbonGroup>
-        <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F5" LargeImageSource="../Images/行追加.png" Margin="0,-1,0,0"
+                </RibbonGroup>
+                <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F4" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F5" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F5" LargeImageSource="../Images/行追加.png" Margin="0,-1,0,0"
                         Label="行追加" Click="RibbonButton_Click" KeyTip="F5" Height="50"
           />
-        </RibbonGroup>
-        <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F6" LargeImageSource="../Images/28削除.png" Margin="0,-1,0,0"
+                </RibbonGroup>
+                <RibbonGroup Header="F6" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F6" LargeImageSource="../Images/28削除.png" Margin="0,-1,0,0"
                         Label="行削除" Click="RibbonButton_Click" KeyTip="F6" Height="50"
           />
-        </RibbonGroup>
-        <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
-        </RibbonGroup>
-        <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F9" LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                </RibbonGroup>
+                <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                </RibbonGroup>
+                <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F9" LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
                         Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
                         Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png"
         />
-        </RibbonGroup>
-        <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F10" LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
+                </RibbonGroup>
+                <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F10" LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
                         Label="入力取消" ToolTipTitle="入力取消(F10)" ToolTipDescription="入力の取消しを行います" ToolTipImageSource="../Images/26クリア.png"
           />
-        </RibbonGroup>
-        <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F11" LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
+                </RibbonGroup>
+                <RibbonGroup Header="F11" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F11" LargeImageSource="../Images/27終了.png" Click="RibbonButton_Click" KeyTip="F11" Height="50"
                         Label="終了" ToolTipTitle="終了(F11)" ToolTipDescription="終了します" ToolTipImageSource="../Images/27終了.png"
           />
-        </RibbonGroup>
-        <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-          <RibbonButton Name="F12" LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
+                </RibbonGroup>
+                <RibbonGroup Header="F12" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton Name="F12" LargeImageSource="../Images/28削除.png" Click="RibbonButton_Click" KeyTip="F12" Height="50"
                         Label="削除" ToolTipTitle="削除(F12)" ToolTipDescription="表示中のデータを削除します" ToolTipImageSource="../Images/28削除.png"
           />
-        </RibbonGroup>
+                </RibbonGroup>
 
-      </RibbonTab>
+            </RibbonTab>
 
-      <RibbonTab Header="ヘルプ" Background="Gray">
-        <RibbonGroup Header="サポート">
-          <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
+            <RibbonTab Header="ヘルプ" Background="Gray">
+                <RibbonGroup Header="サポート">
+                    <RibbonButton LargeImageSource="../Images/30マニュアル.png" KeyTip="MANUAL" Click="RibbonButton_Click"
                         Label="ﾏﾆｭｱﾙ" ToolTipTitle="取扱説明書" ToolTipDescription="取り扱い説明書を開きます"
           />
-          <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
+                    <RibbonButton LargeImageSource="../Images/29遠隔サポート.png" KeyTip="SUPPORT" Click="RibbonButton_Click"
                         Label="お問合せ" ToolTipTitle="お問合せ" ToolTipDescription="Web上の｢お問合せ｣ページに遷移します"
           />
-          <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
+                    <RibbonButton LargeImageSource="../Images/QandA.png" KeyTip="FAQ" Click="RibbonButton_Click"
                         Label="QandA" ToolTipTitle="QandA" ToolTipDescription="Web上の｢よくあるご質問｣ページに遷移します"
           />
-          <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
+                    <RibbonButton LargeImageSource="../Images/13共栄Webリンク.png"  KeyTip="KYOEI" Click="RibbonButton_Click"
                         Label="共栄ｼｽﾃﾑ" ToolTipTitle="共栄システムHP" ToolTipDescription="共栄システムのホームページを開きます"
           />
-        </RibbonGroup>
-      </RibbonTab>
-    </Ribbon>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
 
-    <!-- リボン描画 -->
-    <Grid Grid.Row="0" VerticalAlignment="Bottom" >
-      <Grid.RowDefinitions>
-        <RowDefinition Height="74" />
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="90" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
+        <!-- リボン描画 -->
+        <Grid Grid.Row="0" VerticalAlignment="Bottom" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="74" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-      <!-- 編集モード領域  -->
-      <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
+            <!-- 編集モード領域  -->
+            <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Margin="2"
                  Background="{Binding MaintenanceModeBackground}">
-        <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
+                <Label Content="{Binding MaintenanceMode}" Foreground="{Binding MaintenanceModeForeground}" 
                FontFamily="メイリオ" FontSize="24" FontWeight="Medium"
                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"
         />
-      </DockPanel>
+            </DockPanel>
 
-      <!-- エラーメッセージ領域 -->
-      <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
-      <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
+            <!-- エラーメッセージ領域 -->
+            <!-- プロパティErrorMessageが空白以外である間だけ表示されます。 -->
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Background="Yellow" Foreground="Red" Margin="2,0,2,0"
              Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageVisibility}"
       />
-    </Grid>
+        </Grid>
 
-    <!-- ヘッダ部 -->
-    <Grid Grid.Row="1" Background="AliceBlue" Margin="2">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="auto" />
-        <RowDefinition Height="30" />
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="auto" />
-      </Grid.ColumnDefinitions>
+        <!-- ヘッダ部 -->
+        <Grid Grid.Row="1" Background="AliceBlue" Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="130" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
 
-      <Grid Grid.Row="0" Margin="5">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*" />
-          <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="5">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180" />
-            <ColumnDefinition Width="auto" />
-          </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
 
-          <Label x:Name="FuncTitle" Content="仕入入力" Grid.Column="0" FontSize="16" />
-          <ctls:UcLabelTwinTextBox
+                    <Label x:Name="FuncTitle" Content="仕入入力" Grid.Column="0" FontSize="16" />
+                    <ctls:UcLabelTwinTextBox
               x:Name="c会社名" Label_Context="会社名" Grid.Column="1" Width="350"
               DataAccessName="M70_JIS" DataAccessMode="On" IsKeyItem="True"
               Label_Width="100"
@@ -179,67 +178,67 @@
               Text2BorderBrush="Transparent" Text2Background="Transparent" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
               cText1Changed="c会社名_cText1Changed"
           />
-        </Grid>
+                </Grid>
 
-        <Grid Grid.Row="1" Margin="10,5,10,5">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="27" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
+                <Grid Grid.Row="1" Margin="10,5,10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="27" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="316" />
+                        <ColumnDefinition Width="316" />
+                    </Grid.ColumnDefinitions>
 
-          <!-- １段目 -->
-          <TextBlock Text="伝票No." Grid.Row="0" Grid.Column="0" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                    <!-- １段目 -->
+                    <TextBlock Text="伝票No." Grid.Row="0" Grid.Column="0" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
                      TextAlignment="Center" Padding="0,7,0,0"
           />
-          <TextBlock Text="仕入日" Grid.Row="0" Grid.Column="1" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                    <TextBlock Text="仕入日" Grid.Row="0" Grid.Column="1" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
                      TextAlignment="Center" Padding="0,7,0,0"
           />
-          <TextBlock Text="仕入区分" Grid.Row="0" Grid.Column="2" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                    <TextBlock Text="仕入区分" Grid.Row="0" Grid.Column="2" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
                      TextAlignment="Center" Padding="0,7,0,0"
           />
-          <TextBlock Text="仕入先名称" Grid.Row="0" Grid.Column="3" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                    <TextBlock Text="仕入先名称" Grid.Row="0" Grid.Column="3" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
                      TextAlignment="Center" Padding="0,7,0,0"
           />
-          <TextBlock Text="入荷先名称" Grid.Row="0" Grid.Column="4" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                    <TextBlock Text="入荷先名称" Grid.Row="0" Grid.Column="4" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
                      TextAlignment="Center" Padding="0,7,0,0"
           />
 
-          <!-- ２段目 -->
-          <ctls:UcTextBox
+                    <!-- ２段目 -->
+                    <ctls:UcTextBox
               x:Name="c伝票番号" Grid.Column="0" Grid.Row="1" cTextAlignment="Center" cMaxLength="7" IsKeyItem="True"
               BorderBrush="Transparent" cBorderThickness="0" cVerticalContentAlignment="Center"
               Text="{Binding SearchHeader[伝票番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
               PreviewKeyDown="c伝票番号_PreviewKeyDown"
           />
 
-          <ctls:UcLabelTextBox
+                    <ctls:UcLabelTextBox
               Name="c仕入日" Grid.Row="1" Grid.Column="1" cMaxLength="10" cTextAlignment="Center" IsKeyItem="False"
               Mask="yyyy/MM/dd" cValidationType="Date" cVerticalContentAlignment="Center" BorderThickness="0" Label_Width="0" Margin="-1,-1,-2,-1"
               Text="{Binding Path=SearchHeader[仕入日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
               cTextChanged="c仕入日_cTextChanged"
           />
 
-          <ctls:UcLabelComboBox
+                    <ctls:UcLabelComboBox
               x:Name="c仕入区分" Grid.Column="2" Grid.Row="1" Label_Visibility="Collapsed" IsKeyItem="False"
               ComboListingParams="日次,仕入入力,仕入区分"
               SelectedValue="{Binding SearchHeader[仕入区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
           />
-          <Grid Grid.Column="3" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="110" />
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="3" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-            <ctls:UcLabelTwinTextBox
+                        <ctls:UcLabelTwinTextBox
                 x:Name="c仕入先" Grid.Column="0" HorizontalAlignment="Left" DataAccessName="M01_TOK" DataAccessMode="Off" Margin="2,0,0,0"
                 LabelVisibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                 Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
@@ -250,10 +249,10 @@
                 LinkItem="{Binding 仕入先LinkItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                 LostFocus="c仕入先_LostFocus" cText1Changed="SearchSupplier_cTextChanged" cText2Changed="SearchSupplier_cTextChanged"
             />
-            <Label x:Name="c仕入先名" Grid.Column="1" BorderBrush="Gray" BorderThickness="0" Margin="0,1,0,1" />
-          </Grid>
+                        <Label x:Name="c仕入先名" Grid.Column="1" BorderBrush="Gray" BorderThickness="0" Margin="0,1,0,1" />
+                    </Grid>
 
-          <ctls:UcLabelTwinTextBox
+                    <ctls:UcLabelTwinTextBox
               x:Name="c入荷先" Grid.Column="4" Grid.Row="1" Margin="2,0,0,0"
               DataAccessName="M70_JIS" DataAccessMode="On"
               LabelVisibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -262,54 +261,54 @@
               Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center"
           />
 
-          <!-- ３段目 -->
-          <TextBlock Text="発注No." Grid.Row="2" Grid.Column="0" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
+                    <!-- ３段目 -->
+                    <TextBlock Text="発注No." Grid.Row="2" Grid.Column="0" Foreground="White" Background="{StaticResource DataGridHeaderBackground}"
                      TextAlignment="Center" Padding="0,7,0,0"
           />
 
-          <!-- ４段目 -->
-          <ctls:UcTextBox
+                    <!-- ４段目 -->
+                    <ctls:UcTextBox
               x:Name="c発注番号" Grid.Row="3" Grid.Column="0"
               cTextAlignment="Center" cMaxLength="7" cBorderThickness="0" cVerticalContentAlignment="Center"
               Text="{Binding SearchHeader[発注番号], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
               PreviewKeyDown="c発注番号_PreviewKeyDown"
           />
 
-          <!-- 枠線描画 -->
-          <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
-          <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
-          <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
-          <Border Grid.Column="3" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
-          <Border Grid.Column="4" Grid.Row="0" BorderThickness="1,1,1,0" BorderBrush="Black" />
-          <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
-          <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
-          <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
-          <Border Grid.Column="3" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
-          <Border Grid.Column="4" Grid.Row="1" BorderThickness="1,1,1,1" BorderBrush="Black" />
-          <Border Grid.Column="0" Grid.Row="2" BorderThickness="1,0,1,0" BorderBrush="Black" />
-          <Border Grid.Column="0" Grid.Row="3" BorderThickness="1,1,1,1" BorderBrush="Black" />
+                    <!-- 枠線描画 -->
+                    <Border Grid.Column="0" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
+                    <Border Grid.Column="1" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
+                    <Border Grid.Column="2" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
+                    <Border Grid.Column="3" Grid.Row="0" BorderThickness="1,1,0,0" BorderBrush="Black" />
+                    <Border Grid.Column="4" Grid.Row="0" BorderThickness="1,1,1,0" BorderBrush="Black" />
+                    <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
+                    <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
+                    <Border Grid.Column="2" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
+                    <Border Grid.Column="3" Grid.Row="1" BorderThickness="1,1,0,1" BorderBrush="Black" />
+                    <Border Grid.Column="4" Grid.Row="1" BorderThickness="1,1,1,1" BorderBrush="Black" />
+                    <Border Grid.Column="0" Grid.Row="2" BorderThickness="1,0,1,0" BorderBrush="Black" />
+                    <Border Grid.Column="0" Grid.Row="3" BorderThickness="1,1,1,1" BorderBrush="Black" />
 
-        </Grid>
+                </Grid>
 
-      </Grid>
+            </Grid>
 
-      <!-- データ部 -->
-      <sg:GcSpreadGrid
+            <!-- データ部 -->
+            <sg:GcSpreadGrid
           Name="SearchGrid" Grid.Row="1" AutoGenerateColumns="False" RowCount="10" OperationMode="Normal"
           LayoutMode="Template" CanUserSortColumns="False" ColumnDragMode="Default" Margin="15,5,0,0"
           HorizontalAlignment="Left" MaxWidth="1000" CanUserDragCell="False" Protected="True"
-          VerticalAlignment="Top" MinHeight="50" MaxHeight="330" Height="330"
+          VerticalAlignment="Top"
           DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY01010G1.sgxml"
           ItemsSource="{Binding SearchResult, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
           CellEditEnded="SearchGrid_CellEditEnded">
 
-        <!--カーソル色変更-->
-        <sg:GcSpreadGrid.SelectionBorderUnfocused>
-          <sg:BorderLine Color="Orange" Style="Thick"/>
-        </sg:GcSpreadGrid.SelectionBorderUnfocused>
-        <sg:GcSpreadGrid.SelectionBorder>
-          <sg:BorderLine Color="Orange" Style="Thick"/>
-        </sg:GcSpreadGrid.SelectionBorder>
+                <!--カーソル色変更-->
+                <sg:GcSpreadGrid.SelectionBorderUnfocused>
+                    <sg:BorderLine Color="Orange" Style="Thick"/>
+                </sg:GcSpreadGrid.SelectionBorderUnfocused>
+                <sg:GcSpreadGrid.SelectionBorder>
+                    <sg:BorderLine Color="Orange" Style="Thick"/>
+                </sg:GcSpreadGrid.SelectionBorder>
 
                 <sg:GcSpreadGrid.Columns>
                     <!-- 伝票番号 -->
@@ -557,5 +556,5 @@
 
         </Grid>
 
-  </Grid>
+    </Grid>
 </fw:WindowReportBase>
