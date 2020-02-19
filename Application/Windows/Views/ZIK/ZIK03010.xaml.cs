@@ -525,7 +525,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 };
 
                 DataTable 印刷データ = tbl.Copy();
-                印刷データ.TableName = "場所別棚卸一覧表";
+                印刷データ.TableName = "場所別差異一覧表";
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
                 view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
@@ -547,7 +547,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetFreeForInput();
                 this.ErrorMessage = "システムエラーが発生しました。サポートにお問い合わせください。";
-                appLog.Error("場所別棚卸一覧表の印刷時に例外が発生しました。", ex);
+                appLog.Error("場所別差異一覧表の印刷時に例外が発生しました。", ex);
             }
 
         }

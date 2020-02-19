@@ -141,7 +141,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <returns></returns>
         public DateTime? IsCheckStocktaking(int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic)
         {
-            DateTime dteStocktaking = DateTime.Parse(pStocktakingDate);
+            //DateTime dteStocktaking = DateTime.Parse(pStocktakingDate);       // No352 del
 
             DateTime? retDt = null;
 
@@ -154,8 +154,7 @@ namespace KyoeiSystem.Application.WCFService
 
 
                 var stocktakingList =
-                    context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.更新済みFLG == 0
-                                                && w.棚卸日 <= dteStocktaking)
+                    context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.更新済みFLG == 0)
                         .Join(context.M09_HIN.Where(w => w.削除日時 == null),
                             x => x.品番コード,
                             y => y.品番コード,
@@ -532,7 +531,7 @@ namespace KyoeiSystem.Application.WCFService
             List<StocktakingDataMember> retResult = new List<StocktakingDataMember>();
 
             var delList =
-                context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.棚卸日 <= pStocktakingDate && w.更新済みFLG == 0)
+                context.S10_STOCKTAKING.Where(w => w.削除日時 == null  && w.更新済みFLG == 0)
                 .Join(context.M22_SOUK.Where(w => w.削除日時 == null && w.場所会社コード == pMyCompany),
                         x => x.倉庫コード,
                         y => y.倉庫コード,

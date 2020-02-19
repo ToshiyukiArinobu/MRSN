@@ -173,6 +173,11 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>帳票定義体ファイルパス</summary>
         private const string ReportFileName = @"Files\ZIK\ZIK02010.rpt";
 
+        /// <summary>帳票タイトル(一覧表)</summary>
+        private const string ViewListTitle = "場所別棚卸一覧表";            // No349 Add
+
+        /// <summary>帳票タイトル(記入リスト)</summary>
+        private const string WriteListTitle = "場所別棚卸記入リスト";       // No349 Add
 
         #endregion
 
@@ -735,7 +740,10 @@ namespace KyoeiSystem.Application.Windows.Views
         public override void OnF4Key(object sender, KeyEventArgs e)
         {
             if (MaintenanceMode == null)
+            {
+                MessageBox.Show("出力対象のデータがありません。");
                 return;
+            }
 
             // 入力チェック
             if (!isCheckInput())
@@ -840,8 +848,10 @@ namespace KyoeiSystem.Application.Windows.Views
         public override void OnF8Key(object sender, KeyEventArgs e)
         {
             if (MaintenanceMode == null)
+            {
+                this.ErrorMessage = "印刷データがありません。";
                 return;
-
+            }
 
             // 入力チェック
             if (!isCheckInput())
@@ -1029,6 +1039,19 @@ namespace KyoeiSystem.Application.Windows.Views
                 ShowErrNewDataRow("倉庫コード", "倉庫が未入力または不正です");
                 return;
             }
+
+            // No351 Add st
+
+            if (!string.IsNullOrEmpty(Warehouse.Text1))
+            {
+                if (新規_倉庫コード != AppCommon.IntParse(Warehouse.Text1))
+                {
+                    ShowErrNewDataRow("倉庫コード", "指定した倉庫と同じ倉庫を入力してください。");
+                    return;
+                }
+            }
+
+            // No351 Add end
 
             if (string.IsNullOrEmpty((string)sp新規明細データ.Cells[0, "自社品番"].Value))
             {
@@ -1438,6 +1461,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 itemTypeDic.Add(2, "繊維");
                 itemTypeDic.Add(3, "その他");
 
+                string 帳票タイトル = (bool)writeListChk.IsChecked ? WriteListTitle : ViewListTitle;     // No349 Add
 
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
@@ -1455,12 +1479,15 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter() { PNAME = "ブランド名称", VALUE = string.IsNullOrEmpty(Brand.Text2) ? "" : Brand.Text2 },
                     new FwRepPreview.ReportParameter() { PNAME = "シリーズコード", VALUE = string.IsNullOrEmpty(Series.Text1) ? "" : Series.Text1 },
                     new FwRepPreview.ReportParameter() { PNAME = "シリーズ名称", VALUE = string.IsNullOrEmpty(Series.Text2) ? "" : Series.Text2 },
-                    new FwRepPreview.ReportParameter() { PNAME = "記入リスト印刷フラグ", VALUE = writeListChk.IsChecked }
+                    new FwRepPreview.ReportParameter() { PNAME = "記入リスト印刷フラグ", VALUE = writeListChk.IsChecked },
+                    new FwRepPreview.ReportParameter() { PNAME = "帳票タイトル", VALUE = 帳票タイトル },
                     #endregion
                 };
 
                 DataTable 印刷データ = tbl.Copy();
-                印刷データ.TableName = "場所別棚卸一覧表";
+
+                // 記入リストのチェックに応じて、帳票タイトル設定
+                印刷データ.TableName = 帳票タイトル;              // No349 Add
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
                 view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);

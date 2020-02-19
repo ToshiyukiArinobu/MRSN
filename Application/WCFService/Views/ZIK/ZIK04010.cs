@@ -498,7 +498,7 @@ namespace KyoeiSystem.Application.WCFService
         #region 棚卸過去日付データ削除処理   課題No304 Add
 
         /// <summary>
-        /// 棚卸の過去日付データ削除処理
+        /// 棚卸の未更新データ削除処理
         /// </summary>
         /// <param name="context">TRAC3Entities</param>
         /// <param name="pRow">StocktakingDataMember</param>
@@ -515,7 +515,7 @@ namespace KyoeiSystem.Application.WCFService
             List<StocktakingDataMember> retResult = new List<StocktakingDataMember>();
 
             var delList =
-                context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.棚卸日 < dteStocktaking && w.更新済みFLG == 0)
+                context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.棚卸日 != dteStocktaking && w.更新済みFLG == 0)
                 .Join(context.M22_SOUK.Where(w => w.削除日時 == null && w.場所会社コード == pMyCompany),
                         x => x.倉庫コード,
                         y => y.倉庫コード,
