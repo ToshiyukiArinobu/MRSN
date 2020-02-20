@@ -264,7 +264,7 @@
             <sg:GcSpreadGrid
           Name="sp製品一覧" Grid.Row="3" LayoutMode="Template"
           AutoGenerateColumns="False" HighlightHeader="None" RowCount="0" OperationMode="Normal"
-          Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct" MaxWidth="950" Margin="80,5,1,1"
+          Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct"  Margin="17,5,1,1"
           DocumentUri="/KyoeiSystem.Application.Windows;component/views/DLY/DLY02010G1.sgxml"
           ItemsSource="{Binding SearchDetail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
           CellEditEnded="sp製品一覧_CellEditEnded" SelectionChanged="sp製品一覧_SelectionChanged">
@@ -342,7 +342,7 @@
                             <sg:BindingDataField Binding="{Binding 摘要, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                         </sg:Column.DataField>
                     </sg:Column>
-                    <sg:Column Locked="True" Focusable="False" IsVisible="False" Width="0">
+                    <sg:Column Locked="True" Focusable="False" IsVisible="False" Width="0" CanUserResize="False">
                         <sg:Column.CellType>
                             <sg:TextCellType IsReadOnly="True" />
                         </sg:Column.CellType>
@@ -350,7 +350,7 @@
                             <sg:BindingDataField Binding="{Binding 品番コード}" />
                         </sg:Column.DataField>
                     </sg:Column>
-                    <sg:Column Locked="True" Focusable="False" Width="0">
+                    <sg:Column Locked="True" Focusable="False" Width="0" CanUserResize="False">
                         <sg:Column.CellType>
                             <sg:TextCellType IsReadOnly="True" />
                         </sg:Column.CellType>
@@ -387,7 +387,7 @@
                             <sg:ButtonCellType Content="構成部品" />
                         </sg:Column.CellType>
                     </sg:Column>
-                    <sg:Column Locked="True" Focusable="False" Width="0">
+                    <sg:Column Locked="True" Focusable="False" Width="0" CanUserResize="False">
                         <sg:Column.CellType>
                             <sg:TextCellType IsReadOnly="True" />
                         </sg:Column.CellType>
