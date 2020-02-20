@@ -32,7 +32,6 @@ using System.Reflection;
 
 using System.Windows.Threading;
 
-
 namespace KyoeiSystem.Application.Windows.Views
 {
     using DebugLog = System.Diagnostics.Debug;
@@ -451,8 +450,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         break;
 
                     case T04_GetData:
-                        // 伝票検索または新規伝票の場合
-                        DataSet ds = data as DataSet;
+                            // 伝票検索または新規伝票の場合
+                            DataSet ds = data as DataSet;
                         if (ds != null)
                         {
                             SetTblData(ds);
@@ -1903,7 +1902,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // グリッド内容の再計算を実施
             summaryCalculation();
-
         }
 
         #region 画面表示モードの設定
@@ -3305,6 +3303,23 @@ namespace KyoeiSystem.Application.Windows.Views
             return lstAgrDtb;
         }
         #endregion
+
+        /// <summary>
+        /// キーダウンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt入荷先_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Tab)
+            {
+                //Spredの先頭にフォーカスを当てる
+                this.sp製品一覧.ShowColumn(0, HorizontalPosition.Left);
+                this.sp製品一覧.ShowRow(0, VerticalPosition.Top);
+                this.sp製品一覧.ActiveCellPosition = new CellPosition(0, 0);
+            }
+
+        }
     }
 
 }

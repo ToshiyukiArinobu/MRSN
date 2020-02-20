@@ -243,7 +243,7 @@
               Text2Width="150" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center"
               Label2Text=""
               Text1="{Binding SearchHeader[入荷先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
-              cText1Changed="txt入荷先_cText1Changed"
+              cText1Changed="txt入荷先_cText1Changed" PreviewKeyDown="txt入荷先_PreviewKeyDown"
           />
 
                     <!-- 枠線描画 -->
