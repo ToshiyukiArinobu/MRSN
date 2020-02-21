@@ -857,7 +857,7 @@
           <Property Name="倉庫コード" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
           <Property Name="賞味期限" Type="date" Nullable="false" />
-          <Property Name="在庫数" Type="decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="在庫数" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
           <Property Name="最終更新者" Type="int" />
@@ -1314,7 +1314,7 @@
           <Property Name="単位" Type="varchar" MaxLength="2" />
           <Property Name="単価" Type="decimal" Precision="10" Scale="2" />
           <Property Name="金額" Type="int" />
-          <Property Name="摘要" Type="varchar" MaxLength="12" />
+          <Property Name="摘要" Type="varchar" MaxLength="40" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
           <Property Name="登録者" Type="int" />
           <Property Name="最終更新日時" Type="datetime" />
@@ -1727,7 +1727,6 @@
           <EntitySet Name="M99_COMBOLIST" EntityType="TRAC3Model.M99_COMBOLIST" />
           <EntitySet Name="M99_MSG" EntityType="TRAC3Model.M99_MSG" />
           <EntitySet Name="M99_ZIP" EntityType="TRAC3Model.M99_ZIP" />
-          <EntitySet Name="S03_STOK" EntityType="TRAC3Model.S03_STOK" />
           <EntitySet Name="S04_HISTORY" EntityType="TRAC3Model.S04_HISTORY" />
           <EntitySet Name="S05_STOK_MONTH" EntityType="TRAC3Model.S05_STOK_MONTH" />
           <EntitySet Name="T02_URDTL" EntityType="TRAC3Model.T02_URDTL" />
@@ -1764,6 +1763,7 @@
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.S09_KAIKAKE" />
           <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.S10_STOCKTAKING" />
           <EntitySet Name="S11_KAKUTEI" EntityType="TRAC3Model.S11_KAKUTEI" />
+          <EntitySet Name="S03_STOK" EntityType="TRAC3Model.S03_STOK" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
@@ -2243,23 +2243,6 @@
           <Property Type="String" Name="住所かな" MaxLength="400" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="住所漢字" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="S03_STOK">
-          <Key>
-            <PropertyRef Name="倉庫コード" />
-            <PropertyRef Name="品番コード" />
-            <PropertyRef Name="賞味期限" />
-          </Key>
-          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
-          <Property Type="Int32" Name="品番コード" Nullable="false" />
-          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="0" />
-          <Property Type="Decimal" Name="在庫数" Nullable="false" Precision="8" Scale="2" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
         <EntityType Name="S04_HISTORY">
           <Key>
             <PropertyRef Name="SEQ" />
@@ -2440,7 +2423,7 @@
           <Property Type="String" Name="単位" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="単価" Precision="10" Scale="2" />
           <Property Type="Int32" Name="金額" />
-          <Property Type="String" Name="摘要" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="摘要" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="最終更新日時" Precision="3" />
@@ -3202,6 +3185,23 @@
           <Property Type="DateTime" Name="登録日時" Precision="3" />
           <Property Type="Int32" Name="確定区分" Nullable="false" />
         </EntityType>
+        <EntityType Name="S03_STOK">
+          <Key>
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="賞味期限" />
+          </Key>
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="0" />
+          <Property Type="Decimal" Name="在庫数" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3690,22 +3690,6 @@
                 <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
                 <ScalarProperty Name="地区コード" ColumnName="地区コード" />
                 <ScalarProperty Name="キー" ColumnName="キー" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="S03_STOK">
-            <EntityTypeMapping TypeName="TRAC3Model.S03_STOK">
-              <MappingFragment StoreEntitySet="S03_STOK">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="在庫数" ColumnName="在庫数" />
-                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
-                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
-                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4586,6 +4570,22 @@
                 <ScalarProperty Name="締日" ColumnName="締日" />
                 <ScalarProperty Name="取引区分" ColumnName="取引区分" />
                 <ScalarProperty Name="自社コード" ColumnName="自社コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S03_STOK">
+            <EntityTypeMapping TypeName="TRAC3Model.S03_STOK">
+              <MappingFragment StoreEntitySet="S03_STOK">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="在庫数" ColumnName="在庫数" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

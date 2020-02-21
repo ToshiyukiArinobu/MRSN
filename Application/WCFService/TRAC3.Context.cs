@@ -239,12 +239,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<M99_ZIP> _m99_ZIP;
     
-        public ObjectSet<S03_STOK> S03_STOK
-        {
-            get { return _s03_STOK  ?? (_s03_STOK = CreateObjectSet<S03_STOK>("S03_STOK")); }
-        }
-        private ObjectSet<S03_STOK> _s03_STOK;
-    
         public ObjectSet<S04_HISTORY> S04_HISTORY
         {
             get { return _s04_HISTORY  ?? (_s04_HISTORY = CreateObjectSet<S04_HISTORY>("S04_HISTORY")); }
@@ -460,6 +454,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s11_KAKUTEI  ?? (_s11_KAKUTEI = CreateObjectSet<S11_KAKUTEI>("S11_KAKUTEI")); }
         }
         private ObjectSet<S11_KAKUTEI> _s11_KAKUTEI;
+    
+        public ObjectSet<S03_STOK> S03_STOK
+        {
+            get { return _s03_STOK  ?? (_s03_STOK = CreateObjectSet<S03_STOK>("S03_STOK")); }
+        }
+        private ObjectSet<S03_STOK> _s03_STOK;
 
         #endregion
 
