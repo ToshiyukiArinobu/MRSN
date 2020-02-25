@@ -367,8 +367,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Files\BSK\BSK05010.cs">
-      <DependentUpon>BSK05010.rpt</DependentUpon>
+    <Compile Include="Files\BSK\BSK06010.cs">
+      <DependentUpon>BSK06010.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -724,9 +724,9 @@
       <LastGenOutput>BSK04010d.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\BSK\BSK05010.rpt">
+    <Content Include="Files\BSK\BSK06010.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>BSK05010.cs</LastGenOutput>
+      <LastGenOutput>BSK06010.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Files\SAMPLE.rpt">
