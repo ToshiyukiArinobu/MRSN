@@ -1492,6 +1492,23 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// 製品原価計算表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_BSK06010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(BSK06010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// 相殺請求管理表
         /// </summary>
         /// <param name="sender"></param>

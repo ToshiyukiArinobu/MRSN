@@ -96,6 +96,9 @@
     <Compile Include="Views\BSK\BSK04010.xaml.cs">
       <DependentUpon>BSK04010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BSK\BSK06010.xaml.cs">
+      <DependentUpon>BSK06010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Common\AppCommon.cs" />
     <Compile Include="Views\Common\AppCommonData.cs" />
     <Compile Include="Views\Common\CodeList.cs" />
@@ -422,6 +425,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\BSK\BSK06010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\BSK\BSK06010G2.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\BSK\BSK06010G3.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Views\TKS\TKS09010G1.sgxml" />
     <Resource Include="Views\ZIJ\ZIJ10010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -571,6 +583,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BSK\BSK04010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BSK\BSK06010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
