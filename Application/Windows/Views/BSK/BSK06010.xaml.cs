@@ -524,7 +524,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 sp資材明細.Cells[sRow, "品番コード"].Value = drow["品番コード"].ToString();
                                 sp資材明細.Cells[sRow, "原価"].Value = d原価;
                                 sp資材明細.Cells[sRow, "数量"].Value = d数量;
-                                sp資材明細.Cells[sRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
+                                sp資材明細.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
                             }
 
                         }
@@ -541,7 +541,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp資材明細.Cells[sRow, "品番コード"].Value = drow["品番コード"].ToString();
                             sp資材明細.Cells[sRow, "原価"].Value = d原価;
                             sp資材明細.Cells[sRow, "数量"].Value = d数量;
-                            sp資材明細.Cells[sRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
+                            sp資材明細.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
                         }
 
                         summaryCalculation();
@@ -677,14 +677,14 @@ namespace KyoeiSystem.Application.Windows.Views
                                     DataRow drow = myhin.SelectedRowData;
 
                                     decimal d原価 = AppCommon.DecimalParse(drow["マスタ原価"].ToString());
-                                    decimal d数量 = sp構成品明細.Cells[iRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp構成品明細.Cells[iRow, "数量"].Value.ToString());
+                                    decimal d数量 = sp資材明細.Cells[iRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp資材明細.Cells[iRow, "数量"].Value.ToString());
 
                                     sp資材明細.Cells[iRow, "自社品番"].Value = drow["自社品番"].ToString();
                                     sp資材明細.Cells[iRow, "自社品名"].Value = drow["自社品名"].ToString();
                                     sp資材明細.Cells[iRow, "品番コード"].Value = drow["品番コード"].ToString();
                                     sp資材明細.Cells[iRow, "原価"].Value = d原価;
                                     sp資材明細.Cells[iRow, "数量"].Value = d数量;
-                                    sp資材明細.Cells[iRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
+                                    sp資材明細.Cells[iRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
 
                                     // 合計算出
                                     summaryCalculation();
