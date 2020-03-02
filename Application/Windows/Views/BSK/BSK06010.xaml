@@ -157,7 +157,7 @@
                           ValidationType="Integer" ImeType="Off" Label_Context="食品割増率" Label_Width="100"
                           Text="{Binding 食品割増率,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}"
                           cTextAlignment="Right" MinValue="0" MaxValue="999" 
-                          cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center" PreviewKeyDown="HinPremium_PreviewKeyDown" cTextChanged="HinPremium_cTextChanged" />
+                          cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center" PreviewKeyDown="HinPremium_PreviewKeyDown" LostFocus="HinPremium_LostFocus" />
                     <TextBlock Text="%" Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center" Margin="710,0,0,0" />
 
                     <!--明細スプレッド-->
@@ -319,7 +319,7 @@
 
                         <!-- 資材データ部 -->
                         <sg:GcSpreadGrid
-                        Name="sp資材明細" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Top"  FrozenColumnCount="7" FrozenRowCount="4"
+                        Name="sp資材明細" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch"  FrozenColumnCount="7" FrozenRowCount="4"
                         AutoGenerateColumns="False" HighlightHeader="None" OperationMode="Normal" RowCount="4" VerticalScrollBarVisibility="Disabled"
                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct"  Margin="24,0,0,0" 
                         DocumentUri="/KyoeiSystem.Application.Windows;component/views/BSK/BSK06010G2.sgxml"
@@ -571,13 +571,13 @@
                         Background="{StaticResource DataGridSummaryBackground}" />
 
 
-                            <ctls:UcTextBox x:Name="txb販社販売価格" Grid.Row="1" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White"
-                                    Text="{Binding 販社販売価格,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}"
-                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-9999999" MaxValue="9999999" />
+                            <ctls:UcTextBox x:Name="txb販社販売価格" Grid.Row="1" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White" cVerticalContentAlignment="Center"
+                                    Text="{Binding 販社販売価格,Mode=TwoWay, StringFormat= '#,##0', NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" cBorderThickness="0"
+                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-999999999" MaxValue="999999999" />
 
-                            <ctls:UcTextBox x:Name="txb得意先販売価格" Grid.Row="2" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White"
-                                    Text="{Binding 得意先販売価格,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}"
-                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-9999999" MaxValue="9999999" />
+                            <ctls:UcTextBox x:Name="txb得意先販売価格" Grid.Row="2" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White" cVerticalContentAlignment="Center"
+                                    Text="{Binding 得意先販売価格,Mode=TwoWay, StringFormat= '#,##0', NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" cBorderThickness="0"
+                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-999999999" MaxValue="999999999" PreviewKeyDown="txb得意先販売価格_PreviewKeyDown" />
 
 
                             <Label x:Name="lbl合計" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" Padding="0,6,5,0" />

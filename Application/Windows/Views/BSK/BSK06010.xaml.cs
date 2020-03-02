@@ -401,19 +401,13 @@ namespace KyoeiSystem.Application.Windows.Views
                     case GetShinDataList:
                         #region セット品取得時
 
-                        // スプレッドの初期値をセット
-                        SpeadInit();
-
                         構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), tbl);
 
+                        // 金額再計算
                         summaryCalculation();
 
                         //ロックしたデータを解除し、伝票番号をロック
                         ChangeKeyItemChangeable(false);
-
-                        // lostfocusイベントを発生させるため、一度全スプレッドをフォーカス
-                        spその他明細.Focus();
-                        sp資材明細.Focus();
 
                         sp構成品明細.Focus();
 
@@ -757,6 +751,8 @@ namespace KyoeiSystem.Application.Windows.Views
             // 開発途中のため処理しない
             return;
 
+            // 金額再計算
+            summaryCalculation();
 
             // 入力チェック
             if (!formValidation())
@@ -774,9 +770,9 @@ namespace KyoeiSystem.Application.Windows.Views
             List<CostingSheetMember> 製品原価リスト = new List<CostingSheetMember>();
 
 
-            製品原価リスト.AddRange(構成品明細リスト);
-            製品原価リスト.AddRange(資材明細リスト);
-            製品原価リスト.AddRange(その他明細リスト);
+            製品原価リスト.AddRange(SetCostingKbn(構成品明細リスト, 1));
+            製品原価リスト.AddRange(SetCostingKbn(資材明細リスト, 2));
+            製品原価リスト.AddRange(SetCostingKbn(その他明細リスト, 3));
 
             var 製品原価データ = new DataTable();
             AppCommon.ConvertToDataTable(製品原価リスト, 製品原価データ);
@@ -830,18 +826,11 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.MaintenanceMode = null;
 
-            ResetAllValidation();
-           
-
-            ChangeKeyItemChangeable(true);
-
             SetHinban.Text1 = string.Empty;
             SetHinban.Text2 = string.Empty;
 
-
-            this.構成品明細リスト = new List<CostingSheetMember>();
-            this.資材明細リスト = new List<CostingSheetMember>();
-            this.その他明細リスト = new List<CostingSheetMember>();
+            // スプレッドの初期値をセット
+            SpeadInit();           // No.366 Add
 
             lbl構成品小計.Content = string.Empty;
             lbl資材小計.Content = string.Empty;
@@ -854,17 +843,37 @@ namespace KyoeiSystem.Application.Windows.Views
 
             this.食品割増率 = 0;
 
+            ResetAllValidation();
+            ChangeKeyItemChangeable(true);
             SetFocusToTopControl();
         }
         #endregion
 
         #region スプレッド初期値設定
-
+        /// <summary>
+        /// スプレッド初期値設定
+        /// </summary>
         private void SpeadInit()
         {
-            //this.構成品明細リスト = new List<CostingSheetMember>();
+            this.構成品明細リスト = new List<CostingSheetMember>();
             this.資材明細リスト = new List<CostingSheetMember>();
             this.その他明細リスト = new List<CostingSheetMember>();
+
+                // No366 Add Start
+                // 構成品初期値設定
+            
+                for (int i = 0; i < 10; i++)
+                {
+                    CostingSheetMember row = new CostingSheetMember();
+                    row.区分 = 1;
+                    構成品明細リスト.Add(row);
+                }
+
+                var 構成品明細データ = new DataTable();
+                AppCommon.ConvertToDataTable(構成品明細リスト, 構成品明細データ);
+                構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 構成品明細データ);
+
+                // No366 Add End
 
             // 資材初期値設定
             foreach (var rShizai in SHIZAI_INIT_LIST)
@@ -892,7 +901,9 @@ namespace KyoeiSystem.Application.Windows.Views
             AppCommon.ConvertToDataTable(その他明細リスト, その他明細データ);
             その他明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), その他明細データ);
 
-
+            // lostfocusイベントを発生させるため、一度全スプレッドをフォーカス
+            spその他明細.Focus();
+            sp資材明細.Focus();
         }
 
         #endregion
@@ -917,7 +928,6 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region セット品 データ取得
-
         /// <summary>
         /// セット品情報を取得する
         /// <param name="strProduct">品番コード（セット品）</param>
@@ -1057,8 +1067,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << ヘッダーイベント処理 >>
 
-        #region セット品番Enter処理
-
+        /// <summary>
+        /// セット品番でキーが押された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetHinban_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -1082,10 +1095,24 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
-        #endregion
+        /// <summary>
+        /// セット品番でキーが変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetHinban_cText1Changed(object sender, RoutedEventArgs e)
+        {
+            // セット品番が変更された場合、品番情報を初期化
+            SetHinban.Text2 = string.Empty;
+            this.自社色情報 = string.Empty;
+        }
 
         #region 食品割増率イベント
-
+        /// <summary>
+        /// 食品割増率でキーが押された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HinPremium_PreviewKeyDown(object sender, KeyEventArgs e)
         {
 
@@ -1103,7 +1130,12 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
-        private void HinPremium_cTextChanged(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 食品割増率でキーのフォーカスが外れた時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HinPremium_LostFocus(object sender, RoutedEventArgs e)
         {
             // 合計再計算
             summaryCalculation();
@@ -1118,7 +1150,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #region 構成品イベント処理
 
         #region 構成品明細CellEditEnded
-
+        /// <summary>
+        /// SPREAD セル編集がコミットされた時の処理(手入力) CellEditEnadedイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sp構成品明細_CellEditEnded(object sender, SpreadCellEditEndedEventArgs e)
         {
             try
@@ -1186,7 +1222,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 構成品行追加
-
+        /// <summary>
+        /// 構成品の行追加ボタンが押下された時のイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KouseiHinBtnAdd_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1227,7 +1267,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 構成品行削除
-
+        /// <summary>
+        /// 構成品の行削除ボタンが押下された時のイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KouseiHinBtnDel_Click(object sender, RoutedEventArgs e)
         {
 
@@ -1265,6 +1309,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 構成品明細キーダウンイベント
+        /// <summary>
+        /// 構成品明細でキーが押された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sp構成品明細_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //Delete押下時の処理
@@ -1295,6 +1344,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 構成品明細ロストフォーカス
+        /// <summary>
+        /// 構成品明細でフォーカスが外れた時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sp構成品明細_LostFocus(object sender, RoutedEventArgs e)
         {
             if (sp構成品明細.Focusable == true)
@@ -1315,7 +1369,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #region 資材明細イベント処理
 
         #region 資材明細CellEditEnded
-
+        /// <summary>
+        /// SPREAD セル編集がコミットされた時の処理(手入力) CellEditEnadedイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sp資材明細_CellEditEnded(object sender, SpreadCellEditEndedEventArgs e)
         {
             try
@@ -1382,6 +1440,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 資材明細キーダウンイベント
+        /// <summary>
+        /// 資材明細でキーが押された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sp資材明細_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //Delete押下時の処理
@@ -1412,6 +1475,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 資材明細ロストフォーカス
+        /// <summary>
+        /// 資材明細でフォーカスが外れた時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sp資材明細_LostFocus(object sender, RoutedEventArgs e)
         {
             if (sp資材明細.Focusable == true)
@@ -1432,7 +1500,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #region その他イベント処理
 
         #region その他明細CellEditEnded
-
+        /// <summary>
+        /// SPREAD セル編集がコミットされた時の処理(手入力) CellEditEnadedイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void spその他明細_CellEditEnded(object sender, SpreadCellEditEndedEventArgs e)
         {
             try
@@ -1475,7 +1547,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region その他行追加
-
+        /// <summary>
+        /// その他行追加ボタンが押された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SonotaBtnAdd_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1494,7 +1570,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 //Spreadの行を1行追加します
                 CostingSheetMember row = new CostingSheetMember();
-                row.区分 = 1;
+                row.区分 = 3;
                 その他明細リスト.Add(row);
 
                 var その他明細データ = new DataTable();
@@ -1516,7 +1592,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region その他行削除
-
+        /// <summary>
+        /// その他行削除ボタンが押された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SonotaBtnDel_Click(object sender, RoutedEventArgs e)
         {
 
@@ -1553,6 +1633,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region その他明細キーダウンイベント
+        /// <summary>
+        /// その他明細でキーが押された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void spその他明細_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //Delete押下時の処理
@@ -1582,6 +1667,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region その他明細ロストフォーカス
+        /// <summary>
+        /// その他明細でフォーカスが外れた時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void spその他明細_LostFocus(object sender, RoutedEventArgs e)
         {
             if (spその他明細.Focusable == true)
@@ -1601,8 +1691,26 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        #region << 小計・合計関連処理 >>
+        #region << フッターイベント処理 >>
 
+        /// <summary>
+        /// 得意先販売価格でキーが押された時のイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txb得意先販売価格_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Key.Enter == e.Key)
+            {
+                // フォーカス移動
+                HinPremium.Focus();
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region << 小計・合計関連処理 >>
         /// <summary>
         /// 明細内容を集計して結果を設定する
         /// </summary>
@@ -1610,7 +1718,6 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             if (sp構成品明細 == null || sp資材明細 == null || spその他明細 == null)
                 return;
-
 
             decimal d構成品小計 = 0;
             decimal d資材小計 = 0;
@@ -1646,7 +1753,6 @@ namespace KyoeiSystem.Application.Windows.Views
             lbl合計.Content = string.Format(TOTAL_FORMAT_STRING, d原価合計);
             lbl食品割増.Content = string.Format(TOTAL_FORMAT_STRING, d原価合計 + d食品割増);
 
-
         }
 
         #endregion
@@ -1671,12 +1777,24 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        private void SetHinban_cText1Changed(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 構成品、資材、その他が判別できるよう区分を設定
+        /// </summary>
+        /// <param name="CostingSheetList"></param>
+        /// <param name="kbn"></param>
+        private List<CostingSheetMember> SetCostingKbn(List<CostingSheetMember> CostingSList, int kbn)
         {
-            // セット品番が変更された場合、品番情報を初期化
-            SetHinban.Text2 = string.Empty;
-            this.自社色情報 = string.Empty;
-        }
-    }
+            List<CostingSheetMember> retList = new List<CostingSheetMember>();
 
+            // 構成品、資材、その他が判別できるよう区分を設定
+            foreach (var row in CostingSList)
+            {
+                row.区分 = kbn;
+            }
+
+            retList = CostingSList;
+
+            return retList;
+        }    
+    }
 }
