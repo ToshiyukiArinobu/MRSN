@@ -901,9 +901,10 @@ namespace KyoeiSystem.Application.Windows.Views
             AppCommon.ConvertToDataTable(その他明細リスト, その他明細データ);
             その他明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), その他明細データ);
 
-            // lostfocusイベントを発生させるため、一度全スプレッドをフォーカス
-            spその他明細.Focus();
-            sp資材明細.Focus();
+            // スプレッドの初期カーソル位置を設定
+            sp資材明細_LostFocus(null, null);
+            spその他明細_LostFocus(null, null);
+            
         }
 
         #endregion
