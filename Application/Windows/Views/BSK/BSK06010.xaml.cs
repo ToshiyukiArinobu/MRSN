@@ -526,7 +526,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             // 対象データありの場合
                             DataRow drow = tbl.Rows[0];
-
+                           
                             decimal d原価 = AppCommon.DecimalParse(drow["原価"].ToString());
                             decimal d数量 = sp資材明細.Cells[sRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp資材明細.Cells[sRow, "数量"].Value.ToString());
 
@@ -593,7 +593,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     int iRow = spgrid.ActiveRow.Index;
 
-                    spgrid.CommitCellEdit();
+                    //spgrid.CommitCellEdit();           // No.368 Del
+                    spgrid.CancelCellEdit();             // No.368 Add
 
                     if (spgrid.Name == "sp構成品明細")
                     {
@@ -1161,8 +1162,10 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 var grid = sender as GcSpreadGrid;
-
                 int sRow = e.CellPosition.Row;
+
+                if (e.EditAction == SpreadEditAction.Cancel)                    // No.368 Add
+                    return;
 
                 // 行番号を保持
                 sp編集行 = sRow;
@@ -1384,8 +1387,10 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 var grid = sender as GcSpreadGrid;
-
                 int sRow = e.CellPosition.Row;
+
+                if (e.EditAction == SpreadEditAction.Cancel)                    // No.368 Add
+                    return;
 
                 // 行番号を保持
                 sp編集行 = sRow;
