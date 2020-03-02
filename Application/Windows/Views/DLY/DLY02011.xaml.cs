@@ -560,7 +560,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         // 自社品番の場合
                         SCHM09_MYHIN myhin = new SCHM09_MYHIN(code, eda);
                         myhin.TwinTextBox = new UcLabelTwinTextBox();
-                        myhin.IsItemStatusType = false;
+                        myhin.IsDisabledItemTypes = null;              // No.362 Mod
                         myhin.TwinTextBox.LinkItem = 2;
                         if (myhin.ShowDialog(this) == true)
                         {

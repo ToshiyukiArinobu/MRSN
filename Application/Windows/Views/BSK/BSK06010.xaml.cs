@@ -370,7 +370,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番の場合
                             SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                             myhin.TwinTextBox = new UcLabelTwinTextBox();
-                            myhin.IsItemStatusType = true;
+                            myhin.IsDisabledItemTypes = new[] { 2, 3, 4 };                         // No.362 Mod
                             myhin.txtCode.Text = SetHinban.Text1;
                             myhin.txtCode.IsEnabled = false;
                             myhin.TwinTextBox.LinkItem = 2;
@@ -435,8 +435,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番の場合
                             SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                             myhin.TwinTextBox = new UcLabelTwinTextBox();
-                            myhin.IsItemStatusType = true;
-                            myhin.txtCode.Text = SetHinban.Text1;
+                            myhin.IsDisabledItemTypes = new[] { 1, 3, 4 };                             // No.362 Mod
+                            myhin.txtCode.Text = tbl.Rows[0]["自社品番"].ToString();
                             myhin.txtCode.IsEnabled = false;
                             myhin.TwinTextBox.LinkItem = 2;
 
@@ -477,10 +477,10 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp構成品明細.Cells[kRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
                         }
 
+                        // 金額再計算
                         summaryCalculation();
                         #endregion
                         break;
-
 
                     case Shizai_MyProduct:
                         #region 資材情報手入力時
@@ -500,8 +500,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番の場合
                             SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                             myhin.TwinTextBox = new UcLabelTwinTextBox();
-                            myhin.IsItemStatusType = true;
-                            myhin.txtCode.Text = SetHinban.Text1;
+                            myhin.IsDisabledItemTypes = new[] { 1, 2, 4 };                               // No.362 Mod
+                            myhin.txtCode.Text = tbl.Rows[0]["自社品番"].ToString();
                             myhin.txtCode.IsEnabled = false;
                             myhin.TwinTextBox.LinkItem = 2;
 
@@ -538,10 +538,10 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp資材明細.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
                         }
 
+                        // 金額再計算
                         summaryCalculation();
 
                         #endregion
-
                         break;
 
                     default:
@@ -609,7 +609,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 //myhin.IsItemStatusType = true;
                                 //myhin.txtCode.IsEnabled = false;
                                 //myhin.TwinTextBox.LinkItem = 2;
-
+                                myhin.IsDisabledItemTypes = new[] { 1, 3, 4 };                                          // No.362 Mod
                                 if (myhin.ShowDialog(this) == true)
                                 {
                                     // 対象データありの場合
@@ -627,7 +627,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                     sp構成品明細.Cells[iRow, "数量"].Value = d数量;
                                     sp構成品明細.Cells[iRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
 
-                                    // 合計算出
+                                    // 金額再計算
                                     summaryCalculation();
                                 }
 
@@ -664,7 +664,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 //myhin.txtCode.IsEnabled = false;
                                 //myhin.IsItemStatusType = true;
                                 //myhin.TwinTextBox.LinkItem = 2;
-
+                                myhin.IsDisabledItemTypes = new[] { 1, 2, 3 };                                       // No.362 Mod
                                 if (myhin.ShowDialog(this) == true)
                                 {
                                     // 対象データありの場合
@@ -680,7 +680,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                     sp資材明細.Cells[iRow, "数量"].Value = d数量;
                                     sp資材明細.Cells[iRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
 
-                                    // 合計算出
+                                    // 金額再計算
                                     summaryCalculation();
                                 }
 
@@ -712,7 +712,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                     myhin.txtCode.Text = uctext.Text1;
                     myhin.TwinTextBox = new UcLabelTwinTextBox();
-                    myhin.IsItemStatusType = true;
+                    myhin.IsDisabledItemTypes = new[] { 2, 3, 4 };                                    // No.362 Mod
                     if (myhin.ShowDialog(this) == true)
                     {
                         SetHinban.Text1 = myhin.SelectedRowData["自社品番"].ToString();
@@ -859,21 +859,21 @@ namespace KyoeiSystem.Application.Windows.Views
             this.資材明細リスト = new List<CostingSheetMember>();
             this.その他明細リスト = new List<CostingSheetMember>();
 
-                // No366 Add Start
-                // 構成品初期値設定
-            
-                for (int i = 0; i < 10; i++)
-                {
-                    CostingSheetMember row = new CostingSheetMember();
-                    row.区分 = 1;
-                    構成品明細リスト.Add(row);
-                }
+            // No366 Add Start
+            // 構成品初期値設定
 
-                var 構成品明細データ = new DataTable();
-                AppCommon.ConvertToDataTable(構成品明細リスト, 構成品明細データ);
-                構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 構成品明細データ);
+            for (int i = 0; i < 10; i++)
+            {
+                CostingSheetMember row = new CostingSheetMember();
+                row.区分 = 1;
+                構成品明細リスト.Add(row);
+            }
 
-                // No366 Add End
+            var 構成品明細データ = new DataTable();
+            AppCommon.ConvertToDataTable(構成品明細リスト, 構成品明細データ);
+            構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 構成品明細データ);
+
+            // No366 Add End
 
             // 資材初期値設定
             foreach (var rShizai in SHIZAI_INIT_LIST)
@@ -1137,7 +1137,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void HinPremium_LostFocus(object sender, RoutedEventArgs e)
         {
-            // 合計再計算
+            // 金額再計算
             summaryCalculation();
         }
 
@@ -1197,6 +1197,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         if (string.IsNullOrWhiteSpace(text) == true)
                         {
                             grid.Cells[sRow, "金額"].Value = null;
+
+                            // 金額再計算
                             summaryCalculation();
                             return;
                         }
@@ -1208,6 +1210,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         grid.Cells[sRow, "数量"].Value = d数量;
                         grid.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 * d数量 * 10)) / 10;
 
+                        // 金額再計算
                         summaryCalculation();
 
                         break;
@@ -1293,6 +1296,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     AppCommon.ConvertToDataTable(構成品明細リスト, 入庫伝票データ);
                     構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 入庫伝票データ);
 
+                    // 金額再計算
                     summaryCalculation();
 
                     // フォーカスを設定
@@ -1415,6 +1419,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             grid.Cells[sRow, "金額"].Value = null;
 
+                            // 金額再計算
                             summaryCalculation();
                             return;
                         }
@@ -1426,6 +1431,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         grid.Cells[sRow, "数量"].Value = d数量;
                         grid.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
 
+                        // 金額再計算
                         summaryCalculation();
 
                         break;
@@ -1522,6 +1528,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         if (string.IsNullOrWhiteSpace(text) == true)
                         {
                             grid.Cells[sRow, "金額"].Value = null;
+                            
+                            // 金額再計算
                             summaryCalculation();
                             return;
                         }
@@ -1533,6 +1541,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         grid.Cells[sRow, "数量"].Value = d数量;
                         grid.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
 
+                        // 金額再計算
                         summaryCalculation();
 
                         break;
@@ -1617,6 +1626,9 @@ namespace KyoeiSystem.Application.Windows.Views
                     var 入庫伝票データ = new DataTable();
                     AppCommon.ConvertToDataTable(その他明細リスト, 入庫伝票データ);
                     その他明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 入庫伝票データ);
+
+                    // 金額再計算
+                    summaryCalculation();
 
                     // フォーカスを設定
                     spその他明細.Focus();
@@ -1795,6 +1807,6 @@ namespace KyoeiSystem.Application.Windows.Views
             retList = CostingSList;
 
             return retList;
-        }    
+        }
     }
 }

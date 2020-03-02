@@ -119,10 +119,10 @@ namespace KyoeiSystem.Application.Windows.Views
         public int 取引区分 { get; set; }
 
         /// <summary>
-        /// 商品形態分類の指定
-        /// セット商品のみを選択可とするかどうか
+        /// 商品形態分類のチェック無効項目を指定
+        /// 1:SET品、2:単品・材料、3:雑コード、4:副資材
         /// </summary>
-        public bool IsItemStatusType { get; set; }
+        public int[] IsDisabledItemTypes { get; set; }              // No.362 Mod
 
         /// <summary>選択行データ(M09_HIN)</summary>
         public DataRow SelectedRowData { get; set; }
@@ -145,20 +145,20 @@ namespace KyoeiSystem.Application.Windows.Views
             this.DataContext = this;
             this.Topmost = true;
 
-            IsItemStatusType = false;
+            IsDisabledItemTypes = null;                             // No.362 Mod
 
         }
 
         /// <summary>
         /// 品番マスタ コンストラクタ
         /// </summary>
-        public SCHM09_MYHIN(bool isItemStatusType)
+        public SCHM09_MYHIN(int[] isDisabledItemTypes)
         {
             InitializeComponent();
             this.DataContext = this;
             this.Topmost = true;
 
-            IsItemStatusType = isItemStatusType;
+            IsDisabledItemTypes = isDisabledItemTypes;              // No.362 Mod
 
         }
 
@@ -175,7 +175,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             _取引先コード = 得意先コード;
             _枝番 = 枝番;
-            IsItemStatusType = false;
+            IsDisabledItemTypes = null;                             // No.362 Mod
 
         }
         #endregion
@@ -207,18 +207,37 @@ namespace KyoeiSystem.Application.Windows.Views
                     取引区分 = val;
             }
 
-            if (IsItemStatusType)
+            // No.362 Mod Start
+            // 商品分類形態無効項目の指定
+            if (IsDisabledItemTypes != null)
             {
-                // SET商品のみを選択可とする
-                chkItemClass_2.IsEnabled = false;
-                chkItemClass_2.IsChecked = false;
-                // No-279 Del Start
-                //chkItemClass_3.IsEnabled = false;
-                //chkItemClass_3.IsChecked = false;
-                // No-279 Del End
-                chkItemClass_4.IsEnabled = false;
-                chkItemClass_4.IsChecked = false;
-
+                foreach (int iItem in IsDisabledItemTypes)
+                {
+                    switch (iItem)
+                    {
+                        case 1:
+                            // SET品
+                            chkItemClass_1.IsEnabled = false;
+                            chkItemClass_1.IsChecked = false;
+                            break;
+                        case 2:
+                            // 単品・材料
+                            chkItemClass_2.IsEnabled = false;
+                            chkItemClass_2.IsChecked = false;
+                            break;
+                        case 3:
+                            // 雑コード
+                            chkItemClass_3.IsEnabled = false;
+                            chkItemClass_3.IsChecked = false;
+                            break;
+                        case 4:
+                            // 副資材
+                            chkItemClass_4.IsEnabled = false;
+                            chkItemClass_4.IsChecked = false;
+                            break;
+                    }
+                }
+                // No.362 Mod End
             }
 
             // 画面サイズをタスクバーをのぞいた状態で表示させる
@@ -525,7 +544,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         this.TwinTextBox.Text2 = row[COLUMN_MY_NAME].ToString();
                         // 取引区分に応じた単価を設定
                         string cost = "0";
-                        switch(取引区分)
+                        switch (取引区分)
                         {
                             case 0:     // 得意先
                                 cost = row["売価"].ToString();
@@ -551,7 +570,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         }
 
                         this.TwinTextBox.Text3 = cost;
- 
+
                     }
 
                 }

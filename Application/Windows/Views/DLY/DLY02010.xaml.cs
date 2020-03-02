@@ -450,8 +450,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         break;
 
                     case T04_GetData:
-                            // 伝票検索または新規伝票の場合
-                            DataSet ds = data as DataSet;
+                        // 伝票検索または新規伝票の場合
+                        DataSet ds = data as DataSet;
                         if (ds != null)
                         {
                             SetTblData(ds);
@@ -642,7 +642,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番の場合
                             SCHM09_MYHIN myhin = new SCHM09_MYHIN(code, eda);
                             myhin.TwinTextBox = new UcLabelTwinTextBox();
-                            myhin.IsItemStatusType = true;
+                            myhin.IsDisabledItemTypes = new[] { 2, 4 };              // No.362 Mod
                             myhin.txtCode.Text = colVal;
                             myhin.txtCode.IsEnabled = false;
                             myhin.TwinTextBox.LinkItem = 2;
@@ -690,7 +690,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 20190530CB-E
 
                                 gridDtl.SetCellValue((int)GridColumnsMapping.商品形態分類, myhin.SelectedRowData["商品形態分類"]);       // No-279 Add
-       
+
                                 // 品番入力のロック制御
                                 SetDispSpreadRowEnabled();       // No.343 Add
 
@@ -1457,7 +1457,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         // 自社品番の場合
                         SCHM09_MYHIN myhin = new SCHM09_MYHIN(code, eda);
                         myhin.TwinTextBox = new UcLabelTwinTextBox();
-                        myhin.IsItemStatusType = true;
+                        myhin.IsDisabledItemTypes = new[] { 2, 4 };              // No.362 Mod
                         myhin.TwinTextBox.LinkItem = 2;
                         if (myhin.ShowDialog(this) == true)
                         {

@@ -447,7 +447,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 else
                 {
                     //ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
-                    SCHM09_MYHIN myhin = new SCHM09_MYHIN(true);
+                    int[] disabledItemTypes = new[] { 2, 4 };              // No.362 Mod
+                    SCHM09_MYHIN myhin = new SCHM09_MYHIN(disabledItemTypes);
                     myhin.TwinTextBox = new UcLabelTwinTextBox();
                     myhin.TwinTextBox.Text1 = ProductCode.Text1;
                     myhin.TwinTextBox.LinkItem = ProductCode.LinkItem;
