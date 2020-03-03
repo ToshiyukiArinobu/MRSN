@@ -486,14 +486,14 @@ namespace KyoeiSystem.Application.Windows.Views
                             myhin.IsDisabledItemTypes = new[] { 1, 3, 4 };                             // No.362 Mod
                             myhin.txtCode.Text = tbl.Rows[0]["自社品番"].ToString();
                             myhin.txtCode.IsEnabled = false;
-                            myhin.TwinTextBox.LinkItem = 2;
+                            //myhin.TwinTextBox.LinkItem = 2;
 
                             if (myhin.ShowDialog(this) == true)
                             {
                                 // 対象データありの場合
                                 DataRow drow = myhin.SelectedRowData;
 
-                                decimal d原価 = AppCommon.DecimalParse(drow["原価"].ToString());
+                                decimal d原価 = AppCommon.DecimalParse(drow["マスタ原価"].ToString());                             // No.371 Mod
                                 decimal d数量 = sp構成品明細.Cells[kRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp構成品明細.Cells[kRow, "数量"].Value.ToString());
 
                                 sp構成品明細.Cells[kRow, "自社品番"].Value = drow["自社品番"].ToString();
@@ -583,14 +583,14 @@ namespace KyoeiSystem.Application.Windows.Views
                             myhin.IsDisabledItemTypes = new[] { 1, 2, 3 };                               // No.362 Mod
                             myhin.txtCode.Text = tbl.Rows[0]["自社品番"].ToString();
                             myhin.txtCode.IsEnabled = false;
-                            myhin.TwinTextBox.LinkItem = 2;
+                            //myhin.TwinTextBox.LinkItem = 2;
 
                             if (myhin.ShowDialog(this) == true)
                             {
                                 // 対象データありの場合
                                 DataRow drow = myhin.SelectedRowData;
 
-                                decimal d原価 = AppCommon.DecimalParse(drow["原価"].ToString());
+                                decimal d原価 = AppCommon.DecimalParse(drow["マスタ原価"].ToString());                             // No.371 Mod
                                 decimal d数量 = sp資材明細.Cells[sRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp資材明細.Cells[sRow, "数量"].Value.ToString());
 
                                 sp資材明細.Cells[sRow, "自社品番"].Value = drow["自社品番"].ToString();
