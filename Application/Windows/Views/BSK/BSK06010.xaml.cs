@@ -471,6 +471,12 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp構成品明細.Cells[kRow, "原価"].Value = null;
                             sp構成品明細.Cells[kRow, "数量"].Value = null;
                             sp構成品明細.Cells[kRow, "金額"].Value = null;
+
+                            // No.370 Add Start
+                            this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "自社品番");
+                            this.ErrorMessage = "対象データが存在しません。";
+                            // No.370 Add End
+
                         }
                         else if (tbl.Rows.Count > 1)
                         {
@@ -498,6 +504,8 @@ namespace KyoeiSystem.Application.Windows.Views
                                 sp構成品明細.Cells[kRow, "原価"].Value = d原価;
                                 sp構成品明細.Cells[kRow, "数量"].Value = d数量;
                                 sp構成品明細.Cells[kRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
+
+                                this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "数量");
                             }
 
                         }
@@ -505,6 +513,27 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             // 対象データありの場合
                             DataRow drow = tbl.Rows[0];
+
+                            // No.363 Add Start
+                            // 構成品ではない品番の場合、エラーを表示
+                            if (int.Parse(drow["商品形態分類"].ToString()) != 2)
+                            {
+                                sp構成品明細.Cells[kRow, "自社品名"].Value = string.Empty;
+                                sp構成品明細.Cells[kRow, "色コード"].Value = string.Empty;
+                                sp構成品明細.Cells[kRow, "色名称"].Value = string.Empty;
+                                sp構成品明細.Cells[kRow, "品番コード"].Value = string.Empty;
+                                sp構成品明細.Cells[kRow, "原価"].Value = null;
+                                sp構成品明細.Cells[kRow, "数量"].Value = null;
+                                sp構成品明細.Cells[kRow, "金額"].Value = null;
+
+                                this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "自社品番");
+                                this.ErrorMessage = "構成品の自社品番を入力してください。";
+
+                                // 金額再計算
+                                summaryCalculation();
+                                return;
+                            }
+                            // No.363 Add End
 
                             decimal d原価 = AppCommon.DecimalParse(drow["原価"].ToString());
                             decimal d数量 = sp構成品明細.Cells[kRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp構成品明細.Cells[kRow, "数量"].Value.ToString());
@@ -517,10 +546,13 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp構成品明細.Cells[kRow, "原価"].Value = d原価;
                             sp構成品明細.Cells[kRow, "数量"].Value = d数量;
                             sp構成品明細.Cells[kRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
+
+                            this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "数量");
                         }
 
                         // 金額再計算
                         summaryCalculation();
+
                         #endregion
                         break;
 
@@ -536,13 +568,19 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp資材明細.Cells[sRow, "原価"].Value = null;
                             sp資材明細.Cells[sRow, "数量"].Value = null;
                             sp資材明細.Cells[sRow, "金額"].Value = null;
+
+                            // No.370 Add Start
+                            this.sp資材明細.ActiveCellPosition = new CellPosition(sRow, "自社品番");
+                            this.ErrorMessage = "対象データが存在しません。";
+                            // No.370 Add End
+
                         }
                         else if (tbl.Rows.Count > 1)
                         {
                             // 自社品番の場合
                             SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                             myhin.TwinTextBox = new UcLabelTwinTextBox();
-                            myhin.IsDisabledItemTypes = new[] { 1, 2, 4 };                               // No.362 Mod
+                            myhin.IsDisabledItemTypes = new[] { 1, 2, 3 };                               // No.362 Mod
                             myhin.txtCode.Text = tbl.Rows[0]["自社品番"].ToString();
                             myhin.txtCode.IsEnabled = false;
                             myhin.TwinTextBox.LinkItem = 2;
@@ -561,6 +599,8 @@ namespace KyoeiSystem.Application.Windows.Views
                                 sp資材明細.Cells[sRow, "原価"].Value = d原価;
                                 sp資材明細.Cells[sRow, "数量"].Value = d数量;
                                 sp資材明細.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
+
+                                this.sp資材明細.ActiveCellPosition = new CellPosition(sRow, "数量");
                             }
 
                         }
@@ -568,6 +608,25 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             // 対象データありの場合
                             DataRow drow = tbl.Rows[0];
+
+                            // No.363 Add Start
+                            // 資材ではない品番の場合、エラーを表示
+                            if (int.Parse(drow["商品形態分類"].ToString()) != 4)
+                            {
+                                sp資材明細.Cells[sRow, "自社品名"].Value = string.Empty;
+                                sp資材明細.Cells[sRow, "品番コード"].Value = string.Empty;
+                                sp資材明細.Cells[sRow, "原価"].Value = null;
+                                sp資材明細.Cells[sRow, "数量"].Value = null;
+                                sp資材明細.Cells[sRow, "金額"].Value = null;
+
+                                this.sp資材明細.ActiveCellPosition = new CellPosition(sRow, "自社品番");
+                                this.ErrorMessage = "資材の自社品番を入力してください。";
+
+                                // 金額再計算
+                                summaryCalculation();
+                                return;
+                            }
+                            // No.363 Add End
 
                             decimal d原価 = AppCommon.DecimalParse(drow["原価"].ToString());
                             decimal d数量 = sp資材明細.Cells[sRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp資材明細.Cells[sRow, "数量"].Value.ToString());
@@ -578,6 +637,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp資材明細.Cells[sRow, "原価"].Value = d原価;
                             sp資材明細.Cells[sRow, "数量"].Value = d数量;
                             sp資材明細.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
+
+                            this.sp資材明細.ActiveCellPosition = new CellPosition(sRow, "数量");
                         }
 
                         // 金額再計算
@@ -672,6 +733,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                                     // 金額再計算
                                     summaryCalculation();
+
+                                    this.sp構成品明細.ActiveCellPosition = new CellPosition(iRow, "数量");
                                 }
 
                                 break;
@@ -725,6 +788,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                                     // 金額再計算
                                     summaryCalculation();
+
+                                    this.sp資材明細.ActiveCellPosition = new CellPosition(iRow, "数量");
                                 }
 
                                 break;
@@ -1137,6 +1202,8 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 try
                 {
+                    if (string.IsNullOrEmpty(SetHinban.Text1)) return;
+
                     // 自社品番からデータを参照し、取得内容をグリッドに設定
                     base.SendRequest(
                         new CommunicationObject(
@@ -1221,23 +1288,38 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 var grid = sender as GcSpreadGrid;
-                int sRow = e.CellPosition.Row;
+                int iRow = e.CellPosition.Row;
 
                 if (e.EditAction == SpreadEditAction.Cancel)                    // No.368 Add
                     return;
 
                 // 行番号を保持
-                sp編集行 = sRow;
+                sp編集行 = iRow;
 
                 switch (e.CellPosition.ColumnName)
                 {
 
                     case "自社品番":
 
-                        string target = grid.Cells[sRow, "自社品番"].Text;
+                        string target = grid.Cells[iRow, "自社品番"].Text;
 
-                        //if (string.IsNullOrEmpty(target))
-                        //    return;
+                        // No.370 Add Start
+                        if (string.IsNullOrEmpty(target))
+                        {
+                            // 空欄の場合クリア
+                            grid.Cells[iRow, "自社品名"].Value = string.Empty;
+                            grid.Cells[iRow, "色コード"].Value = string.Empty;
+                            grid.Cells[iRow, "色名称"].Value = string.Empty;
+                            grid.Cells[iRow, "品番コード"].Value = string.Empty;
+                            grid.Cells[iRow, "原価"].Value = null;
+                            grid.Cells[iRow, "数量"].Value = null;
+                            grid.Cells[iRow, "金額"].Value = null;
+
+                            // 金額再計算
+                            summaryCalculation();
+                            return;
+                        }
+                        // No.370 Add End
 
                         // 自社品番からデータを参照し、取得内容をグリッドに設定
                         base.SendRequest(
@@ -1259,19 +1341,19 @@ namespace KyoeiSystem.Application.Windows.Views
                         var text = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Text;
                         if (string.IsNullOrWhiteSpace(text) == true)
                         {
-                            grid.Cells[sRow, "金額"].Value = null;
+                            grid.Cells[iRow, "金額"].Value = null;
 
                             // 金額再計算
                             summaryCalculation();
                             return;
                         }
 
-                        decimal d原価 = grid.Cells[sRow, "原価"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[sRow, "原価"].Value.ToString());
-                        decimal d数量 = grid.Cells[sRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[sRow, "数量"].Value.ToString());
+                        decimal d原価 = grid.Cells[iRow, "原価"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[iRow, "原価"].Value.ToString());
+                        decimal d数量 = grid.Cells[iRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[iRow, "数量"].Value.ToString());
 
-                        grid.Cells[sRow, "原価"].Value = d原価;
-                        grid.Cells[sRow, "数量"].Value = d数量;
-                        grid.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 * d数量 * 10)) / 10;
+                        grid.Cells[iRow, "原価"].Value = d原価;
+                        grid.Cells[iRow, "数量"].Value = d数量;
+                        grid.Cells[iRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 * d数量 * 10)) / 10;
 
                         // 金額再計算
                         summaryCalculation();
@@ -1444,19 +1526,35 @@ namespace KyoeiSystem.Application.Windows.Views
             try
             {
                 var grid = sender as GcSpreadGrid;
-                int sRow = e.CellPosition.Row;
+                int iRow = e.CellPosition.Row;
 
                 if (e.EditAction == SpreadEditAction.Cancel)                    // No.368 Add
                     return;
 
                 // 行番号を保持
-                sp編集行 = sRow;
+                sp編集行 = iRow;
 
                 switch (e.CellPosition.ColumnName)
                 {
                     case "自社品番":
 
-                        string target = grid.Cells[sRow, "自社品番"].Text;
+                        // No.370 Add Start
+                        string target = grid.Cells[iRow, "自社品番"].Text;
+
+                        if (string.IsNullOrEmpty(target))
+                        {
+                            // 空欄の場合クリア
+                            grid.Cells[iRow, "自社品名"].Value = string.Empty;
+                            grid.Cells[iRow, "品番コード"].Value = string.Empty;
+                            grid.Cells[iRow, "原価"].Value = null;
+                            grid.Cells[iRow, "数量"].Value = null;
+                            grid.Cells[iRow, "金額"].Value = null;
+
+                            // 金額再計算
+                            summaryCalculation();
+                            return;
+                        }
+                        // No.370 Add End
 
                         // 自社品番からデータを参照し、取得内容をグリッドに設定
                         base.SendRequest(
@@ -1477,22 +1575,22 @@ namespace KyoeiSystem.Application.Windows.Views
                         var text = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Text;
                         if (string.IsNullOrWhiteSpace(text) == true)
                         {
-                            if (grid.Cells[sRow, "自社品番"].Value == null)
-                                grid.Cells[sRow, "原価"].Value = null;
+                            if (grid.Cells[iRow, "自社品番"].Value == null)
+                                grid.Cells[iRow, "原価"].Value = null;
 
-                            grid.Cells[sRow, "金額"].Value = null;
+                            grid.Cells[iRow, "金額"].Value = null;
 
                             // 金額再計算
                             summaryCalculation();
                             return;
                         }
 
-                        decimal d原価 = grid.Cells[sRow, "原価"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[sRow, "原価"].Value.ToString());
-                        decimal d数量 = grid.Cells[sRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[sRow, "数量"].Value.ToString());
+                        decimal d原価 = grid.Cells[iRow, "原価"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[iRow, "原価"].Value.ToString());
+                        decimal d数量 = grid.Cells[iRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(grid.Cells[iRow, "数量"].Value.ToString());
 
-                        grid.Cells[sRow, "原価"].Value = d原価;
-                        grid.Cells[sRow, "数量"].Value = d数量;
-                        grid.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
+                        grid.Cells[iRow, "原価"].Value = d原価;
+                        grid.Cells[iRow, "数量"].Value = d数量;
+                        grid.Cells[iRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
 
                         // 金額再計算
                         summaryCalculation();
