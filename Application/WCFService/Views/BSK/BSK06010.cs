@@ -18,15 +18,6 @@ namespace KyoeiSystem.Application.WCFService
         /// <summary>
         /// 製品原価計算表メンバクラス
         /// </summary>
-        public class BSK06010_SearchMember
-        {
-            public string 決算対象年月 { get; set; }
-            public long 決算調整前金額 { get; set; }
-            public long 決算調整見込金額 { get; set; }
-            public long? 決算調整後金額 { get; set; }
-        }
-
-
         public class BSK06010_ShinMember
         {
 
@@ -45,14 +36,6 @@ namespace KyoeiSystem.Application.WCFService
         #endregion
 
         #region << 定数定義 >>
-
-        /// <summary>送信パラメータ 対象販社</summary>
-        private string PARAM_NAME_COMPANY = "対象販社";
-        /// <summary>送信パラメータ 対象年度</summary>
-        private string PARAM_NAME_YEAR = "処理年度";
-        /// <summary>送信パラメータ 調整比率</summary>
-        private string PARAM_NAME_RATE = "調整比率";
-
         #endregion
 
         Common com = new Common();
@@ -97,49 +80,6 @@ namespace KyoeiSystem.Application.WCFService
                                 金額 = Math.Ceiling((x.HIN.原価 ?? 0) * x.SHIN.a.使用数量 * 10) / 10,
                                 区分 = 1,
                             }).ToList();
-
-                return result;
-
-            }
-
-        }
-        #endregion
-
-        #region セット品番より品番コードを取得する
-
-        /// <summary>
-        ///セット品番より品番コードを取得する
-        /// </summary>
-        /// <param name="pCode"></param>
-        /// <param name="customerId"></param>
-        /// <param name="customerEda"></param>
-        /// <returns></returns>
-        public List<BSK06010_ShinMember> GetSetHinProduct(string pCode)
-        {
-            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
-            {
-
-
-                var result = context.M09_HIN
-                            .Where(x => x.削除日時 == null && x.自社品番 == pCode && x.商品形態分類 == (int)CommonConstants.商品形態分類.SET品)
-                            .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
-                                       x => x.自社色,
-                                       y => y.色コード,
-                                      (a, b) => new { a, b })
-                            .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { HIN = x, IRO = y })
-                            .Select(x => new BSK06010_ShinMember
-                            {
-                                品番コード = x.HIN.a.品番コード,
-                                自社品番 = x.HIN.a.自社品番,
-                                自社品名 = x.HIN.a.自社品名,
-                                色コード = x.HIN.a.自社色,
-                                色名称 = x.IRO.色名称,
-                                原価 = x.HIN.a.原価 ?? 0,
-                                数量 = 0,
-                                金額 = 0,
-                                区分 = 1,
-                            }).ToList();
-
 
                 return result;
 

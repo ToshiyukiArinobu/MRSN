@@ -18,7 +18,7 @@ namespace KyoeiSystem.Application.Windows.Views
     using System.Windows.Controls;
 
     /// <summary>
-    /// シリーズ･商品別売上統計表 フォームクラス
+    /// 製品原価計算表 フォームクラス
     /// </summary>
     public partial class BSK06010 : WindowReportBase
     {
@@ -224,17 +224,17 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>合計フォーマット定義</summary>
         private const string TOTAL_FORMAT_STRING = "{0:#,0}";
 
+        /// <summary> セット品の自社品番情報取得</summary>
+        private const string SetHin_MyProduct = "BSK06010_GetSetHinProduct";
+
         /// <summary>セット品番情報検索</summary>
         private const string GetShinDataList = "BSK06010_GetShinDataList";
 
-        /// <summary>自社品番情報取得</summary>
+        /// <summary>構成品の自社品番情報取得</summary>
         private const string Kouseihin_MyProduct = "BSK06010_KouseihinProduct";
 
-        /// <summary>自社品番情報取得</summary>
+        /// <summary>資材の自社品番情報取得</summary>
         private const string Shizai_MyProduct = "BSK06010_ShizaiProduct";
-
-        /// <summary> セット品番の品番情報取得</summary>
-        private const string SetHin_Product = "BSK06010_GetSetHinProduct";
 
         /// <summary>帳票定義体ファイルパス</summary>
         private const string ReportFileName = @"Files\BSK\BSK06010.rpt";
@@ -258,7 +258,7 @@ namespace KyoeiSystem.Application.Windows.Views
         #region << 画面初期処理 >>
 
         /// <summary>
-        /// シリーズ･商品別売上統計表 コンストラクタ
+        /// 製品原価計算表 コンストラクタ
         /// </summary>
         public BSK06010()
         {
@@ -356,14 +356,33 @@ namespace KyoeiSystem.Application.Windows.Views
                 switch (message.GetMessageName())
                 {
 
-                    case SetHin_Product:
-                        #region セット品番手入力時
+                    case SetHin_MyProduct:
+                        #region 自社品番マスタに存在するかチェック
 
                         if (tbl == null || tbl.Rows.Count == 0)
                         {
-                            // セット品ではないので処理しない
-                            this.ErrorMessage = "データがありません。";
+
+                            // No369 Add Start
+                            // 自社品番マスタに存在しない場合、新セット品として表示する
+
+                            SetHinban.Text2 = "新セット品";
+
+                            List<CostingSheetMember> rowlist = new List<CostingSheetMember>();
+                            CostingSheetMember row = new CostingSheetMember();
+                            row.区分 = 1;
+                            rowlist.Add(row);
+
+                            // 画面に反映
+                            構成品明細リスト = rowlist;
+
+                            //ロックしたデータを解除し、伝票番号をロック
+                            ChangeKeyItemChangeable(false);
+
+                            sp構成品明細.Focus();
+
                             return;
+
+                            // No369 Add End
                         }
                         else if (tbl.Rows.Count > 1)
                         {
@@ -389,6 +408,15 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 対象データありの場合
                             DataRow drow = tbl.Rows[0];
 
+                            // No369 Add Start
+                            // セット品ではない品番の場合、エラーを表示
+                            if (int.Parse(drow["商品形態分類"].ToString()) != 1)
+                            {
+                                this.ErrorMessage = "セット品の自社品番を入力してください。";
+                                return;
+                            }
+                            // No369 Add End
+
                             SetHinban.Text2 = drow["自社品名"].ToString();
                             this.自社色情報 = drow["色名称"].ToString();
 
@@ -401,7 +429,21 @@ namespace KyoeiSystem.Application.Windows.Views
                     case GetShinDataList:
                         #region セット品取得時
 
-                        構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), tbl);
+                        // データが存在する場合、構成品にセットする
+                        if (tbl != null && tbl.Rows.Count != 0)
+                        {
+                            構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), tbl);
+                        }
+                        else
+                        {
+                            List<CostingSheetMember> rowlist = new List<CostingSheetMember>();
+                            CostingSheetMember row = new CostingSheetMember();
+                            row.区分 = 1;
+                            rowlist.Add(row);
+
+                            // 画面に反映
+                            構成品明細リスト = rowlist;
+                        }
 
                         // 金額再計算
                         summaryCalculation();
@@ -526,7 +568,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             // 対象データありの場合
                             DataRow drow = tbl.Rows[0];
-                           
+
                             decimal d原価 = AppCommon.DecimalParse(drow["原価"].ToString());
                             decimal d数量 = sp資材明細.Cells[sRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp資材明細.Cells[sRow, "数量"].Value.ToString());
 
@@ -870,9 +912,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 構成品明細リスト.Add(row);
             }
 
-            var 構成品明細データ = new DataTable();
-            AppCommon.ConvertToDataTable(構成品明細リスト, 構成品明細データ);
-            構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 構成品明細データ);
+            // 画面に反映
+            構成品明細リスト = RemakeCostingList(構成品明細リスト);
 
             // No366 Add End
 
@@ -885,9 +926,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 資材明細リスト.Add(row);
             }
 
-            var 資材明細データ = new DataTable();
-            AppCommon.ConvertToDataTable(資材明細リスト, 資材明細データ);
-            資材明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 資材明細データ);
+            // 画面に反映
+            資材明細リスト = RemakeCostingList(資材明細リスト);
 
             // その他初期値設定
             foreach (var rSonota in SONOTA_INIT_LIST)
@@ -898,14 +938,13 @@ namespace KyoeiSystem.Application.Windows.Views
                 その他明細リスト.Add(row);
             }
 
-            var その他明細データ = new DataTable();
-            AppCommon.ConvertToDataTable(その他明細リスト, その他明細データ);
-            その他明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), その他明細データ);
+            // 画面に反映
+            その他明細リスト = RemakeCostingList(その他明細リスト);
 
             // スプレッドの初期カーソル位置を設定
             sp資材明細_LostFocus(null, null);
             spその他明細_LostFocus(null, null);
-            
+
         }
 
         #endregion
@@ -938,7 +977,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             if (!string.IsNullOrEmpty(strProduct))
             {
-                int intProduct = int.Parse(strProduct);
+                int iProduct = int.Parse(strProduct);
 
                 // セット品の構成品を取得
                 this.SendRequest(
@@ -946,7 +985,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         MessageType.RequestData,
                         GetShinDataList,
                         new object[] {
-                            intProduct
+                            iProduct
                         }));
 
             }
@@ -1036,7 +1075,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetFreeForInput();
                 this.ErrorMessage = "システムエラーが発生しました。サポートにお問い合わせください。";
-                appLog.Error("シリーズ･商品別売上統計表の印刷時に例外が発生しました。", ex);
+                appLog.Error("製品原価計算表の印刷時に例外が発生しました。", ex);
             }
 
         }
@@ -1065,6 +1104,24 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region 明細データ再作成
+        /// <summary>
+        /// ItemSource通知用リスト作成
+        /// </summary>
+        /// <returns></returns>
+        private List<CostingSheetMember> RemakeCostingList(List<CostingSheetMember> CostingSheetList)
+        {
+            // 明細データを画面通知用に再作成する
+            List<CostingSheetMember> retList = new List<CostingSheetMember>();
+
+            var Spreadデータ = new DataTable();
+            AppCommon.ConvertToDataTable(CostingSheetList, Spreadデータ);
+            retList = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), Spreadデータ);
+
+            return retList;
+        }
+        #endregion
+
         #endregion
 
         #region << ヘッダーイベント処理 >>
@@ -1084,9 +1141,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     base.SendRequest(
                         new CommunicationObject(
                             MessageType.RequestData,
-                            SetHin_Product,
+                            SetHin_MyProduct,
                             new object[] {
                                 SetHinban.Text1
+                               ,string.Empty,
+                                string.Empty
                             }));
                 }
                 catch (Exception ex)
@@ -1187,8 +1246,8 @@ namespace KyoeiSystem.Application.Windows.Views
                                 Kouseihin_MyProduct,
                                 new object[] {
                                 target
-                               ,string.Empty,
-                                string.Empty
+                               ,string.Empty
+                               ,string.Empty
                             }));
 
                         break;
@@ -1254,10 +1313,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 row.区分 = 1;
                 構成品明細リスト.Add(row);
 
-                var 構成品明細データ = new DataTable();
-                AppCommon.ConvertToDataTable(構成品明細リスト, 構成品明細データ);
-                構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 構成品明細データ);
-
+                // 画面に反映
+                構成品明細リスト = RemakeCostingList(構成品明細リスト);
 
                 // Spreadの初期フォーカス位置を追加行に設定
                 sp構成品明細.Focus();
@@ -1296,9 +1353,9 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
 
                     構成品明細リスト.RemoveAt(activerow);
-                    var 入庫伝票データ = new DataTable();
-                    AppCommon.ConvertToDataTable(構成品明細リスト, 入庫伝票データ);
-                    構成品明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 入庫伝票データ);
+
+                    // 画面に反映
+                    構成品明細リスト = RemakeCostingList(構成品明細リスト);
 
                     // 金額再計算
                     summaryCalculation();
@@ -1408,8 +1465,8 @@ namespace KyoeiSystem.Application.Windows.Views
                                 Shizai_MyProduct,
                                 new object[] {
                                 target
-                               ,string.Empty,
-                                string.Empty
+                               ,string.Empty
+                               ,string.Empty
                             }));
 
                         break;
@@ -1534,7 +1591,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         if (string.IsNullOrWhiteSpace(text) == true)
                         {
                             grid.Cells[sRow, "金額"].Value = null;
-                            
+
                             // 金額再計算
                             summaryCalculation();
                             return;
@@ -1588,9 +1645,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 row.区分 = 3;
                 その他明細リスト.Add(row);
 
-                var その他明細データ = new DataTable();
-                AppCommon.ConvertToDataTable(その他明細リスト, その他明細データ);
-                その他明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), その他明細データ);
+                // 画面に反映
+                その他明細リスト = RemakeCostingList(その他明細リスト);
 
                 // Spreadの初期フォーカス位置を追加行に設定
                 spその他明細.Focus();
@@ -1629,9 +1685,9 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
 
                     その他明細リスト.RemoveAt(activerow);
-                    var 入庫伝票データ = new DataTable();
-                    AppCommon.ConvertToDataTable(その他明細リスト, 入庫伝票データ);
-                    その他明細リスト = (List<CostingSheetMember>)AppCommon.ConvertFromDataTable(typeof(List<CostingSheetMember>), 入庫伝票データ);
+
+                    // 画面に反映
+                    その他明細リスト = RemakeCostingList(その他明細リスト);
 
                     // 金額再計算
                     summaryCalculation();
