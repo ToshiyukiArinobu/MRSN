@@ -162,10 +162,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         case SEARCH_TKS03010_CSV:
 
-                            //20190906 add-s CB 軽減税率対応 
-                            tbl.Columns.Remove("集計最終日");
-                            //20190906 add-e CB 軽減税率対応 
-
                             OutPutCSV(tbl);
                             break;
 
