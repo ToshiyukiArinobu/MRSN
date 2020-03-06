@@ -65,8 +65,8 @@
                 <RibbonGroup Header="F7" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
                     <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
                 </RibbonGroup>
-                <RibbonGroup Header="F8" Name="ribbonF8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/23印刷.png" IsEnabled="False" Click="RibbonButton_Click" KeyTip="F8" Height="50"
+                <RibbonGroup Header="F8" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
+                    <RibbonButton LargeImageSource="../Images/23印刷.png" Click="RibbonButton_Click" KeyTip="F8" Height="50"
                         Label="印刷" ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します"  ToolTipImageSource="../Images/23印刷.png"/>
                 </RibbonGroup>
                 <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
@@ -246,7 +246,7 @@
                                 <!-- 原価 -->
                                 <sg:Column  Locked="false" IsVisible="True" Focusable="True" CanUserResize="False">
                                     <sg:Column.CellType>
-                                        <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.##,,,-,"/>
+                                        <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.00,,,-,"/>
                                     </sg:Column.CellType>
                                     <sg:Column.DataField>
                                         <sg:BindingDataField Binding="{Binding 原価, TargetNullValue='', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -363,9 +363,9 @@
                                     </sg:Column.DataField>
                                 </sg:Column>
                                 <!-- 原価 -->
-                                <sg:Column  Locked="True" IsVisible="True" Focusable="False" CanUserResize="False">
+                                <sg:Column  Locked="false" IsVisible="True" Focusable="True" CanUserResize="False">
                                     <sg:Column.CellType>
-                                        <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.##,,,-,"/>
+                                        <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.00,,,-,"/>
                                     </sg:Column.CellType>
                                     <sg:Column.DataField>
                                         <sg:BindingDataField Binding="{Binding 原価, TargetNullValue='', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -477,7 +477,7 @@
                                 <!-- 原価 -->
                                 <sg:Column  Locked="false" IsVisible="True" Focusable="True" CanUserResize="False">
                                     <sg:Column.CellType>
-                                        <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.##,,,-,"/>
+                                        <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.00,,,-,"/>
                                     </sg:Column.CellType>
                                     <sg:Column.DataField>
                                         <sg:BindingDataField Binding="{Binding 原価, TargetNullValue='', Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -573,11 +573,11 @@
 
                             <ctls:UcTextBox x:Name="txb販社販売価格" Grid.Row="1" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White" cVerticalContentAlignment="Center"
                                     Text="{Binding 販社販売価格,Mode=TwoWay, StringFormat= '#,##0', NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" cBorderThickness="0"
-                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-999999999" MaxValue="999999999" />
+                                    cTextAlignment="Right" ValidationType="SignedDecimal" MinValue="-999999999" MaxValue="999999999" />
 
                             <ctls:UcTextBox x:Name="txb得意先販売価格" Grid.Row="2" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White" cVerticalContentAlignment="Center"
                                     Text="{Binding 得意先販売価格,Mode=TwoWay, StringFormat= '#,##0', NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" cBorderThickness="0"
-                                    cTextAlignment="Right" ValidationType="SignedInteger" MinValue="-999999999" MaxValue="999999999" PreviewKeyDown="txb得意先販売価格_PreviewKeyDown" />
+                                    cTextAlignment="Right" ValidationType="SignedDecimal" MinValue="-999999999" MaxValue="999999999" PreviewKeyDown="txb得意先販売価格_PreviewKeyDown" />
 
 
                             <Label x:Name="lbl合計" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" Padding="0,6,5,0" />

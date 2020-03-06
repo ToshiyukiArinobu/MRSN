@@ -169,6 +169,24 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="製品原価計算表" msprop:Generator_TableClassName="製品原価計算表DataTable" msprop:Generator_TableVarName="table製品原価計算表" msprop:Generator_RowChangedName="製品原価計算表RowChanged" msprop:Generator_TablePropName="製品原価計算表" msprop:Generator_RowDeletingName="製品原価計算表RowDeleting" msprop:Generator_RowChangingName="製品原価計算表RowChanging" msprop:Generator_RowEvHandlerName="製品原価計算表RowChangeEventHandler" msprop:Generator_RowDeletedName="製品原価計算表RowDeleted" msprop:Generator_RowClassName="製品原価計算表Row" msprop:Generator_UserTableName="製品原価計算表" msprop:Generator_RowEvArgName="製品原価計算表RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="品番コード" msprop:Generator_ColumnVarNameInTable="column品番コード" msprop:Generator_ColumnPropNameInRow="品番コード" msprop:Generator_ColumnPropNameInTable="品番コードColumn" msprop:Generator_UserColumnName="品番コード" type="xs:int" minOccurs="0" />
+              <xs:element name="自社品番" msprop:Generator_ColumnVarNameInTable="column自社品番" msprop:Generator_ColumnPropNameInRow="自社品番" msprop:Generator_ColumnPropNameInTable="自社品番Column" msprop:Generator_UserColumnName="自社品番" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品名" msprop:Generator_ColumnVarNameInTable="column自社品名" msprop:Generator_ColumnPropNameInRow="自社品名" msprop:Generator_ColumnPropNameInTable="自社品名Column" msprop:Generator_UserColumnName="自社品名" type="xs:string" minOccurs="0" />
+              <xs:element name="色コード" msprop:Generator_ColumnVarNameInTable="column色コード" msprop:Generator_ColumnPropNameInRow="色コード" msprop:Generator_ColumnPropNameInTable="色コードColumn" msprop:Generator_UserColumnName="色コード" type="xs:string" minOccurs="0" />
+              <xs:element name="色名称" msprop:Generator_ColumnVarNameInTable="column色名称" msprop:Generator_ColumnPropNameInRow="色名称" msprop:Generator_ColumnPropNameInTable="色名称Column" msprop:Generator_UserColumnName="色名称" type="xs:string" minOccurs="0" />
+              <xs:element name="原価" msprop:Generator_ColumnVarNameInTable="column原価" msprop:Generator_ColumnPropNameInRow="原価" msprop:Generator_ColumnPropNameInTable="原価Column" msprop:Generator_UserColumnName="原価" type="xs:decimal" minOccurs="0" />
+              <xs:element name="数量" msprop:Generator_ColumnVarNameInTable="column数量" msprop:Generator_ColumnPropNameInRow="数量" msprop:Generator_ColumnPropNameInTable="数量Column" msprop:Generator_UserColumnName="数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="金額" msprop:Generator_ColumnVarNameInTable="column金額" msprop:Generator_ColumnPropNameInRow="金額" msprop:Generator_ColumnPropNameInTable="金額Column" msprop:Generator_UserColumnName="金額" type="xs:decimal" minOccurs="0" />
+              <xs:element name="仕入先" msprop:Generator_ColumnVarNameInTable="column仕入先" msprop:Generator_ColumnPropNameInRow="仕入先" msprop:Generator_ColumnPropNameInTable="仕入先Column" msprop:Generator_UserColumnName="仕入先" type="xs:string" minOccurs="0" />
+              <xs:element name="資材" msprop:Generator_ColumnVarNameInTable="column資材" msprop:Generator_ColumnPropNameInRow="資材" msprop:Generator_ColumnPropNameInTable="資材Column" msprop:Generator_UserColumnName="資材" type="xs:string" minOccurs="0" />
+              <xs:element name="内容" msprop:Generator_ColumnVarNameInTable="column内容" msprop:Generator_ColumnPropNameInRow="内容" msprop:Generator_ColumnPropNameInTable="内容Column" msprop:Generator_UserColumnName="内容" type="xs:string" minOccurs="0" />
+              <xs:element name="明細区分" msprop:Generator_ColumnVarNameInTable="column明細区分" msprop:Generator_ColumnPropNameInRow="明細区分" msprop:Generator_ColumnPropNameInTable="明細区分Column" msprop:Generator_UserColumnName="明細区分" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

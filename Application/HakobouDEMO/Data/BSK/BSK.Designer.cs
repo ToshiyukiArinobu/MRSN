@@ -36,6 +36,8 @@ namespace Hakobou.Data.BSK {
         
         private @__日別_担当者_得意先別売上統計表1DataTable _table_日別_担当者_得意先別売上統計表1;
         
+        private 製品原価計算表DataTable table製品原価計算表;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -81,6 +83,9 @@ namespace Hakobou.Data.BSK {
                 }
                 if ((ds.Tables["(日別)担当者・得意先別売上統計表1"] != null)) {
                     base.Tables.Add(new @__日別_担当者_得意先別売上統計表1DataTable(ds.Tables["(日別)担当者・得意先別売上統計表1"]));
+                }
+                if ((ds.Tables["製品原価計算表"] != null)) {
+                    base.Tables.Add(new 製品原価計算表DataTable(ds.Tables["製品原価計算表"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -157,6 +162,16 @@ namespace Hakobou.Data.BSK {
         public @__日別_担当者_得意先別売上統計表1DataTable @__日別_担当者_得意先別売上統計表1 {
             get {
                 return this._table_日別_担当者_得意先別売上統計表1;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public 製品原価計算表DataTable 製品原価計算表 {
+            get {
+                return this.table製品原価計算表;
             }
         }
         
@@ -245,6 +260,9 @@ namespace Hakobou.Data.BSK {
                 if ((ds.Tables["(日別)担当者・得意先別売上統計表1"] != null)) {
                     base.Tables.Add(new @__日別_担当者_得意先別売上統計表1DataTable(ds.Tables["(日別)担当者・得意先別売上統計表1"]));
                 }
+                if ((ds.Tables["製品原価計算表"] != null)) {
+                    base.Tables.Add(new 製品原価計算表DataTable(ds.Tables["製品原価計算表"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -314,6 +332,12 @@ namespace Hakobou.Data.BSK {
                     this._table_日別_担当者_得意先別売上統計表1.InitVars();
                 }
             }
+            this.table製品原価計算表 = ((製品原価計算表DataTable)(base.Tables["製品原価計算表"]));
+            if ((initTable == true)) {
+                if ((this.table製品原価計算表 != null)) {
+                    this.table製品原価計算表.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -336,6 +360,8 @@ namespace Hakobou.Data.BSK {
             base.Tables.Add(this._table_月別_担当者_得意先別売上統計表);
             this._table_日別_担当者_得意先別売上統計表1 = new @__日別_担当者_得意先別売上統計表1DataTable();
             base.Tables.Add(this._table_日別_担当者_得意先別売上統計表1);
+            this.table製品原価計算表 = new 製品原価計算表DataTable();
+            base.Tables.Add(this.table製品原価計算表);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -371,6 +397,12 @@ namespace Hakobou.Data.BSK {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerialize__日別_担当者_得意先別売上統計表1() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerialize製品原価計算表() {
             return false;
         }
         
@@ -446,6 +478,9 @@ namespace Hakobou.Data.BSK {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void @__日別_担当者_得意先別売上統計表1RowChangeEventHandler(object sender, @__日別_担当者_得意先別売上統計表1RowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void 製品原価計算表RowChangeEventHandler(object sender, 製品原価計算表RowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -3622,6 +3657,407 @@ namespace Hakobou.Data.BSK {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "__日別_担当者_得意先別売上統計表1DataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class 製品原価計算表DataTable : global::System.Data.TypedTableBase<製品原価計算表Row> {
+            
+            private global::System.Data.DataColumn column品番コード;
+            
+            private global::System.Data.DataColumn column自社品番;
+            
+            private global::System.Data.DataColumn column自社品名;
+            
+            private global::System.Data.DataColumn column色コード;
+            
+            private global::System.Data.DataColumn column色名称;
+            
+            private global::System.Data.DataColumn column原価;
+            
+            private global::System.Data.DataColumn column数量;
+            
+            private global::System.Data.DataColumn column金額;
+            
+            private global::System.Data.DataColumn column仕入先;
+            
+            private global::System.Data.DataColumn column資材;
+            
+            private global::System.Data.DataColumn column内容;
+            
+            private global::System.Data.DataColumn column明細区分;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 製品原価計算表DataTable() {
+                this.TableName = "製品原価計算表";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal 製品原価計算表DataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected 製品原価計算表DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 品番コードColumn {
+                get {
+                    return this.column品番コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社品番Column {
+                get {
+                    return this.column自社品番;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社品名Column {
+                get {
+                    return this.column自社品名;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 色コードColumn {
+                get {
+                    return this.column色コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 色名称Column {
+                get {
+                    return this.column色名称;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 原価Column {
+                get {
+                    return this.column原価;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 数量Column {
+                get {
+                    return this.column数量;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 金額Column {
+                get {
+                    return this.column金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 仕入先Column {
+                get {
+                    return this.column仕入先;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 資材Column {
+                get {
+                    return this.column資材;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 内容Column {
+                get {
+                    return this.column内容;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 明細区分Column {
+                get {
+                    return this.column明細区分;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 製品原価計算表Row this[int index] {
+                get {
+                    return ((製品原価計算表Row)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 製品原価計算表RowChangeEventHandler 製品原価計算表RowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 製品原価計算表RowChangeEventHandler 製品原価計算表RowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 製品原価計算表RowChangeEventHandler 製品原価計算表RowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event 製品原価計算表RowChangeEventHandler 製品原価計算表RowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Add製品原価計算表Row(製品原価計算表Row row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 製品原価計算表Row Add製品原価計算表Row(int 品番コード, string 自社品番, string 自社品名, string 色コード, string 色名称, decimal 原価, decimal 数量, decimal 金額, string 仕入先, string 資材, string 内容, int 明細区分) {
+                製品原価計算表Row row製品原価計算表Row = ((製品原価計算表Row)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        品番コード,
+                        自社品番,
+                        自社品名,
+                        色コード,
+                        色名称,
+                        原価,
+                        数量,
+                        金額,
+                        仕入先,
+                        資材,
+                        内容,
+                        明細区分};
+                row製品原価計算表Row.ItemArray = columnValuesArray;
+                this.Rows.Add(row製品原価計算表Row);
+                return row製品原価計算表Row;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                製品原価計算表DataTable cln = ((製品原価計算表DataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new 製品原価計算表DataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.column品番コード = base.Columns["品番コード"];
+                this.column自社品番 = base.Columns["自社品番"];
+                this.column自社品名 = base.Columns["自社品名"];
+                this.column色コード = base.Columns["色コード"];
+                this.column色名称 = base.Columns["色名称"];
+                this.column原価 = base.Columns["原価"];
+                this.column数量 = base.Columns["数量"];
+                this.column金額 = base.Columns["金額"];
+                this.column仕入先 = base.Columns["仕入先"];
+                this.column資材 = base.Columns["資材"];
+                this.column内容 = base.Columns["内容"];
+                this.column明細区分 = base.Columns["明細区分"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.column品番コード = new global::System.Data.DataColumn("品番コード", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column品番コード);
+                this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社品番);
+                this.column自社品名 = new global::System.Data.DataColumn("自社品名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社品名);
+                this.column色コード = new global::System.Data.DataColumn("色コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column色コード);
+                this.column色名称 = new global::System.Data.DataColumn("色名称", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column色名称);
+                this.column原価 = new global::System.Data.DataColumn("原価", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column原価);
+                this.column数量 = new global::System.Data.DataColumn("数量", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column数量);
+                this.column金額 = new global::System.Data.DataColumn("金額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column金額);
+                this.column仕入先 = new global::System.Data.DataColumn("仕入先", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column仕入先);
+                this.column資材 = new global::System.Data.DataColumn("資材", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column資材);
+                this.column内容 = new global::System.Data.DataColumn("内容", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column内容);
+                this.column明細区分 = new global::System.Data.DataColumn("明細区分", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column明細区分);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 製品原価計算表Row New製品原価計算表Row() {
+                return ((製品原価計算表Row)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new 製品原価計算表Row(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(製品原価計算表Row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.製品原価計算表RowChanged != null)) {
+                    this.製品原価計算表RowChanged(this, new 製品原価計算表RowChangeEvent(((製品原価計算表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.製品原価計算表RowChanging != null)) {
+                    this.製品原価計算表RowChanging(this, new 製品原価計算表RowChangeEvent(((製品原価計算表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.製品原価計算表RowDeleted != null)) {
+                    this.製品原価計算表RowDeleted(this, new 製品原価計算表RowChangeEvent(((製品原価計算表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.製品原価計算表RowDeleting != null)) {
+                    this.製品原価計算表RowDeleting(this, new 製品原価計算表RowChangeEvent(((製品原価計算表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Remove製品原価計算表Row(製品原価計算表Row row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                BSK ds = new BSK();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "製品原価計算表DataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -7141,6 +7577,357 @@ namespace Hakobou.Data.BSK {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class 製品原価計算表Row : global::System.Data.DataRow {
+            
+            private 製品原価計算表DataTable table製品原価計算表;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal 製品原価計算表Row(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.table製品原価計算表 = ((製品原価計算表DataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 品番コード {
+                get {
+                    try {
+                        return ((int)(this[this.table製品原価計算表.品番コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'品番コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.品番コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社品番 {
+                get {
+                    try {
+                        return ((string)(this[this.table製品原価計算表.自社品番Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'自社品番\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.自社品番Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社品名 {
+                get {
+                    try {
+                        return ((string)(this[this.table製品原価計算表.自社品名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'自社品名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.自社品名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 色コード {
+                get {
+                    try {
+                        return ((string)(this[this.table製品原価計算表.色コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'色コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.色コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 色名称 {
+                get {
+                    try {
+                        return ((string)(this[this.table製品原価計算表.色名称Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'色名称\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.色名称Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 原価 {
+                get {
+                    try {
+                        return ((decimal)(this[this.table製品原価計算表.原価Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'原価\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.原価Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 数量 {
+                get {
+                    try {
+                        return ((decimal)(this[this.table製品原価計算表.数量Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'数量\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.数量Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 金額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.table製品原価計算表.金額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'金額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 仕入先 {
+                get {
+                    try {
+                        return ((string)(this[this.table製品原価計算表.仕入先Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'仕入先\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.仕入先Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 資材 {
+                get {
+                    try {
+                        return ((string)(this[this.table製品原価計算表.資材Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'資材\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.資材Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 内容 {
+                get {
+                    try {
+                        return ((string)(this[this.table製品原価計算表.内容Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'内容\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.内容Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 明細区分 {
+                get {
+                    try {
+                        return ((int)(this[this.table製品原価計算表.明細区分Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'製品原価計算表\' にある列 \'明細区分\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table製品原価計算表.明細区分Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is品番コードNull() {
+                return this.IsNull(this.table製品原価計算表.品番コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set品番コードNull() {
+                this[this.table製品原価計算表.品番コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社品番Null() {
+                return this.IsNull(this.table製品原価計算表.自社品番Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社品番Null() {
+                this[this.table製品原価計算表.自社品番Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社品名Null() {
+                return this.IsNull(this.table製品原価計算表.自社品名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社品名Null() {
+                this[this.table製品原価計算表.自社品名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is色コードNull() {
+                return this.IsNull(this.table製品原価計算表.色コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set色コードNull() {
+                this[this.table製品原価計算表.色コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is色名称Null() {
+                return this.IsNull(this.table製品原価計算表.色名称Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set色名称Null() {
+                this[this.table製品原価計算表.色名称Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is原価Null() {
+                return this.IsNull(this.table製品原価計算表.原価Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set原価Null() {
+                this[this.table製品原価計算表.原価Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is数量Null() {
+                return this.IsNull(this.table製品原価計算表.数量Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set数量Null() {
+                this[this.table製品原価計算表.数量Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is金額Null() {
+                return this.IsNull(this.table製品原価計算表.金額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set金額Null() {
+                this[this.table製品原価計算表.金額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is仕入先Null() {
+                return this.IsNull(this.table製品原価計算表.仕入先Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set仕入先Null() {
+                this[this.table製品原価計算表.仕入先Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is資材Null() {
+                return this.IsNull(this.table製品原価計算表.資材Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set資材Null() {
+                this[this.table製品原価計算表.資材Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is内容Null() {
+                return this.IsNull(this.table製品原価計算表.内容Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set内容Null() {
+                this[this.table製品原価計算表.内容Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is明細区分Null() {
+                return this.IsNull(this.table製品原価計算表.明細区分Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set明細区分Null() {
+                this[this.table製品原価計算表.明細区分Column] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -7330,6 +8117,40 @@ namespace Hakobou.Data.BSK {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public @__日別_担当者_得意先別売上統計表1Row Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class 製品原価計算表RowChangeEvent : global::System.EventArgs {
+            
+            private 製品原価計算表Row eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 製品原価計算表RowChangeEvent(製品原価計算表Row row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public 製品原価計算表Row Row {
                 get {
                     return this.eventRow;
                 }

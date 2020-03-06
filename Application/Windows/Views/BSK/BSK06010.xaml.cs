@@ -77,8 +77,8 @@ namespace KyoeiSystem.Application.Windows.Views
             public string 内容 { get { return _内容; } set { _内容 = value; NotifyPropertyChanged(); } }
 
             /// <summary>1:構成品、2:資材、3:その他</summary>
-            private int _区分;
-            public int 区分 { get { return _区分; } set { _区分 = value; NotifyPropertyChanged(); } }
+            private int _明細区分;
+            public int 明細区分 { get { return _明細区分; } set { _明細区分 = value; NotifyPropertyChanged(); } }
 
             #region INotifyPropertyChanged メンバー
 
@@ -191,15 +191,15 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region フッターバインディングデータ
 
-        private int _販社販売価格;
-        public int 販社販売価格
+        private decimal _販社販売価格;
+        public decimal 販社販売価格
         {
             get { return _販社販売価格; }
             set { _販社販売価格 = value; NotifyPropertyChanged(); }
         }
 
-        private int _得意先販売価格;
-        public int 得意先販売価格
+        private decimal _得意先販売価格;
+        public decimal 得意先販売価格
         {
             get { return _得意先販売価格; }
             set { _得意先販売価格 = value; NotifyPropertyChanged(); }
@@ -236,6 +236,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>資材の自社品番情報取得</summary>
         private const string Shizai_MyProduct = "BSK06010_ShizaiProduct";
 
+        /// <summary>仕入売価情報取得</summary>
+        private const string GetShireBaika = "BSK06010_GetBaikaData";
+
         /// <summary>帳票定義体ファイルパス</summary>
         private const string ReportFileName = @"Files\BSK\BSK06010.rpt";
 
@@ -252,6 +255,16 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 編集中の行番号
         /// </summary>
         private int sp編集行;
+
+        /// <summary>
+        /// 明細区分
+        /// </summary>
+        private enum 明細区分 : int
+        {
+            構成品 = 1,
+            資材 = 2,
+            その他 = 3,
+        }
 
         #endregion
 
@@ -369,7 +382,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             List<CostingSheetMember> rowlist = new List<CostingSheetMember>();
                             CostingSheetMember row = new CostingSheetMember();
-                            row.区分 = 1;
+                            row.明細区分 = (int)明細区分.構成品;
                             rowlist.Add(row);
 
                             // 画面に反映
@@ -438,7 +451,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         {
                             List<CostingSheetMember> rowlist = new List<CostingSheetMember>();
                             CostingSheetMember row = new CostingSheetMember();
-                            row.区分 = 1;
+                            row.明細区分 = (int)明細区分.構成品;
                             rowlist.Add(row);
 
                             // 画面に反映
@@ -486,8 +499,6 @@ namespace KyoeiSystem.Application.Windows.Views
                             myhin.IsDisabledItemTypes = new[] { 1, 3, 4 };                             // No.362 Mod
                             myhin.txtCode.Text = tbl.Rows[0]["自社品番"].ToString();
                             myhin.txtCode.IsEnabled = false;
-                            //myhin.TwinTextBox.LinkItem = 2;
-
                             if (myhin.ShowDialog(this) == true)
                             {
                                 // 対象データありの場合
@@ -505,9 +516,16 @@ namespace KyoeiSystem.Application.Windows.Views
                                 sp構成品明細.Cells[kRow, "数量"].Value = d数量;
                                 sp構成品明細.Cells[kRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
 
-                                this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "数量");
+                                // 仕入先売価マスタの売価と仕入先名を取得
+                                base.SendRequest(
+                                    new CommunicationObject(
+                                        MessageType.RequestData,
+                                        GetShireBaika,
+                                        new object[] {
+                                            　　AppCommon.IntParse(drow["品番コード"].ToString())
+                                            　　, (int)明細区分.構成品
+                                            }));
                             }
-
                         }
                         else
                         {
@@ -546,6 +564,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp構成品明細.Cells[kRow, "原価"].Value = d原価;
                             sp構成品明細.Cells[kRow, "数量"].Value = d数量;
                             sp構成品明細.Cells[kRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
+                            sp構成品明細.Cells[kRow, "仕入先"].Value = drow["仕入先名称"].ToString();
 
                             this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "数量");
                         }
@@ -590,6 +609,9 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 対象データありの場合
                                 DataRow drow = myhin.SelectedRowData;
 
+                                // 売価情報設定用に行番号を保持
+                                sp編集行 = sRow;
+
                                 decimal d原価 = AppCommon.DecimalParse(drow["マスタ原価"].ToString());                             // No.371 Mod
                                 decimal d数量 = sp資材明細.Cells[sRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp資材明細.Cells[sRow, "数量"].Value.ToString());
 
@@ -600,7 +622,15 @@ namespace KyoeiSystem.Application.Windows.Views
                                 sp資材明細.Cells[sRow, "数量"].Value = d数量;
                                 sp資材明細.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
 
-                                this.sp資材明細.ActiveCellPosition = new CellPosition(sRow, "数量");
+                                // 仕入先売価マスタの売価と仕入先名を取得
+                                base.SendRequest(
+                                    new CommunicationObject(
+                                        MessageType.RequestData,
+                                        GetShireBaika,
+                                        new object[] {
+                                            　　AppCommon.IntParse(drow["品番コード"].ToString())
+                                            　　, (int)明細区分.資材
+                                            }));
                             }
 
                         }
@@ -637,8 +667,41 @@ namespace KyoeiSystem.Application.Windows.Views
                             sp資材明細.Cells[sRow, "原価"].Value = d原価;
                             sp資材明細.Cells[sRow, "数量"].Value = d数量;
                             sp資材明細.Cells[sRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
+                            sp資材明細.Cells[sRow, "仕入先"].Value = drow["仕入先名称"].ToString();
 
                             this.sp資材明細.ActiveCellPosition = new CellPosition(sRow, "数量");
+                        }
+
+                        // 金額再計算
+                        summaryCalculation();
+
+                        #endregion
+                        break;
+
+                    case GetShireBaika:
+                        #region 売価情報取得時
+                        int baikaSpRow = sp編集行;
+
+                        if (tbl != null && tbl.Rows.Count != 0)
+                        {
+                            DataRow BaikaDrow = tbl.Rows[0];
+
+                            switch (int.Parse(BaikaDrow["明細区分"].ToString()))
+                            {
+                                case (int)明細区分.構成品:
+                                    sp構成品明細.Cells[baikaSpRow, "仕入先"].Value = BaikaDrow["仕入先名称"].ToString();
+                                    sp構成品明細.Cells[baikaSpRow, "原価"].Value = AppCommon.DecimalParse(BaikaDrow["単価"].ToString());
+
+                                    this.sp構成品明細.ActiveCellPosition = new CellPosition(baikaSpRow, "数量");
+
+                                    break;
+                                case (int)明細区分.資材:
+                                    sp資材明細.Cells[baikaSpRow, "仕入先"].Value = BaikaDrow["仕入先名称"].ToString();
+                                    sp資材明細.Cells[baikaSpRow, "原価"].Value = AppCommon.DecimalParse(BaikaDrow["単価"].ToString());
+
+                                    this.sp資材明細.ActiveCellPosition = new CellPosition(baikaSpRow, "数量");
+                                    break;
+                            }
                         }
 
                         // 金額再計算
@@ -710,14 +773,14 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 自社品番の場合
                                 SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                                 myhin.TwinTextBox = new UcLabelTwinTextBox();
-                                //myhin.IsItemStatusType = true;
-                                //myhin.txtCode.IsEnabled = false;
-                                //myhin.TwinTextBox.LinkItem = 2;
                                 myhin.IsDisabledItemTypes = new[] { 1, 3, 4 };                                          // No.362 Mod
                                 if (myhin.ShowDialog(this) == true)
                                 {
                                     // 対象データありの場合
                                     DataRow drow = myhin.SelectedRowData;
+
+                                    // 売価情報設定用に行番号を保持
+                                    sp編集行 = iRow;
 
                                     decimal d原価 = AppCommon.DecimalParse(drow["マスタ原価"].ToString());
                                     decimal d数量 = sp構成品明細.Cells[iRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp構成品明細.Cells[iRow, "数量"].Value.ToString());
@@ -731,10 +794,16 @@ namespace KyoeiSystem.Application.Windows.Views
                                     sp構成品明細.Cells[iRow, "数量"].Value = d数量;
                                     sp構成品明細.Cells[iRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
 
-                                    // 金額再計算
-                                    summaryCalculation();
+                                    // 仕入先売価マスタの売価と仕入先名を取得
+                                    base.SendRequest(
+                                        new CommunicationObject(
+                                            MessageType.RequestData,
+                                            GetShireBaika,
+                                            new object[] {
+                                            　　AppCommon.IntParse(drow["品番コード"].ToString())
+                                            　　, (int)明細区分.構成品
+                                            }));
 
-                                    this.sp構成品明細.ActiveCellPosition = new CellPosition(iRow, "数量");
                                 }
 
                                 break;
@@ -766,15 +835,14 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 自社品番の場合
                                 SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                                 myhin.TwinTextBox = new UcLabelTwinTextBox();
-
-                                //myhin.txtCode.IsEnabled = false;
-                                //myhin.IsItemStatusType = true;
-                                //myhin.TwinTextBox.LinkItem = 2;
                                 myhin.IsDisabledItemTypes = new[] { 1, 2, 3 };                                       // No.362 Mod
                                 if (myhin.ShowDialog(this) == true)
                                 {
                                     // 対象データありの場合
                                     DataRow drow = myhin.SelectedRowData;
+
+                                    // 売価情報設定用に行番号を保持
+                                    sp編集行 = iRow;
 
                                     decimal d原価 = AppCommon.DecimalParse(drow["マスタ原価"].ToString());
                                     decimal d数量 = sp資材明細.Cells[iRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp資材明細.Cells[iRow, "数量"].Value.ToString());
@@ -786,10 +854,16 @@ namespace KyoeiSystem.Application.Windows.Views
                                     sp資材明細.Cells[iRow, "数量"].Value = d数量;
                                     sp資材明細.Cells[iRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
 
-                                    // 金額再計算
-                                    summaryCalculation();
+                                    // 仕入先売価マスタの売価と仕入先名を取得
+                                    base.SendRequest(
+                                        new CommunicationObject(
+                                            MessageType.RequestData,
+                                            GetShireBaika,
+                                            new object[] {
+                                            　　AppCommon.IntParse(drow["品番コード"].ToString())
+                                            　　, (int)明細区分.資材
+                                            }));
 
-                                    this.sp資材明細.ActiveCellPosition = new CellPosition(iRow, "数量");
                                 }
 
                                 break;
@@ -856,16 +930,11 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF8Key(object sender, KeyEventArgs e)
         {
-            // 開発途中のため処理しない
-            return;
 
             // 金額再計算
             summaryCalculation();
 
             // 入力チェック
-            if (!formValidation())
-                return;
-
             if (string.IsNullOrEmpty(SetHinban.Text1))
             {
                 this.ErrorMessage = "セット品番を入力してください。";
@@ -873,14 +942,15 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
 
-            // 構成品明細リスト
-
+            // 製品原価計算表リスト作成
             List<CostingSheetMember> 製品原価リスト = new List<CostingSheetMember>();
 
-
-            製品原価リスト.AddRange(SetCostingKbn(構成品明細リスト, 1));
-            製品原価リスト.AddRange(SetCostingKbn(資材明細リスト, 2));
-            製品原価リスト.AddRange(SetCostingKbn(その他明細リスト, 3));
+            // 構成品
+            製品原価リスト.AddRange(SetCostingKbn(構成品明細リスト, (int)明細区分.構成品));
+            // 資材
+            製品原価リスト.AddRange(SetCostingKbn(資材明細リスト, (int)明細区分.資材));
+            // その他
+            製品原価リスト.AddRange(SetCostingKbn(その他明細リスト, (int)明細区分.その他));
 
             var 製品原価データ = new DataTable();
             AppCommon.ConvertToDataTable(製品原価リスト, 製品原価データ);
@@ -973,7 +1043,7 @@ namespace KyoeiSystem.Application.Windows.Views
             for (int i = 0; i < 10; i++)
             {
                 CostingSheetMember row = new CostingSheetMember();
-                row.区分 = 1;
+                row.明細区分 = (int)明細区分.構成品;
                 構成品明細リスト.Add(row);
             }
 
@@ -987,7 +1057,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 CostingSheetMember row = new CostingSheetMember();
                 row.資材 = rShizai;
-                row.区分 = 2;
+                row.明細区分 = (int)明細区分.資材;
                 資材明細リスト.Add(row);
             }
 
@@ -999,7 +1069,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 CostingSheetMember row = new CostingSheetMember();
                 row.内容 = rSonota;
-                row.区分 = 3;
+                row.明細区分 = (int)明細区分.その他;
                 その他明細リスト.Add(row);
             }
 
@@ -1058,32 +1128,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        #region 業務入力チェック
-        /// <summary>
-        /// 業務入力チェックをおこなう
-        /// </summary>
-        /// <returns></returns>
-        private bool formValidation()
-        {
-            //if (string.IsNullOrEmpty(FiscalYear.Text))
-            //{
-            //    FiscalYear.Focus();
-            //    ErrorMessage = "処理年度が入力されていません。";
-            //    return false;
-            //}
-
-            //if (string.IsNullOrEmpty(MyCompany.Text1))
-            //{
-            //    MyCompany.Focus();
-            //    ErrorMessage = "対象自社が設定されていません。";
-            //    return false;
-            //}
-
-            return true;
-
-        }
-        #endregion
-
         #region 帳票出力
         /// <summary>
         /// 帳票の印刷処理をおこなう
@@ -1109,12 +1153,32 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetBusyForInput();
 
+                // 粗利計算
+                decimal p粗利 = 0;
+
+                // 0で除算しないかチェック
+                if (販社販売価格 != 0)
+                {
+                    // 粗利は小数点第2位を四捨五入
+                    p粗利 = Math.Round((decimal)((得意先販売価格 - 販社販売価格) / 販社販売価格 * 100), 1, MidpointRounding.AwayFromZero);
+                }
+
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
                     #region 印字パラメータ設定
 
-                    //new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH12]},
-                    //new FwRepPreview.ReportParameter(){ PNAME = PARAMS_NAME_OUTPUT, VALUE = radioSelect.Text == "1" ? REPORT_PARAM_OUTPUT_MONEY : REPORT_PARAM_OUTPUT_NUM},
+                    new FwRepPreview.ReportParameter(){ PNAME = "構成品小計", VALUE = lbl構成品小計.Content.ToString()},
+                    new FwRepPreview.ReportParameter(){ PNAME = "資材小計", VALUE = lbl資材小計.Content.ToString()},
+                    new FwRepPreview.ReportParameter(){ PNAME = "その他小計", VALUE = lblその他小計.Content.ToString()},
+                    new FwRepPreview.ReportParameter(){ PNAME = "原価合計", VALUE = lbl合計.Content.ToString()},
+                    new FwRepPreview.ReportParameter(){ PNAME = "食品割増", VALUE = lbl食品割増.Content.ToString()},
+                    new FwRepPreview.ReportParameter(){ PNAME = "販社販売価格", VALUE = txb販社販売価格.Text},
+                    new FwRepPreview.ReportParameter(){ PNAME = "得意先販売価格", VALUE = txb得意先販売価格.Text},
+                    new FwRepPreview.ReportParameter(){ PNAME = "ヘッダ自社品番", VALUE = SetHinban.Text1},
+                    new FwRepPreview.ReportParameter(){ PNAME = "ヘッダ自社品名", VALUE = SetHinban.Text2},
+                    new FwRepPreview.ReportParameter(){ PNAME = "ヘッダ自社色名", VALUE = 自社色情報},
+                    new FwRepPreview.ReportParameter(){ PNAME = "食品割増率", VALUE = 食品割増率},
+                    new FwRepPreview.ReportParameter(){ PNAME = "粗利", VALUE = 販社販売価格 == 0 ? string.Empty : p粗利.ToString()},
 
                     #endregion
                 };
@@ -1146,29 +1210,6 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region 列名編集
-        /// <summary>
-        /// テーブル列名をCSV出力用に変更して返す
-        /// </summary>
-        /// <param name="tbl"></param>
-        /// <returns></returns>
-        private void changeColumnsName(DataTable tbl, int pi決算月)
-        {
-            //Dictionary<string, DateTime> printParams = getPrintParameter(pi決算月);
-
-            foreach (DataColumn col in tbl.Columns)
-            {
-                switch (col.ColumnName)
-                {
-
-
-                }
-
-            }
-
-        }
-        #endregion
-
         #region 明細データ再作成
         /// <summary>
         /// ItemSource通知用リスト作成
@@ -1185,6 +1226,30 @@ namespace KyoeiSystem.Application.Windows.Views
 
             return retList;
         }
+        #endregion
+
+        #region 明細判別用区分をセット
+
+        /// <summary>
+        /// 構成品、資材、その他が判別できるよう区分を設定
+        /// </summary>
+        /// <param name="CostingSheetList"></param>
+        /// <param name="kbn"></param>
+        private List<CostingSheetMember> SetCostingKbn(List<CostingSheetMember> CostingSList, int kbn)
+        {
+            List<CostingSheetMember> retList = new List<CostingSheetMember>();
+
+            // 構成品、資材、その他が判別できるよう区分を設定
+            foreach (var row in CostingSList)
+            {
+                row.明細区分 = kbn;
+            }
+
+            retList = CostingSList;
+
+            return retList;
+        }
+
         #endregion
 
         #endregion
@@ -1211,8 +1276,6 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetHin_MyProduct,
                             new object[] {
                                 SetHinban.Text1
-                               ,string.Empty,
-                                string.Empty
                             }));
                 }
                 catch (Exception ex)
@@ -1328,8 +1391,6 @@ namespace KyoeiSystem.Application.Windows.Views
                                 Kouseihin_MyProduct,
                                 new object[] {
                                 target
-                               ,string.Empty
-                               ,string.Empty
                             }));
 
                         break;
@@ -1392,7 +1453,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
                 CostingSheetMember row = new CostingSheetMember();
-                row.区分 = 1;
+                row.明細区分 = (int)明細区分.構成品;
                 構成品明細リスト.Add(row);
 
                 // 画面に反映
@@ -1563,8 +1624,6 @@ namespace KyoeiSystem.Application.Windows.Views
                                 Shizai_MyProduct,
                                 new object[] {
                                 target
-                               ,string.Empty
-                               ,string.Empty
                             }));
 
                         break;
@@ -1575,8 +1634,8 @@ namespace KyoeiSystem.Application.Windows.Views
                         var text = grid.Cells[e.CellPosition.Row, e.CellPosition.Column].Text;
                         if (string.IsNullOrWhiteSpace(text) == true)
                         {
-                            if (grid.Cells[iRow, "自社品番"].Value == null)
-                                grid.Cells[iRow, "原価"].Value = null;
+                            //if (grid.Cells[iRow, "自社品番"].Value == null)
+                            //    grid.Cells[iRow, "原価"].Value = null;
 
                             grid.Cells[iRow, "金額"].Value = null;
 
@@ -1740,7 +1799,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 //Spreadの行を1行追加します
                 CostingSheetMember row = new CostingSheetMember();
-                row.区分 = 3;
+                row.明細区分 = (int)明細区分.その他;
                 その他明細リスト.Add(row);
 
                 // 画面に反映
@@ -1949,24 +2008,5 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
-        /// <summary>
-        /// 構成品、資材、その他が判別できるよう区分を設定
-        /// </summary>
-        /// <param name="CostingSheetList"></param>
-        /// <param name="kbn"></param>
-        private List<CostingSheetMember> SetCostingKbn(List<CostingSheetMember> CostingSList, int kbn)
-        {
-            List<CostingSheetMember> retList = new List<CostingSheetMember>();
-
-            // 構成品、資材、その他が判別できるよう区分を設定
-            foreach (var row in CostingSList)
-            {
-                row.区分 = kbn;
-            }
-
-            retList = CostingSList;
-
-            return retList;
-        }
     }
 }
