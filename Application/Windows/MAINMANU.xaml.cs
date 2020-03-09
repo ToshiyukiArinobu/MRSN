@@ -1401,6 +1401,56 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        /// <summary>
+        /// 在庫評価額一覧表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIK06010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(ZIK06010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 適正在庫入力
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIK07010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Start(typeof(ZIK07010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 適正在庫問合せ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_ZIK08010(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Start(typeof(ZIK07010));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         #endregion
 

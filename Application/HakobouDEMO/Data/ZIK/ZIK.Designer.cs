@@ -32,6 +32,8 @@ namespace Hakobou.Data.ZIK {
         
         private ZIK03010_場所別差異表印刷DataTable tableZIK03010_場所別差異表印刷;
         
+        private ZIK06010_在庫評価額一覧表DataTable tableZIK06010_在庫評価額一覧表;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -71,6 +73,9 @@ namespace Hakobou.Data.ZIK {
                 }
                 if ((ds.Tables["ZIK03010_場所別差異表印刷"] != null)) {
                     base.Tables.Add(new ZIK03010_場所別差異表印刷DataTable(ds.Tables["ZIK03010_場所別差異表印刷"]));
+                }
+                if ((ds.Tables["ZIK06010_在庫評価額一覧表"] != null)) {
+                    base.Tables.Add(new ZIK06010_在庫評価額一覧表DataTable(ds.Tables["ZIK06010_在庫評価額一覧表"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -127,6 +132,16 @@ namespace Hakobou.Data.ZIK {
         public ZIK03010_場所別差異表印刷DataTable ZIK03010_場所別差異表印刷 {
             get {
                 return this.tableZIK03010_場所別差異表印刷;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ZIK06010_在庫評価額一覧表DataTable ZIK06010_在庫評価額一覧表 {
+            get {
+                return this.tableZIK06010_在庫評価額一覧表;
             }
         }
         
@@ -209,6 +224,9 @@ namespace Hakobou.Data.ZIK {
                 if ((ds.Tables["ZIK03010_場所別差異表印刷"] != null)) {
                     base.Tables.Add(new ZIK03010_場所別差異表印刷DataTable(ds.Tables["ZIK03010_場所別差異表印刷"]));
                 }
+                if ((ds.Tables["ZIK06010_在庫評価額一覧表"] != null)) {
+                    base.Tables.Add(new ZIK06010_在庫評価額一覧表DataTable(ds.Tables["ZIK06010_在庫評価額一覧表"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -266,6 +284,12 @@ namespace Hakobou.Data.ZIK {
                     this.tableZIK03010_場所別差異表印刷.InitVars();
                 }
             }
+            this.tableZIK06010_在庫評価額一覧表 = ((ZIK06010_在庫評価額一覧表DataTable)(base.Tables["ZIK06010_在庫評価額一覧表"]));
+            if ((initTable == true)) {
+                if ((this.tableZIK06010_在庫評価額一覧表 != null)) {
+                    this.tableZIK06010_在庫評価額一覧表.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -284,6 +308,8 @@ namespace Hakobou.Data.ZIK {
             base.Tables.Add(this.tableZIK02010_場所別棚卸一覧表);
             this.tableZIK03010_場所別差異表印刷 = new ZIK03010_場所別差異表印刷DataTable();
             base.Tables.Add(this.tableZIK03010_場所別差異表印刷);
+            this.tableZIK06010_在庫評価額一覧表 = new ZIK06010_在庫評価額一覧表DataTable();
+            base.Tables.Add(this.tableZIK06010_在庫評価額一覧表);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -307,6 +333,12 @@ namespace Hakobou.Data.ZIK {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeZIK03010_場所別差異表印刷() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeZIK06010_在庫評価額一覧表() {
             return false;
         }
         
@@ -376,6 +408,9 @@ namespace Hakobou.Data.ZIK {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void ZIK03010_場所別差異表印刷RowChangeEventHandler(object sender, ZIK03010_場所別差異表印刷RowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void ZIK06010_在庫評価額一覧表RowChangeEventHandler(object sender, ZIK06010_在庫評価額一覧表RowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1913,6 +1948,408 @@ namespace Hakobou.Data.ZIK {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ZIK06010_在庫評価額一覧表DataTable : global::System.Data.TypedTableBase<ZIK06010_在庫評価額一覧表Row> {
+            
+            private global::System.Data.DataColumn column倉庫コード;
+            
+            private global::System.Data.DataColumn column倉庫名;
+            
+            private global::System.Data.DataColumn column品番コード;
+            
+            private global::System.Data.DataColumn column自社品番;
+            
+            private global::System.Data.DataColumn column自社色コード;
+            
+            private global::System.Data.DataColumn column自社品名;
+            
+            private global::System.Data.DataColumn column色名称;
+            
+            private global::System.Data.DataColumn column賞味期限;
+            
+            private global::System.Data.DataColumn column数量;
+            
+            private global::System.Data.DataColumn column単位;
+            
+            private global::System.Data.DataColumn column単価;
+            
+            private global::System.Data.DataColumn column評価額;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ZIK06010_在庫評価額一覧表DataTable() {
+                this.TableName = "ZIK06010_在庫評価額一覧表";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ZIK06010_在庫評価額一覧表DataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected ZIK06010_在庫評価額一覧表DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 倉庫コードColumn {
+                get {
+                    return this.column倉庫コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 倉庫名Column {
+                get {
+                    return this.column倉庫名;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 品番コードColumn {
+                get {
+                    return this.column品番コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社品番Column {
+                get {
+                    return this.column自社品番;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社色コードColumn {
+                get {
+                    return this.column自社色コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社品名Column {
+                get {
+                    return this.column自社品名;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 色名称Column {
+                get {
+                    return this.column色名称;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 賞味期限Column {
+                get {
+                    return this.column賞味期限;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 数量Column {
+                get {
+                    return this.column数量;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単位Column {
+                get {
+                    return this.column単位;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 単価Column {
+                get {
+                    return this.column単価;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 評価額Column {
+                get {
+                    return this.column評価額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ZIK06010_在庫評価額一覧表Row this[int index] {
+                get {
+                    return ((ZIK06010_在庫評価額一覧表Row)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ZIK06010_在庫評価額一覧表RowChangeEventHandler ZIK06010_在庫評価額一覧表RowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ZIK06010_在庫評価額一覧表RowChangeEventHandler ZIK06010_在庫評価額一覧表RowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ZIK06010_在庫評価額一覧表RowChangeEventHandler ZIK06010_在庫評価額一覧表RowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event ZIK06010_在庫評価額一覧表RowChangeEventHandler ZIK06010_在庫評価額一覧表RowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddZIK06010_在庫評価額一覧表Row(ZIK06010_在庫評価額一覧表Row row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ZIK06010_在庫評価額一覧表Row AddZIK06010_在庫評価額一覧表Row(int 倉庫コード, string 倉庫名, int 品番コード, string 自社品番, string 自社色コード, string 自社品名, string 色名称, string 賞味期限, decimal 数量, string 単位, decimal 単価, decimal 評価額) {
+                ZIK06010_在庫評価額一覧表Row rowZIK06010_在庫評価額一覧表Row = ((ZIK06010_在庫評価額一覧表Row)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        倉庫コード,
+                        倉庫名,
+                        品番コード,
+                        自社品番,
+                        自社色コード,
+                        自社品名,
+                        色名称,
+                        賞味期限,
+                        数量,
+                        単位,
+                        単価,
+                        評価額};
+                rowZIK06010_在庫評価額一覧表Row.ItemArray = columnValuesArray;
+                this.Rows.Add(rowZIK06010_在庫評価額一覧表Row);
+                return rowZIK06010_在庫評価額一覧表Row;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ZIK06010_在庫評価額一覧表DataTable cln = ((ZIK06010_在庫評価額一覧表DataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ZIK06010_在庫評価額一覧表DataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.column倉庫コード = base.Columns["倉庫コード"];
+                this.column倉庫名 = base.Columns["倉庫名"];
+                this.column品番コード = base.Columns["品番コード"];
+                this.column自社品番 = base.Columns["自社品番"];
+                this.column自社色コード = base.Columns["自社色コード"];
+                this.column自社品名 = base.Columns["自社品名"];
+                this.column色名称 = base.Columns["色名称"];
+                this.column賞味期限 = base.Columns["賞味期限"];
+                this.column数量 = base.Columns["数量"];
+                this.column単位 = base.Columns["単位"];
+                this.column単価 = base.Columns["単価"];
+                this.column評価額 = base.Columns["評価額"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.column倉庫コード = new global::System.Data.DataColumn("倉庫コード", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column倉庫コード);
+                this.column倉庫名 = new global::System.Data.DataColumn("倉庫名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column倉庫名);
+                this.column品番コード = new global::System.Data.DataColumn("品番コード", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column品番コード);
+                this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社品番);
+                this.column自社色コード = new global::System.Data.DataColumn("自社色コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社色コード);
+                this.column自社品名 = new global::System.Data.DataColumn("自社品名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社品名);
+                this.column色名称 = new global::System.Data.DataColumn("色名称", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column色名称);
+                this.column賞味期限 = new global::System.Data.DataColumn("賞味期限", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column賞味期限);
+                this.column数量 = new global::System.Data.DataColumn("数量", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column数量);
+                this.column単位 = new global::System.Data.DataColumn("単位", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単位);
+                this.column単価 = new global::System.Data.DataColumn("単価", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column単価);
+                this.column評価額 = new global::System.Data.DataColumn("評価額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column評価額);
+                this.column数量.Caption = "在庫数量";
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ZIK06010_在庫評価額一覧表Row NewZIK06010_在庫評価額一覧表Row() {
+                return ((ZIK06010_在庫評価額一覧表Row)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ZIK06010_在庫評価額一覧表Row(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ZIK06010_在庫評価額一覧表Row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ZIK06010_在庫評価額一覧表RowChanged != null)) {
+                    this.ZIK06010_在庫評価額一覧表RowChanged(this, new ZIK06010_在庫評価額一覧表RowChangeEvent(((ZIK06010_在庫評価額一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ZIK06010_在庫評価額一覧表RowChanging != null)) {
+                    this.ZIK06010_在庫評価額一覧表RowChanging(this, new ZIK06010_在庫評価額一覧表RowChangeEvent(((ZIK06010_在庫評価額一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ZIK06010_在庫評価額一覧表RowDeleted != null)) {
+                    this.ZIK06010_在庫評価額一覧表RowDeleted(this, new ZIK06010_在庫評価額一覧表RowChangeEvent(((ZIK06010_在庫評価額一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ZIK06010_在庫評価額一覧表RowDeleting != null)) {
+                    this.ZIK06010_在庫評価額一覧表RowDeleting(this, new ZIK06010_在庫評価額一覧表RowChangeEvent(((ZIK06010_在庫評価額一覧表Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveZIK06010_在庫評価額一覧表Row(ZIK06010_在庫評価額一覧表Row row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                ZIK ds = new ZIK();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ZIK06010_在庫評価額一覧表DataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class ZIK01010_在庫締集計表Row : global::System.Data.DataRow {
@@ -3177,6 +3614,357 @@ namespace Hakobou.Data.ZIK {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ZIK06010_在庫評価額一覧表Row : global::System.Data.DataRow {
+            
+            private ZIK06010_在庫評価額一覧表DataTable tableZIK06010_在庫評価額一覧表;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal ZIK06010_在庫評価額一覧表Row(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableZIK06010_在庫評価額一覧表 = ((ZIK06010_在庫評価額一覧表DataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 倉庫コード {
+                get {
+                    try {
+                        return ((int)(this[this.tableZIK06010_在庫評価額一覧表.倉庫コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'倉庫コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.倉庫コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 倉庫名 {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK06010_在庫評価額一覧表.倉庫名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'倉庫名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.倉庫名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 品番コード {
+                get {
+                    try {
+                        return ((int)(this[this.tableZIK06010_在庫評価額一覧表.品番コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'品番コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.品番コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社品番 {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK06010_在庫評価額一覧表.自社品番Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'自社品番\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.自社品番Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社色コード {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK06010_在庫評価額一覧表.自社色コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'自社色コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.自社色コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社品名 {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK06010_在庫評価額一覧表.自社品名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'自社品名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.自社品名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 色名称 {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK06010_在庫評価額一覧表.色名称Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'色名称\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.色名称Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 賞味期限 {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK06010_在庫評価額一覧表.賞味期限Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'賞味期限\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.賞味期限Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 数量 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableZIK06010_在庫評価額一覧表.数量Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'数量\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.数量Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 単位 {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK06010_在庫評価額一覧表.単位Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'単位\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.単位Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 単価 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableZIK06010_在庫評価額一覧表.単価Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'単価\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.単価Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 評価額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableZIK06010_在庫評価額一覧表.評価額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK06010_在庫評価額一覧表\' にある列 \'評価額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK06010_在庫評価額一覧表.評価額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is倉庫コードNull() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.倉庫コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set倉庫コードNull() {
+                this[this.tableZIK06010_在庫評価額一覧表.倉庫コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is倉庫名Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.倉庫名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set倉庫名Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.倉庫名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is品番コードNull() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.品番コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set品番コードNull() {
+                this[this.tableZIK06010_在庫評価額一覧表.品番コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社品番Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.自社品番Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社品番Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.自社品番Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社色コードNull() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.自社色コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社色コードNull() {
+                this[this.tableZIK06010_在庫評価額一覧表.自社色コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社品名Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.自社品名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社品名Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.自社品名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is色名称Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.色名称Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set色名称Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.色名称Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is賞味期限Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.賞味期限Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set賞味期限Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.賞味期限Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is数量Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.数量Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set数量Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.数量Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単位Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.単位Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単位Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.単位Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is単価Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.単価Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set単価Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.単価Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is評価額Null() {
+                return this.IsNull(this.tableZIK06010_在庫評価額一覧表.評価額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set評価額Null() {
+                this[this.tableZIK06010_在庫評価額一覧表.評価額Column] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -3298,6 +4086,40 @@ namespace Hakobou.Data.ZIK {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ZIK03010_場所別差異表印刷Row Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class ZIK06010_在庫評価額一覧表RowChangeEvent : global::System.EventArgs {
+            
+            private ZIK06010_在庫評価額一覧表Row eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ZIK06010_在庫評価額一覧表RowChangeEvent(ZIK06010_在庫評価額一覧表Row row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ZIK06010_在庫評価額一覧表Row Row {
                 get {
                     return this.eventRow;
                 }

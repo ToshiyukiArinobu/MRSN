@@ -485,11 +485,20 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "ZIK03010_GetCsvData", ServiceClass = "ZIK03010", MethodName = "GetDifStocktaking", Descprition = "棚卸在庫の差異データを取得" },
             new WCFDataAccessConfig() { Name = "ZIK03010_GetPrintData", ServiceClass = "ZIK03010", MethodName = "GetDifStocktaking", Descprition = "棚卸在庫の差異データを取得" },
 
+            // 棚卸在庫更新
             new WCFDataAccessConfig() { Name = "ZIK04010_IsCheckStocktaking", ServiceClass = "ZIK04010", MethodName = "IsCheckStocktaking", Descprition = "棚卸更新済みかを取得する" },
             new WCFDataAccessConfig() { Name = "ZIK04010_InventoryStocktaking", ServiceClass = "ZIK04010", MethodName = "InventoryStocktaking", Descprition = "棚卸更新処理" },
 
+            // 商品在庫残高一覧表
             new WCFDataAccessConfig() { Name = "ZIK05010_GetPrintList", ServiceClass = "ZIK05010", MethodName = "GetPrintList", Descprition = "商品在庫残高一覧表データ取得" },
             new WCFDataAccessConfig() { Name = "ZIK05010_GetCsvList", ServiceClass = "ZIK05010", MethodName = "GetPrintList", Descprition = "商品在庫残高一覧表データ取得" },
+
+            // 在庫評価額一覧表
+            new WCFDataAccessConfig() { Name = "ZIK06010_GetOutputData", ServiceClass = "ZIK06010", MethodName = "GetData", Descprition = "月次在庫データ取得" },
+            new WCFDataAccessConfig() { Name = "ZIK06010_CheckExist", ServiceClass = "ZIK06010", MethodName = "CheckExist", Descprition = "データ存在チェック" },
+            new WCFDataAccessConfig() { Name = "ZIK06010_Update", ServiceClass = "ZIK06010", MethodName = "Update", Descprition = "データ存在チェック" },
+            new WCFDataAccessConfig() { Name = "ZIK06010_GetPrintData", ServiceClass = "ZIK06010", MethodName = "GetPrintData", Descprition = "在庫評価額一覧印刷データ取得" },
+            new WCFDataAccessConfig() { Name = "ZIK06010_GetCsvList", ServiceClass = "ZIK06010", MethodName = "GetPrintData", Descprition = "在庫評価額一覧ＣＳＶデータ取得" },
 
             #endregion
 

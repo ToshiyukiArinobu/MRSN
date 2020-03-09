@@ -460,6 +460,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s03_STOK  ?? (_s03_STOK = CreateObjectSet<S03_STOK>("S03_STOK")); }
         }
         private ObjectSet<S03_STOK> _s03_STOK;
+    
+        public ObjectSet<S05_STOK_ADJUST> S05_STOK_ADJUST
+        {
+            get { return _s05_STOK_ADJUST  ?? (_s05_STOK_ADJUST = CreateObjectSet<S05_STOK_ADJUST>("S05_STOK_ADJUST")); }
+        }
+        private ObjectSet<S05_STOK_ADJUST> _s05_STOK_ADJUST;
 
         #endregion
 
