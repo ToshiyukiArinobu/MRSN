@@ -254,7 +254,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="targetRow"></param>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
-        private DateTime getDateEndofMonth(int pYearMonth)
+        public DateTime getDateEndofMonth(int pYearMonth)
         {
             int intYear = pYearMonth / 100;
             int intMonth = pYearMonth % 100;

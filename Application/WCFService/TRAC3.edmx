@@ -39,6 +39,7 @@
           <EntitySet Name="S02_SHRHD" EntityType="TRAC3Model.Store.S02_SHRHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S03_STOK" EntityType="TRAC3Model.Store.S03_STOK" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S04_HISTORY" EntityType="TRAC3Model.Store.S04_HISTORY" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="S05_STOK_ADJUST" EntityType="TRAC3Model.Store.S05_STOK_ADJUST" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S05_STOK_MONTH" EntityType="TRAC3Model.Store.S05_STOK_MONTH" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S06_URIHD" EntityType="TRAC3Model.Store.S06_URIHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S07_SRIHD" EntityType="TRAC3Model.Store.S07_SRIHD" store:Type="Tables" Schema="dbo" />
@@ -885,6 +886,21 @@
           <Property Name="最終更新日時" Type="datetime" />
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
+        </EntityType>
+        <EntityType Name="S05_STOK_ADJUST">
+          <Key>
+            <PropertyRef Name="締年月" />
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="賞味期限" />
+          </Key>
+          <Property Name="締年月" Type="int" Nullable="false" />
+          <Property Name="倉庫コード" Type="int" Nullable="false" />
+          <Property Name="品番コード" Type="int" Nullable="false" />
+          <Property Name="賞味期限" Type="date" Nullable="false" />
+          <Property Name="在庫数量" Type="int" Nullable="false" />
+          <Property Name="登録者" Type="int" Nullable="false" />
+          <Property Name="登録日時" Type="datetime" />
         </EntityType>
         <EntityType Name="S05_STOK_MONTH">
           <Key>
@@ -1764,6 +1780,7 @@
           <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.S10_STOCKTAKING" />
           <EntitySet Name="S11_KAKUTEI" EntityType="TRAC3Model.S11_KAKUTEI" />
           <EntitySet Name="S03_STOK" EntityType="TRAC3Model.S03_STOK" />
+          <EntitySet Name="S05_STOK_ADJUST" EntityType="TRAC3Model.S05_STOK_ADJUST" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
@@ -3202,6 +3219,21 @@
           <Property Type="Int32" Name="削除者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
         </EntityType>
+        <EntityType Name="S05_STOK_ADJUST">
+          <Key>
+            <PropertyRef Name="締年月" />
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+            <PropertyRef Name="賞味期限" />
+          </Key>
+          <Property Type="Int32" Name="締年月" Nullable="false" />
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="DateTime" Name="賞味期限" Nullable="false" Precision="0" />
+          <Property Type="Int32" Name="在庫数量" Nullable="false" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4586,6 +4618,19 @@
                 <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S05_STOK_ADJUST">
+            <EntityTypeMapping TypeName="TRAC3Model.S05_STOK_ADJUST">
+              <MappingFragment StoreEntitySet="S05_STOK_ADJUST">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="在庫数量" ColumnName="在庫数量" />
+                <ScalarProperty Name="賞味期限" ColumnName="賞味期限" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
+                <ScalarProperty Name="締年月" ColumnName="締年月" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

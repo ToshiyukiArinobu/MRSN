@@ -243,6 +243,9 @@
     <Compile Include="S04_HISTORY.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
+    <Compile Include="S05_STOK_ADJUST.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
     <Compile Include="S05_STOK_MONTH.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
@@ -479,6 +482,7 @@
     <Compile Include="Views\ZIK\ZIK01010.cs" />
     <Compile Include="Views\ZIK\ZIK05010.cs" />
     <Compile Include="Views\ZIK\ZIK03010.cs" />
+    <Compile Include="Views\ZIK\ZIK06010.cs" />
     <Compile Include="V_M01_TOK.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>

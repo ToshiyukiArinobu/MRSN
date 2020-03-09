@@ -1720,6 +1720,22 @@ namespace KyoeiSystem.Application.Windows.Views
             if (MaintenanceMode == null || SearchDetail == null)
                 return;
 
+            // No.381 Add Start
+
+            // ヘッダー入力チェックをおこなう
+            bool blnResult = isHeaderValidation();
+
+            // 明細チェックをおこなう
+            bool blnResultDetail = isDetailValidation();            // No.344 Mod
+
+            // 業務入力チェックでエラーの場合、以降の処理を中止する
+            if (blnResult == false || blnResultDetail == false)
+            {
+                return;
+            }
+
+            // No.381 Add End
+
             // 確定データチェック
             base.SendRequest(
                new CommunicationObject(
@@ -1983,10 +1999,13 @@ namespace KyoeiSystem.Application.Windows.Views
             //this.txt伝票番号.IsEnabled = !blnEnabled;                                                    // No.346 Del        
             this.txt仕上り日.IsEnabled = !blnEnabled;
 
-            this.txt会社名.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
-            this.txt外注先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
-            this.txt入荷先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
-            this.cmb加工区分.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;              // No.346 Mod
+            // 「setDispHeaderEnabled」で同じ処理がされているためコメントアウト St
+            //this.txt会社名.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+            //this.txt外注先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+            //this.txt入荷先.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;
+            //this.cmb加工区分.IsEnabled = Mode == AppConst.MAINTENANCEMODE_ADD ? true : false;              // No.346 Mod
+            // 「setDispHeaderEnabled」で同じ処理がされているためコメントアウト End
+
 
             // 明細
             this.sp製品一覧.IsEnabled = !blnEnabled;
@@ -2698,7 +2717,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="blnEnabled">true:入力可、false:入力不可</param>
         private void setDispHeaderEnabled(bool blnEnabled)
         {
-            txt外注先.IsEnabled = blnEnabled;
+            // txt外注先.IsEnabled = blnEnabled;               //No.382 Mod
             txt入荷先.IsEnabled = blnEnabled;
             cmb加工区分.IsEnabled = blnEnabled;
             txt会社名.IsEnabled = blnEnabled;
