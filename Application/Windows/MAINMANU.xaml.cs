@@ -1342,7 +1342,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
-                //Start(typeof(ZIK02010));
+                Start(typeof(ZIK02010));
             }
             catch (Exception ex)
             {
@@ -1359,7 +1359,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             try
             {
-                //Start(typeof(ZIK03010));
+                Start(typeof(ZIK03010));
             }
             catch (Exception ex)
             {

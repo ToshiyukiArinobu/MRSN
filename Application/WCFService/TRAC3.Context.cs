@@ -443,12 +443,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<S09_KAIKAKE> _s09_KAIKAKE;
     
-        public ObjectSet<S10_STOCKTAKING> S10_STOCKTAKING
-        {
-            get { return _s10_STOCKTAKING  ?? (_s10_STOCKTAKING = CreateObjectSet<S10_STOCKTAKING>("S10_STOCKTAKING")); }
-        }
-        private ObjectSet<S10_STOCKTAKING> _s10_STOCKTAKING;
-    
         public ObjectSet<S11_KAKUTEI> S11_KAKUTEI
         {
             get { return _s11_KAKUTEI  ?? (_s11_KAKUTEI = CreateObjectSet<S11_KAKUTEI>("S11_KAKUTEI")); }
@@ -466,6 +460,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s05_STOK_ADJUST  ?? (_s05_STOK_ADJUST = CreateObjectSet<S05_STOK_ADJUST>("S05_STOK_ADJUST")); }
         }
         private ObjectSet<S05_STOK_ADJUST> _s05_STOK_ADJUST;
+    
+        public ObjectSet<S10_STOCKTAKING> S10_STOCKTAKING
+        {
+            get { return _s10_STOCKTAKING  ?? (_s10_STOCKTAKING = CreateObjectSet<S10_STOCKTAKING>("S10_STOCKTAKING")); }
+        }
+        private ObjectSet<S10_STOCKTAKING> _s10_STOCKTAKING;
 
         #endregion
 
