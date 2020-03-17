@@ -63,6 +63,7 @@
           <EntitySet Name="T05_IDOHD" EntityType="TRAC3Model.Store.T05_IDOHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T11_NYKNDTL" EntityType="TRAC3Model.Store.T11_NYKNDTL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T11_NYKNHD" EntityType="TRAC3Model.Store.T11_NYKNHD" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T11_NYKNTR" EntityType="TRAC3Model.Store.T11_NYKNTR" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T12_PAYDTL" EntityType="TRAC3Model.Store.T12_PAYDTL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="T12_PAYHD" EntityType="TRAC3Model.Store.T12_PAYHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="V_M01_TOK" EntityType="TRAC3Model.Store.V_M01_TOK" store:Type="Views" store:Schema="dbo" store:Name="V_M01_TOK">
@@ -1448,6 +1449,20 @@
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
         </EntityType>
+        <EntityType Name="T11_NYKNTR">
+          <Key>
+            <PropertyRef Name="得意先コード" />
+            <PropertyRef Name="得意先枝番" />
+          </Key>
+          <Property Name="得意先コード" Type="int" Nullable="false" />
+          <Property Name="得意先枝番" Type="int" Nullable="false" />
+          <Property Name="集計完了日" Type="date" Nullable="false" />
+          <Property Name="入金滞留額" Type="bigint" Nullable="false" />
+          <Property Name="登録者" Type="int" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="最終更新者" Type="int" />
+          <Property Name="最終更新日時" Type="datetime" />
+        </EntityType>
         <EntityType Name="T12_PAYDTL">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -1781,6 +1796,7 @@
           <EntitySet Name="S03_STOK" EntityType="TRAC3Model.S03_STOK" />
           <EntitySet Name="S05_STOK_ADJUST" EntityType="TRAC3Model.S05_STOK_ADJUST" />
           <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.S10_STOCKTAKING" />
+          <EntitySet Name="T11_NYKNTR" EntityType="TRAC3Model.T11_NYKNTR" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
@@ -3234,6 +3250,20 @@
           <Property Type="Int32" Name="削除者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
         </EntityType>
+        <EntityType Name="T11_NYKNTR">
+          <Key>
+            <PropertyRef Name="得意先コード" />
+            <PropertyRef Name="得意先枝番" />
+          </Key>
+          <Property Type="Int32" Name="得意先コード" Nullable="false" />
+          <Property Type="Int32" Name="得意先枝番" Nullable="false" />
+          <Property Type="DateTime" Name="集計完了日" Nullable="false" Precision="0" />
+          <Property Type="Int64" Name="入金滞留額" Nullable="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4631,6 +4661,20 @@
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
                 <ScalarProperty Name="棚卸日" ColumnName="棚卸日" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T11_NYKNTR">
+            <EntityTypeMapping TypeName="TRAC3Model.T11_NYKNTR">
+              <MappingFragment StoreEntitySet="T11_NYKNTR">
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="入金滞留額" ColumnName="入金滞留額" />
+                <ScalarProperty Name="集計完了日" ColumnName="集計完了日" />
+                <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
+                <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

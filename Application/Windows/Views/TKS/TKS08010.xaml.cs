@@ -46,6 +46,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>帳票定義ファイル 格納パス</summary>
         private const string ReportTemplateFileName = @"Files\TKS\TKS08010.rpt";
 
+        /// <summary>自社情報を取得</summary>
+        private const string GetJisData = "TKS08010_GetJisData";
+
         /// <summary>参照対象月数</summary>
         private const int REF_MONTHS = 6;
 
@@ -79,6 +82,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>パラメータ辞書</summary>
         Dictionary<string, string> paramDic = new Dictionary<string, string>();
+
+        /// <summary>印刷フラグ</summary>
+        bool 印刷フラグ = true;
 
         #endregion
 
@@ -142,7 +148,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             ReferenceYearMonth.Text = DateTime.Now.ToString("yyyy/MM");
 
-			SetFocusToTopControl();
+            SetFocusToTopControl();
             ErrorMessage = string.Empty;
 
         }
@@ -173,6 +179,81 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         case SEARCH_TKS08010_CSV:
                             OutPutCSV(tbl);
+                            break;
+
+                        case GetJisData:
+                            if (tbl == null || tbl.Rows.Count == 0)
+                            {
+                                myCompany.SetFocus();
+                                ErrorMessage = "自社コードがマスタに存在しません。";
+                                return;
+                            }
+
+                            #region 基準日チェック
+                            // 基準年月の入力範囲チェック
+                            int i基準年 = AppCommon.IntParse(ReferenceYearMonth.Text.Substring(0, 4));
+                            int i基準月 = AppCommon.IntParse(ReferenceYearMonth.Text.Substring(5, 2));
+                            int i基準年月 = i基準年 * 100 + i基準月;
+
+                            // 前々年度末の年月日を取得
+                            DateTime dtTwoYearsBefore;
+
+                            // 決算月を取得、なければ3月固定
+                            int i決算月 = AppCommon.IntParse(tbl.Rows[0]["決算月"].ToString(), 3);
+
+                            if (i決算月 < DateTime.Today.Month)
+                            {
+                                // 決算月がシステム日付より小さい場合、1年前が前々年度になる
+                                dtTwoYearsBefore = DateTime.Today.AddYears(-1);
+                            }
+                            else
+                            {
+                                // 決算月がシステム日付より大きいまたは同じ場合、2年前が前々年度になる
+                                dtTwoYearsBefore = DateTime.Today.AddYears(-2);
+                            }
+
+                            DateTime dt入力可能基準日 = new DateTime(dtTwoYearsBefore.Year, i決算月, 1).AddMonths(7);
+                            int i入力可能基準日 = dt入力可能基準日.Year * 100 + dt入力可能基準日.Month;
+
+                            if (i入力可能基準日 > i基準年月)
+                            {
+                                ReferenceYearMonth.Focus();
+                                ErrorMessage = string.Format("基準年月は{0}以降で入力してください。", dt入力可能基準日.Year + "/" + dt入力可能基準日.Month.ToString().PadLeft(2, '0'));
+                                return;
+                            }
+
+                            #endregion
+
+                            var yesno = MessageBox.Show("計算に時間がかかります。よろしいですか？", "",
+                             MessageBoxButton.YesNo,
+                             MessageBoxImage.Question,
+                             MessageBoxResult.No);
+                            if (yesno == MessageBoxResult.No)
+                                return;
+
+                            if (印刷フラグ)
+                            {
+                                // 印刷
+                                base.SendRequest(
+                                           new CommunicationObject(
+                                               MessageType.RequestDataWithBusy,
+                                               SEARCH_TKS08010_PRT,
+                                               new object[] {
+                                                    paramDic
+                                                }));
+                            }
+                            else
+                            {
+                                // CSV
+                                base.SendRequest(
+                                           new CommunicationObject(
+                                               MessageType.RequestDataWithBusy,
+                                               SEARCH_TKS08010_CSV,
+                                               new object[] {
+                                                    paramDic
+                                                }));
+                            }
+
                             break;
 
                     }
@@ -253,13 +334,15 @@ namespace KyoeiSystem.Application.Windows.Views
 
             Dictionary<string, string> paramDic = createParamDic();
 
+            this.印刷フラグ = false;
+
             base.SendRequest(
-                new CommunicationObject(
-                    MessageType.RequestDataWithBusy,
-                    SEARCH_TKS08010_CSV,
-                    new object[] {
-                        paramDic
-                    }));
+                           new CommunicationObject(
+                               MessageType.RequestData,
+                               GetJisData,
+                               new object[] {
+                                myCompany.Text1
+                            }));
 
         }
         #endregion
@@ -271,14 +354,14 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public override void OnF8Key(object sender, KeyEventArgs e)
-		{
-			PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
-			if (ret.Result == false)
-			{
-				this.ErrorMessage = "プリンタドライバーがインストールされていません！";
-				return;
-			}
-			frmcfg.PrinterName = ret.PrinterName;
+        {
+            PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
+            if (ret.Result == false)
+            {
+                this.ErrorMessage = "プリンタドライバーがインストールされていません！";
+                return;
+            }
+            frmcfg.PrinterName = ret.PrinterName;
 
             if (!base.CheckAllValidation())
             {
@@ -294,13 +377,15 @@ namespace KyoeiSystem.Application.Windows.Views
 
             Dictionary<string, string> paramDic = createParamDic();
 
+            this.印刷フラグ = true;
+
             base.SendRequest(
-                new CommunicationObject(
-                    MessageType.RequestDataWithBusy,
-                    SEARCH_TKS08010_PRT,
-                    new object[] {
-                        paramDic
-                    }));
+                          new CommunicationObject(
+                              MessageType.RequestData,
+                              GetJisData,
+                              new object[] {
+                                myCompany.Text1
+                            }));
 
         }
         #endregion
@@ -427,6 +512,7 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add("得意先コード", Customer.Text1 == null ? string.Empty : Customer.Text1);
             paramDic.Add("得意先枝番", Customer.Text2 == null ? string.Empty : Customer.Text2);
             paramDic.Add("作成区分", CreateType.SelectedValue.ToString());
+            paramDic.Add("ユーザーID", ccfg.ユーザID.ToString());             // No.385 Add
 
             // 以下帳票出力用パラメータ
             int yearMonth = int.Parse(ReferenceYearMonth.Text.Replace("/", "")),

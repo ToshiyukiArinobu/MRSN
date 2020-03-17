@@ -315,6 +315,9 @@
     <Compile Include="T11_NYKNHD.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
+    <Compile Include="T11_NYKNTR.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
     <Compile Include="T12_PAYDTL.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
