@@ -501,6 +501,13 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "ZIK06010_GetPrintData", ServiceClass = "ZIK06010", MethodName = "GetPrintData", Descprition = "在庫評価額一覧印刷データ取得" },
             new WCFDataAccessConfig() { Name = "ZIK06010_GetCsvList", ServiceClass = "ZIK06010", MethodName = "GetPrintData", Descprition = "在庫評価額一覧ＣＳＶデータ取得" },
 
+            // 適正在庫入力
+            new WCFDataAccessConfig() { Name = "ZIK07010_GetData", ServiceClass = "ZIK07010", MethodName = "GetDataList", Descprition = "適正在庫問合せ情報取得" },
+            new WCFDataAccessConfig() { Name = "ZIK07010_Update", ServiceClass = "ZIK07010", MethodName = "Update", Descprition = "適正在庫情報登録・更新" },
+
+            // 適正在庫問合せ
+            new WCFDataAccessConfig() { Name = "ZIK08010_GetData", ServiceClass = "ZIK08010", MethodName = "GetDataList", Descprition = "適正在庫問合せ情報取得" },
+
             #endregion
 
             #region 分析資料

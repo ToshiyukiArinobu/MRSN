@@ -472,6 +472,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _t11_NYKNTR  ?? (_t11_NYKNTR = CreateObjectSet<T11_NYKNTR>("T11_NYKNTR")); }
         }
         private ObjectSet<T11_NYKNTR> _t11_NYKNTR;
+    
+        public ObjectSet<S03_STOK_JUST> S03_STOK_JUST
+        {
+            get { return _s03_STOK_JUST  ?? (_s03_STOK_JUST = CreateObjectSet<S03_STOK_JUST>("S03_STOK_JUST")); }
+        }
+        private ObjectSet<S03_STOK_JUST> _s03_STOK_JUST;
 
         #endregion
 

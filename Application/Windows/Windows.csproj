@@ -373,6 +373,9 @@
     <Compile Include="Views\ZIJ\ZIJ10010.xaml.cs">
       <DependentUpon>ZIJ10010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ZIK\ZIK07010.xaml.cs">
+      <DependentUpon>ZIK07010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ZIK\ZIK06010.xaml.cs">
       <DependentUpon>ZIK06010.xaml</DependentUpon>
     </Compile>
@@ -391,6 +394,9 @@
     <Compile Include="Views\ZIK\ZIK05010.xaml.cs">
       <DependentUpon>ZIK05010.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ZIK\ZIK08010.xaml.cs">
+      <DependentUpon>ZIK08010.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowControler.xaml.cs">
       <DependentUpon>WindowControler.xaml</DependentUpon>
     </Compile>
@@ -402,6 +408,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Views\ZIK\ZIK08010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Views\ZIK\ZIK02010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -442,6 +451,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Views\TKS\TKS90010G1.sgxml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\ZIK\ZIK07010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Views\ZIK\ZIK01010G1.sgxml" />
@@ -937,6 +949,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ZIK\ZIK07010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ZIK\ZIK06010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -958,6 +974,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ZIK\ZIK05010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZIK\ZIK08010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

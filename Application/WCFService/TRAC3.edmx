@@ -38,6 +38,7 @@
           <EntitySet Name="S02_SHRDTL" EntityType="TRAC3Model.Store.S02_SHRDTL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S02_SHRHD" EntityType="TRAC3Model.Store.S02_SHRHD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S03_STOK" EntityType="TRAC3Model.Store.S03_STOK" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="S03_STOK_JUST" EntityType="TRAC3Model.Store.S03_STOK_JUST" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S04_HISTORY" EntityType="TRAC3Model.Store.S04_HISTORY" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S05_STOK_ADJUST" EntityType="TRAC3Model.Store.S05_STOK_ADJUST" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="S05_STOK_MONTH" EntityType="TRAC3Model.Store.S05_STOK_MONTH" store:Type="Tables" Schema="dbo" />
@@ -866,6 +867,18 @@
           <Property Name="最終更新日時" Type="datetime" />
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
+        </EntityType>
+        <EntityType Name="S03_STOK_JUST">
+          <Key>
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+          </Key>
+          <Property Name="倉庫コード" Type="int" Nullable="false" />
+          <Property Name="品番コード" Type="int" Nullable="false" />
+          <Property Name="適正在庫数量" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="最低在庫数量" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="登録者" Type="int" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="S04_HISTORY">
           <Key>
@@ -1797,6 +1810,7 @@
           <EntitySet Name="S05_STOK_ADJUST" EntityType="TRAC3Model.S05_STOK_ADJUST" />
           <EntitySet Name="S10_STOCKTAKING" EntityType="TRAC3Model.S10_STOCKTAKING" />
           <EntitySet Name="T11_NYKNTR" EntityType="TRAC3Model.T11_NYKNTR" />
+          <EntitySet Name="S03_STOK_JUST" EntityType="TRAC3Model.S03_STOK_JUST" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M01_TOK">
@@ -3264,6 +3278,18 @@
           <Property Type="Int32" Name="最終更新者" />
           <Property Type="DateTime" Name="最終更新日時" Precision="3" />
         </EntityType>
+        <EntityType Name="S03_STOK_JUST">
+          <Key>
+            <PropertyRef Name="倉庫コード" />
+            <PropertyRef Name="品番コード" />
+          </Key>
+          <Property Type="Int32" Name="倉庫コード" Nullable="false" />
+          <Property Type="Int32" Name="品番コード" Nullable="false" />
+          <Property Type="Decimal" Name="適正在庫数量" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="最低在庫数量" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4675,6 +4701,18 @@
                 <ScalarProperty Name="集計完了日" ColumnName="集計完了日" />
                 <ScalarProperty Name="得意先枝番" ColumnName="得意先枝番" />
                 <ScalarProperty Name="得意先コード" ColumnName="得意先コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="S03_STOK_JUST">
+            <EntityTypeMapping TypeName="TRAC3Model.S03_STOK_JUST">
+              <MappingFragment StoreEntitySet="S03_STOK_JUST">
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="最低在庫数量" ColumnName="最低在庫数量" />
+                <ScalarProperty Name="適正在庫数量" ColumnName="適正在庫数量" />
+                <ScalarProperty Name="品番コード" ColumnName="品番コード" />
+                <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

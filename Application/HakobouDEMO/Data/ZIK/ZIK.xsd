@@ -97,6 +97,24 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="ZIK08010_適正在庫問合せ" msprop:Generator_TableClassName="ZIK08010_適正在庫問合せDataTable" msprop:Generator_TableVarName="tableZIK08010_適正在庫問合せ" msprop:Generator_RowChangedName="ZIK08010_適正在庫問合せRowChanged" msprop:Generator_TablePropName="ZIK08010_適正在庫問合せ" msprop:Generator_RowDeletingName="ZIK08010_適正在庫問合せRowDeleting" msprop:Generator_RowChangingName="ZIK08010_適正在庫問合せRowChanging" msprop:Generator_RowEvHandlerName="ZIK08010_適正在庫問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="ZIK08010_適正在庫問合せRowDeleted" msprop:Generator_RowClassName="ZIK08010_適正在庫問合せRow" msprop:Generator_UserTableName="ZIK08010_適正在庫問合せ" msprop:Generator_RowEvArgName="ZIK08010_適正在庫問合せRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="倉庫コード" msprop:Generator_ColumnVarNameInTable="column倉庫コード" msprop:Generator_ColumnPropNameInRow="倉庫コード" msprop:Generator_ColumnPropNameInTable="倉庫コードColumn" msprop:Generator_UserColumnName="倉庫コード" type="xs:string" minOccurs="0" />
+              <xs:element name="倉庫名称" msprop:Generator_ColumnVarNameInTable="column倉庫名称" msprop:Generator_ColumnPropNameInRow="倉庫名称" msprop:Generator_ColumnPropNameInTable="倉庫名称Column" msprop:Generator_UserColumnName="倉庫名称" type="xs:string" minOccurs="0" />
+              <xs:element name="str品番コード" msprop:Generator_ColumnVarNameInTable="columnstr品番コード" msprop:Generator_ColumnPropNameInRow="str品番コード" msprop:Generator_ColumnPropNameInTable="str品番コードColumn" msprop:Generator_UserColumnName="str品番コード" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品番コード" msprop:Generator_ColumnVarNameInTable="column自社品番コード" msprop:Generator_ColumnPropNameInRow="自社品番コード" msprop:Generator_ColumnPropNameInTable="自社品番コードColumn" msprop:Generator_UserColumnName="自社品番コード" type="xs:string" minOccurs="0" />
+              <xs:element name="自社色コード" msprop:Generator_ColumnVarNameInTable="column自社色コード" msprop:Generator_ColumnPropNameInRow="自社色コード" msprop:Generator_ColumnPropNameInTable="自社色コードColumn" msprop:Generator_UserColumnName="自社色コード" type="xs:string" minOccurs="0" />
+              <xs:element name="自社品名" msprop:Generator_ColumnVarNameInTable="column自社品名" msprop:Generator_ColumnPropNameInRow="自社品名" msprop:Generator_ColumnPropNameInTable="自社品名Column" msprop:Generator_UserColumnName="自社品名" type="xs:string" minOccurs="0" />
+              <xs:element name="色名称" msprop:Generator_ColumnVarNameInTable="column色名称" msprop:Generator_ColumnPropNameInRow="色名称" msprop:Generator_ColumnPropNameInTable="色名称Column" msprop:Generator_UserColumnName="色名称" type="xs:string" minOccurs="0" />
+              <xs:element name="適正数量" msprop:Generator_ColumnVarNameInTable="column適正数量" msprop:Generator_ColumnPropNameInRow="適正数量" msprop:Generator_ColumnPropNameInTable="適正数量Column" msprop:Generator_UserColumnName="適正数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="最低数量" msprop:Generator_ColumnVarNameInTable="column最低数量" msprop:Generator_ColumnPropNameInRow="最低数量" msprop:Generator_ColumnPropNameInTable="最低数量Column" msprop:Generator_UserColumnName="最低数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="単位1" msprop:Generator_ColumnVarNameInTable="column単位1" msprop:Generator_ColumnPropNameInRow="単位1" msprop:Generator_ColumnPropNameInTable="単位1Column" msprop:Generator_UserColumnName="単位1" type="xs:string" minOccurs="0" />
+              <xs:element name="実在庫数量" msprop:Generator_ColumnVarNameInTable="column実在庫数量" msprop:Generator_ColumnPropNameInRow="実在庫数量" msprop:Generator_ColumnPropNameInTable="実在庫数量Column" msprop:Generator_UserColumnName="実在庫数量" type="xs:decimal" minOccurs="0" />
+              <xs:element name="単位2" msprop:Generator_ColumnVarNameInTable="column単位2" msprop:Generator_ColumnPropNameInRow="単位2" msprop:Generator_ColumnPropNameInTable="単位2Column" msprop:Generator_UserColumnName="単位2" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

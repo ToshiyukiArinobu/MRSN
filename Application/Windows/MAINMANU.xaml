@@ -490,8 +490,8 @@
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-                                                    <!--<Button  Name="ZIK07010" Content="    7. 適正在庫入力" Click="Click_ZIK07010" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
-                                                    <Button  Name="ZIK08010" Content="    8. 適正在庫問合せ" Click="Click_Dmy" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />-->
+                                                    <Button  Name="ZIK07010" Content="    7. 適正在庫入力" Click="Click_ZIK07010" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
+                                                    <Button  Name="ZIK08010" Content="    8. 適正在庫問合せ" Click="Click_ZIK08010" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
