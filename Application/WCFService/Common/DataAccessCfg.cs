@@ -475,7 +475,8 @@ namespace KyoeiSystem.Application.WCFService
 
             // 場所別棚卸在庫入力
             new WCFDataAccessConfig() { Name = "ZIK02010_IsInitialDelProcess", ServiceClass = "ZIK02010", MethodName = "IsInitialDelProcess", Descprition = "棚卸在庫画面起動時の削除処理" },
-            new WCFDataAccessConfig() { Name = "ZIK02010_IsCheckStocktaking", ServiceClass = "ZIK02010", MethodName = "IsCheckStocktaking", Descprition = "棚卸更新済みかを取得する" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_GetStocktakingDate", ServiceClass = "ZIK02010", MethodName = "GetStocktakingDate", Descprition = "前回の棚卸未更新日付を取得する" },
+            new WCFDataAccessConfig() { Name = "ZIK02010_CheckRegistered", ServiceClass = "ZIK02010", MethodName = "IsCheckRegistered", Descprition = "棚卸更新済みかを取得する" },
             new WCFDataAccessConfig() { Name = "ZIK02010_GetStockTaking", ServiceClass = "ZIK02010", MethodName = "GetStockTaking", Descprition = "棚卸在庫データ取得" },
             new WCFDataAccessConfig() { Name = "ZIK02010_CheckAddRowData", ServiceClass = "ZIK02010", MethodName = "CheckAddRowData", Descprition = "棚卸在庫データ取得" },
             new WCFDataAccessConfig() { Name = "ZIK02010_UpdateStocktaking", ServiceClass = "ZIK02010", MethodName = "UpdateStocktaking", Descprition = "棚卸在庫データ更新処理" },

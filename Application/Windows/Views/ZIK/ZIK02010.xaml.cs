@@ -152,7 +152,8 @@ namespace KyoeiSystem.Application.Windows.Views
         #region << 定数定義 >>
 
         private const string INITIAL_DEL_PROCESS = "ZIK02010_IsInitialDelProcess";
-        private const string CHECK_STOCKTAKING = "ZIK02010_IsCheckStocktaking";
+        private const string GET_STOCKTAKING_DATE = "ZIK02010_GetStocktakingDate";
+        private const string CHECK_REGISTERED = "ZIK02010_CheckRegistered";
         private const string GET_STOCKTAKING = "ZIK02010_GetStockTaking";
 
         private const string CHECK_ADDROWDATA = "ZIK02010_CheckAddRowData";
@@ -231,12 +232,6 @@ namespace KyoeiSystem.Application.Windows.Views
                 //NotifyPropertyChanged();
             }
         }
-
-        /// <summary>
-        /// 新規/編集Flg
-        /// 0:新規、1:編集
-        /// </summary>
-        private int modeFlg;
 
         #endregion
 
@@ -359,21 +354,37 @@ namespace KyoeiSystem.Application.Windows.Views
                 var data = message.GetResultData();
                 DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
 
+                // パラメータ辞書の作成を行う
+                Dictionary<string, string> dicCond = setStocktakingParm();
+
                 switch (messageName)
                 {
 
-                    case CHECK_STOCKTAKING:
+                    case CHECK_REGISTERED:
 
                         base.SetFreeForInput();
 
-                        // パラメータ辞書の作成を行う
-                        Dictionary<string, string> dicCond = setStocktakingParm();
+                        // 入力した棚卸日より前にデータが存在する場合
+                        if (data != null)
+                        {
+                            if ((bool)data)
+                            {
+                                this.ErrorMessage = "既に棚卸更新が行われています。商品移動入力にて在庫調整をしてください。";
+                                return;
+                            }
 
 
-                        // 新規/編集フラグ
-                        modeFlg = (int)AddEditFlg.新規;
+                            base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_STOCKTAKING_DATE, new object[] { int.Parse(myCompany.Text1), StocktakingDate.Text, dicCond }));
+                            base.SetBusyForInput();
+                        }
 
-                        //データが存在する場合
+                        break;
+
+                    case GET_STOCKTAKING_DATE:
+
+                        base.SetFreeForInput();
+
+                        // 別日に棚卸データが存在する場合
                         if (data != null)
                         {
                             DateTime dt = Convert.ToDateTime(data);
@@ -385,20 +396,13 @@ namespace KyoeiSystem.Application.Windows.Views
                                 var ret = MessageBox.Show(str, "継続確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
                                 if (ret == MessageBoxResult.Yes)
                                 {
-                                    // 編集
-                                    modeFlg = (int)AddEditFlg.編集;
+                                    // 前回の入力を棚卸日にセット
                                     StocktakingDate.Text = dt.ToShortDateString();
                                 }
                             }
-                            else
-                            {
-                                // 編集
-                                modeFlg = (int)AddEditFlg.編集;
-                                StocktakingDate.Text = dt.ToShortDateString();
-                            }
                         }
 
-                        base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_STOCKTAKING, new object[] { int.Parse(myCompany.Text1), StocktakingDate.Text, dicCond, modeFlg }));
+                        base.SendRequest(new CommunicationObject(MessageType.RequestData, GET_STOCKTAKING, new object[] { int.Parse(myCompany.Text1), StocktakingDate.Text, dicCond }));
                         base.SetBusyForInput();
                         break;
 
@@ -410,9 +414,14 @@ namespace KyoeiSystem.Application.Windows.Views
                         base.SetFreeForInput();
 
                         //データが存在しない場合
-                        if (tbl == null && tbl.Rows.Count == 0)
+                        if (tbl == null || tbl.Rows.Count == 0)
                         {
                             MessageBox.Show("在庫情報がありません。");
+
+                            // 棚卸明細データ クリア
+                            sp棚卸明細データ.ItemsSource = null;
+                            SearchDetail = null;
+
                             break;
                         }
 
@@ -420,8 +429,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         if (DetailDataView.Count > 0)
                         {
-                            // 新規/編集ラベルをセット
-                            this.MaintenanceMode = modeFlg == (int)AddEditFlg.新規 ? AppConst.MAINTENANCEMODE_ADD : AppConst.MAINTENANCEMODE_EDIT;
 
                             // 会社コード制御
                             myCompany.IsEnabled = false;
@@ -1001,7 +1008,7 @@ namespace KyoeiSystem.Application.Windows.Views
             Dictionary<string, string> dicCond = setStocktakingParm();
 
 
-            base.SendRequest(new CommunicationObject(MessageType.RequestData, CHECK_STOCKTAKING, new object[] { int.Parse(myCompany.Text1), StocktakingDate.Text, dicCond }));
+            base.SendRequest(new CommunicationObject(MessageType.RequestData, CHECK_REGISTERED, new object[] { int.Parse(myCompany.Text1), StocktakingDate.Text, dicCond }));
             base.SetBusyForInput();
         }
 
@@ -1195,13 +1202,23 @@ namespace KyoeiSystem.Application.Windows.Views
             SearchDetail = tbl;
             SearchDetail.AcceptChanges();
 
+            int modeFlg = (int)AddEditFlg.新規;
+
             foreach (DataRow row in SearchDetail.Rows)
             {
                 if ((bool)row["新規データFLG"] == true)
                 {
                     row.SetAdded();
                 }
+                else
+                {
+                    // 1件でも棚卸在庫のデータが存在するならば編集
+                    modeFlg = (int)AddEditFlg.編集;
+                }
             }
+
+            // 新規/編集ラベルをセット
+            this.MaintenanceMode = modeFlg == (int)AddEditFlg.新規 ? AppConst.MAINTENANCEMODE_ADD : AppConst.MAINTENANCEMODE_EDIT;
 
             #region フィルタ実施
             // ヘッダーの「会社コード・棚卸日・倉庫」以外でフィルタ項目絞込みを実施
@@ -1465,7 +1482,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
-                     #region 印字パラメータ設定
+                    #region 印字パラメータ設定
                     new FwRepPreview.ReportParameter() { PNAME = "会社コード", VALUE = myCompany.Text1 },
                     new FwRepPreview.ReportParameter() { PNAME = "会社名", VALUE = myCompany.Text2 },
                     new FwRepPreview.ReportParameter() { PNAME = "倉庫コード", VALUE = string.IsNullOrEmpty(Warehouse.Text1) ? "" : Warehouse.Text1 },
@@ -1479,7 +1496,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter() { PNAME = "ブランド名称", VALUE = string.IsNullOrEmpty(Brand.Text2) ? "" : Brand.Text2 },
                     new FwRepPreview.ReportParameter() { PNAME = "シリーズコード", VALUE = string.IsNullOrEmpty(Series.Text1) ? "" : Series.Text1 },
                     new FwRepPreview.ReportParameter() { PNAME = "シリーズ名称", VALUE = string.IsNullOrEmpty(Series.Text2) ? "" : Series.Text2 },
-                    new FwRepPreview.ReportParameter() { PNAME = "記入リスト印刷フラグ", VALUE = writeListChk.IsChecked },
+                    new FwRepPreview.ReportParameter() { PNAME = "記入リスト印刷フラグ", VALUE = (bool)writeListChk.IsChecked },
                     new FwRepPreview.ReportParameter() { PNAME = "帳票タイトル", VALUE = 帳票タイトル },
                     #endregion
                 };

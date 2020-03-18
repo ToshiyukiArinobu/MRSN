@@ -139,7 +139,87 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="pStocktakingDate">棚卸日</param>
         /// <param name="pParamDic">パラメータ辞書</param>
         /// <returns></returns>
-        public DateTime? IsCheckStocktaking(int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic)
+        public bool IsCheckRegistered(int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic)
+        {
+            DateTime dteStocktaking = DateTime.Parse(pStocktakingDate);
+
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                //  在庫テーブルのデータが棚卸更新済みかチェック
+
+                // ---------------------------
+                // 情報取得
+                // ---------------------------
+                // 更新済棚卸在庫情報(品番マスタ,倉庫マスタ)
+
+                var 更新済棚卸在庫List = GetStockTakingList(context, pMyCompany, pStocktakingDate, pParamDic, 1);
+
+                var 在庫List = GetStockList(context, pMyCompany, pStocktakingDate, pParamDic);
+                var stocktakingList = 更新済棚卸在庫List.Union(在庫List, new ParameterComparer());
+
+                #region 入力項目による絞込
+
+                // 自社品番の条件チェック
+                string myProduct = pParamDic["自社品番"];
+                if (string.IsNullOrEmpty(myProduct) == false)
+                {
+                    stocktakingList = stocktakingList.Where(w => w.自社品番 == myProduct);
+                }
+
+                // 品名の条件チェック
+                string productName = pParamDic["自社品名"];
+                if (string.IsNullOrEmpty(productName) == false)
+                {
+                    stocktakingList = stocktakingList.Where(w => w.自社品名 != null && w.自社品名.Contains(productName));
+                }
+
+                // 商品分類の条件チェック
+                int itemType;
+                if (int.TryParse(pParamDic["商品分類"], out itemType) == true)
+                {
+                    if (itemType >= CommonConstants.商品分類.食品.GetHashCode())
+                    {
+                        stocktakingList = stocktakingList.Where(w => w.商品分類 == itemType);
+                    }
+                }
+
+                // ブランドの条件チェック
+                string brand = pParamDic["ブランドコード"];
+                if (string.IsNullOrEmpty(brand) == false)
+                {
+                    stocktakingList = stocktakingList.Where(w => w.ブランド == brand);
+                }
+
+                // シリーズの条件チェック
+                string series = pParamDic["シリーズコード"];
+                if (string.IsNullOrEmpty(series) == false)
+                {
+                    stocktakingList = stocktakingList.Where(w => w.シリーズ == series);
+                }
+
+                #endregion
+
+                // ---------------------------
+                // チェック処理
+                // ---------------------------
+
+                bool retResult = stocktakingList.Count() > 0 && stocktakingList.All(c => c.更新済みFLG == 1);
+
+                return retResult;
+            }
+
+        }
+        #endregion
+
+        #region 棚卸未更新データの前回棚卸日を取得
+        /// <summary>
+        /// 棚卸未更新データの前回棚卸日を取得
+        /// </summary>
+        /// <param name="pMyCompany">会社コード</param>
+        /// <param name="pStocktakingDate">棚卸日</param>
+        /// <param name="pParamDic">パラメータ辞書</param>
+        /// <returns></returns>
+        public DateTime? GetStocktakingDate(int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic)
         {
             //DateTime dteStocktaking = DateTime.Parse(pStocktakingDate);       // No352 del
 
@@ -205,7 +285,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="pParamDic">パラメータ辞書</param>
         /// <param name="option">0：新規、１：編集</param>
         /// <returns></returns>
-        public List<StocktakingDataMember> GetStockTaking(int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic, int option)
+        public List<StocktakingDataMember> GetStockTaking(int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -214,20 +294,24 @@ namespace KyoeiSystem.Application.WCFService
 
                 List<StocktakingDataMember> retList = new List<StocktakingDataMember>();
 
+
+                DateTime dteStocktaking = DateTime.Parse(pStocktakingDate);
+
                 // 在庫データ取得
                 var 在庫List = GetStockList(context, pMyCompany, pStocktakingDate, pParamDic);
 
-                if (option == (int)AddEditFlg.新規)
+                var 棚卸在庫List = GetStockTakingList(context, pMyCompany, pStocktakingDate, pParamDic, 0);
+
+                // 編集中のデータが存在するかチェック
+                if (棚卸在庫List.Count == 0)
                 {
                     // 新規
                     retList = 在庫List.OrderBy(c => c.品番追加FLG).ThenBy(c => c.倉庫コード).ThenBy(c => c.品番コード).ThenBy(c => c.賞味期限).ToList();
                 }
-                else if (option == (int)AddEditFlg.編集)
+                else
                 {
-                    // 編集
-                    var 棚卸在庫List = GetStockTakingList(context, pMyCompany, pStocktakingDate, pParamDic);
-
-                    // 在庫テーブルと棚卸在庫テーブルを結合
+                    // 編集   
+                    // 棚卸在庫テーブルと不足分の在庫を結合
                     retList = 棚卸在庫List.Union(在庫List, new ParameterComparer())
                         .OrderBy(c => c.品番追加FLG).ThenBy(c => c.倉庫コード).ThenBy(c => c.品番コード).ThenBy(c => c.賞味期限).ToList();
                 }
@@ -246,7 +330,8 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="pMyCompany">自社コード</param>
         /// <param name="pStocktakingDate">棚卸日</param>
         /// <param name="pParamDic">パラメータ辞書</param>
-        private List<StocktakingDataMember> GetStockTakingList(TRAC3Entities context, int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic)
+        /// <param name="p更新済みFLG">更新済みFLG（0:未更新、1:更新済み）</param>
+        private List<StocktakingDataMember> GetStockTakingList(TRAC3Entities context, int pMyCompany, string pStocktakingDate, Dictionary<string, string> pParamDic, int p更新済みFLG)
         {
             DateTime dtStocktaking = DateTime.Parse(pStocktakingDate);
 
@@ -258,7 +343,7 @@ namespace KyoeiSystem.Application.WCFService
             List<StocktakingDataMember> retResult = new List<StocktakingDataMember>();
 
             var stocktakingList =
-                 context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.棚卸日 == dtStocktaking && w.更新済みFLG == 0)
+                 context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.棚卸日 == dtStocktaking && w.更新済みFLG == p更新済みFLG)
                     .Join(context.M09_HIN.Where(w => w.削除日時 == null),
                         x => x.品番コード,
                         y => y.品番コード,
@@ -358,7 +443,7 @@ namespace KyoeiSystem.Application.WCFService
                 context.S03_STOK.Where(w => w.削除日時 == null)
                 .Join(context.M22_SOUK.Where(w => w.削除日時 == null && w.場所会社コード == pMyCompany), x => x.倉庫コード, y => y.倉庫コード, (x, y) => new { STOK = x, SOUK = y })
                 .Join(context.M09_HIN.Where(w => w.削除日時 == null), x => x.STOK.品番コード, y => y.品番コード, (x, y) => new { x.STOK, x.SOUK, HIN = y })
-                .GroupJoin(context.S10_STOCKTAKING.Where(w => w.棚卸日 == dteStocktaking && w.削除日時 == null),
+                .GroupJoin(context.S10_STOCKTAKING.Where(w => w.棚卸日 == dteStocktaking && w.更新済みFLG == 1 && w.削除日時 == null),
                         x => new { 倉庫コード = x.STOK.倉庫コード, 品番コード = x.STOK.品番コード, 賞味期限 = x.STOK.賞味期限 },
                         y => new { 倉庫コード = y.倉庫コード, 品番コード = y.品番コード, 賞味期限 = y.賞味期限 },
                         (x, y) => new { x, y })
@@ -531,7 +616,7 @@ namespace KyoeiSystem.Application.WCFService
             List<StocktakingDataMember> retResult = new List<StocktakingDataMember>();
 
             var delList =
-                context.S10_STOCKTAKING.Where(w => w.削除日時 == null  && w.更新済みFLG == 0)
+                context.S10_STOCKTAKING.Where(w => w.削除日時 == null && w.更新済みFLG == 0)
                 .Join(context.M22_SOUK.Where(w => w.削除日時 == null && w.場所会社コード == pMyCompany),
                         x => x.倉庫コード,
                         y => y.倉庫コード,
