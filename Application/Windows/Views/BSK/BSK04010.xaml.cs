@@ -107,6 +107,17 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region << 列挙型定義 >>
+        /// <summary>
+        /// 自社販社区分 内包データ
+        /// </summary>
+        private enum 自社販社区分 : int
+        {
+            自社 = 0,
+            販社 = 1
+        }
+        #endregion
+
         #region << 画面初期処理 >>
 
         /// <summary>
@@ -405,6 +416,7 @@ namespace KyoeiSystem.Application.Windows.Views
             
             // 対象自社の初期設定
             this.txt自社.Text1 = ccfg.自社コード.ToString();
+            this.txt自社.IsEnabled = ccfg.自社販社区分 == 自社販社区分.自社.GetHashCode();  // No.353 Mod
 
             // 担当者の初期設定
             //this.txt担当者.Text1 = ccfg.ユーザID.ToString();

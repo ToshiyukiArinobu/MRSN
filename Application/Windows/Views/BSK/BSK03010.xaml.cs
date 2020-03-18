@@ -100,6 +100,16 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region << 列挙型定義 >>
+        /// <summary>
+        /// 自社販社区分 内包データ
+        /// </summary>
+        private enum 自社販社区分 : int
+        {
+            自社 = 0,
+            販社 = 1
+        }
+        #endregion
 
         #region << 画面初期処理 >>
 
@@ -350,8 +360,11 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.MaintenanceMode = null;
 
-            // 自社の入力値クリア
-            this.MyCompany.Text1 = string.Empty;
+            // No.353 Mod Start
+            // 自社コード
+            this.MyCompany.Text1 = ccfg.自社コード.ToString();
+            this.MyCompany.IsEnabled = ccfg.自社販社区分 == 自社販社区分.自社.GetHashCode();
+            // No.353 Mod End
 
             // 処理年度の初期値設定
             int fiscalYear = getFiscalYear(DateTime.Now.Year, DateTime.Now.Month, DEFAULT_SETTLEMENT_MONTH);
