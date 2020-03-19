@@ -236,6 +236,7 @@ namespace KyoeiSystem.Application.WCFService
                 var tokList =
                     context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分));
 
+                #region 条件絞り込み
                 // 自社が指定されていれば条件追加
                 if (company != null)
                 {
@@ -258,6 +259,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     tokList = tokList.Where(w => w.取引先コード == customerCd);
                 }
+                #endregion
 
                 // 集計用得意先情報を作成(速度改善のため)
                 List<TOK_INFO> tokInfoList = getTokInfo(context, tokList);
@@ -401,6 +403,7 @@ namespace KyoeiSystem.Application.WCFService
                 var tokList =
                     context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分));
 
+                #region 条件絞り込み
                 // 自社が指定されていれば条件追加
                 if (company != null)
                 {
@@ -423,6 +426,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     tokList = tokList.Where(w => w.取引先コード == customerCd);
                 }
+                #endregion
 
                 // 集計用得意先情報を作成(速度改善のため)
                 List<TOK_INFO> tokInfoList = getTokInfo(context, tokList);
@@ -1256,7 +1260,7 @@ namespace KyoeiSystem.Application.WCFService
             StringBuilder sbCreateYm = new StringBuilder();
             sbStartYm.Append(paramDic["作成開始年月"]).Append("/01");
             sbEndYm.Append(paramDic["作成終了年月"]).Append("/01");
-            sbCreateYm.Append(paramDic["処理年度"]).Append("/").Append(paramDic["作成月"]).Append("/01");
+            sbCreateYm.Append(paramDic["作成月"]).Append("/01");   // No.361 Mod
 
             startYm = DateTime.TryParse(sbStartYm.ToString(), out dWk) ? dWk : (DateTime?)null;
             endYm = DateTime.TryParse(sbEndYm.ToString(), out dWk) ? dWk : (DateTime?)null;
