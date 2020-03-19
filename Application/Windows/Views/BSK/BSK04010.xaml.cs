@@ -105,6 +105,11 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>検索時パラメータ保持用</summary>
         Dictionary<string, string> paramDic = new Dictionary<string, string>();
 
+        /// <summary>
+        /// 決算月
+        /// </summary>
+        int closingMonth;
+
         #endregion
 
         #region << 列挙型定義 >>
@@ -532,6 +537,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private void setSearchParams()
         {
+            int ival = 0;
             paramDic.Clear();
 
             paramDic.Add(PARAMS_NAME_FISCAL_YEAR, txt処理年度.Text);
@@ -541,7 +547,21 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add(PARAMS_NAME_CUSTOMER_EDA, txt得意先.Text2 == null ? null : txt得意先.Text2);
             paramDic.Add(PARAMS_NAME_START_YM, txt作成期間.Text1 == null ? null : txt作成期間.Text1);
             paramDic.Add(PARAMS_NAME_END_YM, txt作成期間.Text2 == null ? null : txt作成期間.Text2);
-            paramDic.Add(PARAMS_NAME_CREATE_YM, txt作成月.Text == null ? null : txt作成月.Text);
+
+            // No.361 Mod Start
+            if (txt作成月.Text != null)
+            {
+                int n作成月 = Int32.TryParse(txt作成月.Text, out ival) ? ival : -1;
+                int n処理年度 = int.Parse(this.txt処理年度.Text);
+                if (n作成月 <= closingMonth)
+                {
+                    n処理年度 = n処理年度 + 1;
+                }
+
+                paramDic.Add(PARAMS_NAME_CREATE_YM, string.Format("{0}/{1}",n処理年度, txt作成月.Text));
+            }
+            // No.361 Mod End
+            
             paramDic.Add(PARAMS_NAME_URIAGESAKI, rdo売上先.Text);
             paramDic.Add(PARAMS_NAME_CREATE_TYPE, cmb作成区分.SelectedIndex.ToString());
 
@@ -578,7 +598,8 @@ namespace KyoeiSystem.Application.Windows.Views
             List<M70_JISMember>jisList = (List<M70_JISMember>)AppCommon.ConvertFromDataTable(typeof(List<M70_JISMember>), dt);
 
             int val = 1;
-            int n決算月 = Int32.TryParse(jisList[0].決算月.ToString(), out val) ? val : DEFAULT_SETTLEMENT_MONTH;
+            // 決算月を設定
+            closingMonth = Int32.TryParse(jisList[0].決算月.ToString(), out val) ? val : DEFAULT_SETTLEMENT_MONTH;     // No.361 Mod
 
             int n処理年度 = int.Parse(this.txt処理年度.Text);
 
@@ -588,7 +609,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // 決算月から作成期間を算出する
             int nYear = n処理年度 + 1 ;
-            DateTime dEndMonth = new DateTime(nYear, n決算月, 1);
+            DateTime dEndMonth = new DateTime(nYear, closingMonth, 1);  // No.361 Mod
             DateTime dStartMonth = dEndMonth.AddMonths(-11);
             this.txt作成期間.Text1 = dStartMonth.ToString("yyyy/MM");
             this.txt作成期間.Text2 = dEndMonth.ToString("yyyy/MM");
@@ -608,7 +629,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             int n処理年度 = year;
             // 決算月以前の場合は前年を年度として指定
-            if (month < settlementMonth)
+            if (month <= settlementMonth)       // No.360 Mod
                 n処理年度 -= 1;
 
             return n処理年度;
@@ -667,7 +688,17 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             DateTime dtVal;
             StringBuilder sbCreateYm = new StringBuilder();
-            sbCreateYm.Append(txt処理年度.Text).Append("/").Append(txt作成月.Text).Append("/01");
+
+            // No.361 Mod Start
+            int ival;
+            int n作成月 = Int32.TryParse(txt作成月.Text, out ival) ? ival : -1;
+            int n処理年度 = int.Parse(this.txt処理年度.Text);
+            if (n作成月 <= closingMonth)
+            {
+                n処理年度 = n処理年度 + 1;
+            }
+            sbCreateYm.Append(n処理年度.ToString()).Append("/").Append(txt作成月.Text).Append("/01");
+            // No.361 Mod End
 
             DateTime? stDate = DateTime.TryParse(sbCreateYm.ToString(), out dtVal) ? dtVal : (DateTime?)null;
             DateTime? edDate = stDate != null ? stDate.Value.AddMonths(1).AddDays(-1) : (DateTime?)null;
