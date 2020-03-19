@@ -70,6 +70,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 出金額 { get; set; }
             public int 前月繰越 { get; set; }
             public int 残高 { get; set; }
+            // 1:仕入入力、2:揚り入力
             public int 作成機能ID { get; set; }
         }
 
@@ -493,6 +494,8 @@ namespace KyoeiSystem.Application.WCFService
         {
             DataTable dt = new DataTable();
 
+            List<PrintMember> KaikakeList = new List<PrintMember>();     // No.386 Add
+
             // 自社マスタ
             var targetJis =
                 context.M70_JIS
@@ -504,7 +507,7 @@ namespace KyoeiSystem.Application.WCFService
                 context.M99_COMBOLIST
                     .Where(w => w.分類 == "随時" && w.機能 == "出金問合せ" && w.カテゴリ == "金種");
 
-            var KaikakeList = context.S09_KAIKAKE
+            var KaikakeQuery = context.S09_KAIKAKE
                     .Where(w => w.自社コード == company &&
                          w.日付 >= targetStDate && w.日付 <= targetEdDate &&
                         w.得意先コード == (customerCode == null ? w.得意先コード : customerCode) &&
@@ -546,13 +549,25 @@ namespace KyoeiSystem.Application.WCFService
                         出金金額 = x.KAIKAKE.出金額,
                         前月繰越 = x.KAIKAKE.前月繰越,
                         残高 = x.KAIKAKE.残高,
-                    })
-                    .ToList();
+                    });
 
             // 日付をCSV出力用に整形
-            foreach (var row in KaikakeList)
+            foreach (var row in KaikakeQuery)
             {
+
                 row.s日付 = row.日付.ToString("yyyy/MM/dd");
+
+                // No.386 Add Start
+
+                if (KaikakeQuery.Where(c => c.得意先コード == row.得意先コード && c.得意先枝番 == row.得意先枝番).Count() <= 1)
+                {
+                    if (row.伝票番号 == 0 && row.出金金額 == 0 && row.前月繰越 == 0 && row.残高 == 0)
+                        continue;
+                }
+
+                KaikakeList.Add(row);
+
+                // No.386 Add End
             }
 
             var resultList = KaikakeList.OrderBy(c => c.自社コード).ThenBy(c => c.得意先コード).ThenBy(c => c.得意先枝番).ThenBy(c => c.日付)
