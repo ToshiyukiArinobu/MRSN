@@ -292,7 +292,7 @@
                         </sg:GcSpreadGrid>
 
                         <!-- 小計部(構成品詳細) -->
-                        <Grid Grid.Row="2" Margin="596,0,0,0">
+                        <Grid Grid.Row="2" Margin="604,0,0,0">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Border}" >
                                     <Setter Property="BorderBrush" Value="Black" />
@@ -302,7 +302,7 @@
                                 <RowDefinition Height="25" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="84" />
+                                <ColumnDefinition Width="76" />
                                 <ColumnDefinition Width="84" />
                             </Grid.ColumnDefinitions>
                             <ctls:UcLabel Content="小　計" Grid.Row="0" Grid.Column="0" TextBlock.TextAlignment="Center" Padding="0,0,0,0"  VerticalContentAlignment="Center"
@@ -415,7 +415,7 @@
                         </sg:GcSpreadGrid>
 
                         <!-- 小計部(資材詳細) -->
-                        <Grid Grid.Row="5" Margin="551,0,0,0">
+                        <Grid Grid.Row="5" Margin="559,0,0,0">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Border}" >
                                     <Setter Property="BorderBrush" Value="Black" />
@@ -425,7 +425,7 @@
                                 <RowDefinition Height="25" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="84" />
+                                <ColumnDefinition Width="76" />
                                 <ColumnDefinition Width="84" />
                             </Grid.ColumnDefinitions>
                             <ctls:UcLabel Content="小　計" Grid.Row="0" Grid.Column="0" TextBlock.TextAlignment="Center" VerticalContentAlignment="Center" 
@@ -505,7 +505,7 @@
                         </sg:GcSpreadGrid>
 
                         <!-- 小計部(その他詳細) -->
-                        <Grid Grid.Row="8" Margin="551,0,0,0">
+                        <Grid Grid.Row="8" Margin="559,0,0,0">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Border}" >
                                     <Setter Property="BorderBrush" Value="Black" />
@@ -515,7 +515,7 @@
                                 <RowDefinition Height="25" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="84" />
+                                <ColumnDefinition Width="76" />
                                 <ColumnDefinition Width="84" />
                             </Grid.ColumnDefinitions>
                             <ctls:UcLabel Content="小　計" Grid.Row="0" Grid.Column="0" TextBlock.TextAlignment="Center" VerticalContentAlignment="Center"
@@ -530,7 +530,7 @@
 
 
                         <!-- フッター部(合計表示領域) -->
-                        <Grid x:Name="FooterArea" Grid.Row="9" Margin="80,0,0,0">
+                        <Grid x:Name="FooterArea" Grid.Row="9" Margin="52,0,0,0">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Border}" >
                                     <Setter Property="BorderBrush" Value="Black" />
@@ -545,8 +545,9 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="300" />
                                 <ColumnDefinition Width="84" />
-                                <ColumnDefinition Width="84" />
-                                <ColumnDefinition Width="84" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="52" />
+                                <ColumnDefinition Width="76" />
                                 <ColumnDefinition Width="84" />
                                 <ColumnDefinition Width="84" />
                                 <ColumnDefinition Width="auto" />
@@ -558,46 +559,57 @@
                             <ctls:UcLabel Content="得意先販売価格" Grid.Row="2" Grid.Column="0" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                         Background="{StaticResource DataGridSummaryBackground}" />
 
-                            <ctls:UcLabel Content="" Grid.Row="1" Grid.Column="3" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                            <ctls:UcLabel Content="" Grid.Row="1" Grid.Column="4" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                         Background="{StaticResource DataGridSummaryBackground}" />
 
-                            <ctls:UcLabel Content="原価合計" Grid.Row="2" Grid.Column="3" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                            <ctls:UcLabel Content="原価合計" Grid.Row="2" Grid.Column="4" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                         Background="{StaticResource DataGridSummaryBackground}" />
 
-                            <ctls:UcLabel Content="合計" Grid.Row="1" Grid.Column="4" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                            <ctls:UcLabel Content="合計" Grid.Row="1" Grid.Column="5" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                         Background="{StaticResource DataGridSummaryBackground}" />
 
-                            <ctls:UcLabel Content="食品割増" Grid.Row="1" Grid.Column="5" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
+                            <ctls:UcLabel Content="食品割増" Grid.Row="1" Grid.Column="6" TextBlock.TextAlignment="Center" Padding="0,6,0,0"
                         Background="{StaticResource DataGridSummaryBackground}" />
 
 
                             <ctls:UcTextBox x:Name="txb販社販売価格" Grid.Row="1" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White" cVerticalContentAlignment="Center"
                                     Text="{Binding 販社販売価格,Mode=TwoWay, StringFormat= '#,##0', NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" cBorderThickness="0"
-                                    cTextAlignment="Right" ValidationType="SignedDecimal" MinValue="-999999999" MaxValue="999999999" />
+                                    cTextAlignment="Right" ValidationType="SignedDecimal" MinValue="-999999999" MaxValue="999999999" LostFocus="txb販社販売価格_LostFocus" />
 
                             <ctls:UcTextBox x:Name="txb得意先販売価格" Grid.Row="2" Grid.Column="1" Width="82" Height="28" IsKeyItem="False" Background="White" cVerticalContentAlignment="Center"
                                     Text="{Binding 得意先販売価格,Mode=TwoWay, StringFormat= '#,##0', NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True,UpdateSourceTrigger=PropertyChanged}" cBorderThickness="0"
-                                    cTextAlignment="Right" ValidationType="SignedDecimal" MinValue="-999999999" MaxValue="999999999" PreviewKeyDown="txb得意先販売価格_PreviewKeyDown" />
+                                    cTextAlignment="Right" ValidationType="SignedDecimal" MinValue="-999999999" MaxValue="999999999" PreviewKeyDown="txb得意先販売価格_PreviewKeyDown"
+                                    LostFocus="txb得意先販売価格_LostFocus" />
 
+                            <Label Grid.Row="0" Grid.Column="2" Content="粗利" HorizontalAlignment="Center" Padding="0,0,5,0" />
+                            
+                            <Grid Grid.Row="1" Grid.Column="2" Background="White">
+                                <Label x:Name="lbl販社粗利"  HorizontalAlignment="Right" Padding="0,6,5,0" />
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.Column="2" Background="White">
+                            <Label x:Name="lbl得意先粗利" HorizontalAlignment="Right" Padding="0,6,5,0" />
+                            </Grid>
 
-                            <Label x:Name="lbl合計" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Right" Padding="0,6,5,0" />
-                            <Label x:Name="lbl食品割増" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Padding="0,6,5,0" />
+                            <Label x:Name="lbl合計" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Right" Padding="0,6,5,0" />
+                            <Label x:Name="lbl食品割増" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Right" Padding="0,6,5,0" />
 
 
                             <!-- 枠線描画 -->
                             <Border Grid.Column="0" Grid.Row="1" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
                             <Border Grid.Column="1" Grid.Row="1" BorderThickness="0,1,1,0" Panel.ZIndex="9" />
-                            <Border Grid.Column="2" Grid.Row="1" BorderThickness="0,0,0,0" Panel.ZIndex="9" />
-                            <Border Grid.Column="3" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                            <Border Grid.Column="2" Grid.Row="1" BorderThickness="0,1,1,0" Panel.ZIndex="9" />
+                            <Border Grid.Column="3" Grid.Row="1" BorderThickness="0,0,0,0" Panel.ZIndex="9" />
                             <Border Grid.Column="4" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
-                            <Border Grid.Column="5" Grid.Row="1" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+                            <Border Grid.Column="5" Grid.Row="1" BorderThickness="1,1,0,0" Panel.ZIndex="9" />
+                            <Border Grid.Column="6" Grid.Row="1" BorderThickness="1,1,1,0" Panel.ZIndex="9" />
+                            
                             <Border Grid.Column="0" Grid.Row="2" BorderThickness="1,1,1,1" Panel.ZIndex="9" />
-
                             <Border Grid.Column="1" Grid.Row="2" BorderThickness="0,1,1,1" Panel.ZIndex="9" />
-                            <Border Grid.Column="2" Grid.Row="2" BorderThickness="0,0,0,0" Panel.ZIndex="9" />
-                            <Border Grid.Column="3" Grid.Row="2" BorderThickness="1,1,0,1" Panel.ZIndex="9" />
+                            <Border Grid.Column="2" Grid.Row="2" BorderThickness="0,1,1,1" Panel.ZIndex="9" />
+                            <Border Grid.Column="3" Grid.Row="2" BorderThickness="0,0,0,0" Panel.ZIndex="9" />
                             <Border Grid.Column="4" Grid.Row="2" BorderThickness="1,1,0,1" Panel.ZIndex="9" />
-                            <Border Grid.Column="5" Grid.Row="2" BorderThickness="1,1,1,1" Panel.ZIndex="9" />
+                            <Border Grid.Column="5" Grid.Row="2" BorderThickness="1,1,0,1" Panel.ZIndex="9" />
+                            <Border Grid.Column="6" Grid.Row="2" BorderThickness="1,1,1,1" Panel.ZIndex="9" />
 
                         </Grid>
                     </Grid>

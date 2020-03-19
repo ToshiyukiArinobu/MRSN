@@ -242,9 +242,17 @@ namespace Hakobou.Files.BSK {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_粗利 {
+        public CrystalDecisions.Shared.IParameterField Parameter_販社粗利 {
             get {
                 return this.DataDefinition.ParameterFields[11];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_得意先粗利 {
+            get {
+                return this.DataDefinition.ParameterFields[12];
             }
         }
     }

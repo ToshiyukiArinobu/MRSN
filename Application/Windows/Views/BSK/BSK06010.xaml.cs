@@ -191,15 +191,15 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region フッターバインディングデータ
 
-        private decimal _販社販売価格;
-        public decimal 販社販売価格
+        private decimal? _販社販売価格;
+        public decimal? 販社販売価格
         {
             get { return _販社販売価格; }
             set { _販社販売価格 = value; NotifyPropertyChanged(); }
         }
 
-        private decimal _得意先販売価格;
-        public decimal 得意先販売価格
+        private decimal? _得意先販売価格;
+        public decimal? 得意先販売価格
         {
             get { return _得意先販売価格; }
             set { _得意先販売価格 = value; NotifyPropertyChanged(); }
@@ -1153,16 +1153,6 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetBusyForInput();
 
-                // 粗利計算
-                decimal p粗利 = 0;
-
-                // 0で除算しないかチェック
-                if (販社販売価格 != 0)
-                {
-                    // 粗利は小数点第2位を四捨五入
-                    p粗利 = Math.Round((decimal)((得意先販売価格 - 販社販売価格) / 販社販売価格 * 100), 1, MidpointRounding.AwayFromZero);
-                }
-
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
                     #region 印字パラメータ設定
@@ -1178,7 +1168,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = "ヘッダ自社品名", VALUE = SetHinban.Text2},
                     new FwRepPreview.ReportParameter(){ PNAME = "ヘッダ自社色名", VALUE = 自社色情報},
                     new FwRepPreview.ReportParameter(){ PNAME = "食品割増率", VALUE = 食品割増率},
-                    new FwRepPreview.ReportParameter(){ PNAME = "粗利", VALUE = 販社販売価格 == 0 ? string.Empty : p粗利.ToString()},
+                    new FwRepPreview.ReportParameter(){ PNAME = "販社粗利", VALUE = lbl販社粗利.Content.ToString()},         // No.394 Mod
+                    new FwRepPreview.ReportParameter(){ PNAME = "得意先粗利", VALUE = lbl得意先粗利.Content.ToString()},     // No.394 Add
 
                     #endregion
                 };
@@ -1939,6 +1930,28 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        /// <summary>
+        /// 販社販売価格のフォーカスが外れた時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txb販社販売価格_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // 金額再計算
+            summaryCalculation();      // No.394 Add
+        }
+
+        /// <summary>
+        /// 得意先販売価格でキーのフォーカスが外れた時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txb得意先販売価格_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // 金額再計算
+            summaryCalculation();      // No.394 Add
+        }
+
         #endregion
 
         #region << 小計・合計関連処理 >>
@@ -1984,6 +1997,28 @@ namespace KyoeiSystem.Application.Windows.Views
             lbl合計.Content = string.Format(TOTAL_FORMAT_STRING, d原価合計);
             lbl食品割増.Content = string.Format(TOTAL_FORMAT_STRING, d原価合計 + d食品割増);
 
+            // No.394 Add Start
+            // 粗利計算
+            // 0で除算しないかチェック
+            if (販社販売価格 != null && 販社販売価格 != 0)
+            {
+                // 粗利は小数点第2位を四捨五入
+                lbl販社粗利.Content = Math.Round((decimal)((販社販売価格 - (d原価合計 + d食品割増)) / 販社販売価格 * 100), 1, MidpointRounding.AwayFromZero) + "％";
+            }
+            else
+            {
+                lbl販社粗利.Content = string.Empty;
+            }
+
+            if (得意先販売価格 != null && 得意先販売価格 != 0)
+            {
+                lbl得意先粗利.Content = Math.Round((decimal)((得意先販売価格 - (販社販売価格 ?? 0)) / 得意先販売価格 * 100), 1, MidpointRounding.AwayFromZero) + "％";
+            }
+            else
+            {
+                lbl得意先粗利.Content = string.Empty;
+            }
+            // No.394 Add End
         }
 
         #endregion
