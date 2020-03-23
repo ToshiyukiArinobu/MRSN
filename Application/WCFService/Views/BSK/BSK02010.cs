@@ -62,7 +62,7 @@ namespace KyoeiSystem.Application.WCFService
         public class BSK02010_DATASET
         {
             public List<BSK02010_PrintMember> PRINT_DATA = null;
-            public List<M70_JIS> M70 = null;
+            //public List<M70_JIS> M70 = null;
         }
 
         #region 集計データ取得
@@ -76,41 +76,52 @@ namespace KyoeiSystem.Application.WCFService
             BSK02010_DATASET result = new BSK02010_DATASET();
 
             // パラメータ展開
-            int company = int.Parse(paramDic["自社コード"]),
-                year = int.Parse(paramDic["処理年度"].Replace("/", ""));
+            int? company, fromCode, fromEda, toCode, toEda;
+            DateTime? startYm, endYm;
+
+            getFormParams(paramDic, out company, out fromCode, out fromEda, out toCode, out toEda, out startYm, out endYm);     // No.398.Add
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
                 context.Connection.Open();
 
-                // 自社情報を取得
-                result.M70 =
-                    context.M70_JIS
-                        .Where(w => w.自社コード == company).ToList();
-
-                var jis = result.M70.FirstOrDefault();
-
-                // 対象として取引区分：得意先、相殺を対象とする
-                List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺 };
-                if (jis.自社区分 == (int)CommonConstants.自社区分.自社)
-                    kbnList.Add((int)CommonConstants.取引区分.販社);
+                // 対象として取引区分：得意先、相殺、販社を対象とする(全販社対象とするNo.398)
+                List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };
 
                 var tok =
-                    context.M01_TOK
-                        .Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分))
-                        .OrderBy(o => o.取引先コード)
-                        .ThenBy(t => t.枝番);
+                    context.M01_TOK.Where(w => w.削除日時 == null &&
+                                            kbnList.Contains(w.取引区分)); 
+                
+                // No.398 Add Start
+                #region 条件絞り込み
+                // 自社が指定されていれば条件追加
+                if (company != null)
+                {
+                    var jis = context.M70_JIS.Where(w => w.自社コード == company).FirstOrDefault();
+                    tok = tok.Where(w => w.担当会社コード == jis.自社コード);
+                }
+
+                // 得意先が指定されている場合
+                if (fromCode != null)
+                {
+                    tok = tok.Where(w => w.取引先コード >= fromCode && w.枝番 >= fromEda);
+                }
+                if (toCode != null)
+                {
+                    tok = tok.Where(w => w.取引先コード <= toCode && w.枝番 <= toEda);
+                }
+
+                tok = tok.OrderBy(o => o.担当会社コード).ThenBy(t => t.取引先コード).ThenBy(t => t.枝番);
+
+                #endregion
+                // No.398 Add End
 
                 // 得意先毎に集計を実施
                 List<BSK02010_PrintMember> resultList = new List<BSK02010_PrintMember>();
                 foreach (M01_TOK tokRow in tok)
                 {
-                    // 決算月・請求締日から売上集計期間を算出する
-                    int pMonth = jis.決算月 ?? CommonConstants.DEFAULT_SETTLEMENT_MONTH,
-                        pYear = year + 1;
-
-                    DateTime lastMonth = new DateTime(pYear, pMonth, 1);
-                    DateTime targetMonth = lastMonth.AddMonths(-11);
+                    DateTime targetMonth = (DateTime)startYm;   // No.398 Mod
+                    DateTime lastMonth = (DateTime)endYm;       // No.398 Mod
 
                     #region 年月単位で集計データを取得
                     // 年月毎のデータDic
@@ -124,7 +135,7 @@ namespace KyoeiSystem.Application.WCFService
                         var dtlList =
                             context.S01_SEIDTL
                                 .Where(w =>
-                                    w.自社コード == company &&
+                                    w.自社コード == tokRow.担当会社コード &&        // No.398 Mod
                                     w.請求年月 == yearMonth &&
                                     w.請求先コード == tokRow.取引先コード &&
                                     w.請求先枝番 == tokRow.枝番)
@@ -274,7 +285,7 @@ namespace KyoeiSystem.Application.WCFService
                                 Math.Round(
                                     Decimal.Divide(s.Sum(m => m.集計合計額), total) * 100, 2)
                         })
-                        .OrderBy(o => o.得意先コード)
+                        .OrderBy(o => o.自社コード).ThenBy(t => t.得意先コード)        // No.398 Mod
                         .ToList();
 
                 #endregion
@@ -286,6 +297,34 @@ namespace KyoeiSystem.Application.WCFService
             }
 
         }
+
+        #region 検索パラメータ展開
+        /// <summary>
+        /// 検索パラメータ展開
+        /// </summary>
+        /// <param name="paramDic"></param>
+        /// <param name="company"></param>
+        /// <param name="fromCode"></param>
+        /// <param name="fromEda"></param>
+        /// <param name="toCode"></param>
+        /// <param name="toEda"></param>
+        /// <param name="startYm"></param>
+        /// <param name="endYm"></param>
+        private void getFormParams(Dictionary<string, string> paramDic, out int? company, out int? fromCode, out int? fromEda, 
+                                    out int? toCode, out int? toEda, out DateTime? startYm, out DateTime? endYm)
+        {
+            int ival;
+            DateTime dWk;
+
+            company = Int32.TryParse(paramDic["自社コード"], out ival) ? ival : (int?)null;
+            fromCode = Int32.TryParse(paramDic["得意先コードFROM"], out ival) ? ival : (int?)null;
+            fromEda = Int32.TryParse(paramDic["得意先枝番FROM"], out ival) ? ival : (int?)null;
+            toCode = Int32.TryParse(paramDic["得意先コードTO"], out ival) ? ival : (int?)null;
+            toEda = Int32.TryParse(paramDic["得意枝番先TO"], out ival) ? ival : (int?)null;
+            startYm = DateTime.TryParse(paramDic["処理開始"], out dWk) ? dWk : (DateTime?)null;
+            endYm = DateTime.TryParse(paramDic["処理終了"], out dWk) ? dWk : (DateTime?)null;
+        }
+        #endregion
         #endregion
 
     }

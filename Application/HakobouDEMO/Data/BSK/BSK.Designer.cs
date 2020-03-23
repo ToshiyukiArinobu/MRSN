@@ -1009,6 +1009,10 @@ namespace Hakobou.Data.BSK {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class 得意先別売上統計表DataTable : global::System.Data.TypedTableBase<得意先別売上統計表Row> {
             
+            private global::System.Data.DataColumn column自社コード;
+            
+            private global::System.Data.DataColumn column自社名;
+            
             private global::System.Data.DataColumn column得意先コード;
             
             private global::System.Data.DataColumn column得意先名;
@@ -1072,6 +1076,22 @@ namespace Hakobou.Data.BSK {
             protected 得意先別売上統計表DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社コードColumn {
+                get {
+                    return this.column自社コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社名Column {
+                get {
+                    return this.column自社名;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1240,6 +1260,8 @@ namespace Hakobou.Data.BSK {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public 得意先別売上統計表Row Add得意先別売上統計表Row(
+                        string 自社コード, 
+                        string 自社名, 
                         string 得意先コード, 
                         string 得意先名, 
                         long 集計売上額０１, 
@@ -1258,6 +1280,8 @@ namespace Hakobou.Data.BSK {
                         decimal 構成比率) {
                 得意先別売上統計表Row row得意先別売上統計表Row = ((得意先別売上統計表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        自社コード,
+                        自社名,
                         得意先コード,
                         得意先名,
                         集計売上額０１,
@@ -1296,6 +1320,8 @@ namespace Hakobou.Data.BSK {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.column自社コード = base.Columns["自社コード"];
+                this.column自社名 = base.Columns["自社名"];
                 this.column得意先コード = base.Columns["得意先コード"];
                 this.column得意先名 = base.Columns["得意先名"];
                 this.column集計売上額０１ = base.Columns["集計売上額０１"];
@@ -1317,6 +1343,10 @@ namespace Hakobou.Data.BSK {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.column自社コード = new global::System.Data.DataColumn("自社コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社コード);
+                this.column自社名 = new global::System.Data.DataColumn("自社名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社名);
                 this.column得意先コード = new global::System.Data.DataColumn("得意先コード", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column得意先コード);
                 this.column得意先名 = new global::System.Data.DataColumn("得意先名", typeof(string), null, global::System.Data.MappingType.Element);
@@ -4661,6 +4691,38 @@ namespace Hakobou.Data.BSK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社コード {
+                get {
+                    try {
+                        return ((string)(this[this.table得意先別売上統計表.自社コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'自社コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.自社コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社名 {
+                get {
+                    try {
+                        return ((string)(this[this.table得意先別売上統計表.自社名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'自社名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.自社名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 得意先コード {
                 get {
                     try {
@@ -4913,6 +4975,30 @@ namespace Hakobou.Data.BSK {
                 set {
                     this[this.table得意先別売上統計表.構成比率Column] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社コードNull() {
+                return this.IsNull(this.table得意先別売上統計表.自社コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社コードNull() {
+                this[this.table得意先別売上統計表.自社コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社名Null() {
+                return this.IsNull(this.table得意先別売上統計表.自社名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社名Null() {
+                this[this.table得意先別売上統計表.自社名Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
