@@ -1045,6 +1045,34 @@ namespace Hakobou.Data.BSK {
             
             private global::System.Data.DataColumn column構成比率;
             
+            private global::System.Data.DataColumn column前年集計売上額０１;
+            
+            private global::System.Data.DataColumn column前年集計売上額０２;
+            
+            private global::System.Data.DataColumn column前年集計売上額０３;
+            
+            private global::System.Data.DataColumn column前年集計売上額０４;
+            
+            private global::System.Data.DataColumn column前年集計売上額０５;
+            
+            private global::System.Data.DataColumn column前年集計売上額０６;
+            
+            private global::System.Data.DataColumn column前年集計売上額０７;
+            
+            private global::System.Data.DataColumn column前年集計売上額０８;
+            
+            private global::System.Data.DataColumn column前年集計売上額０９;
+            
+            private global::System.Data.DataColumn column前年集計売上額１０;
+            
+            private global::System.Data.DataColumn column前年集計売上額１１;
+            
+            private global::System.Data.DataColumn column前年集計売上額１２;
+            
+            private global::System.Data.DataColumn column前年集計合計額;
+            
+            private global::System.Data.DataColumn column前年構成比率;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public 得意先別売上統計表DataTable() {
@@ -1224,6 +1252,118 @@ namespace Hakobou.Data.BSK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０１Column {
+                get {
+                    return this.column前年集計売上額０１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０２Column {
+                get {
+                    return this.column前年集計売上額０２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０３Column {
+                get {
+                    return this.column前年集計売上額０３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０４Column {
+                get {
+                    return this.column前年集計売上額０４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０５Column {
+                get {
+                    return this.column前年集計売上額０５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０６Column {
+                get {
+                    return this.column前年集計売上額０６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０７Column {
+                get {
+                    return this.column前年集計売上額０７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０８Column {
+                get {
+                    return this.column前年集計売上額０８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額０９Column {
+                get {
+                    return this.column前年集計売上額０９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額１０Column {
+                get {
+                    return this.column前年集計売上額１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額１１Column {
+                get {
+                    return this.column前年集計売上額１１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計売上額１２Column {
+                get {
+                    return this.column前年集計売上額１２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年集計合計額Column {
+                get {
+                    return this.column前年集計合計額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前年構成比率Column {
+                get {
+                    return this.column前年構成比率;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1277,7 +1417,21 @@ namespace Hakobou.Data.BSK {
                         long 集計売上額１１, 
                         long 集計売上額１２, 
                         long 集計合計額, 
-                        decimal 構成比率) {
+                        decimal 構成比率, 
+                        long 前年集計売上額０１, 
+                        long 前年集計売上額０２, 
+                        long 前年集計売上額０３, 
+                        long 前年集計売上額０４, 
+                        long 前年集計売上額０５, 
+                        long 前年集計売上額０６, 
+                        long 前年集計売上額０７, 
+                        long 前年集計売上額０８, 
+                        long 前年集計売上額０９, 
+                        long 前年集計売上額１０, 
+                        long 前年集計売上額１１, 
+                        long 前年集計売上額１２, 
+                        long 前年集計合計額, 
+                        decimal 前年構成比率) {
                 得意先別売上統計表Row row得意先別売上統計表Row = ((得意先別売上統計表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         自社コード,
@@ -1297,7 +1451,21 @@ namespace Hakobou.Data.BSK {
                         集計売上額１１,
                         集計売上額１２,
                         集計合計額,
-                        構成比率};
+                        構成比率,
+                        前年集計売上額０１,
+                        前年集計売上額０２,
+                        前年集計売上額０３,
+                        前年集計売上額０４,
+                        前年集計売上額０５,
+                        前年集計売上額０６,
+                        前年集計売上額０７,
+                        前年集計売上額０８,
+                        前年集計売上額０９,
+                        前年集計売上額１０,
+                        前年集計売上額１１,
+                        前年集計売上額１２,
+                        前年集計合計額,
+                        前年構成比率};
                 row得意先別売上統計表Row.ItemArray = columnValuesArray;
                 this.Rows.Add(row得意先別売上統計表Row);
                 return row得意先別売上統計表Row;
@@ -1338,6 +1506,20 @@ namespace Hakobou.Data.BSK {
                 this.column集計売上額１２ = base.Columns["集計売上額１２"];
                 this.column集計合計額 = base.Columns["集計合計額"];
                 this.column構成比率 = base.Columns["構成比率"];
+                this.column前年集計売上額０１ = base.Columns["前年集計売上額０１"];
+                this.column前年集計売上額０２ = base.Columns["前年集計売上額０２"];
+                this.column前年集計売上額０３ = base.Columns["前年集計売上額０３"];
+                this.column前年集計売上額０４ = base.Columns["前年集計売上額０４"];
+                this.column前年集計売上額０５ = base.Columns["前年集計売上額０５"];
+                this.column前年集計売上額０６ = base.Columns["前年集計売上額０６"];
+                this.column前年集計売上額０７ = base.Columns["前年集計売上額０７"];
+                this.column前年集計売上額０８ = base.Columns["前年集計売上額０８"];
+                this.column前年集計売上額０９ = base.Columns["前年集計売上額０９"];
+                this.column前年集計売上額１０ = base.Columns["前年集計売上額１０"];
+                this.column前年集計売上額１１ = base.Columns["前年集計売上額１１"];
+                this.column前年集計売上額１２ = base.Columns["前年集計売上額１２"];
+                this.column前年集計合計額 = base.Columns["前年集計合計額"];
+                this.column前年構成比率 = base.Columns["前年構成比率"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1379,6 +1561,34 @@ namespace Hakobou.Data.BSK {
                 base.Columns.Add(this.column集計合計額);
                 this.column構成比率 = new global::System.Data.DataColumn("構成比率", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column構成比率);
+                this.column前年集計売上額０１ = new global::System.Data.DataColumn("前年集計売上額０１", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０１);
+                this.column前年集計売上額０２ = new global::System.Data.DataColumn("前年集計売上額０２", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０２);
+                this.column前年集計売上額０３ = new global::System.Data.DataColumn("前年集計売上額０３", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０３);
+                this.column前年集計売上額０４ = new global::System.Data.DataColumn("前年集計売上額０４", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０４);
+                this.column前年集計売上額０５ = new global::System.Data.DataColumn("前年集計売上額０５", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０５);
+                this.column前年集計売上額０６ = new global::System.Data.DataColumn("前年集計売上額０６", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０６);
+                this.column前年集計売上額０７ = new global::System.Data.DataColumn("前年集計売上額０７", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０７);
+                this.column前年集計売上額０８ = new global::System.Data.DataColumn("前年集計売上額０８", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０８);
+                this.column前年集計売上額０９ = new global::System.Data.DataColumn("前年集計売上額０９", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額０９);
+                this.column前年集計売上額１０ = new global::System.Data.DataColumn("前年集計売上額１０", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額１０);
+                this.column前年集計売上額１１ = new global::System.Data.DataColumn("前年集計売上額１１", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額１１);
+                this.column前年集計売上額１２ = new global::System.Data.DataColumn("前年集計売上額１２", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計売上額１２);
+                this.column前年集計合計額 = new global::System.Data.DataColumn("前年集計合計額", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年集計合計額);
+                this.column前年構成比率 = new global::System.Data.DataColumn("前年構成比率", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前年構成比率);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4979,6 +5189,230 @@ namespace Hakobou.Data.BSK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０１ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０２ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０３ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０４ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０５ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０６ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０７ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０８ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額０９ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額０９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額０９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額０９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額１０ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額１１ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額１１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額１１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額１１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計売上額１２ {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計売上額１２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計売上額１２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計売上額１２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 前年集計合計額 {
+                get {
+                    try {
+                        return ((long)(this[this.table得意先別売上統計表.前年集計合計額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年集計合計額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年集計合計額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 前年構成比率 {
+                get {
+                    try {
+                        return ((decimal)(this[this.table得意先別売上統計表.前年構成比率Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先別売上統計表\' にある列 \'前年構成比率\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table得意先別売上統計表.前年構成比率Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is自社コードNull() {
                 return this.IsNull(this.table得意先別売上統計表.自社コードColumn);
             }
@@ -5191,6 +5625,174 @@ namespace Hakobou.Data.BSK {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set構成比率Null() {
                 this[this.table得意先別売上統計表.構成比率Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０１Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０１Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０２Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０２Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０３Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０３Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０４Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０４Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０５Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０５Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０６Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０６Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０７Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０７Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０８Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０８Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額０９Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額０９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額０９Null() {
+                this[this.table得意先別売上統計表.前年集計売上額０９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額１０Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額１０Null() {
+                this[this.table得意先別売上統計表.前年集計売上額１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額１１Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額１１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額１１Null() {
+                this[this.table得意先別売上統計表.前年集計売上額１１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計売上額１２Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計売上額１２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計売上額１２Null() {
+                this[this.table得意先別売上統計表.前年集計売上額１２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年集計合計額Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年集計合計額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年集計合計額Null() {
+                this[this.table得意先別売上統計表.前年集計合計額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前年構成比率Null() {
+                return this.IsNull(this.table得意先別売上統計表.前年構成比率Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前年構成比率Null() {
+                this[this.table得意先別売上統計表.前年構成比率Column] = global::System.Convert.DBNull;
             }
         }
         

@@ -41,6 +41,22 @@ namespace KyoeiSystem.Application.WCFService
             public long 集計売上額１２ { get; set; }
             public long 集計合計額 { get; set; }
             public decimal 構成比率 { get; set; }
+            // No.399 Add Start
+            public long 前年集計売上額０１ { get; set; }
+            public long 前年集計売上額０２ { get; set; }
+            public long 前年集計売上額０３ { get; set; }
+            public long 前年集計売上額０４ { get; set; }
+            public long 前年集計売上額０５ { get; set; }
+            public long 前年集計売上額０６ { get; set; }
+            public long 前年集計売上額０７ { get; set; }
+            public long 前年集計売上額０８ { get; set; }
+            public long 前年集計売上額０９ { get; set; }
+            public long 前年集計売上額１０ { get; set; }
+            public long 前年集計売上額１１ { get; set; }
+            public long 前年集計売上額１２ { get; set; }
+            public long 前年集計合計額 { get; set; }
+            public decimal 前年構成比率 { get; set; }
+            // No.399 Add End
         }
         #endregion
 
@@ -53,6 +69,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 自社コード { get; set; }      // No.227,228 Add
             public string 自社名 { get; set; }       // No.227,228 Add
             public long 金額 { get; set; }
+            public long 前年金額 { get; set; }       // No.299 Add
         }
 
         #endregion
@@ -150,13 +167,55 @@ namespace KyoeiSystem.Application.WCFService
                                 {
                                     自社コード = s.Key.自社コード,
                                     自社名 = s.Key.自社名,
-                                    金額 = s.Sum(m => m.SEIDH.金額)
+                                    金額 = s.Sum(m => m.SEIDH.金額),
+                                    前年金額 = 0
                                 });
                         // No.227,228 Mod End
+
+                        // No.399 Add Start
+                        // 前年
+                        int lastYearMonth = targetMonth.AddYears(-1).Year * 100 + targetMonth.Month;
+                        
+                        // 前年データを取得
+                        var dtlLastList =
+                            context.S01_SEIDTL
+                                .Where(w =>
+                                    w.自社コード == tokRow.担当会社コード &&
+                                    w.請求年月 == lastYearMonth &&
+                                    w.請求先コード == tokRow.取引先コード &&
+                                    w.請求先枝番 == tokRow.枝番)
+                                .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                    x => x.自社コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(x => x.y.DefaultIfEmpty(),
+                                    (a, b) => new { SEIDH = a.x, JIS = b })
+                                .GroupBy(g => new { g.SEIDH.自社コード, g.JIS.自社名, g.SEIDH.請求年月, g.SEIDH.請求先コード, g.SEIDH.請求先枝番 })
+                                .Select(s => new TallyMember
+                                {
+                                    自社コード = s.Key.自社コード,
+                                    自社名 = s.Key.自社名,
+                                    金額 = 0,
+                                    前年金額 = s.Sum(m => m.SEIDH.金額)
+                                });
+
+                        // 対象月データに前年金額を設定
+                        var dtlResult = dtlList.ToList()
+                                    .Union(dtlLastList)
+                                    .Select(s => new TallyMember
+                                    {
+                                        自社コード = s.自社コード,
+                                        自社名 = s.自社名,
+                                        金額 = s.金額,
+                                        前年金額 = s.前年金額
+                                    });
+                                       
+                        // No.399 Add End
+
                         #endregion
 
                         // 対象月の集計データを格納
-                        tokDic.Add(yearMonth, dtlList.ToList());
+                        tokDic.Add(yearMonth, dtlResult.ToList());      // No.399 Mod
 
                         // カウントアップ
                         targetMonth = targetMonth.AddMonths(1);
@@ -180,56 +239,69 @@ namespace KyoeiSystem.Application.WCFService
                             print.得意先コード = string.Format("{0:D4} - {1:D2}", tokRow.取引先コード, tokRow.枝番);     // No.132-3 Mod
                             print.得意先名 = tokRow.略称名;     // No.229 Mod
                             print.集計合計額 += tallyList[i].金額;
+                            print.前年集計合計額 += tallyList[i].前年金額;                   // No.399 Add
 
                             #region monthCountにより設定列分け
                             switch (monthCount)
                             {
                                 case 1:
                                     print.集計売上額０１ = tallyList[i].金額;
+                                    print.前年集計売上額０１ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 2:
                                     print.集計売上額０２ = tallyList[i].金額;
+                                    print.前年集計売上額０２ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 3:
                                     print.集計売上額０３ = tallyList[i].金額;
+                                    print.前年集計売上額０３ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 4:
                                     print.集計売上額０４ = tallyList[i].金額;
+                                    print.前年集計売上額０４ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 5:
                                     print.集計売上額０５ = tallyList[i].金額;
+                                    print.前年集計売上額０５ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 6:
                                     print.集計売上額０６ = tallyList[i].金額;
+                                    print.前年集計売上額０６ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 7:
                                     print.集計売上額０７ = tallyList[i].金額;
+                                    print.前年集計売上額０７ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 8:
                                     print.集計売上額０８ = tallyList[i].金額;
+                                    print.前年集計売上額０８ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 9:
                                     print.集計売上額０９ = tallyList[i].金額;
+                                    print.前年集計売上額０９ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 10:
                                     print.集計売上額１０ = tallyList[i].金額;
+                                    print.前年集計売上額１０ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 11:
                                     print.集計売上額１１ = tallyList[i].金額;
+                                    print.前年集計売上額１１ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 case 12:
                                     print.集計売上額１２ = tallyList[i].金額;
+                                    print.前年集計売上額１２ = tallyList[i].前年金額;        // No.399 Add
                                     break;
 
                                 default:
@@ -252,6 +324,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 #region データリストを集計して最終データを作成
                 decimal total = Convert.ToDecimal(resultList.Sum(t => t.集計合計額));
+                decimal lastTotal = Convert.ToDecimal(resultList.Sum(t => t.前年集計合計額));      // No.399 Add
                 // 合計がゼロとなるデータは出力対象外とする
                 if (total == 0)
                 {
@@ -283,7 +356,26 @@ namespace KyoeiSystem.Application.WCFService
                             集計合計額 = s.Sum(m => m.集計合計額),
                             構成比率 =
                                 Math.Round(
-                                    Decimal.Divide(s.Sum(m => m.集計合計額), total) * 100, 2)
+                                    Decimal.Divide(s.Sum(m => m.集計合計額), total) * 100, 2),
+
+                            // No.399 Add Start
+                            前年集計売上額０１ = s.Sum(m => m.前年集計売上額０１),
+                            前年集計売上額０２ = s.Sum(m => m.前年集計売上額０２),
+                            前年集計売上額０３ = s.Sum(m => m.前年集計売上額０３),
+                            前年集計売上額０４ = s.Sum(m => m.前年集計売上額０４),
+                            前年集計売上額０５ = s.Sum(m => m.前年集計売上額０５),
+                            前年集計売上額０６ = s.Sum(m => m.前年集計売上額０６),
+                            前年集計売上額０７ = s.Sum(m => m.前年集計売上額０７),
+                            前年集計売上額０８ = s.Sum(m => m.前年集計売上額０８),
+                            前年集計売上額０９ = s.Sum(m => m.前年集計売上額０９),
+                            前年集計売上額１０ = s.Sum(m => m.前年集計売上額１０),
+                            前年集計売上額１１ = s.Sum(m => m.前年集計売上額１１),
+                            前年集計売上額１２ = s.Sum(m => m.前年集計売上額１２),
+                            前年集計合計額 = s.Sum(m => m.前年集計合計額),
+                            前年構成比率 = lastTotal == 0 ? 0 :
+                                Math.Round(
+                                    Decimal.Divide(s.Sum(m => m.前年集計合計額), lastTotal) * 100, 2)
+                            // No.399 Add End
                         })
                         .OrderBy(o => o.自社コード).ThenBy(t => t.得意先コード)        // No.398 Mod
                         .ToList();
