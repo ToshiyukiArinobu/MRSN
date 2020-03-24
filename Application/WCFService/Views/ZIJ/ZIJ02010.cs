@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社名 { get; set; }         // No.227,228 Add
             public string 仕入日 { get; set; }         // No.130-3 Mod
             public string 支払日 { get; set; }         // No.130-3 Mod
+            public int? 仕入区分コード { get; set; }   //No.396 Add
             public string 仕入区分 { get; set; }
             public string 入力区分 { get; set; }
             public string 伝票番号 { get; set; }        // No.200 Mod
@@ -28,6 +30,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 行番号 { get; set; }
             public string 仕入先コード { get; set; }    // No.227,228 Add
             public string 仕入先名 { get; set; }
+            public string 入荷先名 { get; set; }        //No.396 Add
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }
             public string 自社品名 { get; set; }
@@ -39,6 +42,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 金額 { get; set; }
             public string 摘要 { get; set; }
             public int? 発注番号 { get; set; }
+            public int 消費税 { get; set; }             // No.396 Add
         }
 
         #endregion
@@ -78,6 +82,8 @@ namespace KyoeiSystem.Application.WCFService
                         supEda = int.TryParse(cond["仕入先枝番"], out ival) ? ival : (int?)null,
                         arrivalCode = int.TryParse(cond["入荷先コード"], out ival) ? ival : (int?)null;
 
+                    string hinban = cond["自社品番"];　             // No.396 Add
+
                     #endregion
 
                     // 基本情報取得
@@ -86,7 +92,12 @@ namespace KyoeiSystem.Application.WCFService
                             .Join(context.T03_SRDTL.Where(w => w.削除日時 == null),
                                 x => x.伝票番号,
                                 y => y.伝票番号,
-                                (x, y) => new { SHD = x, SDTL = y });
+                                (x, y) => new { SHD = x, SDTL = y })
+                            .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                                x => x.SDTL.品番コード,
+                                y => y.品番コード,
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(), (x, y) => new { x.x.SHD, x.x.SDTL, HIN = y });
 
                     #region 条件絞込
 
@@ -112,6 +123,10 @@ namespace KyoeiSystem.Application.WCFService
                     if (arrivalCode != null)
                         srDataList = srDataList.Where(w => w.SHD.入荷先コード == arrivalCode);
 
+                    // 自社品番
+                    if (!string.IsNullOrEmpty(hinban))
+                        srDataList = srDataList.Where(w => w.HIN.自社品番 == hinban); 　    // No.396 Add
+
                     #endregion
 
                     // 返品分のデータを取得する
@@ -125,13 +140,7 @@ namespace KyoeiSystem.Application.WCFService
                                 y => new { code = y.取引先コード, eda = y.枝番 },
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
-                                (a, b) => new { a.x.SHD, a.x.SDTL, TOK = b })
-                            .GroupJoin(context.M09_HIN,
-                                x => x.SDTL.品番コード,
-                                y => y.品番コード,
-                                (x, y) => new { x, y })
-                            .SelectMany(x => x.y.DefaultIfEmpty(),
-                                (c, d) => new { c.x.SHD, c.x.SDTL, c.x.TOK, HIN = d })
+                                (a, b) => new { a.x.SHD, a.x.SDTL, a.x.HIN, TOK = b })
                             .GroupJoin(context.M06_IRO,
                                 x => x.HIN.自社色,
                                 y => y.色コード,
@@ -143,7 +152,14 @@ namespace KyoeiSystem.Application.WCFService
                                 y => y.自社コード,
                                 (x, y) => new { x, y })
                             .SelectMany(x => x.y.DefaultIfEmpty(),
-                                (g, h) => new { g.x.SHD, g.x.SDTL, g.x.TOK, g.x.HIN, g.x.IRO, JIS= h })
+                                (g, h) => new { g.x.SHD, g.x.SDTL, g.x.TOK, g.x.HIN, g.x.IRO, JIS = h })
+                        // 入荷先
+                            .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                x => x.SHD.入荷先コード,
+                                y => y.自社コード,
+                                (x, y) => new { x, y })
+                            .SelectMany(x => x.y.DefaultIfEmpty(),
+                                (e, f) => new { e.x.SHD, e.x.SDTL, e.x.TOK, e.x.HIN, e.x.IRO, e.x.JIS, JIS2 = f })
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
@@ -155,8 +171,9 @@ namespace KyoeiSystem.Application.WCFService
                                     // No.101-5 Mod Start
                                     new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths((x.TOK.Ｓサイト１ ?? 0) + 1).ToShortDateString() :  // No.130-3 Mod
                                     new DateTime(x.SHD.仕入日.Year, x.SHD.仕入日.Month, ((x.TOK.Ｓ入金日１ ?? 31) >= 28 ? DateTime.DaysInMonth(x.SHD.仕入日.Year, x.SHD.仕入日.Month) : x.TOK.Ｓ入金日１ ?? 31)).AddMonths(x.TOK.Ｓサイト１ ?? 0).ToShortDateString(),         // No.130-3 Mod
-                                    // No.101-5 Mod End
+                                // No.101-5 Mod End
                                 // No-128 Mod End
+                                仕入区分コード = x.SHD.仕入区分, 　    // No.396 Add
                                 仕入区分 = x.SHD.仕入区分 == (int)CommonConstants.仕入区分.通常 ? CommonConstants.仕入区分_通常 :
                                            x.SHD.仕入区分 == (int)CommonConstants.仕入区分.返品 ? CommonConstants.仕入区分_返品 :
                                            string.Empty,
@@ -168,15 +185,17 @@ namespace KyoeiSystem.Application.WCFService
                                 行番号 = x.SDTL.行番号,
                                 仕入先コード = string.Format("{0:D4} - {1:D2}", x.SHD.仕入先コード, x.SHD.仕入先枝番),   // No.227,228
                                 仕入先名 = x.TOK.略称名,
+                                入荷先名 = x.JIS2 != null ? x.JIS2.自社名 : "", 　    // No.396 Add
                                 品番コード = x.SDTL.品番コード,
                                 自社品番 = x.HIN.自社品番,
                                 自社品名 = x.HIN.自社品名,
                                 自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
-                                賞味期限 = x.SDTL.賞味期限 == null? null : x.SDTL.賞味期限.Value.ToShortDateString(),    // No.130-3 Mod
+                                賞味期限 = x.SDTL.賞味期限 == null ? null : x.SDTL.賞味期限.Value.ToShortDateString(),    // No.130-3 Mod
                                 数量 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.数量 : x.SDTL.数量 * -1,
-                                単価 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.単価 : x.SDTL.単価 * -1,
+                                単価 = x.SDTL.単価,
                                 単位 = x.SDTL.単位,
-                                金額 = x.SDTL.金額,
+                                金額 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.金額 : x.SDTL.金額 * -1, 　    // No.396 Mod
+                                消費税 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? (x.SHD.消費税 ?? 0) : (x.SHD.消費税 ?? 0) * -1, 　    // No.396 Add
                                 摘要 = x.SDTL.摘要,
                                 発注番号 = x.SHD.発注番号
                             })

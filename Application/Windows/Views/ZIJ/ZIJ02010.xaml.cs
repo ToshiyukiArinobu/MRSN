@@ -2,6 +2,8 @@
 using KyoeiSystem.Framework.Core;
 using KyoeiSystem.Framework.Windows.ViewBase;
 using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows;
@@ -39,8 +41,9 @@ namespace KyoeiSystem.Application.Windows.Views
             単位 = 12,
             単価 = 13,
             金額 = 14,
-            摘要 = 15,
-            発注番号 = 16
+            入荷先名 = 15,      // No.396 Add
+            摘要 = 16,
+            発注番号 = 17
         }
 
         /// <summary>
@@ -95,6 +98,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string ZIJ02010_GetDataList = "ZIJ02010_GetData";
         private const string ReportFileName = @"Files\ZIJ\ZIJ02010.rpt";
 
+        /// <summary>金額フォーマット定義</summary>
+        private const string PRICE_FORMAT_STRING = "{0:#,0}";        // No.396 Add
         #endregion
 
         #region << 変数定義 >>
@@ -143,6 +148,7 @@ namespace KyoeiSystem.Application.Windows.Views
             base.MasterMaintenanceWindowList.Add("M01_TOK_TOKU_SCH", new List<Type> { typeof(MST02010), typeof(SCHM01_TOK) });
             base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
             base.MasterMaintenanceWindowList.Add("M72_TNT", new List<Type> { typeof(MST23010), typeof(SCHM72_TNT) });
+            base.MasterMaintenanceWindowList.Add("M09_MYHIN", new List<Type> { typeof(MST02010), typeof(SCHM09_MYHIN) });    // No.396 Add
 
             #region 設定項目取得
             ucfg = AppCommon.GetConfig(this);
@@ -205,19 +211,20 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     if (tbl == null)
                     {
-                        this.SearchResult = null;
+                        DetailClear();
                     }
                     else
                     {
                         if (tbl.Rows.Count == 0)
                         {
                             this.ErrorMessage = "該当するデータはありません。";
+                            DetailClear();
                             return;
                         }
                         else
                         {
                             SearchResult = tbl;
-                            //summaryCalc();
+                            summaryCalc();       // No.396 Mod
                         }
 
                     }
@@ -462,7 +469,28 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << 機能処理群 >>
 
+        #region 明細初期化
+        /// <summary>
+        /// 明細初期化
+        /// </summary>
+        private void DetailClear()
+        {
+            // 明細初期化
+            this.SearchResult = null;
 
+            // 仕入合計
+            sumSrTotal.Text = string.Empty;
+            // 仕入消費税
+            sumSrTax.Text = string.Empty;
+            // 返品合計
+            sumRtnTotal.Text = string.Empty;
+            // 返品消費税
+            sumRtnTax.Text = string.Empty;
+            // 総合計
+            sumTotal.Text = string.Empty;
+
+        }
+        #endregion
 
         #region 検索条件部の初期設定
 
@@ -523,6 +551,7 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add("仕入先コード", suppliers.Text1);
             paramDic.Add("仕入先枝番", suppliers.Text2);
             paramDic.Add("入荷先コード", arrivalCompany.Text1);
+            paramDic.Add("自社品番", Hinban.Text1);    // No.396 Add
 
             paramDic.Add("自社名", myCompany.Text2);
             paramDic.Add("入力区分名", inputTypeDic[int.Parse(cmbInputType.SelectedValue.ToString())]);
@@ -538,21 +567,45 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         private void summaryCalc()
         {
-            // 仕入合計
-            sumSrTotal.Text = parseLongSummary(1);
-            // 仕入消費税
-            sumSrTax.Text = parseLongSummary(2);
-            // 返品合計
-            sumRtnTotal.Text = parseLongSummary(-1);
-            // 返品消費税
-            sumRtnTax.Text = parseLongSummary(-2);
+            // No.396 Mod Start
 
+            long 仕入合計 = 0;
+            long 返品合計 = 0;
+            int 仕入消費税 = 0;
+            int 返品消費税 = 0;
+
+            仕入合計 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Sum(c => c.Field<int>("金額"));
+            返品合計 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.返品).Sum(c => c.Field<int>("金額"));
+
+            if (string.IsNullOrEmpty(Hinban.Text1))
+            {
+                // 明細にヘッダーの消費税を持たせているので、1伝票1件のみ取得
+                仕入消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
+                                         .GroupBy(a => a.Field<string>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
+
+                返品消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.返品)
+                                         .GroupBy(a => a.Field<string>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
+            }
+
+            // 仕入合計
+            sumSrTotal.Text = string.Format(PRICE_FORMAT_STRING, 仕入合計);
+            // 仕入消費税
+            sumSrTax.Text = string.Format(PRICE_FORMAT_STRING, 仕入消費税);
+            // 返品合計
+            sumRtnTotal.Text = string.Format(PRICE_FORMAT_STRING, 返品合計);
+            // 返品消費税
+            sumRtnTax.Text = string.Format(PRICE_FORMAT_STRING, 返品消費税);
             // 総合計
-            sumTotal.Text = parseLongSummary(0);
+            sumTotal.Text = string.Format(PRICE_FORMAT_STRING, (仕入合計 + 仕入消費税 + 返品合計 + 返品消費税));
+
+
+            // No.396 Mod End
 
         }
         #endregion
 
+        /* 
+        // No.396 Del Start
         #region 各金額の合計値計算
         /// <summary>
         /// 指定金額の合計値を取得して返す
@@ -604,6 +657,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
         #endregion
+        // No.396 Del End
+        */
 
         #region 帳票印刷処理
         /// <summary>
@@ -637,7 +692,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = "入金日To", VALUE = string.IsNullOrEmpty(paramDic["入金日To"]) ? "" : paramDic["入金日To"] },
                     new FwRepPreview.ReportParameter(){ PNAME = "入力区分", VALUE = paramDic["入力区分名"] },
                     new FwRepPreview.ReportParameter(){ PNAME = "仕入先名", VALUE = string.IsNullOrEmpty(paramDic["仕入先名"]) ? "" : paramDic["仕入先名"] },
-                    new FwRepPreview.ReportParameter(){ PNAME = "入荷先名", VALUE = string.IsNullOrEmpty(paramDic["入荷先名"]) ? "" : paramDic["入荷先名"] }
+                    new FwRepPreview.ReportParameter(){ PNAME = "入荷先名", VALUE = string.IsNullOrEmpty(paramDic["入荷先名"]) ? "" : paramDic["入荷先名"] },
+                     new FwRepPreview.ReportParameter(){ PNAME = "自社品番", VALUE = string.IsNullOrEmpty(paramDic["自社品番"]) ? "" : paramDic["自社品番"] },     // No.396 Add
                 };
 
                 DataTable 印刷データ = SearchResult.Copy();

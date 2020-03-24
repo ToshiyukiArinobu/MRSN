@@ -175,8 +175,7 @@
 
           <Grid Grid.Row="2" Margin="0,3,0,0">
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition Width="150" />
+              <ColumnDefinition Width="400" />
               <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
@@ -190,7 +189,7 @@
 
             <!-- 仕入先 -->
             <uc:M01_TOK_TextBox
-                x:Name="suppliers" Grid.Column="2" HorizontalAlignment="Left"
+                x:Name="suppliers" Grid.Column="1" HorizontalAlignment="Left"
                 Label_Context="仕入先指定" Label_Width="100"
                 DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="1,3"
                 Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -202,15 +201,31 @@
 
           </Grid>
 
-          <!-- 入荷先 -->
-          <ctls:UcLabelTwinTextBox 
-              Name="arrivalCompany" Grid.Row="3" HorizontalAlignment="Left" Margin="0,3,0,0"
-              DataAccessName="M70_JIS" DataAccessMode="On" 
-              Label_Context="入荷先指定" Label_Width="100"
-              Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-              Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
-              Text2Width="250" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderThickness="0" Text2AcceptsTab="False" Text2VerticalContentAlignment="Center"
-          />
+          <Grid Grid.Row="3" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+              <!-- 入荷先 -->
+              <ctls:UcLabelTwinTextBox  Grid.Column="0"
+                  Name="arrivalCompany" HorizontalAlignment="Left" Margin="0,3,0,0"
+                  DataAccessName="M70_JIS" DataAccessMode="On" 
+                  Label_Context="入荷先指定" Label_Width="100"
+                  Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                  Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
+                  Text2Width="250" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderThickness="0" Text2AcceptsTab="False" Text2VerticalContentAlignment="Center"
+              />
+              
+              <!-- 品番指定 -->
+              <ctls:UcLabelTwinTextBox   Name="Hinban" Grid.Column="1" HorizontalAlignment="Left" Margin="0,3,0,0"
+                DataAccessName="M09_MYHIN" DataAccessMode="On"
+                Label_Context="自社品番指定" Label_Width="100"
+                Label1Visibility="Collapsed" Text1VerticalContentAlignment="Center"
+                Text1Width="100" Text1MaxLength="12" Text1IMEType="Off"
+                Text2Width="250" Text2IsReadOnly="True" Text2BorderThickness="0" Text2Background="Transparent" Text2VerticalContentAlignment="Center"
+              />
+          </Grid>
+
 
           <!-- 検索ボタン -->
           <Button Name="btnSearch" Grid.Row="0" Grid.RowSpan="2" Width="50" Height="50" Margin="670,0,0,0"
@@ -227,7 +242,7 @@
       <Grid Grid.Row="1">
 
         <sg:GcSpreadGrid
-            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="17"  HorizontalAlignment="Left"
+            Name="spGridList" AutoGenerateColumns="False" LayoutMode="Cell" RowCount="0" ColumnCount="18"  HorizontalAlignment="Left"
             ColumnDragMode="Direct" CanUserSortColumns="False" CanUserFilterColumns="False" Margin="10,5,10,1"
             ItemsSource="{Binding SearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
             DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIJ/ZIJ02010G1.sgxml"
@@ -333,6 +348,11 @@
               </sg:Column.DataField>
             </sg:Column>
             <sg:Column Locked="True">
+                <sg:Column.DataField>
+                    <sg:BindingDataField Binding="{Binding 入荷先名}" />
+                </sg:Column.DataField>
+            </sg:Column>
+            <sg:Column Locked="True">
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding 摘要}" />
               </sg:Column.DataField>
@@ -349,7 +369,7 @@
       </Grid>
 
       <!--フッダー部-->
-            <Border Visibility="Hidden" Grid.Row="2" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" Width="996" HorizontalAlignment="Left"  Margin="10,10,10,50" Padding="5">
+            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="2" Width="996" HorizontalAlignment="Left"  Margin="10,10,10,30" Padding="5">
         <Grid Background="AliceBlue">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />

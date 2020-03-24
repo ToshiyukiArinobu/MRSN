@@ -2120,6 +2120,8 @@ namespace Hakobou.Data.ZIJ {
             
             private global::System.Data.DataColumn column摘要;
             
+            private global::System.Data.DataColumn column入荷先名;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public 支払明細問合せDataTable() {
@@ -2283,6 +2285,14 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 入荷先名Column {
+                get {
+                    return this.column入荷先名;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2334,7 +2344,8 @@ namespace Hakobou.Data.ZIJ {
                         string 単位, 
                         int 金額, 
                         int 発注番号, 
-                        string 摘要) {
+                        string 摘要, 
+                        string 入荷先名) {
                 支払明細問合せRow row支払明細問合せRow = ((支払明細問合せRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         仕入日,
@@ -2352,7 +2363,8 @@ namespace Hakobou.Data.ZIJ {
                         単位,
                         金額,
                         発注番号,
-                        摘要};
+                        摘要,
+                        入荷先名};
                 row支払明細問合せRow.ItemArray = columnValuesArray;
                 this.Rows.Add(row支払明細問合せRow);
                 return row支払明細問合せRow;
@@ -2391,6 +2403,7 @@ namespace Hakobou.Data.ZIJ {
                 this.column金額 = base.Columns["金額"];
                 this.column発注番号 = base.Columns["発注番号"];
                 this.column摘要 = base.Columns["摘要"];
+                this.column入荷先名 = base.Columns["入荷先名"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2428,6 +2441,8 @@ namespace Hakobou.Data.ZIJ {
                 base.Columns.Add(this.column発注番号);
                 this.column摘要 = new global::System.Data.DataColumn("摘要", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column摘要);
+                this.column入荷先名 = new global::System.Data.DataColumn("入荷先名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column入荷先名);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5796,6 +5811,22 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 入荷先名 {
+                get {
+                    try {
+                        return ((string)(this[this.table支払明細問合せ.入荷先名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'支払明細問合せ\' にある列 \'入荷先名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.table支払明細問合せ.入荷先名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is仕入日Null() {
                 return this.IsNull(this.table支払明細問合せ.仕入日Column);
             }
@@ -5984,6 +6015,18 @@ namespace Hakobou.Data.ZIJ {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set摘要Null() {
                 this[this.table支払明細問合せ.摘要Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is入荷先名Null() {
+                return this.IsNull(this.table支払明細問合せ.入荷先名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set入荷先名Null() {
+                this[this.table支払明細問合せ.入荷先名Column] = global::System.Convert.DBNull;
             }
         }
         
