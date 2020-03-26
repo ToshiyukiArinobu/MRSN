@@ -401,7 +401,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="fiscalYm">年度指定yyyy/MM</param>
         /// <returns></returns>
-        private FiscalPeriod getFiscalFromTo(string fiscalYm)
+        public FiscalPeriod getFiscalFromTo(string fiscalYm)
         {
             if (string.IsNullOrEmpty(fiscalYm))
             {
