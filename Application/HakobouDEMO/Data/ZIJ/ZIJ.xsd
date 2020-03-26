@@ -12,7 +12,7 @@
   <xs:element name="ZIJ" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ZIJ" msprop:Generator_UserDSName="ZIJ">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="商品在庫問合せ" msprop:Generator_TableClassName="商品在庫問合せDataTable" msprop:Generator_TableVarName="table商品在庫問合せ" msprop:Generator_TablePropName="商品在庫問合せ" msprop:Generator_RowDeletingName="商品在庫問合せRowDeleting" msprop:Generator_RowChangingName="商品在庫問合せRowChanging" msprop:Generator_RowEvHandlerName="商品在庫問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品在庫問合せRowDeleted" msprop:Generator_UserTableName="商品在庫問合せ" msprop:Generator_RowChangedName="商品在庫問合せRowChanged" msprop:Generator_RowEvArgName="商品在庫問合せRowChangeEvent" msprop:Generator_RowClassName="商品在庫問合せRow">
+        <xs:element name="商品在庫問合せ" msprop:Generator_TableClassName="商品在庫問合せDataTable" msprop:Generator_TableVarName="table商品在庫問合せ" msprop:Generator_RowChangedName="商品在庫問合せRowChanged" msprop:Generator_TablePropName="商品在庫問合せ" msprop:Generator_RowDeletingName="商品在庫問合せRowDeleting" msprop:Generator_RowChangingName="商品在庫問合せRowChanging" msprop:Generator_RowEvHandlerName="商品在庫問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品在庫問合せRowDeleted" msprop:Generator_RowClassName="商品在庫問合せRow" msprop:Generator_UserTableName="商品在庫問合せ" msprop:Generator_RowEvArgName="商品在庫問合せRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="倉庫コード" msprop:Generator_ColumnVarNameInTable="column倉庫コード" msprop:Generator_ColumnPropNameInRow="倉庫コード" msprop:Generator_ColumnPropNameInTable="倉庫コードColumn" msprop:Generator_UserColumnName="倉庫コード" type="xs:string" minOccurs="0" />
@@ -28,7 +28,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="入金問合せ" msprop:Generator_TableClassName="入金問合せDataTable" msprop:Generator_TableVarName="table入金問合せ" msprop:Generator_RowChangedName="入金問合せRowChanged" msprop:Generator_TablePropName="入金問合せ" msprop:Generator_RowDeletingName="入金問合せRowDeleting" msprop:Generator_RowChangingName="入金問合せRowChanging" msprop:Generator_RowEvHandlerName="入金問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="入金問合せRowDeleted" msprop:Generator_RowClassName="入金問合せRow" msprop:Generator_UserTableName="入金問合せ" msprop:Generator_RowEvArgName="入金問合せRowChangeEvent">
+        <xs:element name="入金問合せ" msprop:Generator_TableClassName="入金問合せDataTable" msprop:Generator_TableVarName="table入金問合せ" msprop:Generator_TablePropName="入金問合せ" msprop:Generator_RowDeletingName="入金問合せRowDeleting" msprop:Generator_RowChangingName="入金問合せRowChanging" msprop:Generator_RowEvHandlerName="入金問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="入金問合せRowDeleted" msprop:Generator_UserTableName="入金問合せ" msprop:Generator_RowChangedName="入金問合せRowChanged" msprop:Generator_RowEvArgName="入金問合せRowChangeEvent" msprop:Generator_RowClassName="入金問合せRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="入金先自社名" msprop:Generator_ColumnVarNameInTable="column入金先自社名" msprop:Generator_ColumnPropNameInRow="入金先自社名" msprop:Generator_ColumnPropNameInTable="入金先自社名Column" msprop:Generator_UserColumnName="入金先自社名" type="xs:string" minOccurs="0" />
@@ -43,7 +43,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="出金問合せ" msprop:Generator_TableClassName="出金問合せDataTable" msprop:Generator_TableVarName="table出金問合せ" msprop:Generator_RowChangedName="出金問合せRowChanged" msprop:Generator_TablePropName="出金問合せ" msprop:Generator_RowDeletingName="出金問合せRowDeleting" msprop:Generator_RowChangingName="出金問合せRowChanging" msprop:Generator_RowEvHandlerName="出金問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="出金問合せRowDeleted" msprop:Generator_RowClassName="出金問合せRow" msprop:Generator_UserTableName="出金問合せ" msprop:Generator_RowEvArgName="出金問合せRowChangeEvent">
+        <xs:element name="出金問合せ" msprop:Generator_TableClassName="出金問合せDataTable" msprop:Generator_TableVarName="table出金問合せ" msprop:Generator_TablePropName="出金問合せ" msprop:Generator_RowDeletingName="出金問合せRowDeleting" msprop:Generator_RowChangingName="出金問合せRowChanging" msprop:Generator_RowEvHandlerName="出金問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="出金問合せRowDeleted" msprop:Generator_UserTableName="出金問合せ" msprop:Generator_RowChangedName="出金問合せRowChanged" msprop:Generator_RowEvArgName="出金問合せRowChangeEvent" msprop:Generator_RowClassName="出金問合せRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="出金元自社名" msdata:Caption="入金先自社名" msprop:Generator_ColumnVarNameInTable="column出金元自社名" msprop:Generator_ColumnPropNameInRow="出金元自社名" msprop:Generator_ColumnPropNameInTable="出金元自社名Column" msprop:Generator_UserColumnName="出金元自社名" type="xs:string" minOccurs="0" />
@@ -58,10 +58,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="仕入問合せ" msprop:Generator_TableClassName="仕入問合せDataTable" msprop:Generator_TableVarName="table仕入問合せ" msprop:Generator_TablePropName="仕入問合せ" msprop:Generator_RowDeletingName="仕入問合せRowDeleting" msprop:Generator_RowChangingName="仕入問合せRowChanging" msprop:Generator_RowEvHandlerName="仕入問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="仕入問合せRowDeleted" msprop:Generator_UserTableName="仕入問合せ" msprop:Generator_RowChangedName="仕入問合せRowChanged" msprop:Generator_RowEvArgName="仕入問合せRowChangeEvent" msprop:Generator_RowClassName="仕入問合せRow">
+        <xs:element name="仕入問合せ" msprop:Generator_TableClassName="仕入問合せDataTable" msprop:Generator_TableVarName="table仕入問合せ" msprop:Generator_RowChangedName="仕入問合せRowChanged" msprop:Generator_TablePropName="仕入問合せ" msprop:Generator_RowDeletingName="仕入問合せRowDeleting" msprop:Generator_RowChangingName="仕入問合せRowChanging" msprop:Generator_RowEvHandlerName="仕入問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="仕入問合せRowDeleted" msprop:Generator_RowClassName="仕入問合せRow" msprop:Generator_UserTableName="仕入問合せ" msprop:Generator_RowEvArgName="仕入問合せRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:string" minOccurs="0" />
+              <xs:element name="伝票番号" msprop:Generator_ColumnVarNameInTable="column伝票番号" msprop:Generator_ColumnPropNameInRow="伝票番号" msprop:Generator_ColumnPropNameInTable="伝票番号Column" msprop:Generator_UserColumnName="伝票番号" type="xs:int" minOccurs="0" />
               <xs:element name="返品伝票番号" msprop:Generator_ColumnVarNameInTable="column返品伝票番号" msprop:Generator_ColumnPropNameInRow="返品伝票番号" msprop:Generator_ColumnPropNameInTable="返品伝票番号Column" msprop:Generator_UserColumnName="返品伝票番号" type="xs:string" minOccurs="0" />
               <xs:element name="自社名" msprop:Generator_ColumnVarNameInTable="column自社名" msprop:Generator_ColumnPropNameInRow="自社名" msprop:Generator_ColumnPropNameInTable="自社名Column" msprop:Generator_UserColumnName="自社名" type="xs:string" minOccurs="0" />
               <xs:element name="仕入日" msprop:Generator_ColumnVarNameInTable="column仕入日" msprop:Generator_ColumnPropNameInRow="仕入日" msprop:Generator_ColumnPropNameInTable="仕入日Column" msprop:Generator_UserColumnName="仕入日" type="xs:string" minOccurs="0" />
@@ -78,7 +78,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="支払明細問合せ" msprop:Generator_TableClassName="支払明細問合せDataTable" msprop:Generator_TableVarName="table支払明細問合せ" msprop:Generator_RowChangedName="支払明細問合せRowChanged" msprop:Generator_TablePropName="支払明細問合せ" msprop:Generator_RowDeletingName="支払明細問合せRowDeleting" msprop:Generator_RowChangingName="支払明細問合せRowChanging" msprop:Generator_RowEvHandlerName="支払明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="支払明細問合せRowDeleted" msprop:Generator_RowClassName="支払明細問合せRow" msprop:Generator_UserTableName="支払明細問合せ" msprop:Generator_RowEvArgName="支払明細問合せRowChangeEvent">
+        <xs:element name="支払明細問合せ" msprop:Generator_TableClassName="支払明細問合せDataTable" msprop:Generator_TableVarName="table支払明細問合せ" msprop:Generator_TablePropName="支払明細問合せ" msprop:Generator_RowDeletingName="支払明細問合せRowDeleting" msprop:Generator_RowChangingName="支払明細問合せRowChanging" msprop:Generator_RowEvHandlerName="支払明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="支払明細問合せRowDeleted" msprop:Generator_UserTableName="支払明細問合せ" msprop:Generator_RowChangedName="支払明細問合せRowChanged" msprop:Generator_RowEvArgName="支払明細問合せRowChangeEvent" msprop:Generator_RowClassName="支払明細問合せRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="仕入日" msprop:Generator_ColumnVarNameInTable="column仕入日" msprop:Generator_ColumnPropNameInRow="仕入日" msprop:Generator_ColumnPropNameInTable="仕入日Column" msprop:Generator_UserColumnName="仕入日" type="xs:dateTime" minOccurs="0" />
@@ -101,7 +101,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="商品移動振替問合せ" msprop:Generator_TableClassName="商品移動振替問合せDataTable" msprop:Generator_TableVarName="table商品移動振替問合せ" msprop:Generator_TablePropName="商品移動振替問合せ" msprop:Generator_RowDeletingName="商品移動振替問合せRowDeleting" msprop:Generator_RowChangingName="商品移動振替問合せRowChanging" msprop:Generator_RowEvHandlerName="商品移動振替問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品移動振替問合せRowDeleted" msprop:Generator_UserTableName="商品移動振替問合せ" msprop:Generator_RowChangedName="商品移動振替問合せRowChanged" msprop:Generator_RowEvArgName="商品移動振替問合せRowChangeEvent" msprop:Generator_RowClassName="商品移動振替問合せRow">
+        <xs:element name="商品移動振替問合せ" msprop:Generator_TableClassName="商品移動振替問合せDataTable" msprop:Generator_TableVarName="table商品移動振替問合せ" msprop:Generator_RowChangedName="商品移動振替問合せRowChanged" msprop:Generator_TablePropName="商品移動振替問合せ" msprop:Generator_RowDeletingName="商品移動振替問合せRowDeleting" msprop:Generator_RowChangingName="商品移動振替問合せRowChanging" msprop:Generator_RowEvHandlerName="商品移動振替問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品移動振替問合せRowDeleted" msprop:Generator_RowClassName="商品移動振替問合せRow" msprop:Generator_UserTableName="商品移動振替問合せ" msprop:Generator_RowEvArgName="商品移動振替問合せRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="移動日" msprop:Generator_ColumnVarNameInTable="column移動日" msprop:Generator_ColumnPropNameInRow="移動日" msprop:Generator_ColumnPropNameInTable="移動日Column" msprop:Generator_UserColumnName="移動日" type="xs:dateTime" minOccurs="0" />
@@ -119,7 +119,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="請求明細問合せ" msprop:Generator_TableClassName="請求明細問合せDataTable" msprop:Generator_TableVarName="table請求明細問合せ" msprop:Generator_RowChangedName="請求明細問合せRowChanged" msprop:Generator_TablePropName="請求明細問合せ" msprop:Generator_RowDeletingName="請求明細問合せRowDeleting" msprop:Generator_RowChangingName="請求明細問合せRowChanging" msprop:Generator_RowEvHandlerName="請求明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="請求明細問合せRowDeleted" msprop:Generator_RowClassName="請求明細問合せRow" msprop:Generator_UserTableName="請求明細問合せ" msprop:Generator_RowEvArgName="請求明細問合せRowChangeEvent">
+        <xs:element name="請求明細問合せ" msprop:Generator_TableClassName="請求明細問合せDataTable" msprop:Generator_TableVarName="table請求明細問合せ" msprop:Generator_TablePropName="請求明細問合せ" msprop:Generator_RowDeletingName="請求明細問合せRowDeleting" msprop:Generator_RowChangingName="請求明細問合せRowChanging" msprop:Generator_RowEvHandlerName="請求明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="請求明細問合せRowDeleted" msprop:Generator_UserTableName="請求明細問合せ" msprop:Generator_RowChangedName="請求明細問合せRowChanged" msprop:Generator_RowEvArgName="請求明細問合せRowChangeEvent" msprop:Generator_RowClassName="請求明細問合せRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="売上日" msprop:Generator_ColumnVarNameInTable="column売上日" msprop:Generator_ColumnPropNameInRow="売上日" msprop:Generator_ColumnPropNameInTable="売上日Column" msprop:Generator_UserColumnName="売上日" type="xs:dateTime" minOccurs="0" />
@@ -142,7 +142,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="商品入出荷問合せ" msprop:Generator_TableClassName="商品入出荷問合せDataTable" msprop:Generator_TableVarName="table商品入出荷問合せ" msprop:Generator_TablePropName="商品入出荷問合せ" msprop:Generator_RowDeletingName="商品入出荷問合せRowDeleting" msprop:Generator_RowChangingName="商品入出荷問合せRowChanging" msprop:Generator_RowEvHandlerName="商品入出荷問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品入出荷問合せRowDeleted" msprop:Generator_UserTableName="商品入出荷問合せ" msprop:Generator_RowChangedName="商品入出荷問合せRowChanged" msprop:Generator_RowEvArgName="商品入出荷問合せRowChangeEvent" msprop:Generator_RowClassName="商品入出荷問合せRow">
+        <xs:element name="商品入出荷問合せ" msprop:Generator_TableClassName="商品入出荷問合せDataTable" msprop:Generator_TableVarName="table商品入出荷問合せ" msprop:Generator_RowChangedName="商品入出荷問合せRowChanged" msprop:Generator_TablePropName="商品入出荷問合せ" msprop:Generator_RowDeletingName="商品入出荷問合せRowDeleting" msprop:Generator_RowChangingName="商品入出荷問合せRowChanging" msprop:Generator_RowEvHandlerName="商品入出荷問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="商品入出荷問合せRowDeleted" msprop:Generator_RowClassName="商品入出荷問合せRow" msprop:Generator_UserTableName="商品入出荷問合せ" msprop:Generator_RowEvArgName="商品入出荷問合せRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="入出庫日" msprop:Generator_ColumnVarNameInTable="column入出庫日" msprop:Generator_ColumnPropNameInRow="入出庫日" msprop:Generator_ColumnPropNameInTable="入出庫日Column" msprop:Generator_UserColumnName="入出庫日" type="xs:string" minOccurs="0" />
@@ -160,7 +160,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="揚り明細問合せ" msprop:Generator_TableClassName="揚り明細問合せDataTable" msprop:Generator_TableVarName="table揚り明細問合せ" msprop:Generator_RowChangedName="揚り明細問合せRowChanged" msprop:Generator_TablePropName="揚り明細問合せ" msprop:Generator_RowDeletingName="揚り明細問合せRowDeleting" msprop:Generator_RowChangingName="揚り明細問合せRowChanging" msprop:Generator_RowEvHandlerName="揚り明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="揚り明細問合せRowDeleted" msprop:Generator_RowClassName="揚り明細問合せRow" msprop:Generator_UserTableName="揚り明細問合せ" msprop:Generator_RowEvArgName="揚り明細問合せRowChangeEvent">
+        <xs:element name="揚り明細問合せ" msprop:Generator_TableClassName="揚り明細問合せDataTable" msprop:Generator_TableVarName="table揚り明細問合せ" msprop:Generator_TablePropName="揚り明細問合せ" msprop:Generator_RowDeletingName="揚り明細問合せRowDeleting" msprop:Generator_RowChangingName="揚り明細問合せRowChanging" msprop:Generator_RowEvHandlerName="揚り明細問合せRowChangeEventHandler" msprop:Generator_RowDeletedName="揚り明細問合せRowDeleted" msprop:Generator_UserTableName="揚り明細問合せ" msprop:Generator_RowChangedName="揚り明細問合せRowChanged" msprop:Generator_RowEvArgName="揚り明細問合せRowChangeEvent" msprop:Generator_RowClassName="揚り明細問合せRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="仕上日" msprop:Generator_ColumnVarNameInTable="column仕上日" msprop:Generator_ColumnPropNameInRow="仕上日" msprop:Generator_ColumnPropNameInTable="仕上日Column" msprop:Generator_UserColumnName="仕上日" type="xs:dateTime" minOccurs="0" />

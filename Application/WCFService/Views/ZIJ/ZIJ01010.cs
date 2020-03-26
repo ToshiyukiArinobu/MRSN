@@ -17,7 +17,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         public class SearchDataMember
         {
-            public string 伝票番号 { get; set; }
+            public int 伝票番号 { get; set; }          //No.406 Mod
             public string 返品伝票番号 { get; set; }
             public string 会社名コード { get; set; }
             public string 自社名 { get; set; }
@@ -153,7 +153,7 @@ namespace KyoeiSystem.Application.WCFService
                             .ToList()
                             .Select(x => new SearchDataMember
                             {
-                                伝票番号 = x.SRHD.伝票番号.ToString(),
+                                伝票番号 = x.SRHD.伝票番号,          //No.406 Mod
                                 返品伝票番号 = x.RTSR != null ? x.RTSR.SRHD.伝票番号.ToString() : "",
                                 会社名コード = x.SRHD.会社名コード.ToString(),
                                 自社名 = x.JIS1 != null ? x.JIS1.自社名 : "",
@@ -180,10 +180,11 @@ namespace KyoeiSystem.Application.WCFService
                         var hanList = GetHanDataList(context, p自社コード, cond);
                         // 既存リストに追加
                         resultList.AddRange(hanList);
-                        // リスト追加後にソート実施
-                        resultList = resultList.OrderBy(o => o.仕入日).ThenBy(t => t.伝票番号).ToList();
 
                     }
+
+                    // リスト追加後にソート実施
+                    resultList = resultList.OrderBy(o => o.仕入日).ThenBy(t => t.伝票番号).ToList();          //No.406 Mod
 
                     return resultList;
 
@@ -310,7 +311,7 @@ namespace KyoeiSystem.Application.WCFService
                         .ToList()
                         .Select(x => new SearchDataMember
                         {
-                            伝票番号 = x.SRHD.伝票番号.ToString(),
+                            伝票番号 = x.SRHD.伝票番号,          //No.406 Mod
                             返品伝票番号 = x.RTSR != null ? x.RTSR.SRHD.伝票番号.ToString() : "",
                             会社名コード = x.SRHD.会社名コード.ToString(),
                             自社名 = x.JIS != null ? x.JIS.自社名 : "",

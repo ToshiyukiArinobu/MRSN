@@ -1865,7 +1865,7 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public 仕入問合せRow Add仕入問合せRow(string 伝票番号, string 返品伝票番号, string 自社名, string 仕入日, string 支払日, string 入力区分名, string 仕入先名, string 入荷先名, string 発注番号, string 備考, long 合計金額, int 消費税, long 返品合計金額, int 返品消費税) {
+            public 仕入問合せRow Add仕入問合せRow(int 伝票番号, string 返品伝票番号, string 自社名, string 仕入日, string 支払日, string 入力区分名, string 仕入先名, string 入荷先名, string 発注番号, string 備考, long 合計金額, int 消費税, long 返品合計金額, int 返品消費税) {
                 仕入問合せRow row仕入問合せRow = ((仕入問合せRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         伝票番号,
@@ -1923,7 +1923,7 @@ namespace Hakobou.Data.ZIJ {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.column伝票番号 = new global::System.Data.DataColumn("伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
+                this.column伝票番号 = new global::System.Data.DataColumn("伝票番号", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column伝票番号);
                 this.column返品伝票番号 = new global::System.Data.DataColumn("返品伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column返品伝票番号);
@@ -5148,10 +5148,10 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string 伝票番号 {
+            public int 伝票番号 {
                 get {
                     try {
-                        return ((string)(this[this.table仕入問合せ.伝票番号Column]));
+                        return ((int)(this[this.table仕入問合せ.伝票番号Column]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("テーブル \'仕入問合せ\' にある列 \'伝票番号\' の値は DBNull です。", e);
