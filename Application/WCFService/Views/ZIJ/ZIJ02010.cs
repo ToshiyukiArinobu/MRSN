@@ -25,7 +25,7 @@ namespace KyoeiSystem.Application.WCFService
             public int? 仕入区分コード { get; set; }   //No.396 Add
             public string 仕入区分 { get; set; }
             public string 入力区分 { get; set; }
-            public string 伝票番号 { get; set; }        // No.200 Mod
+            public int 伝票番号 { get; set; }        // No.200 Mod
             public string 元伝票番号 { get; set; }      // No.200 Mod
             public int 行番号 { get; set; }
             public string 仕入先コード { get; set; }    // No.227,228 Add
@@ -180,7 +180,7 @@ namespace KyoeiSystem.Application.WCFService
                                 入力区分 = x.SHD.入力区分 == (int)CommonConstants.入力区分.仕入入力 ? CommonConstants.入力区分_仕入入力 :
                                            x.SHD.入力区分 == (int)CommonConstants.入力区分.売上入力 ? CommonConstants.入力区分_売上入力 :
                                            string.Empty,
-                                伝票番号 = x.SHD.伝票番号.ToString(),
+                                伝票番号 = x.SHD.伝票番号,
                                 元伝票番号 = x.SHD.元伝票番号 != null ? x.SHD.元伝票番号.ToString() : string.Empty,
                                 行番号 = x.SDTL.行番号,
                                 仕入先コード = string.Format("{0:D4} - {1:D2}", x.SHD.仕入先コード, x.SHD.仕入先枝番),   // No.227,228
@@ -205,6 +205,17 @@ namespace KyoeiSystem.Application.WCFService
                             .ThenBy(t => t.会社名コード)
                             .ToList();
                     #endregion
+
+                    if (inputType == null || inputType != CommonConstants.入力区分.仕入入力.GetHashCode())
+                    {
+                        // 販社データ取得
+                        var hanList = GetHanDataList(context, p自社コード, cond);
+                        // 既存リストに追加
+                        resultList.AddRange(hanList);
+                        // リスト追加後にソート実施
+                        resultList = resultList.OrderBy(o => o.仕入日).ThenBy(t => t.伝票番号).ThenBy(t => t.行番号).ThenBy(t => t.会社名コード).ToList();
+
+                    }
 
                     return resultList;
 
@@ -231,7 +242,6 @@ namespace KyoeiSystem.Application.WCFService
         /// <returns></returns>
         private List<SearchDataMember> GetHanDataList(TRAC3Entities context, int p自社コード, Dictionary<string, string> cond)
         {
-            /*
             try
             {
                 #region パラメータの型変換
@@ -248,28 +258,38 @@ namespace KyoeiSystem.Application.WCFService
                     supCode = int.TryParse(cond["仕入先コード"], out ival) ? ival : (int?)null,
                     supEda = int.TryParse(cond["仕入先枝番"], out ival) ? ival : (int?)null,
                     arrivalCode = int.TryParse(cond["入荷先コード"], out ival) ? ival : (int?)null;
-
+                string hinban = cond["自社品番"];
                 #endregion
 
                 // 基本情報の取得
                 var srDataList =
                     context.T03_SRHD_HAN.Where(w => w.削除日時 == null && w.会社名コード == p自社コード)
-                        .Join(context.T03_SRDTL_HAN
-                            .Where(w => w.削除日時 == null)
-                            .GroupBy(g => new { g.伝票番号 })
-                            .Select(x => new { x.Key.伝票番号, 合計金額 = x.Sum(s => s.金額) }),
-                        x => x.伝票番号,
-                        y => y.伝票番号,
-                        (x, y) => new { SRHD = x, SRDTL = y })
+                        .Join(context.T03_SRDTL_HAN.Where(w => w.削除日時 == null),
+                            x => x.伝票番号,
+                            y => y.伝票番号,
+                            (x, y) => new { SRHD = x, SRDTL = y })
                         .GroupJoin(context.T02_URHD.Where(w => w.削除日時 == null),
                             x => x.SRHD.伝票番号,
                             y => y.伝票番号,
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y.DefaultIfEmpty(),
-                            (a, b) => new { a.x.SRHD, a.x.SRDTL, URHD = b })
+                            (e, f) => new { e.x.SRHD, e.x.SRDTL, URHD = f })
                         .Where(w =>
                             w.URHD.売上区分 != (int)CommonConstants.売上区分.メーカー販社商流直送 &&
-                            w.URHD.売上区分 != (int)CommonConstants.売上区分.メーカー販社商流直送返品);
+                            w.URHD.売上区分 != (int)CommonConstants.売上区分.メーカー販社商流直送返品)
+                    // 商品マスタ
+                        .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                            x => x.SRDTL.品番コード,
+                            y => y.品番コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(), (a, b) => new { a.x.SRHD, a.x.SRDTL, a.x.URHD, HIN = b })
+                    // 色名称
+                        .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
+                            x => x.HIN.自社色,
+                            y => y.色コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                           (c, d) => new { c.x.SRHD, c.x.SRDTL, c.x.URHD, c.x.HIN, IRO = d });
 
                 #region 条件絞込
 
@@ -293,66 +313,70 @@ namespace KyoeiSystem.Application.WCFService
                 if (arrivalCode != null)
                     srDataList = srDataList.Where(w => w.SRHD.入荷先コード == arrivalCode);
 
-                #endregion
+                // 自社品番
+                if (!string.IsNullOrEmpty(hinban))
+                    srDataList = srDataList.Where(w => w.HIN.自社品番 == hinban);
 
-                // 返品分のデータを取得する
-                var returnList = srDataList.Where(w => w.SRHD.仕入区分 == (int)CommonConstants.仕入区分.返品).ToList();
+                #endregion
 
                 #region 各名称を取得して検索メンバークラスに整形
                 var resultList =
-                    srDataList.Where(w => w.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品).ToList()
-                        // 返品分の仕入情報
-                        .GroupJoin(returnList,
-                            x => x.SRHD.伝票番号,
-                            y => y.URHD.元伝票番号,
-                            (x, y) => new { x, y })
-                        .SelectMany(x => x.y.DefaultIfEmpty(),
-                            (p, q) => new { p.x.SRHD, p.x.SRDTL, RTSR = q })
-                        // 会社名
+                    srDataList
+                    // 会社名
                         .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                             x => x.SRHD.会社名コード,
                             y => y.自社コード,
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y.DefaultIfEmpty(),
-                            (a, b) => new { a.x.SRHD, a.x.SRDTL, a.x.RTSR, JIS = b })
-                        // 仕入先
+                            (a, b) => new { a.x.SRHD, a.x.SRDTL, a.x.URHD, a.x.HIN, a.x.IRO, JIS = b })
+                    // 仕入先
                         .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                             x => x.SRHD.仕入先コード,
                             y => y.自社コード,
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y.DefaultIfEmpty(),
-                            (c, d) => new { c.x.SRHD, c.x.SRDTL, c.x.RTSR, c.x.JIS, SJIS = d })
-                        // 入荷先
+                            (c, d) => new { c.x.SRHD, c.x.SRDTL, c.x.URHD, c.x.HIN, c.x.IRO, c.x.JIS, SJIS = d })
+                    // 入荷先
                         .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                             x => x.SRHD.入荷先コード,
                             y => y.自社コード,
                             (x, y) => new { x, y })
                         .SelectMany(x => x.y.DefaultIfEmpty(),
-                            (e, f) => new { e.x.SRHD, e.x.SRDTL, e.x.RTSR, e.x.JIS, e.x.SJIS, NJIS = f })
+                            (e, f) => new { e.x.SRHD, e.x.SRDTL, e.x.URHD, e.x.HIN, e.x.IRO, e.x.JIS, e.x.SJIS, NJIS = f })
                         .ToList()
                         .Select(x => new SearchDataMember
                         {
-                            伝票番号 = x.SRHD.伝票番号.ToString(),
-                            返品伝票番号 = x.RTSR != null ? x.RTSR.SRHD.伝票番号.ToString() : "",
-                            会社名コード = x.SRHD.会社名コード.ToString(),
+
+                            会社名コード = x.SRHD.会社名コード,
                             自社名 = x.JIS != null ? x.JIS.自社名 : "",
                             仕入日 = x.SRHD.仕入日.ToString("yyyy/MM/dd"),
                             支払日 = "",// TODO:一応足しておく
-                            入力区分 = CommonConstants.入力区分.売上入力.GetHashCode().ToString(),
-                            入力区分名 = CommonConstants.Get入力区分Dic()[CommonConstants.入力区分.売上入力.GetHashCode()],
+                            仕入区分コード = x.SRHD.仕入区分,
+                            仕入区分 = x.SRHD.仕入区分 == (int)CommonConstants.仕入区分.通常 ? CommonConstants.仕入区分_通常 :
+                                       x.SRHD.仕入区分 == (int)CommonConstants.仕入区分.返品 ? CommonConstants.仕入区分_返品 :
+                                       string.Empty,
+                            //入力区分 = CommonConstants.入力区分.売上入力.GetHashCode().ToString(),
+                            入力区分 = CommonConstants.Get入力区分Dic()[CommonConstants.入力区分.売上入力.GetHashCode()],
+                            伝票番号 = x.SRHD.伝票番号,
+                            元伝票番号 = x.URHD != null ? x.URHD.元伝票番号.ToString() : string.Empty,
+                            行番号 = x.SRDTL.行番号,
                             仕入先コード = x.SRHD.仕入先コード.ToString(),
-                            仕入先枝番 = "",
                             仕入先名 = x.SJIS != null ? x.SJIS.自社名 : "",
-                            入荷先コード = x.SRHD.入荷先コード.ToString(),
                             入荷先名 = x.NJIS != null ? x.NJIS.自社名 : "",
-                            発注番号 = x.SRHD.発注番号.ToString(),
-                            備考 = x.SRHD.備考,
-                            合計金額 = x.SRDTL.合計金額,
-                            消費税 = x.SRHD.消費税 ?? 0,
-                            返品合計金額 = x.RTSR != null ? (x.RTSR.SRDTL.合計金額 * -1) : 0,
-                            返品消費税 = x.RTSR != null ? (x.RTSR.SRHD.消費税 * -1) ?? 0 : 0
-                        })
-                        .ToList();
+                            品番コード = x.SRDTL.品番コード,
+                            自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
+                            自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
+                            自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
+                            賞味期限 = x.SRDTL.賞味期限 == null ? null : x.SRDTL.賞味期限.Value.ToShortDateString(),
+                            数量 = x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SRDTL.数量 : x.SRDTL.数量 * -1,
+                            単価 = x.SRDTL.単価,
+                            単位 = x.SRDTL.単位,
+                            金額 = x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SRDTL.金額 : x.SRDTL.金額 * -1,
+                            消費税 = x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? (x.SRHD.消費税 ?? 0) : (x.SRHD.消費税 ?? 0) * -1,
+                            摘要 = x.SRDTL.摘要,
+                            発注番号 = x.SRHD.発注番号,
+                        }).ToList();
+
                 #endregion
 
                 return resultList;
@@ -362,8 +386,6 @@ namespace KyoeiSystem.Application.WCFService
             {
                 throw ex;
             }
-            */
-            return null;
         }
 
         #endregion

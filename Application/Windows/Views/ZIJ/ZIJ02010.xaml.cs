@@ -581,10 +581,10 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 // 明細にヘッダーの消費税を持たせているので、1伝票1件のみ取得
                 仕入消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
-                                         .GroupBy(a => a.Field<string>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
+                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
 
                 返品消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.返品)
-                                         .GroupBy(a => a.Field<string>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
+                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
             }
 
             // 仕入合計

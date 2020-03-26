@@ -2331,7 +2331,7 @@ namespace Hakobou.Data.ZIJ {
             public 支払明細問合せRow Add支払明細問合せRow(
                         System.DateTime 仕入日, 
                         System.DateTime 支払日, 
-                        string 伝票番号, 
+                        int 伝票番号, 
                         string 元伝票番号, 
                         int 行番号, 
                         string 仕入先名, 
@@ -2413,7 +2413,7 @@ namespace Hakobou.Data.ZIJ {
                 base.Columns.Add(this.column仕入日);
                 this.column支払日 = new global::System.Data.DataColumn("支払日", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column支払日);
-                this.column伝票番号 = new global::System.Data.DataColumn("伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
+                this.column伝票番号 = new global::System.Data.DataColumn("伝票番号", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column伝票番号);
                 this.column元伝票番号 = new global::System.Data.DataColumn("元伝票番号", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column元伝票番号);
@@ -5587,10 +5587,10 @@ namespace Hakobou.Data.ZIJ {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string 伝票番号 {
+            public int 伝票番号 {
                 get {
                     try {
-                        return ((string)(this[this.table支払明細問合せ.伝票番号Column]));
+                        return ((int)(this[this.table支払明細問合せ.伝票番号Column]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("テーブル \'支払明細問合せ\' にある列 \'伝票番号\' の値は DBNull です。", e);
