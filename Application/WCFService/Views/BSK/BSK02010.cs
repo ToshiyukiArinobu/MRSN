@@ -121,11 +121,11 @@ namespace KyoeiSystem.Application.WCFService
                 // 得意先が指定されている場合
                 if (fromCode != null)
                 {
-                    tok = tok.Where(w => w.取引先コード >= fromCode && w.枝番 >= fromEda);
+                    tok = tok.Where(w => w.取引先コード * 1000 + w.枝番 >= fromCode *1000 + fromEda);
                 }
                 if (toCode != null)
                 {
-                    tok = tok.Where(w => w.取引先コード <= toCode && w.枝番 <= toEda);
+                    tok = tok.Where(w => w.取引先コード * 1000 + w.枝番 <= toCode * 1000 + toEda);
                 }
 
                 tok = tok.OrderBy(o => o.担当会社コード).ThenBy(t => t.取引先コード).ThenBy(t => t.枝番);
