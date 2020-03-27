@@ -14,7 +14,7 @@
     MinHeight="300" MinWidth="1024"
     Height="768" Width="1024"
     WindowStartupLocation="CenterOwner" Language="ja-JP"
-    Title="シリーズ･商品別売上統計表(BSK03010)" ResizeMode="NoResize"
+    Title="ブランド･商品別売上統計表(BSK03010)" ResizeMode="NoResize"
     Loaded="Window_Loaded" Closed="Window_Closed">
 
     <vm:WindowReportBase.Resources>
@@ -25,9 +25,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <!--リボン領域-->
-            <RowDefinition Height="auto" />
+            <RowDefinition />
             <!--検索条件領域-->
-            <RowDefinition Height="*" />
+            <RowDefinition Height="0*" />
             <!--明細表示領域-->
         </Grid.RowDefinitions>
 
@@ -131,41 +131,94 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
-                        <RowDefinition Height="600" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
-                    <!-- 処理年度 -->
+                    <!-- 年度指定 -->
                     <ctls:UcLabelTextBox
-                          Name="FiscalYear" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
-                          ValidationType="Integer" ImeType="Off"
-                          Label_Context="処理年度" Label_Width="100"
-                          cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center"
-                      />
-                    <TextBlock Text="年度" Grid.Row="0" VerticalAlignment="Center" Margin="150,5,0,0" />
+                        Name="FiscalYear" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
+                        ValidationType="DateYYYYMM" ImeType="Off"
+                        Label_Context="年度指定" Label_Width="100" Mask="yyyy/MM"
+                        cMaxLength="7" cWidth="60" cVerticalContentAlignment="Center" cTextChanged="FiscalYear_cTextChanged" 
+                    />
+                    <TextBlock Name="PeriodYM" Text="月度 :" Grid.Row="0" VerticalAlignment="Center" Margin="170,10,0,0" />
 
                     <!-- 対象自社 -->
                     <ctls:UcLabelTwinTextBox
-                          Name="MyCompany" Grid.Row="1" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
+                          Name="MyCompany" Grid.Row="1" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,5,0,0"
                           DataAccessName="M70_JIS" DataAccessMode="On"
                           Label_Context="対象自社" Label_Width="100"
                           Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                          Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
-                          Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+                          Text1Width="40" Text1MaxLength="7" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
+                          Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center" Width="404"
                       />
 
-                    <!-- シリーズ -->
-                    <ctls:UcLabelTwinTextBox
-                          x:Name="Series" Grid.Row="2" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,5,0,0"
-                          DataAccessName="M15_SERIES" DataAccessMode="On"
-                          Label_Context="シリーズ指定" Label_Width="100"
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- ブランド指定 -->
+                        <ctls:UcLabelTwinTextBox
+                          x:Name="BrandFrom" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,5,0,0"
+                          DataAccessName="M14_BRAND" DataAccessMode="On"
+                          Label_Context="ブランド指定" Label_Width="100"
                           Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                           Text1Width="50" Text1MaxLength="5" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
-                          Text2Width="300" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center" Text2BorderThickness="0" Text2Background="Transparent"
-                      />
+                          Text2IsReadOnly="True" Text2VerticalContentAlignment="Center" Text2BorderThickness="0" Text2Background="Transparent"
+                         />
+                        <TextBlock Text="～" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
+                        <ctls:UcLabelTwinTextBox
+                          x:Name="BrandTo" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,5,0,0"
+                          DataAccessName="M14_BRAND" DataAccessMode="On"
+                          Label_Context="" Label_Width="0"
+                          Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                          Text1Width="50" Text1MaxLength="5" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
+                           Text2IsReadOnly="True" Text2VerticalContentAlignment="Center" Text2BorderThickness="0" Text2Background="Transparent" 
+                        />
+                    </Grid>
 
-                    <ctls:UcLabelTextRadioButton Name="radioSelect" Grid.Row="3" Label_Content="出力項目" Label_Width="100" Margin="5,5,0,0" RadioOneStart="True" RadioViewCount="Three" 
-                                                 RadioSelectButton="Two"  RadioSecond_Content="金額　" RadioThird_Content="数量" 
-                                                 />
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- 自社品番指定 -->
+                        <ctls:UcLabelTwinTextBox Name="ProductFrom" Grid.Row="3" Grid.Column="0" DataAccessName="M09_MYHIN" DataAccessMode="On" Margin="5,5,0,0"
+                            Label_Context="自社品番指定" Label_Width="100" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                            Text1Width="80" Text1IMEType="Off" Text1MaxLength="12" Text1VerticalContentAlignment="Center"
+                            Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+                        />
+                        <TextBlock Text="～" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+                        <ctls:UcLabelTwinTextBox Name="ProductTo" Grid.Row="3" Grid.Column="2" DataAccessName="M09_MYHIN" DataAccessMode="On" Margin="5,5,0,0"
+                            Label_Context="" Label_Width="0" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
+                            Text1Width="80" Text1IMEType="Off" Text1MaxLength="12" Text1VerticalContentAlignment="Center"
+                            Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
+                        />
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- 商品形態指定 -->
+                        <ctls:UcLabelComboBox Name="cmbItemTypeFrom" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Margin="5,5,0,0"
+                            Label_Context="商品形態指定" Label_Width="100"
+                            Combo_Width="100"
+                            ComboListingParams="分析,ブランド・商品別売上統計表,商品形態分類" Width="200"
+                        />
+                        <TextBlock Text="～" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+                        <ctls:UcLabelComboBox Name="cmbItemTypeTo" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,0"
+                            Label_Context="" Label_Width="0"
+                            Combo_Width="100"
+                            ComboListingParams="分析,ブランド・商品別売上統計表,商品形態分類"
+                        />
+                    </Grid>
 
                 </Grid>
 

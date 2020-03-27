@@ -6,7 +6,7 @@ using System.Web;
 namespace KyoeiSystem.Application.WCFService
 {
     /// <summary>
-    /// シリーズ･商品別売上統計表 サービスクラス
+    /// ブランド･商品別売上統計表 サービスクラス
     /// </summary>
     public class BSK03010
     {
@@ -25,8 +25,8 @@ namespace KyoeiSystem.Application.WCFService
             /// </remarks>
             public int 自社コード { get; set; }      // No.227,228 Add
             public string 自社名 { get; set; }       // No.227,228 Add
-            public string シリーズコード { get; set; }
-            public string シリーズ名 { get; set; }
+            public string ブランドコード { get; set; }
+            public string ブランド名 { get; set; }
             public int 品番コード { get; set; }
             public string 自社品番 { get; set; }     // No.322 Add
             public string 品番名称 { get; set; }
@@ -45,6 +45,22 @@ namespace KyoeiSystem.Application.WCFService
             public long 集計売上額１２ { get; set; }
             public long 集計合計額 { get; set; }
             public decimal 構成比率 { get; set; }
+            // No.402 Add Start
+            public long 集計数量０１ { get; set; }
+            public long 集計数量０２ { get; set; }
+            public long 集計数量０３ { get; set; }
+            public long 集計数量０４ { get; set; }
+            public long 集計数量０５ { get; set; }
+            public long 集計数量０６ { get; set; }
+            public long 集計数量０７ { get; set; }
+            public long 集計数量０８ { get; set; }
+            public long 集計数量０９ { get; set; }
+            public long 集計数量１０ { get; set; }
+            public long 集計数量１１ { get; set; }
+            public long 集計数量１２ { get; set; }
+            public long 集計合計数量 { get; set; }
+            public decimal 数量構成比率 { get; set; }
+            // No.402 Add End
         }
         #endregion
 
@@ -60,10 +76,13 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社色 { get; set; }
             public string シリーズ { get; set; }
             public string シリーズ名 { get; set; }
+            public string ブランド { get; set; }     // No.402 Add
+            public string ブランド名 { get; set; }   // No.402 Add
             public string 自社品番 { get; set; }
             public string 自社品名 { get; set; }
             public string 色名称 { get; set; }
             public long 金額 { get; set; }
+            public int 数量 { get; set; }            // No.402 Add
         }
 
         #endregion
@@ -72,7 +91,6 @@ namespace KyoeiSystem.Application.WCFService
         public class BSK03010_DATASET
         {
             public List<BSK03010_PrintMember> PRINT_DATA = null;
-            public List<M70_JIS> M70 = null;
         }
         #region 集計データ取得
         /// <summary>
@@ -83,30 +101,104 @@ namespace KyoeiSystem.Application.WCFService
         public BSK03010_DATASET GetPrintList(Dictionary<string, string> paramDic)
         {
             BSK03010_DATASET result = new BSK03010_DATASET();
+
             // パラメータ展開
-            int company = int.Parse(paramDic["自社コード"]),
-                year = int.Parse(paramDic["処理年度"].Replace("/", ""));
-            string seriesCode = paramDic["シリーズコード"];
-            string output = paramDic["出力項目"];
+            int? company;
+            string brandFrom, brandTo, productFrom, productTo;
+            int itemTypeFrom, itemTypeTo;
+            DateTime? startYm, endYm;
+
+            getFormParams(paramDic, out company, out brandFrom, out brandTo, out productFrom, out productTo, out itemTypeFrom, out itemTypeTo, out startYm, out endYm); // No.402 Add
 
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
                 context.Connection.Open();
 
-                // 自社情報を取得
-                result.M70 =
-                    context.M70_JIS
-                        .Where(w => w.自社コード == company).ToList();
-
-                var jis = result.M70.FirstOrDefault();
-
                 // 対象として取引区分：得意先、相殺を対象とする
-                List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺 };
-                if (jis.自社区分 == (int)CommonConstants.自社区分.自社)
-                    kbnList.Add((int)CommonConstants.取引区分.販社);
-
+                List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };  // No.402 Mod
+                
                 var tok =
                     context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分));
+
+                // No.402 Add Start
+                var hin =
+                    context.M09_HIN.Where(w => w.削除日時 == null);
+
+                #region 条件絞り込み
+                // 自社が指定されていれば条件追加
+                if (company != null)
+                {
+                    var jis = context.M70_JIS.Where(w => w.自社コード == company).FirstOrDefault();
+                    tok = tok.Where(w => w.担当会社コード == jis.自社コード);
+                }
+
+                // ブランドが指定されている場合
+                string compBrandFrom = brandFrom;
+                string compBrandTo = brandTo;
+                
+                // ブランドFromToを再設定 0123…ABC順で絞り込む
+                if (!string.IsNullOrEmpty(brandFrom) && !string.IsNullOrEmpty(brandTo) &&
+                    brandFrom.CompareTo(brandTo) > 0)
+                {
+                    compBrandFrom = brandTo;
+                    compBrandTo = brandFrom;
+                }
+
+                if (!string.IsNullOrEmpty(brandFrom))
+                {
+                    hin = hin.Where(w => w.ブランド.CompareTo(compBrandFrom) >= 0);
+                }
+
+                if (!string.IsNullOrEmpty(brandTo))
+                {
+                    hin = hin.Where(w => w.ブランド.CompareTo(compBrandTo) <= 0);
+                }
+
+                // 自社品番指定されている場合
+                string compFrom = productFrom;
+                string compTo = productTo;
+
+                // 自社品番FromToを再設定 0123…ABC順で絞り込む
+                if (!string.IsNullOrEmpty(productFrom) && !string.IsNullOrEmpty(productTo) &&
+                    productFrom.CompareTo(productTo) > 0)
+                {
+                    compFrom = productTo;
+                    compTo = productFrom;
+                }
+
+                if (!string.IsNullOrEmpty(productFrom))
+                {
+                    hin = hin.Where(w => w.自社品番.CompareTo(compFrom) >= 0);
+                }
+
+                if (!string.IsNullOrEmpty(productTo))
+                {
+                    hin = hin.Where(w => w.自社品番.CompareTo(compTo) <= 0);
+                }
+
+                // 商品形態分類が指定されている場合
+                int compTypeFrom = itemTypeFrom;
+                int compTypeTo = itemTypeTo;
+
+                // 商品形態分類FromToを再設定
+                if (itemTypeFrom != 0 && itemTypeTo != 0 &&
+                    itemTypeFrom > itemTypeTo)
+                {
+                    compTypeFrom = itemTypeTo;
+                    compTypeTo = itemTypeFrom;
+                }
+                if (itemTypeFrom != 0)
+                {
+                    hin = hin.Where(w => w.商品形態分類 >= compTypeFrom);
+                }
+
+                if (itemTypeTo != 0)
+                {
+                    hin = hin.Where(w => w.商品形態分類 <= compTypeTo);
+                }
+
+                #endregion
+                // No.402 Add End
 
                 // ソート順を指定
                 tok = tok.OrderBy(o => o.取引先コード).ThenBy(t => t.枝番);
@@ -115,12 +207,8 @@ namespace KyoeiSystem.Application.WCFService
                 List<BSK03010_PrintMember> resultList = new List<BSK03010_PrintMember>();
                 foreach (M01_TOK tokRow in tok)
                 {
-                    // 決算月・請求締日から売上集計期間を算出する
-                    int pMonth = jis.決算月 ?? CommonConstants.DEFAULT_SETTLEMENT_MONTH,
-                        pYear = year + 1;
-
-                    DateTime lastMonth = new DateTime(pYear, pMonth, 1);
-                    DateTime targetMonth = lastMonth.AddMonths(-11);
+                    DateTime lastMonth = (DateTime)endYm;               // No.402 Mod
+                    DateTime targetMonth = (DateTime)startYm;           // No.402 Mod
 
                     #region 年月単位で集計データを取得
                     // 年月毎のデータDic
@@ -134,34 +222,32 @@ namespace KyoeiSystem.Application.WCFService
                         var dtlList =
                             context.S01_SEIDTL
                                 .Where(w =>
-                                    w.自社コード == company &&
+                                    w.自社コード == tokRow.担当会社コード &&        // No.402 Mod
                                     w.請求年月 == yearMonth &&
                                     w.請求先コード == tokRow.取引先コード &&
                                     w.請求先枝番 == tokRow.枝番)
-                                .GroupJoin(context.M09_HIN,
+                                .Join(hin,                                          // No.402 Mod
                                     x => x.品番コード,
                                     y => y.品番コード,
-                                    (x, y) => new { x, y })
-                                .SelectMany(z => z.y.DefaultIfEmpty(),
-                                    (a, b) => new { SD = a.x, HN = b })
+                                    (x, y) => new { SD = x, HN = y })
                                 .GroupJoin(context.M06_IRO,
                                     x => x.HN.自社色,
                                     y => y.色コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
                                     (c, d) => new { c.x.SD, c.x.HN, IR = d })
-                                .GroupJoin(context.M15_SERIES,
-                                    x => x.HN.シリーズ,
-                                    y => y.シリーズコード,
+                                .GroupJoin(context.M14_BRAND,
+                                    x => x.HN.ブランド,
+                                    y => y.ブランドコード,
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
-                                    (e, f) => new { e.x.SD, e.x.HN, e.x.IR, SR = f })
+                                    (e, f) => new { e.x.SD, e.x.HN, e.x.IR, BR = f})
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                                     x => x.SD.自社コード,
                                     y => y.自社コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
-                                    (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.SR, JIS = h})
+                                    (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.BR, JIS = h })
                                 .GroupBy(g => new
                                 {
                                     g.SD.自社コード,
@@ -172,8 +258,8 @@ namespace KyoeiSystem.Application.WCFService
                                     g.SD.品番コード,
                                     g.HN.自社品番,
                                     g.HN.自社色,
-                                    g.HN.シリーズ,
-                                    g.SR.シリーズ名,
+                                    g.HN.ブランド,                                  // No.402 Mod
+                                    g.BR.ブランド名,                                // No.402 Mod
                                     g.HN.自社品名,
                                     g.IR.色名称
                                 })
@@ -183,20 +269,16 @@ namespace KyoeiSystem.Application.WCFService
                                     自社名 = s.Key.自社名,                // No.227,228 Add
                                     品番コード = s.Key.品番コード,
                                     自社色 = s.Key.自社色,
-                                    シリーズ = s.Key.シリーズ,
-                                    シリーズ名 = s.Key.シリーズ名,
+                                    ブランド = s.Key.ブランド,
+                                    ブランド名 = s.Key.ブランド名,
                                     自社品番 = s.Key.自社品番,
                                     自社品名 = s.Key.自社品名,
                                     色名称 = s.Key.色名称,
-                                    金額 = output == "1" ? s.Sum(m => m.SD.金額) : (int)s.Sum(m => m.SD.数量),
+                                    金額 = s.Sum(m => m.SD.金額),           // No.402 Mod
+                                    数量 = (int)s.Sum(m => m.SD.数量)       // No.402 Mod
                                 });
                         // No.227,228 Mod End
                         #endregion
-
-                        // シリーズ指定がある場合は絞り込み
-                        if (!string.IsNullOrEmpty(seriesCode))
-                            dtlList =
-                                dtlList.Where(w => w.シリーズ == seriesCode);
 
                         // 対象月の集計データを格納
                         tokDic.Add(yearMonth, dtlList.ToList());
@@ -220,63 +302,76 @@ namespace KyoeiSystem.Application.WCFService
                             BSK03010_PrintMember print = new BSK03010_PrintMember();
                             print.自社コード = tallyList[i].自社コード;       // No.227,228 Add
                             print.自社名 = tallyList[i].自社名;               // No.227,228 Add
-                            print.シリーズコード = tallyList[i].シリーズ;
-                            print.シリーズ名 = tallyList[i].シリーズ名;
+                            print.ブランドコード = tallyList[i].ブランド;     // No.402 Mod
+                            print.ブランド名 = tallyList[i].ブランド名;       // No.402 Mod
                             print.品番コード = tallyList[i].品番コード;
                             print.自社品番 = tallyList[i].自社品番;           // No.322 Add
                             print.品番名称 = tallyList[i].自社品名;
                             print.色名称 = tallyList[i].色名称;
                             print.集計合計額 += tallyList[i].金額;
+                            print.集計合計数量 += tallyList[i].数量;          // No.402 Add
 
                             #region monthCountにより設定列分け
                             switch (monthCount)
                             {
                                 case 1:
                                     print.集計売上額０１ = tallyList[i].金額;
+                                    print.集計数量０１ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 2:
                                     print.集計売上額０２ = tallyList[i].金額;
+                                    print.集計数量０２ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 3:
                                     print.集計売上額０３ = tallyList[i].金額;
+                                    print.集計数量０３ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 4:
                                     print.集計売上額０４ = tallyList[i].金額;
+                                    print.集計数量０４ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 5:
                                     print.集計売上額０５ = tallyList[i].金額;
+                                    print.集計数量０５ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 6:
                                     print.集計売上額０６ = tallyList[i].金額;
+                                    print.集計数量０６ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 7:
                                     print.集計売上額０７ = tallyList[i].金額;
+                                    print.集計数量０７ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 8:
                                     print.集計売上額０８ = tallyList[i].金額;
+                                    print.集計数量０８ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 9:
                                     print.集計売上額０９ = tallyList[i].金額;
+                                    print.集計数量０９ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 10:
                                     print.集計売上額１０ = tallyList[i].金額;
+                                    print.集計数量１０ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 11:
                                     print.集計売上額１１ = tallyList[i].金額;
+                                    print.集計数量１１ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 case 12:
                                     print.集計売上額１２ = tallyList[i].金額;
+                                    print.集計数量１２ = tallyList[i].数量;             // No.402 Add
                                     break;
 
                                 default:
@@ -296,13 +391,13 @@ namespace KyoeiSystem.Application.WCFService
                     #region データリストを集計して最終データを作成
                     printList =
                         printList.AsEnumerable()
-                            .GroupBy(g => new { 自社コード = g.自社コード, 自社名 = g.自社名, シリーズコード = g.シリーズコード, シリーズ名 = g.シリーズ名, g.品番コード, g.自社品番, g.品番名称, g.色名称 })   // No.227,228 Mod No.322
+                            .GroupBy(g => new { 自社コード = g.自社コード, 自社名 = g.自社名, ブランドコード = g.ブランドコード, ブランド名 = g.ブランド名, g.品番コード, g.自社品番, g.品番名称, g.色名称 })   // No.227,228 Mod No.322
                             .Select(s => new BSK03010_PrintMember
                             {
                                 自社コード = s.Key.自社コード,    // No.227,228 Add
                                 自社名 = s.Key.自社名,            // No.227,228 Add
-                                シリーズコード = s.Key.シリーズコード,
-                                シリーズ名 = s.Key.シリーズ名,
+                                ブランドコード = s.Key.ブランドコード,    // No.402 Mod
+                                ブランド名 = s.Key.ブランド名,            // No.402 Mod
                                 品番コード = s.Key.品番コード,
                                 自社品番 = s.Key.自社品番,        // No.322 Add
                                 品番名称 = s.Key.品番名称,
@@ -320,8 +415,23 @@ namespace KyoeiSystem.Application.WCFService
                                 集計売上額１１ = s.Sum(m => m.集計売上額１１),
                                 集計売上額１２ = s.Sum(m => m.集計売上額１２),
                                 集計合計額 = s.Sum(m => m.集計合計額),
+                                // No.402 Add Start
+                                集計数量０１ = s.Sum(m => m.集計数量０１),
+                                集計数量０２ = s.Sum(m => m.集計数量０２),
+                                集計数量０３ = s.Sum(m => m.集計数量０３),
+                                集計数量０４ = s.Sum(m => m.集計数量０４),
+                                集計数量０５ = s.Sum(m => m.集計数量０５),
+                                集計数量０６ = s.Sum(m => m.集計数量０６),
+                                集計数量０７ = s.Sum(m => m.集計数量０７),
+                                集計数量０８ = s.Sum(m => m.集計数量０８),
+                                集計数量０９ = s.Sum(m => m.集計数量０９),
+                                集計数量１０ = s.Sum(m => m.集計数量１０),
+                                集計数量１１ = s.Sum(m => m.集計数量１１),
+                                集計数量１２ = s.Sum(m => m.集計数量１２),
+                                集計合計数量 = s.Sum(m => m.集計合計数量),
+                                // No.402 Add End
                             })
-                            .OrderBy(o => o.シリーズコード)
+                            .OrderBy(o => o.ブランドコード)
                             .ThenBy(t => t.品番コード)
                             .ToList();
 
@@ -337,8 +447,8 @@ namespace KyoeiSystem.Application.WCFService
                         .GroupBy(g => new {
                             自社コード = g.自社コード,        // No.227,228 Add
                             自社名 = g.自社名,                // No.227,228 Add
-                            シリーズコード = g.シリーズコード,
-                            シリーズ名 = g.シリーズ名,
+                            ブランドコード = g.ブランドコード,    // No.402 Mod
+                            ブランド名 = g.ブランド名,            // No.402 Mod
                             品番コード = g.品番コード,
                             自社品番 = g.自社品番,            // No.322 Add
                             品番名称 = g.品番名称,
@@ -348,8 +458,8 @@ namespace KyoeiSystem.Application.WCFService
                         {
                             自社コード = s.Key.自社コード,            // No.227,228 Add
                             自社名 = s.Key.自社名,                    // No.227,228 Add
-                            シリーズコード = s.Key.シリーズコード,
-                            シリーズ名 = s.Key.シリーズ名,
+                            ブランドコード = s.Key.ブランドコード,    // No.402 Mod
+                            ブランド名 = s.Key.ブランド名,            // No.402 Mod
                             品番コード = s.Key.品番コード,
                             自社品番 = s.Key.自社品番,                // No.322 Add
                             品番名称 = string.Format("{0} {1}", s.Key.自社品番, s.Key.品番名称),   // No.322 Mod
@@ -368,18 +478,45 @@ namespace KyoeiSystem.Application.WCFService
                             集計売上額１２ = s.Sum(m => m.集計売上額１２),
                             集計合計額 = s.Sum(m => m.集計合計額),
                             構成比率 =
-                                resultList.Where(w => w.シリーズコード == s.Key.シリーズコード).Sum(m => m.集計合計額) == 0 ?
+                                resultList.Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計額) == 0 ?      // No.402 Mod
                                     0 :
                                     Math.Round(
                                         Decimal.Divide(
                                             s.Sum(m => m.集計合計額),
                                             resultList
-                                                .Where(w => w.シリーズコード == s.Key.シリーズコード).Sum(m => m.集計合計額)
+                                                .Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計額)       // No.402 Mod
+                                            ) * 100, 2),
+                            // No.402 Add Start
+                            集計数量０１ = s.Sum(m => m.集計数量０１),
+                            集計数量０２ = s.Sum(m => m.集計数量０２),
+                            集計数量０３ = s.Sum(m => m.集計数量０３),
+                            集計数量０４ = s.Sum(m => m.集計数量０４),
+                            集計数量０５ = s.Sum(m => m.集計数量０５),
+                            集計数量０６ = s.Sum(m => m.集計数量０６),
+                            集計数量０７ = s.Sum(m => m.集計数量０７),
+                            集計数量０８ = s.Sum(m => m.集計数量０８),
+                            集計数量０９ = s.Sum(m => m.集計数量０９),
+                            集計数量１０ = s.Sum(m => m.集計数量１０),
+                            集計数量１１ = s.Sum(m => m.集計数量１１),
+                            集計数量１２ = s.Sum(m => m.集計数量１２),
+                            集計合計数量 = s.Sum(m => m.集計合計数量),
+                            数量構成比率 =
+                                resultList.Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計数量) == 0 ?
+                                    0 :
+                                    Math.Round(
+                                        Decimal.Divide(
+                                            s.Sum(m => m.集計合計数量),
+                                            resultList
+                                                .Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計数量)
                                             ) * 100, 2)
+                            // No.402 Add End
                         })
-                        .OrderBy(c => c.自社品番).ToList();
+                        .ToList();
 
-                result.PRINT_DATA = resultList;
+                result.PRINT_DATA = resultList
+                                        .OrderBy(c => c.自社コード)
+                                        .ThenBy(t => t.ブランドコード)
+                                        .ThenBy(t => t.自社品番).ToList();
                 return result;
 
             }
@@ -387,6 +524,38 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 検索パラメータ展開
+        /// <summary>
+        /// 検索パラメータ展開
+        /// </summary>
+        /// <param name="paramDic"></param>
+        /// <param name="company"></param>
+        /// <param name="brandFrom"></param>
+        /// <param name="brandTo"></param>
+        /// <param name="productFrom"></param>
+        /// <param name="productTo"></param>
+        /// <param name="itemTypeFrom"></param>
+        /// <param name="itemTypeTo"></param>
+        /// <param name="startYm"></param>
+        /// <param name="endYm"></param>
+        private void getFormParams(Dictionary<string, string> paramDic, out int? company, out string brandFrom, out string brandTo,
+                                    out string productFrom, out string productTo, out int itemTypeFrom, out int itemTypeTo,
+                                    out DateTime? startYm, out DateTime? endYm)
+        {
+            int ival;
+            DateTime dWk;
+
+            company = Int32.TryParse(paramDic["自社コード"], out ival) ? ival : (int?)null;
+            brandFrom = paramDic["ブランドコードFrom"];
+            brandTo = paramDic["ブランドコードTo"];
+            productFrom = paramDic["自社品番From"];
+            productTo = paramDic["自社品番To"];
+            itemTypeFrom = Int32.TryParse(paramDic["商品形態分類From"], out ival) ? ival : 0;
+            itemTypeTo = Int32.TryParse(paramDic["商品形態分類To"], out ival) ? ival : 0;
+            startYm = DateTime.TryParse(paramDic["処理開始"], out dWk) ? dWk : (DateTime?)null;
+            endYm = DateTime.TryParse(paramDic["処理終了"], out dWk) ? dWk : (DateTime?)null;
+        }
+        #endregion
     }
 
 }

@@ -14,7 +14,7 @@ namespace KyoeiSystem.Application.Windows.Views
     using WinForms = System.Windows.Forms;
 
     /// <summary>
-    /// シリーズ･商品別売上統計表 フォームクラス
+    /// ブランド･商品別売上統計表 フォームクラス
     /// </summary>
     public partial class BSK03010 : WindowReportBase
     {
@@ -69,13 +69,25 @@ namespace KyoeiSystem.Application.Windows.Views
 
         // 画面パラメータ名
         private const string PARAMS_NAME_FISCAL_YEAR = "処理年度";
+        private const string PARAMS_NAME_FISCAL_FROM = "処理開始";                 // No.402 Add
+        private const string PARAMS_NAME_FISCAL_TO = "処理終了";                   // No.402 Add
         private const string PARAMS_NAME_COMPANY  = "自社コード";
-        private const string PARAMS_NAME_SERIES_CODE = "シリーズコード";
-        private const string PARAMS_NAME_OUTPUT = "出力項目";
+        private const string PARAMS_NAME_BRAND_CODE_FROM = "ブランドコードFrom";   // No.402 Add
+        private const string PARAMS_NAME_BRAND_CODE_TO = "ブランドコードTo";       // No.402 Add
+        private const string PARAMS_NAME_PRODUCT_CODE_FROM = "自社品番From";       // No.402 Add
+        private const string PARAMS_NAME_PRODUCT_CODE_TO = "自社品番To";           // No.402 Add
+        private const string PARAMS_NAME_ITEM_TYPE_FROM = "商品形態分類From";      // No.402 Add
+        private const string PARAMS_NAME_ITEM_TYPE_TO = "商品形態分類To";          // No.402 Add
 
         // 帳票パラメータ名
         private const string REPORT_PARAM_NAME_PRIOD_START = "期間開始";
         private const string REPORT_PARAM_NAME_PRIOD_END = "期間終了";
+        private const string REPORT_PARAMS_NAME_BRAND_CODE_FROM = "ブランドコードFrom";   // No.402 Add
+        private const string REPORT_PARAMS_NAME_BRAND_CODE_TO = "ブランドコードTo";       // No.402 Add
+        private const string REPORT_PARAMS_NAME_PRODUCT_CODE_FROM = "自社品番From";       // No.402 Add
+        private const string REPORT_PARAMS_NAME_PRODUCT_CODE_TO = "自社品番To";           // No.402 Add
+        private const string REPORT_PARAMS_NAME_ITEM_TYPE_FROM = "商品形態分類From";      // No.402 Add
+        private const string REPORT_PARAMS_NAME_ITEM_TYPE_TO = "商品形態分類To";          // No.402 Add
         private const string REPORT_PARAM_NAME_YEAR_MONTH01 = "集計年月１";
         private const string REPORT_PARAM_NAME_YEAR_MONTH02 = "集計年月２";
         private const string REPORT_PARAM_NAME_YEAR_MONTH03 = "集計年月３";
@@ -114,7 +126,7 @@ namespace KyoeiSystem.Application.Windows.Views
         #region << 画面初期処理 >>
 
         /// <summary>
-        /// シリーズ･商品別売上統計表 コンストラクタ
+        /// ブランド･商品別売上統計表 コンストラクタ
         /// </summary>
         public BSK03010()
         {
@@ -172,8 +184,13 @@ namespace KyoeiSystem.Application.Windows.Views
 
             #endregion
 
-            base.MasterMaintenanceWindowList.Add("M15_SERIES", new List<Type> { typeof(MST04021), typeof(SCHM15_SERIES) });
+            base.MasterMaintenanceWindowList.Add("M14_BRAND", new List<Type> { typeof(MST04021), typeof(SCHM14_BRAND) });   // No.402 Add
+            base.MasterMaintenanceWindowList.Add("M09_MYHIN", new List<Type> { typeof(MST02010), typeof(SCHM09_MYHIN) });   // No.402 Add
             base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) });
+
+            // コンボデータ取得
+            AppCommon.SetutpComboboxList(this.cmbItemTypeFrom, false);      // No.402 Add
+            AppCommon.SetutpComboboxList(this.cmbItemTypeTo, false);        // No.402 Add
 
             ScreenClear();
 
@@ -206,17 +223,15 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
                 DataTable tbl = dataset.Tables["PRINT_DATA"];
-                DataTable jistbl = dataset.Tables["M70"];
-                int i決算月 = (int)jistbl.Rows[0]["決算月"]; 
 
                 switch (message.GetMessageName())
                 {
                     case GET_CSV_LIST:
-                        outputCsv(tbl, i決算月);
+                        outputCsv(tbl);         // No.402 Mod
                         break;
 
                     case GET_PRINT_LIST:
-                        outputReport(tbl, i決算月);
+                        outputReport(tbl);      // No.402 Mod
                         break;
 
                     default:
@@ -320,6 +335,10 @@ namespace KyoeiSystem.Application.Windows.Views
             if (!formValidation())
                 return;
 
+            // key項目のエラーチェック    // No.407
+            if (!base.CheckKeyItemValidation())
+                return;
+
             // パラメータ情報設定
             setSearchParams();
 
@@ -367,35 +386,29 @@ namespace KyoeiSystem.Application.Windows.Views
             // No.353 Mod End
 
             // 処理年度の初期値設定
-            int fiscalYear = getFiscalYear(DateTime.Now.Year, DateTime.Now.Month, DEFAULT_SETTLEMENT_MONTH);
-            this.FiscalYear.Text = fiscalYear.ToString();
+            // No.402 Mod Start
+            BSK02010 bsk020 = new BSK02010();
+            this.FiscalYear.Text = string.Format("{0}/{1}", DateTime.Now.Year, DateTime.Now.Month);
+            BSK02010.FiscalPeriod period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            this.PeriodYM.Text = string.Format("月度 : {0}～{1}月度", period.PeriodStart.ToString("yyyy/MM"), period.PeriodEnd.ToString("yyyy/MM"));
 
-            // シリーズの入力値クリア
-            this.Series.Text1 = string.Empty;
-            this.Series.Text2 = string.Empty;
+            // ブランド指定入力値クリア
+            this.BrandFrom.Text1 = string.Empty;
+            this.BrandFrom.Text2 = string.Empty;
+            this.BrandTo.Text1 = string.Empty;
+            this.BrandTo.Text2 = string.Empty;
+            // 品番指定
+            this.ProductFrom.Text1 = string.Empty;
+            this.ProductFrom.Text2 = string.Empty;
+            this.ProductTo.Text1 = string.Empty;
+            this.ProductTo.Text2 = string.Empty;
+            // 商品形態分類指定
+            this.cmbItemTypeFrom.SelectedIndex = 0;
+            this.cmbItemTypeTo.SelectedIndex = 0;
+            // No.402 Mod End
 
             ResetAllValidation();
             SetFocusToTopControl();
-
-        }
-        #endregion
-
-        #region 決算年度算出
-        /// <summary>
-        /// 決算年度を算出して返す
-        /// </summary>
-        /// <param name="year">年</param>
-        /// <param name="month">月</param>
-        /// <param name="settlementMonth">決算月</param>
-        /// <returns></returns>
-        private int getFiscalYear(int year, int month, int settlementMonth)
-        {
-            int fiscalYear = year;
-            // 決算月以前の場合は前年を年度として指定
-            if (month <= settlementMonth)
-                fiscalYear -= 1;
-
-            return fiscalYear;
 
         }
         #endregion
@@ -410,14 +423,7 @@ namespace KyoeiSystem.Application.Windows.Views
             if (string.IsNullOrEmpty(FiscalYear.Text))
             {
                 FiscalYear.Focus();
-                ErrorMessage = "処理年度が入力されていません。";
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(MyCompany.Text1))
-            {
-                MyCompany.Focus();
-                ErrorMessage = "対象自社が設定されていません。";
+                ErrorMessage = "年度指定が入力されていません。";
                 return false;
             }
 
@@ -436,8 +442,19 @@ namespace KyoeiSystem.Application.Windows.Views
 
             paramDic.Add(PARAMS_NAME_FISCAL_YEAR, FiscalYear.Text);
             paramDic.Add(PARAMS_NAME_COMPANY, MyCompany.Text1);
-            paramDic.Add(PARAMS_NAME_SERIES_CODE, Series.Text1);
-            paramDic.Add(PARAMS_NAME_OUTPUT, radioSelect.Text);
+            // No.402 Mod Start
+            BSK02010 bsk020 = new BSK02010();
+            BSK02010.FiscalPeriod period = new BSK02010.FiscalPeriod();
+            period = bsk020.getFiscalFromTo(FiscalYear.Text);
+            paramDic.Add(PARAMS_NAME_FISCAL_FROM, period.PeriodStart.ToShortDateString());
+            paramDic.Add(PARAMS_NAME_FISCAL_TO, period.PeriodEnd.ToShortDateString());
+            paramDic.Add(PARAMS_NAME_BRAND_CODE_FROM, BrandFrom.Text1);
+            paramDic.Add(PARAMS_NAME_BRAND_CODE_TO, BrandTo.Text1);
+            paramDic.Add(PARAMS_NAME_PRODUCT_CODE_FROM, ProductFrom.Text1);
+            paramDic.Add(PARAMS_NAME_PRODUCT_CODE_TO, ProductTo.Text1);
+            paramDic.Add(PARAMS_NAME_ITEM_TYPE_FROM, cmbItemTypeFrom.SelectedValue.ToString());
+            paramDic.Add(PARAMS_NAME_ITEM_TYPE_TO, cmbItemTypeTo.SelectedValue.ToString());
+            // No.402 Mod End
                 
         }
         #endregion
@@ -447,16 +464,13 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 帳票パラメータを取得する
         /// </summary>
         /// <returns></returns>
-        private Dictionary<string, DateTime> getPrintParameter(int pi決算月)
+        private Dictionary<string, DateTime> getPrintParameter()
         {
             // 期間を算出
-            int year = int.Parse(paramDic["処理年度"].Replace("/", "")),
-                pMonth = pi決算月,//DEFAULT_SETTLEMENT_MONTH,
-                pYear = year + 1,
-                mCounter = 1;
+            int mCounter = 1;
 
-            DateTime lastMonth = new DateTime(pYear, pMonth, 1);
-            DateTime targetMonth = lastMonth.AddMonths(-11);
+            DateTime targetMonth = Convert.ToDateTime(paramDic[PARAMS_NAME_FISCAL_FROM]);   // No.402 Mod
+            DateTime lastMonth = Convert.ToDateTime(paramDic[PARAMS_NAME_FISCAL_TO]);       // No.402 Mod
 
             Dictionary<string, DateTime> printDic = new Dictionary<string, DateTime>();
             printDic.Add(REPORT_PARAM_NAME_PRIOD_START, targetMonth);
@@ -484,7 +498,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// ＣＳＶデータの出力をおこなう
         /// </summary>
         /// <param name="tbl"></param>
-        private void outputCsv(DataTable tbl, int pi決算月)
+        private void outputCsv(DataTable tbl)
         {
             if (tbl == null || tbl.Rows.Count == 0)
             {
@@ -493,7 +507,7 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
             // CSV出力用に列名を編集する
-            changeColumnsName(tbl, pi決算月);
+            changeColumnsName(tbl);
 
             WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
             // はじめに表示されるフォルダを指定する
@@ -521,7 +535,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// 帳票の印刷処理をおこなう
         /// </summary>
         /// <param name="tbl"></param>
-        private void outputReport(DataTable tbl,int pi決算月)
+        private void outputReport(DataTable tbl)
         {
             PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
             if (ret.Result == false)
@@ -541,13 +555,21 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetBusyForInput();
 
-                Dictionary<string, DateTime> printParams = getPrintParameter(pi決算月);
+                Dictionary<string, DateTime> printParams = getPrintParameter();     // No.402 Mod
 
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
                     #region 印字パラメータ設定
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_START]},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_END]},
+                    // No.402 Add Start
+                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAMS_NAME_BRAND_CODE_FROM, VALUE = this.BrandFrom.Text1},
+                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAMS_NAME_BRAND_CODE_TO, VALUE = this.BrandTo.Text1},
+                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAMS_NAME_PRODUCT_CODE_FROM, VALUE = this.ProductFrom.Text1},
+                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAMS_NAME_PRODUCT_CODE_TO, VALUE =this.ProductTo.Text1},
+                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAMS_NAME_ITEM_TYPE_FROM, VALUE = this.cmbItemTypeFrom.Text},
+                    new FwRepPreview.ReportParameter(){ PNAME = PARAMS_NAME_ITEM_TYPE_TO, VALUE = this.cmbItemTypeTo.Text},
+                    // No.402 Add End
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH01]},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH02]},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH03]},
@@ -560,13 +582,12 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH10, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH10]},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH11, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH11]},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH12]},
-                    new FwRepPreview.ReportParameter(){ PNAME = PARAMS_NAME_OUTPUT, VALUE = radioSelect.Text == "1" ? REPORT_PARAM_OUTPUT_MONEY : REPORT_PARAM_OUTPUT_NUM},
                     
                     #endregion
                 };
 
                 DataTable 印刷データ = tbl.Copy();
-                印刷データ.TableName = "シリーズ･商品別売上統計表";
+                印刷データ.TableName = "ブランド･商品別売上統計表";
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
                 view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
@@ -586,13 +607,11 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetFreeForInput();
                 this.ErrorMessage = "システムエラーが発生しました。サポートにお問い合わせください。";
-                appLog.Error("シリーズ･商品別売上統計表の印刷時に例外が発生しました。", ex);
+                appLog.Error("ブランド･商品別売上統計表の印刷時に例外が発生しました。", ex);
             }
 
         }
         #endregion
-
-
 
         #region 列名編集
         /// <summary>
@@ -600,9 +619,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="tbl"></param>
         /// <returns></returns>
-        private void changeColumnsName(DataTable tbl, int pi決算月)
+        private void changeColumnsName(DataTable tbl)
         {
-            Dictionary<string, DateTime> printParams = getPrintParameter(pi決算月);
+            Dictionary<string, DateTime> printParams = getPrintParameter();     // No.402 Mod
 
             foreach (DataColumn col in tbl.Columns)
             {
@@ -681,6 +700,29 @@ namespace KyoeiSystem.Application.Windows.Views
             frmcfg.Width = this.Width;
             ucfg.SetConfigValue(frmcfg);
 
+        }
+        #endregion
+
+        #region 年度指定が変更された時のイベント処理
+        /// <summary>
+        /// 年度指定が変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FiscalYear_cTextChanged(object sender, RoutedEventArgs e)
+        {
+            BSK02010.FiscalPeriod period = new BSK02010.FiscalPeriod();
+            BSK02010 bsk020 = new BSK02010();
+            // 年度指定期間を再計算
+            period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            if (period == null)
+            {
+                this.PeriodYM.Text = string.Empty;
+            }
+            else
+            {
+                this.PeriodYM.Text = string.Format("月度 : {0}～{1}月度", period.PeriodStart.ToString("yyyy/MM"), period.PeriodEnd.ToString("yyyy/MM"));
+            }
         }
         #endregion
 
