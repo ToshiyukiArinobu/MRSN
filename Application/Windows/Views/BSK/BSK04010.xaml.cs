@@ -431,6 +431,16 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             int ival = 0;
 
+            // key項目のエラーチェック                // No.407 Add
+            if (!base.CheckKeyItemValidation())
+                return false;
+
+            // Validationチェック                   　// No.407 Mod
+            if (!CheckAllValidation(true))
+            {
+                return false;
+            }
+
             // 月別
             if (this.rdo出力帳票.Text == "0")
             {

@@ -477,6 +477,13 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
+            // key項目のエラーチェック                // No.407 Add
+            if (!base.CheckKeyItemValidation())
+            {
+                return;
+            }
+
+
             if (!formValidation())
             {
                 MessageBox.Show(ErrorMessage, "入力エラー", MessageBoxButton.OK, MessageBoxImage.Error);

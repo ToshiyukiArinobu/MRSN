@@ -434,6 +434,16 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <returns></returns>
         private bool formValidation()
         {
+            // key項目のエラーチェック                // No.407 Add
+            if (!base.CheckKeyItemValidation())
+                return false;
+
+            // Validationチェック                   　// No.407 Mod
+            if (!CheckAllValidation(true))
+            {
+                return false;
+            }
+
             if (string.IsNullOrEmpty(FiscalYear.Text))
             {
                 FiscalYear.Focus();
