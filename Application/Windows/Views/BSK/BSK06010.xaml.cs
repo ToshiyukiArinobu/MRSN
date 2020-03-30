@@ -266,6 +266,17 @@ namespace KyoeiSystem.Application.Windows.Views
             その他 = 3,
         }
 
+
+        /// <summary>
+        /// 編集中のセル名
+        /// </summary>
+        private string eCellName;          // No.409 Add
+
+        /// <summary>
+        /// 編集中のセル
+        /// </summary>
+        private string eCellText;          // No.409 Add
+
         #endregion
 
         #region << 画面初期処理 >>
@@ -1331,6 +1342,22 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region 構成品イベント処理
 
+        #region 構成品明細CellEditEnding
+        private void sp構成品明細_CellEditEnding(object sender, SpreadCellEditEndingEventArgs e)
+        {
+            // No.409 Add Start
+            if (e.EditAction == SpreadEditAction.Cancel)
+            {
+                return;
+            }
+
+            // 編集前のデータを保持
+            eCellName = e.CellPosition.ColumnName;
+            eCellText = sp構成品明細.Cells[e.CellPosition.Row, e.CellPosition.Column].Text;
+            // No.409 Add End
+        }
+        #endregion
+
         #region 構成品明細CellEditEnded
         /// <summary>
         /// SPREAD セル編集がコミットされた時の処理(手入力) CellEditEnadedイベント
@@ -1356,6 +1383,9 @@ namespace KyoeiSystem.Application.Windows.Views
                     case "自社品番":
 
                         string target = grid.Cells[iRow, "自社品番"].Text;
+
+                        // 変更がなければ処理しない
+                        if (eCellText == target) return;          // No.409 Add
 
                         // No.370 Add Start
                         if (string.IsNullOrEmpty(target))
@@ -1567,6 +1597,22 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region 資材明細イベント処理
 
+        #region 資材明細CellEditEnding
+        private void sp資材明細_CellEditEnding(object sender, SpreadCellEditEndingEventArgs e)
+        {
+            // No.409 Add Start
+            if (e.EditAction == SpreadEditAction.Cancel)
+            {
+                return;
+            }
+
+            // 編集前のデータを保持
+            eCellName = e.CellPosition.ColumnName;
+            eCellText = sp資材明細.Cells[e.CellPosition.Row, e.CellPosition.Column].Text;
+            // No.409 Add End
+        }
+        #endregion
+
         #region 資材明細CellEditEnded
         /// <summary>
         /// SPREAD セル編集がコミットされた時の処理(手入力) CellEditEnadedイベント
@@ -1592,6 +1638,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         // No.370 Add Start
                         string target = grid.Cells[iRow, "自社品番"].Text;
+
+                        // 変更がなければ処理しない
+                        if (eCellText == target) return;      // No.409 Add
 
                         if (string.IsNullOrEmpty(target))
                         {
