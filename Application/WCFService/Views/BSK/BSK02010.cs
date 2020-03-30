@@ -118,14 +118,31 @@ namespace KyoeiSystem.Application.WCFService
                     tok = tok.Where(w => w.担当会社コード == jis.自社コード);
                 }
 
-                // 得意先が指定されている場合
-                if (fromCode != null)
+                // 得意先FromToを再設定 FromがToを超える場合調整
+                if (fromCode != null && toCode != null)
                 {
-                    tok = tok.Where(w => w.取引先コード * 1000 + w.枝番 >= fromCode *1000 + fromEda);
+                    // 得意先FromToが指定されている場合
+                    int? wkTokFrom = fromCode * 1000 + fromEda;
+                    int? wkTokTo = toCode * 1000 + toEda;
+
+                    if (wkTokFrom > wkTokTo)
+                    {
+                        // FromとToを入れ替える
+                        wkTokFrom = toCode * 1000 + toEda;
+                        wkTokTo = fromCode * 1000 + fromEda;
+                    }
                 }
-                if (toCode != null)
+                else
                 {
-                    tok = tok.Where(w => w.取引先コード * 1000 + w.枝番 <= toCode * 1000 + toEda);
+                    // 得意先FromかToのどちらかが指定されている場合
+                    if (fromCode != null)
+                    {
+                        tok = tok.Where(w => w.取引先コード * 1000 + w.枝番 >= fromCode * 1000 + fromEda);
+                    }
+                    if (toCode != null)
+                    {
+                        tok = tok.Where(w => w.取引先コード * 1000 + w.枝番 <= toCode * 1000 + toEda);
+                    }
                 }
 
                 tok = tok.OrderBy(o => o.担当会社コード).ThenBy(t => t.取引先コード).ThenBy(t => t.枝番);
