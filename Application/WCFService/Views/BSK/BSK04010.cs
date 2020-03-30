@@ -1255,20 +1255,12 @@ namespace KyoeiSystem.Application.WCFService
 
             int ival;
             DateTime dWk;
-            StringBuilder sbStartYm = new StringBuilder();
-            StringBuilder sbEndYm = new StringBuilder();
             StringBuilder sbCreateYm = new StringBuilder();
-            sbStartYm.Append(paramDic["作成開始年月"]).Append("/01");
-            sbEndYm.Append(paramDic["作成終了年月"]).Append("/01");
             sbCreateYm.Append(paramDic["作成月"]).Append("/01");   // No.361 Mod
 
-            startYm = DateTime.TryParse(sbStartYm.ToString(), out dWk) ? dWk : (DateTime?)null;
-            endYm = DateTime.TryParse(sbEndYm.ToString(), out dWk) ? dWk : (DateTime?)null;
+            startYm = DateTime.TryParse(paramDic["作成開始年月"], out dWk) ? dWk : (DateTime?)null;       // No.401 Mod
+            endYm = DateTime.TryParse(paramDic["作成終了年月"], out dWk) ? dWk : (DateTime?)null;         // No.401 Mod
             createYm = DateTime.TryParse(sbCreateYm.ToString(), out dWk) ? dWk : (DateTime?)null;
-            if (endYm != null)
-            {
-                endYm = endYm.Value.AddMonths(1).AddDays(-1);
-            }
 
             year = int.Parse(paramDic["処理年度"].Replace("/", ""));
             company = int.TryParse(paramDic["自社コード"], out ival) ? ival : (int?)null;

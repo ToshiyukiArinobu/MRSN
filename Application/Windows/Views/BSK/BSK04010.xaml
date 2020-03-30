@@ -133,23 +133,15 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-
-
-                    <!-- 処理年度 -->
-                    <ctls:UcLabelTextBox
-                      Name="txt処理年度" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
-                      ValidationType="Integer" ImeType="Off"
-                      Label_Context="処理年度" Label_Width="100"
-                      cMaxLength="4" cWidth="40" cVerticalContentAlignment="Center" LostFocus="txt処理年度_LostFocus"
-                    />
-                    <TextBlock Text="年度" Grid.Row="0" VerticalAlignment="Center" Margin="150,5,0,0" />
 
                     <!-- 対象自社 -->
                     <ctls:UcLabelTwinTextBox
-                      Name="txt自社" Grid.Row="1" HorizontalAlignment="Left" IsKeyItem="False" Margin="5,3,0,0"
+                      Name="txt自社" Grid.Row="0" HorizontalAlignment="Left" IsKeyItem="False" Margin="5,3,0,0"
                       DataAccessName="M70_JIS" DataAccessMode="On"
-                      Label_Context="対象自社" Label_Width="100"
+                      Label_Context="対象自社" Label_Width="105"
                       Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                       Text1Width="40" Text1MaxLength="4" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
                       Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
@@ -158,23 +150,52 @@
 
                     <!-- 担当者 -->
                     <ctls:UcLabelTwinTextBox
-                      Name="txt担当者" Grid.Row="2" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,3,0,0"
+                      Name="txt担当者" Grid.Row="1" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,3,0,0"
                       DataAccessName="M72_TNT" DataAccessMode="On"  LinkItem=""
-                      Label_Context="担当者" Label_Width="100"
+                      Label_Context="担当者" Label_Width="105"
                       Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                       Text1Width="40" Text1MaxLength="5" Text1IMEType="Off" Text1ValidationType="Number" Text1VerticalContentAlignment="Center"
                       Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
                     />
 
-                    <Grid Grid.Row="3" Margin="5,3,0,0">
+                    <!-- 出力帳票 -->
+                    <ctls:UcLabelTextRadioButton
+                          x:Name="rdo出力帳票" Grid.Row="2" Margin="5,3,0,0"
+                          Label_Content="出力帳票" Label_Width="105"
+                          RadioSelectButton="One" RadioViewCount="Two"
+                          RadioOne_Content="月別" RadioSecond_Content="日別"
+                          Text1VerticalContentAlignment="Center" 
+                          Text="{Binding Path=出力帳票, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
+                          TargetUpdated="rdo出力帳票_TargetUpdated" PreviewTextInput="rdo出力帳票_PreviewTextInput"
+                     />
+
+                    <!-- 作成期間(月別用) -->
+                    <ctls:UcLabelTextBox
+                      Name="FiscalYear" Grid.Row="3" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,3,0,0"
+                      ValidationType="DateYYYYMM" ImeType="Off" Mask="yyyy/MM"
+                      Label_Context="作成期間(月別用)" Label_Width="105" 
+                      cMaxLength="7" cWidth="60" cVerticalContentAlignment="Center" cTextChanged="FiscalYear_cTextChanged"
+                    />
+                    <TextBlock Name="PeriodYM" Text="月度 :" Grid.Row="3" VerticalAlignment="Center" Margin="180,5,0,0" />
+                    
+
+                    <!-- 作成月(日別用) -->
+                    <ctls:UcLabelTextBox 
+                          Name="txt作成月" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="5,3,0,0"
+                          ValidationType="DateYYYYMM" ImeType="Off" Mask="yyyy/MM" IsRequired="False"
+                          Label_Context="作成月(日別用)" Label_Width="105" 
+                          cMaxLength="7" cWidth="60" cVerticalContentAlignment="Center"
+                    />
+
+                    <Grid Grid.Row="5" Margin="5,3,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="380" />
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         <!-- 売上先 -->
                         <ctls:UcLabelTextRadioButton
-                          x:Name="rdo売上先" Grid.Row="3" Grid.Column="0" 
-                          Label_Content="売上先" Label_Width="100"
+                          x:Name="rdo売上先" Grid.Column="0" 
+                          Label_Content="売上先" Label_Width="105"
                           RadioSelectButton="One" RadioViewCount="Three"
                           RadioOne_Content="得意先" RadioSecond_Content="販社"  RadioThird_Content="両方"
                           Text1VerticalContentAlignment="Center" 
@@ -184,7 +205,7 @@
 
                         <!-- 得意先 -->
                         <uc:M01_TOK_TextBox
-                          x:Name="txt得意先" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False"
+                          x:Name="txt得意先" Grid.Column="1" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False"
                           DataAccessName="M01_TOK" DataAccessMode="On" LinkItem="0,3"
                           Label_Context="得意先指定" Label_Width="105"
                           Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -194,48 +215,14 @@
                         />
                     </Grid>
 
-                    <Grid Grid.Row="4" Margin="5,3,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="380" />
-                            <ColumnDefinition Width="310" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <!-- 出力帳票 -->
-                        <ctls:UcLabelTextRadioButton
-                          x:Name="rdo出力帳票" Grid.Row="4" Grid.Column="0" 
-                          Label_Content="出力帳票" Label_Width="100"
-                          RadioSelectButton="One" RadioViewCount="Two"
-                          RadioOne_Content="月別" RadioSecond_Content="日別"
-                          Text1VerticalContentAlignment="Center" 
-                          Text="{Binding Path=出力帳票, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                        />
-
-                        <!-- 作成期間 -->
-                        <ctls:UcLabelTwinTextBox
-                          Name="txt作成期間" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"
-                          Label_Context="作成期間(月別用)" Label_Width="105"
-                          Label1Visibility="Collapsed" Label2Visibility="Collapsed"
-                          Text1Width="80" Text1MaxLength="10" Text1ValidationType="DateYYYYMM"  Text1Mask="yyyy/MM" Text1VerticalContentAlignment="Center"
-                          Label1Text="～"
-                          Text2Width="80" Text2MaxLength="10" Text2ValidationType="DateYYYYMM" Text2Mask="yyyy/MM" Text2VerticalContentAlignment="Center"
-                        />
-
-                        <!-- 作成月 -->
-                        <ctls:UcLabelTextBox 
-                          Name="txt作成月" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left"
-                          ValidationType="Integer" MinValue="1" MaxValue="12" ImeType="Off" IsRequired="False"
-                          Label_Context="作成月(日別用)" Label_Width="100" cWidth="45" cVerticalContentAlignment="Center" cTextAlignment="Right"
-                        />
-                    </Grid>
-
-                    <Grid Grid.Row="5" Margin="5,3,0,0">
+                    <Grid Grid.Row="6" Margin="5,3,0,0">
                         <!-- 作成区分 -->
                         <ctls:UcLabelComboBox
                           x:Name="cmb作成区分" Grid.Row="0" HorizontalAlignment="Left"
-                          Label_Context="作成区分" Label_Width="100" Combo_Width="170"
+                          Label_Context="作成区分" Label_Width="105" Combo_Width="170"
                           ComboListingParams="分析,担当者得意先別売上統計表,作成区分"
-                        />
+                    />
+                    
                     </Grid>
 
                 </Grid>

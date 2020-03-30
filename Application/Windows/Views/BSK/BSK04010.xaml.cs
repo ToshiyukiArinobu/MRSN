@@ -53,9 +53,6 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string ReportFileName_Month = @"Files\BSK\BSK04010m.rpt";
         private const string ReportFileName_Day = @"Files\BSK\BSK04010d.rpt";
 
-        /// <summary>初期決算月</summary>
-        private const int DEFAULT_SETTLEMENT_MONTH = 3;
-
         // 画面パラメータ名
         private const string PARAMS_NAME_FISCAL_YEAR = "処理年度";
         private const string PARAMS_NAME_COMPANY  = "自社コード";
@@ -104,11 +101,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>検索時パラメータ保持用</summary>
         Dictionary<string, string> paramDic = new Dictionary<string, string>();
-
-        /// <summary>
-        /// 決算月
-        /// </summary>
-        int closingMonth;
 
         #endregion
 
@@ -209,10 +201,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 switch (message.GetMessageName())
                 {
-                    case GET_JISHA_INFO:
-                        // 作成期間の再設定
-                        set決算月(tbl);
-                        break;
                     case GET_CSV_LIST_MONTH:
                     case GET_CSV_LIST_DAY:
                         outputCsv(tbl);
@@ -342,10 +330,6 @@ namespace KyoeiSystem.Application.Windows.Views
             if (!CheckFormValidation())
                 return;
 
-            // 作成期間整合性チェック
-            if (!CheckPeriodValidation())
-                return;
-
             // パラメータ情報設定
             setSearchParams();
 
@@ -416,24 +400,24 @@ namespace KyoeiSystem.Application.Windows.Views
         #region コントロール初期化
         private void InitControl()
         {
-            // 処理年度の初期値設定
-            this.txt処理年度.Text = get処理年度(DateTime.Now.Year, DateTime.Now.Month, DEFAULT_SETTLEMENT_MONTH).ToString();
             
             // 対象自社の初期設定
             this.txt自社.Text1 = ccfg.自社コード.ToString();
             this.txt自社.IsEnabled = ccfg.自社販社区分 == 自社販社区分.自社.GetHashCode();  // No.353 Mod
 
-            // 担当者の初期設定
-            //this.txt担当者.Text1 = ccfg.ユーザID.ToString();
-
-            // 作成月の初期設定
-            this.txt作成月.Text = DateTime.Now.Month.ToString("D2");
+            // 処理年度の初期値設定
+            // No.401 Mod Start
+            BSK02010 bsk020 = new BSK02010();
+            this.FiscalYear.Text = string.Format("{0}/{1}", DateTime.Now.Year, DateTime.Now.Month);
+            BSK02010.FiscalPeriod period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            this.PeriodYM.Text = string.Format("月度 : {0}～{1}月度", period.PeriodStart.ToString("yyyy/MM"), period.PeriodEnd.ToString("yyyy/MM"));
             
+            // 作成月の初期設定
+            this.txt作成月.Text = string.Format("{0}/{1}", DateTime.Now.Year, DateTime.Now.Month);
+            // No.401 Mod End
+
             // 作成区分コンボボックス設定
             AppCommon.SetutpComboboxList(this.cmb作成区分, false);
-
-            // 作成期間の初期設定
-            get決算月();
 
         }
         #endregion
@@ -447,22 +431,16 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             int ival = 0;
 
-            if (string.IsNullOrEmpty(txt処理年度.Text))
-            {
-                txt処理年度.Focus();
-                ErrorMessage = "処理年度が入力されていません。";
-                return false;
-            }
-
             // 月別
             if (this.rdo出力帳票.Text == "0")
             {
-                if (string.IsNullOrEmpty(txt作成期間.Text1) || string.IsNullOrEmpty(txt作成期間.Text2))
+                if (string.IsNullOrEmpty(FiscalYear.Text))
                 {
-                    txt作成期間.Focus();
-                    ErrorMessage = "作成期間が入力されていません。";
+                    FiscalYear.Focus();
+                    ErrorMessage = "作成期間(月別用)が入力されていません。";
                     return false;
                 }
+                
             }
             // 日別
             else
@@ -470,14 +448,17 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (string.IsNullOrEmpty(txt作成月.Text))
                 {
                     txt作成月.Focus();
-                    ErrorMessage = "作成月が入力されていません。";
+                    ErrorMessage = "作成月(日別用)が入力されていません。";
                     return false;
                 }
 
-                int nYear = Int32.TryParse(txt処理年度.Text, out ival)? ival : 0;
-                int nMonth = Int32.TryParse(txt作成月.Text, out ival)? ival : 0;
-                DateTime targetYearMonth = new DateTime(nYear, nMonth,1);
-                
+                // No.401 Mod Start
+                string[] yearMonth = this.txt作成月.Text.Split('/');
+                DateTime targetYearMonth = new DateTime(Int32.TryParse(yearMonth[0], out ival) ? ival : -1,
+                                                        Int32.TryParse(yearMonth[1], out ival) ? ival : -1,
+                                                        1);
+                // No.401 Mod End
+
                 if (DateTime.Now < targetYearMonth)
                 {
                     txt作成月.Focus();
@@ -491,148 +472,30 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
-        #region 作成期間整合性チェック
-        /// <summary>
-        /// 作成期間整合性チェック
-        /// </summary>
-        /// <returns></returns>
-        private bool CheckPeriodValidation()
-        {
-            // 日別
-            if (this.rdo出力帳票.Text == "1")
-            {
-                return true;
-            }
-            
-            DateTime dWk;
-            StringBuilder startYM = new StringBuilder();
-            StringBuilder endYM = new StringBuilder();
-            startYM.Append(this.txt作成期間.Text1).Append("/01");
-            endYM.Append(this.txt作成期間.Text2).Append("/01");
-            DateTime dStartYm = DateTime.TryParse(startYM.ToString(), out dWk)? dWk: DateTime.Today;
-            DateTime dEndYm = DateTime.TryParse(endYM.ToString(), out dWk) ? dWk : DateTime.Today;
-
-            if (dStartYm > dEndYm)
-            {
-                txt作成期間.Focus();
-                ErrorMessage = "作成期間が不正です。";
-                return false;
-            }
-
-            int priodMonth = (dEndYm.Year - dStartYm.Year) * 12 + (dEndYm.Month - dStartYm.Month);
-            if (priodMonth > 11)
-            {
-                txt作成期間.Focus();
-                ErrorMessage = "作成期間が不正です。";
-                return false;
-            }
-
-            return true;
-        }
-        #endregion
-
         #region パラメータ設定
         /// <summary>
         /// パラメータを設定する
         /// </summary>
         private void setSearchParams()
         {
-            int ival = 0;
             paramDic.Clear();
 
-            paramDic.Add(PARAMS_NAME_FISCAL_YEAR, txt処理年度.Text);
+            paramDic.Add(PARAMS_NAME_FISCAL_YEAR, FiscalYear.Text);
             paramDic.Add(PARAMS_NAME_COMPANY, txt自社.Text1 == null ? null : txt自社.Text1);
             paramDic.Add(PARAMS_NAME_TANTOU, txt担当者.Text1 == null ? null : txt担当者.Text1);
             paramDic.Add(PARAMS_NAME_CUSTOMER_CODE, txt得意先.Text1 == null ? null : txt得意先.Text1);
             paramDic.Add(PARAMS_NAME_CUSTOMER_EDA, txt得意先.Text2 == null ? null : txt得意先.Text2);
-            paramDic.Add(PARAMS_NAME_START_YM, txt作成期間.Text1 == null ? null : txt作成期間.Text1);
-            paramDic.Add(PARAMS_NAME_END_YM, txt作成期間.Text2 == null ? null : txt作成期間.Text2);
-
-            // No.361 Mod Start
-            if (txt作成月.Text != null)
-            {
-                int n作成月 = Int32.TryParse(txt作成月.Text, out ival) ? ival : -1;
-                int n処理年度 = int.Parse(this.txt処理年度.Text);
-                if (n作成月 <= closingMonth)
-                {
-                    n処理年度 = n処理年度 + 1;
-                }
-
-                paramDic.Add(PARAMS_NAME_CREATE_YM, string.Format("{0}/{1}",n処理年度, txt作成月.Text));
-            }
-            // No.361 Mod End
+            // No.401 Mod Start
+            BSK02010 bsk020 = new BSK02010();
+            BSK02010.FiscalPeriod period = new BSK02010.FiscalPeriod();
+            period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            paramDic.Add(PARAMS_NAME_START_YM, period.PeriodStart.ToShortDateString());
+            paramDic.Add(PARAMS_NAME_END_YM, period.PeriodEnd.ToShortDateString());
+            paramDic.Add(PARAMS_NAME_CREATE_YM, this.txt作成月.Text);
+            // No.401 Mod End
             
             paramDic.Add(PARAMS_NAME_URIAGESAKI, rdo売上先.Text);
             paramDic.Add(PARAMS_NAME_CREATE_TYPE, cmb作成区分.SelectedIndex.ToString());
-
-        }
-        #endregion
-
-        #region 決算月取得
-        /// <summary>
-        /// 対象自社の決算月を取得する
-        /// </summary>
-        private void get決算月()
-        {
-            base.SendRequest(
-                new CommunicationObject(
-                    MessageType.RequestData,
-                    GET_JISHA_INFO,
-                    txt自社.Text1
-                ));
-        }
-        #endregion
-
-        #region 決算月の設定
-        /// <summary>
-        /// 決算月の算出
-        /// </summary>
-        /// <param name="dt"></param>
-        private void set決算月(DataTable dt)
-        {
-            if (dt == null)
-            {
-                return;
-            }
-
-            List<M70_JISMember>jisList = (List<M70_JISMember>)AppCommon.ConvertFromDataTable(typeof(List<M70_JISMember>), dt);
-
-            int val = 1;
-            // 決算月を設定
-            closingMonth = Int32.TryParse(jisList[0].決算月.ToString(), out val) ? val : DEFAULT_SETTLEMENT_MONTH;     // No.361 Mod
-
-            int n処理年度 = int.Parse(this.txt処理年度.Text);
-
-            // 処理年度の設定
-            //this.txt処理年度.Text = n処理年度.ToString();
-
-
-            // 決算月から作成期間を算出する
-            int nYear = n処理年度 + 1 ;
-            DateTime dEndMonth = new DateTime(nYear, closingMonth, 1);  // No.361 Mod
-            DateTime dStartMonth = dEndMonth.AddMonths(-11);
-            this.txt作成期間.Text1 = dStartMonth.ToString("yyyy/MM");
-            this.txt作成期間.Text2 = dEndMonth.ToString("yyyy/MM");
-            
-        }
-        #endregion
-
-        #region 決算年度算出
-        /// <summary>
-        /// 決算年度を算出して返す
-        /// </summary>
-        /// <param name="year">年</param>
-        /// <param name="month">月</param>
-        /// <param name="settlementMonth">決算月</param>
-        /// <returns></returns>
-        private int get処理年度(int year, int month, int settlementMonth)
-        {
-            int n処理年度 = year;
-            // 決算月以前の場合は前年を年度として指定
-            if (month <= settlementMonth)       // No.360 Mod
-                n処理年度 -= 1;
-
-            return n処理年度;
 
         }
         #endregion
@@ -645,16 +508,13 @@ namespace KyoeiSystem.Application.Windows.Views
         private List<FwRepPreview.ReportParameter> getMonthPrintParameter()
         {
             int    mCounter = 1;
-            DateTime dtVal;
-            DateTime? stDate = DateTime.TryParse(txt作成期間.Text1, out dtVal) ? dtVal : (DateTime?)null;
-            DateTime? edDate = DateTime.TryParse(txt作成期間.Text2, out dtVal) ? dtVal : (DateTime?)null;
-            
+            DateTime? stDate = Convert.ToDateTime(paramDic[PARAMS_NAME_START_YM]);     // No.401 Mod
+            DateTime? edDate = Convert.ToDateTime(paramDic[PARAMS_NAME_END_YM]);       // No.401 Mod
+
             if (stDate == null || edDate == null)
             {
                 return null;
             }
-            // 末日を設定
-            edDate = edDate.Value.AddMonths(1).AddDays(-1);
             
             var parms = new List<FwRepPreview.ReportParameter>()
             {
@@ -688,17 +548,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             DateTime dtVal;
             StringBuilder sbCreateYm = new StringBuilder();
-
-            // No.361 Mod Start
-            int ival;
-            int n作成月 = Int32.TryParse(txt作成月.Text, out ival) ? ival : -1;
-            int n処理年度 = int.Parse(this.txt処理年度.Text);
-            if (n作成月 <= closingMonth)
-            {
-                n処理年度 = n処理年度 + 1;
-            }
-            sbCreateYm.Append(n処理年度.ToString()).Append("/").Append(txt作成月.Text).Append("/01");
-            // No.361 Mod End
+            sbCreateYm.Append(txt作成月.Text).Append("/01");       // No.401 Mod
 
             DateTime? stDate = DateTime.TryParse(sbCreateYm.ToString(), out dtVal) ? dtVal : (DateTime?)null;
             DateTime? edDate = stDate != null ? stDate.Value.AddMonths(1).AddDays(-1) : (DateTime?)null;
@@ -872,7 +722,6 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             txt担当者.Text1 = string.Empty;
             txt担当者.Text2 = string.Empty;
-            get決算月();
         }
         #endregion
 
@@ -905,17 +754,73 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region 出力帳票が変更された時のイベント処理  // No.401 Add
         /// <summary>
-        /// 年度変更時も処理年月取得
+        /// 出力帳票が変更された時のイベント処理(ラジオボタンクリック)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txt処理年度_LostFocus(object sender, RoutedEventArgs e)
+        private void rdo出力帳票_TargetUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
         {
-            get決算月();
+            if (this.rdo出力帳票.Text == "0")
+            {
+                this.FiscalYear.IsEnabled = true;
+                this.txt作成月.IsEnabled = false;
+            }
+            else if (this.rdo出力帳票.Text == "1")
+            {
+                this.FiscalYear.IsEnabled = false;
+                this.txt作成月.IsEnabled = true;
+            }
         }
+        #endregion
+
+        #region 出力帳票が変更された時のイベント処理  // No.401 Add
+        /// <summary>
+        /// 出力帳票が変更された時のイベント処理(テキストエリア変更)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rdo出力帳票_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text == "0")
+            {
+                this.FiscalYear.IsEnabled = true;
+                this.txt作成月.IsEnabled = false;
+            }
+            else if (e.Text == "1")
+            {
+                this.FiscalYear.IsEnabled = false;
+                this.txt作成月.IsEnabled = true;
+            }
+        }
+        #endregion
+
+        #region 作成期間が変更された時のイベント処理  // No.401 Add
+        /// <summary>
+        /// 作成期間が変更された時のイベント処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FiscalYear_cTextChanged(object sender, RoutedEventArgs e)
+        {
+            BSK02010.FiscalPeriod period = new BSK02010.FiscalPeriod();
+            BSK02010 bsk020 = new BSK02010();
+            // 作成期間を再計算
+            period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            if (period == null)
+            {
+                this.PeriodYM.Text = string.Empty;
+            }
+            else
+            {
+                this.PeriodYM.Text = string.Format("月度 : {0}～{1}月度", period.PeriodStart.ToString("yyyy/MM"), period.PeriodEnd.ToString("yyyy/MM"));
+            }
+        }
+        #endregion
 
         #endregion
+
     }
 
 }
