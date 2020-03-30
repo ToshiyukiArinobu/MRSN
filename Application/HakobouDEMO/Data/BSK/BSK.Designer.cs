@@ -489,6 +489,10 @@ namespace Hakobou.Data.BSK {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class _得意先_商品別売上統計表DataTable : global::System.Data.TypedTableBase<_得意先_商品別売上統計表Row> {
             
+            private global::System.Data.DataColumn column自社コード;
+            
+            private global::System.Data.DataColumn column自社名;
+            
             private global::System.Data.DataColumn column得意先コード;
             
             private global::System.Data.DataColumn column得意先名;
@@ -527,6 +531,34 @@ namespace Hakobou.Data.BSK {
             
             private global::System.Data.DataColumn column構成比率;
             
+            private global::System.Data.DataColumn column集計数量０１;
+            
+            private global::System.Data.DataColumn column集計数量０２;
+            
+            private global::System.Data.DataColumn column集計数量０３;
+            
+            private global::System.Data.DataColumn column集計数量０４;
+            
+            private global::System.Data.DataColumn column集計数量０５;
+            
+            private global::System.Data.DataColumn column集計数量０６;
+            
+            private global::System.Data.DataColumn column集計数量０７;
+            
+            private global::System.Data.DataColumn column集計数量０８;
+            
+            private global::System.Data.DataColumn column集計数量０９;
+            
+            private global::System.Data.DataColumn column集計数量１０;
+            
+            private global::System.Data.DataColumn column集計数量１１;
+            
+            private global::System.Data.DataColumn column集計数量１２;
+            
+            private global::System.Data.DataColumn column集計合計数量;
+            
+            private global::System.Data.DataColumn column数量構成比率;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public _得意先_商品別売上統計表DataTable() {
@@ -558,6 +590,22 @@ namespace Hakobou.Data.BSK {
             protected _得意先_商品別売上統計表DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社コードColumn {
+                get {
+                    return this.column自社コード;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社名Column {
+                get {
+                    return this.column自社名;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -714,6 +762,118 @@ namespace Hakobou.Data.BSK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０１Column {
+                get {
+                    return this.column集計数量０１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０２Column {
+                get {
+                    return this.column集計数量０２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０３Column {
+                get {
+                    return this.column集計数量０３;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０４Column {
+                get {
+                    return this.column集計数量０４;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０５Column {
+                get {
+                    return this.column集計数量０５;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０６Column {
+                get {
+                    return this.column集計数量０６;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０７Column {
+                get {
+                    return this.column集計数量０７;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０８Column {
+                get {
+                    return this.column集計数量０８;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量０９Column {
+                get {
+                    return this.column集計数量０９;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量１０Column {
+                get {
+                    return this.column集計数量１０;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量１１Column {
+                get {
+                    return this.column集計数量１１;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計数量１２Column {
+                get {
+                    return this.column集計数量１２;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 集計合計数量Column {
+                get {
+                    return this.column集計合計数量;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 数量構成比率Column {
+                get {
+                    return this.column数量構成比率;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -750,6 +910,8 @@ namespace Hakobou.Data.BSK {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public _得意先_商品別売上統計表Row Add_得意先_商品別売上統計表Row(
+                        string 自社コード, 
+                        string 自社名, 
                         string 得意先コード, 
                         string 得意先名, 
                         int 品番コード, 
@@ -768,9 +930,25 @@ namespace Hakobou.Data.BSK {
                         long 集計売上額１１, 
                         long 集計売上額１２, 
                         long 集計合計額, 
-                        decimal 構成比率) {
+                        decimal 構成比率, 
+                        int 集計数量０１, 
+                        int 集計数量０２, 
+                        int 集計数量０３, 
+                        int 集計数量０４, 
+                        int 集計数量０５, 
+                        int 集計数量０６, 
+                        int 集計数量０７, 
+                        int 集計数量０８, 
+                        int 集計数量０９, 
+                        int 集計数量１０, 
+                        int 集計数量１１, 
+                        int 集計数量１２, 
+                        int 集計合計数量, 
+                        decimal 数量構成比率) {
                 _得意先_商品別売上統計表Row row_得意先_商品別売上統計表Row = ((_得意先_商品別売上統計表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        自社コード,
+                        自社名,
                         得意先コード,
                         得意先名,
                         品番コード,
@@ -789,7 +967,21 @@ namespace Hakobou.Data.BSK {
                         集計売上額１１,
                         集計売上額１２,
                         集計合計額,
-                        構成比率};
+                        構成比率,
+                        集計数量０１,
+                        集計数量０２,
+                        集計数量０３,
+                        集計数量０４,
+                        集計数量０５,
+                        集計数量０６,
+                        集計数量０７,
+                        集計数量０８,
+                        集計数量０９,
+                        集計数量１０,
+                        集計数量１１,
+                        集計数量１２,
+                        集計合計数量,
+                        数量構成比率};
                 row_得意先_商品別売上統計表Row.ItemArray = columnValuesArray;
                 this.Rows.Add(row_得意先_商品別売上統計表Row);
                 return row_得意先_商品別売上統計表Row;
@@ -812,6 +1004,8 @@ namespace Hakobou.Data.BSK {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.column自社コード = base.Columns["自社コード"];
+                this.column自社名 = base.Columns["自社名"];
                 this.column得意先コード = base.Columns["得意先コード"];
                 this.column得意先名 = base.Columns["得意先名"];
                 this.column品番コード = base.Columns["品番コード"];
@@ -831,11 +1025,29 @@ namespace Hakobou.Data.BSK {
                 this.column集計売上額１２ = base.Columns["集計売上額１２"];
                 this.column集計合計額 = base.Columns["集計合計額"];
                 this.column構成比率 = base.Columns["構成比率"];
+                this.column集計数量０１ = base.Columns["集計数量０１"];
+                this.column集計数量０２ = base.Columns["集計数量０２"];
+                this.column集計数量０３ = base.Columns["集計数量０３"];
+                this.column集計数量０４ = base.Columns["集計数量０４"];
+                this.column集計数量０５ = base.Columns["集計数量０５"];
+                this.column集計数量０６ = base.Columns["集計数量０６"];
+                this.column集計数量０７ = base.Columns["集計数量０７"];
+                this.column集計数量０８ = base.Columns["集計数量０８"];
+                this.column集計数量０９ = base.Columns["集計数量０９"];
+                this.column集計数量１０ = base.Columns["集計数量１０"];
+                this.column集計数量１１ = base.Columns["集計数量１１"];
+                this.column集計数量１２ = base.Columns["集計数量１２"];
+                this.column集計合計数量 = base.Columns["集計合計数量"];
+                this.column数量構成比率 = base.Columns["数量構成比率"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.column自社コード = new global::System.Data.DataColumn("自社コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社コード);
+                this.column自社名 = new global::System.Data.DataColumn("自社名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社名);
                 this.column得意先コード = new global::System.Data.DataColumn("得意先コード", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column得意先コード);
                 this.column得意先名 = new global::System.Data.DataColumn("得意先名", typeof(string), null, global::System.Data.MappingType.Element);
@@ -874,6 +1086,34 @@ namespace Hakobou.Data.BSK {
                 base.Columns.Add(this.column集計合計額);
                 this.column構成比率 = new global::System.Data.DataColumn("構成比率", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column構成比率);
+                this.column集計数量０１ = new global::System.Data.DataColumn("集計数量０１", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０１);
+                this.column集計数量０２ = new global::System.Data.DataColumn("集計数量０２", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０２);
+                this.column集計数量０３ = new global::System.Data.DataColumn("集計数量０３", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０３);
+                this.column集計数量０４ = new global::System.Data.DataColumn("集計数量０４", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０４);
+                this.column集計数量０５ = new global::System.Data.DataColumn("集計数量０５", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０５);
+                this.column集計数量０６ = new global::System.Data.DataColumn("集計数量０６", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０６);
+                this.column集計数量０７ = new global::System.Data.DataColumn("集計数量０７", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０７);
+                this.column集計数量０８ = new global::System.Data.DataColumn("集計数量０８", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０８);
+                this.column集計数量０９ = new global::System.Data.DataColumn("集計数量０９", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量０９);
+                this.column集計数量１０ = new global::System.Data.DataColumn("集計数量１０", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量１０);
+                this.column集計数量１１ = new global::System.Data.DataColumn("集計数量１１", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量１１);
+                this.column集計数量１２ = new global::System.Data.DataColumn("集計数量１２", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計数量１２);
+                this.column集計合計数量 = new global::System.Data.DataColumn("集計合計数量", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column集計合計数量);
+                this.column数量構成比率 = new global::System.Data.DataColumn("数量構成比率", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column数量構成比率);
                 this.ExtendedProperties.Add("Generator_TableVarName", "_table得意先_商品別売上統計表");
                 this.ExtendedProperties.Add("Generator_UserTableName", "得意先・商品別売上統計表");
             }
@@ -4624,6 +4864,38 @@ namespace Hakobou.Data.BSK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社コード {
+                get {
+                    try {
+                        return ((string)(this[this._table得意先_商品別売上統計表.自社コードColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'自社コード\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.自社コードColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社名 {
+                get {
+                    try {
+                        return ((string)(this[this._table得意先_商品別売上統計表.自社名Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'自社名\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.自社名Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 得意先コード {
                 get {
                     try {
@@ -4928,6 +5200,254 @@ namespace Hakobou.Data.BSK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０１ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０２ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０３ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０３Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０３\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０３Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０４ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０４Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０４\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０４Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０５ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０５Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０５\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０５Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０６ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０６Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０６\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０６Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０７ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０７Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０７\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０７Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０８ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０８Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０８\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０８Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量０９ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量０９Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量０９\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量０９Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量１０ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量１０Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量１０\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量１０Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量１１ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量１１Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量１１\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量１１Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計数量１２ {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計数量１２Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計数量１２\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計数量１２Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int 集計合計数量 {
+                get {
+                    try {
+                        return ((int)(this[this._table得意先_商品別売上統計表.集計合計数量Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'集計合計数量\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.集計合計数量Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 数量構成比率 {
+                get {
+                    try {
+                        return ((decimal)(this[this._table得意先_商品別売上統計表.数量構成比率Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'得意先・商品別売上統計表\' にある列 \'数量構成比率\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this._table得意先_商品別売上統計表.数量構成比率Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社コードNull() {
+                return this.IsNull(this._table得意先_商品別売上統計表.自社コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社コードNull() {
+                this[this._table得意先_商品別売上統計表.自社コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社名Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.自社名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社名Null() {
+                this[this._table得意先_商品別売上統計表.自社名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is得意先コードNull() {
                 return this.IsNull(this._table得意先_商品別売上統計表.得意先コードColumn);
             }
@@ -5152,6 +5672,174 @@ namespace Hakobou.Data.BSK {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set構成比率Null() {
                 this[this._table得意先_商品別売上統計表.構成比率Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０１Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０１Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０２Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０２Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０３Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０３Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０３Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０３Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０４Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０４Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０４Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０４Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０５Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０５Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０５Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０５Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０６Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０６Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０６Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０６Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０７Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０７Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０７Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０７Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０８Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０８Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０８Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０８Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量０９Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量０９Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量０９Null() {
+                this[this._table得意先_商品別売上統計表.集計数量０９Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量１０Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量１０Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量１０Null() {
+                this[this._table得意先_商品別売上統計表.集計数量１０Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量１１Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量１１Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量１１Null() {
+                this[this._table得意先_商品別売上統計表.集計数量１１Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計数量１２Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計数量１２Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計数量１２Null() {
+                this[this._table得意先_商品別売上統計表.集計数量１２Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is集計合計数量Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.集計合計数量Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set集計合計数量Null() {
+                this[this._table得意先_商品別売上統計表.集計合計数量Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is数量構成比率Null() {
+                return this.IsNull(this._table得意先_商品別売上統計表.数量構成比率Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set数量構成比率Null() {
+                this[this._table得意先_商品別売上統計表.数量構成比率Column] = global::System.Convert.DBNull;
             }
         }
         
