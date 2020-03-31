@@ -512,8 +512,8 @@
                 </Grid.ColumnDefinitions>
                 <ctls:UcLabelTextBox
                     x:Name="T_SHIHARAI" Label_Context="請求条件" Grid.Column="1" Grid.Row="7" Label_Width="100" cWidth="100"
-                    ImeType="Off" cMaxLength="8" ValidationType="Integer" Margin="237,0,0,0" cVerticalContentAlignment="Center"
-                    Text="{Binding RowM01TOK[Ｔ請求条件], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                    ImeType="Off" cMaxLength="8" ValidationType="Integer" MaxValue="99999999" Margin="237,0,0,0" cVerticalContentAlignment="Center" cTextAlignment="Right"
+                    Text="{Binding RowM01TOK[Ｔ請求条件], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True,StringFormat=#\,0,UpdateSourceTrigger=LostFocus}"
                 />
               </Grid>
 
@@ -656,7 +656,8 @@
                     Label_Context="支払条件" Label_Width="100"
                     ValidationType="Integer" ImeType="Off"
                     cWidth="100" cMaxLength="8" cVerticalContentAlignment="Center"
-                    Text="{Binding RowM01TOK[Ｓ支払条件], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                     MaxValue="99999999" cTextAlignment="Right"
+                    Text="{Binding RowM01TOK[Ｓ支払条件], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True,StringFormat=#\,0,UpdateSourceTrigger=LostFocus}"
                 />
               </Grid>
 

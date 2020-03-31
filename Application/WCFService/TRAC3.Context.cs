@@ -77,12 +77,6 @@ namespace KyoeiSystem.Application.WCFService
 
         #region ObjectSet Properties
     
-        public ObjectSet<M01_TOK> M01_TOK
-        {
-            get { return _m01_TOK  ?? (_m01_TOK = CreateObjectSet<M01_TOK>("M01_TOK")); }
-        }
-        private ObjectSet<M01_TOK> _m01_TOK;
-    
         public ObjectSet<M02_BAIKA> M02_BAIKA
         {
             get { return _m02_BAIKA  ?? (_m02_BAIKA = CreateObjectSet<M02_BAIKA>("M02_BAIKA")); }
@@ -478,6 +472,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s03_STOK_JUST  ?? (_s03_STOK_JUST = CreateObjectSet<S03_STOK_JUST>("S03_STOK_JUST")); }
         }
         private ObjectSet<S03_STOK_JUST> _s03_STOK_JUST;
+    
+        public ObjectSet<M01_TOK> M01_TOK
+        {
+            get { return _m01_TOK  ?? (_m01_TOK = CreateObjectSet<M01_TOK>("M01_TOK")); }
+        }
+        private ObjectSet<M01_TOK> _m01_TOK;
 
         #endregion
 

@@ -286,7 +286,7 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _ｔ締日;
     
         [DataMember]
-        public Nullable<int> Ｔ請求条件
+        public int Ｔ請求条件
         {
             get { return _ｔ請求条件; }
             set
@@ -298,7 +298,7 @@ namespace KyoeiSystem.Application.WCFService
                 }
             }
         }
-        private Nullable<int> _ｔ請求条件;
+        private int _ｔ請求条件;
     
         [DataMember]
         public int Ｔ請求区分
@@ -421,7 +421,7 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _ｓ締日;
     
         [DataMember]
-        public Nullable<int> Ｓ支払条件
+        public int Ｓ支払条件
         {
             get { return _ｓ支払条件; }
             set
@@ -433,7 +433,7 @@ namespace KyoeiSystem.Application.WCFService
                 }
             }
         }
-        private Nullable<int> _ｓ支払条件;
+        private int _ｓ支払条件;
     
         [DataMember]
         public int Ｓ支払区分
