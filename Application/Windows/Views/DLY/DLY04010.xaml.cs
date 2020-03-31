@@ -716,18 +716,35 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-            // No-222 Add Start
-            //在庫ﾁｪｯｸ
-            base.SendRequest(
-               new CommunicationObject(
-                   MessageType.RequestData,
-                   UpdateData_StockCheck,
-                   new object[] {
+            // No.392 Mod Start
+            if (!string.IsNullOrEmpty(txt移動元倉庫.Text1))
+            {
+                // No-222 Add Start
+                //在庫ﾁｪｯｸ
+                base.SendRequest(
+                   new CommunicationObject(
+                       MessageType.RequestData,
+                       UpdateData_StockCheck,
+                       new object[] {
                             this.txt移動元倉庫.Text1,
                             SearchDetail.DataSet,
                             ccfg.ユーザID
                         }));
-            // No-222 Add End
+                // No-222 Add End
+            }
+            else
+            {
+                // 調整移動で移動元が入力されていない場合は在庫チェックしない
+                if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
+                        "登録確認",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question,
+                        MessageBoxResult.Yes) == MessageBoxResult.No)
+                    return;
+
+                Update();
+            }
+            // No.392 Mod End
 
         }
         #endregion
