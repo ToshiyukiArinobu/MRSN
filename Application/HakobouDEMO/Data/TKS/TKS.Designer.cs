@@ -2220,21 +2220,13 @@ namespace Hakobou.Data.TKS {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class TKS07010_入金予定表DataTable : global::System.Data.TypedTableBase<TKS07010_入金予定表Row> {
             
-            private global::System.Data.DataColumn columnK自社コード;
+            private global::System.Data.DataColumn column自社コード;
             
-            private global::System.Data.DataColumn columnK入金年月;
-            
-            private global::System.Data.DataColumn columnK入金日;
-            
-            private global::System.Data.DataColumn columnK得意先コード;
-            
-            private global::System.Data.DataColumn columnK得意先枝番;
+            private global::System.Data.DataColumn column自社名;
             
             private global::System.Data.DataColumn column得意先コード;
             
             private global::System.Data.DataColumn column得意先名;
-            
-            private global::System.Data.DataColumn column入金日付;
             
             private global::System.Data.DataColumn column売上額;
             
@@ -2246,7 +2238,13 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column締日;
             
-            private global::System.Data.DataColumn column当月入金額;
+            private global::System.Data.DataColumn _column現金_振込_手形;
+            
+            private global::System.Data.DataColumn column手形;
+            
+            private global::System.Data.DataColumn column入金予定日;
+            
+            private global::System.Data.DataColumn column期日;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2283,41 +2281,17 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn K自社コードColumn {
+            public global::System.Data.DataColumn 自社コードColumn {
                 get {
-                    return this.columnK自社コード;
+                    return this.column自社コード;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn K入金年月Column {
+            public global::System.Data.DataColumn 自社名Column {
                 get {
-                    return this.columnK入金年月;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn K入金日Column {
-                get {
-                    return this.columnK入金日;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn K得意先コードColumn {
-                get {
-                    return this.columnK得意先コード;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn K得意先枝番Column {
-                get {
-                    return this.columnK得意先枝番;
+                    return this.column自社名;
                 }
             }
             
@@ -2334,14 +2308,6 @@ namespace Hakobou.Data.TKS {
             public global::System.Data.DataColumn 得意先名Column {
                 get {
                     return this.column得意先名;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn 入金日付Column {
-                get {
-                    return this.column入金日付;
                 }
             }
             
@@ -2387,9 +2353,33 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn 当月入金額Column {
+            public global::System.Data.DataColumn _現金_振込_手形Column {
                 get {
-                    return this.column当月入金額;
+                    return this._column現金_振込_手形;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 手形Column {
+                get {
+                    return this.column手形;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 入金予定日Column {
+                get {
+                    return this.column入金予定日;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 期日Column {
+                get {
+                    return this.column期日;
                 }
             }
             
@@ -2430,23 +2420,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TKS07010_入金予定表Row AddTKS07010_入金予定表Row(int K自社コード, int K入金年月, int K入金日, int K得意先コード, int K得意先枝番, string 得意先コード, string 得意先名, string 入金日付, long 売上額, long 消費税, long 回収予定額, string 請求年月, int 締日, int 当月入金額) {
+            public TKS07010_入金予定表Row AddTKS07010_入金予定表Row(string 自社コード, string 自社名, string 得意先コード, string 得意先名, long 売上額, long 消費税, long 回収予定額, string 請求年月, int 締日, int _現金_振込_手形, int 手形, string 入金予定日, string 期日) {
                 TKS07010_入金予定表Row rowTKS07010_入金予定表Row = ((TKS07010_入金予定表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        K自社コード,
-                        K入金年月,
-                        K入金日,
-                        K得意先コード,
-                        K得意先枝番,
+                        自社コード,
+                        自社名,
                         得意先コード,
                         得意先名,
-                        入金日付,
                         売上額,
                         消費税,
                         回収予定額,
                         請求年月,
                         締日,
-                        当月入金額};
+                        _現金_振込_手形,
+                        手形,
+                        入金予定日,
+                        期日};
                 rowTKS07010_入金予定表Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTKS07010_入金予定表Row);
                 return rowTKS07010_入金予定表Row;
@@ -2469,41 +2458,32 @@ namespace Hakobou.Data.TKS {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnK自社コード = base.Columns["K自社コード"];
-                this.columnK入金年月 = base.Columns["K入金年月"];
-                this.columnK入金日 = base.Columns["K入金日"];
-                this.columnK得意先コード = base.Columns["K得意先コード"];
-                this.columnK得意先枝番 = base.Columns["K得意先枝番"];
+                this.column自社コード = base.Columns["自社コード"];
+                this.column自社名 = base.Columns["自社名"];
                 this.column得意先コード = base.Columns["得意先コード"];
                 this.column得意先名 = base.Columns["得意先名"];
-                this.column入金日付 = base.Columns["入金日付"];
                 this.column売上額 = base.Columns["売上額"];
                 this.column消費税 = base.Columns["消費税"];
                 this.column回収予定額 = base.Columns["回収予定額"];
                 this.column請求年月 = base.Columns["請求年月"];
                 this.column締日 = base.Columns["締日"];
-                this.column当月入金額 = base.Columns["当月入金額"];
+                this._column現金_振込_手形 = base.Columns["現金・振込・手形"];
+                this.column手形 = base.Columns["手形"];
+                this.column入金予定日 = base.Columns["入金予定日"];
+                this.column期日 = base.Columns["期日"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnK自社コード = new global::System.Data.DataColumn("K自社コード", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnK自社コード);
-                this.columnK入金年月 = new global::System.Data.DataColumn("K入金年月", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnK入金年月);
-                this.columnK入金日 = new global::System.Data.DataColumn("K入金日", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnK入金日);
-                this.columnK得意先コード = new global::System.Data.DataColumn("K得意先コード", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnK得意先コード);
-                this.columnK得意先枝番 = new global::System.Data.DataColumn("K得意先枝番", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnK得意先枝番);
+                this.column自社コード = new global::System.Data.DataColumn("自社コード", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社コード);
+                this.column自社名 = new global::System.Data.DataColumn("自社名", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社名);
                 this.column得意先コード = new global::System.Data.DataColumn("得意先コード", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column得意先コード);
                 this.column得意先名 = new global::System.Data.DataColumn("得意先名", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column得意先名);
-                this.column入金日付 = new global::System.Data.DataColumn("入金日付", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.column入金日付);
                 this.column売上額 = new global::System.Data.DataColumn("売上額", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column売上額);
                 this.column消費税 = new global::System.Data.DataColumn("消費税", typeof(long), null, global::System.Data.MappingType.Element);
@@ -2514,22 +2494,23 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column請求年月);
                 this.column締日 = new global::System.Data.DataColumn("締日", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column締日);
-                this.column当月入金額 = new global::System.Data.DataColumn("当月入金額", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.column当月入金額);
-                this.columnK自社コード.AllowDBNull = false;
-                this.columnK入金年月.ReadOnly = true;
-                this.columnK入金日.ReadOnly = true;
-                this.columnK得意先コード.AllowDBNull = false;
-                this.columnK得意先枝番.AllowDBNull = false;
+                this._column現金_振込_手形 = new global::System.Data.DataColumn("現金・振込・手形", typeof(int), null, global::System.Data.MappingType.Element);
+                this._column現金_振込_手形.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_column現金_振込_手形");
+                this._column現金_振込_手形.ExtendedProperties.Add("Generator_UserColumnName", "現金・振込・手形");
+                base.Columns.Add(this._column現金_振込_手形);
+                this.column手形 = new global::System.Data.DataColumn("手形", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column手形);
+                this.column入金予定日 = new global::System.Data.DataColumn("入金予定日", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column入金予定日);
+                this.column期日 = new global::System.Data.DataColumn("期日", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column期日);
                 this.column得意先コード.ReadOnly = true;
                 this.column得意先コード.MaxLength = 4000;
                 this.column得意先名.MaxLength = 50;
-                this.column入金日付.ReadOnly = true;
-                this.column入金日付.MaxLength = 4000;
                 this.column請求年月.ReadOnly = true;
                 this.column請求年月.MaxLength = 4000;
                 this.column締日.AllowDBNull = false;
-                this.column当月入金額.ReadOnly = true;
+                this._column現金_振込_手形.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6167,66 +6148,33 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int K自社コード {
-                get {
-                    return ((int)(this[this.tableTKS07010_入金予定表.K自社コードColumn]));
-                }
-                set {
-                    this[this.tableTKS07010_入金予定表.K自社コードColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int K入金年月 {
+            public string 自社コード {
                 get {
                     try {
-                        return ((int)(this[this.tableTKS07010_入金予定表.K入金年月Column]));
+                        return ((string)(this[this.tableTKS07010_入金予定表.自社コードColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'K入金年月\' の値は DBNull です。", e);
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'自社コード\' の値は DBNull です。", e);
                     }
                 }
                 set {
-                    this[this.tableTKS07010_入金予定表.K入金年月Column] = value;
+                    this[this.tableTKS07010_入金予定表.自社コードColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int K入金日 {
+            public string 自社名 {
                 get {
                     try {
-                        return ((int)(this[this.tableTKS07010_入金予定表.K入金日Column]));
+                        return ((string)(this[this.tableTKS07010_入金予定表.自社名Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'K入金日\' の値は DBNull です。", e);
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'自社名\' の値は DBNull です。", e);
                     }
                 }
                 set {
-                    this[this.tableTKS07010_入金予定表.K入金日Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int K得意先コード {
-                get {
-                    return ((int)(this[this.tableTKS07010_入金予定表.K得意先コードColumn]));
-                }
-                set {
-                    this[this.tableTKS07010_入金予定表.K得意先コードColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int K得意先枝番 {
-                get {
-                    return ((int)(this[this.tableTKS07010_入金予定表.K得意先枝番Column]));
-                }
-                set {
-                    this[this.tableTKS07010_入金予定表.K得意先枝番Column] = value;
+                    this[this.tableTKS07010_入金予定表.自社名Column] = value;
                 }
             }
             
@@ -6259,22 +6207,6 @@ namespace Hakobou.Data.TKS {
                 }
                 set {
                     this[this.tableTKS07010_入金予定表.得意先名Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string 入金日付 {
-                get {
-                    try {
-                        return ((string)(this[this.tableTKS07010_入金予定表.入金日付Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'入金日付\' の値は DBNull です。", e);
-                    }
-                }
-                set {
-                    this[this.tableTKS07010_入金予定表.入金日付Column] = value;
                 }
             }
             
@@ -6355,42 +6287,90 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int 当月入金額 {
+            public int _現金_振込_手形 {
                 get {
                     try {
-                        return ((int)(this[this.tableTKS07010_入金予定表.当月入金額Column]));
+                        return ((int)(this[this.tableTKS07010_入金予定表._現金_振込_手形Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'当月入金額\' の値は DBNull です。", e);
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'現金・振込・手形\' の値は DBNull です。", e);
                     }
                 }
                 set {
-                    this[this.tableTKS07010_入金予定表.当月入金額Column] = value;
+                    this[this.tableTKS07010_入金予定表._現金_振込_手形Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsK入金年月Null() {
-                return this.IsNull(this.tableTKS07010_入金予定表.K入金年月Column);
+            public int 手形 {
+                get {
+                    try {
+                        return ((int)(this[this.tableTKS07010_入金予定表.手形Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'手形\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS07010_入金予定表.手形Column] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetK入金年月Null() {
-                this[this.tableTKS07010_入金予定表.K入金年月Column] = global::System.Convert.DBNull;
+            public string 入金予定日 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS07010_入金予定表.入金予定日Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'入金予定日\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS07010_入金予定表.入金予定日Column] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsK入金日Null() {
-                return this.IsNull(this.tableTKS07010_入金予定表.K入金日Column);
+            public string 期日 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS07010_入金予定表.期日Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'期日\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS07010_入金予定表.期日Column] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetK入金日Null() {
-                this[this.tableTKS07010_入金予定表.K入金日Column] = global::System.Convert.DBNull;
+            public bool Is自社コードNull() {
+                return this.IsNull(this.tableTKS07010_入金予定表.自社コードColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社コードNull() {
+                this[this.tableTKS07010_入金予定表.自社コードColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社名Null() {
+                return this.IsNull(this.tableTKS07010_入金予定表.自社名Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社名Null() {
+                this[this.tableTKS07010_入金予定表.自社名Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6415,18 +6395,6 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set得意先名Null() {
                 this[this.tableTKS07010_入金予定表.得意先名Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Is入金日付Null() {
-                return this.IsNull(this.tableTKS07010_入金予定表.入金日付Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Set入金日付Null() {
-                this[this.tableTKS07010_入金予定表.入金日付Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6479,14 +6447,50 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Is当月入金額Null() {
-                return this.IsNull(this.tableTKS07010_入金予定表.当月入金額Column);
+            public bool Is_現金_振込_手形Null() {
+                return this.IsNull(this.tableTKS07010_入金予定表._現金_振込_手形Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Set当月入金額Null() {
-                this[this.tableTKS07010_入金予定表.当月入金額Column] = global::System.Convert.DBNull;
+            public void Set_現金_振込_手形Null() {
+                this[this.tableTKS07010_入金予定表._現金_振込_手形Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is手形Null() {
+                return this.IsNull(this.tableTKS07010_入金予定表.手形Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set手形Null() {
+                this[this.tableTKS07010_入金予定表.手形Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is入金予定日Null() {
+                return this.IsNull(this.tableTKS07010_入金予定表.入金予定日Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set入金予定日Null() {
+                this[this.tableTKS07010_入金予定表.入金予定日Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is期日Null() {
+                return this.IsNull(this.tableTKS07010_入金予定表.期日Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set期日Null() {
+                this[this.tableTKS07010_入金予定表.期日Column] = global::System.Convert.DBNull;
             }
         }
         

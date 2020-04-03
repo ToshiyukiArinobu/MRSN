@@ -7,12 +7,12 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="7" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:TKS01020_H請求書" ZOrder="6" X="7" Y="17" Height="257" Width="170" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="26" SplitterPosition="253" />
-    <Shape ID="DesignTable:TKS01020_D請求書" ZOrder="2" X="928" Y="92" Height="334" Width="170" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="26" SplitterPosition="330" />
-    <Shape ID="DesignTable:TKS03010_請求一覧表" ZOrder="5" X="353" Y="22" Height="388" Width="255" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="384" />
-    <Shape ID="DesignTable:TKS07010_入金予定表" ZOrder="4" X="676" Y="21" Height="30" Width="196" AdapterExpanded="true" DataTableExpanded="false" OldAdapterHeight="0" OldDataTableHeight="292" SplitterPosition="26" />
-    <Shape ID="DesignTable:TKS08010_入金予定実績表" ZOrder="1" X="908" Y="26" Height="486" Width="211" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="482" />
-    <Shape ID="DesignTable:TKS02010_売上データ一覧表" ZOrder="3" X="674" Y="109" Height="282" Width="240" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="278" />
-    <Shape ID="DesignTable:TKS02011_売掛台帳" ZOrder="7" X="1125" Y="95" Height="257" Width="172" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
+    <Shape ID="DesignTable:TKS01020_D請求書" ZOrder="4" X="7" Y="325" Height="334" Width="170" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="26" SplitterPosition="330" />
+    <Shape ID="DesignTable:TKS03010_請求一覧表" ZOrder="1" X="473" Y="19" Height="388" Width="255" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="384" />
+    <Shape ID="DesignTable:TKS07010_入金予定表" ZOrder="5" X="756" Y="24" Height="276" Width="186" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="26" SplitterPosition="272" />
+    <Shape ID="DesignTable:TKS08010_入金予定実績表" ZOrder="3" X="1041" Y="26" Height="486" Width="211" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="24" SplitterPosition="482" />
+    <Shape ID="DesignTable:TKS02010_売上データ一覧表" ZOrder="2" X="206" Y="20" Height="282" Width="240" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="278" />
+    <Shape ID="DesignTable:TKS02011_売掛台帳" ZOrder="7" X="218" Y="349" Height="257" Width="172" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
   </Shapes>
   <Connectors />
 </DiagramLayout>
