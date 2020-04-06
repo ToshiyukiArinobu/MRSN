@@ -49,9 +49,9 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
-
         #region << 入金入力関連 >>
 
+        #region 入金情報を取得する
         /// <summary>
         /// 入金入力 検索情報を取得する
         /// </summary>
@@ -108,7 +108,9 @@ namespace KyoeiSystem.Application.WCFService
             return t11ds;
 
         }
+        #endregion
 
+        #region 入金入力情報を登録・更新する
         /// <summary>
         /// 入金入力情報を登録・更新する
         /// </summary>
@@ -152,7 +154,9 @@ namespace KyoeiSystem.Application.WCFService
             return 1;
 
         }
+        #endregion
 
+        #region 入金入力情報を論理削除する
         /// <summary>
         /// 入金入力情報を論理削除する
         /// </summary>
@@ -196,9 +200,47 @@ namespace KyoeiSystem.Application.WCFService
             return 1;
 
         }
-
         #endregion
 
+        #region 得意先情報の取得
+        /// <summary>
+        /// 得意先情報の取得
+        /// </summary>
+        /// <param name="pCode"></param>
+        /// <param name="pEda"></param>
+        /// <param name="pHanCode"></param>
+        /// <returns></returns>
+        public List<M01_TOK> GetTokInfo(string pCode, string pEda, string pHanCode)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                List<M01_TOK> result;
+                int ival;
+
+                int code = Int32.TryParse(pCode, out ival) ? ival : -1;
+                int eda = Int32.TryParse(pEda, out ival) ? ival : -1;
+                int hanCode = Int32.TryParse(pHanCode, out ival) ? ival : -1;
+
+                if (string.IsNullOrEmpty(pHanCode))
+                {
+                    result = context.M01_TOK
+                        .Where(w => w.取引先コード == code && w.枝番 == eda).ToList();
+                }
+                else
+                {
+                    var jis = context.M70_JIS.Where(w => w.自社コード == hanCode).FirstOrDefault();
+                    result = context.M01_TOK
+                        .Where(w => w.取引先コード == jis.取引先コード && w.枝番 == jis.枝番).ToList();
+                }
+
+                return result;
+            }
+        }
+        #endregion
+
+        #endregion
 
         #region << 入金ヘッダ >>
 
@@ -462,7 +504,6 @@ namespace KyoeiSystem.Application.WCFService
         }
 
         #endregion
-
 
         #region << 処理関連 >>
 

@@ -69,6 +69,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T05_Update = "T11_Update";
         /// <summary>入金情報削除</summary>
         private const string T05_Delete = "T11_Delete";
+        /// <summary>手形チェック(期日、金額)</summary>
+        private const string T05_GetTokInfo = "T11_GetTokInfo";
         
         /// <summary>入金ヘッダ テーブル名</summary>
         private const string T05_HEADER_TABLE_NAME = "T11_NYKNHD";
@@ -108,6 +110,16 @@ namespace KyoeiSystem.Application.Windows.Views
             販社 = 1
         }
 
+        /// <summary>
+        /// 請求区分
+        /// </summary>
+        private enum 請求区分 : int
+        {
+            /// <summary> 1:以上 </summary>
+            以上 = 1,
+            /// <summary> 2:以下 </summary>
+            以下 = 2
+        }
         #endregion
 
         #region バインディングデータ
@@ -137,7 +149,6 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         #endregion
-
 
         #region << 初期処理群 >>
 
@@ -289,6 +300,26 @@ namespace KyoeiSystem.Application.Windows.Views
                         }
                         break;
 
+                    // No.408 Add Start
+                    case T05_GetTokInfo:
+                        // 手形情報のチェック
+                        
+                        if (CheckTegata(tbl))
+                        {
+                            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
+                                                "登録確認",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question,
+                                                MessageBoxResult.Yes) == MessageBoxResult.No)
+                                return;
+
+                            // 入金情報の登録
+                            Update();
+                        }
+                        
+                        break;
+                    // No.408 Add End
+
                     case T05_Update:
                         MessageBox.Show(AppConst.SUCCESS_UPDATE, "登録完了", MessageBoxButton.OK, MessageBoxImage.Information);
                         // コントロール初期化
@@ -308,9 +339,9 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                throw ex;
             }
 
         }
@@ -505,14 +536,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                "登録確認",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question,
-                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                return;
-
-            Update();
+            GetTokInfo();              // No.408 Mod
 
         }
 
@@ -686,6 +710,22 @@ namespace KyoeiSystem.Application.Windows.Views
                         ccfg.ユーザID
                     }));
 
+        }
+
+        /// <summary>
+        /// 得意先情報を取得
+        /// </summary>
+        private void GetTokInfo()
+        {
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    T05_GetTokInfo,
+                    new object[] {
+                        this.txt得意先.Text1,
+                        this.txt得意先.Text2,
+                        this.txt入金元販社.Text1,
+                    }));
         }
 
         #endregion
@@ -1042,6 +1082,112 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region 手形情報の期日、金額チェックをおこなう No.408 Add
+        /// <summary>
+        /// 手形情報の期日、金額チェックをおこなう
+        /// </summary>
+        /// <param name="dt">得意先情報</param>
+        /// <returns>true:チェックOK / false:NG </returns>
+        private bool CheckTegata(DataTable dt)
+        {
+            // 手形入力確認
+            var tegata = SearchDetail.AsEnumerable()
+                .Where(w => w.Field<string>("金種コード") != null &&
+                        w.Field<string>("金種コード").Equals(金種Dic.FirstOrDefault(x => x.Value.Equals("手形")).Key.ToString())).FirstOrDefault();
+
+            if (tegata == null)
+            {
+                return true;
+            }
+
+            // 請求条件チェック
+            var cond = dt.AsEnumerable()
+                        .Where(w => w.Field<int?>("Ｔサイト２") == null ||
+                                    w.Field<int?>("Ｔ入金日２") == null);
+
+            if (cond.Any())
+            {
+                MessageBox.Show("取引先マスタに手形条件が設定されていません。\n請求条件(サイト、入金日)を設定してください。", 
+                    "請求条件未登録", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                return false;
+            }
+
+            // 手形内容チェック
+            int rIdx = 0;
+            bool isCheckErr = true;
+            foreach (DataRow row in SearchDetail.Rows)
+            {
+                // 削除行はチェック対象外
+                if (row.RowState == DataRowState.Deleted)
+                    continue;
+
+                // 追加行未入力レコードはスキップ
+                if (row["金種コード"] == null || string.IsNullOrEmpty(row["金種コード"].ToString()) || row["金種コード"].ToString().Equals("0"))
+                    continue;
+
+                // エラー情報をクリア
+                gcSpreadGrid.Rows[rIdx].ValidationErrors.Clear();
+
+                if (int.Parse(row["金種コード"].ToString()).Equals(金種Dic.FirstOrDefault(x => x.Value.Equals("手形")).Key))
+                {
+                    // 手形期日チェック
+                    DateFromTo limitDate = AppCommon.GetDateFromTo(row.Field<DateTime>("期日").Year, row.Field<DateTime>("期日").Month, (int)dt.Rows[0].Field<int?>("Ｔ入金日２"));
+                    if (row.Field<DateTime>("期日").Day != limitDate.DATETo.Day)
+                    {
+                        gcSpreadGrid.Rows[rIdx]
+                            .ValidationErrors.Add(new SpreadValidationError(string.Format("期日が異なります。\n{0}の期日は{1}日です。",
+                                                        dt.Rows[0].Field<string>("略称名"), limitDate.DATETo.Day),
+                                                    null, rIdx, GridColumnsMapping.期日.GetHashCode()));
+
+                        if (isCheckErr)
+                        {
+                            gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.期日.GetHashCode());
+                        }
+                        isCheckErr = false;
+                    }
+
+                    // 手形金額チェック
+                    // 請求区分.以上の場合
+                    if (dt.Rows[0].Field<int>("Ｔ請求区分") == (int)請求区分.以上)
+                    {
+                        if (row.Field<int>("金額") < dt.Rows[0].Field<int>("Ｔ請求条件"))
+                        {
+                            gcSpreadGrid.Rows[rIdx]
+                            .ValidationErrors.Add(new SpreadValidationError(string.Format("手形発行金額が異なります。\n{0:#,0}円以上で手形を入力してください。",
+                                                        dt.Rows[0].Field<int>("Ｔ請求条件")),
+                                                    null, rIdx, GridColumnsMapping.金額.GetHashCode()));
+
+                            if (isCheckErr)
+                            {
+                                gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.金額.GetHashCode());
+                            }
+                            isCheckErr = false;
+                        }
+                    }
+                    // 請求区分.以下の場合
+                    else
+                    {
+                        if (row.Field<int>("金額") > dt.Rows[0].Field<int>("Ｔ請求条件"))
+                        {
+                            gcSpreadGrid.Rows[rIdx]
+                            .ValidationErrors.Add(new SpreadValidationError(string.Format("手形発行金額が異なります。\n{0:#,0}円以下で手形を入力してください。",
+                                                        dt.Rows[0].Field<int>("Ｔ請求条件")),
+                                                    null, rIdx, GridColumnsMapping.金額.GetHashCode()));
+
+                            if (isCheckErr)
+                            {
+                                gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.金額.GetHashCode());
+                            }
+                            isCheckErr = false;
+                        }
+                    }
+                }
+                rIdx++;
+            }
+
+            return isCheckErr;
+        }
+        #endregion
     }
 
 }
