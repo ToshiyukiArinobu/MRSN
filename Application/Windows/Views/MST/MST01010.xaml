@@ -512,7 +512,7 @@
                 </Grid.ColumnDefinitions>
                 <ctls:UcLabelTextBox
                     x:Name="T_SHIHARAI" Label_Context="請求条件" Grid.Column="1" Grid.Row="7" Label_Width="100" cWidth="100"
-                    ImeType="Off" cMaxLength="8" ValidationType="Integer" MaxValue="99999999" Margin="237,0,0,0" cVerticalContentAlignment="Center" cTextAlignment="Right"
+                    ImeType="Off" ValidationType="Integer" MaxValue="99999999" Margin="237,0,0,0" cVerticalContentAlignment="Center" cTextAlignment="Right"
                     Text="{Binding RowM01TOK[Ｔ請求条件], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True,StringFormat=#\,0,UpdateSourceTrigger=LostFocus}"
                 />
               </Grid>
