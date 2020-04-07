@@ -165,7 +165,7 @@
 
             <CheckBox Name="isPaymentAllDays" Grid.Column="2" Margin="10,0,0,0"
                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                      Content="全入金締日" IsChecked="True"
+                      Content="全請求締日" IsChecked="True"
                       Checked="isPaymentAllDays_Checked"
             />
           </Grid>
