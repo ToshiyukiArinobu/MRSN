@@ -324,7 +324,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 int year = yearMonth / 100;
                 int month = yearMonth % 100;
                 string closingText = isPaymentAllDays.IsChecked == true ?
-                    isPaymentAllDays.Content.ToString() : string.Format("{0}日", PaymentDay.Text);
+                    isPaymentAllDays.Content.ToString() : string.Format("{0}日入金分", PaymentDay.Text);
 
                 var parms = new List<FwPreview.ReportParameter>()
                 {

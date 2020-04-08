@@ -140,14 +140,14 @@
                                    Text2Width="250" Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderThickness="0" Text2AcceptsTab="False" Text2VerticalContentAlignment="Center"
           />
 
-          <!-- 請求年月 -->
+          <!-- 入金年月 -->
           <ctls:UcLabelTextBox Name="PaymentYearMonth" Grid.Row="1" IsKeyItem="True" IsRequired="True" Margin="0,3,0,0"
                                HorizontalAlignment="Left" ValidationType="DateYYYYMM" Mask="yyyy/MM"
-                               Label_Context="請求年月" Label_Width="100"
+                               Label_Context="入金年月" Label_Width="100"
                                cWidth="60" cMaxLength="7" cVerticalContentAlignment="Center"
           />
 
-          <!-- 請求締日 -->
+          <!-- 入金締日 -->
           <Grid Grid.Row="2" Margin="0,3,0,0">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
@@ -157,7 +157,7 @@
 
             <ctls:UcLabelTextBox Name="PaymentDay" HorizontalAlignment="Left"
                                  MinValue="1" MaxValue="31" ValidationType="Integer"
-                                 Label_Context="請求締日" Label_Width="100"
+                                 Label_Context="入金締日" Label_Width="100"
                                  cWidth="30" cMaxLength="2" cVerticalContentAlignment="Center"
                                  cTextChanged="ClosingDate_TextChanged"
             />
@@ -165,7 +165,7 @@
 
             <CheckBox Name="isPaymentAllDays" Grid.Column="2" Margin="10,0,0,0"
                       HorizontalAlignment="Left" VerticalAlignment="Center"
-                      Content="全請求締日" IsChecked="True"
+                      Content="全入金締日" IsChecked="True"
                       Checked="isPaymentAllDays_Checked"
             />
           </Grid>

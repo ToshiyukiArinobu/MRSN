@@ -40,7 +40,7 @@ namespace KyoeiSystem.Application.WCFService
             public long 回収予定額 { get; set; }
             public string 請求年月 { get; set; }             // yyyy/MM
             public int 締日 { get; set; }
-            public long 現金・振込・手形 { get; set; }
+            public long 現金・振込・小切手 { get; set; }
             public long 手形 { get; set; }
             public string 入金予定日 { get; set; }           // yyyy/MM/dd
             public string 期日 { get; set; }                 // yyyy/MM/dd
@@ -131,15 +131,21 @@ namespace KyoeiSystem.Application.WCFService
                                 context.M01_TOK.Where(w => w.削除日時 == null &&
                                                             kbnList.Contains(w.取引区分) &&
                                                             w.担当会社コード == myCompany).ToList();
-                    // 請求情報取得
+                    // 請求情報取得 No.414 Mod
                     var seiData = context.S01_SEIHD
-                                    .Where(w => w.自社コード == myCompany && w.請求年月 == paymentYearMonth).ToList();
+                                    .Where(w => w.自社コード == myCompany &&
+                                            w.入金日 / 100  == paymentYearMonth).ToList();
 
                     #region 条件絞り込み
-                    // 締日が指定されている場合
+                    // 締日が指定されている場合 No.414 Mod
                     if (paymentDay != null)
                     {
-                        tokList = tokList.Where(w => w.Ｔ入金日１ == paymentDay).ToList();
+                        int ival;
+                        DateTime closeDay = AppCommon.GetClosingDate(paymentYearMonth / 100, paymentYearMonth % 100, (int)paymentDay, 0);
+                        int nyuknDay = Int32.TryParse(closeDay.ToShortDateString().Replace("/", ""), out ival) ? ival : -1;
+
+                        // 請求ヘッダ.入金日に一致するデータを取得
+                        seiData = seiData.Where(w => w.入金日 == nyuknDay).ToList();
                     }
 
                     // 取引先が指定されている場合
@@ -178,11 +184,12 @@ namespace KyoeiSystem.Application.WCFService
                                              得意先名 = tok.略称名,
                                              売上額 = s.SHD.売上額,
                                              消費税 = s.SHD.消費税,
-                                             回収予定額 = s.SHD.売上額 + s.SHD.消費税,
-                                             請求年月 = s.SHD.請求年月.ToString().Insert(4, "/"),
+                                             回収予定額 = s.SHD.売上額 + s.SHD.消費税,                                            
+                                             請求年月 = s.SHD.集計最終日 != null? 
+                                                            Convert.ToDateTime(s.SHD.集計最終日).ToShortDateString() : s.SHD.請求年月日.ToShortDateString(),      // No.414 Mod
                                              締日 = s.SHD.請求締日,
 
-                                             現金・振込・手形 = tok.Ｔサイト２ == null ? s.SHD.売上額 + s.SHD.消費税 :
+                                             現金・振込・小切手 = tok.Ｔサイト２ == null ? s.SHD.売上額 + s.SHD.消費税 :
                                                                     tok.Ｔ入金日２ == null ? s.SHD.売上額 + s.SHD.消費税 :
 
                                                                     // Ｔ請求区分:1(以上)の場合
@@ -243,7 +250,7 @@ namespace KyoeiSystem.Application.WCFService
                     return resultList
                         .OrderBy(o => o.自社コード)
                         .ThenBy(t => t.入金予定日)
-                        .ThenBy(t => t.締日)
+                        .ThenBy(t => t.請求年月)
                         .ThenBy(t => t.得意先コード)
                         .ToList();
                 }

@@ -132,7 +132,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="締日" msprop:Generator_ColumnVarNameInTable="column締日" msprop:Generator_ColumnPropNameInRow="締日" msprop:Generator_ColumnPropNameInTable="締日Column" msprop:Generator_UserColumnName="締日" type="xs:int" />
-              <xs:element name="現金_x30FB_振込_x30FB_手形" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="_column現金_振込_手形" msprop:Generator_ColumnPropNameInRow="_現金_振込_手形" msprop:Generator_ColumnPropNameInTable="_現金_振込_手形Column" msprop:Generator_UserColumnName="現金・振込・手形" type="xs:int" minOccurs="0" />
+              <xs:element name="現金_x30FB_振込_x30FB_小切手" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="_column現金_振込_小切手" msprop:Generator_ColumnPropNameInRow="_現金_振込_小切手" msprop:Generator_ColumnPropNameInTable="_現金_振込_小切手Column" msprop:Generator_UserColumnName="現金・振込・小切手" type="xs:int" minOccurs="0" />
               <xs:element name="手形" msprop:Generator_ColumnVarNameInTable="column手形" msprop:Generator_ColumnPropNameInRow="手形" msprop:Generator_ColumnPropNameInTable="手形Column" msprop:Generator_UserColumnName="手形" type="xs:int" minOccurs="0" />
               <xs:element name="入金予定日" msprop:Generator_ColumnVarNameInTable="column入金予定日" msprop:Generator_ColumnPropNameInRow="入金予定日" msprop:Generator_ColumnPropNameInTable="入金予定日Column" msprop:Generator_UserColumnName="入金予定日" type="xs:string" minOccurs="0" />
               <xs:element name="期日" msprop:Generator_ColumnVarNameInTable="column期日" msprop:Generator_ColumnPropNameInRow="期日" msprop:Generator_ColumnPropNameInTable="期日Column" msprop:Generator_UserColumnName="期日" type="xs:string" minOccurs="0" />
