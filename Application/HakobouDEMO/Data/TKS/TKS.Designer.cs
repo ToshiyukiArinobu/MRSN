@@ -2238,7 +2238,7 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column締日;
             
-            private global::System.Data.DataColumn _column現金_振込_手形;
+            private global::System.Data.DataColumn _column現金_振込_小切手;
             
             private global::System.Data.DataColumn column手形;
             
@@ -2353,9 +2353,9 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn _現金_振込_手形Column {
+            public global::System.Data.DataColumn _現金_振込_小切手Column {
                 get {
-                    return this._column現金_振込_手形;
+                    return this._column現金_振込_小切手;
                 }
             }
             
@@ -2420,7 +2420,7 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TKS07010_入金予定表Row AddTKS07010_入金予定表Row(string 自社コード, string 自社名, string 得意先コード, string 得意先名, long 売上額, long 消費税, long 回収予定額, string 請求年月, int 締日, int _現金_振込_手形, int 手形, string 入金予定日, string 期日) {
+            public TKS07010_入金予定表Row AddTKS07010_入金予定表Row(string 自社コード, string 自社名, string 得意先コード, string 得意先名, long 売上額, long 消費税, long 回収予定額, string 請求年月, int 締日, int _現金_振込_小切手, int 手形, string 入金予定日, string 期日) {
                 TKS07010_入金予定表Row rowTKS07010_入金予定表Row = ((TKS07010_入金予定表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         自社コード,
@@ -2432,7 +2432,7 @@ namespace Hakobou.Data.TKS {
                         回収予定額,
                         請求年月,
                         締日,
-                        _現金_振込_手形,
+                        _現金_振込_小切手,
                         手形,
                         入金予定日,
                         期日};
@@ -2467,7 +2467,7 @@ namespace Hakobou.Data.TKS {
                 this.column回収予定額 = base.Columns["回収予定額"];
                 this.column請求年月 = base.Columns["請求年月"];
                 this.column締日 = base.Columns["締日"];
-                this._column現金_振込_手形 = base.Columns["現金・振込・手形"];
+                this._column現金_振込_小切手 = base.Columns["現金・振込・小切手"];
                 this.column手形 = base.Columns["手形"];
                 this.column入金予定日 = base.Columns["入金予定日"];
                 this.column期日 = base.Columns["期日"];
@@ -2494,10 +2494,10 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column請求年月);
                 this.column締日 = new global::System.Data.DataColumn("締日", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column締日);
-                this._column現金_振込_手形 = new global::System.Data.DataColumn("現金・振込・手形", typeof(int), null, global::System.Data.MappingType.Element);
-                this._column現金_振込_手形.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_column現金_振込_手形");
-                this._column現金_振込_手形.ExtendedProperties.Add("Generator_UserColumnName", "現金・振込・手形");
-                base.Columns.Add(this._column現金_振込_手形);
+                this._column現金_振込_小切手 = new global::System.Data.DataColumn("現金・振込・小切手", typeof(int), null, global::System.Data.MappingType.Element);
+                this._column現金_振込_小切手.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_column現金_振込_小切手");
+                this._column現金_振込_小切手.ExtendedProperties.Add("Generator_UserColumnName", "現金・振込・小切手");
+                base.Columns.Add(this._column現金_振込_小切手);
                 this.column手形 = new global::System.Data.DataColumn("手形", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column手形);
                 this.column入金予定日 = new global::System.Data.DataColumn("入金予定日", typeof(string), null, global::System.Data.MappingType.Element);
@@ -2510,7 +2510,7 @@ namespace Hakobou.Data.TKS {
                 this.column請求年月.ReadOnly = true;
                 this.column請求年月.MaxLength = 4000;
                 this.column締日.AllowDBNull = false;
-                this._column現金_振込_手形.ReadOnly = true;
+                this._column現金_振込_小切手.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6287,17 +6287,17 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int _現金_振込_手形 {
+            public int _現金_振込_小切手 {
                 get {
                     try {
-                        return ((int)(this[this.tableTKS07010_入金予定表._現金_振込_手形Column]));
+                        return ((int)(this[this.tableTKS07010_入金予定表._現金_振込_小切手Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'現金・振込・手形\' の値は DBNull です。", e);
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'現金・振込・小切手\' の値は DBNull です。", e);
                     }
                 }
                 set {
-                    this[this.tableTKS07010_入金予定表._現金_振込_手形Column] = value;
+                    this[this.tableTKS07010_入金予定表._現金_振込_小切手Column] = value;
                 }
             }
             
@@ -6447,14 +6447,14 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Is_現金_振込_手形Null() {
-                return this.IsNull(this.tableTKS07010_入金予定表._現金_振込_手形Column);
+            public bool Is_現金_振込_小切手Null() {
+                return this.IsNull(this.tableTKS07010_入金予定表._現金_振込_小切手Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Set_現金_振込_手形Null() {
-                this[this.tableTKS07010_入金予定表._現金_振込_手形Column] = global::System.Convert.DBNull;
+            public void Set_現金_振込_小切手Null() {
+                this[this.tableTKS07010_入金予定表._現金_振込_小切手Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
