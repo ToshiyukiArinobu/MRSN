@@ -116,7 +116,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 対象として取引区分：得意先、相殺を対象とする
                 List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };  // No.402 Mod
-                
+
                 var tok =
                     context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分));
 
@@ -135,7 +135,7 @@ namespace KyoeiSystem.Application.WCFService
                 // ブランドが指定されている場合
                 string compBrandFrom = brandFrom;
                 string compBrandTo = brandTo;
-                
+
                 // ブランドFromToを再設定 0123…ABC順で絞り込む
                 if (!string.IsNullOrEmpty(brandFrom) && !string.IsNullOrEmpty(brandTo) &&
                     brandFrom.CompareTo(brandTo) > 0)
@@ -444,7 +444,8 @@ namespace KyoeiSystem.Application.WCFService
                 // 最終集計を実施(ここまでで得意先毎の集計になっている為)
                 resultList =
                     resultList
-                        .GroupBy(g => new {
+                        .GroupBy(g => new
+                        {
                             自社コード = g.自社コード,        // No.227,228 Add
                             自社名 = g.自社名,                // No.227,228 Add
                             ブランドコード = g.ブランドコード,    // No.402 Mod
@@ -478,13 +479,13 @@ namespace KyoeiSystem.Application.WCFService
                             集計売上額１２ = s.Sum(m => m.集計売上額１２),
                             集計合計額 = s.Sum(m => m.集計合計額),
                             構成比率 =
-                                resultList.Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計額) == 0 ?      // No.402 Mod
+                                resultList.Where(w => w.自社コード == s.Key.自社コード && w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計額) == 0 ?         // No.420 Mod
                                     0 :
                                     Math.Round(
                                         Decimal.Divide(
                                             s.Sum(m => m.集計合計額),
                                             resultList
-                                                .Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計額)       // No.402 Mod
+                                                .Where(w => w.自社コード == s.Key.自社コード && w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計額)          // No.420 Mod
                                             ) * 100, 2),
                             // No.402 Add Start
                             集計数量０１ = s.Sum(m => m.集計数量０１),
@@ -501,13 +502,13 @@ namespace KyoeiSystem.Application.WCFService
                             集計数量１２ = s.Sum(m => m.集計数量１２),
                             集計合計数量 = s.Sum(m => m.集計合計数量),
                             数量構成比率 =
-                                resultList.Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計数量) == 0 ?
+                                resultList.Where(w => w.自社コード == s.Key.自社コード && w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計数量) == 0 ?       // No.420 Mod
                                     0 :
                                     Math.Round(
                                         Decimal.Divide(
                                             s.Sum(m => m.集計合計数量),
                                             resultList
-                                                .Where(w => w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計数量)
+                                                .Where(w => w.自社コード == s.Key.自社コード && w.ブランドコード == s.Key.ブランドコード).Sum(m => m.集計合計数量)        // No.420 Mod
                                             ) * 100, 2)
                             // No.402 Add End
                         })
