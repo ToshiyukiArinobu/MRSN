@@ -107,8 +107,8 @@ namespace KyoeiSystem.Application.WCFService
 
                 var tok =
                     context.M01_TOK.Where(w => w.削除日時 == null &&
-                                            kbnList.Contains(w.取引区分)); 
-                
+                                            kbnList.Contains(w.取引区分));
+
                 // No.398 Add Start
                 #region 条件絞り込み
                 // 自社が指定されていれば条件追加
@@ -131,6 +131,8 @@ namespace KyoeiSystem.Application.WCFService
                         wkTokFrom = toCode * 1000 + toEda;
                         wkTokTo = fromCode * 1000 + fromEda;
                     }
+
+                    tok = tok.Where(w => w.取引先コード * 1000 + w.枝番 >= wkTokFrom && w.取引先コード * 1000 + w.枝番 <= wkTokTo);      // No.418 Add
                 }
                 else
                 {
@@ -178,7 +180,7 @@ namespace KyoeiSystem.Application.WCFService
                                     y => y.自社コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(x => x.y.DefaultIfEmpty(),
-                                    (a, b) => new { SEIDH = a.x, JIS = b})
+                                    (a, b) => new { SEIDH = a.x, JIS = b })
                                 .GroupBy(g => new { g.SEIDH.自社コード, g.JIS.自社名, g.SEIDH.請求年月, g.SEIDH.請求先コード, g.SEIDH.請求先枝番 })
                                 .Select(s => new TallyMember
                                 {
@@ -192,7 +194,7 @@ namespace KyoeiSystem.Application.WCFService
                         // No.399 Add Start
                         // 前年
                         int lastYearMonth = targetMonth.AddYears(-1).Year * 100 + targetMonth.Month;
-                        
+
                         // 前年データを取得
                         var dtlLastList =
                             context.S01_SEIDTL
@@ -226,7 +228,7 @@ namespace KyoeiSystem.Application.WCFService
                                         金額 = s.金額,
                                         前年金額 = s.前年金額
                                     });
-                                       
+
                         // No.399 Add End
 
                         #endregion
@@ -419,7 +421,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="toEda"></param>
         /// <param name="startYm"></param>
         /// <param name="endYm"></param>
-        private void getFormParams(Dictionary<string, string> paramDic, out int? company, out int? fromCode, out int? fromEda, 
+        private void getFormParams(Dictionary<string, string> paramDic, out int? company, out int? fromCode, out int? fromEda,
                                     out int? toCode, out int? toEda, out DateTime? startYm, out DateTime? endYm)
         {
             int ival;
