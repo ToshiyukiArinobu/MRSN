@@ -50,7 +50,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T02_Update = "T02_Update";
         /// <summary>納品書売上情報更新</summary>
         private const string T02_UpdateForPrint = "T02_UpdateForPrint";
-        
+
         /// <summary>売上情報削除</summary>
         private const string T02_Delete = "T02_Delete";
 
@@ -61,7 +61,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>納品書用_在庫数チェック</summary>
         private const string UpdateData_StockCheck_Print = "UpdateData_CheckStock_Print";
-        
+
         /// <summary>取引先名称取得</summary>
         private const string MasterCode_UcTwinMST = "UcTwinMST";
 
@@ -100,6 +100,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>メーカーの売上区分</summary>
         private List<string> メーカー区分 = new List<string>() { "3", "4" };
+
+        /// <summary>得意先名称変更コード</summary>
+        private const string 得意先名称変更コード = "9999";
 
         #endregion
 
@@ -413,7 +416,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetTblData(ds);
                             ChangeKeyItemChangeable(false);
                             txt売上日.Focus();
-                            
+
                             // No.162-2 Mod Start
                             bool blnEnabled = true;
                             if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
@@ -778,8 +781,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             }
                             // 編集中に売上日変更された場合の仕入先名称
                             else if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT &&
-                                        (this.cmb売上区分.SelectedIndex == (int)売上区分.メーカー直送 || 
-                                        this.cmb売上区分.SelectedIndex == (int)売上区分.メーカー販社商流直送))
+                                        ((int)this.cmb売上区分.SelectedValue == (int)売上区分.メーカー直送 ||
+                                        (int)this.cmb売上区分.SelectedValue == (int)売上区分.メーカー販社商流直送))        // 課題No.412 Mod
                             {
                                 int code = -1;
                                 int eda = -1;
@@ -788,7 +791,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 {
                                     // 仕入先の確定データ
                                     var sirData = FixData.AsEnumerable().Where(w => w.Field<int?>("取引先コード") == code &&
-                                                                            w.Field<int?>("枝番") == eda )
+                                                                            w.Field<int?>("枝番") == eda)
                                                                         .OrderByDescending(o => o.Field<DateTime?>("確定日")).ToList();
 
                                     if (sirData.Any())
@@ -945,7 +948,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     if (twinText.Name == this.txt得意先.Name)
                     {
                         string[] item = { "0,3", "0", txt売上日.Text, this.txt自社名.Text1 };
-                        得意先LinkItem = item; 
+                        得意先LinkItem = item;
                         txt得意先.OpenSearchWindow(this);
                     }
                     else if (twinText.Name == this.txt出荷元.Name)
@@ -959,8 +962,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     else if (twinText.Name == this.txt仕入先.Name)
                     {
                         // メーカー直送,販社直送は、仕入確定後、編集不可
-                        if (this.cmb売上区分.SelectedIndex == (int)売上区分.メーカー直送 ||
-                            this.cmb売上区分.SelectedIndex == (int)売上区分.メーカー販社商流直送)
+                        if ((int)this.cmb売上区分.SelectedValue == (int)売上区分.メーカー直送 ||
+                            (int)this.cmb売上区分.SelectedValue == (int)売上区分.メーカー販社商流直送)  // 課題No.412 Mod
                         {
                             string[] item = { "1,3", "0", txt売上日.Text, this.txt自社名.Text1 };
                             仕入先LinkItem = item;
@@ -1459,7 +1462,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             }
             else
-            {  
+            {
                 // 取得明細の自社品番をロック(編集不可)に設定
                 foreach (var row in gcSpreadGrid.Rows)
                 {
@@ -1476,13 +1479,13 @@ namespace KyoeiSystem.Application.Windows.Views
             // グリッド内容の再計算を実施
             //summaryCalculation();
             // ヘッダの情報を設定
-            this.lbl消費税.Content =  string.Format(PRICE_FORMAT_STRING,int.Parse(SearchHeader["消費税"].ToString()));
-            this.lbl通常税率対象金額.Content = string.Format(PRICE_FORMAT_STRING,int.Parse(SearchHeader["通常税率対象金額"].ToString()));
-            this.lbl軽減税率対象金額.Content = string.Format(PRICE_FORMAT_STRING,int.Parse(SearchHeader["軽減税率対象金額"].ToString()));
+            this.lbl消費税.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["消費税"].ToString()));
+            this.lbl通常税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["通常税率対象金額"].ToString()));
+            this.lbl軽減税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["軽減税率対象金額"].ToString()));
             this.txb通常税率消費税.Text = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["通常税率消費税"].ToString()));
             this.txb軽減税率消費税.Text = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["軽減税率消費税"].ToString()));
-            this.lbl小計.Content = string.Format(PRICE_FORMAT_STRING,int.Parse(SearchHeader["小計"].ToString()));
-            this.lbl総合計.Content = string.Format(PRICE_FORMAT_STRING,int.Parse(SearchHeader["総合計"].ToString()));
+            this.lbl小計.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["小計"].ToString()));
+            this.lbl総合計.Content = string.Format(PRICE_FORMAT_STRING, int.Parse(SearchHeader["総合計"].ToString()));
             //▲課題No298 Mod End 2019/12/20
 
         }
@@ -1695,7 +1698,7 @@ namespace KyoeiSystem.Application.Windows.Views
             else if (string.IsNullOrEmpty(this.txt得意先.Label2Text))
             {
                 this.txt得意先.Focus();
-                base.ErrorMessage = string.Format("得意先がマスタに存在していないデータが入力されています。");
+                base.ErrorMessage = string.Format("得意先にマスタに存在していないデータが入力されています。");
                 return isResult;
             }
             else if (!this.txt得意先.CheckValidation())
@@ -1746,6 +1749,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 return isResult;
 
             }
+            // No.421 Add Start
+            else if (this.txt出荷先.Text1 != 得意先名称変更コード && string.IsNullOrEmpty(txt出荷先名.Text))
+            {
+                this.txt出荷先.Focus();
+                base.ErrorMessage = string.Format("出荷先にマスタに存在していないデータが入力されています。");
+                return isResult;
+            }
+            // No.421 Add End
             else if (!this.txt出荷先.CheckValidation())
             {
                 this.txt出荷先.Focus();
@@ -1762,6 +1773,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 return isResult;
 
             }
+            // No.421 Add Start
+            else if (this.txt出荷元.Text1 != 得意先名称変更コード && string.IsNullOrEmpty(txt出荷元名.Text))
+            {
+                this.txt出荷元.Focus();
+                base.ErrorMessage = string.Format("出荷元にマスタに存在していないデータが入力されています。");
+                return isResult;
+            }
+            // No.421 Add End
             else if (!this.txt出荷元.CheckValidation())
             {
                 this.txt出荷元.Focus();
@@ -1806,8 +1825,15 @@ namespace KyoeiSystem.Application.Windows.Views
                     return isResult;
 
                 }
-
-                if (!txt仕入先.CheckValidation())
+                // No.413 Add Start
+                else if (string.IsNullOrEmpty(txt仕入先.Label2Text))
+                {
+                    this.txt仕入先.Focus();
+                    base.ErrorMessage = string.Format("仕入先にマスタに存在していないデータが入力されています。");
+                    return isResult;
+                }
+                // No.413 Add End
+                else if (!txt仕入先.CheckValidation())
                 {
                     this.txt仕入先.Focus();
                     base.ErrorMessage = txt仕入先.GetValidationMessage();
@@ -2005,7 +2031,7 @@ namespace KyoeiSystem.Application.Windows.Views
             var shiData = FixData.AsEnumerable()
                             .Where(w => w.Field<int?>("取引先コード") == 仕入先コード &&
                                         w.Field<int?>("枝番") == 仕入先枝番);
-            
+
             // 相殺確定データ
             var soData = FixData.AsEnumerable()
                             .Where(w => w.Field<int?>("取引区分") == (int)取引区分.相殺);
@@ -2078,7 +2104,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // 相殺確定データ
             var soData = fixData
                             .Where(w => w.Field<int?>("取引区分") == (int)取引区分.相殺);
-            
+
             if (!soData.Any())
             {
                 return null;
@@ -2196,7 +2222,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 return false;
             }
-    
+
             // 得意先の確定データ
             var tokData = fixDt.AsEnumerable().Where(w => w.Field<string>("取引先コード") == this.txt得意先.Text1 &&
                                                         w.Field<string>("枝番") == this.txt得意先.Text2)
@@ -2214,8 +2240,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
                 // メーカー直送,販社直送は、仕入確定後、編集不可
-                if (this.cmb売上区分.SelectedIndex == (int)売上区分.メーカー直送 ||
-                    this.cmb売上区分.SelectedIndex == (int)売上区分.メーカー販社商流直送)
+                if ((int)this.cmb売上区分.SelectedValue == (int)売上区分.メーカー直送 ||
+                    (int)this.cmb売上区分.SelectedValue == (int)売上区分.メーカー販社商流直送)        // 課題No.412 Mod
                 {
                     // 仕入先の確定データ
                     var shrData = fixDt.AsEnumerable().Where(w => w.Field<string>("取引先コード") == this.txt仕入先.Text1 &&
@@ -2237,8 +2263,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
             }
 
-           
-            
+
+
             return false;
         }
         #endregion
@@ -2327,7 +2353,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private void txt出荷元_cText1Changed(object sender, RoutedEventArgs e)
         {
             // text1が"9999"の場合、出荷元名変更可能
-            if (txt出荷元.Text1 == "9999")
+            if (txt出荷元.Text1 == 得意先名称変更コード)
             {
                 txt出荷元.Text2 = "0";
                 txt出荷元名.cIsReadOnly = false;
@@ -2350,7 +2376,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             txt出荷元.Label2Visibility = System.Windows.Visibility.Collapsed;
 
-            if (txt出荷元.Text1 != "9999")
+            if (txt出荷元.Text1 != 得意先名称変更コード)
             {
                 txt出荷元名.Text = txt出荷元.Label2Text;
             }
@@ -2372,7 +2398,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private void txt出荷先_cText1Changed(object sender, RoutedEventArgs e)
         {
             // text1が"9999"の場合、出荷先名変更可能
-            if (txt出荷先.Text1 == "9999")
+            if (txt出荷先.Text1 == 得意先名称変更コード)
             {
                 txt出荷先.Text2 = "0";
                 txt出荷先名.cIsReadOnly = false;
@@ -2395,7 +2421,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             txt出荷先.Label2Visibility = System.Windows.Visibility.Collapsed;
 
-            if (txt出荷先.Text1 != "9999")
+            if (txt出荷先.Text1 != 得意先名称変更コード)
             {
                 txt出荷先名.Text = txt出荷先.Label2Text;
             }
@@ -2627,7 +2653,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");
-                    int intKingakuWk =  Decimal.ToInt32(Math.Round(row.Field<decimal>("金額"),0,MidpointRounding.AwayFromZero));
+                    int intKingakuWk = Decimal.ToInt32(Math.Round(row.Field<decimal>("金額"), 0, MidpointRounding.AwayFromZero));
                     int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId, txt得意先.ClaimTaxKbn));      // No.272 Mod
 
                     switch (intZeikbn)
@@ -2833,7 +2859,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void txb消費税_LostFocus(object sender, RoutedEventArgs e)
         {
-            int intTsujyo; 
+            int intTsujyo;
             int intKeigen;
             if (int.TryParse(txb通常税率消費税.Text, System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign, null, out intTsujyo) == false)
             {
