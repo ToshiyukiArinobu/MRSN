@@ -1165,8 +1165,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
             foreach (var row in SearchGrid.Rows)
             {
-                row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;
-                row.Cells[(int)GridColumnsMapping.税区分].Locked = true;
+                
+                // No.411 DEL Start
+                //row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;  
+                //row.Cells[(int)GridColumnsMapping.税区分].Locked = true;
+                // No.411 DEL End
 
                 if (row.Cells[(int)GridColumnsMapping.d金額].Value != null)
                 {
