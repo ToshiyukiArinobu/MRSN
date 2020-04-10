@@ -215,6 +215,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
             //this.sp請求データ一覧.PreviewKeyDown += sp請求データ一覧_PreviewKeyDown;
 
+            // 検索画面情報を設定
+            base.MasterMaintenanceWindowList.Add("M70_JIS", new List<Type> { typeof(MST16010), typeof(SCHM70_JIS) }); // No.388 Add
+
             // コントロール初期値の設定
             setDefaultControlValue();
 
@@ -302,7 +305,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             //20190910 add-s CB 軽減税率対応 
                             // 詳細データがない場合、メッセージ表示
                             if ((ds.Tables["TKS01020_D請求書"].Rows.Count) <= 0)
-                                {
+                            {
                                 base.ErrorMessage = "対象データが存在しません。";
                                 return;
                             }
