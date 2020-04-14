@@ -1232,6 +1232,38 @@ namespace KyoeiSystem.Application.WCFService
 
         }
 
+        // No-378 Add Start
+       /// <summary>
+       /// 品番データを取得する（自社品番/色コード）
+       /// </summary>
+       /// <param name="myProductCode">自社品番</param>
+       /// <param name="ColorCode">色</param>
+       /// <returns></returns>
+        public List<M09_HIN> GetProductHinIro(string myProductCode, string ColorCode)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                var result =
+                  context.M09_HIN.Where(w => (w.削除日時 == null && w.自社品番 == myProductCode));
+
+                // 色コードの条件設定
+                if (!string.IsNullOrEmpty(ColorCode))
+                {
+                    result = result.Where(w => w.自社色 == ColorCode);
+                }
+                else
+                {
+                    result = result.Where(w => w.自社色 == null);
+                }
+
+                return result.ToList();
+            }
+
+        }
+        // No-378 End Start
+
         /// <summary>
         /// 自社品番より品番情報を取得する
         /// </summary>
