@@ -492,7 +492,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
                     // No-378 Add End
 
-                    // 取引先マスタに登録されているかチェック
+                    // 仕入先で検索実行
                     sendSearchForSupplier();
                 }
 

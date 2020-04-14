@@ -296,7 +296,7 @@
                             <DataGridTextColumn x:Name="Grid_SupplierName" Header="外注先名" Width="200" Binding="{Binding 外注先略称名}" IsReadOnly="True" />
                             <DataGridTextColumn x:Name="Grid_ProductNumber" Header="品番" Width="80" MinWidth="80" Binding="{Binding 品番コード, ValidatesOnExceptions=True}" IsReadOnly="True" />
                             <DataGridTextColumn x:Name="Grid_ProductName" Header="品名" Width="300" Binding="{Binding 品番名称}" IsReadOnly="True" />
-                            <DataGridTextColumn x:Name="Grid_Price" Header="単価" Width="60" MinWidth="60" Binding="{Binding 単価, ValidatesOnExceptions=True, StringFormat='#,##0,##'}">
+                            <DataGridTextColumn x:Name="Grid_Price" Header="単価" Width="60" MinWidth="60" Binding="{Binding 単価, ValidatesOnExceptions=True, StringFormat='#,##0.##'}">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextAlignment" Value="Right" />

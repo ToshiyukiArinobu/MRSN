@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using KyoeiSystem.Framework.Windows.Controls;
 
 
 namespace KyoeiSystem.Application.Windows.Views
@@ -31,6 +32,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region 定数定義
 
+        /// <summary>自社品番と色から品番情報を取得</summary>
+        private const string SearchProductData = "UcGetProductHinIro";        // No-379 Add
         /// <summary>外注先ベースのデータ取得</summary>
         private const string SearchTableToOutsource = "M04_BAIKA_GetData_Outsource";
         /// <summary>自社品番・色ベースでのデータ取得</summary>
@@ -243,6 +246,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 object elmnt = FocusManager.GetFocusedElement(this);
                 var tokBox = ViewBaseCommon.FindVisualParent<M01_TOK_TextBox>(elmnt as Control);
+                var ucText = ViewBaseCommon.FindVisualParent<UcLabelTwinTextBox>(elmnt as Control);
 
                 if (tokBox != null)
                 {
@@ -250,8 +254,37 @@ namespace KyoeiSystem.Application.Windows.Views
                     tokBox.OpenSearchWindow(this);
 
                 }
+                // No-379 Add Start
+                else if (ucText != null)
+                {
+                    switch (ucText.DataAccessName)
+                    {
+                        case "M09_MYHIN":
+
+                            SCHM09_MYHIN myhin = new SCHM09_MYHIN();
+                            myhin.TwinTextBox = new UcLabelTwinTextBox();
+                            myhin.txtCode.Text = HINBAN.Text1;
+                            myhin.TwinTextBox.LinkItem = 1;
+
+                            if (myhin.ShowDialog(this) == true)
+                            {
+                                this.HINBAN.Text1 = myhin.SelectedRowData["自社品番"].ToString();
+                                this.HINBAN.Text2 = myhin.SelectedRowData["自社品名"].ToString();
+                                this.COLOR.Text1 = myhin.SelectedRowData["自社色"].ToString();
+                                this.COLOR.Focus();
+                            }
+                            break;
+
+                        default:
+                            ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+                            break;
+                    }
+                }
+                // No-379 Add End
                 else
+                {
                     ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+                }
 
             }
             catch (Exception ex)
@@ -371,7 +404,10 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
+            {
                 ScreenClear();
+                this.SendFormId = 0;        // No-379 Add
+            }
 
         }
         #endregion
@@ -416,22 +452,34 @@ namespace KyoeiSystem.Application.Windows.Views
 
             if (SendFormId.Equals((int)SEND_FORM.取引先マスタ))
             {
+                // 外注先で検索実行
                 sendSearchForOutsource();
             }
             else if (SendFormId.Equals((int)SEND_FORM.品番マスタ))
             {
+                // 品番情報で検索実行
                 sendSearchForProduct();
             }
             else
             {
                 // 上記以外の場合は入力状態から呼出し先を判定
                 if (string.IsNullOrEmpty(this.GAITHUSAKI.Text1) && string.IsNullOrEmpty(GAITHUSAKI.Text2))
-                {
-                    // 外注先が未入力なので品番で検索実行
-                    sendSearchForProduct();
+                {                    
+                    // 品番マスタに登録されているかチェック
+                    sendCheckForProduct();        // No-379 Add
+
                 }
                 else
                 {
+                    // No-379 Add Start
+                    // マスタに存在しない場合、処理中断
+                    if (string.IsNullOrEmpty(this.GAITHUSAKI.Label2Text))
+                    {
+                        this.ErrorMessage = string.Format("データが登録されていません。");
+                        return;
+                    }
+                    // No-379 Add End
+
                     // 外注先で検索実行
                     sendSearchForOutsource();
                 }
@@ -596,6 +644,27 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 switch (message.GetMessageName())
                 {
+                    // No-379 Add Start
+                    case SearchProductData:
+
+                        if (tbl.Rows.Count == 0)
+                        {
+                            this.ErrorMessage = string.Format("データが登録されていません。");
+                            return;
+                        }
+                        else
+                        {
+                            this.HinbanCode = Convert.ToInt32(tbl.Rows[0]["品番コード"]);
+                            this.COLOR.Text1 = tbl.Rows[0]["自社色"].ToString();
+                            this.HINBAN.Text2 = tbl.Rows[0]["自社品名"].ToString();
+                        }
+
+                        // 仕入先が未入力なので品番で検索実行
+                        sendSearchForProduct();
+
+                        break;
+                    // No-379 Add End
+
                     case SearchTableToOutsource:
                         // 外注先コードで検索された場合
                         DeletedItem = tbl.Clone();
@@ -642,6 +711,23 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region 検索実処理部
+
+        /// <summary>
+        /// 自社品番+色の組み合わせが商品マスタに存在するかチェックする
+        /// </summary>
+        private void sendCheckForProduct()
+        {
+            // No-379 Add Start
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    SearchProductData,
+                    new object[] {
+                                this.HINBAN.Text1,
+                                this.COLOR.Text1
+                            }));
+            // No-379 Add End
+        }
 
         /// <summary>
         /// 外注先情報で検索を実施する
@@ -928,7 +1014,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 外注先で検索されている場合
                 row["外注先コード"] = this.GAITHUSAKI.Text1;
                 row["外注先コード枝番"] = this.GAITHUSAKI.Text2;
-                row["外注先名１"] = this.GAITHUSAKI.Label2Text;
+                row["外注先略称名"] = this.GAITHUSAKI.Label2Text;        // No-379 Mod
 
 
                 // 品番検索を開く
@@ -960,7 +1046,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     {
                         row["外注先コード"] = tokForm.TwinTextBox.Text1;
                         row["外注先コード枝番"] = tokForm.TwinTextBox.Text2;
-                        row["外注先名１"] = tokForm.TwinTextBox.Text3;
+                        row["外注先略称名"] = tokForm.TwinTextBox.Text3;        // No-379 Mod
 
                         SearchResult.Rows.Add(row);
 
