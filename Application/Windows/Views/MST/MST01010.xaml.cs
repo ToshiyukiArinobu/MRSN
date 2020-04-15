@@ -1181,10 +1181,33 @@ namespace KyoeiSystem.Application.Windows.Views
                      * ******************************************* */
                     isClaimEnabled = true;
                     isPaymentEnabled = false;
+
+                    // No.422 Add Start
+                    // 売価設定ボタン制御
+                    btnTokuShoBaikaSet.IsEnabled = true;
+                    btnShiShoGenkaSet.IsEnabled = false;
+                    btnGaiShoKakoSet.IsEnabled = false;
+                    // No.422 Add End
                     break;
 
                 case (int)TradingCategory.Supplier:
                     // 仕入先
+                    // No.422 Add Start
+                    /* ******************************************* *
+                     *  ※仕入先・加工先を選択した場合、           *
+　                   *    請求の条件設定を入力出来ないようにする   *
+                     * ******************************************* */
+                    isClaimEnabled = false;
+                    isPaymentEnabled = true;
+
+                    // 売価設定ボタン制御
+                    btnTokuShoBaikaSet.IsEnabled = false;
+                    btnShiShoGenkaSet.IsEnabled = true;
+                    btnGaiShoKakoSet.IsEnabled = false;
+                    // No.422 Add End
+                    break;
+
+
                 case (int)TradingCategory.processing:
                     // 加工先
                     /* ******************************************* *
@@ -1193,10 +1216,18 @@ namespace KyoeiSystem.Application.Windows.Views
                      * ******************************************* */
                     isClaimEnabled = false;
                     isPaymentEnabled = true;
+
+                    // No.422 Add Start
+                    // 売価設定ボタン制御
+                    btnTokuShoBaikaSet.IsEnabled = false;
+                    btnShiShoGenkaSet.IsEnabled = false;
+                    btnGaiShoKakoSet.IsEnabled = true;
+                    // No.422 Add End
                     break;
 
                 case (int)TradingCategory.Offset:
-                case (int)TradingCategory.SalesCompany:
+
+                    // No.422 Add Start
                     // 相殺
                     /* ******************************************* *
                      *  ※「相殺」「販社」の場合は、               *
@@ -1204,12 +1235,42 @@ namespace KyoeiSystem.Application.Windows.Views
                      * ******************************************* */
                     isClaimEnabled = true;
                     isPaymentEnabled = true;
+
+                    // 売価設定ボタン制御
+                    btnTokuShoBaikaSet.IsEnabled = true;
+                    btnShiShoGenkaSet.IsEnabled = true;
+                    btnGaiShoKakoSet.IsEnabled = true;
+                    // No.422 Add End
+                    break;
+
+                case (int)TradingCategory.SalesCompany:
+                    // 販社
+                    /* ******************************************* *
+                     *  ※「相殺」「販社」の場合は、               *
+                     *     両方の条件を入力出来る様にする          *
+                     * ******************************************* */
+                    isClaimEnabled = true;
+                    isPaymentEnabled = true;
+
+                    // No.422 Add Start
+                    // 売価設定ボタン制御
+                    btnTokuShoBaikaSet.IsEnabled = true;
+                    btnShiShoGenkaSet.IsEnabled = false;
+                    btnGaiShoKakoSet.IsEnabled = false;
+                    // No.422 Add End
                     break;
 
                 default:
                     // nullの場合などは全て入力不可とする
                     isClaimEnabled = false;
                     isPaymentEnabled = false;
+
+                    // No.422 Add Start
+                    // 売価設定ボタン制御
+                    btnTokuShoBaikaSet.IsEnabled = true;
+                    btnShiShoGenkaSet.IsEnabled = true;
+                    btnGaiShoKakoSet.IsEnabled = true;
+                    // No.422 Add End
                     break;
 
             }
