@@ -489,13 +489,61 @@ namespace KyoeiSystem.Application.WCFService
                     case "M70_JIS":     //自社マスタ
                         if (int.TryParse(pコード, out Code))
                         {
-                            Member =
-                                context.M70_JIS.Where(x => x.削除日時 == null && x.自社コード == Code)
-                                       .Select(s => new CodeTextString_Member
+                            // No.384 Mod Start
+
+                            int? 自社区分 = null;
+                            List<int> 対象外自社List = new List<int>();
+
+                            // LinkItemが設定されているかチェック
+                            if (LinkItem is string[])
+                            {
+                                string[] linkItemList = (LinkItem as string[]);
+                                if (linkItemList != null)
+                                {
+                                    // [0]:自社区分を取得(販社の場合のみ条件設定)
+                                    自社区分 = AppCommon.IntParse(linkItemList[0]);
+
+                                    // [1]:対象外リストを取得
+                                    string[] ary = linkItemList.Length < 2 ? null : linkItemList[1].ToString().Split(',');
+
+                                    foreach (var row in ary)
+                                    {
+
+                                        対象外自社List.Add(AppCommon.IntParse(row));
+                                    }
+                                }
+                            }
+                            else if (LinkItem is string)
+                            {
+                                // LinkItemがstringの場合
+                                string slinkItem = (LinkItem as string);
+
+                                // 自社区分を設定
+                                自社区分 = AppCommon.IntParse(slinkItem);
+                            }
+
+                            var query =
+                                context.M70_JIS.Where(x => x.削除日時 == null && x.自社コード == Code);
+
+                            if (自社区分 == 1)
+                            {
+                                // 販社のみ取得
+                                query = query.Where(x => x.自社区分 == (int)CommonConstants.自社区分.販社);
+                            }
+
+                            if (対象外自社List.Count > 0)
+                            {
+                                // 対象外の自社は取得しない
+                                query = query.Where(x => !(対象外自社List.Contains(x.自社コード)));
+                            }
+
+                            Member = query.Select(s => new CodeTextString_Member
                                        {
                                            コード = SqlFunctions.StringConvert((double)s.自社コード),
                                            名称 = s.自社名
                                        }).ToList();
+                            
+                            // No.384 Mod End
                         }
                         break;
 

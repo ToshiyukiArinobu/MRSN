@@ -242,6 +242,7 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "M70_JIS_Update", ServiceClass = "M70", MethodName = "Update", Descprition = "自社マスタ入力更新用" },
             new WCFDataAccessConfig() { Name = "M70_JIS_Delete", ServiceClass = "M70", MethodName = "Delete", Descprition = "自社マスタ入力削除用" },
             new WCFDataAccessConfig() { Name = "M70_JIS_GetHanList", ServiceClass = "M70", MethodName = "GetHanList", Descprition = "販社データリスト取得用" },
+            new WCFDataAccessConfig() { Name = "M70_JIS_getDataList", ServiceClass = "M70", MethodName = "GetDataList", Descprition="自社マスタ検索 リスト取得" },
 
             #endregion
 

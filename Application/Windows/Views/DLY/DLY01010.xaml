@@ -258,6 +258,7 @@
               LabelVisibility="Collapsed" Label1Visibility="Collapsed" Label2Visibility="Collapsed"
               Text1Width="40" Text1MaxLength="3" Text1IMEType="Off" Text1ValidationType="Integer" Text1VerticalContentAlignment="Center"
               Text1="{Binding SearchHeader[入荷先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+              LinkItem="{Binding 入荷先LinkItem, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
               Text2IsReadOnly="True" Text2Background="Transparent" Text2BorderBrush="Transparent" Text2VerticalContentAlignment="Center"
           />
 

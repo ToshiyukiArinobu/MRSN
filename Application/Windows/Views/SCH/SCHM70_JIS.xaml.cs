@@ -41,8 +41,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << 定数定義 >>
 
-        private const string TableNm = "M70_JIS_GetData";
-        private const string TableHanNm = "M70_JIS_GetHanList";
+        private const string TableNmList = "M70_JIS_getDataList";          //No.384 Add
+        //private const string TableHanNm = "M70_JIS_GetHanList";
         private const string COLUM_ID = "自社コード";
         private const string COLUM_NAME = "自社名";
         private const string COLUM_REPRESENTATIVE_NAME = "代表者名";
@@ -192,40 +192,56 @@ namespace KyoeiSystem.Application.Windows.Views
         private void GridOutPut()
         {
             string code = string.Empty;
-            int? option = null;
-
+            
             try
             {
-                if (this.TwinTextBox.LinkItem == null || string.IsNullOrEmpty(this.TwinTextBox.LinkItem.ToString()))
+                //No.384 Mod Start
+                List<int> exclusionJisList = new List<int>();
+                int? 自社区分 = null;
+
+                if (this.TwinTextBox.LinkItem is string[])
                 {
-                    if (!string.IsNullOrEmpty(コード))
+                    // LinkItemがリストの場合
+                    string[] linkItemList = (this.TwinTextBox.LinkItem as string[]);
+
+
+                    // [0]:自社区分を取得(販社の場合のみ条件設定)
+                    自社区分 = string.IsNullOrEmpty(linkItemList[0]) ? (int?)null : int.Parse(linkItemList[0]);
+
+                    // [1]:対象外リストを取得
+                    string[] ary = linkItemList[1].ToString().Split(',');
+
+                    foreach (var row in ary)
                     {
-                        code = コード;
-                        option = 0;
+                        exclusionJisList.Add(AppCommon.IntParse(row));
                     }
 
-                    // 自社マスタ
-                    base.SendRequest(
-                        new CommunicationObject(
-                            MessageType.RequestData,
-                            TableNm,
-                            new object[] {
-                            code,
-                            option
-                        }));
-
                 }
-                else
+                else if (this.TwinTextBox.LinkItem is string)
                 {
-                    // 販社データリストを取得
-                    base.SendRequest(
-                        new CommunicationObject(
-                            MessageType.RequestData,
-                            TableHanNm,
-                            new object[] { }));
+                    // LinkItemがstringの場合
+                    string slinkItem = (this.TwinTextBox.LinkItem as string);
 
+                    // 自社区分を設定
+                    自社区分 = AppCommon.IntParse(slinkItem);
                 }
 
+                if (!string.IsNullOrEmpty(コード))
+                {
+                    code = コード;
+                }
+
+                // 自社マスタからデータを取得
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.RequestData,
+                        TableNmList,
+                        new object[] {
+                            code,
+                            exclusionJisList,
+                            自社区分
+                        }));
+                //No.384 Mod End
             }
             catch (Exception)
             {
@@ -258,8 +274,7 @@ namespace KyoeiSystem.Application.Windows.Views
             DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
             switch (message.GetMessageName())
             {
-                case TableNm:
-                case TableHanNm:
+                case TableNmList:
                     if (tbl != null)
                     {
                         DataView dv = convertTableDisplayList(tbl).AsDataView();

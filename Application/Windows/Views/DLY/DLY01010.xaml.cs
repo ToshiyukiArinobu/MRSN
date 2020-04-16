@@ -129,6 +129,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>グリッドの最大行数</summary>
         private const int GRID_MAX_ROW_COUNT = 10;
 
+        /// <summary>仕入入力対象外リスト</summary>
+        private const string EXCLUSION_JISLIST = "10";       // No.384 Add
+
         #endregion
 
         #region 権限関係
@@ -196,6 +199,17 @@ namespace KyoeiSystem.Application.Windows.Views
             get { return this._仕入先LinkItem; }
             set { this._仕入先LinkItem = value; NotifyPropertyChanged(); }
         }
+
+        // No.384 Add Start
+        // [0]:自社区分、[1]:対象外自社コード
+        private string[] _入荷先LinkItem = new[] { "", "" };
+        public string[] 入荷先LinkItem
+        {
+            get { return this._入荷先LinkItem; }
+            set { this._入荷先LinkItem = value; NotifyPropertyChanged(); }
+        }
+        // No.384 Add End
+
         #endregion
 
         #region << クラス変数定義 >>
@@ -279,6 +293,9 @@ namespace KyoeiSystem.Application.Windows.Views
             // ログインユーザの自社区分によりコントロール状態切換え
             this.c会社名.Text1 = ccfg.自社コード.ToString();
             this.c会社名.IsEnabled = ccfg.自社販社区分.Equals((int)自社販社区分.自社);
+
+            // 対象外の自社コードを設定
+            this.入荷先LinkItem[1] = EXCLUSION_JISLIST;       // No.384 Add
 
             gridCtl.SetCellFocus(0, (int)GridColumnsMapping.自社品番);
             this.c伝票番号.Focus();
@@ -1165,7 +1182,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             foreach (var row in SearchGrid.Rows)
             {
-                
+
                 // No.411 DEL Start
                 //row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;  
                 //row.Cells[(int)GridColumnsMapping.税区分].Locked = true;

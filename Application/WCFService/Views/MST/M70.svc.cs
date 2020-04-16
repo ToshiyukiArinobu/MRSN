@@ -351,6 +351,51 @@ namespace KyoeiSystem.Application.WCFService
 
         }
 
+        //No.384 Add Start
+        /// <summary>
+        /// 自社マスタ検索データを取得する
+        /// </summary>
+        /// <param name="p自社ID"></param>
+        /// <returns></returns>
+        public List<M70_JIS> GetDataList(string p自社ID, List<int> 対象外List,int? 自社区分)
+        {
+            // パラメータの型変換
+            int iCompany = AppCommon.IntParse(p自社ID);
+
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                List<M70_JIS> retList = new List<M70_JIS>();
+
+                var query = context.M70_JIS.Where(w => w.削除日時 == null)
+                                .OrderBy(o => o.自社コード)
+                                .AsQueryable();
+
+                if (iCompany != 0)
+                {
+                    // コード指定
+                    query = query.Where(c => c.自社コード == iCompany);
+                }
+
+                if (自社区分 == 1)
+                {
+                    // 販社のみ取得
+                    query = query.Where(x => x.自社区分 == (int)CommonConstants.自社区分.販社);
+                }
+
+                if (対象外List.Count > 0)
+                {
+                    query = query.Where(c => !(対象外List.Contains(c.自社コード)));
+                }
+
+                retList = query.ToList();
+
+                return retList;
+
+            }
+        }
+        //No.384 Add End
     }
 
 }
