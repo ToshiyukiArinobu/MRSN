@@ -348,19 +348,23 @@ namespace KyoeiSystem.Application.Windows.Views
             if (this.chkItemClass_4.IsChecked ?? false)
                 targetClassList.Add(4);     // 副資材
 
+            // No.367 Mod Start
+            StringBuilder wk = new StringBuilder();
+            wk.AppendFormat("{0} {1} IN (", isOtherFilter ? " AND" : string.Empty, COLUMN_ITEM_CLASS);
+
             if (targetClassList.Count > 0)
             {
-                StringBuilder wk = new StringBuilder();
-                wk.AppendFormat("{0} {1} IN (", isOtherFilter ? " AND" : string.Empty, COLUMN_ITEM_CLASS);
                 foreach (int code in targetClassList)
                     wk.AppendFormat("{0},", code);
-
-                return wk.ToString().TrimEnd(',') + ")";
-
+            }
+            else
+            {
+                wk.AppendFormat("0");       // 選択無し
             }
 
-            return string.Empty;
+            return wk.ToString().TrimEnd(',') + ")";
 
+            // No.367 Mod End
         }
         #endregion
 
