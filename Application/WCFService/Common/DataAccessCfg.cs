@@ -76,6 +76,7 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "UcMyProduct", ServiceClass = "UcMST", MethodName = "GetDataMyProductData", Descprition = "自社品番から品番情報を取得" },
             new WCFDataAccessConfig() { Name = "UcMyProductSet", ServiceClass = "UcMST", MethodName = "GetDataMyProductSetData", Descprition = "自社品番からセット品番情報を取得" },
             new WCFDataAccessConfig() { Name = "UcCustomerProduct", ServiceClass = "UcMST", MethodName = "GetDataCustomerProductData", Descprition = "自社品番(得意先品番含む)から品番情報を取得" },
+            new WCFDataAccessConfig() { Name = "UcGetProductHinIro", ServiceClass = "UcMST", MethodName = "GetProductHinIro", Descprition = "自社品番と色を条件に品番情報を取得" },           
 
             #endregion
 
