@@ -403,13 +403,14 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             if (SearchResult == null || SearchResult.Rows.Count == 0)
             {
+                this.Close();               // No.403 Add
                 return;
             }
-
+            
             // グリッドの編集有無のチェック
             if (IsModify())
             {
-                var yesno = MessageBox.Show("編集中の数量を保存せずに終了してもよろしいですか？", 
+                var yesno = MessageBox.Show("編集中の数量を保存せずに終了してもよろしいですか？",
                                             "終了確認",
                                             MessageBoxButton.YesNo,
                                             MessageBoxImage.Question, MessageBoxResult.No);
