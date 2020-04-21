@@ -366,6 +366,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     spGridList.Focus();
                     spGridList.Focusable = true;
                     spGridList.ActiveCellPosition = new CellPosition(0, 0);
+                    spGridList.ShowCell(0, 0);       // No.383 Add
                     break;
 
             }
