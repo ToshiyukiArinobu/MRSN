@@ -13,6 +13,7 @@ namespace KyoeiSystem.Application.Windows.Views
 {
     using FwRepPreview = KyoeiSystem.Framework.Reports.Preview;
     using WinForms = System.Windows.Forms;
+    using GrapeCity.Windows.SpreadGrid;
 
     /// <summary>
     /// 仕入明細問合せ フォームクラス
@@ -224,6 +225,14 @@ namespace KyoeiSystem.Application.Windows.Views
                         else
                         {
                             SearchResult = tbl;
+                            // No.383 Add Start
+                            // フォーカスをSPREADへ
+                            spGridList.Focus();
+                            spGridList.Focusable = true;
+                            spGridList.ActiveCellPosition = new CellPosition(0, (int)GridColumnsMapping.仕入日);
+                            spGridList.ShowCell(0, (int)GridColumnsMapping.仕入日);
+                            // No.383 Add End
+
                             summaryCalc();       // No.396 Mod
                         }
 

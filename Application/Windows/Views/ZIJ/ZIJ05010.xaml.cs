@@ -9,6 +9,7 @@ using System.Windows.Input;
 
 namespace KyoeiSystem.Application.Windows.Views
 {
+    using GrapeCity.Windows.SpreadGrid;
     using KyoeiSystem.Framework.Windows.Controls;
     using FwRepPreview = KyoeiSystem.Framework.Reports.Preview;
     using WinForms = System.Windows.Forms;
@@ -226,6 +227,13 @@ namespace KyoeiSystem.Application.Windows.Views
                         else
                         {
                             SearchResult = tbl;
+                            // No.383 Add Start
+                            // フォーカスをSPREADへ
+                            spGridList.Focus();
+                            spGridList.Focusable = true;
+                            spGridList.ActiveCellPosition = new CellPosition(0, 0);
+                            spGridList.ShowCell(0, 0);
+                            // No.383 Add End
                         }
 
                     }
