@@ -2658,7 +2658,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 intUnit = int.Parse(row["使用数量"].ToString());
 
                 // 品番単位に数量の合算を取得
-                var varTotalQuantity = dtBuzaiDetailTmp.AsEnumerable()
+                var varTotalQuantity = dtBuzaiDetailTmp.AsEnumerable().Where(w => w.Field<int?>("品番コード") != null)      // No.423 Mod
                     .Where(w => w.Field<int>("品番コード") == int.Parse(row["構成品番コード"].ToString()))
                     .GroupBy(g => new { 品番コード = g.Field<int>("品番コード") })
                     .Select(s => new

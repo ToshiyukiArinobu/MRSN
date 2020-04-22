@@ -281,8 +281,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 SetDispInnerSpreadGridLocked(true);
 
             }
+            else if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_ADD)
+            {
+                // Spread入力不可
+                SetDispInnerSpreadGridLocked(true);                 // No.424 Add
+            }
 
             // フォーカス設定
+            gcInnerSpreadGrid.Focus();                              // No.425 Add
             gridDtl.SetCellFocus(0, 0);
 
         }
@@ -384,6 +390,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtb.SetCellValue((int)GridColumnsMapping.色コード, string.Empty);
                             gridDtb.SetCellValue((int)GridColumnsMapping.色名称, string.Empty);
 
+                            // フォーカス位置の設定
+                            gridDtb.SetCellFocus(rIdx, (int)GridColumnsMapping.自社品番);               // No.425 Add
+
                         }
                         else if (tbl.Rows.Count > 1)
                         {
@@ -411,6 +420,13 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridDtb.SetCellValue((int)GridColumnsMapping.色コード, myhin.SelectedRowData["自社色"]);
                                 gridDtb.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
 
+                                // フォーカス位置の設定
+                                gridDtb.SetCellFocus(rIdx, (int)GridColumnsMapping.自社品名);             // No.425 Add
+                            }
+                            else
+                            {
+                                // フォーカス位置の設定
+                                gridDtb.SetCellFocus(rIdx, (int)GridColumnsMapping.自社品番);             // No.425 Add
                             }
 
                         }
@@ -438,6 +454,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridDtb.SetCellLocked((int)GridColumnsMapping.色コード, true);
                             gridDtb.SetCellLocked((int)GridColumnsMapping.色名称, true);
 
+                            // フォーカス位置の設定
+                            gridDtb.SetCellFocus(rIdx, (int)GridColumnsMapping.自社品名);                 // No.425 Add
                         }
 
                         InnerDetail.Rows[rIdx].EndEdit();
@@ -632,7 +650,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // 行追加後は追加行を選択させる
             int newRowIdx = InnerDetail.Rows.Count - delRowCount - 1;
-            gridDtb.SetCellFocus(newRowIdx, (int)GridColumnsMapping.自社品名);
+            gridDtb.SetCellFocus(newRowIdx, (int)GridColumnsMapping.自社品番);             // No.425 Mod
 
         }
         #endregion
@@ -712,6 +730,40 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 return;
             }
+
+           // No.423 Add Start
+           #region 空行削除
+            for (int rowIdx = gridDtb.SpreadGrid.Rows.Count - 1; rowIdx >= 0; rowIdx--)
+            {
+                // 品番コードがnullのデータは削除
+                if (gridDtb.SpreadGrid.Cells[rowIdx, "品番コード"].Value == null || (int)gridDtb.SpreadGrid.Cells[rowIdx, "品番コード"].Value == 0)
+                {
+                    try
+                    {
+                        // フォーカスがない状態で削除するとエラーが発生するためフォーカスを設定
+                        gridDtb.SpreadGrid.Focus();
+                        gridDtb.SpreadGrid.Rows.Remove(rowIdx);
+                    }
+                    catch
+                    {
+                        InnerDetail.Rows.Remove(InnerDetail.Rows[rowIdx]);
+                    }
+
+                    if (gridDtb.SpreadGrid.Rows.Count != InnerDetail.Rows.Count)
+                    {
+                        try
+                        {
+                            InnerDetail.Rows.Remove(InnerDetail.Rows[rowIdx]);
+                        }
+                        catch
+                        {
+                            // エラー処理なし
+                        }
+                    }
+                }
+            }
+            #endregion
+            // No.423 Add End
 
             // 在庫チェックを行う
             DataSet ds = new DataSet();
@@ -1013,9 +1065,19 @@ namespace KyoeiSystem.Application.Windows.Views
             // 取得明細の自社品番をロック(編集不可)に設定
             foreach (var row in gcInnerSpreadGrid.Rows)
             {
-                row.Cells[(int)GridColumnsMapping.自社品番].Locked = blnLocked;
-                row.Cells[(int)GridColumnsMapping.賞味期限].Locked = blnLocked;
-                row.Cells[(int)GridColumnsMapping.数量].Locked = blnLocked;
+                // No.424 Add Start
+                if (row.Cells[(int)GridColumnsMapping.品番コード].Value != null)
+                {
+                    row.Cells[(int)GridColumnsMapping.自社品番].Locked = blnLocked;
+
+                    // 編集時のロック制御
+                    if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
+                    {
+                        row.Cells[(int)GridColumnsMapping.賞味期限].Locked = blnLocked;
+                        row.Cells[(int)GridColumnsMapping.数量].Locked = blnLocked;
+                    }
+                }
+                // No.424 Add End
             }
 
         }

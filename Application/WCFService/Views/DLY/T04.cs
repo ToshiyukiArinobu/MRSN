@@ -1922,7 +1922,7 @@ namespace KyoeiSystem.Application.WCFService
         private List<T04_AGRDTB> getDetailDataList(DataTable dt)
         {
             var resultList =
-                dt.Select("", "", DataViewRowState.CurrentRows).AsEnumerable()
+                dt.Select("", "", DataViewRowState.CurrentRows).AsEnumerable().Where(w => w.Field<int?>("品番コード") != null)       // No.423 Mod
                     .GroupBy(g => new { 品番コード = g.Field<int>("品番コード"), 賞味期限 = g.Field<DateTime?>("賞味期限") })
                     .Select(s => new T04_AGRDTB
                     {
