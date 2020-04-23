@@ -507,7 +507,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 自社品番の場合
                             SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                             myhin.TwinTextBox = new UcLabelTwinTextBox();
-                            myhin.IsDisabledItemTypes = new[] { 1, 3, 4 };                             // No.362 Mod
+                            myhin.IsDisabledItemTypes = null;                             // No.427 Mod
                             myhin.txtCode.Text = tbl.Rows[0]["自社品番"].ToString();
                             myhin.txtCode.IsEnabled = false;
                             if (myhin.ShowDialog(this) == true)
@@ -543,26 +543,26 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 対象データありの場合
                             DataRow drow = tbl.Rows[0];
 
-                            // No.363 Add Start
+                            // No.427 Del Start
                             // 構成品ではない品番の場合、エラーを表示
-                            if (int.Parse(drow["商品形態分類"].ToString()) != 2)
-                            {
-                                sp構成品明細.Cells[kRow, "自社品名"].Value = string.Empty;
-                                sp構成品明細.Cells[kRow, "色コード"].Value = string.Empty;
-                                sp構成品明細.Cells[kRow, "色名称"].Value = string.Empty;
-                                sp構成品明細.Cells[kRow, "品番コード"].Value = string.Empty;
-                                sp構成品明細.Cells[kRow, "原価"].Value = null;
-                                sp構成品明細.Cells[kRow, "数量"].Value = null;
-                                sp構成品明細.Cells[kRow, "金額"].Value = null;
+                            //if (int.Parse(drow["商品形態分類"].ToString()) != 2)
+                            //{
+                            //    sp構成品明細.Cells[kRow, "自社品名"].Value = string.Empty;
+                            //    sp構成品明細.Cells[kRow, "色コード"].Value = string.Empty;
+                            //    sp構成品明細.Cells[kRow, "色名称"].Value = string.Empty;
+                            //    sp構成品明細.Cells[kRow, "品番コード"].Value = string.Empty;
+                            //    sp構成品明細.Cells[kRow, "原価"].Value = null;
+                            //    sp構成品明細.Cells[kRow, "数量"].Value = null;
+                            //    sp構成品明細.Cells[kRow, "金額"].Value = null;
 
-                                this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "自社品番");
-                                this.ErrorMessage = "構成品の自社品番を入力してください。";
+                            //    this.sp構成品明細.ActiveCellPosition = new CellPosition(kRow, "自社品番");
+                            //    this.ErrorMessage = "構成品の自社品番を入力してください。";
 
-                                // 金額再計算
-                                summaryCalculation();
-                                return;
-                            }
-                            // No.363 Add End
+                            //    // 金額再計算
+                            //    summaryCalculation();
+                            //    return;
+                            //}
+                            // No.427 Del End
 
                             decimal d原価 = AppCommon.DecimalParse(drow["原価"].ToString());
                             decimal d数量 = sp構成品明細.Cells[kRow, "数量"].Value == null ? 0 : AppCommon.DecimalParse(sp構成品明細.Cells[kRow, "数量"].Value.ToString());
@@ -784,7 +784,7 @@ namespace KyoeiSystem.Application.Windows.Views
                                 // 自社品番の場合
                                 SCHM09_MYHIN myhin = new SCHM09_MYHIN();
                                 myhin.TwinTextBox = new UcLabelTwinTextBox();
-                                myhin.IsDisabledItemTypes = new[] { 1, 3, 4 };                                          // No.362 Mod
+                                myhin.IsDisabledItemTypes = null;                                          // No.427 Mod
                                 if (myhin.ShowDialog(this) == true)
                                 {
                                     // 対象データありの場合
@@ -804,6 +804,9 @@ namespace KyoeiSystem.Application.Windows.Views
                                     sp構成品明細.Cells[iRow, "原価"].Value = d原価;
                                     sp構成品明細.Cells[iRow, "数量"].Value = d数量;
                                     sp構成品明細.Cells[iRow, "金額"].Value = Math.Ceiling((d原価 * d数量 * 10)) / 10;
+
+                                    // フォーカス設定
+                                    this.sp構成品明細.ActiveCellPosition = new CellPosition(iRow, "自社品名");
 
                                     // 仕入先売価マスタの売価と仕入先名を取得
                                     base.SendRequest(
@@ -864,6 +867,9 @@ namespace KyoeiSystem.Application.Windows.Views
                                     sp資材明細.Cells[iRow, "原価"].Value = d原価;
                                     sp資材明細.Cells[iRow, "数量"].Value = d数量;
                                     sp資材明細.Cells[iRow, "金額"].Value = (d原価 == 0 || d数量 == 0) ? 0 : Math.Ceiling((d原価 / d数量 * 10)) / 10;
+
+                                    // フォーカス設定
+                                    this.sp資材明細.ActiveCellPosition = new CellPosition(iRow, "自社品名");
 
                                     // 仕入先売価マスタの売価と仕入先名を取得
                                     base.SendRequest(
