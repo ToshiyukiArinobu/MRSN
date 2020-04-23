@@ -918,7 +918,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         T04_GetDTB,
                         new object[] {
                             this.txt伝票番号.Text,
-                            int.Parse(this.txt入荷先.Text1)
+                            AppCommon.IntParse(this.txt入荷先.Text1)              //  No.426 Mod
                             }));
             }
             else
@@ -1448,7 +1448,11 @@ namespace KyoeiSystem.Application.Windows.Views
                             return;
 
                         // ヘッダー項目の入力チェックを行う
-                        if (!isHeaderValidation())                       //No.344 Add
+                        if (!isHeaderValidation())                                   // No.344 Add
+                            return;
+
+                        // ヘッダー項目のエラーチェックを行う
+                        if (!base.CheckAllValidation(true))                          // No.426 Add
                             return;
 
                         int code = int.Parse(this.txt外注先.Text1);
@@ -2856,8 +2860,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void txt入荷先_cText1Changed(object sender, RoutedEventArgs e)
         {
-            // 会社名が変更される事になるので部材明細を再取得(在庫数が変動する)
-            if (!this.txt入荷先.CheckValidation())
+            // 会社名が変更される事になるので部材明細を再取得(在庫数が変動する)   
+            if (string.IsNullOrEmpty(this.txt入荷先.Text1))              //  No.426 Mod
                 return;
 
             base.SendRequest(
@@ -2866,7 +2870,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     T04_GetDTB,
                     new object[] {
                         this.txt伝票番号.Text,
-                        int.Parse(this.txt入荷先.Text1)
+                        AppCommon.IntParse(this.txt入荷先.Text1)         //  No.426 Mod
                     }));
 
         }
@@ -3045,7 +3049,11 @@ namespace KyoeiSystem.Application.Windows.Views
                         return;
 
                     // ヘッダー項目の入力チェックを行う
-                    if (!isHeaderValidation())            // No.344 Add
+                    if (!isHeaderValidation())                // No.344 Add
+                        return;
+
+                    // ヘッダー項目のエラーチェックを行う
+                    if (!base.CheckAllValidation(true))       // No.426 Add
                         return;
 
                     // 自社品番からデータを参照し、取得内容をグリッドに設定
