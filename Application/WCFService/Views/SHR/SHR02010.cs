@@ -61,6 +61,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 伝票番号 { get; set; }
             public int 行番号 { get; set; }
             public int 品番コード { get; set; }
+            public string 自社品名 { get; set; }            // No.390 Add
             public int 金種コード { get; set; }
             public decimal 数量 { get; set; }
             public decimal 単価 { get; set; }
@@ -147,7 +148,7 @@ namespace KyoeiSystem.Application.WCFService
 
                     // 買掛得意先を取得
                     var Tok = context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分) && w.担当会社コード == myCompany);
-
+                    
                     var jisTok =
                       context.M70_JIS
                           .Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.自社)
@@ -434,6 +435,7 @@ namespace KyoeiSystem.Application.WCFService
             data.伝票番号 = srData.伝票番号;
             data.行番号 = srData.行番号;
             data.品番コード = srData.品番コード;
+            data.自社品名 = srData.自社品名;                // No.390 Add
             data.金種コード = srData.金種コード;
             data.数量 = srData.数量;
             data.単価 = srData.単価;
@@ -523,9 +525,9 @@ namespace KyoeiSystem.Application.WCFService
                         (x, y) => new { x, y })
                     .SelectMany(m => m.y.DefaultIfEmpty(), (c, d) => new { c.x.KAIKAKE, c.x.TOK, HIN = d })
                     .GroupJoin(context.M06_IRO.Where(c => c.削除日時 == null),
-                    x => x.HIN.自社色,
-                    y => y.色コード,
-                    (x, y) => new { x, y })
+                        x => x.HIN.自社色,
+                        y => y.色コード,
+                        (x, y) => new { x, y })
                     .SelectMany(m => m.y.DefaultIfEmpty(), (e, f) => new { e.x.KAIKAKE, e.x.TOK, e.x.HIN, IRO = f })
                     .Select(x => new PrintMember
                     {
@@ -539,7 +541,11 @@ namespace KyoeiSystem.Application.WCFService
                         行番号 = x.KAIKAKE.行番号,
                         自社色 = x.KAIKAKE.金種コード == 0 ? x.IRO.色名称 : string.Empty,
                         自社品番 = x.HIN.自社品番,
-                        自社品名 = x.KAIKAKE.金種コード == 0 ? x.HIN.自社品名 : goldType.Where(c => c.コード == x.KAIKAKE.金種コード).Select(c => c.表示名).FirstOrDefault(),
+                        // No.390 Mod Start
+                        自社品名 = x.KAIKAKE.金種コード == 0 ? 
+                                    x.KAIKAKE.自社品名 :
+                                    goldType.Where(c => c.コード == x.KAIKAKE.金種コード).Select(c => c.表示名).FirstOrDefault(),   
+                        // No.390 Mod End
                         数量 = x.KAIKAKE.数量,
                         単位 = x.HIN.単位,
                         単価 = x.KAIKAKE.単価,
@@ -662,7 +668,16 @@ namespace KyoeiSystem.Application.WCFService
                         y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                         (x, y) => new { x.SRHD, x.SRDTL, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (a, b) => new { a.SRHD, a.SRDTL, TOK = b }).ToList()
+                        (a, b) => new { a.SRHD, a.SRDTL, TOK = b })
+                    // No.390 Add Start
+                    .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                        x => x.SRDTL.品番コード,
+                        y => y.品番コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(z => z.y.DefaultIfEmpty(),
+                        (c, d) => new { c.x.SRHD, c.x.SRDTL, c.x.TOK, HIN = d})
+                    // No.390 Add End
+                    .ToList()
             .Select(x => new S09_KAIKAKE_Extension
             {
                 自社コード = x.SRHD.会社名コード,
@@ -672,7 +687,8 @@ namespace KyoeiSystem.Application.WCFService
                 伝票番号 = x.SRDTL.伝票番号,
                 行番号 = x.SRDTL.行番号,
                 品番コード = x.SRDTL.品番コード,
-                //金種コード = ,
+                自社品名 = !string.IsNullOrEmpty(x.SRDTL.自社品名) ? x.SRDTL.自社品名 : x.HIN.自社品名,         // No.390 Add
+                    //金種コード = ,
                 数量 = x.SRDTL.数量,
                 単価 = x.SRDTL.単価,
                 金額 = x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?
@@ -728,7 +744,16 @@ namespace KyoeiSystem.Application.WCFService
                         y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                         (x, y) => new { x, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (a, b) => new { a.x.SRHD, a.x.SRDTL, a.x.JIS, TOK = b }).ToList()
+                        (a, b) => new { a.x.SRHD, a.x.SRDTL, a.x.JIS, TOK = b })
+                    // No.390 Add Start
+                    .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                        x => x.SRDTL.品番コード,
+                        y => y.品番コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(z => z.y.DefaultIfEmpty(),
+                        (c, d) => new { c.x.SRHD, c.x.SRDTL, c.x.JIS, c.x.TOK, HIN = d})
+                    // No.390 Add End
+                    .ToList()
                     .Select(x => new S09_KAIKAKE_Extension
                     {
                         自社コード = x.SRHD.会社名コード,
@@ -738,6 +763,7 @@ namespace KyoeiSystem.Application.WCFService
                         伝票番号 = x.SRDTL.伝票番号,
                         行番号 = x.SRDTL.行番号,
                         品番コード = x.SRDTL.品番コード,
+                        自社品名 = !string.IsNullOrEmpty(x.SRDTL.自社品名) ? x.SRDTL.自社品名 : x.HIN.自社品名,         // No.390 Add
                         数量 = x.SRDTL.数量,
                         単価 = x.SRDTL.単価,
                         金額 = x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?

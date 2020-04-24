@@ -323,10 +323,10 @@
                         </sg:Column>
                         <sg:Column Locked="True" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
-                                <sg:TextCellType IsReadOnly="True" />
+                                <sg:TextCellType MaxLength="50" MaxLengthUnit="Byte" ImeState="On" TextWrapping="NoWrap" />
                             </sg:Column.CellType>
                             <sg:Column.DataField>
-                                <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                                <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                             </sg:Column.DataField>
                         </sg:Column>
                         <sg:Column Locked="True" Focusable="True" CanUserResize="False">

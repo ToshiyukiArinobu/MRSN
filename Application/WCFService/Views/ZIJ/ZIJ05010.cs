@@ -190,7 +190,8 @@ namespace KyoeiSystem.Application.WCFService
                                 得意先 = x.TOK != null ? x.TOK.略称名 : string.Empty,
                                 品番コード = x.UDTL.品番コード,
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
-                                自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
+                                自社品名 = !string.IsNullOrEmpty(x.UDTL.自社品名) ? x.UDTL.自社品名 :
+                                                x.HIN != null ? x.HIN.自社品名 : string.Empty,                                  // No.390 Mod
                                 自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
                                 賞味期限 = x.UDTL.賞味期限 == null ? null : x.UDTL.賞味期限.Value.ToShortDateString(),          // No.130-1 Mod
                                 単価 = x.UDTL.単価,
@@ -335,7 +336,8 @@ namespace KyoeiSystem.Application.WCFService
                                 得意先 = x.TOK != null ? x.TOK.略称名 : string.Empty,
                                 品番コード = x.UDTL.品番コード,
                                 自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
-                                自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
+                                自社品名 = !string.IsNullOrEmpty(x.UDTL.自社品名) ? x.UDTL.自社品名 :
+                                                x.HIN != null ? x.HIN.自社品名 : string.Empty,                                  // No.390 Mod
                                 自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
                                 賞味期限 = x.UDTL.賞味期限 == null ? null : x.UDTL.賞味期限.Value.ToShortDateString(),
                                 単価 = x.UDTL.単価,

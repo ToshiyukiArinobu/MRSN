@@ -1084,6 +1084,7 @@ namespace KyoeiSystem.Application.WCFService
                         伝票番号 = x.URHD.伝票番号,
                         売上日 = x.URHD.売上日,
                         品番コード = x.URDTL.品番コード,
+                        自社品名 = !string.IsNullOrEmpty(x.URDTL.自社品名) ? x.URDTL.自社品名 : x.HIN.自社品名,     // No.389 Mod
                         // No-80 Start
                         数量 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
                             x.URDTL.数量 : x.URDTL.数量 * -1,
@@ -1185,6 +1186,7 @@ namespace KyoeiSystem.Application.WCFService
                         伝票番号 = x.URHD.伝票番号,
                         売上日 = x.URHD.売上日,
                         品番コード = x.URDTL.品番コード,
+                        自社品名 = !string.IsNullOrEmpty(x.URDTL.自社品名) ? x.URDTL.自社品名 : x.HIN.自社品名,     // No.389 Mod
                         // No-80 Start
                         数量 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?
                             x.URDTL.数量 : x.URDTL.数量 * -1,

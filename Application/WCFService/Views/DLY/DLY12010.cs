@@ -520,7 +520,7 @@ namespace KyoeiSystem.Application.WCFService
                                 品番コード = x.URDTL_HAN.品番コード.ToString(),
                                 自社品番 = x.HIN.自社品番,
                                 得意先品番コード = string.Empty,
-                                自社品名 = x.HIN.自社品名,
+                                自社品名 = !string.IsNullOrEmpty(x.URDTL_HAN.自社品名) ? x.URDTL_HAN.自社品名 : x.HIN.自社品名,       // No.389 Add
                                 自社色 = x.HIN.自社色,
                                 自社色名 = x.IRO != null ? x.IRO.色名称 : string.Empty,
                                 賞味期限 = x.URDTL_HAN.賞味期限,
@@ -828,6 +828,7 @@ namespace KyoeiSystem.Application.WCFService
                 srdtlhan.伝票番号 = urhd.伝票番号;
                 srdtlhan.行番号 = dtlData.行番号;
                 srdtlhan.品番コード = dtlData.品番コード;
+                srdtlhan.自社品名 = dtlData.自社品名;                // No.389 Add
                 srdtlhan.賞味期限 = dtlData.賞味期限;
                 srdtlhan.数量 = dtlData.数量;
                 srdtlhan.単位 = dtlData.単位;
@@ -982,6 +983,7 @@ namespace KyoeiSystem.Application.WCFService
                     urdtl.伝票番号 = urhd.伝票番号;
                     urdtl.行番号 = dtlData.行番号;
                     urdtl.品番コード = dtlData.品番コード;
+                    urdtl.自社品名 = dtlData.自社品名;          // No.389 Add
                     urdtl.賞味期限 = dtlData.賞味期限;
                     urdtl.数量 = dtlData.数量;
                     urdtl.単位 = dtlData.単位;
@@ -1084,6 +1086,7 @@ namespace KyoeiSystem.Application.WCFService
             urdtl.伝票番号 = ParseNumeric<int>(wkRow["伝票番号"]);
             urdtl.行番号 = ParseNumeric<int>(wkRow["行番号"]);
             urdtl.品番コード = ParseNumeric<int>(wkRow["品番コード"]);
+            urdtl.自社品名 = wkRow["自社品名"].ToString();                       // No.389 Add
             urdtl.賞味期限 = DateParse(wkRow["賞味期限"]);
             urdtl.数量 = ParseNumeric<decimal>(wkRow["数量"]);
             urdtl.単位 = wkRow["単位"].ToString();

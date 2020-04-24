@@ -220,6 +220,21 @@ namespace KyoeiSystem.Application.WCFService
         private int _品番コード;
     
         [DataMember]
+        public string 自社品名
+        {
+            get { return _自社品名; }
+            set
+            {
+                if (_自社品名 != value)
+                {
+                    _自社品名 = value;
+                    OnPropertyChanged("自社品名");
+                }
+            }
+        }
+        private string _自社品名;
+    
+        [DataMember]
         public decimal 数量
         {
             get { return _数量; }

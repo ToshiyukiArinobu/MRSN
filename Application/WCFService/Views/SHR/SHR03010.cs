@@ -1057,6 +1057,7 @@ namespace KyoeiSystem.Application.WCFService
                         伝票番号 = x.SRHD.伝票番号,
                         仕入日 = x.SRHD.仕入日,
                         品番コード = x.SRDTL.品番コード,
+                        自社品名 = !string.IsNullOrEmpty(x.SRDTL.自社品名) ? x.SRDTL.自社品名 : x.HIN.自社品名,                // No.390 Add
                         // No-86 Start
                         数量 =
                             x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?
@@ -1176,6 +1177,7 @@ namespace KyoeiSystem.Application.WCFService
                         伝票番号 = x.SRHD.伝票番号,
                         仕入日 = x.SRHD.仕入日,
                         品番コード = x.SRDTL.品番コード,
+                        自社品名 = !string.IsNullOrEmpty(x.SRDTL.自社品名) ? x.SRDTL.自社品名 : x.HIN.自社品名,                // No.390 Add
                         // No-86 Start
                         数量 =
                             x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?

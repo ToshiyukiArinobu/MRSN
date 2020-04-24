@@ -342,7 +342,7 @@
                     <!-- 自社品名 -->
                     <sg:Column Locked="True" CanUserResize="False">
                         <sg:Column.CellType>
-                            <sg:TextCellType IsReadOnly="True" />
+                            <sg:TextCellType MaxLength="50" MaxLengthUnit="Byte" ImeState="On" TextWrapping="NoWrap" />
                         </sg:Column.CellType>
                         <sg:Column.DataField>
                             <sg:BindingDataField Binding="{Binding 自社品名, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />

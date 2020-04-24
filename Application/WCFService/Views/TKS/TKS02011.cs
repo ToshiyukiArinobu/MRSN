@@ -61,6 +61,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 伝票番号 { get; set; }
             public int 行番号 { get; set; }
             public int 品番コード { get; set; }
+            public string 自社品名 { get; set; }
             public int 金種コード { get; set; }
             public decimal 数量 { get; set; }
             public decimal 単価 { get; set; }
@@ -414,6 +415,7 @@ namespace KyoeiSystem.Application.WCFService
             data.伝票番号 = urData.伝票番号;
             data.行番号 = urData.行番号;
             data.品番コード = urData.品番コード;
+            data.自社品名 = urData.自社品名;
             data.金種コード = urData.金種コード;
             data.数量 = urData.数量;
             data.単価 = urData.単価;
@@ -518,7 +520,7 @@ namespace KyoeiSystem.Application.WCFService
                         行番号 = x.URIKAKE.行番号,
                         自社色 = x.URIKAKE.金種コード == 0 ? x.IRO.色名称 : string.Empty,
                         自社品番 = x.HIN.自社品番,
-                        自社品名 = x.URIKAKE.金種コード == 0 ? x.HIN.自社品名 : goldType.Where(c => c.コード == x.URIKAKE.金種コード).Select(c => c.表示名).FirstOrDefault(),
+                        自社品名 = x.URIKAKE.金種コード == 0 ? x.URIKAKE.自社品名 : goldType.Where(c => c.コード == x.URIKAKE.金種コード).Select(c => c.表示名).FirstOrDefault(),
                         数量 = x.URIKAKE.数量,
                         単位 = x.HIN.単位,
                         単価 = x.URIKAKE.単価,
@@ -641,8 +643,14 @@ namespace KyoeiSystem.Application.WCFService
                         y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                         (x, y) => new { x.URHD, x.URDTL, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (a, b) => new { a.URHD, a.URDTL, TOK = b }).ToList()
-            .Select(x => new S08_URIKAKE_Extension
+                        (a, b) => new { a.URHD, a.URDTL, TOK = b })
+                    .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                        x => x.URDTL.品番コード,
+                        y => y.品番コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(m => m.y.DefaultIfEmpty(), (c, d) => new { c.x.URHD, c.x.URDTL, c.x.TOK, HIN = d })
+                    .ToList()
+                    .Select(x => new S08_URIKAKE_Extension
                         {
                             自社コード = x.URHD.会社名コード,
                             得意先コード = x.TOK.取引先コード,
@@ -651,6 +659,7 @@ namespace KyoeiSystem.Application.WCFService
                             伝票番号 = x.URDTL.伝票番号,
                             行番号 = x.URDTL.行番号,
                             品番コード = x.URDTL.品番コード,
+                            自社品名 = !string.IsNullOrEmpty(x.URDTL.自社品名) ? x.URDTL.自社品名 : x.HIN.自社品名,       // No.389 Add,
                             //金種コード = ,
                             数量 = x.URDTL.数量,
                             単価 = x.URDTL.単価,
@@ -706,8 +715,14 @@ namespace KyoeiSystem.Application.WCFService
                         y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                         (x, y) => new { x, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
-                        (a, b) => new { a.x.URHD, a.x.URDTL, a.x.JIS, TOK = b }).ToList()
-                        .Select(x => new S08_URIKAKE_Extension
+                        (a, b) => new { a.x.URHD, a.x.URDTL, a.x.JIS, TOK = b })
+                    .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                        x => x.URDTL.品番コード,
+                        y => y.品番コード,
+                        (x, y) => new { x, y })
+                    .SelectMany(m => m.y.DefaultIfEmpty(), (c, d) => new { c.x.URHD, c.x.URDTL, c.x.JIS, c.x.TOK, HIN = d })
+                    .ToList()
+                    .Select(x => new S08_URIKAKE_Extension
                         {
                             自社コード = x.URHD.会社名コード,
                             得意先コード = x.TOK.取引先コード,
@@ -716,6 +731,7 @@ namespace KyoeiSystem.Application.WCFService
                             伝票番号 = x.URDTL.伝票番号,
                             行番号 = x.URDTL.行番号,
                             品番コード = x.URDTL.品番コード,
+                            自社品名 = !string.IsNullOrEmpty(x.URDTL.自社品名) ? x.URDTL.自社品名 : x.HIN.自社品名,       // No.389 Add,
                             数量 = x.URDTL.数量,
                             単価 = x.URDTL.単価,
                             金額 = x.URHD.売上区分 < (int)CommonConstants.売上区分.通常売上返品 ?

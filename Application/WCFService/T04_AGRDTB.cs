@@ -95,6 +95,21 @@ namespace KyoeiSystem.Application.WCFService
         private int _品番コード;
     
         [DataMember]
+        public string 自社品名
+        {
+            get { return _自社品名; }
+            set
+            {
+                if (_自社品名 != value)
+                {
+                    _自社品名 = value;
+                    OnPropertyChanged("自社品名");
+                }
+            }
+        }
+        private string _自社品名;
+    
+        [DataMember]
         public Nullable<System.DateTime> 賞味期限
         {
             get { return _賞味期限; }

@@ -11,6 +11,14 @@ namespace KyoeiSystem.Application.WCFService
     /// </summary>
     public class BSK01010
     {
+
+        #region << 定数定義 >>
+
+        /// <summary>品名「その他」の自社品番</summary>
+        private const string HINBAN_SONOTA = "99-99";        // No.389  Add
+
+        #endregion
+
         #region << メンバクラス定義 >>
 
         #region 帳票印刷メンバ
@@ -234,7 +242,7 @@ namespace KyoeiSystem.Application.WCFService
                                     y => y.自社コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
-                                    (c, d) => new { c.x.SD, c.x.HN, c.x.IR, JIS = d })
+                                (c, d) => new { c.x.SD, c.x.HN, c.x.IR, JIS = d, GroupHinName = (c.x.HN.自社品番 == HINBAN_SONOTA ? c.x.SD.自社品名 : null) })      // No.389 Mod
                                 .GroupBy(g => new
                                 {
                                     g.SD.自社コード,
@@ -246,7 +254,7 @@ namespace KyoeiSystem.Application.WCFService
                                     g.HN.自社品番,
                                     g.HN.自社色,
                                     g.HN.シリーズ,
-                                    g.HN.自社品名,
+                                    g.GroupHinName,        // No.389 Mod
                                     g.IR.色名称
                                 })
                                 .Select(s => new TallyMember
@@ -257,7 +265,7 @@ namespace KyoeiSystem.Application.WCFService
                                     自社色 = s.Key.自社色,
                                     シリーズ = s.Key.シリーズ,
                                     自社品番 = s.Key.自社品番,
-                                    自社品名 = s.Key.自社品名,
+                                    自社品名 = s.Key.GroupHinName,        // No.389 Mod
                                     色名称 = s.Key.色名称,
                                     金額 = s.Sum(m => m.SD.金額),
                                     数量 = (int)s.Sum(m => m.SD.数量)
@@ -283,14 +291,17 @@ namespace KyoeiSystem.Application.WCFService
 
                         for (int i = 0; i < tallyList.Count; i++)
                         {
+                            int i品番コード = tallyList[i].品番コード;          // No.389 Add
+
                             BSK01010_PrintMember print = new BSK01010_PrintMember();
                             print.自社コード = tallyList[i].自社コード;
                             print.自社名 = tallyList[i].自社名;
                             print.得意先コード = string.Format("{0:D4} - {1:D2}", tokRow.取引先コード, tokRow.枝番);     // No.132-2 Mod
                             print.得意先名 = tokRow.略称名;  // No.229 Mod
-                            print.品番コード = tallyList[i].品番コード;
+                            print.品番コード = i品番コード;                     // No.389 Mod
                             print.自社品番 = tallyList[i].自社品番;     // No.321 Add
-                            print.品番名称 = tallyList[i].自社品名;
+                            print.品番名称 = tallyList[i].自社品名 == null ?
+                                hin.Where(c => c.品番コード == i品番コード).Select(c => c.自社品名).FirstOrDefault() : tallyList[i].自社品名;          // No.389 Mod
                             print.色名称 = tallyList[i].色名称;
                             print.集計合計額 += tallyList[i].金額;
                             print.集計合計数量 += tallyList[i].数量;        // No.400 Add

@@ -166,6 +166,7 @@ namespace KyoeiSystem.Application.WCFService
                         s.支払先枝番,
                         s.仕入日,              // No.326 Add
                         s.品番コード,
+                        s.自社品名,            // No.390 Add
                         s.単価,
                         s.数量,
                         s.金額,
@@ -213,7 +214,8 @@ namespace KyoeiSystem.Application.WCFService
                     品番コード = x.NDTL.品番コード,
                     自社品番 = x.HIN.自社品番,
                     色コード = x.HIN.自社色,
-                    品名 = x.HIN.自社品名,
+                    //品名 = x.HIN.自社品名,
+                    品名 = !string.IsNullOrEmpty(x.NDTL.自社品名) ? x.NDTL.自社品名 : x.HIN.自社品名,           // No.390 Add
                     単価 = x.NDTL.単価,
                     数量 = x.NDTL.数量,
                     金額 = x.NDTL.金額,

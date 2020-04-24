@@ -915,7 +915,7 @@ namespace KyoeiSystem.Application.WCFService
                                     セット品番コード = g.e.DTL.品番コード,
                                     品番コード = g.e.DTB.品番コード,
                                     自社品番 = g.e.HIN.自社品番,
-                                    自社品名 = g.e.HIN.自社品名,
+                                    自社品名 = !string.IsNullOrEmpty(g.e.DTB.自社品名) ? g.e.DTB.自社品名 : g.e.HIN.自社品名,       // No.391 Add
                                     自社色 = g.e.HIN.自社色,
                                     自社色名 = h.色名称,
                                     賞味期限 = g.e.DTB.賞味期限,
@@ -1719,6 +1719,7 @@ namespace KyoeiSystem.Application.WCFService
             agrdtb.行番号 = ParseNumeric<int>(row["行番号"]);
             agrdtb.部材行番号 = ParseNumeric<int>(row["部材行番号"]);
             agrdtb.品番コード = ParseNumeric<int>(row["品番コード"]);
+            agrdtb.自社品名 = row["自社品名"].ToString();                 // No.391 Add
             if (row["賞味期限"] == null || string.IsNullOrEmpty(row["賞味期限"].ToString()))
             {
                 agrdtb.賞味期限 = null;

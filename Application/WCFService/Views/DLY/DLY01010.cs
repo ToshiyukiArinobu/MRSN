@@ -195,21 +195,21 @@ namespace KyoeiSystem.Application.WCFService
                                 y => y.品番コード,
                                 (a, b) => new { a, b })
                             .SelectMany(x => x.b.DefaultIfEmpty(), (x, y) => new { SRDTL = x, HIN = y })
-                            // No-59 Add Start
+                        // No-59 Add Start
                             .GroupJoin(context.M06_IRO.Where(w => w.削除日時 == null),
                                 x => x.HIN.自社色,
                                 y => y.色コード,
                                 (c, d) => new { c.SRDTL, c.HIN, d })
                             .SelectMany(x => x.d.DefaultIfEmpty(), (x, y) => new { x.SRDTL, x.HIN, IRO = y })
-                            // No-59 Add End
-                            
+                        // No-59 Add End
+
                             .Select(x => new T03.T03_SRDTL_Extension
                             {
                                 伝票番号 = x.SRDTL.a.伝票番号,
                                 行番号 = x.SRDTL.a.行番号,
                                 品番コード = x.SRDTL.a.品番コード,
                                 自社品番 = x.HIN.自社品番,
-                                自社品名 = x.HIN.自社品名,
+                                自社品名 = !string.IsNullOrEmpty(x.SRDTL.a.自社品名) ? x.SRDTL.a.自社品名 : x.HIN.自社品名,                // No.390 Mod
                                 賞味期限 = x.SRDTL.a.賞味期限,
                                 数量 = x.SRDTL.a.数量,
                                 単位 = x.SRDTL.a.単位,
@@ -797,6 +797,7 @@ namespace KyoeiSystem.Application.WCFService
             srdtl.伝票番号 = ParseNumeric<int>(wkRow["伝票番号"]);
             srdtl.行番号 = ParseNumeric<int>(wkRow["行番号"]);
             srdtl.品番コード = ParseNumeric<int>(wkRow["品番コード"]);
+            srdtl.自社品名 = wkRow["自社品名"].ToString();
             if (wkRow["賞味期限"] != null && string.IsNullOrEmpty(wkRow["賞味期限"].ToString()))
                 srdtl.賞味期限 = null;
             else

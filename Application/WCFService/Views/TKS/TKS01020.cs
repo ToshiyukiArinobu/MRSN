@@ -445,7 +445,7 @@ namespace KyoeiSystem.Application.WCFService
                                 売上日 = x.SDTL.売上日.ToString("yyyy/MM/dd"),
                                 自社品番 = x.HIN.自社品番,
                                 相手品番 = x.TOKHIN == null ? "" : x.TOKHIN.得意先品番コード,
-                                品番名称 = x.HIN.自社品名,
+                                品番名称 = !string.IsNullOrEmpty(x.SDTL.自社品名) ? x.SDTL.自社品名 : x.HIN.自社品名,     // No.389 Mod
                                 数量 = x.SDTL.数量,
                                 単価 = x.SDTL.単価,
                                 金額 = x.SDTL.金額,

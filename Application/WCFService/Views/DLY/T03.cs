@@ -289,6 +289,7 @@ namespace KyoeiSystem.Application.WCFService
                 srdtl.伝票番号 = sdtlData.伝票番号;
                 srdtl.行番号 = sdtlData.行番号;
                 srdtl.品番コード = sdtlData.品番コード;
+                srdtl.自社品名 = sdtlData.自社品名;                // No.390 Add
                 srdtl.賞味期限 = sdtlData.賞味期限;
                 srdtl.数量 = sdtlData.数量;
                 srdtl.単位 = sdtlData.単位;
@@ -307,6 +308,7 @@ namespace KyoeiSystem.Application.WCFService
             {
                 // データを更新
                 dtlData.品番コード = sdtlData.品番コード;
+                dtlData.自社品名 = sdtlData.自社品名;                // No.390 Add
                 dtlData.賞味期限 = sdtlData.賞味期限;
                 dtlData.数量 = sdtlData.数量;
                 dtlData.単位 = sdtlData.単位;
@@ -506,6 +508,7 @@ namespace KyoeiSystem.Application.WCFService
                 srdtl.伝票番号 = sdtlData.伝票番号;
                 srdtl.行番号 = sdtlData.行番号;
                 srdtl.品番コード = sdtlData.品番コード;
+                srdtl.自社品名 = sdtlData.自社品名;                // No.389 Add
                 srdtl.賞味期限 = sdtlData.賞味期限;
                 srdtl.数量 = sdtlData.数量;
                 srdtl.単位 = sdtlData.単位;
@@ -524,6 +527,7 @@ namespace KyoeiSystem.Application.WCFService
             {
                 // データを更新
                 dtlData.品番コード = sdtlData.品番コード;
+                dtlData.自社品名 = sdtlData.自社品名;               // No.389 Add
                 dtlData.賞味期限 = sdtlData.賞味期限;
                 dtlData.数量 = sdtlData.数量;
                 dtlData.単位 = sdtlData.単位;

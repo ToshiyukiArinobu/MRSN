@@ -415,6 +415,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                                 // 自社品番のセルをロック
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                                gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, false);          // No.389 Add
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);             // No-94 Add
 
@@ -441,6 +442,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 自社品番のセルをロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, false);          // No.389 Add
                             gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);             // No-94 Add
 
@@ -603,6 +605,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 自社品番のセルをロック
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, false);          // No.389 Add
                             gridCtl.SetCellLocked((int)GridColumnsMapping.得意先品番, true);
                             gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);             // No-94 Add
 

@@ -188,7 +188,7 @@ namespace KyoeiSystem.Application.WCFService
                                 入荷先名 = x.JIS2 != null ? x.JIS2.自社名 : "", 　    // No.396 Add
                                 品番コード = x.SDTL.品番コード,
                                 自社品番 = x.HIN.自社品番,
-                                自社品名 = x.HIN.自社品名,
+                                自社品名 = !string.IsNullOrEmpty(x.SDTL.自社品名) ? x.SDTL.自社品名 : x.HIN.自社品名,     // No.390 Mod
                                 自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
                                 賞味期限 = x.SDTL.賞味期限 == null ? null : x.SDTL.賞味期限.Value.ToShortDateString(),    // No.130-3 Mod
                                 数量 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.数量 : x.SDTL.数量 * -1,
@@ -365,7 +365,7 @@ namespace KyoeiSystem.Application.WCFService
                             入荷先名 = x.NJIS != null ? x.NJIS.自社名 : "",
                             品番コード = x.SRDTL.品番コード,
                             自社品番 = x.HIN != null ? x.HIN.自社品番 : string.Empty,
-                            自社品名 = x.HIN != null ? x.HIN.自社品名 : string.Empty,
+                            自社品名 = !string.IsNullOrEmpty(x.SRDTL.自社品名) ? x.SRDTL.自社品名 : x.HIN.自社品名,     // No.390 Mod
                             自社色 = x.IRO != null ? x.IRO.色名称 : string.Empty,
                             賞味期限 = x.SRDTL.賞味期限 == null ? null : x.SRDTL.賞味期限.Value.ToShortDateString(),
                             数量 = x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SRDTL.数量 : x.SRDTL.数量 * -1,

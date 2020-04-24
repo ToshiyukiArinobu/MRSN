@@ -284,7 +284,7 @@ namespace KyoeiSystem.Application.Windows.Views
             else if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_ADD)
             {
                 // Spread入力不可
-                SetDispInnerSpreadGridLocked(true);                 // No.424 Add
+                SetDispInnerSpreadGridLocked(false);                // No.424 Add
             }
 
             // フォーカス設定
@@ -448,7 +448,7 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 数量以外はロック
                             gridDtb.SetCellLocked((int)GridColumnsMapping.品番コード, true);
                             gridDtb.SetCellLocked((int)GridColumnsMapping.自社品番, true);
-                            gridDtb.SetCellLocked((int)GridColumnsMapping.自社品名, true);
+                            gridDtb.SetCellLocked((int)GridColumnsMapping.自社品名, false);               // No.391 Add 
                             gridDtb.SetCellLocked((int)GridColumnsMapping.単位, true);
                             gridDtb.SetCellLocked((int)GridColumnsMapping.商品分類, true);
                             gridDtb.SetCellLocked((int)GridColumnsMapping.色コード, true);
@@ -596,6 +596,11 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 設定自社品番の編集を不可とする
                             gridDtb.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            
+                            // No.391 Add Start
+                            gridDtb.SetCellLocked((int)GridColumnsMapping.自社品名, false);
+                            gridDtb.SetCellFocus(rIdx, (int)GridColumnsMapping.自社品名);
+                            // No.391 Add End
 
                         }
 
@@ -731,8 +736,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 return;
             }
 
-           // No.423 Add Start
-           #region 空行削除
+            // No.423 Add Start
+            #region 空行削除
             for (int rowIdx = gridDtb.SpreadGrid.Rows.Count - 1; rowIdx >= 0; rowIdx--)
             {
                 // 品番コードがnullのデータは削除
@@ -1068,14 +1073,16 @@ namespace KyoeiSystem.Application.Windows.Views
                 // No.424 Add Start
                 if (row.Cells[(int)GridColumnsMapping.品番コード].Value != null)
                 {
-                    row.Cells[(int)GridColumnsMapping.自社品番].Locked = blnLocked;
+                    // データが存在する場合
+                    
+                    // ロック固定項目
+                    row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;
 
-                    // 編集時のロック制御
-                    if (this.MaintenanceMode == AppConst.MAINTENANCEMODE_EDIT)
-                    {
-                        row.Cells[(int)GridColumnsMapping.賞味期限].Locked = blnLocked;
-                        row.Cells[(int)GridColumnsMapping.数量].Locked = blnLocked;
-                    }
+                    // 引数でロック指定
+                    row.Cells[(int)GridColumnsMapping.自社品名].Locked = blnLocked;
+                    row.Cells[(int)GridColumnsMapping.賞味期限].Locked = blnLocked;
+                    row.Cells[(int)GridColumnsMapping.数量].Locked = blnLocked;
+                  
                 }
                 // No.424 Add End
             }

@@ -10,6 +10,16 @@ namespace KyoeiSystem.Application.WCFService
     /// </summary>
     public class BSK03010
     {
+
+        #region << 定数定義 >>
+
+        /// <summary>
+        /// 「その他」の自社品番
+        /// </summary>
+        private const string SONOTA_HINBAN = "99-99";         // No.389 Add
+
+        #endregion
+
         #region << メンバクラス定義 >>
 
         #region 帳票印刷メンバ
@@ -241,13 +251,13 @@ namespace KyoeiSystem.Application.WCFService
                                     y => y.ブランドコード,
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
-                                    (e, f) => new { e.x.SD, e.x.HN, e.x.IR, BR = f})
+                                    (e, f) => new { e.x.SD, e.x.HN, e.x.IR, BR = f })
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                                     x => x.SD.自社コード,
                                     y => y.自社コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
-                                    (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.BR, JIS = h })
+                                (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.BR, JIS = h, GroupHinName = g.x.HN.自社品番 == SONOTA_HINBAN ? g.x.SD.自社品名 : null })  // No.389 Mod
                                 .GroupBy(g => new
                                 {
                                     g.SD.自社コード,
@@ -260,7 +270,7 @@ namespace KyoeiSystem.Application.WCFService
                                     g.HN.自社色,
                                     g.HN.ブランド,                                  // No.402 Mod
                                     g.BR.ブランド名,                                // No.402 Mod
-                                    g.HN.自社品名,
+                                    g.GroupHinName,                                 // No.389 Mod
                                     g.IR.色名称
                                 })
                                 .Select(s => new TallyMember
@@ -272,7 +282,7 @@ namespace KyoeiSystem.Application.WCFService
                                     ブランド = s.Key.ブランド,
                                     ブランド名 = s.Key.ブランド名,
                                     自社品番 = s.Key.自社品番,
-                                    自社品名 = s.Key.自社品名,
+                                    自社品名 = s.Key.GroupHinName,          // No.389 Mod
                                     色名称 = s.Key.色名称,
                                     金額 = s.Sum(m => m.SD.金額),           // No.402 Mod
                                     数量 = (int)s.Sum(m => m.SD.数量)       // No.402 Mod
@@ -299,14 +309,17 @@ namespace KyoeiSystem.Application.WCFService
 
                         for (int i = 0; i < tallyList.Count; i++)
                         {
+                            int i品番コード = tallyList[i].品番コード;        // No.389 Add
+
                             BSK03010_PrintMember print = new BSK03010_PrintMember();
                             print.自社コード = tallyList[i].自社コード;       // No.227,228 Add
                             print.自社名 = tallyList[i].自社名;               // No.227,228 Add
                             print.ブランドコード = tallyList[i].ブランド;     // No.402 Mod
                             print.ブランド名 = tallyList[i].ブランド名;       // No.402 Mod
-                            print.品番コード = tallyList[i].品番コード;
+                            print.品番コード = i品番コード;                   // No.389 Mod
                             print.自社品番 = tallyList[i].自社品番;           // No.322 Add
-                            print.品番名称 = tallyList[i].自社品名;
+                            print.品番名称 = tallyList[i].自社品名 == null ?
+                                 hin.Where(c => c.品番コード == i品番コード).Select(c => c.自社品名).FirstOrDefault() : tallyList[i].自社品名;          // No.389 Mod
                             print.色名称 = tallyList[i].色名称;
                             print.集計合計額 += tallyList[i].金額;
                             print.集計合計数量 += tallyList[i].数量;          // No.402 Add

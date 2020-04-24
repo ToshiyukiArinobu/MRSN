@@ -471,8 +471,9 @@ namespace KyoeiSystem.Application.Windows.Views
                                 gridCtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
                                 // 20190530CB-E
 
-                                // 自社品番のセルをロック
+                                // セルをロック設定
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                                gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, false);     // No.390 Add
                                 gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);       // No-94 Add
 
                                 // 集計計算をおこなう
@@ -508,13 +509,13 @@ namespace KyoeiSystem.Application.Windows.Views
                             // 20190530CB-E
 
                             SearchGrid.CommitCellEdit();
-                            // 自社品番のセルをロック
-                            // 数量以外はロック
-                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            
+                            // セルのロックを設定
+                            // 数量・品名以外はロック
 
                             // 20190704CB-S
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
-                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, false);             // No.390 Mod
                             gridCtl.SetCellLocked((int)GridColumnsMapping.単位, true);
                             //gridCtl.SetCellLocked((int)GridColumnsMapping.単価, true);                // No90 Mod
                             gridCtl.SetCellLocked((int)GridColumnsMapping.金額, true);
@@ -626,10 +627,11 @@ namespace KyoeiSystem.Application.Windows.Views
             }
             else
             {
-                // 取得明細の自社品番をロック(編集不可)に設定
+                // 明細行ごとの設定を適用
                 foreach (var row in SearchGrid.Rows)
                 {
                     row.Cells[(int)GridColumnsMapping.自社品番].Locked = true;
+                    row.Cells[(int)GridColumnsMapping.自社品名].Locked = false;       // No.390 Add
                     row.Cells[(int)GridColumnsMapping.税区分].Locked = true;
                     
                     //intの金額をdecimalの金額に代入する
@@ -972,8 +974,9 @@ namespace KyoeiSystem.Application.Windows.Views
                             gridCtl.SetCellValue((int)GridColumnsMapping.色名称, myhin.SelectedRowData["自社色名"]);
                             // 20195030CB-E
 
-                            // 設定自社品番の編集を不可とする
+                            // セルのロックを設定
                             gridCtl.SetCellLocked((int)GridColumnsMapping.自社品番, true);
+                            gridCtl.SetCellLocked((int)GridColumnsMapping.自社品名, false);    // No.390 Add
                             gridCtl.SetCellLocked((int)GridColumnsMapping.税区分, true);       // No-94 Add
 
                             // 集計計算をおこなう
