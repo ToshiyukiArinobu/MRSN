@@ -1165,7 +1165,7 @@ namespace KyoeiSystem.Application.Windows.Views
             int newRowIdx = SearchDetail.Rows.Count - 1;
             // No-56 End
             // TODO:追加行が表示されるようにしたかったが追加行の上行までしか移動できない...
-            gridCtl.ScrollShowCell(newRowIdx, (int)GridColumnsMapping.自社品名);
+            gridCtl.ScrollShowCell(newRowIdx, (int)GridColumnsMapping.自社品番);
 
         }
         #endregion

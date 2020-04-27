@@ -377,7 +377,7 @@
                             <!-- 実在庫数量 -->
                             <sg:Column Locked="False" CanUserResize="False">
                                 <sg:Column.CellType>
-                                    <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow"  FieldSet="#######0.00,,,-,"  />
+                                    <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow"  FieldSet="#######0.00,,,-," AllowDeleteToNull="False" />
                                 </sg:Column.CellType>
                                 <sg:Column.DataField>
                                     <sg:BindingDataField Binding="{Binding 実在庫数, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -518,7 +518,7 @@
                             <!-- 実在庫数量 -->
                             <sg:Column Locked="False" CanUserResize="False">
                                 <sg:Column.CellType>
-                                    <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow" FieldSet="#######0.00,,,-," />
+                                    <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow" FieldSet="#######0.00,,,-," AllowDeleteToNull="False"/>
                                 </sg:Column.CellType>
                                 <sg:Column.DataField>
                                     <sg:BindingDataField Binding="{Binding 実在庫数, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />

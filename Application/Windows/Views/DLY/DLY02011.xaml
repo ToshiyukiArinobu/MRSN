@@ -355,7 +355,7 @@
                         </sg:Column>
                         <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
                             <sg:Column.CellType>
-                                <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.00,,,-,"/>
+                                <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.00,,,-," AllowDeleteToNull="False" />
                             </sg:Column.CellType>
                             <sg:Column.DataField>
                                 <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />

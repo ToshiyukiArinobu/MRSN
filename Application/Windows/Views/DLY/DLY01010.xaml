@@ -360,7 +360,7 @@
                     <!-- 数量 -->
                     <sg:Column Locked="False" CanUserResize="False">
                         <sg:Column.CellType>
-                            <sg:NumberCellType MinValue="-9999999.99" MaxValue="999999.99" SpinButtonVisibility="NotShow" />
+                            <sg:NumberCellType MinValue="-9999999.99" MaxValue="999999.99" SpinButtonVisibility="NotShow" AllowDeleteToNull="False" />
                         </sg:Column.CellType>
                         <sg:Column.DataField>
                             <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -378,7 +378,7 @@
                     <!-- 単価 -->
                     <sg:Column Locked="False" CanUserResize="False">
                         <sg:Column.CellType>
-                            <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow" />
+                            <sg:NumberCellType MinValue="-9999999.99" MaxValue="99999999.99" SpinButtonVisibility="NotShow" AllowDeleteToNull="False" />
                         </sg:Column.CellType>
                         <sg:Column.DataField>
                             <sg:BindingDataField Binding="{Binding 単価, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -387,7 +387,7 @@
                     <!-- d金額 -->
                     <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
                         <sg:Column.CellType>
-                            <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                            <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-," AllowDeleteToNull="False" />
                         </sg:Column.CellType>
                         <sg:Column.DataField>
                             <sg:BindingDataField Binding="{Binding d金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />

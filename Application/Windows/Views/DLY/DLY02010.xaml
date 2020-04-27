@@ -304,7 +304,7 @@
                     </sg:Column>
                     <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
                         <sg:Column.CellType>
-                            <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-,"/>
+                            <sg:NumberCellType MaxValue="999999.99" MinValue="-999999.99" SpinButtonVisibility="NotShow" FieldSet="###,##0.##,,,-," AllowDeleteToNull="False"/>
                         </sg:Column.CellType>
                         <sg:Column.DataField>
                             <sg:BindingDataField Binding="{Binding 数量, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
@@ -320,7 +320,7 @@
                     </sg:Column>
                     <sg:Column HorizontalAlignment="Right" Locked="False" Focusable="True" CanUserResize="False">
                         <sg:Column.CellType>
-                            <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.##,,,-,"/>
+                            <sg:NumberCellType MaxValue="99999999.99" MinValue="-99999999.99" SpinButtonVisibility="NotShow" FieldSet="##,###,##0.##,,,-," AllowDeleteToNull="False"/>
                         </sg:Column.CellType>
                         <sg:Column.DataField>
                             <sg:BindingDataField Binding="{Binding 単価, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
@@ -328,7 +328,7 @@
                     </sg:Column>
                     <sg:Column HorizontalAlignment="Right" Locked="True" Focusable="False" CanUserResize="False">
                         <sg:Column.CellType>
-                            <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-,"/>
+                            <sg:NumberCellType MaxValue="99999999" MinValue="-99999999" SpinButtonVisibility="NotShow" FieldSet="###,###,##0,,,-," AllowDeleteToNull="False"/>
                         </sg:Column.CellType>
                         <sg:Column.DataField>
                             <sg:BindingDataField Binding="{Binding 金額, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
