@@ -496,7 +496,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     DataTable dtM14 = MasterDataSet.Tables["M14List"];
 
-                    DataRow[] drlist = dtM14.Select("ブランドコード = " + drData["ブランド"].ToString());
+                    DataRow[] drlist = dtM14.Select("ブランドコード = '" + drData["ブランド"].ToString() + "'");
 
                     if (drlist.Length == 0)
                     {

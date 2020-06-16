@@ -303,7 +303,6 @@ namespace KyoeiSystem.Application.Windows.Views
                     // No.408 Add Start
                     case T05_GetTokInfo:
                         // 手形情報のチェック
-                        
                         if (CheckTegata(tbl))
                         {
                             if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
@@ -1131,12 +1130,15 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (int.Parse(row["金種コード"].ToString()).Equals(金種Dic.FirstOrDefault(x => x.Value.Equals("手形")).Key))
                 {
                     // 手形期日チェック
-                    DateFromTo limitDate = AppCommon.GetDateFromTo(row.Field<DateTime>("期日").Year, row.Field<DateTime>("期日").Month, (int)dt.Rows[0].Field<int?>("Ｔ入金日２"));
-                    if (row.Field<DateTime>("期日").Day != limitDate.DATETo.Day)
+                    DateTime tagataDateMonth = ((DateTime)SearchHeader["入金日"]).AddMonths(-(int)dt.Rows[0].Field<int?>("Ｔサイト１")).AddMonths((int)dt.Rows[0].Field<int?>("Ｔサイト２"));
+                    DateTime limitDate = new DateTime(tagataDateMonth.Year, tagataDateMonth.Month, (int)dt.Rows[0].Field<int?>("Ｔ入金日２"));
+                    //バッファとして5日後に設定
+                    limitDate = limitDate.AddDays(5);
+                    if (row.Field<DateTime>("期日") > limitDate)
                     {
                         gcSpreadGrid.Rows[rIdx]
-                            .ValidationErrors.Add(new SpreadValidationError(string.Format("期日が異なります。\n{0}の期日は{1}日です。",
-                                                        dt.Rows[0].Field<string>("略称名"), limitDate.DATETo.Day),
+                            .ValidationErrors.Add(new SpreadValidationError(string.Format("期日が異なります。\n{0}の期日は{1}です。",
+                                                        dt.Rows[0].Field<string>("略称名"), limitDate.ToString("yyyy/MM/dd")),
                                                     null, rIdx, GridColumnsMapping.期日.GetHashCode()));
 
                         if (isCheckErr)
