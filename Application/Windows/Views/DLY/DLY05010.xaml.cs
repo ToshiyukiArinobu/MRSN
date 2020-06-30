@@ -1131,7 +1131,12 @@ namespace KyoeiSystem.Application.Windows.Views
                 {
                     // 手形期日チェック
                     DateTime tagataDateMonth = ((DateTime)SearchHeader["入金日"]).AddMonths(-(int)dt.Rows[0].Field<int?>("Ｔサイト１")).AddMonths((int)dt.Rows[0].Field<int?>("Ｔサイト２"));
-                    DateTime limitDate = new DateTime(tagataDateMonth.Year, tagataDateMonth.Month, (int)dt.Rows[0].Field<int?>("Ｔ入金日２"));
+                    int サイト日 = (int)dt.Rows[0].Field<int?>("Ｔ入金日２");
+                    if(サイト日 == 31)
+                    {
+                        サイト日 = DateTime.DaysInMonth(tagataDateMonth.Year, tagataDateMonth.Month); 
+                    }
+                    DateTime limitDate = new DateTime(tagataDateMonth.Year, tagataDateMonth.Month, サイト日);
                     //バッファとして5日後に設定
                     limitDate = limitDate.AddDays(5);
                     if (row.Field<DateTime>("期日") > limitDate)
