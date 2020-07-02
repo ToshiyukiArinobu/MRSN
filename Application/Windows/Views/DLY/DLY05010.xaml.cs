@@ -1130,28 +1130,28 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (int.Parse(row["金種コード"].ToString()).Equals(金種Dic.FirstOrDefault(x => x.Value.Equals("手形")).Key))
                 {
                     // 手形期日チェック
-                    DateTime tagataDateMonth = ((DateTime)SearchHeader["入金日"]).AddMonths(-(int)dt.Rows[0].Field<int?>("Ｔサイト１")).AddMonths((int)dt.Rows[0].Field<int?>("Ｔサイト２"));
-                    int サイト日 = (int)dt.Rows[0].Field<int?>("Ｔ入金日２");
-                    if(サイト日 == 31)
-                    {
-                        サイト日 = DateTime.DaysInMonth(tagataDateMonth.Year, tagataDateMonth.Month); 
-                    }
-                    DateTime limitDate = new DateTime(tagataDateMonth.Year, tagataDateMonth.Month, サイト日);
-                    //バッファとして5日後に設定
-                    limitDate = limitDate.AddDays(5);
-                    if (row.Field<DateTime>("期日") > limitDate)
-                    {
-                        gcSpreadGrid.Rows[rIdx]
-                            .ValidationErrors.Add(new SpreadValidationError(string.Format("期日が異なります。\n{0}の期日は{1}です。",
-                                                        dt.Rows[0].Field<string>("略称名"), limitDate.ToString("yyyy/MM/dd")),
-                                                    null, rIdx, GridColumnsMapping.期日.GetHashCode()));
+                    //DateTime tagataDateMonth = ((DateTime)SearchHeader["入金日"]).AddMonths(-(int)dt.Rows[0].Field<int?>("Ｔサイト１")).AddMonths((int)dt.Rows[0].Field<int?>("Ｔサイト２"));
+                    //int サイト日 = (int)dt.Rows[0].Field<int?>("Ｔ入金日２");
+                    //if(サイト日 == 31)
+                    //{
+                    //    サイト日 = DateTime.DaysInMonth(tagataDateMonth.Year, tagataDateMonth.Month); 
+                    //}
+                    //DateTime limitDate = new DateTime(tagataDateMonth.Year, tagataDateMonth.Month, サイト日);
+                    ////バッファとして5日後に設定
+                    //limitDate = limitDate.AddDays(5);
+                    //if (row.Field<DateTime>("期日") > limitDate)
+                    //{
+                    //    gcSpreadGrid.Rows[rIdx]
+                    //        .ValidationErrors.Add(new SpreadValidationError(string.Format("期日が異なります。\n{0}の期日は{1}です。",
+                    //                                    dt.Rows[0].Field<string>("略称名"), limitDate.ToString("yyyy/MM/dd")),
+                    //                                null, rIdx, GridColumnsMapping.期日.GetHashCode()));
 
-                        if (isCheckErr)
-                        {
-                            gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.期日.GetHashCode());
-                        }
-                        isCheckErr = false;
-                    }
+                    //    if (isCheckErr)
+                    //    {
+                    //        gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.期日.GetHashCode());
+                    //    }
+                    //    isCheckErr = false;
+                    //}
 
                     // 手形金額チェック
                     // 請求区分.以上の場合
