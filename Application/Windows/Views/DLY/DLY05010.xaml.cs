@@ -305,12 +305,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         // 手形情報のチェック
                         if (CheckTegata(tbl))
                         {
-                            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
-                                                "登録確認",
-                                                MessageBoxButton.YesNo,
-                                                MessageBoxImage.Question,
-                                                MessageBoxResult.Yes) == MessageBoxResult.No)
-                                return;
+                            
 
                             // 入金情報の登録
                             Update();
@@ -1104,11 +1099,23 @@ namespace KyoeiSystem.Application.Windows.Views
                         .Where(w => w.Field<int?>("Ｔサイト２") == null ||
                                     w.Field<int?>("Ｔ入金日２") == null);
 
-            if (cond.Any())
+            if (cond.Any() && (SearchHeader["得意先コード"].ToString() != "1" && string.IsNullOrEmpty(SearchHeader["入金元販社コード"].ToString())))
             {
-                MessageBox.Show("取引先マスタに手形条件が設定されていません。\n請求条件(サイト、入金日)を設定してください。", 
+                MessageBox.Show("取引先マスタに手形条件が設定されていません。\n請求条件(サイト、入金日)を設定してください。",
                     "請求条件未登録", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 return false;
+            }
+            else
+            {
+                if (MessageBox.Show("取引先マスタに手形条件が設定されていません。\r\n" + AppConst.CONFIRM_UPDATE,
+                    "請求条件未登録", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) != MessageBoxResult.Yes)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
 
             // 手形内容チェック
@@ -1192,7 +1199,20 @@ namespace KyoeiSystem.Application.Windows.Views
                 rIdx++;
             }
 
-            return isCheckErr;
+            if (isCheckErr == false)
+            {
+                return isCheckErr;
+            }
+
+            //登録確認メッセージPopUp表示
+            if (MessageBox.Show(AppConst.CONFIRM_UPDATE,
+                                                "登録確認",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question,
+                                                MessageBoxResult.Yes) != MessageBoxResult.Yes)
+            {
+                return false;
+            }
         }
         #endregion
     }
