@@ -2025,17 +2025,17 @@ namespace KyoeiSystem.Application.Windows.Views
                 MessageBox.Show(ex.Message);
             }
         }
-
+        
         /// <summary>
-        /// 
+        /// 得意先品番一括修正
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Click_MST20010(object sender, RoutedEventArgs e)
+        private void Click_MST20011(object sender, RoutedEventArgs e)
         {
             try
             {
-                //Start(typeof(MST20010));
+                Start(typeof(MST20011));
             }
             catch (Exception ex)
             {
@@ -3453,6 +3453,27 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.Close();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_MST04011(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_MST06011(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
 
 
     }

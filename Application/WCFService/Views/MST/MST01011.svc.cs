@@ -20,13 +20,11 @@ namespace KyoeiSystem.Application.WCFService
     /// </summary>
     public class MST01011
     {
-
-
         /// <summary>
         /// MST01011データメンバー
         /// </summary>
         /// [DataContract]
-        public class MST01011_spread
+        public class MST01011_spread 
         {
             public int? 取引先コード { get; set; }
             public int? 担当会社コード { get; set; }
@@ -38,6 +36,15 @@ namespace KyoeiSystem.Application.WCFService
             public string 請求担当者名 { get; set; }
             public int? 支払担当者コード { get; set; }
             public string 支払担当者名 { get; set; }
+            public int 請求消費税区分 { get; set; }
+            public int 請求税区分ID { get; set; }
+            public int? 請求締日 { get; set; }
+            public int? 請求サイト { get; set; }
+            public int? 請求入金日 { get; set; }
+            public int 請求手形条件 { get; set; }
+            public int 請求手形区分 { get; set; }
+            public int? 請求手形サイト { get; set; }
+            public int? 請求手形入金日 { get; set; }
         }
 
         /// <summary>
@@ -84,7 +91,15 @@ namespace KyoeiSystem.Application.WCFService
                         請求担当者名 = TNT_t.担当者名,
                         支払担当者コード = m01.Ｓ担当者コード,
                         支払担当者名 = TNT_s.担当者名,
-
+                        請求消費税区分 = m01.Ｔ消費税区分,
+                        請求税区分ID = m01.Ｔ消費税区分,
+                        請求締日 = m01.Ｔ締日,
+                        請求サイト = m01.Ｔサイト１,
+                        請求入金日 = m01.Ｔ入金日１,
+                        請求手形条件 = m01.Ｔ請求条件,
+                        請求手形区分 = m01.Ｔ請求区分,
+                        請求手形サイト = m01.Ｔサイト２,
+                        請求手形入金日 = m01.Ｔ入金日２,
                     }).AsQueryable();
 
                 if (!string.IsNullOrEmpty(p担当会社コード))
@@ -144,7 +159,15 @@ namespace KyoeiSystem.Application.WCFService
                             // 担当者コードが担当者マスタになければnullを代入
                             data.Ｔ担当者コード = context.M72_TNT.Any(c => c.担当者ID == row.請求担当者コード) ? row.請求担当者コード : (int?)null;
                             data.Ｓ担当者コード = context.M72_TNT.Any(c => c.担当者ID == row.支払担当者コード) ? row.支払担当者コード : (int?)null;
-                            
+                            data.Ｔ消費税区分 = row.請求消費税区分;
+                            data.Ｔ消費税区分 = row.請求税区分ID;
+                            data.Ｔ締日 = row.請求締日;
+                            data.Ｔサイト１ = row.請求サイト;
+                            data.Ｔ入金日１ = row.請求入金日;
+                            data.Ｔ請求条件 = row.請求手形条件;
+                            data.Ｔ請求区分 = row.請求手形区分;
+                            data.Ｔサイト２ = row.請求手形サイト;
+                            data.Ｔ入金日２ = row.請求手形入金日;
                             data.最終更新者 = pLoginUserCode;
                             data.最終更新日時 = DateTime.Now;
 
@@ -158,7 +181,7 @@ namespace KyoeiSystem.Application.WCFService
                 }
                 catch (Exception ex)
                 {
-                    return 0;
+                    throw ex;
                 }
 
             }
@@ -175,15 +198,24 @@ namespace KyoeiSystem.Application.WCFService
         {
             MST01011_spread data = new MST01011_spread();
 
-            int SeikyuTantoCd;
-            int ShiharaiTantoCd;
+            int intWork;
 
             data.取引先コード = int.Parse(rw["取引先コード"].ToString());
             data.枝番 = int.Parse(rw["枝番"].ToString());
 
-            data.請求担当者コード = int.TryParse(rw["請求担当者コード"].ToString(), out SeikyuTantoCd) ? SeikyuTantoCd : (int?)null;
-            data.支払担当者コード = int.TryParse(rw["支払担当者コード"].ToString(), out ShiharaiTantoCd) ? ShiharaiTantoCd : (int?)null;
+            data.請求担当者コード = int.TryParse(rw["請求担当者コード"].ToString(), out intWork) ? intWork : (int?)null;
+            data.支払担当者コード = int.TryParse(rw["支払担当者コード"].ToString(), out intWork) ? intWork : (int?)null;
+            data.請求消費税区分 = int.TryParse(rw["請求消費税区分"].ToString(), out intWork) ? intWork : 1;
+            data.請求税区分ID = int.TryParse(rw["請求税区分ID"].ToString(), out intWork) ? intWork : 1;
+            data.請求締日 = int.TryParse(rw["請求締日"].ToString(), out intWork) ? intWork : (int?)null;
+            data.請求サイト= int.TryParse(rw["請求サイト"].ToString(), out intWork) ? intWork : (int?)null;
+            data.請求入金日= int.TryParse(rw["請求入金日"].ToString(), out intWork) ? intWork : (int?)null;
+            data.請求手形条件= int.TryParse(rw["請求手形条件"].ToString(), out intWork) ? intWork : 0;
+            data.請求手形区分= int.TryParse(rw["請求手形区分"].ToString(), out intWork) ? intWork : 2;
+            data.請求手形サイト= int.TryParse(rw["請求手形サイト"].ToString(), out intWork) ? intWork : (int?)null;
+            data.請求手形入金日 = int.TryParse(rw["請求手形入金日"].ToString(), out intWork) ? intWork : (int?)null;
             return data;
+
 
         }
 

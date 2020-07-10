@@ -131,6 +131,9 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "M10_TOKHIN_GetData_Product", ServiceClass = "M10", MethodName = "GetData_TOKHIN_Product", Descprition = "得意先品番マスタ データ取得(自社品番・色)" },
             new WCFDataAccessConfig() { Name = "M10_TOKHIN_GetNamedDataList", ServiceClass = "M10", MethodName = "GetTOKHIN_NamedDataList", Descprition = "得意先品番検索 名前付きデータリスト取得" },
             new WCFDataAccessConfig() { Name = "M10_TOKHIN_Update", ServiceClass = "M10", MethodName = "Update_TOKHIN", Descprition = "得意先品番マスタ データ更新" },
+            // 得意先品番マスタ一括更新
+            new WCFDataAccessConfig() { Name = "MST20011_GetData", ServiceClass = "MST20011", MethodName = "GetData", Descprition = "得意先品番マスタ データ 取得" },
+            new WCFDataAccessConfig() { Name = "MST20011_Update", ServiceClass = "MST20011", MethodName = "Update", Descprition = "得意先品番マスタ データ　更新" },
 
             // 品番マスタ一括更新
             new WCFDataAccessConfig() { Name = "MST02011_GetData", ServiceClass = "MST02011", MethodName = "GetData", Descprition = "商品データ　取得" },
