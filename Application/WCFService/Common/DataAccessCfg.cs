@@ -92,6 +92,9 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "M02_BAIKA_GetData_Customer", ServiceClass="M02", MethodName="GetData_Customer", Descprition="得意先商品売価設定 得意先検索" },
             new WCFDataAccessConfig() { Name = "M02_BAIKA_GetData_Product", ServiceClass="M02", MethodName="GetData_Product", Descprition="得意先商品売価設定 品番検索" },
             new WCFDataAccessConfig() { Name = "M02_BAIKA_Update", ServiceClass="M02", MethodName="Update", Descprition="得意先商品売価設定 データ登録" },
+            // 得意先単価マスタ一括更新
+            new WCFDataAccessConfig() { Name = "MST19011_GetData", ServiceClass = "MST19011", MethodName = "GetData", Descprition = "得意先単価マスタ データ 取得" },
+            new WCFDataAccessConfig() { Name = "MST19011_Update", ServiceClass = "MST19011", MethodName = "Update", Descprition = "得意先単価マスタ データ　更新" },
 
             // 仕入先商品売価設定
             new WCFDataAccessConfig() { Name = "M03_BAIKA_GetData_Supplier", ServiceClass="M03", MethodName="GetData_Supplier", Descprition="仕入先商品売価設定 仕入先検索" },

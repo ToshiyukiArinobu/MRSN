@@ -2044,6 +2044,22 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         /// <summary>
+        /// 得意先売価一括修正
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_MST19011(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(MST19011));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
@@ -3462,17 +3478,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
 
         }
-        
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Click_MST06011(object sender, RoutedEventArgs e)
-        {
-
-        }
         
 
 

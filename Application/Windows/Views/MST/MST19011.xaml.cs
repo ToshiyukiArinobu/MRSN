@@ -19,9 +19,9 @@ namespace KyoeiSystem.Application.Windows.Views
     using WinForms = System.Windows.Forms;
 
     /// <summary>
-    /// 得意先品番一括修正
+    /// 得意先売価一括修正
     /// </summary>
-    public partial class MST20011 : RibbonWindowViewBase
+    public partial class MST19011 : RibbonWindowViewBase
     {
         #region << 列挙型定義 >>
         /// <summary>
@@ -34,7 +34,7 @@ namespace KyoeiSystem.Application.Windows.Views
             得意先コード = 2,
             枝番 = 3,
             得意先名 = 4,
-            得意先品番 = 5,
+            単価 = 5,
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region << 定数定義 >>
 
-        private const string MST20011_GetData = "MST20011_GetData";
-        private const string MST20011_Update = "MST20011_Update";
+        private const string MST19011_GetData = "MST19011_GetData";
+        private const string MST19011_Update = "MST19011_Update";
         //private const string MST20011_GetMasterDataSet = "MST05011_GetMasterDataSet";
 
 
@@ -173,9 +173,9 @@ namespace KyoeiSystem.Application.Windows.Views
         #region<< 得意先品番一括修正 初期処理群 >>
 
         /// <summary>
-        /// 得意先品番一括修正 コンストラクタ
+        /// 得意先売価一括修正 コンストラクタ
         /// </summary>
-        public MST20011()
+        public MST19011()
         {
             InitializeComponent();
             this.DataContext = this;
@@ -285,7 +285,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 //        MasterDataSet = data as DataSet;
                 //    }
                 //    break;
-                case MST20011_GetData :
+                case MST19011_GetData :
                     base.SetFreeForInput();
                     if (tbl.Rows.Count > 0)
                     {
@@ -296,7 +296,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     break;
                     
-                case MST20011_Update:
+                case MST19011_Update:
                     base.SetFreeForInput();
                     
                     MessageBox.Show("更新完了しました。");
@@ -385,7 +385,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 ds.Tables.Add(SearchResult);
 
                 base.SendRequest(
-                    new CommunicationObject(MessageType.UpdateData, MST20011_Update, new object[]{
+                    new CommunicationObject(MessageType.UpdateData, MST19011_Update, new object[]{
                             ds,
                             ccfg.ユーザID,
                         }));
@@ -463,10 +463,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 //    //    return false;
                 //    //}
                 //}
-                bytenum = sjisEnc.GetByteCount(drData["得意先品番"].ToString());
-                if (bytenum > 50)
+                decimal decTanka;
+                if (decimal.TryParse(drData["単価"].ToString(),out decTanka) == false)
                 {
-                    this.ErrorMessage = (i + 1).ToString() + "行目の得意先品番が50byteを超えています。";
+                    this.ErrorMessage = (i + 1).ToString() + "行目の単価が不正です。";
                     return false;
                 }
             }
@@ -495,7 +495,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 //setSearchParams();
 
                 base.SendRequest(
-                    new CommunicationObject(MessageType.RequestData,MST20011_GetData,new object[]
+                    new CommunicationObject(MessageType.RequestData,MST19011_GetData,new object[]
                         {
                             自社品番
                             ,得意先コード
@@ -602,19 +602,25 @@ namespace KyoeiSystem.Application.Windows.Views
                 //ここでグリッドに表示する
 
                 spGridList.Rows.AddNew();
-
-                //自社品番
-                spGridList[iSpdRowIndex, GridColumnsMapping.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
-                //色
-                spGridList[iSpdRowIndex, GridColumnsMapping.色.GetHashCode()].Value = tbl.Rows[row]["色"].ToString();
-                //得意先コード
-                spGridList[iSpdRowIndex, GridColumnsMapping.得意先コード.GetHashCode()].Value = tbl.Rows[row]["得意先コード"].ToString();
-                //枝番
-                spGridList[iSpdRowIndex, GridColumnsMapping.枝番.GetHashCode()].Value = tbl.Rows[row]["枝番"].ToString();
-                //得意先名
-                spGridList[iSpdRowIndex, GridColumnsMapping.得意先名.GetHashCode()].Value = tbl.Rows[row]["得意先名"].ToString();
-                //得意先品番
-                spGridList[iSpdRowIndex, GridColumnsMapping.得意先品番.GetHashCode()].Value = tbl.Rows[row]["得意先品番"].ToString();
+                try
+                {
+                    //自社品番
+                    spGridList[iSpdRowIndex, GridColumnsMapping.自社品番.GetHashCode()].Value = tbl.Rows[row]["自社品番"].ToString();
+                    //色
+                    spGridList[iSpdRowIndex, GridColumnsMapping.色.GetHashCode()].Value = tbl.Rows[row]["色"].ToString();
+                    //得意先コード
+                    spGridList[iSpdRowIndex, GridColumnsMapping.得意先コード.GetHashCode()].Value = tbl.Rows[row]["得意先コード"].ToString();
+                    //枝番
+                    spGridList[iSpdRowIndex, GridColumnsMapping.枝番.GetHashCode()].Value = tbl.Rows[row]["枝番"].ToString();
+                    //得意先名
+                    spGridList[iSpdRowIndex, GridColumnsMapping.得意先名.GetHashCode()].Value = tbl.Rows[row]["得意先名"].ToString();
+                    //単価
+                    spGridList[iSpdRowIndex, GridColumnsMapping.単価.GetHashCode()].Value = decimal.Parse(tbl.Rows[row]["単価"].ToString());
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
 
 
                 //スプレッド行インデックスインクリメント
@@ -719,7 +725,7 @@ namespace KyoeiSystem.Application.Windows.Views
             
             DataTable tbl = CSVData.ReadCsv(selectFile, ",", true, true, true);
             SearchResult = tbl;
-            SearchResult.TableName = MST20011_GetData;
+            SearchResult.TableName = MST19011_GetData;
             SetData(tbl);
             MessageBox.Show("CSVファイルの内容を表に表示しました。");
         }
