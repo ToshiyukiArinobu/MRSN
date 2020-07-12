@@ -2060,6 +2060,22 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
         /// <summary>
+        /// セット品一括修正
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_MST10011(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(MST10011));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
@@ -3469,15 +3485,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.Close();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Click_MST04011(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         
 

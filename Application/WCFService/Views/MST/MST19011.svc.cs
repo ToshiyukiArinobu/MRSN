@@ -32,7 +32,7 @@ namespace KyoeiSystem.Application.WCFService
         #endregion
 
 
-        #region MST20011_TOKHIN_Searchメソッド群
+        #region MST19011_M02BAIKA_Searchメソッド群
 
         /// <summary>
         /// 得意先コードで得意先品番マスタを検索する

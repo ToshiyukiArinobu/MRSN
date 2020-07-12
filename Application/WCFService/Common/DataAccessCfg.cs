@@ -128,6 +128,9 @@ namespace KyoeiSystem.Application.WCFService
             // セット品番マスタ
 			new WCFDataAccessConfig() { Name = "M10_SHIN", ServiceClass = "M10", MethodName = "GetData", Descprition = "セット品番マスタ データ取得" },
             new WCFDataAccessConfig() { Name = "M10_SHIN_Update", ServiceClass = "M10", MethodName = "Update", Descprition = "セット品番マスタ データ更新" },
+            // セット品番マスタ一括更新
+            new WCFDataAccessConfig() { Name = "MST10011_GetData", ServiceClass = "MST10011", MethodName = "GetData", Descprition = "セット品番マスタ一括更新 データ 取得" },
+            new WCFDataAccessConfig() { Name = "MST10011_Update", ServiceClass = "MST10011", MethodName = "Update", Descprition = "セット品番マスタ一括更新 データ　更新" },
 
             // 得意先品番マスタ
 			new WCFDataAccessConfig() { Name = "M10_TOKHIN_GetData", ServiceClass = "M10", MethodName = "GetData_TOKHIN", Descprition = "得意先品番マスタ データ取得(得意先・枝番)" },
