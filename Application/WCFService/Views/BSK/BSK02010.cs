@@ -165,28 +165,30 @@ namespace KyoeiSystem.Application.WCFService
                     while (targetMonth <= lastMonth)
                     {
                         int yearMonth = targetMonth.Year * 100 + targetMonth.Month;
-
-                        #region linq
+                        DateTime dtStartDate = targetMonth;
+                        DateTime dtEndDate = dtStartDate.AddMonths(1).AddDays(-1);
+                        #region linq 通常売上
                         // No.227,228 Mod Start
                         var dtlList =
-                            context.S01_SEIDTL
+                            context.T02_URHD
                                 .Where(w =>
-                                    w.自社コード == tokRow.担当会社コード &&        // No.398 Mod
-                                    w.請求年月 == yearMonth &&
-                                    w.請求先コード == tokRow.取引先コード &&
-                                    w.請求先枝番 == tokRow.枝番)
+                                    w.会社名コード == tokRow.担当会社コード &&        // No.400 Mod
+                                    w.売上日 >= dtStartDate &&
+                                    w.売上日 <= dtEndDate &&
+                                    w.得意先コード == tokRow.取引先コード &&
+                                    w.得意先枝番 == tokRow.枝番)
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
-                                    x => x.自社コード,
+                                    x => x.会社名コード,
                                     y => y.自社コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(x => x.y.DefaultIfEmpty(),
-                                    (a, b) => new { SEIDH = a.x, JIS = b })
-                                .GroupBy(g => new { g.SEIDH.自社コード, g.JIS.自社名, g.SEIDH.請求年月, g.SEIDH.請求先コード, g.SEIDH.請求先枝番 })
+                                    (a, b) => new { URHD = a.x, JIS = b })
+                                .GroupBy(g => new { g.URHD.会社名コード, g.JIS.自社名, yearMonth, g.URHD.得意先コード, g.URHD.得意先枝番 })
                                 .Select(s => new TallyMember
                                 {
-                                    自社コード = s.Key.自社コード,
+                                    自社コード = s.Key.会社名コード,
                                     自社名 = s.Key.自社名,
-                                    金額 = s.Sum(m => m.SEIDH.金額),
+                                    金額 = (long)s.Sum(m => m.URHD.小計),
                                     前年金額 = 0
                                 });
                         // No.227,228 Mod End
@@ -194,28 +196,30 @@ namespace KyoeiSystem.Application.WCFService
                         // No.399 Add Start
                         // 前年
                         int lastYearMonth = targetMonth.AddYears(-1).Year * 100 + targetMonth.Month;
-
+                        DateTime dtlastYearStartDate = targetMonth.AddYears(-1);
+                        DateTime dtlastYearEndDate = dtlastYearStartDate.AddMonths(1).AddDays(-1);
                         // 前年データを取得
                         var dtlLastList =
-                            context.S01_SEIDTL
+                            context.T02_URHD
                                 .Where(w =>
-                                    w.自社コード == tokRow.担当会社コード &&
-                                    w.請求年月 == lastYearMonth &&
-                                    w.請求先コード == tokRow.取引先コード &&
-                                    w.請求先枝番 == tokRow.枝番)
+                                    w.会社名コード == tokRow.担当会社コード &&        // No.400 Mod
+                                    w.売上日 >= dtlastYearStartDate &&
+                                    w.売上日 <= dtlastYearEndDate &&
+                                    w.得意先コード == tokRow.取引先コード &&
+                                    w.得意先枝番 == tokRow.枝番)
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
-                                    x => x.自社コード,
+                                    x => x.会社名コード,
                                     y => y.自社コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(x => x.y.DefaultIfEmpty(),
-                                    (a, b) => new { SEIDH = a.x, JIS = b })
-                                .GroupBy(g => new { g.SEIDH.自社コード, g.JIS.自社名, g.SEIDH.請求年月, g.SEIDH.請求先コード, g.SEIDH.請求先枝番 })
+                                    (a, b) => new { URHD = a.x, JIS = b })
+                                .GroupBy(g => new { g.URHD.会社名コード, g.JIS.自社名, lastYearMonth, g.URHD.得意先コード, g.URHD.得意先枝番 })
                                 .Select(s => new TallyMember
                                 {
-                                    自社コード = s.Key.自社コード,
+                                    自社コード = s.Key.会社名コード,
                                     自社名 = s.Key.自社名,
                                     金額 = 0,
-                                    前年金額 = s.Sum(m => m.SEIDH.金額)
+                                    前年金額 = (long)s.Sum(m => m.URHD.小計),
                                 });
 
                         // 対象月データに前年金額を設定
@@ -232,6 +236,84 @@ namespace KyoeiSystem.Application.WCFService
                         // No.399 Add End
 
                         #endregion
+
+                        #region linq 販社売上
+                        // No.227,228 Mod Start
+                        var dtlListHAN =
+                            context.T02_URHD_HAN
+                                    .Join(context.M70_JIS,
+                                        x => x.販社コード,
+                                        y => y.自社コード,
+                                        (x, y) => new { x, y })
+                                .Where(w =>
+                                    w.x.会社名コード == tokRow.担当会社コード &&        // No.400 Mod
+                                    w.x.売上日 >= dtStartDate &&
+                                    w.x.売上日 <= dtEndDate &&
+                                    w.y.取引先コード == tokRow.取引先コード &&
+                                    w.y.枝番 == tokRow.枝番
+                                    )
+                                .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                    x => x.x.会社名コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(x => x.y.DefaultIfEmpty(),
+                                    (a, b) => new { URHD = a.x, JIS = b })
+                                .GroupBy(g => new { g.URHD.x.会社名コード, g.JIS.自社名, yearMonth, g.URHD.y.取引先コード, g.URHD.y.枝番 })
+                                .Select(s => new TallyMember
+                                {
+                                    自社コード = s.Key.会社名コード,
+                                    自社名 = s.Key.自社名,
+                                    金額 = (long)s.Sum(m => m.URHD.x.小計),
+                                    前年金額 = 0
+                                });
+                        // No.227,228 Mod End
+
+                        // No.399 Add Start
+                        // 前年データを取得
+                        var dtlLastListHAN =
+                            context.T02_URHD_HAN
+                                    .Join(context.M70_JIS,
+                                        x => x.販社コード,
+                                        y => y.自社コード,
+                                        (x, y) => new { x, y })
+                                .Where(w =>
+                                    w.x.会社名コード == tokRow.担当会社コード &&        // No.400 Mod
+                                    w.x.売上日 >= dtlastYearStartDate &&
+                                    w.x.売上日 <= dtlastYearEndDate &&
+                                    w.y.取引先コード == tokRow.取引先コード &&
+                                    w.y.枝番 == tokRow.枝番
+                                    )
+                                .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                    x => x.x.会社名コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(x => x.y.DefaultIfEmpty(),
+                                    (a, b) => new { URHD = a.x, JIS = b })
+                                .GroupBy(g => new { g.URHD.x.会社名コード, g.JIS.自社名, lastYearMonth, g.URHD.y.取引先コード, g.URHD.y.枝番 })
+                                .Select(s => new TallyMember
+                                {
+                                    自社コード = s.Key.会社名コード,
+                                    自社名 = s.Key.自社名,
+                                    金額 = 0,
+                                    前年金額 = (long)s.Sum(m => m.URHD.x.小計),
+                                });
+
+                        // 対象月データに前年金額を設定
+                        var dtlResultHAN = dtlListHAN.ToList()
+                                    .Union(dtlLastListHAN)
+                                    .Select(s => new TallyMember
+                                    {
+                                        自社コード = s.自社コード,
+                                        自社名 = s.自社名,
+                                        金額 = s.金額,
+                                        前年金額 = s.前年金額
+                                    });
+
+                        // No.399 Add End
+
+                        #endregion
+
+                        dtlResult = dtlResult.Concat(dtlResultHAN);
 
                         // 対象月の集計データを格納
                         tokDic.Add(yearMonth, dtlResult.ToList());      // No.399 Mod

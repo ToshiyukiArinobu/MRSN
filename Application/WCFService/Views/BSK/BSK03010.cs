@@ -226,18 +226,25 @@ namespace KyoeiSystem.Application.WCFService
                     while (targetMonth <= lastMonth)
                     {
                         int yearMonth = targetMonth.Year * 100 + targetMonth.Month;
-
-                        #region linq
+                        DateTime dtStartDate = targetMonth;
+                        DateTime dtEndDate = dtStartDate.AddMonths(1).AddDays(-1);
+                        
+                        #region 通常売上
                         // No.227,228 Mod Start
                         var dtlList =
-                            context.S01_SEIDTL
+                            context.T02_URHD
                                 .Where(w =>
-                                    w.自社コード == tokRow.担当会社コード &&        // No.402 Mod
-                                    w.請求年月 == yearMonth &&
-                                    w.請求先コード == tokRow.取引先コード &&
-                                    w.請求先枝番 == tokRow.枝番)
+                                    w.会社名コード == tokRow.担当会社コード &&        // No.400 Mod
+                                    w.売上日 >= dtStartDate &&
+                                    w.売上日 <= dtEndDate &&
+                                    w.得意先コード == tokRow.取引先コード &&
+                                    w.得意先枝番 == tokRow.枝番)
+                                .Join(context.T02_URDTL,
+                                    x => x.伝票番号,
+                                    y => y.伝票番号,
+                                    (x, y) => new { x, y })
                                 .Join(hin,                                          // No.402 Mod
-                                    x => x.品番コード,
+                                    x => x.y.品番コード,
                                     y => y.品番コード,
                                     (x, y) => new { SD = x, HN = y })
                                 .GroupJoin(context.M06_IRO,
@@ -253,19 +260,19 @@ namespace KyoeiSystem.Application.WCFService
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
                                     (e, f) => new { e.x.SD, e.x.HN, e.x.IR, BR = f })
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
-                                    x => x.SD.自社コード,
+                                    x => x.SD.x.会社名コード,
                                     y => y.自社コード,
                                     (x, y) => new { x, y })
                                 .SelectMany(z => z.y.DefaultIfEmpty(),
-                                (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.BR, JIS = h, GroupHinName = g.x.HN.自社品番 == SONOTA_HINBAN ? g.x.SD.自社品名 : null })  // No.389 Mod
+                                (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.BR, JIS = h, GroupHinName = g.x.HN.自社品番 == SONOTA_HINBAN ? g.x.SD.y.自社品名 : null })  // No.389 Mod
                                 .GroupBy(g => new
                                 {
-                                    g.SD.自社コード,
+                                    g.SD.x.会社名コード,
                                     g.JIS.自社名,
-                                    g.SD.請求年月,
-                                    g.SD.請求先コード,
-                                    g.SD.請求先枝番,
-                                    g.SD.品番コード,
+                                    yearMonth,
+                                    g.SD.x.得意先コード,
+                                    g.SD.x.得意先枝番,
+                                    g.SD.y.品番コード,
                                     g.HN.自社品番,
                                     g.HN.自社色,
                                     g.HN.ブランド,                                  // No.402 Mod
@@ -275,7 +282,7 @@ namespace KyoeiSystem.Application.WCFService
                                 })
                                 .Select(s => new TallyMember
                                 {
-                                    自社コード = s.Key.自社コード,        // No.227,228 Add
+                                    自社コード = s.Key.会社名コード,        // No.227,228 Add
                                     自社名 = s.Key.自社名,                // No.227,228 Add
                                     品番コード = s.Key.品番コード,
                                     自社色 = s.Key.自社色,
@@ -284,12 +291,85 @@ namespace KyoeiSystem.Application.WCFService
                                     自社品番 = s.Key.自社品番,
                                     自社品名 = s.Key.GroupHinName,          // No.389 Mod
                                     色名称 = s.Key.色名称,
-                                    金額 = s.Sum(m => m.SD.金額),           // No.402 Mod
-                                    数量 = (int)s.Sum(m => m.SD.数量)       // No.402 Mod
+                                    金額 = (long)s.Sum(m => m.SD.y.金額),           // No.402 Mod
+                                    数量 = (int)s.Sum(m => m.SD.y.数量)       // No.402 Mod
                                 });
                         // No.227,228 Mod End
                         #endregion
 
+                        #region 通常売上
+                        // No.227,228 Mod Start
+                        var dtlListHAN =
+                            context.T02_URHD_HAN
+                                .Join(context.M70_JIS,
+                                    x => x.販社コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .Where(w =>
+                                    w.x.会社名コード == tokRow.担当会社コード &&        // No.400 Mod
+                                    w.x.売上日 >= dtStartDate &&
+                                    w.x.売上日 <= dtEndDate &&
+                                    w.y.取引先コード == tokRow.取引先コード &&
+                                    w.y.枝番 == tokRow.枝番)
+                                .Join(context.T02_URDTL,
+                                    x => x.x.伝票番号,
+                                    y => y.伝票番号,
+                                    (x, y) => new { x, y })
+                                .Join(hin,                                          // No.402 Mod
+                                    x => x.y.品番コード,
+                                    y => y.品番コード,
+                                    (x, y) => new { SD = x, HN = y })
+                                .GroupJoin(context.M06_IRO,
+                                    x => x.HN.自社色,
+                                    y => y.色コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(z => z.y.DefaultIfEmpty(),
+                                    (c, d) => new { c.x.SD, c.x.HN, IR = d })
+                                .GroupJoin(context.M14_BRAND,
+                                    x => x.HN.ブランド,
+                                    y => y.ブランドコード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(z => z.y.DefaultIfEmpty(),
+                                    (e, f) => new { e.x.SD, e.x.HN, e.x.IR, BR = f })
+                                .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                                    x => x.SD.x.x.会社名コード,
+                                    y => y.自社コード,
+                                    (x, y) => new { x, y })
+                                .SelectMany(z => z.y.DefaultIfEmpty(),
+                                (g, h) => new { g.x.SD, g.x.HN, g.x.IR, g.x.BR, JIS = h, GroupHinName = g.x.HN.自社品番 == SONOTA_HINBAN ? g.x.SD.y.自社品名 : null })  // No.389 Mod
+                                .GroupBy(g => new
+                                {
+                                    g.SD.x.x.会社名コード,
+                                    g.JIS.自社名,
+                                    yearMonth,
+                                    g.SD.x.y.取引先コード,
+                                    g.SD.x.y.枝番,
+                                    g.SD.y.品番コード,
+                                    g.HN.自社品番,
+                                    g.HN.自社色,
+                                    g.HN.ブランド,                                  // No.402 Mod
+                                    g.BR.ブランド名,                                // No.402 Mod
+                                    g.GroupHinName,                                 // No.389 Mod
+                                    g.IR.色名称
+                                })
+                                .Select(s => new TallyMember
+                                {
+                                    自社コード = s.Key.会社名コード,        // No.227,228 Add
+                                    自社名 = s.Key.自社名,                // No.227,228 Add
+                                    品番コード = s.Key.品番コード,
+                                    自社色 = s.Key.自社色,
+                                    ブランド = s.Key.ブランド,
+                                    ブランド名 = s.Key.ブランド名,
+                                    自社品番 = s.Key.自社品番,
+                                    自社品名 = s.Key.GroupHinName,          // No.389 Mod
+                                    色名称 = s.Key.色名称,
+                                    金額 = (long)s.Sum(m => m.SD.y.金額),           // No.402 Mod
+                                    数量 = (int)s.Sum(m => m.SD.y.数量)       // No.402 Mod
+                                });
+                        // No.227,228 Mod End
+                        #endregion
+
+                        dtlList = dtlList.Concat(dtlListHAN);
                         // 対象月の集計データを格納
                         tokDic.Add(yearMonth, dtlList.ToList());
 
