@@ -462,6 +462,8 @@ namespace Hakobou.Data.ZIK {
             
             private global::System.Data.DataColumn column自社品番;
             
+            private global::System.Data.DataColumn column自社色;
+            
             private global::System.Data.DataColumn column自社品名;
             
             private global::System.Data.DataColumn column倉庫名;
@@ -535,6 +537,14 @@ namespace Hakobou.Data.ZIK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 自社色Column {
+                get {
+                    return this.column自社色;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 自社品名Column {
                 get {
                     return this.column自社品名;
@@ -594,13 +604,14 @@ namespace Hakobou.Data.ZIK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ZIK01010_在庫締集計表Row AddZIK01010_在庫締集計表Row(int 品番コード, int 倉庫コード, System.DateTime 賞味期限, string 自社品番, string 自社品名, string 倉庫名, int 在庫数量) {
+            public ZIK01010_在庫締集計表Row AddZIK01010_在庫締集計表Row(int 品番コード, int 倉庫コード, System.DateTime 賞味期限, string 自社品番, string 自社色, string 自社品名, string 倉庫名, int 在庫数量) {
                 ZIK01010_在庫締集計表Row rowZIK01010_在庫締集計表Row = ((ZIK01010_在庫締集計表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         品番コード,
                         倉庫コード,
                         賞味期限,
                         自社品番,
+                        自社色,
                         自社品名,
                         倉庫名,
                         在庫数量};
@@ -630,6 +641,7 @@ namespace Hakobou.Data.ZIK {
                 this.column倉庫コード = base.Columns["倉庫コード"];
                 this.column賞味期限 = base.Columns["賞味期限"];
                 this.column自社品番 = base.Columns["自社品番"];
+                this.column自社色 = base.Columns["自社色"];
                 this.column自社品名 = base.Columns["自社品名"];
                 this.column倉庫名 = base.Columns["倉庫名"];
                 this.column在庫数量 = base.Columns["在庫数量"];
@@ -646,6 +658,8 @@ namespace Hakobou.Data.ZIK {
                 base.Columns.Add(this.column賞味期限);
                 this.column自社品番 = new global::System.Data.DataColumn("自社品番", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column自社品番);
+                this.column自社色 = new global::System.Data.DataColumn("自社色", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column自社色);
                 this.column自社品名 = new global::System.Data.DataColumn("自社品名", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column自社品名);
                 this.column倉庫名 = new global::System.Data.DataColumn("倉庫名", typeof(string), null, global::System.Data.MappingType.Element);
@@ -2865,6 +2879,22 @@ namespace Hakobou.Data.ZIK {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 自社色 {
+                get {
+                    try {
+                        return ((string)(this[this.tableZIK01010_在庫締集計表.自社色Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ZIK01010_在庫締集計表\' にある列 \'自社色\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableZIK01010_在庫締集計表.自社色Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string 自社品名 {
                 get {
                     try {
@@ -2957,6 +2987,18 @@ namespace Hakobou.Data.ZIK {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set自社品番Null() {
                 this[this.tableZIK01010_在庫締集計表.自社品番Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is自社色Null() {
+                return this.IsNull(this.tableZIK01010_在庫締集計表.自社色Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set自社色Null() {
+                this[this.tableZIK01010_在庫締集計表.自社色Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -474,7 +474,6 @@
     <Resource Include="Views\ZIK\ZIK07010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <None Include="Views\ZIK\ZIK01010G1.sgxml" />
     <Resource Include="Views\DLY\DLY07010G1.sgxml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

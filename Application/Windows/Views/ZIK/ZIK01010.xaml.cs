@@ -1,4 +1,4 @@
-﻿using GrapeCity.Windows.SpreadGrid;
+﻿using KyoeiSystem.Framework.Common;
 using KyoeiSystem.Framework.Core;
 using KyoeiSystem.Framework.Windows.ViewBase;
 using System;
@@ -14,6 +14,7 @@ namespace KyoeiSystem.Application.Windows.Views
 {
     using FwReportPreview = KyoeiSystem.Framework.Reports.Preview.ReportPreview;
     using FwPreview = KyoeiSystem.Framework.Reports.Preview;
+    using WinForms = System.Windows.Forms;
 
     /// <summary>
     /// 月次在庫集計 フォームクラス
@@ -51,7 +52,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string SUMMARY = "ZIK01010_InventorySummary";
         /// <summary>通信キー　帳票出力データの取得</summary>
         private const string GET_PRINT_DATA = "ZIK01010_GetPrintData";
-
+        private const string GET_CSV_DATA = "ZIK01010_GetCSVData";
+        
         /// <summary>帳票定義ファイル 格納パス</summary>
         private const string ReportTemplateFileName = @"Files\ZIK\ZIK01010.rpt";
 
@@ -186,6 +188,12 @@ namespace KyoeiSystem.Application.Windows.Views
                         // 帳票作成
                         DispPreviw(tbl);
                         break;
+                    case GET_CSV_DATA:
+                        base.SetFreeForInput();
+
+                        OutputCsv(tbl);
+                        
+                        break;
 
                 }
 
@@ -210,9 +218,68 @@ namespace KyoeiSystem.Application.Windows.Views
         }
 
         #endregion
+        #region ＣＳＶデータ出力
+        /// <summary>
+        /// ＣＳＶデータの出力をおこなう
+        /// </summary>
+        /// <param name="tbl"></param>
+        private void OutputCsv(DataTable tbl)
+        {
+            if (tbl == null || tbl.Rows.Count == 0)
+            {
+                MessageBox.Show("出力対象のデータがありません。");
+                return;
+            }
 
+            WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
+            // はじめに表示されるフォルダを指定する
+            sfd.InitialDirectory = @"C:\";
+            // [ファイルの種類]に表示される選択肢を指定する
+            sfd.Filter = "CSVファイル(*.csv)|*.csv|すべてのファイル(*.*)|*.*";
+            // 「CSVファイル」が選択されているようにする
+            sfd.FilterIndex = 1;
+            // タイトルを設定する
+            sfd.Title = "保存先のファイルを選択してください";
+            // ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            sfd.RestoreDirectory = true;
+            if (sfd.ShowDialog() == WinForms.DialogResult.OK)
+            {
+                // CSVファイル出力
+                CSVData.SaveCSV(tbl, sfd.FileName, true, true, false, ',', true);
+                MessageBox.Show("CSVファイルの出力が完了しました。");
+            }
+
+        }
+        #endregion
         #region << リボン >>
+        #region F4 CSV出力
+        /// <summary>
+        /// F4　リボン　CSV出力
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF4Key(object sender, KeyEventArgs e)
+        {
+            int? 倉庫コード = null;
 
+            if (string.IsNullOrEmpty(Warehouse.Text1) == false)
+            {
+                倉庫コード = int.Parse(Warehouse.Text1);
+            }
+
+            // 印刷対象データ取得
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    GET_CSV_DATA,
+                    CreateYearMonth.Text,
+                    倉庫コード));
+
+            base.SetBusyForInput();
+
+        }
+        #endregion
+        
         #region F8 印刷
         /// <summary>
         /// F8　リボン　印刷
@@ -221,12 +288,20 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         public override void OnF8Key(object sender, KeyEventArgs e)
         {
+            int? 倉庫コード = null;
+
+            if (string.IsNullOrEmpty(Warehouse.Text1) == false)
+            {
+                倉庫コード = int.Parse(Warehouse.Text1);
+            }
+
             // 印刷対象データ取得
             base.SendRequest(
                 new CommunicationObject(
                     MessageType.RequestData,
                     GET_PRINT_DATA,
-                    CreateYearMonth.Text));
+                    CreateYearMonth.Text,
+                    倉庫コード));
 
             base.SetBusyForInput();
 

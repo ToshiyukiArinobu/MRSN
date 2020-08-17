@@ -38,11 +38,13 @@ namespace KyoeiSystem.Application.WCFService
         {
             public int 品番コード { get; set; }
             public int 倉庫コード { get; set; }
-            public DateTime? 賞味期限 { get; set; }
             public string 自社品番 { get; set; }
+            public string 自社色 { get; set; }
+            public string 自社色名 { get; set; }
             public string 自社品名 { get; set; }
             public string 倉庫名 { get; set; }
             public int 在庫数量 { get; set; }
+            public DateTime? 賞味期限 { get; set; }
         }
         #endregion
 
@@ -258,7 +260,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="yearMonth"></param>
         /// <returns></returns>
-        public List<PrintDataMember> GetPrintData(string yearMonth)
+        public List<PrintDataMember> GetPrintData(string yearMonth,int? p倉庫コード)
         {
             int iYearMonth = int.Parse(yearMonth.Replace("/", ""));
 
@@ -278,18 +280,27 @@ namespace KyoeiSystem.Application.WCFService
                             (x, y) => new { x, y })
                         .SelectMany(z => z.y.DefaultIfEmpty(),
                             (c, d) => new { c.x.STOK, c.x.SOUK, HIN = d })
+                        .GroupJoin(context.M06_IRO,
+                            x => x.HIN.自社色,
+                            y => y.色コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(z => z.y.DefaultIfEmpty(),
+                            (c, d) => new { c.x.STOK, c.x.SOUK,c.x.HIN, IRO = d })
+                        .Where(w => p倉庫コード == null || w.SOUK.倉庫コード == p倉庫コード)
                         .ToList()
                         .Select(s => new PrintDataMember
                         {
                             品番コード = s.STOK.品番コード,
                             倉庫コード = s.STOK.倉庫コード,
-                            賞味期限 = (s.STOK.賞味期限 != AppCommon.GetMaxDate() ? s.STOK.賞味期限 : (DateTime?)null),
                             // No-117 Mod Start
                             自社品番 = s.HIN == null ? string.Empty : s.HIN.自社品番,
+                            自社色 = s.HIN == null ? string.Empty : s.HIN.自社色,
+                            自社色名 = s.IRO == null ? string.Empty : s.IRO.色名称,
                             自社品名 = s.HIN == null ? string.Empty : s.HIN.自社品名,
                             倉庫名 = s.SOUK == null ? string.Empty : s.SOUK.倉庫名,
-                            在庫数量 = s.STOK == null ? 0 : s.STOK.在庫数量
+                            在庫数量 = s.STOK == null ? 0 : s.STOK.在庫数量,
                             // No-117 Mod End
+                            賞味期限 = (s.STOK.賞味期限 != AppCommon.GetMaxDate() ? s.STOK.賞味期限 : (DateTime?)null),
                         })
                         .OrderBy(o => o.品番コード)
                         .ThenBy(t => t.倉庫コード)

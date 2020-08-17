@@ -484,6 +484,7 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "ZIK01010_IsCheckSummary", ServiceClass = "ZIK01010", MethodName = "IsCheckSummary", Descprition = "締集計作成済みかを取得する" },
             new WCFDataAccessConfig() { Name = "ZIK01010_InventorySummary", ServiceClass = "ZIK01010", MethodName = "InventorySummary", Descprition = "在庫締集計処理" },
             new WCFDataAccessConfig() { Name = "ZIK01010_GetPrintData", ServiceClass = "ZIK01010", MethodName = "GetPrintData", Descprition = "在庫締帳票データ取得" },
+            new WCFDataAccessConfig() { Name = "ZIK01010_GetCSVData", ServiceClass = "ZIK01010", MethodName = "GetPrintData", Descprition = "在庫締帳票データ取得" },
 
             // 場所別棚卸在庫入力
             new WCFDataAccessConfig() { Name = "ZIK02010_IsInitialDelProcess", ServiceClass = "ZIK02010", MethodName = "IsInitialDelProcess", Descprition = "棚卸在庫画面起動時の削除処理" },
