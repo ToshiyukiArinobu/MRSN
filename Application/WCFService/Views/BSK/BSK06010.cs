@@ -59,6 +59,16 @@ namespace KyoeiSystem.Application.WCFService
         #endregion
 
         #region << 定数定義 >>
+
+        /// <summary>新製品ヘッダ テーブル名</summary>
+        private const string M10_HEADER_TABLE_NAME = "M10_HD";
+        /// <summary>新製品構成品 テーブル名</summary>
+        private const string M10_DETAIL_TABLE_NAME = "M10_DTL";
+        /// <summary>新製品資材 テーブル名</summary>
+        private const string M10_ZHIZAI_TABLE_NAME = "M10_SHIZAI";
+        /// <summary>新製品そのた テーブル名</summary>
+        private const string M10_ETC_TABLE_NAME = "M10_ETC";
+
         #endregion
 
         Common com = new Common();
@@ -222,5 +232,226 @@ namespace KyoeiSystem.Application.WCFService
                 return BaikaList;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pSetId"></param>
+        /// <returns></returns>
+        public DataSet GetNewShin(int pSetId)
+        {
+            DataSet dsM10NewShin = new DataSet();
+
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+                List<M10_NEWSHINHD> hdList = context.M10_NEWSHINHD.Where(c => c.SETID == pSetId).ToList();
+                List<M10_NEWSHINDTL> dtlList = context.M10_NEWSHINDTL.Where(c => c.SETID == pSetId).ToList();
+                List<M10_NEWSHIZAI> shizaiList = context.M10_NEWSHIZAI.Where(c => c.SETID == pSetId).ToList();
+                List<M10_NEWETC> etcList = context.M10_NEWETC.Where(c => c.SETID == pSetId).ToList();
+
+
+                // Datatable変換
+                DataTable dthd = KESSVCEntry.ConvertListToDataTable(hdList);
+                DataTable dtdtl = KESSVCEntry.ConvertListToDataTable(dtlList);
+                DataTable dtshizai = KESSVCEntry.ConvertListToDataTable(shizaiList);
+                DataTable dtetc = KESSVCEntry.ConvertListToDataTable(etcList);
+
+                dthd.TableName = M10_HEADER_TABLE_NAME;
+                dsM10NewShin.Tables.Add(dthd);
+
+                dtdtl.TableName = M10_DETAIL_TABLE_NAME;
+                dsM10NewShin.Tables.Add(dtdtl);
+
+                dtshizai.TableName = M10_ZHIZAI_TABLE_NAME;
+                dsM10NewShin.Tables.Add(dtshizai);
+
+                dtetc.TableName = M10_ETC_TABLE_NAME;
+                dsM10NewShin.Tables.Add(dtetc);
+
+                return dsM10NewShin;
+            }
+        }
+
+        #region 情報登録
+        /// <summary>
+        /// 情報登録・更新
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="loginUserId"></param>
+        public bool Update(bool pInsertFlg, int pSETID, string pセット品番, string pセット品名, int p食品割増率, int p得意先販売価格, int p販社販売価格,DataSet pds, int loginUserId)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+
+                if (pInsertFlg)
+                {
+                    // 登録データなし＝新規登録
+                    M10_NEWSHINHD regist = new M10_NEWSHINHD();
+
+                    regist.セット品番 = pセット品番;
+                    regist.セット品名 = pセット品名;
+                    regist.食品割増率 = p食品割増率;
+                    regist.得意先販売価格 = p得意先販売価格;
+                    regist.販社販売価格 = p販社販売価格;
+                    regist.登録者 = loginUserId;
+                    regist.登録日時 = DateTime.Now;
+                    regist.最終更新者 = loginUserId;
+                    regist.最終更新日時 = DateTime.Now;
+
+                    context.M10_NEWSHINHD.ApplyChanges(regist);
+                    //SETIDがIdentityのため確定
+                    context.SaveChanges();
+
+                    var iSETID = context.M10_NEWSHINHD.Max(m => m.SETID);
+
+                    InsertSubTable(context, iSETID, pds, loginUserId);
+                    
+                }
+                else
+                {
+                    //構成品・資材・その他のテーブルはDelete-Insert
+                    var delDtl = context.M10_NEWSHINDTL.Where(w => w.SETID == pSETID);
+                    foreach (var dtl in delDtl)
+                    {
+                        context.M10_NEWSHINDTL.DeleteObject(dtl);
+                    }
+                    var delShizai= context.M10_NEWSHIZAI.Where(w => w.SETID == pSETID);
+                    foreach (var dtl in delShizai)
+                    {
+                        context.M10_NEWSHIZAI.DeleteObject(dtl);
+                    }
+                    var delETC = context.M10_NEWETC.Where(w => w.SETID == pSETID);
+                    foreach (var dtl in delETC)
+                    {
+                        context.M10_NEWETC.DeleteObject(dtl);
+                    }
+                    context.SaveChanges();
+
+                    // データ更新
+                    // 対象データ取得
+                    var SHIN = context.M10_NEWSHINHD.Where(w => w.SETID == pSETID).FirstOrDefault();
+
+                    SHIN.セット品番 = pセット品番;
+                    SHIN.セット品名 = pセット品名;
+                    SHIN.食品割増率 = p食品割増率;
+                    SHIN.得意先販売価格 = p得意先販売価格;
+                    SHIN.販社販売価格 = p販社販売価格;
+                    SHIN.最終更新者 = loginUserId;
+                    SHIN.最終更新日時 = DateTime.Now;
+
+                    SHIN.AcceptChanges();
+
+                    InsertSubTable(context, pSETID, pds, loginUserId);
+                }
+
+                context.SaveChanges();
+
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// サブテーブル挿入
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="piSetID"></param>
+        /// <param name="pds"></param>
+        /// <param name="loginUserId"></param>
+        private void InsertSubTable(TRAC3Entities context, int piSetID, DataSet pds, int loginUserId)
+        {
+            DataTable dtDtl = pds.Tables[0];
+
+            for (int i = 0; dtDtl.Rows.Count > i; i++)
+            {
+                // 登録データなし＝新規登録
+                M10_NEWSHINDTL registDtl = new M10_NEWSHINDTL();
+
+                DataRow dr = dtDtl.Rows[i];
+
+                registDtl.SETID = piSetID;
+                registDtl.自社品番 = dr["自社品番"].ToString();
+                registDtl.色コード = dr["色コード"].ToString();
+                registDtl.自社品名 = dr["自社品名"].ToString();
+                registDtl.原価 = dr["原価"] == DBNull.Value ? 0 : (Decimal)dr["原価"];
+                registDtl.必要数量 = dr["数量"] == DBNull.Value ? 0 : (Decimal)dr["数量"];
+                registDtl.仕入先名 = dr["仕入先"].ToString();
+                registDtl.構成行 = i + 1;
+                registDtl.登録者 = loginUserId;
+                registDtl.登録日時 = DateTime.Now;
+                registDtl.最終更新者 = loginUserId;
+                registDtl.最終更新日時 = DateTime.Now;
+
+                context.M10_NEWSHINDTL.ApplyChanges(registDtl);
+            }
+
+            DataTable dtShizai = pds.Tables[1];
+
+            for (int i = 0; dtShizai.Rows.Count > i; i++)
+            {
+                // 登録データなし＝新規登録
+                M10_NEWSHIZAI registShizai = new M10_NEWSHIZAI();
+
+                DataRow dr = dtShizai.Rows[i];
+
+                registShizai.SETID = piSetID;
+                registShizai.資材名 = dr["資材"].ToString();
+                registShizai.自社品番 = dr["自社品番"].ToString();
+                registShizai.自社品名 = dr["自社品名"].ToString();
+                registShizai.原価 = dr["原価"] == DBNull.Value ? 0 : (Decimal)dr["原価"];
+                registShizai.入数 = dr["数量"] == DBNull.Value ? 0 : (Decimal)dr["数量"];
+                registShizai.仕入先名 = dr["仕入先"].ToString();
+                registShizai.登録者 = loginUserId;
+                registShizai.登録日時 = DateTime.Now;
+                registShizai.最終更新者 = loginUserId;
+                registShizai.最終更新日時 = DateTime.Now;
+
+                context.M10_NEWSHIZAI.ApplyChanges(registShizai);
+            }
+
+            DataTable dtETC = pds.Tables[2];
+
+            for (int i = 0; dtETC.Rows.Count > i; i++)
+            {
+                // 登録データなし＝新規登録
+                M10_NEWETC registETC = new M10_NEWETC();
+
+                DataRow dr = dtETC.Rows[i];
+
+                registETC.SETID = piSetID;
+                registETC.内容 = dr["内容"].ToString();
+                registETC.原価 = dr["原価"] == DBNull.Value ? 0 : (Decimal)dr["原価"];
+                registETC.入数 = dr["数量"] == DBNull.Value ? 0 : (Decimal)dr["数量"];
+                registETC.登録者 = loginUserId;
+                registETC.登録日時 = DateTime.Now;
+                registETC.最終更新者 = loginUserId;
+                registETC.最終更新日時 = DateTime.Now;
+
+                context.M10_NEWETC.ApplyChanges(registETC);
+            }
+        }
+        #endregion
+        #region 新製品検索画面
+        /// <summary>
+        /// 新製品検索画面用データ取得
+        /// </summary>
+        /// <returns></returns>
+        public List<M10_NEWSHINHD> GetSearchData()
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                // 品番情報取得
+                var result = (from x in context.M10_NEWSHINHD
+                             select x);
+
+
+                return result.ToList();
+            }
+        }
+        #endregion
     }
 }

@@ -46,13 +46,11 @@ namespace KyoeiSystem.Application.Windows.Views
         #endregion
 
         #region バインディングデータ
-
         /// <summary>
         /// 商品原価計算表クラス
         /// </summary>  
         public class CostingSheetMember : INotifyPropertyChanged
         {
-
             private int _品番コード;
             public int 品番コード { get { return _品番コード; } set { _品番コード = value; NotifyPropertyChanged(); } }
             private string _自社品番;
@@ -189,6 +187,9 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        private int _iSetID;
+        public int iSetID { get { return _iSetID; } set { _iSetID = value; NotifyPropertyChanged(); } }
+
         #region フッターバインディングデータ
 
         private decimal? _販社販売価格;
@@ -238,6 +239,14 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>仕入売価情報取得</summary>
         private const string GetShireBaika = "BSK06010_GetBaikaData";
+
+        /// <summary>更新登録処理 </summary>
+        private const string UpdateData = "BSK06010_UpdateData";
+        /// <summary>印刷用更新登録処理</summary>
+        private const string UpdatePrint = "BSK06010_UpdatePrint";
+        
+        /// <summary>新製品情報取得 </summary>
+        private const string GetNewShinDataList = "BSK06010_GetNewSHinProduct";
 
         /// <summary>帳票定義体ファイルパス</summary>
         private const string ReportFileName = @"Files\BSK\BSK06010.rpt";
@@ -404,8 +413,6 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             sp構成品明細.Focus();
 
-                            return;
-
                             // No369 Add End
                         }
                         else if (tbl.Rows.Count > 1)
@@ -446,6 +453,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             sendSearchForShin(drow["品番コード"].ToString());
                         }
+
+                        MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
 
                         #endregion
                         break;
@@ -720,7 +729,26 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         #endregion
                         break;
-
+                    case UpdateData:
+                        #region 登録・更新完了
+                        if ((bool)data)
+                        {
+                            MessageBox.Show("登録が完了しました。");
+                            ScreenClear();
+                        }
+                        #endregion
+                        break;
+                    case UpdatePrint:
+                        #region 登録・更新完了
+                        ScreenClear();
+                        #endregion
+                        break;
+                    case GetNewShinDataList:
+                        if (data is DataSet)
+                        {
+                            SetData((DataSet)data);
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -919,6 +947,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         自社色情報 = myhin.SelectedRowData["自社色名"].ToString();
                         // セット品データを取得
                         sendSearchForShin(myhin.SelectedRowData["品番コード"].ToString());
+                        MaintenanceMode = AppConst.MAINTENANCEMODE_ADD;
                     }
 
                     #endregion
@@ -939,6 +968,171 @@ namespace KyoeiSystem.Application.Windows.Views
         }
         #endregion
 
+        #region F2 既存検索
+        /// <summary>
+        /// F2　リボン　既存検索
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF2Key(object sender, KeyEventArgs e)
+        {
+            try
+            {
+
+                object elmnt = FocusManager.GetFocusedElement(this);
+                var uctext = ViewBaseCommon.FindVisualParent<UcLabelTwinTextBox>(elmnt as UIElement);
+
+                if (uctext != null && uctext.DataAccessName == "M09_MYHIN")
+                {
+                    #region テキストボックスファンクションイベント
+
+                    SCHM10_NEWSHIN myhin = new SCHM10_NEWSHIN();
+                    myhin.txtCode.Text = uctext.Text1;
+                    myhin.TwinTextBox = new UcLabelTwinTextBox();
+                    if (myhin.ShowDialog(this) == true)
+                    {
+                        SetHinban.Text1 = myhin.SelectedRowData["セット品番"].ToString();
+                        SetHinban.Text2 = myhin.SelectedRowData["セット品名"].ToString();
+                        // 新製品データを取得
+                        iSetID = (int)myhin.SelectedRowData["SETID"];
+                        MaintenanceMode = AppConst.MAINTENANCEMODE_EDIT;
+                        ChangeKeyItemChangeable(false);
+
+                        // セット品の構成品を取得
+                        this.SendRequest(
+                            new CommunicationObject(
+                                MessageType.RequestData,
+                                GetNewShinDataList,
+                                new object[] {
+                            iSetID
+                        }));
+                    }
+
+                    #endregion
+                }
+                else
+                {
+                    ViewBaseCommon.CallMasterSearch(this, this.MasterMaintenanceWindowList);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                appLog.Error("検索画面起動エラー", ex);
+                this.ErrorMessage = "システムエラーです。サポートへご連絡ください。";
+
+            }
+
+        }
+        #endregion
+
+        #region F9 登録
+        /// <summary>
+        /// F9　リボン　登録
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF9Key(object sender, KeyEventArgs e)
+        {
+
+            // 金額再計算
+            summaryCalculation();
+
+            // 入力チェック
+            if (string.IsNullOrEmpty(SetHinban.Text1))
+            {
+                this.ErrorMessage = "セット品番を入力してください。";
+                return;
+            }
+
+            Update(false);
+
+        }
+        /// <summary>
+        /// 更新処理を行う
+        /// </summary>
+        private void Update(bool pbPrintFlg)
+        {
+
+            try
+            {
+                if (!base.CheckAllValidation())
+                {
+                    string msg = "入力内容に誤りがあります。";
+                    this.ErrorMessage = msg;
+                    MessageBox.Show(msg);
+
+                    SetFocusToTopControl();
+                    return;
+
+                }
+
+                if (pbPrintFlg == false)
+                {
+                    // 確認メッセージ表示
+                    var yesno = MessageBox.Show(
+                                    "入力内容を登録しますか？",
+                                    "登録確認",
+                                    MessageBoxButton.YesNo,
+                                    MessageBoxImage.Question,
+                                    MessageBoxResult.Yes);
+                    if (yesno == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+                DataSet dsUpdate = CreateDataSet();
+
+                string message = pbPrintFlg ? UpdatePrint : UpdateData;
+
+
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.UpdateData,
+                        message,
+                        new object[] {
+                            MaintenanceMode == AppConst.MAINTENANCEMODE_ADD,
+                            iSetID,
+                            SetHinban.Text1,
+                            SetHinban.Text2,
+                            食品割増率,
+                            販社販売価格 == null ? 0 : (int)販社販売価格,
+                            得意先販売価格 == null ? 0 : (int)得意先販売価格,
+                            dsUpdate,
+                            ccfg.ユーザID
+                        }));
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        /// <summary>
+        /// DataSet作成
+        /// </summary>
+        /// <returns></returns>
+        private DataSet CreateDataSet()
+        {
+            DataSet ds = new DataSet();
+
+            DataTable tblDtl = new DataTable();
+            AppCommon.ConvertToDataTable(構成品明細リスト,tblDtl);
+
+            DataTable tblShizai = new DataTable();
+            AppCommon.ConvertToDataTable(資材明細リスト, tblShizai);
+
+            DataTable tblETC = new DataTable();
+            AppCommon.ConvertToDataTable(その他明細リスト, tblETC);
+
+            ds.Tables.Add(tblDtl);
+            ds.Tables.Add(tblShizai);
+            ds.Tables.Add(tblETC);
+
+            return ds;
+        }
+        #endregion
         #region F8 印刷
         /// <summary>
         /// F8　リボン　印刷
@@ -971,6 +1165,9 @@ namespace KyoeiSystem.Application.Windows.Views
 
             var 製品原価データ = new DataTable();
             AppCommon.ConvertToDataTable(製品原価リスト, 製品原価データ);
+
+            Update(true);
+
 
             outputReport(製品原価データ);
 
@@ -1037,6 +1234,7 @@ namespace KyoeiSystem.Application.Windows.Views
             txb得意先販売価格.Text = string.Empty;
 
             this.食品割増率 = 0;
+            MaintenanceMode = null;
 
             ResetAllValidation();
             ChangeKeyItemChangeable(true);
@@ -1260,6 +1458,91 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        /// <summary>
+        /// 新製品情報セット
+        /// </summary>
+        /// <param name="pDataSet"></param>
+        public void SetData(DataSet pDataSet)
+        {
+            DataTable dthd = pDataSet.Tables["M10_HD"];
+            DataTable dtdtl = pDataSet.Tables["M10_DTL"];
+            DataTable dtshizai = pDataSet.Tables["M10_SHIZAI"];
+            DataTable dtetc = pDataSet.Tables["M10_ETC"];
+
+            if (dthd.Rows.Count > 0)
+            {
+                食品割増率 = (int)dthd.Rows[0]["食品割増率"];
+                販社販売価格 = (int)dthd.Rows[0]["販社販売価格"];
+                得意先販売価格 = (int)dthd.Rows[0]["得意先販売価格"];
+            }
+
+            if(dtdtl != null)
+            {
+                構成品明細リスト = new List<CostingSheetMember>();
+                //構成品リスト
+                foreach (DataRow dr in dtdtl.Rows)
+                {
+                    CostingSheetMember mem = new CostingSheetMember();
+
+                    mem.自社品番 = dr["自社品番"].ToString();
+                    mem.自社品名 = dr["自社品名"].ToString();
+                    mem.色コード = dr["色コード"].ToString();
+
+                    if (string.IsNullOrEmpty(mem.色コード) == false)
+                    {
+                        //色コードが入っていたら色名称を取得
+                    }
+
+                    mem.原価 = (decimal)dr["原価"];
+                    mem.数量 = (decimal)dr["必要数量"];
+                    mem.仕入先 = dr["仕入先名"].ToString();
+                    mem.金額 = (mem.原価 == 0 || mem.数量 == 0) ? 0 : (decimal)(Math.Ceiling((double)(mem.原価 * mem.数量 * 10)) / 10);
+                    mem.明細区分 = (int)明細区分.構成品;
+
+                    構成品明細リスト.Add(mem);
+                }
+                構成品明細リスト = RemakeCostingList(構成品明細リスト);
+            }
+            if (dtshizai != null)
+            {
+                資材明細リスト = new List<CostingSheetMember>();
+                //資材リスト
+                foreach (DataRow dr in dtshizai.Rows)
+                {
+                    CostingSheetMember mem = new CostingSheetMember();
+                    mem.資材 = dr["資材名"].ToString();
+                    mem.自社品番 = dr["自社品番"].ToString();
+                    mem.自社品名 = dr["自社品名"].ToString();
+                    mem.原価 = (decimal)dr["原価"];
+                    mem.数量 = (decimal)dr["入数"];
+                    mem.仕入先 = dr["仕入先名"].ToString();
+                    mem.金額 = (mem.原価 == 0 || mem.数量 == 0) ? 0 : (decimal)(Math.Ceiling((double)(mem.原価 / mem.数量 * 10)) / 10);
+                    mem.明細区分 = (int)明細区分.資材;
+                    資材明細リスト.Add(mem);
+                }
+                資材明細リスト = RemakeCostingList(資材明細リスト);
+            }
+            if (dtetc != null)
+            {
+                その他明細リスト = new List<CostingSheetMember>();
+                //その他リスト
+                foreach (DataRow dr in dtetc.Rows)
+                {
+                    CostingSheetMember mem = new CostingSheetMember();
+                    mem.内容 = dr["内容"].ToString();
+                    mem.原価 = (decimal)dr["原価"];
+                    mem.数量 = (decimal)dr["入数"];
+                    mem.金額 = (mem.原価 == 0 || mem.数量 == 0) ? 0 : (decimal)(Math.Ceiling((double)(mem.原価 / mem.数量 * 10)) / 10);
+                    mem.明細区分 = (int)明細区分.その他;
+                    その他明細リスト.Add(mem);
+                }
+                その他明細リスト = RemakeCostingList(その他明細リスト);
+            }
+
+            //各種金額再計算
+            summaryCalculation();
+        }
+
         #endregion
 
         #region << ヘッダーイベント処理 >>
@@ -1275,7 +1558,7 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 try
                 {
-                    if (string.IsNullOrEmpty(SetHinban.Text1)) return;
+                    if (string.IsNullOrEmpty(SetHinban.Text1) || !string.IsNullOrEmpty(SetHinban.Text2)) return;
 
                     // 自社品番からデータを参照し、取得内容をグリッドに設定
                     base.SendRequest(

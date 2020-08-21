@@ -12,6 +12,10 @@
           <EntitySet Name="M04_BAIKA" EntityType="TRAC3Model.Store.M04_BAIKA" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="M06_IRO" EntityType="TRAC3Model.Store.M06_IRO" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="M09_HIN" EntityType="TRAC3Model.Store.M09_HIN" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="M10_NEWETC" EntityType="TRAC3Model.Store.M10_NEWETC" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="M10_NEWSHINDTL" EntityType="TRAC3Model.Store.M10_NEWSHINDTL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="M10_NEWSHINHD" EntityType="TRAC3Model.Store.M10_NEWSHINHD" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="M10_NEWSHIZAI" EntityType="TRAC3Model.Store.M10_NEWSHIZAI" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="M10_SHIN" EntityType="TRAC3Model.Store.M10_SHIN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="M10_TOKHIN" EntityType="TRAC3Model.Store.M10_TOKHIN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="M11_TEK" EntityType="TRAC3Model.Store.M11_TEK" store:Type="Tables" Schema="dbo" />
@@ -403,6 +407,70 @@
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
         </EntityType>
+        <EntityType Name="M10_NEWETC">
+          <Key>
+            <PropertyRef Name="SETID" />
+            <PropertyRef Name="内容" />
+          </Key>
+          <Property Name="SETID" Type="int" Nullable="false" />
+          <Property Name="内容" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="原価" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="入数" Type="decimal" Nullable="false" Precision="7" />
+          <Property Name="登録者" Type="int" Nullable="false" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="最終更新者" Type="int" Nullable="false" />
+          <Property Name="最終更新日時" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M10_NEWSHINDTL">
+          <Key>
+            <PropertyRef Name="SETID" />
+            <PropertyRef Name="構成行" />
+          </Key>
+          <Property Name="SETID" Type="int" Nullable="false" />
+          <Property Name="構成行" Type="int" Nullable="false" />
+          <Property Name="自社品番" Type="varchar" MaxLength="1" />
+          <Property Name="色コード" Type="varchar" MaxLength="1" />
+          <Property Name="自社品名" Type="varchar" MaxLength="1" />
+          <Property Name="原価" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="必要数量" Type="decimal" Nullable="false" Precision="7" />
+          <Property Name="仕入先名" Type="varchar" MaxLength="1" />
+          <Property Name="登録者" Type="int" Nullable="false" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="最終更新者" Type="int" Nullable="false" />
+          <Property Name="最終更新日時" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M10_NEWSHINHD">
+          <Key>
+            <PropertyRef Name="SETID" />
+          </Key>
+          <Property Name="SETID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="セット品番" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="セット品名" Type="varchar" MaxLength="1" />
+          <Property Name="食品割増率" Type="int" Nullable="false" />
+          <Property Name="販社販売価格" Type="int" Nullable="false" />
+          <Property Name="得意先販売価格" Type="int" Nullable="false" />
+          <Property Name="登録者" Type="int" Nullable="false" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="最終更新者" Type="int" Nullable="false" />
+          <Property Name="最終更新日時" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M10_NEWSHIZAI">
+          <Key>
+            <PropertyRef Name="SETID" />
+            <PropertyRef Name="資材名" />
+          </Key>
+          <Property Name="SETID" Type="int" Nullable="false" />
+          <Property Name="資材名" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="自社品番" Type="varchar" MaxLength="1" />
+          <Property Name="自社品名" Type="varchar" MaxLength="1" />
+          <Property Name="原価" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="入数" Type="decimal" Nullable="false" Precision="7" />
+          <Property Name="仕入先名" Type="varchar" MaxLength="1" />
+          <Property Name="登録者" Type="int" Nullable="false" />
+          <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="最終更新者" Type="int" Nullable="false" />
+          <Property Name="最終更新日時" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="M10_SHIN">
           <Key>
             <PropertyRef Name="品番コード" />
@@ -743,7 +811,6 @@
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="売上日" Type="date" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
-          <Property Name="自社品名" Type="varchar" MaxLength="50" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単価" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="金額" Type="int" Nullable="false" />
@@ -751,6 +818,7 @@
           <Property Name="摘要" Type="varchar" MaxLength="40" />
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="S01_SEIHD">
           <Key>
@@ -809,7 +877,6 @@
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="仕入日" Type="date" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
-          <Property Name="自社品名" Type="varchar" MaxLength="50" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単価" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="金額" Type="int" Nullable="false" />
@@ -817,6 +884,7 @@
           <Property Name="摘要" Type="varchar" MaxLength="40" />
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="S02_SHRHD">
           <Key>
@@ -1021,7 +1089,6 @@
           <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
           <Property Name="金種コード" Type="int" />
-          <Property Name="自社品名" Type="nvarchar" MaxLength="50" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単価" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="金額" Type="int" Nullable="false" />
@@ -1032,6 +1099,7 @@
           <Property Name="残高" Type="int" Nullable="false" />
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="S09_KAIKAKE">
           <Key>
@@ -1053,7 +1121,6 @@
           <Property Name="品番コード" Type="int" Nullable="false" />
           <Property Name="作成機能ID" Type="int" Nullable="false" />
           <Property Name="金種コード" Type="int" />
-          <Property Name="自社品名" Type="nvarchar" MaxLength="50" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単価" Type="decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="金額" Type="int" Nullable="false" />
@@ -1064,6 +1131,7 @@
           <Property Name="残高" Type="int" Nullable="false" />
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="S10_STOCKTAKING">
           <Key>
@@ -1109,7 +1177,6 @@
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
-          <Property Name="自社品名" Type="varchar" MaxLength="50" />
           <Property Name="賞味期限" Type="date" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単位" Type="varchar" MaxLength="2" />
@@ -1122,6 +1189,7 @@
           <Property Name="最終更新日時" Type="datetime" />
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="T02_URDTL_HAN">
           <Key>
@@ -1131,7 +1199,6 @@
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
-          <Property Name="自社品名" Type="varchar" MaxLength="50" />
           <Property Name="賞味期限" Type="date" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単位" Type="varchar" MaxLength="2" />
@@ -1146,6 +1213,7 @@
           <Property Name="最終更新日時" Type="datetime" />
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="T02_URHD">
           <Key>
@@ -1229,7 +1297,6 @@
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
-          <Property Name="自社品名" Type="varchar" MaxLength="50" />
           <Property Name="賞味期限" Type="date" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単位" Type="varchar" MaxLength="2" />
@@ -1242,6 +1309,7 @@
           <Property Name="最終更新日時" Type="datetime" />
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="T03_SRDTL_HAN">
           <Key>
@@ -1251,7 +1319,6 @@
           <Property Name="伝票番号" Type="int" Nullable="false" />
           <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
-          <Property Name="自社品名" Type="varchar" MaxLength="50" />
           <Property Name="賞味期限" Type="date" />
           <Property Name="数量" Type="decimal" Nullable="false" Precision="8" Scale="2" />
           <Property Name="単位" Type="varchar" MaxLength="2" />
@@ -1264,6 +1331,7 @@
           <Property Name="最終更新日時" Type="datetime" />
           <Property Name="削除者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="T03_SRHD">
           <Key>
@@ -1330,7 +1398,6 @@
           <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="部材行番号" Type="int" Nullable="false" />
           <Property Name="品番コード" Type="int" Nullable="false" />
-          <Property Name="自社品名" Type="varchar" MaxLength="50" />
           <Property Name="賞味期限" Type="date" />
           <Property Name="数量" Type="decimal" Precision="8" Scale="2" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
@@ -1339,6 +1406,7 @@
           <Property Name="最終更新者" Type="int" />
           <Property Name="削除日時" Type="datetime" />
           <Property Name="削除者" Type="int" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="T04_AGRDTL">
           <Key>
@@ -1820,6 +1888,10 @@
           <EntitySet Name="S08_URIKAKE" EntityType="TRAC3Model.S08_URIKAKE" />
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.S09_KAIKAKE" />
           <EntitySet Name="T04_AGRDTB" EntityType="TRAC3Model.T04_AGRDTB" />
+          <EntitySet Name="M10_NEWETC" EntityType="TRAC3Model.M10_NEWETC" />
+          <EntitySet Name="M10_NEWSHINDTL" EntityType="TRAC3Model.M10_NEWSHINDTL" />
+          <EntitySet Name="M10_NEWSHINHD" EntityType="TRAC3Model.M10_NEWSHINHD" />
+          <EntitySet Name="M10_NEWSHIZAI" EntityType="TRAC3Model.M10_NEWSHIZAI" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M02_BAIKA">
@@ -3244,7 +3316,7 @@
           <Property Type="Int32" Name="行番号" Nullable="false" />
           <Property Type="Int32" Name="品番コード" Nullable="false" />
           <Property Type="Int32" Name="金種コード" />
-          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int32" Name="金額" Nullable="false" />
@@ -3276,7 +3348,7 @@
           <Property Type="Int32" Name="品番コード" Nullable="false" />
           <Property Type="Int32" Name="作成機能ID" Nullable="false" />
           <Property Type="Int32" Name="金種コード" />
-          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="数量" Nullable="false" Precision="8" Scale="2" />
           <Property Type="Decimal" Name="単価" Nullable="false" Precision="10" Scale="2" />
           <Property Type="Int32" Name="金額" Nullable="false" />
@@ -3307,6 +3379,70 @@
           <Property Type="Int32" Name="最終更新者" />
           <Property Type="DateTime" Name="削除日時" Precision="3" />
           <Property Type="Int32" Name="削除者" />
+        </EntityType>
+        <EntityType Name="M10_NEWETC">
+          <Key>
+            <PropertyRef Name="SETID" />
+            <PropertyRef Name="内容" />
+          </Key>
+          <Property Type="Int32" Name="SETID" Nullable="false" />
+          <Property Type="String" Name="内容" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Nullable="false" Precision="7" Scale="2" />
+          <Property Type="Decimal" Name="入数" Nullable="false" Precision="7" Scale="0" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" Nullable="false" />
+          <Property Type="DateTime" Name="最終更新日時" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="M10_NEWSHINDTL">
+          <Key>
+            <PropertyRef Name="SETID" />
+            <PropertyRef Name="構成行" />
+          </Key>
+          <Property Type="Int32" Name="SETID" Nullable="false" />
+          <Property Type="Int32" Name="構成行" Nullable="false" />
+          <Property Type="String" Name="自社品番" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="色コード" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Nullable="false" Precision="7" Scale="2" />
+          <Property Type="Decimal" Name="必要数量" Nullable="false" Precision="7" Scale="0" />
+          <Property Type="String" Name="仕入先名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" Nullable="false" />
+          <Property Type="DateTime" Name="最終更新日時" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="M10_NEWSHINHD">
+          <Key>
+            <PropertyRef Name="SETID" />
+          </Key>
+          <Property Type="Int32" Name="SETID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="セット品番" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="セット品名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="食品割増率" Nullable="false" />
+          <Property Type="Int32" Name="販社販売価格" Nullable="false" />
+          <Property Type="Int32" Name="得意先販売価格" Nullable="false" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" Nullable="false" />
+          <Property Type="DateTime" Name="最終更新日時" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="M10_NEWSHIZAI">
+          <Key>
+            <PropertyRef Name="SETID" />
+            <PropertyRef Name="資材名" />
+          </Key>
+          <Property Type="Int32" Name="SETID" Nullable="false" />
+          <Property Type="String" Name="資材名" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品番" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Nullable="false" Precision="7" Scale="2" />
+          <Property Type="Decimal" Name="入数" Nullable="false" Precision="7" Scale="0" />
+          <Property Type="String" Name="仕入先名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" Nullable="false" />
+          <Property Type="DateTime" Name="最終更新日時" Nullable="false" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4740,6 +4876,71 @@
                 <ScalarProperty Name="部材行番号" ColumnName="部材行番号" />
                 <ScalarProperty Name="行番号" ColumnName="行番号" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M10_NEWETC">
+            <EntityTypeMapping TypeName="TRAC3Model.M10_NEWETC">
+              <MappingFragment StoreEntitySet="M10_NEWETC">
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="入数" ColumnName="入数" />
+                <ScalarProperty Name="原価" ColumnName="原価" />
+                <ScalarProperty Name="内容" ColumnName="内容" />
+                <ScalarProperty Name="SETID" ColumnName="SETID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M10_NEWSHINDTL">
+            <EntityTypeMapping TypeName="TRAC3Model.M10_NEWSHINDTL">
+              <MappingFragment StoreEntitySet="M10_NEWSHINDTL">
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="仕入先名" ColumnName="仕入先名" />
+                <ScalarProperty Name="必要数量" ColumnName="必要数量" />
+                <ScalarProperty Name="原価" ColumnName="原価" />
+                <ScalarProperty Name="自社品名" ColumnName="自社品名" />
+                <ScalarProperty Name="色コード" ColumnName="色コード" />
+                <ScalarProperty Name="自社品番" ColumnName="自社品番" />
+                <ScalarProperty Name="構成行" ColumnName="構成行" />
+                <ScalarProperty Name="SETID" ColumnName="SETID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M10_NEWSHINHD">
+            <EntityTypeMapping TypeName="TRAC3Model.M10_NEWSHINHD">
+              <MappingFragment StoreEntitySet="M10_NEWSHINHD">
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="得意先販売価格" ColumnName="得意先販売価格" />
+                <ScalarProperty Name="販社販売価格" ColumnName="販社販売価格" />
+                <ScalarProperty Name="食品割増率" ColumnName="食品割増率" />
+                <ScalarProperty Name="セット品名" ColumnName="セット品名" />
+                <ScalarProperty Name="セット品番" ColumnName="セット品番" />
+                <ScalarProperty Name="SETID" ColumnName="SETID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M10_NEWSHIZAI">
+            <EntityTypeMapping TypeName="TRAC3Model.M10_NEWSHIZAI">
+              <MappingFragment StoreEntitySet="M10_NEWSHIZAI">
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="仕入先名" ColumnName="仕入先名" />
+                <ScalarProperty Name="入数" ColumnName="入数" />
+                <ScalarProperty Name="原価" ColumnName="原価" />
+                <ScalarProperty Name="自社品名" ColumnName="自社品名" />
+                <ScalarProperty Name="自社品番" ColumnName="自社品番" />
+                <ScalarProperty Name="資材名" ColumnName="資材名" />
+                <ScalarProperty Name="SETID" ColumnName="SETID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

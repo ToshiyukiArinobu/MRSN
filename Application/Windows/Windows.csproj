@@ -168,6 +168,9 @@
     <Compile Include="Views\SCH\SCHS03_STOK.xaml.cs">
       <DependentUpon>SCHS03_STOK.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SCH\SCHM10_NEWSHIN.xaml.cs">
+      <DependentUpon>SCHM10_NEWSHIN.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SHR\SHR02010.xaml.cs">
       <DependentUpon>SHR02010.xaml</DependentUpon>
     </Compile>
@@ -699,6 +702,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SCH\SCHS03_STOK.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SCH\SCHM10_NEWSHIN.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -556,6 +556,10 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "BSK06010_ShizaiProduct", ServiceClass = "BSK06010", MethodName = "GetProductData", Descprition = "品番情報を取得" },
             new WCFDataAccessConfig() { Name = "BSK06010_GetSetHinProduct", ServiceClass = "BSK06010", MethodName = "GetProductData", Descprition = "セット品の品番情報を取得" },
             new WCFDataAccessConfig() { Name = "BSK06010_GetBaikaData", ServiceClass = "BSK06010", MethodName = "GetBaikaData", Descprition = "仕入先売価マスタを取得" },
+            new WCFDataAccessConfig() { Name = "BSK06010_UpdateData", ServiceClass = "BSK06010", MethodName = "Update", Descprition = "製品原価表登録" },
+            new WCFDataAccessConfig() { Name = "BSK06010_UpdatePrint", ServiceClass = "BSK06010", MethodName = "Update", Descprition = "製品原価表登録" },
+            new WCFDataAccessConfig() { Name = "BSK06010_GetNewSHinProduct", ServiceClass = "BSK06010", MethodName = "GetNewShin", Descprition = "製品原価表登録" },
+            new WCFDataAccessConfig() { Name = "M10_NEWSHIN_SCH", ServiceClass = "BSK06010", MethodName = "GetSearchData", Descprition = "検索画面用データ 取得" },
 
             // 相殺請求管理表
             new WCFDataAccessConfig() { Name = "BSK09010_GetPrintList", ServiceClass = "BSK09010", MethodName = "GetPrintList", Descprition = "相殺請求印字データを取得" },

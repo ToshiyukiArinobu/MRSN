@@ -165,6 +165,18 @@
     <Compile Include="M09_HIN.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>
+    <Compile Include="M10_NEWETC.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M10_NEWSHINDTL.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M10_NEWSHINHD.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M10_NEWSHIZAI.cs">
+      <DependentUpon>TRAC3.tt</DependentUpon>
+    </Compile>
     <Compile Include="M10_SHIN.cs">
       <DependentUpon>TRAC3.tt</DependentUpon>
     </Compile>

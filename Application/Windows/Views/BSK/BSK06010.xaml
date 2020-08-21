@@ -44,11 +44,12 @@
                 </RibbonGroup>
 
                 <RibbonGroup Header="F1" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="入力済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" ToolTipTitle="マスタ照会(F1)" ToolTipDescription="セット品マスタデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
                         Label="ﾏｽﾀ照会" Click="RibbonButton_Click" KeyTip="F1" Height="50" />
                 </RibbonGroup>
                 <RibbonGroup Header="F2" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                    <RibbonButton LargeImageSource="../Images/15マスタ照会.png" ToolTipTitle="既存照会(F2)" ToolTipDescription="登録済みのデータを検索します。"  ToolTipImageSource="../Images/15マスタ照会.png"
+                        Label="既存照会" Click="RibbonButton_Click" KeyTip="F2" Height="50" />
                 </RibbonGroup>
                 <RibbonGroup Header="F3" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
                     <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
@@ -70,7 +71,9 @@
                         Label="印刷" ToolTipTitle="印刷(F8)" ToolTipDescription="印刷します"  ToolTipImageSource="../Images/23印刷.png"/>
                 </RibbonGroup>
                 <RibbonGroup Header="F9" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
-                    <RibbonButton Visibility="Hidden" Label="" ToolTipTitle="" ToolTipDescription="" />
+                    <RibbonButton LargeImageSource="../Images/24登録.png" Click="RibbonButton_Click" KeyTip="F9" Height="50"
+                                  Visibility="{Binding Path=DataUpdateVisible, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                  Label="登録" ToolTipTitle="データ登録(F9)" ToolTipDescription="入力データの登録を行います" ToolTipImageSource="../Images/24登録.png" />
                 </RibbonGroup>
                 <RibbonGroup Header="F10" KeyTip="MASTER" Background="{StaticResource ResourceKey=RibbonFunctionBackground}">
                     <RibbonButton Name="F10" LargeImageSource="../Images/26クリア.png" Click="RibbonButton_Click" KeyTip="F10" Height="50"
@@ -147,7 +150,7 @@
                                    Label_Width="100" 
                                    Label1Visibility="Collapsed" Label2Visibility="Collapsed"
                                    Text1Width="90" Text1MaxLength="12" Text1IMEType="Off" Text1VerticalContentAlignment="Center"
-                                   Text2BorderBrush="Transparent" Text2Background="Transparent" Text2IsReadOnly="True" Text2VerticalContentAlignment="Center"
+                                   Text2IsReadOnly="False" Text2VerticalContentAlignment="Center"
                                      PreviewKeyDown="SetHinban_PreviewKeyDown" cText1Changed="SetHinban_cText1Changed" />
                     </Grid>
 
