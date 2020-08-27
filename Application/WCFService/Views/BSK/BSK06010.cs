@@ -279,7 +279,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="data"></param>
         /// <param name="loginUserId"></param>
-        public bool Update(bool pInsertFlg, int pSETID, string pセット品番, string pセット品名, int p食品割増率, int p得意先販売価格, int p販社販売価格,DataSet pds, int loginUserId)
+        public bool Update(bool pInsertFlg, int pSETID, string pセット品番, string pセット品名, int p食品割増率,  int p販社販売価格,int p得意先販売価格,DataSet pds, int loginUserId)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {

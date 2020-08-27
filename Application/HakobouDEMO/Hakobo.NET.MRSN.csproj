@@ -32,7 +32,7 @@
     <SuiteName>パッケージ</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>26</ApplicationRevision>
     <ApplicationVersion>1.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -527,6 +527,13 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Files\TKS\TKS07010_3.cs">
+      <DependentUpon>TKS07010_3.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Files\ZIJ\ZIJ03010.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -875,6 +882,11 @@
     <Content Include="Files\ZIK\ZIK08010.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ZIK08010.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\TKS\TKS07010_3.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TKS07010_3.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\licenses.licx" />

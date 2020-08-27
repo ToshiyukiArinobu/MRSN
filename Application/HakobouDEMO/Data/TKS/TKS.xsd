@@ -15,7 +15,7 @@
   <xs:element name="TKS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TKS" msprop:Generator_UserDSName="TKS">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="TKS01020_H請求書" msprop:Generator_TableClassName="TKS01020_H請求書DataTable" msprop:Generator_TableVarName="tableTKS01020_H請求書" msprop:Generator_RowChangedName="TKS01020_H請求書RowChanged" msprop:Generator_TablePropName="TKS01020_H請求書" msprop:Generator_RowDeletingName="TKS01020_H請求書RowDeleting" msprop:Generator_RowChangingName="TKS01020_H請求書RowChanging" msprop:Generator_RowEvHandlerName="TKS01020_H請求書RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS01020_H請求書RowDeleted" msprop:Generator_RowClassName="TKS01020_H請求書Row" msprop:Generator_UserTableName="TKS01020_H請求書" msprop:Generator_RowEvArgName="TKS01020_H請求書RowChangeEvent">
+        <xs:element name="TKS01020_H請求書" msprop:Generator_TableClassName="TKS01020_H請求書DataTable" msprop:Generator_TableVarName="tableTKS01020_H請求書" msprop:Generator_TablePropName="TKS01020_H請求書" msprop:Generator_RowDeletingName="TKS01020_H請求書RowDeleting" msprop:Generator_RowChangingName="TKS01020_H請求書RowChanging" msprop:Generator_RowEvHandlerName="TKS01020_H請求書RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS01020_H請求書RowDeleted" msprop:Generator_UserTableName="TKS01020_H請求書" msprop:Generator_RowChangedName="TKS01020_H請求書RowChanged" msprop:Generator_RowEvArgName="TKS01020_H請求書RowChangeEvent" msprop:Generator_RowClassName="TKS01020_H請求書Row">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PagingKey" msprop:Generator_ColumnVarNameInTable="columnPagingKey" msprop:Generator_ColumnPropNameInRow="PagingKey" msprop:Generator_ColumnPropNameInTable="PagingKeyColumn" msprop:Generator_UserColumnName="PagingKey" type="xs:string" minOccurs="0" />
@@ -59,7 +59,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TKS01020_D請求書" msprop:Generator_TableClassName="TKS01020_D請求書DataTable" msprop:Generator_TableVarName="tableTKS01020_D請求書" msprop:Generator_RowChangedName="TKS01020_D請求書RowChanged" msprop:Generator_TablePropName="TKS01020_D請求書" msprop:Generator_RowDeletingName="TKS01020_D請求書RowDeleting" msprop:Generator_RowChangingName="TKS01020_D請求書RowChanging" msprop:Generator_RowEvHandlerName="TKS01020_D請求書RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS01020_D請求書RowDeleted" msprop:Generator_RowClassName="TKS01020_D請求書Row" msprop:Generator_UserTableName="TKS01020_D請求書" msprop:Generator_RowEvArgName="TKS01020_D請求書RowChangeEvent">
+        <xs:element name="TKS01020_D請求書" msprop:Generator_TableClassName="TKS01020_D請求書DataTable" msprop:Generator_TableVarName="tableTKS01020_D請求書" msprop:Generator_TablePropName="TKS01020_D請求書" msprop:Generator_RowDeletingName="TKS01020_D請求書RowDeleting" msprop:Generator_RowChangingName="TKS01020_D請求書RowChanging" msprop:Generator_RowEvHandlerName="TKS01020_D請求書RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS01020_D請求書RowDeleted" msprop:Generator_UserTableName="TKS01020_D請求書" msprop:Generator_RowChangedName="TKS01020_D請求書RowChanged" msprop:Generator_RowEvArgName="TKS01020_D請求書RowChangeEvent" msprop:Generator_RowClassName="TKS01020_D請求書Row">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PagingKey" msprop:Generator_ColumnVarNameInTable="columnPagingKey" msprop:Generator_ColumnPropNameInRow="PagingKey" msprop:Generator_ColumnPropNameInTable="PagingKeyColumn" msprop:Generator_UserColumnName="PagingKey" type="xs:string" minOccurs="0" />
@@ -83,7 +83,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TKS03010_請求一覧表" msprop:Generator_TableClassName="TKS03010_請求一覧表DataTable" msprop:Generator_TableVarName="tableTKS03010_請求一覧表" msprop:Generator_RowChangedName="TKS03010_請求一覧表RowChanged" msprop:Generator_TablePropName="TKS03010_請求一覧表" msprop:Generator_RowDeletingName="TKS03010_請求一覧表RowDeleting" msprop:Generator_RowChangingName="TKS03010_請求一覧表RowChanging" msprop:Generator_RowEvHandlerName="TKS03010_請求一覧表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS03010_請求一覧表RowDeleted" msprop:Generator_RowClassName="TKS03010_請求一覧表Row" msprop:Generator_UserTableName="TKS03010_請求一覧表" msprop:Generator_RowEvArgName="TKS03010_請求一覧表RowChangeEvent">
+        <xs:element name="TKS03010_請求一覧表" msprop:Generator_TableClassName="TKS03010_請求一覧表DataTable" msprop:Generator_TableVarName="tableTKS03010_請求一覧表" msprop:Generator_TablePropName="TKS03010_請求一覧表" msprop:Generator_RowDeletingName="TKS03010_請求一覧表RowDeleting" msprop:Generator_RowChangingName="TKS03010_請求一覧表RowChanging" msprop:Generator_RowEvHandlerName="TKS03010_請求一覧表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS03010_請求一覧表RowDeleted" msprop:Generator_UserTableName="TKS03010_請求一覧表" msprop:Generator_RowChangedName="TKS03010_請求一覧表RowChanged" msprop:Generator_RowEvArgName="TKS03010_請求一覧表RowChangeEvent" msprop:Generator_RowClassName="TKS03010_請求一覧表Row">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="得意先コード" msprop:Generator_ColumnVarNameInTable="column得意先コード" msprop:Generator_ColumnPropNameInRow="得意先コード" msprop:Generator_ColumnPropNameInTable="得意先コードColumn" msprop:Generator_UserColumnName="得意先コード" type="xs:string" minOccurs="0" />
@@ -102,7 +102,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TKS07010_入金予定表" msprop:Generator_TableClassName="TKS07010_入金予定表DataTable" msprop:Generator_TableVarName="tableTKS07010_入金予定表" msprop:Generator_RowChangedName="TKS07010_入金予定表RowChanged" msprop:Generator_TablePropName="TKS07010_入金予定表" msprop:Generator_RowDeletingName="TKS07010_入金予定表RowDeleting" msprop:Generator_RowChangingName="TKS07010_入金予定表RowChanging" msprop:Generator_RowEvHandlerName="TKS07010_入金予定表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS07010_入金予定表RowDeleted" msprop:Generator_RowClassName="TKS07010_入金予定表Row" msprop:Generator_UserTableName="TKS07010_入金予定表" msprop:Generator_RowEvArgName="TKS07010_入金予定表RowChangeEvent">
+        <xs:element name="TKS07010_入金予定表" msprop:Generator_TableClassName="TKS07010_入金予定表DataTable" msprop:Generator_TableVarName="tableTKS07010_入金予定表" msprop:Generator_TablePropName="TKS07010_入金予定表" msprop:Generator_RowDeletingName="TKS07010_入金予定表RowDeleting" msprop:Generator_RowChangingName="TKS07010_入金予定表RowChanging" msprop:Generator_RowEvHandlerName="TKS07010_入金予定表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS07010_入金予定表RowDeleted" msprop:Generator_UserTableName="TKS07010_入金予定表" msprop:Generator_RowChangedName="TKS07010_入金予定表RowChanged" msprop:Generator_RowEvArgName="TKS07010_入金予定表RowChangeEvent" msprop:Generator_RowClassName="TKS07010_入金予定表Row">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="自社コード" msprop:Generator_ColumnVarNameInTable="column自社コード" msprop:Generator_ColumnPropNameInRow="自社コード" msprop:Generator_ColumnPropNameInTable="自社コードColumn" msprop:Generator_UserColumnName="自社コード" type="xs:string" minOccurs="0" />
@@ -121,6 +121,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="締処理" msprop:Generator_ColumnVarNameInTable="column締処理" msprop:Generator_ColumnPropNameInRow="締処理" msprop:Generator_ColumnPropNameInTable="締処理Column" msprop:Generator_UserColumnName="締処理" type="xs:string" minOccurs="0" />
               <xs:element name="売上額" msprop:Generator_ColumnVarNameInTable="column売上額" msprop:Generator_ColumnPropNameInRow="売上額" msprop:Generator_ColumnPropNameInTable="売上額Column" msprop:Generator_UserColumnName="売上額" type="xs:long" minOccurs="0" />
               <xs:element name="消費税" msprop:Generator_ColumnVarNameInTable="column消費税" msprop:Generator_ColumnPropNameInRow="消費税" msprop:Generator_ColumnPropNameInTable="消費税Column" msprop:Generator_UserColumnName="消費税" type="xs:long" minOccurs="0" />
               <xs:element name="回収予定額" msprop:Generator_ColumnVarNameInTable="column回収予定額" msprop:Generator_ColumnPropNameInRow="回収予定額" msprop:Generator_ColumnPropNameInTable="回収予定額Column" msprop:Generator_UserColumnName="回収予定額" type="xs:long" minOccurs="0" />
@@ -139,7 +140,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TKS08010_入金予定実績表" msprop:Generator_TableClassName="TKS08010_入金予定実績表DataTable" msprop:Generator_TableVarName="tableTKS08010_入金予定実績表" msprop:Generator_RowChangedName="TKS08010_入金予定実績表RowChanged" msprop:Generator_TablePropName="TKS08010_入金予定実績表" msprop:Generator_RowDeletingName="TKS08010_入金予定実績表RowDeleting" msprop:Generator_RowChangingName="TKS08010_入金予定実績表RowChanging" msprop:Generator_RowEvHandlerName="TKS08010_入金予定実績表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS08010_入金予定実績表RowDeleted" msprop:Generator_RowClassName="TKS08010_入金予定実績表Row" msprop:Generator_UserTableName="TKS08010_入金予定実績表" msprop:Generator_RowEvArgName="TKS08010_入金予定実績表RowChangeEvent">
+        <xs:element name="TKS08010_入金予定実績表" msprop:Generator_TableClassName="TKS08010_入金予定実績表DataTable" msprop:Generator_TableVarName="tableTKS08010_入金予定実績表" msprop:Generator_TablePropName="TKS08010_入金予定実績表" msprop:Generator_RowDeletingName="TKS08010_入金予定実績表RowDeleting" msprop:Generator_RowChangingName="TKS08010_入金予定実績表RowChanging" msprop:Generator_RowEvHandlerName="TKS08010_入金予定実績表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS08010_入金予定実績表RowDeleted" msprop:Generator_UserTableName="TKS08010_入金予定実績表" msprop:Generator_RowChangedName="TKS08010_入金予定実績表RowChanged" msprop:Generator_RowEvArgName="TKS08010_入金予定実績表RowChangeEvent" msprop:Generator_RowClassName="TKS08010_入金予定実績表Row">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="得意先コード" msprop:Generator_ColumnVarNameInTable="column得意先コード" msprop:Generator_ColumnPropNameInRow="得意先コード" msprop:Generator_ColumnPropNameInTable="得意先コードColumn" msprop:Generator_UserColumnName="得意先コード" type="xs:string" minOccurs="0" />
@@ -170,7 +171,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TKS02010_売上データ一覧表" msprop:Generator_TableClassName="TKS02010_売上データ一覧表DataTable" msprop:Generator_TableVarName="tableTKS02010_売上データ一覧表" msprop:Generator_TablePropName="TKS02010_売上データ一覧表" msprop:Generator_RowDeletingName="TKS02010_売上データ一覧表RowDeleting" msprop:Generator_RowChangingName="TKS02010_売上データ一覧表RowChanging" msprop:Generator_RowEvHandlerName="TKS02010_売上データ一覧表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS02010_売上データ一覧表RowDeleted" msprop:Generator_UserTableName="TKS02010_売上データ一覧表" msprop:Generator_RowChangedName="TKS02010_売上データ一覧表RowChanged" msprop:Generator_RowEvArgName="TKS02010_売上データ一覧表RowChangeEvent" msprop:Generator_RowClassName="TKS02010_売上データ一覧表Row">
+        <xs:element name="TKS02010_売上データ一覧表" msprop:Generator_TableClassName="TKS02010_売上データ一覧表DataTable" msprop:Generator_TableVarName="tableTKS02010_売上データ一覧表" msprop:Generator_RowChangedName="TKS02010_売上データ一覧表RowChanged" msprop:Generator_TablePropName="TKS02010_売上データ一覧表" msprop:Generator_RowDeletingName="TKS02010_売上データ一覧表RowDeleting" msprop:Generator_RowChangingName="TKS02010_売上データ一覧表RowChanging" msprop:Generator_RowEvHandlerName="TKS02010_売上データ一覧表RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS02010_売上データ一覧表RowDeleted" msprop:Generator_RowClassName="TKS02010_売上データ一覧表Row" msprop:Generator_UserTableName="TKS02010_売上データ一覧表" msprop:Generator_RowEvArgName="TKS02010_売上データ一覧表RowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="得意先コード" msprop:Generator_ColumnVarNameInTable="column得意先コード" msprop:Generator_ColumnPropNameInRow="得意先コード" msprop:Generator_ColumnPropNameInTable="得意先コードColumn" msprop:Generator_UserColumnName="得意先コード" type="xs:string" minOccurs="0" />
@@ -188,7 +189,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="TKS02011_売掛台帳" msprop:Generator_TableClassName="TKS02011_売掛台帳DataTable" msprop:Generator_TableVarName="tableTKS02011_売掛台帳" msprop:Generator_RowChangedName="TKS02011_売掛台帳RowChanged" msprop:Generator_TablePropName="TKS02011_売掛台帳" msprop:Generator_RowDeletingName="TKS02011_売掛台帳RowDeleting" msprop:Generator_RowChangingName="TKS02011_売掛台帳RowChanging" msprop:Generator_RowEvHandlerName="TKS02011_売掛台帳RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS02011_売掛台帳RowDeleted" msprop:Generator_RowClassName="TKS02011_売掛台帳Row" msprop:Generator_UserTableName="TKS02011_売掛台帳" msprop:Generator_RowEvArgName="TKS02011_売掛台帳RowChangeEvent">
+        <xs:element name="TKS02011_売掛台帳" msprop:Generator_TableClassName="TKS02011_売掛台帳DataTable" msprop:Generator_TableVarName="tableTKS02011_売掛台帳" msprop:Generator_TablePropName="TKS02011_売掛台帳" msprop:Generator_RowDeletingName="TKS02011_売掛台帳RowDeleting" msprop:Generator_RowChangingName="TKS02011_売掛台帳RowChanging" msprop:Generator_RowEvHandlerName="TKS02011_売掛台帳RowChangeEventHandler" msprop:Generator_RowDeletedName="TKS02011_売掛台帳RowDeleted" msprop:Generator_UserTableName="TKS02011_売掛台帳" msprop:Generator_RowChangedName="TKS02011_売掛台帳RowChanged" msprop:Generator_RowEvArgName="TKS02011_売掛台帳RowChangeEvent" msprop:Generator_RowClassName="TKS02011_売掛台帳Row">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="得意先コード" msprop:Generator_ColumnVarNameInTable="column得意先コード" msprop:Generator_ColumnPropNameInRow="得意先コード" msprop:Generator_ColumnPropNameInTable="得意先コードColumn" msprop:Generator_UserColumnName="得意先コード" type="xs:int" minOccurs="0" />

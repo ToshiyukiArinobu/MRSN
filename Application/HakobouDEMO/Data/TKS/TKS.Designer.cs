@@ -2228,6 +2228,8 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column得意先名;
             
+            private global::System.Data.DataColumn column締処理;
+            
             private global::System.Data.DataColumn column売上額;
             
             private global::System.Data.DataColumn column消費税;
@@ -2308,6 +2310,14 @@ namespace Hakobou.Data.TKS {
             public global::System.Data.DataColumn 得意先名Column {
                 get {
                     return this.column得意先名;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 締処理Column {
+                get {
+                    return this.column締処理;
                 }
             }
             
@@ -2420,13 +2430,14 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TKS07010_入金予定表Row AddTKS07010_入金予定表Row(string 自社コード, string 自社名, string 得意先コード, string 得意先名, long 売上額, long 消費税, long 回収予定額, string 請求年月, int 締日, int _現金_振込_小切手, int 手形, string 入金予定日, string 期日) {
+            public TKS07010_入金予定表Row AddTKS07010_入金予定表Row(string 自社コード, string 自社名, string 得意先コード, string 得意先名, string 締処理, long 売上額, long 消費税, long 回収予定額, string 請求年月, int 締日, int _現金_振込_小切手, int 手形, string 入金予定日, string 期日) {
                 TKS07010_入金予定表Row rowTKS07010_入金予定表Row = ((TKS07010_入金予定表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         自社コード,
                         自社名,
                         得意先コード,
                         得意先名,
+                        締処理,
                         売上額,
                         消費税,
                         回収予定額,
@@ -2462,6 +2473,7 @@ namespace Hakobou.Data.TKS {
                 this.column自社名 = base.Columns["自社名"];
                 this.column得意先コード = base.Columns["得意先コード"];
                 this.column得意先名 = base.Columns["得意先名"];
+                this.column締処理 = base.Columns["締処理"];
                 this.column売上額 = base.Columns["売上額"];
                 this.column消費税 = base.Columns["消費税"];
                 this.column回収予定額 = base.Columns["回収予定額"];
@@ -2484,6 +2496,8 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column得意先コード);
                 this.column得意先名 = new global::System.Data.DataColumn("得意先名", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column得意先名);
+                this.column締処理 = new global::System.Data.DataColumn("締処理", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column締処理);
                 this.column売上額 = new global::System.Data.DataColumn("売上額", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column売上額);
                 this.column消費税 = new global::System.Data.DataColumn("消費税", typeof(long), null, global::System.Data.MappingType.Element);
@@ -6212,6 +6226,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 締処理 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS07010_入金予定表.締処理Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS07010_入金予定表\' にある列 \'締処理\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS07010_入金予定表.締処理Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public long 売上額 {
                 get {
                     try {
@@ -6395,6 +6425,18 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set得意先名Null() {
                 this[this.tableTKS07010_入金予定表.得意先名Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is締処理Null() {
+                return this.IsNull(this.tableTKS07010_入金予定表.締処理Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set締処理Null() {
+                this[this.tableTKS07010_入金予定表.締処理Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
