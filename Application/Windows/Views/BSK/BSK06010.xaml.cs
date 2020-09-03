@@ -1233,6 +1233,9 @@ namespace KyoeiSystem.Application.Windows.Views
             txb販社販売価格.Text = string.Empty;
             txb得意先販売価格.Text = string.Empty;
 
+            lbl販社粗利.Content = string.Empty;
+            lbl得意先粗利.Content = string.Empty;
+
             this.食品割増率 = 0;
             MaintenanceMode = null;
 

@@ -44,6 +44,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>帳票定義ファイル 格納パス</summary>
         private const string ReportTemplateFileName = @"Files\TKS\TKS07010.rpt";
+        private const string ReportFileName = @"Files\TKS\TKS07010_3.rpt";
 
         #endregion
 
@@ -339,7 +340,14 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 第1引数　帳票タイトル
                 // 第2引数　帳票ファイルPass
                 // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("入金予定表", ReportTemplateFileName, 0, 0, 0);
+                if (CreateType.SelectedValue.ToString() != "3")
+                {
+                    view.MakeReport("入金予定表", ReportTemplateFileName, 0, 0, 0);
+                }
+                else
+                {
+                    view.MakeReport("入金予定表", ReportFileName, 0, 0, 0);
+                }
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする
 				view.SetReportData(tbl);

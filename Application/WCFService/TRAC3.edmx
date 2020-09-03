@@ -413,8 +413,8 @@
             <PropertyRef Name="内容" />
           </Key>
           <Property Name="SETID" Type="int" Nullable="false" />
-          <Property Name="内容" Type="varchar" Nullable="false" MaxLength="1" />
-          <Property Name="原価" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="内容" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="原価" Type="decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="入数" Type="decimal" Nullable="false" Precision="7" />
           <Property Name="登録者" Type="int" Nullable="false" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
@@ -428,12 +428,12 @@
           </Key>
           <Property Name="SETID" Type="int" Nullable="false" />
           <Property Name="構成行" Type="int" Nullable="false" />
-          <Property Name="自社品番" Type="varchar" MaxLength="1" />
-          <Property Name="色コード" Type="varchar" MaxLength="1" />
-          <Property Name="自社品名" Type="varchar" MaxLength="1" />
-          <Property Name="原価" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="自社品番" Type="varchar" MaxLength="50" />
+          <Property Name="色コード" Type="varchar" MaxLength="50" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
+          <Property Name="原価" Type="decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="必要数量" Type="decimal" Nullable="false" Precision="7" />
-          <Property Name="仕入先名" Type="varchar" MaxLength="1" />
+          <Property Name="仕入先名" Type="varchar" MaxLength="50" />
           <Property Name="登録者" Type="int" Nullable="false" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
           <Property Name="最終更新者" Type="int" Nullable="false" />
@@ -444,8 +444,8 @@
             <PropertyRef Name="SETID" />
           </Key>
           <Property Name="SETID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="セット品番" Type="varchar" Nullable="false" MaxLength="1" />
-          <Property Name="セット品名" Type="varchar" MaxLength="1" />
+          <Property Name="セット品番" Type="varchar" Nullable="false" MaxLength="12" />
+          <Property Name="セット品名" Type="varchar" MaxLength="50" />
           <Property Name="食品割増率" Type="int" Nullable="false" />
           <Property Name="販社販売価格" Type="int" Nullable="false" />
           <Property Name="得意先販売価格" Type="int" Nullable="false" />
@@ -460,12 +460,12 @@
             <PropertyRef Name="資材名" />
           </Key>
           <Property Name="SETID" Type="int" Nullable="false" />
-          <Property Name="資材名" Type="varchar" Nullable="false" MaxLength="1" />
-          <Property Name="自社品番" Type="varchar" MaxLength="1" />
-          <Property Name="自社品名" Type="varchar" MaxLength="1" />
-          <Property Name="原価" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="資材名" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="自社品番" Type="varchar" MaxLength="50" />
+          <Property Name="自社品名" Type="varchar" MaxLength="50" />
+          <Property Name="原価" Type="decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="入数" Type="decimal" Nullable="false" Precision="7" />
-          <Property Name="仕入先名" Type="varchar" MaxLength="1" />
+          <Property Name="仕入先名" Type="varchar" MaxLength="50" />
           <Property Name="登録者" Type="int" Nullable="false" />
           <Property Name="登録日時" Type="datetime" Nullable="false" />
           <Property Name="最終更新者" Type="int" Nullable="false" />
@@ -3386,8 +3386,8 @@
             <PropertyRef Name="内容" />
           </Key>
           <Property Type="Int32" Name="SETID" Nullable="false" />
-          <Property Type="String" Name="内容" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="原価" Nullable="false" Precision="7" Scale="2" />
+          <Property Type="String" Name="内容" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Nullable="false" Precision="9" Scale="2" />
           <Property Type="Decimal" Name="入数" Nullable="false" Precision="7" Scale="0" />
           <Property Type="Int32" Name="登録者" Nullable="false" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
@@ -3401,12 +3401,12 @@
           </Key>
           <Property Type="Int32" Name="SETID" Nullable="false" />
           <Property Type="Int32" Name="構成行" Nullable="false" />
-          <Property Type="String" Name="自社品番" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="色コード" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="自社品名" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="原価" Nullable="false" Precision="7" Scale="2" />
+          <Property Type="String" Name="自社品番" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="色コード" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Nullable="false" Precision="9" Scale="2" />
           <Property Type="Decimal" Name="必要数量" Nullable="false" Precision="7" Scale="0" />
-          <Property Type="String" Name="仕入先名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="仕入先名" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="登録者" Nullable="false" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="最終更新者" Nullable="false" />
@@ -3417,8 +3417,8 @@
             <PropertyRef Name="SETID" />
           </Key>
           <Property Type="Int32" Name="SETID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="セット品番" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="セット品名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="セット品番" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="セット品名" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="食品割増率" Nullable="false" />
           <Property Type="Int32" Name="販社販売価格" Nullable="false" />
           <Property Type="Int32" Name="得意先販売価格" Nullable="false" />
@@ -3433,12 +3433,12 @@
             <PropertyRef Name="資材名" />
           </Key>
           <Property Type="Int32" Name="SETID" Nullable="false" />
-          <Property Type="String" Name="資材名" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="自社品番" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="自社品名" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="原価" Nullable="false" Precision="7" Scale="2" />
+          <Property Type="String" Name="資材名" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品番" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Nullable="false" Precision="9" Scale="2" />
           <Property Type="Decimal" Name="入数" Nullable="false" Precision="7" Scale="0" />
-          <Property Type="String" Name="仕入先名" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="仕入先名" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="登録者" Nullable="false" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="最終更新者" Nullable="false" />
