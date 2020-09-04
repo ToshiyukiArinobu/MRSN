@@ -234,7 +234,7 @@ namespace KyoeiSystem.Application.WCFService
         }
 
         /// <summary>
-        /// 
+        /// 新製品情報取得
         /// </summary>
         /// <param name="pSetId"></param>
         /// <returns></returns>
@@ -433,6 +433,47 @@ namespace KyoeiSystem.Application.WCFService
             }
         }
         #endregion
+
+        #region 削除
+        /// <summary>
+        /// 削除
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="loginUserId"></param>
+        public bool Delete( int pSETID, int loginUserId)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+
+                //構成品・資材・その他のテーブルはDelete-Insert
+                var delDtl = context.M10_NEWSHINDTL.Where(w => w.SETID == pSETID);
+                foreach (var dtl in delDtl)
+                {
+                    context.M10_NEWSHINDTL.DeleteObject(dtl);
+                }
+                var delShizai = context.M10_NEWSHIZAI.Where(w => w.SETID == pSETID);
+                foreach (var dtl in delShizai)
+                {
+                    context.M10_NEWSHIZAI.DeleteObject(dtl);
+                }
+                var delETC = context.M10_NEWETC.Where(w => w.SETID == pSETID);
+                foreach (var dtl in delETC)
+                {
+                    context.M10_NEWETC.DeleteObject(dtl);
+                }
+
+                var SHIN = context.M10_NEWSHINHD.Where(w => w.SETID == pSETID).FirstOrDefault();
+                context.M10_NEWSHINHD.DeleteObject(SHIN);
+
+                context.SaveChanges();
+            }
+            return true;
+        }
+
+        #endregion
+
         #region 新製品検索画面
         /// <summary>
         /// 新製品検索画面用データ取得

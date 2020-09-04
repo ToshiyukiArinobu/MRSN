@@ -244,7 +244,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string UpdateData = "BSK06010_UpdateData";
         /// <summary>印刷用更新登録処理</summary>
         private const string UpdatePrint = "BSK06010_UpdatePrint";
-        
+        /// <summary>削除処理 </summary>
+        private const string DeleteData = "BSK06010_DeleteData";
         /// <summary>新製品情報取得 </summary>
         private const string GetNewShinDataList = "BSK06010_GetNewSHinProduct";
 
@@ -743,6 +744,15 @@ namespace KyoeiSystem.Application.Windows.Views
                         ScreenClear();
                         #endregion
                         break;
+                    case DeleteData:
+                        #region 削除
+                        if ((bool)data)
+                        {
+                            MessageBox.Show("製品を削除しました。");
+                            ScreenClear();
+                        }
+                        #endregion
+                        break;
                     case GetNewShinDataList:
                         if (data is DataSet)
                         {
@@ -1206,6 +1216,42 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region F12 削除
+        /// <summary>
+        /// F11　リボン　削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF12Key(object sender, KeyEventArgs e)
+        {
+            Delete();
+        }
+
+        /// <summary>
+        /// 削除SQL発行
+        /// </summary>
+        private void Delete()
+        {
+            if (MaintenanceMode != AppConst.MAINTENANCEMODE_EDIT)
+            {
+                return;
+            }
+
+            if (MessageBox.Show("表示している製品を削除してよろしいでしょうか？", "確認", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.UpdateData,
+                        DeleteData,
+                        new object[] {
+                            iSetID,
+                            ccfg.ユーザID
+                        }));
+        }
+        #endregion
         #endregion
 
         #region << 機能処理関連 >>
