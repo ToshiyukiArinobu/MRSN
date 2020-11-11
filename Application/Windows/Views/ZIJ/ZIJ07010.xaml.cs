@@ -603,7 +603,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 frmcfg.Left = this.Left;
                 frmcfg.Width = this.Width;
                 frmcfg.Height = this.Height;
-                frmcfg.spConfigZIJ07010 = AppCommon.SaveSpConfig(this.spGridList);
+                frmcfg.spConfigZIJ07010 = null;// AppCommon.SaveSpConfig(this.spGridList);
                 ucfg.SetConfigValue(frmcfg);
                 spGridList.InputBindings.Clear();
 
