@@ -291,7 +291,7 @@ namespace KyoeiSystem.Application.WCFService
                     // 作成区分(売上ありのみ)が指定されている場合
                     if (createType == (int)作成区分.売上ありのみ)
                     {
-                        if (printData.集計合計額 > 0)
+                        if (printData.集計合計額 != 0)
                         {
                             resultList.Add(printData);
                         }
@@ -304,9 +304,9 @@ namespace KyoeiSystem.Application.WCFService
 
                 // データリストを集計して構成比を作成
                 decimal total = Convert.ToDecimal(resultList.Sum(t => t.集計合計額));
-                // 合計がゼロとなるデータは出力対象外とする
-                if (total == 0)
-                    return new List<BSK04010_PrintMember_Month>();
+                //// 合計がゼロとなるデータは出力対象外とする
+                //if (total == 0)
+                //    return new List<BSK04010_PrintMember_Month>();
 
                 // 自社コード・担当者ID毎の合計を算出
                 var grpTotal = resultList.AsEnumerable()
@@ -472,8 +472,8 @@ namespace KyoeiSystem.Application.WCFService
                 // データリストを集計して構成比を作成
                 decimal total = Convert.ToDecimal(resultList.Sum(t => t.集計合計額));
                 // 合計がゼロとなるデータは出力対象外とする
-                if (total == 0)
-                return new List<BSK04010_PrintMember_Day>();
+                //if (total == 0)
+                //return new List<BSK04010_PrintMember_Day>();
 
                 // 自社コード・担当者ID毎の合計を算出
                 var grpTotal = resultList.AsEnumerable()
@@ -581,7 +581,9 @@ namespace KyoeiSystem.Application.WCFService
                                 .Where(w => w.会社名コード == tokData.自社コード &&
                                     w.得意先コード == tokData.取引先コード &&
                                     w.得意先枝番 == tokData.枝番 &&
-                                    w.売上日 >= targetMonth && w.売上日 <= endYmd)
+                                    w.売上日 >= targetMonth && 
+                                    w.売上日 <= endYmd &&
+                                    w.削除日時 == null)
                                 .GroupBy(g => new
                                 {
                                     g.会社名コード,
@@ -673,7 +675,9 @@ namespace KyoeiSystem.Application.WCFService
                                 .Where(w => w.削除日時 == null &&
                                     w.会社名コード == jisData.自社コード &&
                                     w.販社コード == targetHAN.自社コード &&
-                                    w.売上日 >= targetMonth && w.売上日 <= endYmd)
+                                    w.売上日 >= targetMonth &&
+                                    w.売上日 <= endYmd &&
+                                    w.削除日時 == null )
                                 .GroupBy(g => new
                                 {
                                     g.会社名コード,
@@ -759,7 +763,8 @@ namespace KyoeiSystem.Application.WCFService
                             .Where(w => w.会社名コード == tokData.自社コード &&
                                 w.得意先コード == tokData.取引先コード &&
                                 w.得意先枝番 == tokData.枝番 &&
-                                w.売上日 == targetDay)
+                                w.売上日 == targetDay &&
+                                w.削除日時 == null)
                             .GroupBy(g => new
                             {
                                 g.会社名コード,
@@ -876,7 +881,8 @@ namespace KyoeiSystem.Application.WCFService
                             .Where(w => w.削除日時 == null &&
                                 w.会社名コード == tokData.自社コード &&
                                 w.販社コード == targetHAN.自社コード &&
-                                w.売上日 == targetDay)
+                                w.売上日 == targetDay && 
+                                w.削除日時 == null)
                             .GroupBy(g => new
                             {
                                 g.会社名コード,

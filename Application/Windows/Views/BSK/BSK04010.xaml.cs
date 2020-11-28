@@ -55,7 +55,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         // 画面パラメータ名
         private const string PARAMS_NAME_FISCAL_YEAR = "処理年度";
-        private const string PARAMS_NAME_COMPANY  = "自社コード";
+        private const string PARAMS_NAME_COMPANY = "自社コード";
         private const string PARAMS_NAME_TANTOU = "担当者コード";
         private const string PARAMS_NAME_CUSTOMER_CODE  = "得意先コード";
         private const string PARAMS_NAME_CUSTOMER_EDA  = "得意先枝番";
@@ -202,6 +202,9 @@ namespace KyoeiSystem.Application.Windows.Views
                 switch (message.GetMessageName())
                 {
                     case GET_CSV_LIST_MONTH:
+                        changeColumnsName(tbl);
+                        outputCsv(tbl);
+                        break;
                     case GET_CSV_LIST_DAY:
                         outputCsv(tbl);
                         break;
@@ -614,7 +617,107 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
         #endregion
+        #region 列名編集
+        /// <summary>
+        /// テーブル列名をCSV出力用に変更して返す
+        /// </summary>
+        /// <param name="tbl"></param>
+        /// <returns></returns>
+        private void changeColumnsName(DataTable tbl)
+        {
+            Dictionary<string, DateTime> printParams = getPrintParameter();     // No.402 Mod
 
+            foreach (DataColumn col in tbl.Columns)
+            {
+                switch (col.ColumnName)
+                {
+                    case "集計売上額０１":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH01].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０２":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH02].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０３":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH03].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０４":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH04].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０５":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH05].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０６":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH06].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０７":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH07].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０８":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH08].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額０９":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH09].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額１０":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH10].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額１１":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH11].ToString("yyyy年M月");
+                        break;
+
+                    case "集計売上額１２":
+                        col.ColumnName = printParams[REPORT_PARAM_NAME_YEAR_MONTH12].ToString("yyyy年M月");
+                        break;
+
+                }
+
+            }
+
+        }
+        #endregion
+        #region 帳票パラメータ取得
+        /// <summary>
+        /// 帳票パラメータを取得する
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, DateTime> getPrintParameter()
+        {
+            // 期間を算出
+            int mCounter = 1;
+
+            DateTime targetMonth = Convert.ToDateTime(paramDic[PARAMS_NAME_START_YM]);   // No.402 Mod
+            DateTime lastMonth = Convert.ToDateTime(paramDic[PARAMS_NAME_END_YM]);       // No.402 Mod
+
+            Dictionary<string, DateTime> printDic = new Dictionary<string, DateTime>();
+            printDic.Add(REPORT_PARAM_NAME_PRIOD_START, targetMonth);
+            printDic.Add(REPORT_PARAM_NAME_PRIOD_END, lastMonth);
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH01, targetMonth);
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH02, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH03, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH04, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH05, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH06, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH07, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH08, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH09, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH10, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH11, targetMonth.AddMonths(mCounter++));
+            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH12, lastMonth);
+
+            return printDic;
+
+        }
+        #endregion
         #region 帳票出力
         /// <summary>
         /// 帳票の印刷処理をおこなう

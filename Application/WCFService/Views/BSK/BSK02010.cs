@@ -176,7 +176,8 @@ namespace KyoeiSystem.Application.WCFService
                                     w.売上日 >= dtStartDate &&
                                     w.売上日 <= dtEndDate &&
                                     w.得意先コード == tokRow.取引先コード &&
-                                    w.得意先枝番 == tokRow.枝番)
+                                    w.得意先枝番 == tokRow.枝番 &&
+                                    w.削除日時 == null)
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                                     x => x.会社名コード,
                                     y => y.自社コード,
@@ -206,7 +207,8 @@ namespace KyoeiSystem.Application.WCFService
                                     w.売上日 >= dtlastYearStartDate &&
                                     w.売上日 <= dtlastYearEndDate &&
                                     w.得意先コード == tokRow.取引先コード &&
-                                    w.得意先枝番 == tokRow.枝番)
+                                    w.得意先枝番 == tokRow.枝番 &&
+                                    w.削除日時 == null)
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                                     x => x.会社名コード,
                                     y => y.自社コード,
@@ -250,8 +252,8 @@ namespace KyoeiSystem.Application.WCFService
                                     w.x.売上日 >= dtStartDate &&
                                     w.x.売上日 <= dtEndDate &&
                                     w.y.取引先コード == tokRow.取引先コード &&
-                                    w.y.枝番 == tokRow.枝番
-                                    )
+                                    w.y.枝番 == tokRow.枝番 &&
+                                    w.x.削除日時 == null)
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                                     x => x.x.会社名コード,
                                     y => y.自社コード,
@@ -281,8 +283,8 @@ namespace KyoeiSystem.Application.WCFService
                                     w.x.売上日 >= dtlastYearStartDate &&
                                     w.x.売上日 <= dtlastYearEndDate &&
                                     w.y.取引先コード == tokRow.取引先コード &&
-                                    w.y.枝番 == tokRow.枝番
-                                    )
+                                    w.y.枝番 == tokRow.枝番 &&
+                                    w.x.削除日時 == null)
                                 .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
                                     x => x.x.会社名コード,
                                     y => y.自社コード,
@@ -427,11 +429,11 @@ namespace KyoeiSystem.Application.WCFService
                 decimal total = Convert.ToDecimal(resultList.Sum(t => t.集計合計額));
                 decimal lastTotal = Convert.ToDecimal(resultList.Sum(t => t.前年集計合計額));      // No.399 Add
                 // 合計がゼロとなるデータは出力対象外とする
-                if (total == 0)
-                {
-                    result.PRINT_DATA = new List<BSK02010_PrintMember>();
-                    return result;
-                }
+                //if (total == 0)
+                //{
+                //    result.PRINT_DATA = new List<BSK02010_PrintMember>();
+                //    return result;
+                //}
 
                 resultList =
                     resultList.AsEnumerable()
@@ -455,7 +457,7 @@ namespace KyoeiSystem.Application.WCFService
                             集計売上額１１ = s.Sum(m => m.集計売上額１１),
                             集計売上額１２ = s.Sum(m => m.集計売上額１２),
                             集計合計額 = s.Sum(m => m.集計合計額),
-                            構成比率 =
+                            構成比率 = total == 0 ? 0 :
                                 Math.Round(
                                     Decimal.Divide(s.Sum(m => m.集計合計額), total) * 100, 2),
 

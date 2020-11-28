@@ -238,7 +238,8 @@ namespace KyoeiSystem.Application.WCFService
                                     w.売上日 >= dtStartDate &&
                                     w.売上日 <= dtEndDate &&
                                     w.得意先コード == tokRow.取引先コード &&
-                                    w.得意先枝番 == tokRow.枝番)
+                                    w.得意先枝番 == tokRow.枝番 && 
+                                    w.削除日時 == null)
                                 .Join(context.T02_URDTL,
                                     x => x.伝票番号,
                                     y => y.伝票番号,
@@ -310,8 +311,9 @@ namespace KyoeiSystem.Application.WCFService
                                     w.x.売上日 >= dtStartDate &&
                                     w.x.売上日 <= dtEndDate &&
                                     w.y.取引先コード == tokRow.取引先コード &&
-                                    w.y.枝番 == tokRow.枝番)
-                                .Join(context.T02_URDTL,
+                                    w.y.枝番 == tokRow.枝番 &&
+                                    w.x.削除日時 == null)
+                                .Join(context.T02_URDTL_HAN,
                                     x => x.x.伝票番号,
                                     y => y.伝票番号,
                                     (x, y) => new { x, y })

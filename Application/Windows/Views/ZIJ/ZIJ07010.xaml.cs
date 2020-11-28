@@ -596,6 +596,8 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
+            spGridList.InputBindings.Clear();
+            SearchResult = null;
             if (ucfg != null)
             {
                 if (frmcfg == null) { frmcfg = new ConfigZIJ07010(); }
@@ -603,9 +605,8 @@ namespace KyoeiSystem.Application.Windows.Views
                 frmcfg.Left = this.Left;
                 frmcfg.Width = this.Width;
                 frmcfg.Height = this.Height;
-                frmcfg.spConfigZIJ07010 = null;// AppCommon.SaveSpConfig(this.spGridList);
+                frmcfg.spConfigZIJ07010 = AppCommon.SaveSpConfig(this.spGridList);
                 ucfg.SetConfigValue(frmcfg);
-                spGridList.InputBindings.Clear();
 
             }
 

@@ -112,7 +112,7 @@ namespace KyoeiSystem.Application.WCFService
                 // 棚卸在庫情報(品番マスタ,倉庫マスタ,在庫テーブル)
 
                 DateTime sysDate = DateTime.Now.Date;
-                DateTime tagetMonth = sysDate.AddMonths(-1);
+                DateTime tagetMonth = sysDate.AddMonths(-6);
 
                 List<StocktakingDataMember> retResult = new List<StocktakingDataMember>();
 

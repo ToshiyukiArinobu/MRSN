@@ -1396,10 +1396,10 @@ namespace KyoeiSystem.Application.Windows.Views
                 return boolResult;
             }
 
-            if (dtClosingDate < DateTime.Now.AddMonths(-1))
+            if (dtClosingDate < DateTime.Now.AddMonths(-6))
             {
-                ErrorMessage = "1ヶ月前の日付で、棚卸在庫を登録することは出来ません。";
-                MessageBox.Show("1ヶ月前の日付で、棚卸在庫を登録することは出来ません。");
+                ErrorMessage = "6ヶ月前の日付で、棚卸在庫を登録することは出来ません。";
+                MessageBox.Show("6ヶ月前の日付で、棚卸在庫を登録することは出来ません。");
                 return boolResult;
             }
 
