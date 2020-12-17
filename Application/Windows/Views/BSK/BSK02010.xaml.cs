@@ -231,6 +231,7 @@ namespace KyoeiSystem.Application.Windows.Views
                         break;
 
                     case GET_PRINT_LIST:
+                        PageGoukeiSet(tbl);
                         outputReport(tbl);  // No.398 Mod
                         break;
 
@@ -243,6 +244,155 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetFreeForInput();
                 this.ErrorMessage = ex.Message;
+            }
+
+        }
+        /// <summary>
+        /// ページ計行セット
+        /// </summary>
+        /// <param name="tbl"></param>
+        private void PageGoukeiSet(DataTable tbl)
+        {
+            const int gyoucnt = 23;
+            int iPre自社コード = 1;
+            long 合計金額01 = 0; 
+            long 前年合計金額01 = 0;
+            long 合計金額02 = 0; 
+            long 前年合計金額02 = 0; 
+            long 合計金額03 = 0; 
+            long 前年合計金額03 = 0; 
+            long 合計金額04 = 0; 
+            long 前年合計金額04 = 0; 
+            long 合計金額05 = 0; 
+            long 前年合計金額05 = 0; 
+            long 合計金額06 = 0; 
+            long 前年合計金額06 = 0; 
+            long 合計金額07 = 0; 
+            long 前年合計金額07 = 0; 
+            long 合計金額08 = 0; 
+            long 前年合計金額08 = 0; 
+            long 合計金額09 = 0; 
+            long 前年合計金額09 = 0; 
+            long 合計金額10 = 0; 
+            long 前年合計金額10 = 0; 
+            long 合計金額11 = 0; 
+            long 前年合計金額11 = 0; 
+            long 合計金額12 = 0; 
+            long 前年合計金額12 = 0;
+            int i行Cnt = 0;
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                try
+                {
+                    DataRow dr = tbl.Rows[i];
+                    int i自社コード = (int)dr["自社コード"];
+
+                    if (i == 0)
+                    {
+                        iPre自社コード = (int)dr["自社コード"];
+                    }
+
+                    合計金額01 += (long)dr["集計売上額０１"];
+                    前年合計金額01 += (long)dr["前年集計売上額０１"];
+                    合計金額02 += (long)dr["集計売上額０２"];
+                    前年合計金額02 += (long)dr["前年集計売上額０２"];
+                    合計金額03 += (long)dr["集計売上額０３"];
+                    前年合計金額03 += (long)dr["前年集計売上額０３"];
+                    合計金額04 += (long)dr["集計売上額０４"];
+                    前年合計金額04 += (long)dr["前年集計売上額０４"];
+                    合計金額05 += (long)dr["集計売上額０５"];
+                    前年合計金額05 += (long)dr["前年集計売上額０５"];
+                    合計金額06 += (long)dr["集計売上額０６"];
+                    前年合計金額06 += (long)dr["前年集計売上額０６"];
+                    合計金額07 += (long)dr["集計売上額０７"];
+                    前年合計金額07 += (long)dr["前年集計売上額０７"];
+                    合計金額08 += (long)dr["集計売上額０８"];
+                    前年合計金額08 += (long)dr["前年集計売上額０８"];
+                    合計金額09 += (long)dr["集計売上額０９"];
+                    前年合計金額09 += (long)dr["前年集計売上額０９"];
+                    合計金額10 += (long)dr["集計売上額１０"];
+                    前年合計金額10 += (long)dr["前年集計売上額１０"];
+                    合計金額11 += (long)dr["集計売上額１１"];
+                    前年合計金額11 += (long)dr["前年集計売上額１１"];
+                    合計金額12 += (long)dr["集計売上額１２"];
+                    前年合計金額12 += (long)dr["前年集計売上額１２"];
+
+                    if (iPre自社コード != i自社コード || ((i行Cnt + 1) % gyoucnt) == 22 || (tbl.Rows.Count == i + 1))
+                    {
+                        DataRow drGoukei = tbl.NewRow();
+                        drGoukei["自社コード"] = iPre自社コード;
+                        drGoukei["得意先名"] = "【 頁 合 計 】";
+                        drGoukei["集計売上額０１"] = 合計金額01;
+                        drGoukei["前年集計売上額０１"] = 前年合計金額01;
+                        drGoukei["集計売上額０２"] = 合計金額02;
+                        drGoukei["前年集計売上額０２"] = 前年合計金額02;
+                        drGoukei["集計売上額０３"] = 合計金額03;
+                        drGoukei["前年集計売上額０３"] = 前年合計金額03;
+                        drGoukei["集計売上額０４"] = 合計金額04;
+                        drGoukei["前年集計売上額０４"] = 前年合計金額04;
+                        drGoukei["集計売上額０５"] = 合計金額05;
+                        drGoukei["前年集計売上額０５"] = 前年合計金額05;
+                        drGoukei["集計売上額０６"] = 合計金額06;
+                        drGoukei["前年集計売上額０６"] = 前年合計金額06;
+                        drGoukei["集計売上額０７"] = 合計金額07;
+                        drGoukei["前年集計売上額０７"] = 前年合計金額07;
+                        drGoukei["集計売上額０８"] = 合計金額08;
+                        drGoukei["前年集計売上額０８"] = 前年合計金額08;
+                        drGoukei["集計売上額０９"] = 合計金額09;
+                        drGoukei["前年集計売上額０９"] = 前年合計金額09;
+                        drGoukei["集計売上額１０"] = 合計金額10;
+                        drGoukei["前年集計売上額１０"] = 前年合計金額10;
+                        drGoukei["集計売上額１１"] = 合計金額11;
+                        drGoukei["前年集計売上額１１"] = 前年合計金額11;
+                        drGoukei["集計売上額１２"] = 合計金額12;
+                        drGoukei["前年集計売上額１２"] = 前年合計金額12;
+
+                        合計金額01 = 0;
+                        前年合計金額01 = 0;
+                        合計金額02 = 0;
+                        前年合計金額02 = 0;
+                        合計金額03 = 0;
+                        前年合計金額03 = 0;
+                        合計金額04 = 0;
+                        前年合計金額04 = 0;
+                        合計金額05 = 0;
+                        前年合計金額05 = 0;
+                        合計金額06 = 0;
+                        前年合計金額06 = 0;
+                        合計金額07 = 0;
+                        前年合計金額07 = 0;
+                        合計金額08 = 0;
+                        前年合計金額08 = 0;
+                        合計金額09 = 0;
+                        前年合計金額09 = 0;
+                        合計金額10 = 0;
+                        前年合計金額10 = 0;
+                        合計金額11 = 0;
+                        前年合計金額11 = 0;
+                        合計金額12 = 0;
+                        前年合計金額12 = 0;
+                        tbl.Rows.InsertAt(drGoukei, i + 1);
+
+                        i++;
+                        if (iPre自社コード != i自社コード)
+                        {
+                            i行Cnt = 1;
+                            iPre自社コード = (int)dr["自社コード"];
+                            continue;
+                        }
+                        else
+                        {
+                            i行Cnt++;
+                        }
+                    }
+
+                    iPre自社コード = (int)dr["自社コード"];
+                    i行Cnt++;
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
             }
 
         }
