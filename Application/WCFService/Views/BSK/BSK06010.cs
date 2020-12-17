@@ -246,9 +246,9 @@ namespace KyoeiSystem.Application.WCFService
             {
                 context.Connection.Open();
                 List<M10_NEWSHINHD> hdList = context.M10_NEWSHINHD.Where(c => c.SETID == pSetId).ToList();
-                List<M10_NEWSHINDTL> dtlList = context.M10_NEWSHINDTL.Where(c => c.SETID == pSetId).ToList();
-                List<M10_NEWSHIZAI> shizaiList = context.M10_NEWSHIZAI.Where(c => c.SETID == pSetId).ToList();
-                List<M10_NEWETC> etcList = context.M10_NEWETC.Where(c => c.SETID == pSetId).ToList();
+                List<M10_NEWSHINDTL> dtlList = context.M10_NEWSHINDTL.Where(c => c.SETID == pSetId).OrderBy(o => o.構成行).ToList();
+                List<M10_NEWSHIZAI> shizaiList = context.M10_NEWSHIZAI.Where(c => c.SETID == pSetId).OrderBy(o => o.行番号).ToList();
+                List<M10_NEWETC> etcList = context.M10_NEWETC.Where(c => c.SETID == pSetId).OrderBy(o => o.行番号).ToList();
 
 
                 // Datatable変換
@@ -279,7 +279,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="data"></param>
         /// <param name="loginUserId"></param>
-        public bool Update(bool pInsertFlg, int pSETID, string pセット品番, string pセット品名, int p食品割増率,  int p販社販売価格,int p得意先販売価格,DataSet pds, int loginUserId)
+        public bool Update(bool pInsertFlg, int pSETID, string pセット品番, string pセット品名, int p食品割増率, int p販社販売価格, int p得意先販売価格, DataSet pds, int loginUserId)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -308,7 +308,7 @@ namespace KyoeiSystem.Application.WCFService
                     var iSETID = context.M10_NEWSHINHD.Max(m => m.SETID);
 
                     InsertSubTable(context, iSETID, pds, loginUserId);
-                    
+
                 }
                 else
                 {
@@ -318,7 +318,7 @@ namespace KyoeiSystem.Application.WCFService
                     {
                         context.M10_NEWSHINDTL.DeleteObject(dtl);
                     }
-                    var delShizai= context.M10_NEWSHIZAI.Where(w => w.SETID == pSETID);
+                    var delShizai = context.M10_NEWSHIZAI.Where(w => w.SETID == pSETID);
                     foreach (var dtl in delShizai)
                     {
                         context.M10_NEWSHIZAI.DeleteObject(dtl);
@@ -403,6 +403,7 @@ namespace KyoeiSystem.Application.WCFService
                 registShizai.原価 = dr["原価"] == DBNull.Value ? 0 : (Decimal)dr["原価"];
                 registShizai.入数 = dr["数量"] == DBNull.Value ? 0 : (Decimal)dr["数量"];
                 registShizai.仕入先名 = dr["仕入先"].ToString();
+                registShizai.行番号 = i + 1;
                 registShizai.登録者 = loginUserId;
                 registShizai.登録日時 = DateTime.Now;
                 registShizai.最終更新者 = loginUserId;
@@ -424,6 +425,7 @@ namespace KyoeiSystem.Application.WCFService
                 registETC.内容 = dr["内容"].ToString();
                 registETC.原価 = dr["原価"] == DBNull.Value ? 0 : (Decimal)dr["原価"];
                 registETC.入数 = dr["数量"] == DBNull.Value ? 0 : (Decimal)dr["数量"];
+                registETC.行番号 = i + 1;
                 registETC.登録者 = loginUserId;
                 registETC.登録日時 = DateTime.Now;
                 registETC.最終更新者 = loginUserId;
@@ -440,7 +442,7 @@ namespace KyoeiSystem.Application.WCFService
         /// </summary>
         /// <param name="data"></param>
         /// <param name="loginUserId"></param>
-        public bool Delete( int pSETID, int loginUserId)
+        public bool Delete(int pSETID, int loginUserId)
         {
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -487,7 +489,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 品番情報取得
                 var result = (from x in context.M10_NEWSHINHD
-                             select x);
+                              select x);
 
 
                 return result.ToList();

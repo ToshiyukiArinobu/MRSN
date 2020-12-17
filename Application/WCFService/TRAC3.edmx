@@ -410,9 +410,11 @@
         <EntityType Name="M10_NEWETC">
           <Key>
             <PropertyRef Name="SETID" />
+            <PropertyRef Name="行番号" />
             <PropertyRef Name="内容" />
           </Key>
           <Property Name="SETID" Type="int" Nullable="false" />
+          <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="内容" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="原価" Type="decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="入数" Type="decimal" Nullable="false" Precision="7" />
@@ -457,9 +459,11 @@
         <EntityType Name="M10_NEWSHIZAI">
           <Key>
             <PropertyRef Name="SETID" />
+            <PropertyRef Name="行番号" />
             <PropertyRef Name="資材名" />
           </Key>
           <Property Name="SETID" Type="int" Nullable="false" />
+          <Property Name="行番号" Type="int" Nullable="false" />
           <Property Name="資材名" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="自社品番" Type="varchar" MaxLength="50" />
           <Property Name="自社品名" Type="varchar" MaxLength="50" />
@@ -1888,9 +1892,9 @@
           <EntitySet Name="S08_URIKAKE" EntityType="TRAC3Model.S08_URIKAKE" />
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.S09_KAIKAKE" />
           <EntitySet Name="T04_AGRDTB" EntityType="TRAC3Model.T04_AGRDTB" />
-          <EntitySet Name="M10_NEWETC" EntityType="TRAC3Model.M10_NEWETC" />
           <EntitySet Name="M10_NEWSHINDTL" EntityType="TRAC3Model.M10_NEWSHINDTL" />
           <EntitySet Name="M10_NEWSHINHD" EntityType="TRAC3Model.M10_NEWSHINHD" />
+          <EntitySet Name="M10_NEWETC" EntityType="TRAC3Model.M10_NEWETC" />
           <EntitySet Name="M10_NEWSHIZAI" EntityType="TRAC3Model.M10_NEWSHIZAI" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
@@ -3380,20 +3384,6 @@
           <Property Type="DateTime" Name="削除日時" Precision="3" />
           <Property Type="Int32" Name="削除者" />
         </EntityType>
-        <EntityType Name="M10_NEWETC">
-          <Key>
-            <PropertyRef Name="SETID" />
-            <PropertyRef Name="内容" />
-          </Key>
-          <Property Type="Int32" Name="SETID" Nullable="false" />
-          <Property Type="String" Name="内容" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Decimal" Name="原価" Nullable="false" Precision="9" Scale="2" />
-          <Property Type="Decimal" Name="入数" Nullable="false" Precision="7" Scale="0" />
-          <Property Type="Int32" Name="登録者" Nullable="false" />
-          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" Nullable="false" />
-          <Property Type="DateTime" Name="最終更新日時" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="M10_NEWSHINDTL">
           <Key>
             <PropertyRef Name="SETID" />
@@ -3427,12 +3417,30 @@
           <Property Type="Int32" Name="最終更新者" Nullable="false" />
           <Property Type="DateTime" Name="最終更新日時" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="M10_NEWETC">
+          <Key>
+            <PropertyRef Name="SETID" />
+            <PropertyRef Name="行番号" />
+            <PropertyRef Name="内容" />
+          </Key>
+          <Property Type="Int32" Name="SETID" Nullable="false" />
+          <Property Type="Int32" Name="行番号" Nullable="false" />
+          <Property Type="String" Name="内容" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="原価" Nullable="false" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="入数" Nullable="false" Precision="7" Scale="0" />
+          <Property Type="Int32" Name="登録者" Nullable="false" />
+          <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" Nullable="false" />
+          <Property Type="DateTime" Name="最終更新日時" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="M10_NEWSHIZAI">
           <Key>
             <PropertyRef Name="SETID" />
+            <PropertyRef Name="行番号" />
             <PropertyRef Name="資材名" />
           </Key>
           <Property Type="Int32" Name="SETID" Nullable="false" />
+          <Property Type="Int32" Name="行番号" Nullable="false" />
           <Property Type="String" Name="資材名" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="自社品番" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="自社品名" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -4879,20 +4887,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="M10_NEWETC">
-            <EntityTypeMapping TypeName="TRAC3Model.M10_NEWETC">
-              <MappingFragment StoreEntitySet="M10_NEWETC">
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="入数" ColumnName="入数" />
-                <ScalarProperty Name="原価" ColumnName="原価" />
-                <ScalarProperty Name="内容" ColumnName="内容" />
-                <ScalarProperty Name="SETID" ColumnName="SETID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="M10_NEWSHINDTL">
             <EntityTypeMapping TypeName="TRAC3Model.M10_NEWSHINDTL">
               <MappingFragment StoreEntitySet="M10_NEWSHINDTL">
@@ -4927,6 +4921,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="M10_NEWETC">
+            <EntityTypeMapping TypeName="TRAC3Model.M10_NEWETC">
+              <MappingFragment StoreEntitySet="M10_NEWETC">
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="入数" ColumnName="入数" />
+                <ScalarProperty Name="原価" ColumnName="原価" />
+                <ScalarProperty Name="内容" ColumnName="内容" />
+                <ScalarProperty Name="行番号" ColumnName="行番号" />
+                <ScalarProperty Name="SETID" ColumnName="SETID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="M10_NEWSHIZAI">
             <EntityTypeMapping TypeName="TRAC3Model.M10_NEWSHIZAI">
               <MappingFragment StoreEntitySet="M10_NEWSHIZAI">
@@ -4940,6 +4949,7 @@
                 <ScalarProperty Name="自社品名" ColumnName="自社品名" />
                 <ScalarProperty Name="自社品番" ColumnName="自社品番" />
                 <ScalarProperty Name="資材名" ColumnName="資材名" />
+                <ScalarProperty Name="行番号" ColumnName="行番号" />
                 <ScalarProperty Name="SETID" ColumnName="SETID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -78,6 +78,9 @@ namespace KyoeiSystem.Application.Windows.Views
             private int _明細区分;
             public int 明細区分 { get { return _明細区分; } set { _明細区分 = value; NotifyPropertyChanged(); } }
 
+            private int? _行番号;
+            public int? 行番号 { get { return _行番号; } set { _行番号 = value; NotifyPropertyChanged(); } }
+
             #region INotifyPropertyChanged メンバー
 
             /// <summary>
@@ -1128,7 +1131,7 @@ namespace KyoeiSystem.Application.Windows.Views
             DataSet ds = new DataSet();
 
             DataTable tblDtl = new DataTable();
-            AppCommon.ConvertToDataTable(構成品明細リスト,tblDtl);
+            AppCommon.ConvertToDataTable(構成品明細リスト, tblDtl);
 
             DataTable tblShizai = new DataTable();
             AppCommon.ConvertToDataTable(資材明細リスト, tblShizai);
@@ -1304,7 +1307,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // No366 Add Start
             // 構成品初期値設定
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 15; i++)
             {
                 CostingSheetMember row = new CostingSheetMember();
                 row.明細区分 = (int)明細区分.構成品;
@@ -1525,7 +1528,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 得意先販売価格 = (int)dthd.Rows[0]["得意先販売価格"];
             }
 
-            if(dtdtl != null)
+            if (dtdtl != null)
             {
                 構成品明細リスト = new List<CostingSheetMember>();
                 //構成品リスト
@@ -1547,6 +1550,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     mem.仕入先 = dr["仕入先名"].ToString();
                     mem.金額 = (mem.原価 == 0 || mem.数量 == 0) ? 0 : (decimal)(Math.Ceiling((double)(mem.原価 * mem.数量 * 10)) / 10);
                     mem.明細区分 = (int)明細区分.構成品;
+                    mem.行番号 = dr["構成行"] == null ? 0 : AppCommon.IntParse(dr["構成行"].ToString());
 
                     構成品明細リスト.Add(mem);
                 }
@@ -1567,6 +1571,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     mem.仕入先 = dr["仕入先名"].ToString();
                     mem.金額 = (mem.原価 == 0 || mem.数量 == 0) ? 0 : (decimal)(Math.Ceiling((double)(mem.原価 / mem.数量 * 10)) / 10);
                     mem.明細区分 = (int)明細区分.資材;
+                    mem.行番号 = dr["行番号"] == null ? 0 : AppCommon.IntParse(dr["行番号"].ToString());
                     資材明細リスト.Add(mem);
                 }
                 資材明細リスト = RemakeCostingList(資材明細リスト);
@@ -1583,6 +1588,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     mem.数量 = (decimal)dr["入数"];
                     mem.金額 = (mem.原価 == 0 || mem.数量 == 0) ? 0 : (decimal)(Math.Ceiling((double)(mem.原価 / mem.数量 * 10)) / 10);
                     mem.明細区分 = (int)明細区分.その他;
+                    mem.行番号 = dr["行番号"] == null ? 0 : AppCommon.IntParse(dr["行番号"].ToString());
                     その他明細リスト.Add(mem);
                 }
                 その他明細リスト = RemakeCostingList(その他明細リスト);
@@ -1804,8 +1810,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     構成品明細リスト = new List<CostingSheetMember>();
                 }
 
-                // 最大10行まで
-                if (sp構成品明細.Rows.Count >= 10)
+                // 最大15行まで
+                if (sp構成品明細.Rows.Count >= 15)
                 {
                     MessageBox.Show("明細行数が上限に達している為、これ以上追加できません。", "明細上限", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;

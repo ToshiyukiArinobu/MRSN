@@ -72,9 +72,9 @@
         <EntityTypeShape EntityType="TRAC3Model.V_SHR06010" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.V_TKS08010" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.T04_AGRDTB" Width="1.5" PointX="16.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.M10_NEWETC" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINDTL" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINHD" Width="1.5" PointX="4.75" PointY="16.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINDTL" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINHD" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.M10_NEWETC" Width="1.5" PointX="4.75" PointY="16.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHIZAI" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
