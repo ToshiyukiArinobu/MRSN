@@ -42,6 +42,25 @@ namespace KyoeiSystem.Application.WCFService
         private int _sETID;
     
         [DataMember]
+        public int 行番号
+        {
+            get { return _行番号; }
+            set
+            {
+                if (_行番号 != value)
+                {
+                    if (ChangeTracker.ChangeTrackingEnabled && ChangeTracker.State != ObjectState.Added)
+                    {
+                        throw new InvalidOperationException("The property '行番号' is part of the object's key and cannot be changed. Changes to key properties can only be made when the object is not being tracked or is in the Added state.");
+                    }
+                    _行番号 = value;
+                    OnPropertyChanged("行番号");
+                }
+            }
+        }
+        private int _行番号;
+    
+        [DataMember]
         public string 内容
         {
             get { return _内容; }

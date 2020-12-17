@@ -479,12 +479,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<T04_AGRDTB> _t04_AGRDTB;
     
-        public ObjectSet<M10_NEWETC> M10_NEWETC
-        {
-            get { return _m10_NEWETC  ?? (_m10_NEWETC = CreateObjectSet<M10_NEWETC>("M10_NEWETC")); }
-        }
-        private ObjectSet<M10_NEWETC> _m10_NEWETC;
-    
         public ObjectSet<M10_NEWSHINDTL> M10_NEWSHINDTL
         {
             get { return _m10_NEWSHINDTL  ?? (_m10_NEWSHINDTL = CreateObjectSet<M10_NEWSHINDTL>("M10_NEWSHINDTL")); }
@@ -496,6 +490,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _m10_NEWSHINHD  ?? (_m10_NEWSHINHD = CreateObjectSet<M10_NEWSHINHD>("M10_NEWSHINHD")); }
         }
         private ObjectSet<M10_NEWSHINHD> _m10_NEWSHINHD;
+    
+        public ObjectSet<M10_NEWETC> M10_NEWETC
+        {
+            get { return _m10_NEWETC  ?? (_m10_NEWETC = CreateObjectSet<M10_NEWETC>("M10_NEWETC")); }
+        }
+        private ObjectSet<M10_NEWETC> _m10_NEWETC;
     
         public ObjectSet<M10_NEWSHIZAI> M10_NEWSHIZAI
         {
