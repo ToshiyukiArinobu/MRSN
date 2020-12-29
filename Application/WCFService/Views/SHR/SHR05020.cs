@@ -11,6 +11,15 @@ namespace KyoeiSystem.Application.WCFService
     /// </summary>
     public class SHR05020
     {
+        #region 定数定義
+
+        //変更する場合は、DataSetのテーブル名と同じ名称にする必要があります。
+        /// <summary>請求書印刷 ヘッダーテーブル名</summary>
+        private const string PRINT_HEADER_TABLE_NAME = "SHR05021_H支払明細書";
+        /// <summary>請求書印刷 明細テーブル名</summary>
+        private const string PRINT_DETAIL_TABLE_NAME = "SHR05021_D支払明細書";
+
+        #endregion
 
         #region 項目クラス定義
 
@@ -46,10 +55,16 @@ namespace KyoeiSystem.Application.WCFService
             public long 支払額 { get; set; }
             public long 通常消費税 { get; set; }
             public long 軽減消費税 { get; set; }
+            public long 消費税 { get; set; }
             public long 当月支払額 { get; set; }
+
+            public decimal 通常税率対象金額 { get; set; }
+            public decimal 軽減税率対象金額 { get; set; }
+            public decimal 通常税率消費税 { get; set; }
+            public decimal 軽減税率消費税 { get; set; }
         }
         /// <summary>
-        /// SHR05010_支払一覧表帳票項目定義
+        /// SHR05010_支払一覧表帳票項目定義（簡易）
         /// </summary>
         private class PrintMember
         {
@@ -71,6 +86,83 @@ namespace KyoeiSystem.Application.WCFService
             public string 摘要 { get; set; }         // No.336 Add
         }
 
+        #endregion
+
+        #region 支払明細書帳票（詳細）
+
+        private class PrintHeaderMember
+        {
+            /// <summary>
+            /// 請求先で改ページさせる為のキー文字列
+            /// </summary>
+            public string PagingKey { get; set; }
+            public string 自社コード { get; set; }
+            public string 支払年月 { get; set; }
+            public string 支払先コード { get; set; }
+            public string 支払先枝番 { get; set; }
+            public string 得意先コード { get; set; }
+            public string 得意先枝番 { get; set; }
+            public int 回数 { get; set; }
+
+            public int 支払年 { get; set; }
+            public int 支払月 { get; set; }
+            public string 支払先郵便番号 { get; set; }
+            public string 支払先住所１ { get; set; }
+            public string 支払先住所２ { get; set; }
+            public string 得意先名称 { get; set; }
+            public string 得意先名称２ { get; set; }
+            public string 得意先部課名称 { get; set; }
+            public string 自社名称 { get; set; }
+            public string 自社郵便番号 { get; set; }
+            public string 自社住所 { get; set; }
+            public string 自社TEL { get; set; }
+            public string 自社FAX { get; set; }
+            public string 締日 { get; set; }
+            public string 発行日付 { get; set; }
+            public decimal 支払額 { get; set; }
+            public decimal 消費税S { get; set; }
+
+            public decimal 今回支払額 { get; set; }
+
+            public decimal 通常税率対象金額 { get; set; }
+            public decimal 軽減税率対象金額 { get; set; }
+            public decimal 通常税率消費税 { get; set; }
+            public decimal 軽減税率消費税 { get; set; }
+            public decimal 非税売上額 { get; set; }
+            public DateTime? 集計最終日 { get; set; }
+            public int 消費税率 { get; set; }
+            public int 軽減税率 { get; set; }
+        }
+
+        /// <summary>
+        /// TKS01020_D請求書
+        /// </summary>
+        private class PrintDetailMember
+        {
+            public string PagingKey { get; set; }
+            public string 自社コード { get; set; }
+            public string 支払年月 { get; set; }
+            public string 支払先コード { get; set; }
+            public string 支払先枝番 { get; set; }
+            public string 得意先コード { get; set; }
+            public string 得意先枝番 { get; set; }
+            public int 回数 { get; set; }
+
+            public int 伝票番号 { get; set; }
+            public string 仕入日 { get; set; }
+            public string 自社品番 { get; set; }
+            public string 相手品番 { get; set; }
+            public string 品番名称 { get; set; }
+            public decimal 数量 { get; set; }
+            public decimal 単価 { get; set; }
+            public int 金額 { get; set; }
+            /// <summary>
+            /// 軽減税率適用の場合に「*」を設定
+            /// </summary>
+            public string 軽減税率適用 { get; set; }
+            public string 摘要 { get; set; }
+
+        }
         #endregion
 
         #region CSV出力データ取得
@@ -97,7 +189,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
-
         #region 帳票出力データ取得
         /// <summary>
         /// 帳票出力データを取得する
@@ -121,7 +212,6 @@ namespace KyoeiSystem.Application.WCFService
 
         }
         #endregion
-
 
         #region 支払一覧表の基本情報を取得
         /// <summary>
@@ -306,7 +396,13 @@ namespace KyoeiSystem.Application.WCFService
                         支払額 = x.SHRHD.支払額,
                         通常消費税 = x.SHRHD.通常税率消費税,
                         軽減消費税 = x.SHRHD.軽減税率消費税,
-                        当月支払額 = x.SHRHD.当月支払額
+                        当月支払額 = x.SHRHD.当月支払額,
+                        通常税率対象金額 = x.SHRHD.通常税率対象金額,
+                        軽減税率対象金額 = x.SHRHD.軽減税率対象金額,
+                        通常税率消費税 = x.SHRHD.通常税率消費税,
+                        軽減税率消費税 = x.SHRHD.軽減税率消費税,
+                        消費税 = x.SHRHD.消費税,
+
                     });
                 // No.227,228 Mod End
 
@@ -419,6 +515,195 @@ namespace KyoeiSystem.Application.WCFService
         }
         #endregion
 
+        #region 請求書印字データ取得
+        /// <summary>
+        /// 請求書印字データを取得する
+        /// </summary>
+        /// <param name="condition">
+        ///  == 検索条件 ==
+        ///  自社コード
+        ///  作成年月日
+        ///  作成年月
+        ///  作成締日
+        ///  得意先コード
+        ///  得意先枝番
+        /// </param>
+        /// <param name="ds">
+        /// [0]請求一覧データ
+        /// </param>
+        /// <returns></returns>
+        public DataSet GetPrintDetail(Dictionary<string, string> condition)
+        {
+            DataSet dsResult = new DataSet();
+
+            // パラメータの型変換
+            DateTime printDate = DateTime.Parse(condition["作成年月日"]);
+
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+
+                // 対象の請求ヘッダを取得
+                List<S02_SHRHD_Data> hdList = getHeaderData(condition);
+
+
+                #region 帳票ヘッダ情報取得
+                var hdResult = hdList
+                        .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                            x => new { コード = x.支払先コード, 枝番 = x.支払先枝番 },
+                            y => new { コード = y.取引先コード, 枝番 = y.枝番 },
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (a, b) => new { SHRHD = a.x, TOK = b })
+                        .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null),
+                            x => x.SHRHD.自社コード,
+                            y => y.自社コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (c, d) => new { c.x.SHRHD, c.x.TOK, JIS = d })
+                        .OrderBy(o => o.SHRHD.支払先コード)
+                        .ThenBy(t => t.SHRHD.支払先枝番)
+                        .ToList()
+                    .Select(x => new PrintHeaderMember
+                    {
+                        PagingKey = string.Concat(x.SHRHD.支払先コード, "-", x.SHRHD.支払先枝番, "-", x.SHRHD.支払日, ">", x.SHRHD.回数),
+                        自社コード = x.SHRHD.自社コード.ToString(),
+                        支払年月 = x.SHRHD.支払年月.ToString(),
+                        支払先コード = x.SHRHD.支払先コード.ToString(),
+                        支払先枝番 = x.SHRHD.支払先枝番.ToString(),
+                        得意先コード = string.Format("{0:D4}", x.SHRHD.支払先コード),   // No.223 Mod
+                        得意先枝番 = string.Format("{0:D2}", x.SHRHD.支払先枝番),       // No.233 Mod
+                        回数 = x.SHRHD.回数,
+                        支払年 = x.SHRHD.支払年月 / 100,
+                        支払月 = x.SHRHD.支払年月 % 100,
+                        支払先郵便番号 = x.TOK.郵便番号,
+                        支払先住所１ = x.TOK.住所１,
+                        支払先住所２ = x.TOK.住所２,
+                        得意先名称 = x.TOK.得意先名１,
+                        得意先名称２ = x.TOK.得意先名２,
+                        得意先部課名称 = x.TOK.部課名称,
+                        自社名称 = x.JIS.自社名,
+                        自社郵便番号 = x.JIS.郵便番号,
+                        自社住所 = x.JIS.住所１.Trim() + x.JIS.住所２.Trim(),
+                        自社TEL = x.JIS.電話番号,
+                        自社FAX = x.JIS.ＦＡＸ,
+                        締日 = (x.TOK.Ｓ締日 >= 31) ? "末" : x.TOK.Ｓ締日.ToString(),
+                        発行日付 = printDate.ToString("yyyy/MM/dd"),
+
+                        支払額 = x.SHRHD.支払額,
+                        消費税S = x.SHRHD.消費税,
+                        今回支払額 = x.SHRHD.支払額 + x.SHRHD.消費税,
+
+                        通常税率対象金額 = x.SHRHD.通常税率対象金額,
+                        軽減税率対象金額 = x.SHRHD.軽減税率対象金額,
+                        通常税率消費税 = x.SHRHD.通常税率消費税,
+                        軽減税率消費税 = x.SHRHD.軽減税率消費税,
+                        非税売上額 = x.SHRHD.非課税支払額,
+                        集計最終日 = x.SHRHD.集計最終日
+                    });
+                #endregion
+
+                #region 帳票明細情報取得
+
+
+                // 対象の請求ヘッダを取得
+                List<S02_SHRDTL> dtlList = getDetailData(condition);
+
+                var dtlResult =
+                    dtlList.GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                            x => x.品番コード,
+                            y => y.品番コード,
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (a, b) => new { SDTL = a.x, HIN = b })
+                        .GroupJoin(context.M10_TOKHIN.Where(w => w.削除日時 == null),
+                            x => new { コード = x.SDTL.支払先コード, 枝番 = x.SDTL.支払先枝番 },
+                            y => new { コード = y.取引先コード, 枝番 = y.枝番 },
+                            (x, y) => new { x, y })
+                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                            (c, d) => new { c.x.SDTL, c.x.HIN, TOKHIN = d })
+                        .OrderBy(o => o.SDTL.支払先コード)
+                        .ThenBy(o => o.SDTL.支払先枝番)
+                        .ToList()
+                        .Select(x => new PrintDetailMember
+                        {
+                            PagingKey = string.Concat(x.SDTL.支払先コード, "-", x.SDTL.支払先枝番, "-", x.SDTL.支払日, ">", x.SDTL.回数),
+                            自社コード = x.SDTL.自社コード.ToString(),
+                            支払年月 = x.SDTL.支払年月.ToString(),
+                            支払先コード = x.SDTL.支払先コード.ToString(),
+                            支払先枝番 = x.SDTL.支払先枝番.ToString(),
+                            得意先コード = string.Format("{0:D4}", x.SDTL.支払先コード),
+                            得意先枝番 = string.Format("{0:D2}", x.SDTL.支払先枝番),
+                            回数 = x.SDTL.回数,
+
+                            伝票番号 = x.SDTL.伝票番号,
+                            仕入日 = x.SDTL.仕入日.ToString("yyyy/MM/dd"),
+                            自社品番 = x.HIN.自社品番,
+                            相手品番 = x.TOKHIN == null ? "" : x.TOKHIN.得意先品番コード,
+                            品番名称 = !string.IsNullOrEmpty(x.SDTL.自社品名) ? x.SDTL.自社品名 : x.HIN.自社品名,     // No.389 Mod
+                            数量 = x.SDTL.数量,
+                            単価 = x.SDTL.単価,
+                            金額 = x.SDTL.金額,
+
+                            //20190902 CB mod - s 軽減税率対応
+                            //軽減税率適用 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "*" : ""
+                            軽減税率適用 = x.SDTL.伝票区分 != (int)CommonConstants.支払伝票区分.仕入伝票 ? "" : (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "軽"
+                                            : x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.非課税 ? "非" : ""),
+                            //20190902 CB mod - e
+                            摘要 = x.SDTL.摘要
+                        });
+
+                #endregion
+
+                //S01_SHRHDの集計最終日を基準としてM73_ZEIから税率を取得
+                DataTable dt;
+                dt = KESSVCEntry.ConvertListToDataTable<PrintHeaderMember>(hdResult.AsQueryable().ToList());
+
+                M73 M73Service;
+                M73Service = new M73();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    // drを使った処理(カラムにアクセスする場合は dr["カラム名"]と表記)
+                    DateTime? DateTimeWk = (DateTime)dr["集計最終日"];
+
+                    if (DateTimeWk != null)
+                    {
+                        //共通関数仕様　+1日
+                        DateTime answer = (DateTime)DateTimeWk;
+                        answer = answer.AddDays(1);
+
+                        List<M73.M73_ZEI_Member> lstM73 = M73Service.GetData(answer, -1);
+
+                        dr["軽減税率"] = lstM73[0].軽減税率;
+                        dr["消費税率"] = lstM73[0].消費税率;
+                    }
+                }
+                DataTable hdDt = dt;
+
+                hdDt.TableName = PRINT_HEADER_TABLE_NAME;
+                DataTable dtlDt = KESSVCEntry.ConvertListToDataTable<PrintDetailMember>(dtlResult.AsQueryable().ToList());
+                dtlDt.TableName = PRINT_DETAIL_TABLE_NAME;
+
+                if (dsResult.Tables.Contains(hdDt.TableName))
+                {
+                    // ２件目以降
+                    dsResult.Tables[PRINT_HEADER_TABLE_NAME].Merge(hdDt);
+                    dsResult.Tables[PRINT_DETAIL_TABLE_NAME].Merge(dtlDt);
+
+                }
+                else
+                {
+                    // １件目
+                    dsResult.Tables.Add(hdDt);
+                    dsResult.Tables.Add(dtlDt);
+
+                }
+            }
+
+            return dsResult;
+
+        }
+        #endregion
     }
 
 }

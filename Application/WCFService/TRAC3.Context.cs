@@ -431,12 +431,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<S01_SEIDTL> _s01_SEIDTL;
     
-        public ObjectSet<S02_SHRDTL> S02_SHRDTL
-        {
-            get { return _s02_SHRDTL  ?? (_s02_SHRDTL = CreateObjectSet<S02_SHRDTL>("S02_SHRDTL")); }
-        }
-        private ObjectSet<S02_SHRDTL> _s02_SHRDTL;
-    
         public ObjectSet<T02_URDTL> T02_URDTL
         {
             get { return _t02_URDTL  ?? (_t02_URDTL = CreateObjectSet<T02_URDTL>("T02_URDTL")); }
@@ -502,6 +496,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _m10_NEWSHIZAI  ?? (_m10_NEWSHIZAI = CreateObjectSet<M10_NEWSHIZAI>("M10_NEWSHIZAI")); }
         }
         private ObjectSet<M10_NEWSHIZAI> _m10_NEWSHIZAI;
+    
+        public ObjectSet<S02_SHRDTL> S02_SHRDTL
+        {
+            get { return _s02_SHRDTL  ?? (_s02_SHRDTL = CreateObjectSet<S02_SHRDTL>("S02_SHRDTL")); }
+        }
+        private ObjectSet<S02_SHRDTL> _s02_SHRDTL;
 
         #endregion
 

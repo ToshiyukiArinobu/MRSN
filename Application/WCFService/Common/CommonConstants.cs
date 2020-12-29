@@ -237,6 +237,12 @@ namespace KyoeiSystem.Application.WCFService
         }
         // No-281 Add End
 
+        public enum 支払伝票区分 : int
+        {
+            仕入伝票 = 1,
+            揚り伝票 = 2
+        }
+
         public enum 商品消費税区分 : int
         {
             通常税率 = 0,

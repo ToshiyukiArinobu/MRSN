@@ -1091,7 +1091,9 @@ namespace KyoeiSystem.Application.WCFService
                         // No-86 End
                         摘要 = x.SRDTL.摘要,
                         登録者 = userId,
-                        登録日時 = DateTime.Now
+                        登録日時 = DateTime.Now,
+                        伝票区分 = (int)CommonConstants.支払伝票区分.仕入伝票,
+
                     });
 
             // No-84 Start
@@ -1211,7 +1213,8 @@ namespace KyoeiSystem.Application.WCFService
                         // No-86 End
                         摘要 = x.SRDTL.摘要,
                         登録者 = userId,
-                        登録日時 = DateTime.Now
+                        登録日時 = DateTime.Now,
+                        伝票区分 = (int)CommonConstants.支払伝票区分.仕入伝票,
                     });
 
             return dtlList.ToList();
@@ -1373,7 +1376,8 @@ namespace KyoeiSystem.Application.WCFService
                                 0,
                         摘要 = x.AGRDTL.摘要,
                         登録者 = userId,
-                        登録日時 = DateTime.Now
+                        登録日時 = DateTime.Now,
+                        伝票区分 = (int)CommonConstants.支払伝票区分.揚り伝票,
                     });
 
             return dtlAgrList.ToList();    

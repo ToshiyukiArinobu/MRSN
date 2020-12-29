@@ -42,8 +42,15 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>帳票印刷データ取得</summary>
         private const string SEARCH_SHR05020_PRT = "SHR05020_GetPrintData";
 
+        /// <summary>帳票印刷データ取得</summary>
+        private const string SEARCH_SHR05020_PRT_DETAIL = "SHR05020_GetPrintDetail";
+
+
         /// <summary>帳票定義ファイル 格納パス</summary>
-        private const string ReportTemplateFileName = @"Files\SHR\SHR05020.rpt";
+        // 簡易
+        private const string ReportSimpleFileName = @"Files\SHR\SHR05020.rpt";
+        // 詳細
+        private const string ReportDetailFileName = @"Files\SHR\SHR05021.rpt";
 
         #endregion
 
@@ -136,6 +143,7 @@ namespace KyoeiSystem.Application.Windows.Views
             // 初期値設定
             myCompany.Text1 = ccfg.自社コード.ToString();
             myCompany.IsEnabled = ccfg.自社販社区分 == 自社販社区分.自社.GetHashCode();
+            this.PrintDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
 
             CreateYearMonth.Text = DateTime.Now.ToString("yyyy/MM");
 
@@ -157,22 +165,39 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 var data = message.GetResultData();
 
-                if (data is DataTable)
+                DataTable tbl = (data is DataTable) ? (data as DataTable) : null;
+                var ds = data as DataSet;
+
+                switch (message.GetMessageName())
                 {
-                    DataTable tbl = data as DataTable;
+                    case SEARCH_SHR05020_PRT:
+                        // 検索結果取得時
+                        DispPreviw(tbl);
+                        break;
 
-                    switch (message.GetMessageName())
-                    {
-                        case SEARCH_SHR05020_PRT:
-                            // 検索結果取得時
-                            DispPreviw(tbl);
-                            break;
+                    case SEARCH_SHR05020_PRT_DETAIL:
 
-                        case SEARCH_SHR05020_CSV:
-                            OutPutCSV(tbl);
-                            break;
+                        if (ds.Tables.Count < 1)
+                        {
+                            base.ErrorMessage = "対象データが存在しません。";
+                            return;
+                        }
+                        else
+                        {
+                            // 詳細データがない場合、メッセージ表示
+                            if ((ds.Tables["SHR05021_D支払明細書"].Rows.Count) <= 0)
+                            {
+                                base.ErrorMessage = "対象データが存在しません。";
+                                return;
+                            }
+                        }
 
-                    }
+                        PrintPreview(ds);
+                        break;
+
+                    case SEARCH_SHR05020_CSV:
+                        OutPutCSV(tbl);
+                        break;
 
                 }
 
@@ -257,7 +282,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     }));
 
         }
-       
+
         /// <summary>
         /// F8　リボン　印刷
         /// </summary>
@@ -287,14 +312,20 @@ namespace KyoeiSystem.Application.Windows.Views
 
             Dictionary<string, string> paramDic = createParamDic();
 
-            base.SendRequest(
-                new CommunicationObject(
-                    MessageType.RequestDataWithBusy,
-                    SEARCH_SHR05020_PRT,
-                    new object[] {
-                        paramDic
-                    }));
 
+            switch (this.rdo出力帳票.Text)
+            {
+                case "0":
+                    //簡易帳票
+                    base.SendRequest(new CommunicationObject(MessageType.RequestDataWithBusy, SEARCH_SHR05020_PRT, new object[] { paramDic }));
+                    break;
+                case "1":
+                    //詳細帳票
+                    base.SendRequest(new CommunicationObject(MessageType.RequestDataWithBusy, SEARCH_SHR05020_PRT_DETAIL, new object[] { paramDic }));
+                    break;
+                default:
+                    return;
+            }
         }
 
         /// <summary>
@@ -311,7 +342,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #region プレビュー画面
         /// <summary>
-        /// プレビュー画面表示
+        /// プレビュー画面表示(TBL)
         /// </summary>
         /// <param name="tbl"></param>
         private void DispPreviw(DataTable tbl)
@@ -346,7 +377,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 // 第1引数　帳票タイトル
                 // 第2引数　帳票ファイルPass
                 // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("支払明細表", ReportTemplateFileName, 0, 0, 0);          // No-148 Mod
+                view.MakeReport("支払明細表", ReportSimpleFileName, 0, 0, 0);          // No-148 Mod
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする
                 view.SetReportData(tbl);
@@ -367,6 +398,40 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 throw ex;
             }
+
+        }
+
+
+        /// <summary>
+        /// 帳票出力処理(DS)
+        /// </summary>
+        /// <param name="ds"></param>
+        private void PrintPreview(DataSet ds)
+        {
+            // 印刷処理
+            FwPreview.ReportPreview view = new FwPreview.ReportPreview();
+            view.PrinterName = frmcfg.PrinterName;
+            // 第1引数　帳票タイトル
+            // 第2引数　帳票ファイルPass
+            // 第3以上　帳票の開始点(0で良い)
+            view.MakeReport("支払明細書", ReportDetailFileName, 0, 0, 0);
+
+            var parms = new List<FwPreview.ReportParameter>()
+                {
+                    //new FwPreview.ReportParameter(){ PNAME="出力日付", VALUE=(this.PrintDate.Text)},
+                    //new FwPreview.ReportParameter(){ PNAME="行数１", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
+                    //new FwPreview.ReportParameter(){ PNAME="最大行数", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
+                    //new FwPreview.ReportParameter(){ PNAME="行数２", VALUE=(ds.Tables[0].Rows.Count)},
+                };
+
+            // 帳票ファイルに送るデータ。
+            // 帳票データの列と同じ列名を保持したDataSetを引数とする
+            view.SetReportData(ds);
+            view.PrinterName = frmcfg.PrinterName;
+            view.SetupParmeters(parms);
+            view.ShowPreview();
+            view.Close();
+            frmcfg.PrinterName = view.PrinterName;
 
         }
         #endregion
@@ -497,6 +562,7 @@ namespace KyoeiSystem.Application.Windows.Views
             Dictionary<string, string> paramDic = new Dictionary<string, string>();
 
             paramDic.Add("自社コード", myCompany.Text1);
+            paramDic.Add("作成年月日", this.PrintDate.Text);
             paramDic.Add("作成年月", CreateYearMonth.Text);
             paramDic.Add("作成締日", ClosingDate.Text);
             paramDic.Add("全締日", isClosingAllDays.IsChecked.ToString());

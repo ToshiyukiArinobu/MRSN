@@ -220,21 +220,6 @@ namespace KyoeiSystem.Application.WCFService
         private int _品番コード;
     
         [DataMember]
-        public string 自社品名
-        {
-            get { return _自社品名; }
-            set
-            {
-                if (_自社品名 != value)
-                {
-                    _自社品名 = value;
-                    OnPropertyChanged("自社品名");
-                }
-            }
-        }
-        private string _自社品名;
-    
-        [DataMember]
         public decimal 数量
         {
             get { return _数量; }
@@ -338,6 +323,36 @@ namespace KyoeiSystem.Application.WCFService
             }
         }
         private System.DateTime _登録日時;
+    
+        [DataMember]
+        public string 自社品名
+        {
+            get { return _自社品名; }
+            set
+            {
+                if (_自社品名 != value)
+                {
+                    _自社品名 = value;
+                    OnPropertyChanged("自社品名");
+                }
+            }
+        }
+        private string _自社品名;
+    
+        [DataMember]
+        public int 伝票区分
+        {
+            get { return _伝票区分; }
+            set
+            {
+                if (_伝票区分 != value)
+                {
+                    _伝票区分 = value;
+                    OnPropertyChanged("伝票区分");
+                }
+            }
+        }
+        private int _伝票区分;
 
         #endregion
 

@@ -467,6 +467,7 @@ namespace KyoeiSystem.Application.WCFService
             // 支払一覧表
             new WCFDataAccessConfig() { Name = "SHR05020_GetCsvData", ServiceClass = "SHR05020", MethodName = "GetCsvData", Descprition = "支払明細表ＣＳＶデータ取得" },
             new WCFDataAccessConfig() { Name = "SHR05020_GetPrintData", ServiceClass = "SHR05020", MethodName = "GetPrintData", Descprition = "支払明細表印刷データ取得" },
+            new WCFDataAccessConfig() { Name = "SHR05020_GetPrintDetail", ServiceClass = "SHR05020", MethodName = "GetPrintDetail", Descprition = "支払明細表印刷データ取得" },
 
             // 支払一覧表
             new WCFDataAccessConfig() { Name = "SHR05010_GetCsvData", ServiceClass = "SHR05010", MethodName = "GetCsvData", Descprition = "支払一覧表ＣＳＶデータ取得" },
