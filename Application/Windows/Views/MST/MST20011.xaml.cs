@@ -382,7 +382,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 }
 
                 DataSet ds = new DataSet();
-                ds.Tables.Add(SearchResult);
+                ds.Tables.Add(SearchResult.Copy());
 
                 base.SendRequest(
                     new CommunicationObject(MessageType.UpdateData, MST20011_Update, new object[]{
@@ -443,6 +443,18 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 DataRow drData = SearchResult.Rows[i];
                 //品番コード	int	Yes
+                int i得意先コード;
+                if (int.TryParse(drData["得意先コード"].ToString(), out i得意先コード) == false)
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の得意先コードが数字に変換出来ません。";
+                    return false;
+                }
+                int i枝番;
+                if (int.TryParse(drData["枝番"].ToString(), out i枝番) == false)
+                {
+                    this.ErrorMessage = (i + 1).ToString() + "行目の枝番が数字に変換出来ません。";
+                    return false;
+                }
                 //自社品番	varchar(12)	
                 bytenum = sjisEnc.GetByteCount(drData["自社品番"].ToString());
                 if (bytenum > 12)
@@ -450,19 +462,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     this.ErrorMessage = (i+1).ToString() + "行目の自社品番が12byteを超えています。";
                     return false;
                 }
-                //自社色	varchar(3)
-                //if (string.IsNullOrEmpty(drData["色"].ToString()) == false)
-                //{
-                //    DataTable dtM06 = MasterDataSet.Tables["M06List"];
-
-                //    DataRow[] drlist = dtM06.Select("色コード = '" + drData["色"].ToString() +"'");
-
-                //    //if (drlist.Length == 0)
-                //    //{
-                //    //    this.ErrorMessage = (i + 1).ToString() + "行目の自社色はマスタに存在しないデータがセットされています。";
-                //    //    return false;
-                //    //}
-                //}
+                
                 bytenum = sjisEnc.GetByteCount(drData["得意先品番"].ToString());
                 if (bytenum > 50)
                 {

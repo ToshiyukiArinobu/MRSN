@@ -126,8 +126,8 @@ namespace KyoeiSystem.Application.WCFService
                     {
                         // 新規登録
                         M02_BAIKA m02baika = new M02_BAIKA();
-                        m02baika.得意先コード = (int)rw["得意先コード"];
-                        m02baika.枝番 = (int)rw["枝番"];
+                        m02baika.得意先コード = i得意先コード;
+                        m02baika.枝番 = i枝番;
                         m02baika.品番コード = hinban.品番コード;
                         m02baika.単価 = decimal.Parse(rw["単価"].ToString());
                         m02baika.登録者 = loginUserId;

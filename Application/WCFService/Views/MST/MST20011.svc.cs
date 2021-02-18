@@ -126,8 +126,8 @@ namespace KyoeiSystem.Application.WCFService
                     {
                         // 新規登録
                         M10_TOKHIN tokhin = new M10_TOKHIN();
-                        tokhin.取引先コード = (int)rw["得意先コード"];
-                        tokhin.枝番 = (int)rw["枝番"];
+                        tokhin.取引先コード = i得意先コード;
+                        tokhin.枝番 = i枝番;
                         tokhin.品番コード = hinban.品番コード;
                         tokhin.得意先品番コード = rw["得意先品番"].ToString();
                         tokhin.登録者 = loginUserId;
