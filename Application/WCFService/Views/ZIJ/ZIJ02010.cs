@@ -93,7 +93,7 @@ namespace KyoeiSystem.Application.WCFService
                                 x => x.伝票番号,
                                 y => y.伝票番号,
                                 (x, y) => new { SHD = x, SDTL = y })
-                            .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                            .GroupJoin(context.M09_HIN,//.Where(w => w.削除日時 == null),
                                 x => x.SDTL.品番コード,
                                 y => y.品番コード,
                                 (x, y) => new { x, y })
@@ -135,7 +135,7 @@ namespace KyoeiSystem.Application.WCFService
                     #region 各名称を取得して検索メンバークラスに整形
                     var resultList =
                         srDataList
-                            .GroupJoin(context.M01_TOK.Where(w => w.削除日時 == null),
+                            .GroupJoin(context.M01_TOK,//.Where(w => w.削除日時 == null),
                                 x => new { code = x.SHD.仕入先コード, eda = x.SHD.仕入先枝番 },
                                 y => new { code = y.取引先コード, eda = y.枝番 },
                                 (x, y) => new { x, y })
