@@ -9540,6 +9540,12 @@ namespace Hakobou.Data.SHR {
             
             private global::System.Data.DataColumn column今回支払額;
             
+            private global::System.Data.DataColumn column前回支払額;
+            
+            private global::System.Data.DataColumn column今回出金額;
+            
+            private global::System.Data.DataColumn column繰越残高;
+            
             private global::System.Data.DataColumn column軽減税率;
             
             private global::System.Data.DataColumn column消費税率;
@@ -9827,6 +9833,30 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 前回支払額Column {
+                get {
+                    return this.column前回支払額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 今回出金額Column {
+                get {
+                    return this.column今回出金額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 繰越残高Column {
+                get {
+                    return this.column繰越残高;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 軽減税率Column {
                 get {
                     return this.column軽減税率;
@@ -9910,6 +9940,9 @@ namespace Hakobou.Data.SHR {
                         decimal 通常税率消費税, 
                         decimal 軽減税率消費税, 
                         decimal 今回支払額, 
+                        decimal 前回支払額, 
+                        decimal 今回出金額, 
+                        decimal 繰越残高, 
                         int 軽減税率, 
                         int 消費税率) {
                 SHR05021_H支払明細書Row rowSHR05021_H支払明細書Row = ((SHR05021_H支払明細書Row)(this.NewRow()));
@@ -9945,6 +9978,9 @@ namespace Hakobou.Data.SHR {
                         通常税率消費税,
                         軽減税率消費税,
                         今回支払額,
+                        前回支払額,
+                        今回出金額,
+                        繰越残高,
                         軽減税率,
                         消費税率};
                 rowSHR05021_H支払明細書Row.ItemArray = columnValuesArray;
@@ -10000,6 +10036,9 @@ namespace Hakobou.Data.SHR {
                 this.column通常税率消費税 = base.Columns["通常税率消費税"];
                 this.column軽減税率消費税 = base.Columns["軽減税率消費税"];
                 this.column今回支払額 = base.Columns["今回支払額"];
+                this.column前回支払額 = base.Columns["前回支払額"];
+                this.column今回出金額 = base.Columns["今回出金額"];
+                this.column繰越残高 = base.Columns["繰越残高"];
                 this.column軽減税率 = base.Columns["軽減税率"];
                 this.column消費税率 = base.Columns["消費税率"];
             }
@@ -10069,6 +10108,12 @@ namespace Hakobou.Data.SHR {
                 base.Columns.Add(this.column軽減税率消費税);
                 this.column今回支払額 = new global::System.Data.DataColumn("今回支払額", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column今回支払額);
+                this.column前回支払額 = new global::System.Data.DataColumn("前回支払額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column前回支払額);
+                this.column今回出金額 = new global::System.Data.DataColumn("今回出金額", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column今回出金額);
+                this.column繰越残高 = new global::System.Data.DataColumn("繰越残高", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column繰越残高);
                 this.column軽減税率 = new global::System.Data.DataColumn("軽減税率", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column軽減税率);
                 this.column消費税率 = new global::System.Data.DataColumn("消費税率", typeof(int), null, global::System.Data.MappingType.Element);
@@ -20528,6 +20573,54 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 前回支払額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSHR05021_H支払明細書.前回支払額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05021_H支払明細書\' にある列 \'前回支払額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05021_H支払明細書.前回支払額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 今回出金額 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSHR05021_H支払明細書.今回出金額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05021_H支払明細書\' にある列 \'今回出金額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05021_H支払明細書.今回出金額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal 繰越残高 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableSHR05021_H支払明細書.繰越残高Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05021_H支払明細書\' にある列 \'繰越残高\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05021_H支払明細書.繰越残高Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int 軽減税率 {
                 get {
                     try {
@@ -20928,6 +21021,42 @@ namespace Hakobou.Data.SHR {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set今回支払額Null() {
                 this[this.tableSHR05021_H支払明細書.今回支払額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is前回支払額Null() {
+                return this.IsNull(this.tableSHR05021_H支払明細書.前回支払額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set前回支払額Null() {
+                this[this.tableSHR05021_H支払明細書.前回支払額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is今回出金額Null() {
+                return this.IsNull(this.tableSHR05021_H支払明細書.今回出金額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set今回出金額Null() {
+                this[this.tableSHR05021_H支払明細書.今回出金額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is繰越残高Null() {
+                return this.IsNull(this.tableSHR05021_H支払明細書.繰越残高Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set繰越残高Null() {
+                this[this.tableSHR05021_H支払明細書.繰越残高Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

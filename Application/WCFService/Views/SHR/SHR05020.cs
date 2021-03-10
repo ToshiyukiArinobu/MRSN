@@ -46,8 +46,11 @@ namespace KyoeiSystem.Application.WCFService
             public int 支払先枝番 { get; set; }
             public int 支払日 { get; set; }
             public int 回数 { get; set; }
+            public DateTime? 集計開始日 { get; set; }
             public DateTime? 集計最終日 { get; set; }
             public long 前月残高 { get; set; }
+            public long 前回支払額 { get; set; }
+            public long 今回出金額 { get; set; }
             public long 出金額 { get; set; }
             public long 繰越残高 { get; set; }
             public long 値引額 { get; set; }
@@ -122,6 +125,9 @@ namespace KyoeiSystem.Application.WCFService
             public decimal 支払額 { get; set; }
             public decimal 消費税S { get; set; }
 
+            public decimal 前回支払額 { get; set; }
+            public decimal 今回出金額 { get; set; }
+            public decimal 繰越残高 { get; set; }
             public decimal 今回支払額 { get; set; }
 
             public decimal 通常税率対象金額 { get; set; }
@@ -386,7 +392,10 @@ namespace KyoeiSystem.Application.WCFService
                         支払先コード = x.SHRHD.支払先コード,
                         支払先枝番 = x.SHRHD.支払先枝番,
                         支払日 = x.SHRHD.支払日,
+                        前回支払額 = x.SHRHD.前月残高,
+                        今回出金額 = x.SHRHD.出金額,
                         回数 = x.SHRHD.回数,
+                        集計開始日 = x.SHRHD.集計開始日,
                         集計最終日 = x.SHRHD.集計最終日,
                         前月残高 = x.SHRHD.前月残高,
                         出金額 = x.SHRHD.出金額,
@@ -592,7 +601,9 @@ namespace KyoeiSystem.Application.WCFService
                         支払額 = x.SHRHD.支払額,
                         消費税S = x.SHRHD.消費税,
                         今回支払額 = x.SHRHD.支払額 + x.SHRHD.消費税,
-
+                        前回支払額 = x.SHRHD.前回支払額,
+                        今回出金額 = x.SHRHD.今回出金額,
+                        繰越残高 = x.SHRHD.繰越残高,
                         通常税率対象金額 = x.SHRHD.通常税率対象金額,
                         軽減税率対象金額 = x.SHRHD.軽減税率対象金額,
                         通常税率消費税 = x.SHRHD.通常税率消費税,
@@ -634,7 +645,7 @@ namespace KyoeiSystem.Application.WCFService
                             得意先コード = string.Format("{0:D4}", x.SDTL.支払先コード),
                             得意先枝番 = string.Format("{0:D2}", x.SDTL.支払先枝番),
                             回数 = x.SDTL.回数,
-
+                            
                             伝票番号 = x.SDTL.伝票番号,
                             仕入日 = x.SDTL.仕入日.ToString("yyyy/MM/dd"),
                             自社品番 = x.HIN.自社品番,
@@ -654,6 +665,65 @@ namespace KyoeiSystem.Application.WCFService
 
                 #endregion
 
+                #region 期間内の出金明細
+                foreach (var mem in hdList.ToList())
+                {
+                    var shukinDtl =
+                        context.T12_PAYHD.Where(c =>
+                                    c.出金元自社コード == mem.自社コード &&
+                                        c.得意先コード == mem.支払先コード &&
+                                        c.得意先枝番 == mem.支払先枝番 &&
+                                    c.出金日 >= mem.集計開始日 &&
+                                    c.出金日 <= mem.集計最終日 &&
+                                    c.削除日時 == null
+                                    )
+                                    .GroupJoin(context.T12_PAYDTL.Where(c => c.削除日時 == null),
+                                        x => x.伝票番号,
+                                        y => y.伝票番号,
+                                        (x, y) => new { x, y })
+                                    .SelectMany(x => x.y.DefaultIfEmpty(),
+                                        (a, b) => new { HD = a.x, DTL = b })
+                                    .GroupJoin(context.M99_COMBOLIST.Where(c =>
+                                        c.分類 == "随時" &&
+                                        c.機能 == "入金問合せ" &&
+                                        c.カテゴリ == "金種"),
+                                        x => x.DTL.金種コード,
+                                        y => y.コード,
+                                        (x, y) => new { x, y })
+                                        .SelectMany(x => x.y.DefaultIfEmpty(),
+                                        (a, b) => new { SHU = a.x, CMB = b })
+                                    .ToList()
+                                    .Select(x => new PrintDetailMember
+                                    {
+                                        PagingKey = string.Concat(mem.支払先コード, "-", mem.支払先枝番, "-", mem.支払日, ">", mem.回数),
+                                        自社コード = mem.自社コード.ToString(),
+                                        支払年月 = mem.支払年月.ToString(),
+                                        支払先コード = mem.支払先コード.ToString(),
+                                        支払先枝番 = mem.支払先枝番.ToString(),
+                                        得意先コード = string.Format("{0:D4}", mem.支払先コード),   // No.223 Mod
+                                        得意先枝番 = string.Format("{0:D2}", mem.支払先枝番),       // No.223 Mod
+                                        回数 = mem.回数,
+
+                                        伝票番号 = x.SHU.HD.伝票番号,              // No-181 Mod
+                                        仕入日 = x.SHU.HD.出金日.ToString("yyyy/MM/dd"),
+                                        自社品番 = string.Empty,
+                                        相手品番 = string.Empty,
+                                        品番名称 = x.CMB.表示名 == null ? string.Empty : x.CMB.表示名,
+                                        数量 = 0,
+                                        単価 = 0,
+                                        金額 = x.SHU.DTL.金額,
+
+                                        軽減税率適用 = "",
+                                        摘要 = x.SHU.DTL.摘要,
+                                    });
+
+
+                    //売上日→伝票番号の順でソート
+                    dtlResult = dtlResult.Concat(shukinDtl).OrderBy(o => o.仕入日).ThenBy(o => o.伝票番号);
+                }
+
+
+                #endregion
                 //S01_SHRHDの集計最終日を基準としてM73_ZEIから税率を取得
                 DataTable dt;
                 dt = KESSVCEntry.ConvertListToDataTable<PrintHeaderMember>(hdResult.AsQueryable().ToList());

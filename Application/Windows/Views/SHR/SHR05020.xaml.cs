@@ -416,9 +416,31 @@ namespace KyoeiSystem.Application.Windows.Views
             // 第3以上　帳票の開始点(0で良い)
             view.MakeReport("支払明細書", ReportDetailFileName, 0, 0, 0);
 
+            string str選択項目;
+
+            switch (this.rdo詳細.Text)
+            {
+                case "0":
+                    //前回支払額
+                    str選択項目 = "前回支払額";
+                    break;
+                case "1":
+                    //今回出金額
+                   str選択項目 ="今回出金額";
+                    break;
+                case "2":
+                    //繰越残高
+                    str選択項目 = "繰越残高";
+                    break;
+                default:
+                    //前回支払額
+                    str選択項目 = "前回支払額";
+                    break;
+            }
+
             var parms = new List<FwPreview.ReportParameter>()
                 {
-                    //new FwPreview.ReportParameter(){ PNAME="出力日付", VALUE=(this.PrintDate.Text)},
+                    new FwPreview.ReportParameter(){ PNAME="選択項目", VALUE=str選択項目},
                     //new FwPreview.ReportParameter(){ PNAME="行数１", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
                     //new FwPreview.ReportParameter(){ PNAME="最大行数", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
                     //new FwPreview.ReportParameter(){ PNAME="行数２", VALUE=(ds.Tables[0].Rows.Count)},
