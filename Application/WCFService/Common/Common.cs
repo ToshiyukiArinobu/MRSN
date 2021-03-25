@@ -402,13 +402,13 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="closingDay">締日</param>
         /// <param name="addingMonths">加算月数</param>
         /// <returns></returns>
-        public static DateTime GetClosingDate(int year, int month, int closingDay, int addingMonths = 0)
+        public static DateTime GetClosingDate(int year, int month, int? closingDay, int addingMonths = 0)
         {
             DateTime baseDate = new DateTime(year, month, 1);
             baseDate = baseDate.AddMonths(addingMonths);
 
             // 締日が月末指定の場合
-            int lastDay = closingDay;
+            int lastDay = closingDay ?? 31;
             if (closingDay == 31)
                 lastDay = DateTime.DaysInMonth(baseDate.Year, baseDate.Month);
 

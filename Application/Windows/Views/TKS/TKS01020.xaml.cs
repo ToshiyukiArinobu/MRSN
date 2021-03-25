@@ -78,6 +78,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         private const string TKS01020_SEARCHLIST = "TKS01020_GetDataList";
         private const string TKS01020_GETPRINGDATA = "TKS01020_GetPrintData";
+        private const string TKS01020_DELETE = "TKS01020_DataDelete";
 
         /// <summary>納品書 帳票定義パス</summary>
         private const string REPORT_FILE_PATH = @"Files\TKS\TKS01020.rpt";
@@ -314,6 +315,23 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         PrintPreview(ds);
                         break;
+
+                    case TKS01020_DELETE:
+                        if ((bool)data)
+                        {
+                            MessageBox.Show("データ削除が完了しました。");
+                            // 検索条件を設定
+                            setConditionItems();
+
+                            base.SetFreeForInput();
+                            base.SendRequest(
+                                new CommunicationObject(
+                                    MessageType.RequestDataWithBusy,
+                                    TKS01020_SEARCHLIST,
+                                    condition));
+                        }
+                        break;
+
                 }
             }
             catch (Exception ex)
@@ -433,6 +451,40 @@ namespace KyoeiSystem.Application.Windows.Views
             this.Close();
         }
 
+        /// <summary>
+        /// F11　リボン　削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF12Key(object sender, KeyEventArgs e)
+        {
+            int cnt = 0;
+            foreach (DataRow rec in this.請求書一覧データ.Rows)
+            {
+                if (rec.IsNull("印刷区分") != true && (bool)rec["印刷区分"] == true)
+                    cnt++;
+            }
+            if (cnt == 0)
+            {
+                base.ErrorMessage = "印刷対象が選択されていません。";
+                return;
+            }
+
+            if (MessageBox.Show("選択しているデータを削除してよろしいでしょうか？", "確認", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+
+                _請求書一覧データ.AcceptChanges();
+                DataSet ds = new DataSet();
+                ds.Tables.Add(_請求書一覧データ.Copy());
+
+                base.SendRequest(
+                    new CommunicationObject(
+                        MessageType.RequestDataWithBusy,
+                        TKS01020_DELETE,
+                        ds));
+            }
+        }
+
         #endregion
 
         #region << コントロールイベント処理 >>
@@ -457,6 +509,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     MessageBox.Show(base.ErrorMessage, "入力エラー", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
+                
 
                 // 検索条件を設定
                 setConditionItems();
@@ -545,10 +599,16 @@ namespace KyoeiSystem.Application.Windows.Views
                 return false;
             }
 
-            if (string.IsNullOrEmpty(ClosingDate.Text))
+            //if (string.IsNullOrEmpty(ClosingDate.Text))
+            //{
+            //    ClosingDate.Focus();
+            //    base.ErrorMessage = "作成締日は必須入力項目です。";
+            //    return false;
+            //}
+
+            if (string.IsNullOrEmpty(ClosingDate.Text) && string.IsNullOrEmpty(Customer.Text1) && string.IsNullOrEmpty(Customer.Text2))
             {
-                ClosingDate.Focus();
-                base.ErrorMessage = "作成締日は必須入力項目です。";
+                base.ErrorMessage =  "締日または得意先を指定してください";
                 return false;
             }
 

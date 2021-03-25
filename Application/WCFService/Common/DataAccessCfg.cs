@@ -425,6 +425,7 @@ namespace KyoeiSystem.Application.WCFService
             // 請求書発行
             new WCFDataAccessConfig() { Name = "TKS01020_GetDataList", ServiceClass = "TKS01020", MethodName = "GetDataList", Descprition = "請求書発行検索情報取得" },
             new WCFDataAccessConfig() { Name = "TKS01020_GetPrintData", ServiceClass = "TKS01020", MethodName = "GetPrintData", Descprition = "請求書印刷データ取得" },
+            new WCFDataAccessConfig() { Name = "TKS01020_DataDelete", ServiceClass = "TKS01020", MethodName = "DataDelete", Descprition = "請求書データ削除" },
 
             // 請求一覧表
             new WCFDataAccessConfig() { Name = "TKS03010_GetCsvData", ServiceClass = "TKS03010", MethodName = "GetCsvData", Descprition = "請求一覧表ＣＳＶデータ取得" },

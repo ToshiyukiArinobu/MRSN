@@ -34,6 +34,9 @@ namespace KyoeiSystem.Application.WCFService
         {
             public bool 印刷区分 { get; set; }
             public string ID { get; set; }  // No.233 Add
+            public int 自社コード { get; set; }
+            public int 締日 { get; set; }
+            public int 請求年月 { get; set; }
             public int 得意先コード { get; set; }
             public int 得意先枝番 { get; set; }
             public string 得意先名 { get; set; }
@@ -171,13 +174,13 @@ namespace KyoeiSystem.Application.WCFService
                     int ival;
                     int myCompany = int.Parse(condition["自社コード"]);
                     int createYM = int.Parse(condition["作成年月"].Replace("/", ""));
-                    int closingDate = int.Parse(condition["作成締日"]);
+                    int? closingDate = int.TryParse(condition["作成締日"], out ival) ? ival : (int?)null;
                     int? customerCd = int.TryParse(condition["得意先コード"], out ival) ? ival : (int?)null;
                     int? customerEda = int.TryParse(condition["得意先枝番"], out ival) ? ival : (int?)null;
 
                     var result =
                         context.S01_SEIHD
-                            .Where(w => w.自社コード == myCompany && w.請求年月 == createYM && w.請求締日 == closingDate)
+                            .Where(w => w.自社コード == myCompany && w.請求年月 == createYM && (closingDate == null || w.請求締日 == closingDate))
                             .Join(context.M01_TOK.Where(w => w.削除日時 == null),
                                 x => new { コード = x.請求先コード, 枝番 = x.請求先枝番 },
                                 y => new { コード = y.取引先コード, 枝番 = y.枝番 },
@@ -210,6 +213,9 @@ namespace KyoeiSystem.Application.WCFService
                         {
                             印刷区分 = true,
                             ID = string.Format("{0:D4} - {1:D2}", x.SEIHD.請求先コード, x.SEIHD.請求先枝番),   // No.223 Add
+                            自社コード = x.SEIHD.自社コード,
+                            締日 = x.SEIHD.請求締日,
+                            請求年月 = x.SEIHD.請求年月,
                             得意先コード = x.SEIHD.請求先コード,
                             得意先枝番 = x.SEIHD.請求先枝番,
                             得意先名 = x.TOK.略称名,
@@ -268,7 +274,7 @@ namespace KyoeiSystem.Application.WCFService
             int myCompany = int.Parse(condition["自社コード"]);
             int createYM = int.Parse(condition["作成年月"].Replace("/", ""));
             DateTime printDate = DateTime.Parse(condition["作成年月日"]);
-            int closingDate = int.Parse(condition["作成締日"]);
+            int? closingDate = int.TryParse(condition["作成締日"], out ival) ? ival : (int?)null;
             int? customerCd = int.TryParse(condition["得意先コード"], out ival) ? ival : (int?)null;
             int? customerEda = int.TryParse(condition["得意先枝番"], out ival) ? ival : (int?)null;
 
@@ -292,7 +298,7 @@ namespace KyoeiSystem.Application.WCFService
                         context.S01_SEIHD.Where(w =>
                                 w.自社コード == myCompany &&
                                 w.請求年月 == createYM &&
-                                w.請求締日 == closingDate &&
+                                (w.請求締日 == closingDate || closingDate == null) &&
                                 w.請求先コード == mem.得意先コード &&
                                 w.請求先枝番 == mem.得意先枝番 &&
                                 w.入金日 == mem.入金日 &&
@@ -308,28 +314,39 @@ namespace KyoeiSystem.Application.WCFService
                             .FirstOrDefault();
 
                     // 前月の入金日
-                    int befPaymentDate = iBefYearMonth * 100 + tok.Ｔ入金日１ ?? 31;
+                    //int befPaymentDate = iBefYearMonth * 100 + tok.Ｔ入金日１ ?? 31;
 
                     // 前月の請求ヘッダを取得
                     var befSeihd =
                         context.S01_SEIHD.Where(w =>
                                 w.自社コード == myCompany &&
                                 w.請求年月 == iBefYearMonth &&
-                                w.請求締日 == closingDate &&
+                                //(w.請求締日 == closingDate || closingDate == null) &&
                                 w.請求先コード == mem.得意先コード &&
                                 w.請求先枝番 == mem.得意先枝番 &&
-                                w.入金日 == befPaymentDate &&
+                                //w.入金日 == befPaymentDate &&
                                 w.回数 == mem.回数)
+                                .OrderByDescending(w => w.請求締日)
+                                .ThenByDescending(w => w.回数)
                             .FirstOrDefault();
 
                     #endregion
 
                     // 前月の締期間を算出
-                    DateTime befEndDate = AppCommon.GetClosingDate(befYearMonth.Year, befYearMonth.Month, closingDate, 0);
-                    DateTime befStrDate = befEndDate.AddMonths(-1).AddDays(-1);
-
+                    //DateTime befEndDate = AppCommon.GetClosingDate(befYearMonth.Year, befYearMonth.Month, closingDate, 0);
+                    //DateTime befStrDate = befEndDate.AddMonths(-1).AddDays(-1);
+                    long 前月入金額;
                     // 各入金額を取得する
-                    long 前月入金額 = getNyukinData(context, seihd.自社コード, seihd.請求先コード, seihd.請求先枝番, befStrDate, befEndDate);
+                    if (befSeihd != null)
+                    {
+                        前月入金額 = getNyukinData(context, seihd.自社コード, seihd.請求先コード, seihd.請求先枝番, (DateTime)befSeihd.集計開始日, (DateTime)befSeihd.集計最終日);
+                    }
+                    else
+                    {
+                        DateTime befEndDate = AppCommon.GetClosingDate(befYearMonth.Year, befYearMonth.Month, closingDate, 0);
+                        DateTime befStrDate = befEndDate.AddMonths(-1).AddDays(-1);
+                        前月入金額 = getNyukinData(context, seihd.自社コード, seihd.請求先コード, seihd.請求先枝番, befEndDate, befStrDate);
+                    }
                     long 今月入金額 = getNyukinData(context, seihd.自社コード, seihd.請求先コード, seihd.請求先枝番, (DateTime)seihd.集計開始日, (DateTime)seihd.集計最終日);
 
                     #region 帳票ヘッダ情報取得
@@ -337,7 +354,7 @@ namespace KyoeiSystem.Application.WCFService
                         context.S01_SEIHD.Where(w =>
                                 w.自社コード == myCompany &&
                                 w.請求年月 == createYM &&
-                                w.請求締日 == closingDate &&
+                                w.請求締日 == mem.締日 &&
                                 w.請求先コード == mem.得意先コード &&
                                 w.請求先枝番 == mem.得意先枝番 &&
                                 w.入金日 == mem.入金日 &&
@@ -412,7 +429,7 @@ namespace KyoeiSystem.Application.WCFService
                         context.S01_SEIDTL.Where(w =>
                                 w.自社コード == myCompany &&
                                 w.請求年月 == createYM &&
-                                w.請求締日 == closingDate &&
+                                w.請求締日 == mem.締日&&
                                 w.請求先コード == mem.得意先コード &&
                                 w.請求先枝番 == mem.得意先枝番 &&
                                 w.入金日 == mem.入金日 &&
@@ -574,8 +591,78 @@ namespace KyoeiSystem.Application.WCFService
 
         }
         #endregion
+        #region 請求データ削除
+        /// <summary>
+        /// 請求データ削除
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="ds"></param>
+        /// <returns></returns>
+        public bool DataDelete(DataSet ds)
+        {
+            DataTable tbl = ds.Tables[0];
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+                using (var tran = context.Connection.BeginTransaction(System.Data.IsolationLevel.Serializable))
+                {
+                    try
+                    {
+                        foreach (DataRow row in tbl.Rows)
+                        {
+                            SearchDataMember mem = getSearchDataMemberRow(row);
+                            if (mem.印刷区分 == false)
+                            {
+                                //印刷区分falseは削除対象外
+                                continue;
+                            }
 
+                            var delList =
+                            context.S01_SEIDTL
+                                .Where(w =>
+                                    w.自社コード == mem.自社コード &&
+                                    w.請求年月 == mem.請求年月 &&
+                                    w.請求締日 == mem.締日 &&
+                                    w.請求先コード == mem.得意先コード &&
+                                    w.請求先枝番 == mem.得意先枝番 &&
+                                    w.入金日 == mem.入金日 &&
+                                    w.回数 == mem.回数);
 
+                            foreach (var delData in delList)
+                            {
+                                context.S01_SEIDTL.DeleteObject(delData);
+                            }
+
+                            var delHead =
+                            context.S01_SEIHD
+                                .Where(w =>
+                                    w.自社コード == mem.自社コード &&
+                                    w.請求年月 == mem.請求年月 &&
+                                    w.請求締日 == mem.締日 &&
+                                    w.請求先コード == mem.得意先コード &&
+                                    w.請求先枝番 == mem.得意先枝番 &&
+                                    w.入金日 == mem.入金日 &&
+                                    w.回数 == mem.回数);
+                            foreach (var del in delHead)
+                            {
+                                context.S01_SEIHD.DeleteObject(del);
+                            }
+                        }
+                        context.SaveChanges();
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                    tran.Commit(); 
+                }
+            }
+
+            return true;
+        }
+        #endregion
+        
         #region << サービス処理関連 >>
 
         /// <summary>
@@ -588,6 +675,9 @@ namespace KyoeiSystem.Application.WCFService
             SearchDataMember mem = new SearchDataMember();
 
             mem.印刷区分 = bool.Parse(row["印刷区分"].ToString());
+            mem.自社コード = int.Parse(row["自社コード"].ToString());
+            mem.請求年月 = int.Parse(row["請求年月"].ToString());
+            mem.締日 = int.Parse(row["締日"].ToString());
             mem.得意先コード = int.Parse(row["得意先コード"].ToString());
             mem.得意先枝番 = int.Parse(row["得意先枝番"].ToString());
             mem.得意先名 = row["得意先名"].ToString();
