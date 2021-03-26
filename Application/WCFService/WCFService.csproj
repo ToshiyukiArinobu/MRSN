@@ -120,9 +120,6 @@
     <Content Include="Views\MST\MST20011.svc" />
     <Content Include="Views\MST\MST19011.svc" />
     <Content Include="Views\MST\MST10011.svc" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\MST\M01.svc" />
     <Content Include="UcMST.svc" />
   </ItemGroup>
@@ -553,12 +550,6 @@
       <DependentUpon>TRAC3.edmx</DependentUpon>
       <LastGenOutput>TRAC3.cs</LastGenOutput>
     </Content>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="COMMONDB.edmx">

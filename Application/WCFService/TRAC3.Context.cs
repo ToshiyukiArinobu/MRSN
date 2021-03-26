@@ -461,12 +461,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<S08_URIKAKE> _s08_URIKAKE;
     
-        public ObjectSet<S09_KAIKAKE> S09_KAIKAKE
-        {
-            get { return _s09_KAIKAKE  ?? (_s09_KAIKAKE = CreateObjectSet<S09_KAIKAKE>("S09_KAIKAKE")); }
-        }
-        private ObjectSet<S09_KAIKAKE> _s09_KAIKAKE;
-    
         public ObjectSet<T04_AGRDTB> T04_AGRDTB
         {
             get { return _t04_AGRDTB  ?? (_t04_AGRDTB = CreateObjectSet<T04_AGRDTB>("T04_AGRDTB")); }
@@ -502,6 +496,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s02_SHRDTL  ?? (_s02_SHRDTL = CreateObjectSet<S02_SHRDTL>("S02_SHRDTL")); }
         }
         private ObjectSet<S02_SHRDTL> _s02_SHRDTL;
+    
+        public ObjectSet<S09_KAIKAKE> S09_KAIKAKE
+        {
+            get { return _s09_KAIKAKE  ?? (_s09_KAIKAKE = CreateObjectSet<S09_KAIKAKE>("S09_KAIKAKE")); }
+        }
+        private ObjectSet<S09_KAIKAKE> _s09_KAIKAKE;
 
         #endregion
 

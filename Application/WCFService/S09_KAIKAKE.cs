@@ -190,21 +190,6 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _金種コード;
     
         [DataMember]
-        public string 自社品名
-        {
-            get { return _自社品名; }
-            set
-            {
-                if (_自社品名 != value)
-                {
-                    _自社品名 = value;
-                    OnPropertyChanged("自社品名");
-                }
-            }
-        }
-        private string _自社品名;
-    
-        [DataMember]
         public decimal 数量
         {
             get { return _数量; }
@@ -353,6 +338,36 @@ namespace KyoeiSystem.Application.WCFService
             }
         }
         private System.DateTime _登録日時;
+    
+        [DataMember]
+        public string 自社品名
+        {
+            get { return _自社品名; }
+            set
+            {
+                if (_自社品名 != value)
+                {
+                    _自社品名 = value;
+                    OnPropertyChanged("自社品名");
+                }
+            }
+        }
+        private string _自社品名;
+    
+        [DataMember]
+        public string 期日
+        {
+            get { return _期日; }
+            set
+            {
+                if (_期日 != value)
+                {
+                    _期日 = value;
+                    OnPropertyChanged("期日");
+                }
+            }
+        }
+        private string _期日;
 
         #endregion
 

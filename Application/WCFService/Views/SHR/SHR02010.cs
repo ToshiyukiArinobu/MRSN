@@ -73,6 +73,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 残高 { get; set; }
             // 1:仕入入力、2:揚り入力
             public int 作成機能ID { get; set; }
+            public DateTime? 期日 { get; set; }
         }
 
         #endregion
@@ -448,6 +449,7 @@ namespace KyoeiSystem.Application.WCFService
             data.登録者 = userId;
             data.作成機能ID = srData.作成機能ID;
             data.登録日時 = DateTime.Now;
+            data.期日 = srData.期日 == null ? string.Empty : "　　　期日:" + ((DateTime)srData.期日).ToString("yyyy/MM/dd"); 
 
             context.S09_KAIKAKE.ApplyChanges(data);
 
@@ -544,7 +546,7 @@ namespace KyoeiSystem.Application.WCFService
                         // No.390 Mod Start
                         自社品名 = x.KAIKAKE.金種コード == 0 ? 
                                     x.KAIKAKE.自社品名 :
-                                    goldType.Where(c => c.コード == x.KAIKAKE.金種コード).Select(c => c.表示名).FirstOrDefault(),   
+                                    goldType.Where(c => c.コード == x.KAIKAKE.金種コード).Select(c => c.表示名).FirstOrDefault() + x.KAIKAKE.期日,   
                         // No.390 Mod End
                         数量 = x.KAIKAKE.数量,
                         単位 = x.HIN.単位,
@@ -623,7 +625,8 @@ namespace KyoeiSystem.Application.WCFService
                         金種コード = s.PAYDTL.金種コード,
                         得意先コード = s.PAYHD.得意先コード != null ? (int)s.PAYHD.得意先コード : (int)s.TOKJIS.取引先コード,
                         得意先枝番 = s.PAYHD.得意先枝番 != null ? (int)s.PAYHD.得意先枝番 : (int)s.TOKJIS.枝番,
-                        出金額 = s.PAYDTL.金額
+                        出金額 = s.PAYDTL.金額,
+                        期日 = s.PAYDTL.期日
                     })
                     .ToList();
 
