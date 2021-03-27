@@ -43,39 +43,39 @@
         <EntityTypeShape EntityType="TRAC3Model.S06_URIHD" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.S07_SRIHD" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="TRAC3Model.S08_URIKAKE" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.S10_STOCKTAKING" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.S11_KAKUTEI" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T02_URHD" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T02_URHD_HAN" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T02_URDTL" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T02_URDTL_HAN" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T03_SRHD" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T03_SRHD_HAN" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T03_SRDTL" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T03_SRDTL_HAN" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T04_AGRDTL" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T04_AGRHD" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T04_AGRWK" Width="1.5" PointX="14.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T05_IDODTL" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T05_IDOHD" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T11_NYKNHD" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T11_NYKNDTL" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T11_NYKNTR" Width="1.5" PointX="6.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T12_PAYDTL" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T12_PAYHD" Width="1.5" PointX="8.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.V_M01_TOK" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.V_M09_HIN" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.V_M10_TOKHIN" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.V_S04_HISTORY" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.V_SHR06010" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.V_TKS08010" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.T04_AGRDTB" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINDTL" Width="1.5" PointX="16.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINHD" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.M10_NEWETC" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHIZAI" Width="1.5" PointX="4.75" PointY="16.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.S02_SHRDTL" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="TRAC3Model.S09_KAIKAKE" Width="1.5" PointX="10.729983496819616" PointY="13.678070983699556" />
+        <EntityTypeShape EntityType="TRAC3Model.S10_STOCKTAKING" Width="1.5" PointX="12.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S11_KAKUTEI" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T02_URHD" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T02_URHD_HAN" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T02_URDTL" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T02_URDTL_HAN" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T03_SRHD" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T03_SRHD_HAN" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T03_SRDTL" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T03_SRDTL_HAN" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T04_AGRDTL" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T04_AGRHD" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T04_AGRWK" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T05_IDODTL" Width="1.5" PointX="14.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T05_IDOHD" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T11_NYKNHD" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T11_NYKNDTL" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T11_NYKNTR" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T12_PAYDTL" Width="1.5" PointX="6.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T12_PAYHD" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.V_M01_TOK" Width="1.5" PointX="8.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.V_M09_HIN" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.V_M10_TOKHIN" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.V_S04_HISTORY" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.V_SHR06010" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.V_TKS08010" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.T04_AGRDTB" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINDTL" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.M10_NEWETC" Width="1.5" PointX="16.75" PointY="2.7499999999999991" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHIZAI" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S02_SHRDTL" Width="1.5" PointX="16.75" PointY="4.7499999999999991" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.S09_KAIKAKE" Width="1.5" PointX="4.75" PointY="16.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="TRAC3Model.M10_NEWSHINHD" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

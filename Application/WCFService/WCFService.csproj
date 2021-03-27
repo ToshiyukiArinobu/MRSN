@@ -122,6 +122,9 @@
     <Content Include="Views\MST\MST10011.svc" />
     <Content Include="Views\MST\M01.svc" />
     <Content Include="UcMST.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMMONDB.Context.Extensions.cs">
@@ -588,6 +591,14 @@
       <Project>{f8147bcc-c764-49e4-90f3-015bfdb584d9}</Project>
       <Name>KyoeiSystem.Framework.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

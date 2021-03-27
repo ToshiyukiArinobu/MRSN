@@ -87,7 +87,7 @@ namespace KyoeiSystem.Application.WCFService
         private int _食品割増率;
     
         [DataMember]
-        public int 販社販売価格
+        public decimal 販社販売価格
         {
             get { return _販社販売価格; }
             set
@@ -99,10 +99,10 @@ namespace KyoeiSystem.Application.WCFService
                 }
             }
         }
-        private int _販社販売価格;
+        private decimal _販社販売価格;
     
         [DataMember]
-        public int 得意先販売価格
+        public decimal 得意先販売価格
         {
             get { return _得意先販売価格; }
             set
@@ -114,7 +114,7 @@ namespace KyoeiSystem.Application.WCFService
                 }
             }
         }
-        private int _得意先販売価格;
+        private decimal _得意先販売価格;
     
         [DataMember]
         public int 登録者

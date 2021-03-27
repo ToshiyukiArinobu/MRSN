@@ -1109,8 +1109,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             SetHinban.Text1,
                             SetHinban.Text2,
                             食品割増率,
-                            販社販売価格 == null ? 0 : (int)販社販売価格,
-                            得意先販売価格 == null ? 0 : (int)得意先販売価格,
+                            販社販売価格 == null ? 0 : 販社販売価格,
+                            得意先販売価格 == null ? 0 : 得意先販売価格,
                             dsUpdate,
                             ccfg.ユーザID
                         }));
@@ -1524,8 +1524,8 @@ namespace KyoeiSystem.Application.Windows.Views
             if (dthd.Rows.Count > 0)
             {
                 食品割増率 = (int)dthd.Rows[0]["食品割増率"];
-                販社販売価格 = (int)dthd.Rows[0]["販社販売価格"];
-                得意先販売価格 = (int)dthd.Rows[0]["得意先販売価格"];
+                販社販売価格 = (decimal)dthd.Rows[0]["販社販売価格"];
+                得意先販売価格 = (decimal)dthd.Rows[0]["得意先販売価格"];
             }
 
             if (dtdtl != null)
