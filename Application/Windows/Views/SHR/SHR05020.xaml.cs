@@ -51,6 +51,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string ReportSimpleFileName = @"Files\SHR\SHR05020.rpt";
         // 詳細
         private const string ReportDetailFileName = @"Files\SHR\SHR05021.rpt";
+        private const string ReportDetailFileName_1 = @"Files\SHR\SHR05021_1.rpt";
 
         #endregion
 
@@ -411,36 +412,36 @@ namespace KyoeiSystem.Application.Windows.Views
             // 印刷処理
             FwPreview.ReportPreview view = new FwPreview.ReportPreview();
             view.PrinterName = frmcfg.PrinterName;
-            // 第1引数　帳票タイトル
-            // 第2引数　帳票ファイルPass
-            // 第3以上　帳票の開始点(0で良い)
-            view.MakeReport("支払明細書", ReportDetailFileName, 0, 0, 0);
+            
 
-            string str選択項目;
 
             switch (this.rdo詳細.Text)
             {
                 case "0":
-                    //前回支払額
-                    str選択項目 = "前回支払額";
+                    //前回支払額無し
+                    // 第1引数　帳票タイトル
+                    // 第2引数　帳票ファイルPass
+                    // 第3以上　帳票の開始点(0で良い)
+                    view.MakeReport("支払明細書", ReportDetailFileName, 0, 0, 0);
                     break;
                 case "1":
-                    //今回出金額
-                   str選択項目 ="今回出金額";
-                    break;
-                case "2":
-                    //繰越残高
-                    str選択項目 = "繰越残高";
+                    // 第1引数　帳票タイトル
+                    // 第2引数　帳票ファイルPass
+                    // 第3以上　帳票の開始点(0で良い)
+                    view.MakeReport("支払明細書", ReportDetailFileName_1, 0, 0, 0);
                     break;
                 default:
-                    //前回支払額
-                    str選択項目 = "前回支払額";
+                    //前回支払額無し
+                    // 第1引数　帳票タイトル
+                    // 第2引数　帳票ファイルPass
+                    // 第3以上　帳票の開始点(0で良い)
+                    view.MakeReport("支払明細書", ReportDetailFileName, 0, 0, 0);
                     break;
             }
 
             var parms = new List<FwPreview.ReportParameter>()
                 {
-                    new FwPreview.ReportParameter(){ PNAME="選択項目", VALUE=str選択項目},
+                    //new FwPreview.ReportParameter(){ PNAME="選択項目", VALUE=str選択項目},
                     //new FwPreview.ReportParameter(){ PNAME="行数１", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
                     //new FwPreview.ReportParameter(){ PNAME="最大行数", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
                     //new FwPreview.ReportParameter(){ PNAME="行数２", VALUE=(ds.Tables[0].Rows.Count)},

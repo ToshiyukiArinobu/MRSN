@@ -198,8 +198,8 @@
 
                         <Label  Grid.Column="1" Content="※CSVは簡易で出力されます。" VerticalAlignment="Center" Margin="15,0,0,0" />
                     </Grid>
-                    <ctls:UcLabelTextRadioButton Grid.Row="6" Grid.Column="0" x:Name="rdo詳細" Label_Content="詳細出力項目" Label_Width="100" IsRequired="True"
-                                                 RadioOne_Content="前回支払額 " RadioSecond_Content="今回出金額 " RadioThird_Content="繰越残高" RadioViewCount="Three" RadioSelectButton="One" />
+                    <ctls:UcLabelTextRadioButton Grid.Row="6" Grid.Column="0" x:Name="rdo詳細" Label_Content="詳細出力項目" Label_Width="100" IsRequired="True" RadioViewCount="Two"
+                                                 RadioOne_Content="前回支払額無し " RadioSecond_Content="前回支払額有り " RadioSelectButton="One" />
                 </Grid>
 
             </Border>

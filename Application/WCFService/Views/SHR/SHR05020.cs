@@ -685,7 +685,7 @@ namespace KyoeiSystem.Application.WCFService
                                         (a, b) => new { HD = a.x, DTL = b })
                                     .GroupJoin(context.M99_COMBOLIST.Where(c =>
                                         c.分類 == "随時" &&
-                                        c.機能 == "入金問合せ" &&
+                                        c.機能 == "出金問合せ" &&
                                         c.カテゴリ == "金種"),
                                         x => x.DTL.金種コード,
                                         y => y.コード,
