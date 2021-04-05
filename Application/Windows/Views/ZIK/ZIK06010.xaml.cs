@@ -102,7 +102,9 @@ namespace KyoeiSystem.Application.Windows.Views
             public DateTime 賞味期限 { get; set; }
             public int? 倉庫コード { get; set; }
             public string 倉庫名 { get; set; }
+            public string 仕入単価 { get; set; }
             public string 在庫数量 { get; set; }
+            public string 調整単価 { get; set; }
             public string 調整数量 { get; set; }
         }
         #endregion
@@ -641,7 +643,8 @@ namespace KyoeiSystem.Application.Windows.Views
                             {
                                 締年月 = s.Key.締年月,
                                 倉庫コード = s.Key.倉庫コード,
-                                品番コード = s.Key.賞味期限,
+                                品番コード = s.Key.品番コード,
+                                賞味期限 = s.Key.賞味期限,
                                 行数 = s.Min(m => m.行番号),
                                 count = s.Count()
                             });
@@ -809,10 +812,16 @@ namespace KyoeiSystem.Application.Windows.Views
                     values[cnt, 6] = row.Field<DateTime?>("賞味期限") == null ? null : row.Field<DateTime?>("賞味期限").Value.ToShortDateString();
                     values[cnt, 7] = row.Field<int>("倉庫コード").ToString();
                     values[cnt, 8] = row.Field<string>("倉庫名");
-                    values[cnt, 9] = row.Field<int>("在庫数量").ToString();
-                    values[cnt, 10] = row.Field<decimal?>("調整数量");
+                    values[cnt, 9] = row.Field<decimal?>("仕入単価").ToString();
+                    values[cnt, 10] = row.Field<int>("在庫数量").ToString();
+                    values[cnt, 11] = row.Field<decimal?>("調整単価");
+                    values[cnt, 12] = row.Field<decimal?>("調整数量");
                     cnt++;
                 }
+
+                //ヘッダのみ色を変更
+                xlTargetRange = excelWs.Range["A1", "M1"];
+                xlTargetRange.Interior.Color = System.Drawing.Color.FromArgb(135, 231, 173);
 
                 // 終点セル取得
                 xlCellsTo = excelWs.Cells;
@@ -820,14 +829,31 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 // 対象レンジ設定
                 xlTargetRange = excelWs.Range["A1", xlRangeTo];
-                // 書式を文字列に設定
-                xlTargetRange.NumberFormatLocal = "@";
+                // データセット
                 xlTargetRange.Value = values;
+                // カラム幅セット
+                xlTargetRange.Columns.AutoFit();
+                // 罫線セット
+                xlTargetRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                xlTargetRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeTop).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                xlTargetRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeLeft).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                xlTargetRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeRight).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                xlTargetRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlInsideHorizontal).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                xlTargetRange.Borders.get_Item(Microsoft.Office.Interop.Excel.XlBordersIndex.xlInsideVertical).LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+
+                // 書式を文字列に設定
+                //xlTargetRange.NumberFormatLocal = "@";
+
+                // 書式を数字に設定
+                //xlTargetRange = excelWs.Range["J1", xlRangeTo];
+                //xlTargetRange.NumberFormatLocal = "0.00";
+
+                
 
                 #region 名前を付けて保存Dialogを出力
                 WinForms.SaveFileDialog sfd = new WinForms.SaveFileDialog();
                 // はじめに表示されるフォルダを指定する
-                sfd.InitialDirectory = @"C:\";
+                //sfd.InitialDirectory = @"C:\";
                 // [ファイルの種類]に表示される選択肢を指定する
                 sfd.Filter = "Excelファイル(*.xlsx)|*.xlsx";
                 // 「CSVファイル」が選択されているようにする
@@ -887,6 +913,7 @@ namespace KyoeiSystem.Application.Windows.Views
             int val = -1;
             DateTime wkDt;
             DateTime defaultDt = new DateTime(9999, 12, 31);
+            DateTime defaultMiniDt = new DateTime(1899, 12, 30);
 
             try
             {
@@ -947,14 +974,16 @@ namespace KyoeiSystem.Application.Windows.Views
                     men.自社品名 = InputObject[i, 5] != null ? InputObject[i, 5].ToString() : null;
                     men.色名称 = InputObject[i, 6] != null ? InputObject[i, 6].ToString() : null;
                     men.賞味期限 = InputObject[i, 7] != null ?
-                                        DateTime.TryParse(InputObject[i, 7].ToString(), out wkDt) ? wkDt : defaultDt :
+                        (DateTime.TryParse(InputObject[i, 7].ToString(), out wkDt) ? wkDt : (Int32.TryParse(InputObject[i, 7].ToString(), out val) ? defaultMiniDt.AddDays(val) : defaultDt)) :
                                    defaultDt;
                     men.倉庫コード = InputObject[i, 8] != null ?
                                         Int32.TryParse(InputObject[i, 8].ToString(), out val) ? val : (int?)null :
                                      (int?)null;
                     men.倉庫名 = InputObject[i, 9] != null ? InputObject[i, 9].ToString() : null;
-                    men.在庫数量 = InputObject[i, 10] != null ? InputObject[i, 10].ToString() : null;
-                    men.調整数量 = InputObject[i, 11] != null ? InputObject[i, 11].ToString() : null;
+                    men.仕入単価 = InputObject[i, 10] != null ? InputObject[i, 10].ToString() : null;
+                    men.在庫数量 = InputObject[i, 11] != null ? InputObject[i, 11].ToString() : null;
+                    men.調整単価 = InputObject[i, 12] != null ? InputObject[i, 12].ToString() : null;
+                    men.調整数量 = InputObject[i, 13] != null ? InputObject[i, 13].ToString() : null;
 
                     inpList.Add(men);
                 }

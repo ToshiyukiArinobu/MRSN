@@ -395,12 +395,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<S03_STOK> _s03_STOK;
     
-        public ObjectSet<S05_STOK_ADJUST> S05_STOK_ADJUST
-        {
-            get { return _s05_STOK_ADJUST  ?? (_s05_STOK_ADJUST = CreateObjectSet<S05_STOK_ADJUST>("S05_STOK_ADJUST")); }
-        }
-        private ObjectSet<S05_STOK_ADJUST> _s05_STOK_ADJUST;
-    
         public ObjectSet<S10_STOCKTAKING> S10_STOCKTAKING
         {
             get { return _s10_STOCKTAKING  ?? (_s10_STOCKTAKING = CreateObjectSet<S10_STOCKTAKING>("S10_STOCKTAKING")); }
@@ -502,6 +496,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _m10_NEWSHINHD  ?? (_m10_NEWSHINHD = CreateObjectSet<M10_NEWSHINHD>("M10_NEWSHINHD")); }
         }
         private ObjectSet<M10_NEWSHINHD> _m10_NEWSHINHD;
+    
+        public ObjectSet<S05_STOK_ADJUST> S05_STOK_ADJUST
+        {
+            get { return _s05_STOK_ADJUST  ?? (_s05_STOK_ADJUST = CreateObjectSet<S05_STOK_ADJUST>("S05_STOK_ADJUST")); }
+        }
+        private ObjectSet<S05_STOK_ADJUST> _s05_STOK_ADJUST;
 
         #endregion
 

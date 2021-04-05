@@ -114,6 +114,21 @@ namespace KyoeiSystem.Application.WCFService
         private int _在庫数量;
     
         [DataMember]
+        public decimal 仕入単価
+        {
+            get { return _仕入単価; }
+            set
+            {
+                if (_仕入単価 != value)
+                {
+                    _仕入単価 = value;
+                    OnPropertyChanged("仕入単価");
+                }
+            }
+        }
+        private decimal _仕入単価;
+    
+        [DataMember]
         public int 登録者
         {
             get { return _登録者; }
