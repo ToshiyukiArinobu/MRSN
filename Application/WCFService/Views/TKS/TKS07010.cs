@@ -201,8 +201,11 @@ namespace KyoeiSystem.Application.WCFService
                                                                     // Ｔ請求区分:1(以上)の場合
                                                                     // 請求条件金額の手形をxx枚発行し残金を現金とする
                                                                     tok.Ｔ請求区分 == (int)CommonConstants.請求・支払区分.ID01_以上 ?
-                                                                        tok.Ｔ請求条件 > 0 ?
-                                                                            (s.SHD.売上額 + s.SHD.消費税) % tok.Ｔ請求条件 :
+                                                                        //tok.Ｔ請求条件 > 0 ?
+                                                                        //    (s.SHD.売上額 + s.SHD.消費税) % tok.Ｔ請求条件 :
+                                                                        //    0 :
+                                                                        tok.Ｔ請求条件 - (s.SHD.売上額 + s.SHD.消費税) > 0 ?
+                                                                             (s.SHD.売上額 + s.SHD.消費税) :
                                                                             0 :
 
                                                                     // Ｔ請求区分:(以下)の場合
@@ -220,10 +223,12 @@ namespace KyoeiSystem.Application.WCFService
                                                             // Ｔ請求区分:1(以上)の場合
                                                             // 請求条件金額の手形をxx枚発行する
                                                             tok.Ｔ請求区分 == (int)CommonConstants.請求・支払区分.ID01_以上 ?
-                                                                tok.Ｔ請求条件 > 0 ?
-                                                                    ((s.SHD.売上額 + s.SHD.消費税) / tok.Ｔ請求条件) * tok.Ｔ請求条件 :
+                                                                //tok.Ｔ請求条件 > 0 ?
+                                                                //    ((s.SHD.売上額 + s.SHD.消費税) / tok.Ｔ請求条件) * tok.Ｔ請求条件 :
+                                                                //    s.SHD.売上額 + s.SHD.消費税 :
+                                                                tok.Ｔ請求条件 - (s.SHD.売上額 + s.SHD.消費税) <= 0 ?
                                                                     s.SHD.売上額 + s.SHD.消費税 :
-
+                                                                    0:
                                                             // Ｔ請求区分:2(以下)の場合
                                                             // 請求条件金額の手形を発行する
                                                             s.SHD.売上額 + s.SHD.消費税 - tok.Ｔ請求条件 >= 0 ?
