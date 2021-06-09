@@ -129,6 +129,8 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
           </Grid.RowDefinitions>
 
           <!-- 自社コード -->
@@ -185,8 +187,15 @@
                                 Label_Context="作成区分" Label_Width="100" Width="300"
                                 ComboListingParams="支払先,支払一覧表,作成区分"
           />
+                    <!-- 帳票タイプ -->
+                    <ctls:UcLabelTextRadioButton Name="LayoutType" Grid.Row="5" HorizontalAlignment="Left" Margin="0,3,0,0"
+                                Label_Width="100" Width="300" Label_Content="帳票タイプ" 
+                                RadioSelectButton="One" RadioViewCount="Two"
+                                RadioOne_Content="通常" RadioSecond_Content="詳細"
+                                Text1VerticalContentAlignment="Center"
+          />
 
-        </Grid>
+                </Grid>
 
       </Border>
 

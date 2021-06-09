@@ -348,6 +348,10 @@
               <xs:element name="消費税" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="消費税" msprop:Generator_ColumnVarNameInTable="column消費税" msprop:Generator_ColumnPropNameInTable="消費税Column" msprop:Generator_UserColumnName="消費税" type="xs:long" default="0" minOccurs="0" />
               <xs:element name="当月支払額" msdata:Caption="当月請求額" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="当月支払額" msprop:Generator_ColumnVarNameInTable="column当月支払額" msprop:Generator_ColumnPropNameInTable="当月支払額Column" msprop:Generator_UserColumnName="当月支払額" type="xs:long" default="0" minOccurs="0" />
               <xs:element name="件数" msprop:nullValue="0" msprop:Generator_ColumnPropNameInRow="件数" msprop:Generator_ColumnVarNameInTable="column件数" msprop:Generator_ColumnPropNameInTable="件数Column" msprop:Generator_UserColumnName="件数" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="通常支払額" msprop:Generator_ColumnVarNameInTable="column通常支払額" msprop:Generator_ColumnPropNameInRow="通常支払額" msprop:Generator_ColumnPropNameInTable="通常支払額Column" msprop:Generator_UserColumnName="通常支払額" type="xs:long" minOccurs="0" />
+              <xs:element name="軽減支払額" msprop:Generator_ColumnVarNameInTable="column軽減支払額" msprop:Generator_ColumnPropNameInRow="軽減支払額" msprop:Generator_ColumnPropNameInTable="軽減支払額Column" msprop:Generator_UserColumnName="軽減支払額" type="xs:long" minOccurs="0" />
+              <xs:element name="通常消費税" msprop:Generator_ColumnVarNameInTable="column通常消費税" msprop:Generator_ColumnPropNameInRow="通常消費税" msprop:Generator_ColumnPropNameInTable="通常消費税Column" msprop:Generator_UserColumnName="通常消費税" type="xs:long" minOccurs="0" />
+              <xs:element name="軽減消費税" msprop:Generator_ColumnVarNameInTable="column軽減消費税" msprop:Generator_ColumnPropNameInRow="軽減消費税" msprop:Generator_ColumnPropNameInTable="軽減消費税Column" msprop:Generator_UserColumnName="軽減消費税" type="xs:long" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

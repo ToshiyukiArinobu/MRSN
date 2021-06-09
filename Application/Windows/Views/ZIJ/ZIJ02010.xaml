@@ -395,13 +395,13 @@
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
           />
 
-          <ctls:UcLabelTextBox Name="sumSrTotal" Grid.Row="0" Grid.Column="2"
-                               Label_Context="仕入合計額" Label_Width="90"
+          <ctls:UcLabelTextBox Name="sumSrTotalNomal" Grid.Row="0" Grid.Column="2"
+                               Label_Context="仕入(通常)" Label_Width="90"
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
           />
 
-          <ctls:UcLabelTextBox Name="sumSrTax" Grid.Row="0" Grid.Column="3"
-                               Label_Context="仕入消費税額" Label_Width="90"
+          <ctls:UcLabelTextBox Name="sumSrTaxNomal" Grid.Row="0" Grid.Column="3"
+                               Label_Context="消費税(通常)" Label_Width="90"
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
           />
 
@@ -417,13 +417,13 @@
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
           />
 
-          <ctls:UcLabelTextBox Name="sumRtnTotal" Grid.Row="1" Grid.Column="2"
-                               Label_Context="返品合計額" Label_Width="90"
+          <ctls:UcLabelTextBox Name="sumReducedTotal" Grid.Row="1" Grid.Column="2"
+                               Label_Context="仕入(軽減)" Label_Width="90"
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
           />
 
-          <ctls:UcLabelTextBox Name="sumRtnTax" Grid.Row="1" Grid.Column="3"
-                               Label_Context="返品消費税額" Label_Width="90"
+         <ctls:UcLabelTextBox Name="sumReducedTax" Grid.Row="1" Grid.Column="3"
+                               Label_Context="消費税(軽減)" Label_Width="90"
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
           />
 

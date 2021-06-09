@@ -7289,6 +7289,14 @@ namespace Hakobou.Data.SHR {
             
             private global::System.Data.DataColumn column件数;
             
+            private global::System.Data.DataColumn column通常支払額;
+            
+            private global::System.Data.DataColumn column軽減支払額;
+            
+            private global::System.Data.DataColumn column通常消費税;
+            
+            private global::System.Data.DataColumn column軽減消費税;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SHR05010_支払一覧表DataTable() {
@@ -7412,6 +7420,38 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 通常支払額Column {
+                get {
+                    return this.column通常支払額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減支払額Column {
+                get {
+                    return this.column軽減支払額;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 通常消費税Column {
+                get {
+                    return this.column通常消費税;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減消費税Column {
+                get {
+                    return this.column軽減消費税;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -7447,7 +7487,7 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SHR05010_支払一覧表Row AddSHR05010_支払一覧表Row(string 仕入先コード, string 仕入先名称, string 支払締日, long 前月残高, long 出金金額, long 支払額, long 値引額, long 非課税支払額, long 消費税, long 当月支払額, int 件数) {
+            public SHR05010_支払一覧表Row AddSHR05010_支払一覧表Row(string 仕入先コード, string 仕入先名称, string 支払締日, long 前月残高, long 出金金額, long 支払額, long 値引額, long 非課税支払額, long 消費税, long 当月支払額, int 件数, long 通常支払額, long 軽減支払額, long 通常消費税, long 軽減消費税) {
                 SHR05010_支払一覧表Row rowSHR05010_支払一覧表Row = ((SHR05010_支払一覧表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         仕入先コード,
@@ -7460,7 +7500,11 @@ namespace Hakobou.Data.SHR {
                         非課税支払額,
                         消費税,
                         当月支払額,
-                        件数};
+                        件数,
+                        通常支払額,
+                        軽減支払額,
+                        通常消費税,
+                        軽減消費税};
                 rowSHR05010_支払一覧表Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSHR05010_支払一覧表Row);
                 return rowSHR05010_支払一覧表Row;
@@ -7494,6 +7538,10 @@ namespace Hakobou.Data.SHR {
                 this.column消費税 = base.Columns["消費税"];
                 this.column当月支払額 = base.Columns["当月支払額"];
                 this.column件数 = base.Columns["件数"];
+                this.column通常支払額 = base.Columns["通常支払額"];
+                this.column軽減支払額 = base.Columns["軽減支払額"];
+                this.column通常消費税 = base.Columns["通常消費税"];
+                this.column軽減消費税 = base.Columns["軽減消費税"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7521,6 +7569,14 @@ namespace Hakobou.Data.SHR {
                 base.Columns.Add(this.column当月支払額);
                 this.column件数 = new global::System.Data.DataColumn("件数", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column件数);
+                this.column通常支払額 = new global::System.Data.DataColumn("通常支払額", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column通常支払額);
+                this.column軽減支払額 = new global::System.Data.DataColumn("軽減支払額", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減支払額);
+                this.column通常消費税 = new global::System.Data.DataColumn("通常消費税", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column通常消費税);
+                this.column軽減消費税 = new global::System.Data.DataColumn("軽減消費税", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減消費税);
                 this.column前月残高.DefaultValue = ((long)(0));
                 this.column出金金額.DefaultValue = ((long)(0));
                 this.column支払額.Caption = "売上額";
@@ -18286,6 +18342,70 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 通常支払額 {
+                get {
+                    try {
+                        return ((long)(this[this.tableSHR05010_支払一覧表.通常支払額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払一覧表\' にある列 \'通常支払額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払一覧表.通常支払額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 軽減支払額 {
+                get {
+                    try {
+                        return ((long)(this[this.tableSHR05010_支払一覧表.軽減支払額Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払一覧表\' にある列 \'軽減支払額\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払一覧表.軽減支払額Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 通常消費税 {
+                get {
+                    try {
+                        return ((long)(this[this.tableSHR05010_支払一覧表.通常消費税Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払一覧表\' にある列 \'通常消費税\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払一覧表.通常消費税Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long 軽減消費税 {
+                get {
+                    try {
+                        return ((long)(this[this.tableSHR05010_支払一覧表.軽減消費税Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR05010_支払一覧表\' にある列 \'軽減消費税\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR05010_支払一覧表.軽減消費税Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is仕入先コードNull() {
                 return this.IsNull(this.tableSHR05010_支払一覧表.仕入先コードColumn);
             }
@@ -18414,6 +18534,54 @@ namespace Hakobou.Data.SHR {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set件数Null() {
                 this[this.tableSHR05010_支払一覧表.件数Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is通常支払額Null() {
+                return this.IsNull(this.tableSHR05010_支払一覧表.通常支払額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set通常支払額Null() {
+                this[this.tableSHR05010_支払一覧表.通常支払額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減支払額Null() {
+                return this.IsNull(this.tableSHR05010_支払一覧表.軽減支払額Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減支払額Null() {
+                this[this.tableSHR05010_支払一覧表.軽減支払額Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is通常消費税Null() {
+                return this.IsNull(this.tableSHR05010_支払一覧表.通常消費税Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set通常消費税Null() {
+                this[this.tableSHR05010_支払一覧表.通常消費税Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減消費税Null() {
+                return this.IsNull(this.tableSHR05010_支払一覧表.軽減消費税Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減消費税Null() {
+                this[this.tableSHR05010_支払一覧表.軽減消費税Column] = global::System.Convert.DBNull;
             }
         }
         

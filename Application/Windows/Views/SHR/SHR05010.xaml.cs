@@ -44,6 +44,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>帳票定義ファイル 格納パス</summary>
         private const string ReportTemplateFileName = @"Files\SHR\SHR05010.rpt";
+        private const string ReportTemplateFileNameDtl = @"Files\SHR\SHR05011.rpt";
 
         #endregion
 
@@ -169,6 +170,10 @@ namespace KyoeiSystem.Application.Windows.Views
                             break;
 
                         case SEARCH_SHR05010_CSV:
+                            if (tbl.Columns.Contains("値引額"))
+                            {
+                                tbl.Columns.Remove("値引額");
+                            }
                             OutPutCSV(tbl);
                             break;
 
@@ -344,10 +349,17 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwPreview.ReportParameter(){ PNAME="支払先名", VALUE=(this.Customer.Label2Text)},
                 };
 
-                // 第1引数　帳票タイトル
-                // 第2引数　帳票ファイルPass
-                // 第3以上　帳票の開始点(0で良い)
-                view.MakeReport("支払一覧表", ReportTemplateFileName, 0, 0, 0);
+                if (LayoutType.Text == "0")
+                {
+                    // 第1引数　帳票タイトル
+                    // 第2引数　帳票ファイルPass
+                    // 第3以上　帳票の開始点(0で良い)
+                    view.MakeReport("支払一覧表", ReportTemplateFileName, 0, 0, 0);
+                }
+                else
+                {
+                    view.MakeReport("支払一覧表", ReportTemplateFileNameDtl, 0, 0, 0);
+                }
                 // 帳票ファイルに送るデータ。
                 // 帳票データの列と同じ列名を保持したDataTableを引数とする
                 view.SetReportData(tbl);

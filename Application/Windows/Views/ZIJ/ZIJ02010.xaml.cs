@@ -487,14 +487,14 @@ namespace KyoeiSystem.Application.Windows.Views
             // 明細初期化
             this.SearchResult = null;
 
-            // 仕入合計
-            sumSrTotal.Text = string.Empty;
-            // 仕入消費税
-            sumSrTax.Text = string.Empty;
-            // 返品合計
-            sumRtnTotal.Text = string.Empty;
-            // 返品消費税
-            sumRtnTax.Text = string.Empty;
+            // 仕入合計(通常)
+            sumSrTotalNomal.Text = string.Empty;
+            // 仕入消費税(通常)
+            sumSrTaxNomal.Text = string.Empty;
+            // 仕入合計(軽減)
+            sumReducedTotal.Text = string.Empty;
+            // 仕入消費税(軽減)
+            sumReducedTax.Text = string.Empty;
             // 総合計
             sumTotal.Text = string.Empty;
 
@@ -578,34 +578,37 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             // No.396 Mod Start
 
-            long 仕入合計 = 0;
-            long 返品合計 = 0;
-            int 仕入消費税 = 0;
-            int 返品消費税 = 0;
+            long 仕入合計通常 = 0;
+            long 仕入合計軽減 = 0;
+            int 通常消費税 = 0;
+            int 軽減消費税 = 0;
 
-            仕入合計 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Sum(c => c.Field<int>("金額"));
-            返品合計 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.返品).Sum(c => c.Field<int>("金額"));
+            仕入合計通常 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
+                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("通常税率対象金額")).Sum();
+
+            仕入合計軽減 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
+                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("軽減税率対象金額")).Sum(); 
 
             if (string.IsNullOrEmpty(Hinban.Text1))
             {
                 // 明細にヘッダーの消費税を持たせているので、1伝票1件のみ取得
-                仕入消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
-                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
+                通常消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
+                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("通常税率消費税")).Sum();
 
-                返品消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.返品)
-                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("消費税")).Sum();
+                軽減消費税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
+                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("軽減税率消費税")).Sum();
             }
 
-            // 仕入合計
-            sumSrTotal.Text = string.Format(PRICE_FORMAT_STRING, 仕入合計);
-            // 仕入消費税
-            sumSrTax.Text = string.Format(PRICE_FORMAT_STRING, 仕入消費税);
-            // 返品合計
-            sumRtnTotal.Text = string.Format(PRICE_FORMAT_STRING, 返品合計);
-            // 返品消費税
-            sumRtnTax.Text = string.Format(PRICE_FORMAT_STRING, 返品消費税);
+            // 仕入合計(通常)
+            sumSrTotalNomal.Text = string.Format(PRICE_FORMAT_STRING, 仕入合計通常);
+            // 仕入消費税(通常)
+            sumSrTaxNomal.Text = string.Format(PRICE_FORMAT_STRING, 通常消費税);
+            // 仕入合計(軽減)
+            sumReducedTotal.Text = string.Format(PRICE_FORMAT_STRING, 仕入合計軽減);
+            // 仕入消費税(軽減)
+            sumReducedTax.Text = string.Format(PRICE_FORMAT_STRING, 軽減消費税);
             // 総合計
-            sumTotal.Text = string.Format(PRICE_FORMAT_STRING, (仕入合計 + 仕入消費税 + 返品合計 + 返品消費税));
+            sumTotal.Text = string.Format(PRICE_FORMAT_STRING, (仕入合計通常 + 通常消費税 + 仕入合計軽減 + 軽減消費税));
 
 
             // No.396 Mod End

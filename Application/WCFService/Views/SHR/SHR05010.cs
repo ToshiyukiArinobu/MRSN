@@ -36,6 +36,10 @@ namespace KyoeiSystem.Application.WCFService
             public long 支払額 { get; set; }
             public long 消費税 { get; set; }
             public long 当月支払額 { get; set; }
+            public long 通常税率対象金額 { get; set; }
+            public long 軽減税率対象金額 { get; set; }
+            public long 通常税率消費税 { get; set; }
+            public long 軽減税率消費税 { get; set; }
         }
         // No.227,228 Add End
 
@@ -68,6 +72,10 @@ namespace KyoeiSystem.Application.WCFService
             public long 消費税 { get; set; }
             public long 当月支払額 { get; set; }
             public long 件数 { get; set; }
+            public long 通常支払額 { get; set; }
+            public long 軽減支払額 { get; set; }
+            public long 通常消費税 { get; set; }
+            public long 軽減消費税 { get; set; }
         }
 
         #endregion
@@ -150,6 +158,10 @@ namespace KyoeiSystem.Application.WCFService
                         s.Key.支払先コード,
                         s.Key.支払先枝番,
                         前月残高 = s.Sum(m => m.前月残高),
+                        通常支払額 = s.Sum(m => m.通常税率対象金額),
+                        軽減支払額 = s.Sum(m => m.軽減税率対象金額),
+                        通常消費税 = s.Sum(m => m.通常税率消費税),
+                        軽減消費税 = s.Sum(m => m.軽減税率消費税),
                         売上額 = s.Sum(m => m.支払額),
                         値引額 = s.Sum(m => m.値引額),
                         非税売上額 = s.Sum(m => m.非課税支払額),
@@ -214,7 +226,11 @@ namespace KyoeiSystem.Application.WCFService
                     非課税支払額 = x.NHD.非税売上額,
                     消費税 = x.NHD.消費税,
                     当月支払額 = x.NHD.当月支払額,
-                    件数 = x.NDTL == null ? 0 : x.NDTL.件数
+                    件数 = x.NDTL == null ? 0 : x.NDTL.件数,
+                    通常支払額 =x.NHD.通常支払額,
+                    軽減支払額 =x.NHD.軽減支払額,
+                    通常消費税 =x.NHD.通常消費税,
+                    軽減消費税 =x.NHD.軽減消費税,
                 });
 
             return KESSVCEntry.ConvertListToDataTable<PrintMember>(resultList.ToList());
@@ -301,7 +317,11 @@ namespace KyoeiSystem.Application.WCFService
                         非課税支払額 = x.SHRHD.非課税支払額,
                         支払額 = x.SHRHD.支払額,
                         消費税 = x.SHRHD.消費税,
-                        当月支払額 = x.SHRHD.当月支払額
+                        当月支払額 = x.SHRHD.当月支払額,
+                        通常税率対象金額 = x.SHRHD.通常税率対象金額,
+                        軽減税率対象金額 = x.SHRHD.軽減税率対象金額,
+                        通常税率消費税 = x.SHRHD.通常税率消費税,
+                        軽減税率消費税 = x.SHRHD.軽減税率消費税,
                     });
                 // No.227,228 Mod End
 
