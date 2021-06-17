@@ -1029,11 +1029,11 @@ namespace KyoeiSystem.Application.WCFService
                         (x, y) => new { x, y })
                     .SelectMany(z => z.y.DefaultIfEmpty(),
                         (a, b) => new { a.x.SRHD, a.x.SRDTL, TOK = b })
-                    .GroupJoin(context.M09_HIN.Where(w => w.削除日時 == null),
+                    .GroupJoin(context.M09_HIN,
                         x => x.SRDTL.品番コード,
                         y => y.品番コード,
                         (x, y) => new { x, y })
-                    .SelectMany(z => z.y.DefaultIfEmpty(),
+                    .SelectMany(z => z.y,
                         (c, d) => new { c.x.SRHD, c.x.SRDTL, c.x.TOK, HIN = d })
                     .GroupJoin(context.M73_ZEI.Where(w => w.削除日時 == null),
                         x => context.M73_ZEI.Where(w => w.削除日時 == null && w.適用開始日付 <= x.SRHD.仕入日).Max(m => m.適用開始日付),
@@ -1042,73 +1042,85 @@ namespace KyoeiSystem.Application.WCFService
                     .SelectMany(x => x.y.DefaultIfEmpty(),
                         (e, f) => new { e.x.SRHD, e.x.SRDTL, e.x.TOK, e.x.HIN, ZEI = f });
 
-            var dtlList =
-                srList.ToList()
-                    .Select(x => new S02_SHRDTL
-                    {
-                        自社コード = x.SRHD.会社名コード,
-                        支払年月 = yearMonth,
-                        支払締日 = x.TOK.Ｓ締日 ?? 31,
-                        支払先コード = x.SRHD.仕入先コード,
-                        支払先枝番 = x.SRHD.仕入先枝番,
-                        支払日 = 仕入先入金日,
-                        回数 = cnt,
-                        行 = 0,
-                        伝票番号 = x.SRHD.伝票番号,
-                        仕入日 = x.SRHD.仕入日,
-                        品番コード = x.SRDTL.品番コード,
-                        自社品名 = !string.IsNullOrEmpty(x.SRDTL.自社品名) ? x.SRDTL.自社品名 : x.HIN.自社品名,                // No.390 Add
-                        // No-86 Start
-                        数量 =
-                            x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?
-                                x.SRDTL.数量 : x.SRDTL.数量 * -1,
-                        // No-86 End
-                        単価 = x.SRDTL.単価,
-                        // No-63,86 Start
-                        金額 =
-                            x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?
-                                x.SRDTL.金額 : x.SRDTL.金額 * -1,
-                        // No-63,86 End
-                        // No-86 Start
-                        消費税 = (
-                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
-                                   (int)Math.Floor((double)(x.SRDTL.金額 *
-                                       (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                       x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / (double)100)) :
-                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
-                                   (int)Math.Round((double)(x.SRDTL.金額 *
-                                       (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                       x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / (double)100), 0, MidpointRounding.AwayFromZero) :
-                                x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
-                                   (int)Math.Ceiling((double)(x.SRDTL.金額 *
-                                       (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
-                                       x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
-                                       0) / (double)100)) :
-                                    0
-                                 ) * (x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? 1 : -1),
-                        // No-86 End
-                        摘要 = x.SRDTL.摘要,
-                        登録者 = userId,
-                        登録日時 = DateTime.Now,
-                        伝票区分 = (int)CommonConstants.支払伝票区分.仕入伝票,
+            try
+            {
+                var dtlList =
+                    srList.ToList()
+                        .Select(x => new S02_SHRDTL
+                        {
+                            自社コード = x.SRHD.会社名コード,
+                            支払年月 = yearMonth,
+                            支払締日 = x.TOK.Ｓ締日 ?? 31,
+                            支払先コード = x.SRHD.仕入先コード,
+                            支払先枝番 = x.SRHD.仕入先枝番,
+                            支払日 = 仕入先入金日,
+                            回数 = cnt,
+                            行 = 0,
+                            伝票番号 = x.SRHD.伝票番号,
+                            仕入日 = x.SRHD.仕入日,
+                            品番コード = x.SRDTL.品番コード,
+                            自社品名 = !string.IsNullOrEmpty(x.SRDTL.自社品名) ? x.SRDTL.自社品名 : x.HIN.自社品名,                // No.390 Add
+                            // No-86 Start
+                            数量 =
+                                x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?
+                                    x.SRDTL.数量 : x.SRDTL.数量 * -1,
+                            // No-86 End
+                            単価 = x.SRDTL.単価,
+                            // No-63,86 Start
+                            金額 =
+                                x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ?
+                                    x.SRDTL.金額 : x.SRDTL.金額 * -1,
+                            // No-63,86 End
+                            // No-86 Start
+                            消費税 = (
+                                    x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID01_切捨て ?
+                                       (int)Math.Floor((double)(x.SRDTL.金額 *
+                                           (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                           x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                           0) / (double)100)) :
+                                    x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID02_四捨五入 ?
+                                       (int)Math.Round((double)(x.SRDTL.金額 *
+                                           (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                           x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                           0) / (double)100), 0, MidpointRounding.AwayFromZero) :
+                                    x.TOK.Ｓ税区分ID == (int)CommonConstants.税区分.ID03_切上げ ?
+                                       (int)Math.Ceiling((double)(x.SRDTL.金額 *
+                                           (x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.通常税率 ? x.ZEI.消費税率 :
+                                           x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? x.ZEI.軽減税率 :
+                                           0) / (double)100)) :
+                                        0
+                                     ) * (x.SRHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? 1 : -1),
+                            // No-86 End
+                            摘要 = x.SRDTL.摘要,
+                            登録者 = userId,
+                            登録日時 = DateTime.Now,
+                            伝票区分 = (int)CommonConstants.支払伝票区分.仕入伝票,
 
-                    });
+                        });
 
-            // No-84 Start
-            // 揚り情報取得(支払明細)
-            List<S02_SHRDTL> dtlListAgr = setDetailAgrInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId);
+                if (dtlList == null)
+                {
+                    return null;
+                }
 
-            // 仕入情報と揚り情報を結合する
-            var dtlListAll = (
-                dtlList.ToList()
-                    .Concat(dtlListAgr
-                        ))
-                    .OrderBy(o => o.仕入日).ThenBy(o => o.伝票番号).ThenBy(o => o.行);
+                // No-84 Start
+                // 揚り情報取得(支払明細)
+                List<S02_SHRDTL> dtlListAgr = setDetailAgrInfo(context, company, yearMonth, code, eda, cnt, targetStDate, targetEdDate, paymentDate, userId);
 
-            return dtlListAll.ToList();
-            // No-84 End
+                // 仕入情報と揚り情報を結合する
+                var dtlListAll = (
+                    dtlList.ToList()
+                        .Concat(dtlListAgr
+                            ))
+                        .OrderBy(o => o.仕入日).ThenBy(o => o.伝票番号).ThenBy(o => o.行);
+
+                return dtlListAll.ToList();
+                // No-84 End
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
