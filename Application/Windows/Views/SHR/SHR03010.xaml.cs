@@ -295,6 +295,7 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="message"></param>
         public override void OnReveivedError(CommunicationObject message)
         {
+            base.SetFreeForInput();
             base.OnReveivedError(message);
             this.ErrorMessage = (string)message.GetResultData();
         }

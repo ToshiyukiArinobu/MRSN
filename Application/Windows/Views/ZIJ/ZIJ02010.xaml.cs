@@ -583,11 +583,9 @@ namespace KyoeiSystem.Application.Windows.Views
             int 通常消費税 = 0;
             int 軽減消費税 = 0;
 
-            仕入合計通常 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
-                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("通常税率対象金額")).Sum();
+            仕入合計通常 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Select(c => c.Field<int>("通常税率対象金額")).Sum();
 
-            仕入合計軽減 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常)
-                                         .GroupBy(a => a.Field<int>("伝票番号")).Select(c => c.FirstOrDefault().Field<int>("軽減税率対象金額")).Sum(); 
+            仕入合計軽減 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Select(c => c.Field<int>("軽減税率対象金額")).Sum(); 
 
             if (string.IsNullOrEmpty(Hinban.Text1))
             {
