@@ -215,7 +215,7 @@ namespace Hakobo
 				this.threadmgr.Dispose();
 				this.threadmgr = null;
 			}
-			this.Close();
+            Environment.Exit(1);
 		}
 
 		private void DBSetup_Click(object sender, RoutedEventArgs e)
