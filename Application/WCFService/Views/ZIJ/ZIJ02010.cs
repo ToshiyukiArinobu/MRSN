@@ -45,6 +45,7 @@ namespace KyoeiSystem.Application.WCFService
             public int 消費税 { get; set; }             // No.396 Add
             public int 通常税率対象金額 { get; set; }
             public int 軽減税率対象金額 { get; set; }
+            public int 非課税対象金額 { get; set; }
             public int 通常税率消費税 { get; set; }
             public int 軽減税率消費税 { get; set; } 
         }
@@ -201,7 +202,8 @@ namespace KyoeiSystem.Application.WCFService
                                 金額 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.金額 : x.SDTL.金額 * -1, 　    // No.396 Mod
                                 消費税 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? (x.SHD.消費税 ?? 0) : (x.SHD.消費税 ?? 0) * -1, 　    // No.396 Add
                                 通常税率対象金額 = x.HIN.消費税区分 == 0 ? (x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.金額 : x.SDTL.金額 * -1) : 0,
-                                軽減税率対象金額 = x.HIN.消費税区分 == 1 ? (x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.金額  : x.SDTL.金額 * -1) : 0,
+                                軽減税率対象金額 = x.HIN.消費税区分 == 1 ? (x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.金額 : x.SDTL.金額 * -1) : 0,
+                                非課税対象金額 = x.HIN.消費税区分 == 2 ? (x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? x.SDTL.金額 : x.SDTL.金額 * -1) : 0,
                                 通常税率消費税 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? (x.SHD.通常税率消費税 ?? 0) : (x.SHD.通常税率消費税 ?? 0) * -1,
                                 軽減税率消費税 = x.SHD.仕入区分 < (int)CommonConstants.仕入区分.返品 ? (x.SHD.軽減税率消費税 ?? 0) : (x.SHD.軽減税率消費税 ?? 0) * -1, 
                                 摘要 = x.SDTL.摘要,

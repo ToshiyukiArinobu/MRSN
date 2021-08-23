@@ -426,7 +426,10 @@
                                Label_Context="消費税(軽減)" Label_Width="90"
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
           />
-
+         <ctls:UcLabelTextBox Name="sumHikazei" Grid.Row="0" Grid.Column="4"
+                               Label_Context="仕入(非課税)" Label_Width="90"
+                               cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"
+          />
           <ctls:UcLabelTextBox Name="sumTotal" Grid.Row="1" Grid.Column="4"
                                Label_Context="総合計額" Label_Width="90"
                                cTextAlignment="Right" cVerticalContentAlignment="Center" cIsReadOnly="True" cAcceptsTab="False"

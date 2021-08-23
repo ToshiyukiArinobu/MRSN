@@ -495,6 +495,8 @@ namespace KyoeiSystem.Application.Windows.Views
             sumReducedTotal.Text = string.Empty;
             // 仕入消費税(軽減)
             sumReducedTax.Text = string.Empty;
+            //仕入合計(非課税)
+            sumHikazei.Text = string.Empty;
             // 総合計
             sumTotal.Text = string.Empty;
 
@@ -580,12 +582,14 @@ namespace KyoeiSystem.Application.Windows.Views
 
             long 仕入合計通常 = 0;
             long 仕入合計軽減 = 0;
+            long 仕入合計非課税 = 0;
             int 通常消費税 = 0;
             int 軽減消費税 = 0;
 
             仕入合計通常 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Select(c => c.Field<int>("通常税率対象金額")).Sum();
 
-            仕入合計軽減 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Select(c => c.Field<int>("軽減税率対象金額")).Sum(); 
+            仕入合計軽減 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Select(c => c.Field<int>("軽減税率対象金額")).Sum();
+            仕入合計非課税 = SearchResult.AsEnumerable().Where(x => x.Field<int?>("仕入区分コード") == (int)仕入区分.通常).Select(c => c.Field<int>("非課税対象金額")).Sum(); 
 
             if (string.IsNullOrEmpty(Hinban.Text1))
             {
@@ -605,8 +609,10 @@ namespace KyoeiSystem.Application.Windows.Views
             sumReducedTotal.Text = string.Format(PRICE_FORMAT_STRING, 仕入合計軽減);
             // 仕入消費税(軽減)
             sumReducedTax.Text = string.Format(PRICE_FORMAT_STRING, 軽減消費税);
+            // 仕入合計(非課税)
+            sumHikazei.Text = string.Format(PRICE_FORMAT_STRING, 仕入合計非課税);
             // 総合計
-            sumTotal.Text = string.Format(PRICE_FORMAT_STRING, (仕入合計通常 + 通常消費税 + 仕入合計軽減 + 軽減消費税));
+            sumTotal.Text = string.Format(PRICE_FORMAT_STRING, (仕入合計通常 + 通常消費税 + 仕入合計軽減 + 軽減消費税 + 仕入合計非課税));
 
 
             // No.396 Mod End
