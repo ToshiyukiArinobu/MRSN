@@ -358,6 +358,7 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "T11_Update", ServiceClass = "T11", MethodName = "Update", Descprition = "入金入力情報登録・更新" },
             new WCFDataAccessConfig() { Name = "T11_Delete", ServiceClass = "T11", MethodName = "Delete", Descprition = "入金入力情報登録・更新" },
             new WCFDataAccessConfig() { Name = "T11_GetTokInfo", ServiceClass = "T11", MethodName = "GetTokInfo", Descprition = "得意先情報の取得" },
+            new WCFDataAccessConfig() { Name = "T11_GetYoteiData", ServiceClass = "T11", MethodName = "GetYoteiData", Descprition = "得意先情報の取得" },
 
             // 支払入力
             new WCFDataAccessConfig() { Name = "T12_GetData", ServiceClass = "T12", MethodName = "GetData", Descprition = "支払入力情報取得" },

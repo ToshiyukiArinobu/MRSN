@@ -76,6 +76,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T05_HEADER_TABLE_NAME = "T11_NYKNHD";
         /// <summary>入金明細 テーブル名</summary>
         private const string T05_DETAIL_TABLE_NAME = "T11_NYKNDTL";
+        /// <summary>入金予定データ取得 </summary>
+        private const string T05_GetYoteiData = "T11_GetYoteiData";
 
         /// <summary>
         /// グリッドの金種コンボで使用されるデータ
@@ -148,6 +150,27 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
+        private DateTime? _入金予定日;
+        public DateTime? 入金予定日
+        {
+            get { return _入金予定日; }
+            set
+            {
+                _入金予定日 = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private long? _入金予定額;
+        public long? 入金予定額
+        {
+            get { return _入金予定額; }
+            set
+            {
+                _入金予定額 = value;
+                NotifyPropertyChanged();
+            }
+        }
+            
         #endregion
 
         #region << 初期処理群 >>
@@ -326,7 +349,19 @@ namespace KyoeiSystem.Application.Windows.Views
                         // コントロール初期化
                         ScreenClear();
                         break;
-
+                    case T05_GetYoteiData:
+                        if (tbl.Rows.Count > 0)
+                        {
+                            int i入金予定日 = (int)tbl.Rows[0]["入金予定日"];
+                            入金予定日 = new DateTime(i入金予定日 / 10000, (i入金予定日 % 10000) / 100, i入金予定日 % 100);
+                            入金予定額 = (long)tbl.Rows[0]["入金予定額"];
+                        }
+                        else
+                        {
+                            入金予定日 = null;
+                            入金予定額 = null;
+                        }
+                        break;
                     default:
                         break;
 
@@ -869,6 +904,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     SearchDetail.Rows.Add(SearchDetail.NewRow());
 
             }
+            入金予定日 = null;
+            入金予定額 = null;
 
             ChangeKeyItemChangeable(true);
             ResetAllValidation();
@@ -1215,6 +1252,50 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
         #endregion
+
+        /// <summary>
+        /// 得意先ロストフォーカスイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt得意先_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txt入金日.Text) && string.IsNullOrEmpty(txt得意先.Text1) && string.IsNullOrEmpty(txt得意先.Text2))
+            {
+                return;
+            }
+
+            DateTime dt入金日;
+            if(DateTime.TryParse(this.txt入金日.Text,out dt入金日) == false)
+            {
+                return;
+            }
+            int i得意先コード;
+            if(int.TryParse(this.txt得意先.Text1,out i得意先コード) == false)
+            {
+                return;
+            }
+            int i得意先枝番;
+            if(int.TryParse(this.txt得意先.Text2,out i得意先枝番) == false)
+            {
+                return;
+            }
+            int i自社コード;
+            if (int.TryParse(this.txt会社名.Text1, out i自社コード) == false)
+            {
+                return;
+            }
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    T05_GetYoteiData,
+                    new object[] {
+                        dt入金日,
+                        i得意先コード,
+                        i得意先枝番,
+                        i自社コード
+                    }));
+        }
     }
 
 }

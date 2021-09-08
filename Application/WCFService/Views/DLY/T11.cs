@@ -47,6 +47,12 @@ namespace KyoeiSystem.Application.WCFService
             public string 摘要 { get; set; }
         }
 
+        public class T11_YoteiData
+        {
+            
+            public int 入金予定日 { get; set; }
+            public long 入金予定額 { get; set; }
+        }
         #endregion
 
         #region << 入金入力関連 >>
@@ -575,6 +581,31 @@ namespace KyoeiSystem.Application.WCFService
 
         #endregion
 
+        public List<T11_YoteiData> GetYoteiData(DateTime p入金日, int p得意先コード, int p得意先枝番,int p自社コード)
+        {
+            int i入金日From = p入金日.Year * 10000 + p入金日.Month * 100 + 1;
+            int i入金日To = p入金日.Year * 10000 + p入金日.Month * 100 + 31;
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                var yotei = (from s01 in context.S01_SEIHD
+                          where
+                            s01.自社コード == p自社コード
+                          && s01.入金日 >= i入金日From
+                          && s01.入金日 <= i入金日To
+                          && s01.請求先コード == p得意先コード
+                          && s01.請求先枝番 == p得意先枝番
+                          select new T11_YoteiData
+                          {
+                              入金予定日 = s01.入金日,
+                              入金予定額 = s01.当月請求額
+
+                          }).ToList();
+
+                return yotei;
+            }
+        }
     }
 
 }

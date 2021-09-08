@@ -212,6 +212,7 @@
                 cMaxLength="10" cTextAlignment="Center" cVerticalContentAlignment="Center"
                 Mask="yyyy/MM/dd" cValidationType="Date" Label_Width="0" Margin="-1,-1,-2,-2"
                 Text="{Binding Path=SearchHeader[入金日], Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}"
+                LostFocus="txt得意先_LostFocus"
             />
 
             <TextBlock Text="得意先" Grid.Row="0" Grid.Column="2" TextAlignment="Center" Padding="0,5,0,0"
@@ -226,6 +227,7 @@
                                 Label2Text=""
                                 Text1="{Binding SearchHeader[得意先コード], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                                 Text2="{Binding SearchHeader[得意先枝番], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                                LostFocus="txt得意先_LostFocus"
             />
 
             <TextBlock Text="入金元販社" Grid.Row="0" Grid.Column="3" TextAlignment="Center" Padding="0,5,0,0"
@@ -318,7 +320,29 @@
 
         </sg:GcSpreadGrid>
 
-      </Grid>
+                <Grid Name="grdFooter" Grid.Row="3" Margin="20,10,0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ctls:UcLabelTextBox Name="txt入金予定日" Label_Context="入金予定日" Grid.Column="1" cIsReadOnly="True"
+                                         cMaxLength="10" cTextAlignment="Right" cVerticalContentAlignment="Center" Mask="yyyy/MM/dd" cValidationType="Date" Label_Width="100" cWidth="75"
+                                         Text="{Binding Path=入金予定日, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, StringFormat=yyyy/MM/dd, UpdateSourceTrigger=LostFocus}" />
+                    
+                    <ctls:UcLabelTextBox Name="txt入金予定額" Label_Context="入金予定額" Grid.Column="2" cIsReadOnly="True"
+                                         cTextAlignment="Right" cVerticalContentAlignment="Center" cValidationType="Integer" Label_Width="100" cWidth="125"
+                                         Text="{Binding Path=入金予定額, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=LostFocus, StringFormat='#,0'}" />
+
+                </Grid>
+            </Grid>
 
     </Grid>
   </Grid>

@@ -516,16 +516,25 @@ namespace KyoeiSystem.Application.Windows.Views
         private void summaryCalc()
         {
             // No.145 Mod Start
-            sumCash.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("現金")).Key);
-            sumTransfer.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("振込")).Key);
-            sumCheck.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("小切手")).Key);
-            sumPromissory.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("手形")).Key);
-            sumOffset.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("相殺")).Key);
-            sumAjustment.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("調整")).Key);
-            sumOther.Text = parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("その他")).Key);
+            sumCash.Text = string.Format("{0:#,0}",parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("現金")).Key));
+            sumTransfer.Text = string.Format("{0:#,0}",parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("振込")).Key));
+            sumCheck.Text = string.Format("{0:#,0}",parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("小切手")).Key));
+            sumPromissory.Text = string.Format("{0:#,0}",parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("手形")).Key));
+            sumOffset.Text = string.Format("{0:#,0}",parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("相殺")).Key));
+            sumAjustment.Text = string.Format("{0:#,0}",parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("調整")).Key));
+            sumOther.Text = string.Format("{0:#,0}",
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("その他")).Key) + 
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("振込手数料")).Key) + 
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("歩引き")).Key) + 
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("送料")).Key) + 
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("協賛金")).Key) + 
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("支払明細代")).Key) +
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("ｶﾀﾛｸﾞ掲載料")).Key) +
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("売掛金振替")).Key) + 
+                                parseLongSummary(goldNameDic.FirstOrDefault(x => x.Value.Equals("買掛金振替")).Key));
             // No.145 Mod End
 
-            sumTotal.Text = parseLongSummary(null);
+            sumTotal.Text = string.Format("{0:#,0}",parseLongSummary(null));
 
         }
 
@@ -534,19 +543,19 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        private string parseLongSummary(int? code)
+        private long parseLongSummary(int? code)
         {
             string sVal;
             if (code == null)
                 sVal = SearchResult.Compute("Sum(金額)", "").ToString();
 
             else
-                sVal = SearchResult.Compute("Sum(金額)", string.Format("金種コード = {0}", code.GetHashCode())).ToString();
+                sVal = SearchResult.Compute("Sum(金額)", string.Format("金種コード = '{0}'", code.GetHashCode())).ToString();
 
             if (string.IsNullOrEmpty(sVal))
-                return "0";
+                return 0;
 
-            return string.Format("{0:#,0}", long.Parse(sVal));
+            return  long.Parse(sVal);
 
         }
 
