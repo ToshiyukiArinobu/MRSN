@@ -150,27 +150,16 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
 
-        private DateTime? _入金予定日;
-        public DateTime? 入金予定日
+        private DataTable _seikyuTable;
+        public DataTable SeikyuTable
         {
-            get { return _入金予定日; }
+            get { return _seikyuTable; }
             set
             {
-                _入金予定日 = value;
+                _seikyuTable = value;
                 NotifyPropertyChanged();
             }
         }
-        private long? _入金予定額;
-        public long? 入金予定額
-        {
-            get { return _入金予定額; }
-            set
-            {
-                _入金予定額 = value;
-                NotifyPropertyChanged();
-            }
-        }
-            
         #endregion
 
         #region << 初期処理群 >>
@@ -352,14 +341,11 @@ namespace KyoeiSystem.Application.Windows.Views
                     case T05_GetYoteiData:
                         if (tbl.Rows.Count > 0)
                         {
-                            int i入金予定日 = (int)tbl.Rows[0]["入金予定日"];
-                            入金予定日 = new DateTime(i入金予定日 / 10000, (i入金予定日 % 10000) / 100, i入金予定日 % 100);
-                            入金予定額 = (long)tbl.Rows[0]["入金予定額"];
+                            SeikyuTable = tbl;
                         }
                         else
                         {
-                            入金予定日 = null;
-                            入金予定額 = null;
+                            SeikyuTable = null;
                         }
                         break;
                     default:
@@ -904,8 +890,8 @@ namespace KyoeiSystem.Application.Windows.Views
                     SearchDetail.Rows.Add(SearchDetail.NewRow());
 
             }
-            入金予定日 = null;
-            入金予定額 = null;
+            if (SeikyuTable != null)
+                SeikyuTable = null;
 
             ChangeKeyItemChangeable(true);
             ResetAllValidation();

@@ -49,9 +49,12 @@ namespace KyoeiSystem.Application.WCFService
 
         public class T11_YoteiData
         {
-            
-            public int 入金予定日 { get; set; }
+            public int i請求月 { get; set; }
+            public int i入金予定日 { get; set; }
+            public DateTime 請求月 { get; set; }
+            public DateTime 入金予定日 { get; set; }
             public long 入金予定額 { get; set; }
+            public long 消費税 { get; set; }
         }
         #endregion
 
@@ -583,7 +586,6 @@ namespace KyoeiSystem.Application.WCFService
 
         public List<T11_YoteiData> GetYoteiData(DateTime p入金日, int p得意先コード, int p得意先枝番,int p自社コード)
         {
-            int i入金日From = p入金日.Year * 10000 + p入金日.Month * 100 + 1;
             int i入金日To = p入金日.Year * 10000 + p入金日.Month * 100 + 31;
             using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
             {
@@ -592,16 +594,24 @@ namespace KyoeiSystem.Application.WCFService
                 var yotei = (from s01 in context.S01_SEIHD
                           where
                             s01.自社コード == p自社コード
-                          && s01.入金日 >= i入金日From
                           && s01.入金日 <= i入金日To
                           && s01.請求先コード == p得意先コード
                           && s01.請求先枝番 == p得意先枝番
+                          orderby s01.入金日 descending
                           select new T11_YoteiData
                           {
-                              入金予定日 = s01.入金日,
-                              入金予定額 = s01.当月請求額
+                              i請求月 = s01.請求年月,
+                              i入金予定日 = s01.入金日,
+                              入金予定額 = s01.売上額,
+                              消費税 = s01.消費税
 
-                          }).ToList();
+                          }).Take(5).ToList();
+
+                foreach (var row in yotei)
+                {
+                    row.請求月 = new DateTime(row.i請求月 / 100, row.i請求月 % 100, 1);
+                    row.入金予定日 = new DateTime(row.i入金予定日 / 10000, (row.i入金予定日 % 10000) / 100, row.i入金予定日 % 100);
+                }
 
                 return yotei;
             }
