@@ -384,6 +384,17 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="100" >
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="売上合計" Foreground="White" Background="Transparent" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding 売上合計,StringFormat='###,0'}"
+                                                   Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 

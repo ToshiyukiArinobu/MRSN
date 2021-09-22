@@ -179,7 +179,7 @@ namespace KyoeiSystem.Application.WCFService
                                 会社名コード = x.UHD.会社名コード,                // No.227,228 Add
                                 自社名 = x.JIS.自社名 ?? "",                      // No.227,228 Add
                                 売上日 = x.UHD.売上日.ToShortDateString(),        // No.130-1 Mod
-                                請求日 = x.UHD.売上日.Day >= x.TOK.Ｔ締日 ?
+                                請求日 = x.UHD.売上日.Day > x.TOK.Ｔ締日 ?
                                     AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 1).ToShortDateString() :     // No.130-1 Mod
                                     AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 0).ToShortDateString(),      // No.130-1 Mod
                                 売上区分 = x.KBN.表示名,
@@ -325,7 +325,7 @@ namespace KyoeiSystem.Application.WCFService
                                 会社名コード = x.UHD.会社名コード,              // No.227,228 Add
                                 自社名 = x.JIS.自社名 ?? "",                    // No.227,228 Add
                                 売上日 = x.UHD.売上日.ToShortDateString(),
-                                請求日 = x.UHD.売上日.Day >= x.TOK.Ｔ締日 ?
+                                請求日 = x.UHD.売上日.Day > x.TOK.Ｔ締日 ?
                                     AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 1).ToShortDateString() : 
                                     AppCommon.GetClosingDate(x.UHD.売上日.Year, x.UHD.売上日.Month, x.TOK.Ｔ締日 ?? 31, 0).ToShortDateString(),
                                 売上区分 = x.KBN.表示名,

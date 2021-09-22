@@ -55,6 +55,7 @@ namespace KyoeiSystem.Application.WCFService
             public DateTime 入金予定日 { get; set; }
             public long 入金予定額 { get; set; }
             public long 消費税 { get; set; }
+            public long 売上合計 { get; set; }
         }
         #endregion
 
@@ -603,7 +604,8 @@ namespace KyoeiSystem.Application.WCFService
                               i請求月 = s01.請求年月,
                               i入金予定日 = s01.入金日,
                               入金予定額 = s01.売上額,
-                              消費税 = s01.消費税
+                              消費税 = s01.消費税,
+                              売上合計 = s01.売上額+s01.消費税
 
                           }).Take(5).ToList();
 
