@@ -479,6 +479,10 @@ namespace KyoeiSystem.Application.WCFService
             new WCFDataAccessConfig() { Name = "SHR06010_GetCsvData", ServiceClass = "SHR06010", MethodName = "GetCsvData", Descprition = "出金予定表ＣＳＶデータ取得" },
             new WCFDataAccessConfig() { Name = "SHR06010_GetPrintData", ServiceClass = "SHR06010", MethodName = "GetPrintData", Descprition = "出金予定表印刷データ取得" },
 
+            //支払データ削除
+            new WCFDataAccessConfig() { Name = "SHR90090_GetDataList", ServiceClass = "SHR90090", MethodName = "GetDataList", Descprition = "支払データ検索情報取得" },
+            new WCFDataAccessConfig() { Name = "SHR90090_DataDelete", ServiceClass = "SHR90090", MethodName = "DataDelete", Descprition = "支払データ削除" },
+
             #endregion
 
             #region 在庫管理

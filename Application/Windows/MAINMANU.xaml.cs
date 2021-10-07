@@ -1209,7 +1209,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 MessageBox.Show(ex.Message);
             }
         }
-
+        
         #endregion
 
         #region 支払先管理[F4]
@@ -1312,7 +1312,22 @@ namespace KyoeiSystem.Application.Windows.Views
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// 支払データ削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Click_SHR90090(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Start(typeof(SHR90090));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         #endregion
 
         #region 倉庫管理[F5]
@@ -3485,10 +3500,5 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             this.Close();
         }
-        
-
-        
-
-
     }
 }

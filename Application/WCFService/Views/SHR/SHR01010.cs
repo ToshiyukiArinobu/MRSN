@@ -622,9 +622,24 @@ namespace KyoeiSystem.Application.WCFService
             List<S07_SRIHD> shdList = new List<S07_SRIHD>();
             foreach (M01_TOK tok in tokList)
             {
+                DateTime paymentDate;
+                // 入金日の算出
+                try
+                {
+                    paymentDate =
+                        AppCommon.GetClosingDate(yearMonth / 100, yearMonth % 100, tok.Ｓ入金日１ ?? CommonConstants.DEFAULT_CLOSING_DAY, tok.Ｓサイト１ ?? 0);
+                }
+                catch
+                {
+                    // 基本的にあり得ないがこの場合は当月末日を指定
+                    paymentDate = new DateTime(yearMonth / 100, yearMonth % 100, DateTime.DaysInMonth(yearMonth / 100, yearMonth % 100));
+                }
+
+                int paymentDay = paymentDate.Year * 10000 + paymentDate.Month * 100 + paymentDate.Day;
+
                 List<S07_SRIHD> wk = context.S07_SRIHD.Where(w => w.自社コード == company && w.支払年月 == yearMonth &&
                                                     w.支払先コード == tok.取引先コード && w.支払先枝番 == tok.枝番 &&
-                                                    w.当月支払額 != 0).ToList();
+                                                    w.支払日 == paymentDay && w.当月支払額 != 0).ToList();
 
                 shdList = shdList.Concat(wk).ToList();
             }

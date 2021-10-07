@@ -457,6 +457,7 @@
 
                                                 <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
                                                     <Button Name="TKS90011" Content="    7. 確定処理" Click="Click_TKS90010" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
+                                                    <Button Name="SHR90090" Content="   8. 支払データ削除" Click="Click_SHR90090" Width="250" MouseMove="ScreenChange" GotFocus="KeyboardChange" LostFocus="KeybordLost" Margin="5,10,5,5" FontSize="16" Height="45" HorizontalContentAlignment="Left" Background="{StaticResource Back}" BorderBrush="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" Foreground="{StaticResource Fore}" />
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left">
