@@ -34,7 +34,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 仕入先名称 { get; set; }
             public long 前月繰越 { get; set; }
             public long 出金金額 { get; set; }
-            public long 値引額 { get; set; }
+            public long 繰越残高 { get; set; }
             public long 通常税率対象支払額 { get; set; }
             public long 通常税消費税 { get; set; }
             public long 税込支払額 { get; set; }
@@ -478,6 +478,7 @@ namespace KyoeiSystem.Application.WCFService
                         仕入先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                         前月繰越 = (long)x.Sum(s => s.SHD.前月残高),
                         出金金額 = (long)x.Sum(s => s.SHD.出金額),
+                        繰越残高 = (long)x.Sum(s => s.SHD.前月残高) - (long)x.Sum(s => s.SHD.出金額),
                         通常税率対象支払額 = (long)x.Sum(s => s.SHD.通常税率対象金額),
                         軽減税率対象支払額 = (long)x.Sum(s => s.SHD.軽減税率対象金額),
                         通常税消費税 = (long)x.Sum(s => s.SHD.通常税率消費税),
@@ -540,6 +541,7 @@ namespace KyoeiSystem.Application.WCFService
                             仕入先名称 = x.Key.略称名 == null ? x.Key.得意先名１ : x.Key.略称名,
                             前月繰越 = (long)x.Sum(s => s.SHD.前月残高),
                             出金金額 = (long)x.Sum(s => s.SHD.出金額),
+                            繰越残高 = (long)x.Sum(s => s.SHD.前月残高) - (long)x.Sum(s => s.SHD.出金額),
                             通常税率対象支払額 = (long)x.Sum(s => s.SHD.通常税率対象金額),
                             軽減税率対象支払額 = (long)x.Sum(s => s.SHD.軽減税率対象金額),
                             通常税消費税 = (long)x.Sum(s => s.SHD.通常税率消費税),
@@ -586,6 +588,7 @@ namespace KyoeiSystem.Application.WCFService
                             仕入先名称 = x.Key.得意先名１ == null ? "" : x.Key.得意先名１,
                             前月繰越 = (long)x.Sum(s => s.SHD.前月残高),
                             出金金額 = (long)x.Sum(s => s.SHD.出金額),
+                            繰越残高 = (long)x.Sum(s => s.SHD.前月残高) - (long)x.Sum(s => s.SHD.出金額),
                             通常税率対象支払額 = (long)x.Sum(s => s.SHD.通常税率対象金額),
                             軽減税率対象支払額 = (long)x.Sum(s => s.SHD.軽減税率対象金額),
                             通常税消費税 = (long)x.Sum(s => s.SHD.通常税率消費税),

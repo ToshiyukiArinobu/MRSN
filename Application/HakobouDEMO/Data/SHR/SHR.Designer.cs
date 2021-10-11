@@ -8620,7 +8620,7 @@ namespace Hakobou.Data.SHR {
             
             private global::System.Data.DataColumn column出金金額;
             
-            private global::System.Data.DataColumn column値引額;
+            private global::System.Data.DataColumn column繰越残高;
             
             private global::System.Data.DataColumn column通常税率対象支払額;
             
@@ -8705,9 +8705,9 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn 値引額Column {
+            public global::System.Data.DataColumn 繰越残高Column {
                 get {
-                    return this.column値引額;
+                    return this.column繰越残高;
                 }
             }
             
@@ -8812,14 +8812,14 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SHR01010_仕入データ一覧表Row AddSHR01010_仕入データ一覧表Row(string 仕入先コード, string 仕入先名称, decimal 前月繰越, decimal 出金金額, decimal 値引額, decimal 通常税率対象支払額, decimal 軽減税率対象支払額, decimal 非課税支払額, decimal 通常税消費税, decimal 軽減税消費税, decimal 税込支払額, decimal 軽減税込支払額, decimal 当月支払額) {
+            public SHR01010_仕入データ一覧表Row AddSHR01010_仕入データ一覧表Row(string 仕入先コード, string 仕入先名称, decimal 前月繰越, decimal 出金金額, decimal 繰越残高, decimal 通常税率対象支払額, decimal 軽減税率対象支払額, decimal 非課税支払額, decimal 通常税消費税, decimal 軽減税消費税, decimal 税込支払額, decimal 軽減税込支払額, decimal 当月支払額) {
                 SHR01010_仕入データ一覧表Row rowSHR01010_仕入データ一覧表Row = ((SHR01010_仕入データ一覧表Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         仕入先コード,
                         仕入先名称,
                         前月繰越,
                         出金金額,
-                        値引額,
+                        繰越残高,
                         通常税率対象支払額,
                         軽減税率対象支払額,
                         非課税支払額,
@@ -8854,7 +8854,7 @@ namespace Hakobou.Data.SHR {
                 this.column仕入先名称 = base.Columns["仕入先名称"];
                 this.column前月繰越 = base.Columns["前月繰越"];
                 this.column出金金額 = base.Columns["出金金額"];
-                this.column値引額 = base.Columns["値引額"];
+                this.column繰越残高 = base.Columns["繰越残高"];
                 this.column通常税率対象支払額 = base.Columns["通常税率対象支払額"];
                 this.column軽減税率対象支払額 = base.Columns["軽減税率対象支払額"];
                 this.column非課税支払額 = base.Columns["非課税支払額"];
@@ -8876,8 +8876,8 @@ namespace Hakobou.Data.SHR {
                 base.Columns.Add(this.column前月繰越);
                 this.column出金金額 = new global::System.Data.DataColumn("出金金額", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column出金金額);
-                this.column値引額 = new global::System.Data.DataColumn("値引額", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.column値引額);
+                this.column繰越残高 = new global::System.Data.DataColumn("繰越残高", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column繰越残高);
                 this.column通常税率対象支払額 = new global::System.Data.DataColumn("通常税率対象支払額", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column通常税率対象支払額);
                 this.column軽減税率対象支払額 = new global::System.Data.DataColumn("軽減税率対象支払額", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -19411,17 +19411,17 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal 値引額 {
+            public decimal 繰越残高 {
                 get {
                     try {
-                        return ((decimal)(this[this.tableSHR01010_仕入データ一覧表.値引額Column]));
+                        return ((decimal)(this[this.tableSHR01010_仕入データ一覧表.繰越残高Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'SHR01010_仕入データ一覧表\' にある列 \'値引額\' の値は DBNull です。", e);
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR01010_仕入データ一覧表\' にある列 \'繰越残高\' の値は DBNull です。", e);
                     }
                 }
                 set {
-                    this[this.tableSHR01010_仕入データ一覧表.値引額Column] = value;
+                    this[this.tableSHR01010_仕入データ一覧表.繰越残高Column] = value;
                 }
             }
             
@@ -19603,14 +19603,14 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Is値引額Null() {
-                return this.IsNull(this.tableSHR01010_仕入データ一覧表.値引額Column);
+            public bool Is繰越残高Null() {
+                return this.IsNull(this.tableSHR01010_仕入データ一覧表.繰越残高Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Set値引額Null() {
-                this[this.tableSHR01010_仕入データ一覧表.値引額Column] = global::System.Convert.DBNull;
+            public void Set繰越残高Null() {
+                this[this.tableSHR01010_仕入データ一覧表.繰越残高Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
