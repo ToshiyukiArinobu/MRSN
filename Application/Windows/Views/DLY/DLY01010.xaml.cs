@@ -1736,14 +1736,11 @@ namespace KyoeiSystem.Application.Windows.Views
             //        .Where(w => w.Field<int?>("金額") != null)
             //        .Select(x => x.Field<int>("金額"))
             //        .Sum();
-            decimal conTax = 0;
             DateTime date = DateTime.Now;
 
             // No-94 Add Start
             int intTsujyo = 0;
             int intKeigen = 0;
-            int intTaxTsujyo = 0;
-            int intTaxKeigen = 0;
             int subTotal = 0;
             // No-94 Add End
 
@@ -1758,49 +1755,45 @@ namespace KyoeiSystem.Application.Windows.Views
                     if (string.IsNullOrEmpty(row["自社品番"].ToString()))
                         continue;
 
-                    int taxKbnId = int.Parse(SearchHeader["Ｓ税区分ID"].ToString());
  
                     // No-94 Mod Start
                     int intZeikbn = row.Field<int>("消費税区分");
                     int intKingakuWk = Decimal.ToInt32(Math.Round(row.Field<decimal>("d金額"), 0, MidpointRounding.AwayFromZero));
-                    
-                    // No.272 Mod Start
-                    int ival = 0;
-                    int salesTaxKbn = int.TryParse(SearchHeader["Ｓ支払消費税区分"].ToString(), out ival)? ival : 1;
-                    int intTaxWk = Decimal.ToInt32(taxCalc.CalculateTax(date, intKingakuWk, intZeikbn, taxKbnId, salesTaxKbn));
-                    // No.272 Mod End
 
                     switch (intZeikbn)
                     {
                         case (int)消費税区分.通常税率:
                             intTsujyo += intKingakuWk;
-                            intTaxTsujyo += intTaxWk;
                             break;
                         case (int)消費税区分.軽減税率:
                             intKeigen += intKingakuWk;
-                            intTaxKeigen += intTaxWk;
                             break;
                         case (int)消費税区分.非課税:
                         default:
                             break;
                     }
                     subTotal += intKingakuWk;
-                    conTax += intTaxWk;
                     // No-94 Mod End
 
                 }
 
-                long total = (long)(subTotal + conTax);
 
                 // No-94 Add Start
                 lbl通常税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intTsujyo);
                 lbl軽減税率対象金額.Content = string.Format(PRICE_FORMAT_STRING, intKeigen);
                 //▼課題No299 Mod Start 2019/12/20
+                int taxKbnId = int.Parse(SearchHeader["Ｓ税区分ID"].ToString());
+                int ival;
+                int salesTaxKbn = int.TryParse(SearchHeader["Ｓ支払消費税区分"].ToString(), out ival) ? ival : 1;
+                int intTaxTsujyo = Decimal.ToInt32(taxCalc.CalculateTax(date, intTsujyo, (int)消費税区分.通常税率, taxKbnId, salesTaxKbn));
+                int intTaxKeigen = Decimal.ToInt32(taxCalc.CalculateTax(date, intKeigen, (int)消費税区分.軽減税率, taxKbnId, salesTaxKbn));
+                decimal conTax = intTaxTsujyo + intTaxKeigen;
                 txb通常税率消費税.Text = string.Format(PRICE_FORMAT_STRING, intTaxTsujyo);
                 txb軽減税率消費税.Text = string.Format(PRICE_FORMAT_STRING, intTaxKeigen);
                 //▲課題No299 Mod End 2019/12/20
                 // No-94 Add End
 
+                long total = (long)(subTotal + conTax);
                 c小計.Content = string.Format(PRICE_FORMAT_STRING, subTotal);
                 c消費税.Content = string.Format(PRICE_FORMAT_STRING, conTax);
                 c総合計.Content = string.Format(PRICE_FORMAT_STRING, total);
