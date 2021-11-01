@@ -954,18 +954,31 @@ namespace KyoeiSystem.Application.WCFService
             if (cnt == 1)
             {
                 befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
+
+                var befSeiCnt =
+                    context.S01_SEIHD
+                        .Where(w => w.自社コード == company &&
+                            w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
+                            w.請求先コード == code &&
+                            w.請求先枝番 == eda)
+                        .OrderByDescending(o => o.回数)
+                        .FirstOrDefault();
+
+                return befSeiCnt;
             }
 
-            var befSeiCnt =
+
+           var befSeiCntDup =
                 context.S01_SEIHD
                     .Where(w => w.自社コード == company &&
                         w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
                         w.請求先コード == code &&
-                        w.請求先枝番 == eda)
+                        w.請求先枝番 == eda && w.回数 < cnt)
                     .OrderByDescending(o => o.回数)
                     .FirstOrDefault();
 
-            return befSeiCnt;
+           return befSeiCntDup;
+
             // No-100 Mod End
 
         }
