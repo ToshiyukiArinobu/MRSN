@@ -330,14 +330,29 @@ namespace KyoeiSystem.Application.WCFService
                 befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
             }
 
+            int 支払締日 = (int)context.M01_TOK.Where( m => m.取引先コード == code && m.枝番 == eda).FirstOrDefault().Ｓ締日;
+
             var befSeiCnt =
                 context.S07_SRIHD
                     .Where(w => w.自社コード == company &&
                         w.支払年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
                         w.支払先コード == code &&
-                        w.支払先枝番 == eda)
+                        w.支払先枝番 == eda &&
+                        w.支払締日 == 支払締日)
                     .OrderByDescending(o => o.回数)
                     .FirstOrDefault();
+
+            if (befSeiCnt == null)
+            {
+                befSeiCnt =
+                context.S07_SRIHD
+                    .Where(w => w.自社コード == company &&
+                        w.支払年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
+                        w.支払先コード == code &&
+                        w.支払先枝番 == eda )
+                    .OrderByDescending(o => o.回数)
+                    .FirstOrDefault();
+            }
 
             return befSeiCnt;
         }
