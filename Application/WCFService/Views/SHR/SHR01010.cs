@@ -330,7 +330,12 @@ namespace KyoeiSystem.Application.WCFService
                 befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
             }
 
-            int 支払締日 = (int)context.M01_TOK.Where( m => m.取引先コード == code && m.枝番 == eda).FirstOrDefault().Ｓ締日;
+            int? 支払締日 = context.M01_TOK.Where( m => m.取引先コード == code && m.枝番 == eda).FirstOrDefault().Ｓ締日;
+
+            if (支払締日 == null)
+            {
+                return null;
+            }
 
             var befSeiCnt =
                 context.S07_SRIHD
