@@ -662,7 +662,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 List<S07_SRIHD> wk = context.S07_SRIHD.Where(w => w.自社コード == company && w.支払年月 == yearMonth &&
                                                     w.支払先コード == tok.取引先コード && w.支払先枝番 == tok.枝番 &&
-                                                    w.支払日 == paymentDay && (w.当月支払額 != 0 || w.前月残高 != 0)).ToList();
+                                                    w.支払日 == paymentDay && (w.当月支払額 != 0 || w.前月残高 != 0 || w.支払額 != 0)).ToList();
 
                 shdList = shdList.Concat(wk).ToList();
             }
