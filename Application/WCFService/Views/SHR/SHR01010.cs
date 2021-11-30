@@ -330,35 +330,59 @@ namespace KyoeiSystem.Application.WCFService
                 befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1).AddMonths(-1);
             }
 
-            int? 支払締日 = context.M01_TOK.Where( m => m.取引先コード == code && m.枝番 == eda).FirstOrDefault().Ｓ締日;
+            int 支払年月 = befCntMonth.Year * 100 + befCntMonth.Month;
+            int? 支払締日 = context.M01_TOK.Where(m => m.取引先コード == code && m.枝番 == eda).FirstOrDefault().Ｓ締日;
+            int? 入金日 = context.M01_TOK.Where(m => m.取引先コード == code && m.枝番 == eda).FirstOrDefault().Ｓ入金日１;
+            int? サイト１ = context.M01_TOK.Where(m => m.取引先コード == code && m.枝番 == eda).FirstOrDefault().Ｓサイト１;
 
-            if (支払締日 == null)
+            if (支払締日 == null || 入金日 == null || サイト１ == null)
             {
                 return null;
             }
 
+            DateTime dt支払月 = befCntMonth.AddMonths((int)サイト１);
+            入金日 = 入金日 == 31 ? DateTime.DaysInMonth(dt支払月.Year, dt支払月.Month) : 入金日;
+            int 支払日 = (dt支払月.Year * 100 + dt支払月.Month) * 100 + (int)入金日;
+
             var befSeiCnt =
                 context.S07_SRIHD
                     .Where(w => w.自社コード == company &&
-                        w.支払年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
+                        w.支払年月 == 支払年月 &&
+                        w.支払先コード == code &&
+                        w.支払先枝番 == eda &&
+                        w.支払締日 == 支払締日 &&
+                        w.支払日 == 支払日)
+                    .OrderByDescending(o => o.回数)
+                    .FirstOrDefault();
+
+            if (befSeiCnt != null)
+            {
+                return befSeiCnt;
+            }
+
+            befSeiCnt =
+                context.S07_SRIHD
+                    .Where(w => w.自社コード == company &&
+                        w.支払年月 == 支払年月 &&
                         w.支払先コード == code &&
                         w.支払先枝番 == eda &&
                         w.支払締日 == 支払締日)
                     .OrderByDescending(o => o.回数)
                     .FirstOrDefault();
-
-            if (befSeiCnt == null)
+            if (befSeiCnt != null)
             {
-                befSeiCnt =
-                context.S07_SRIHD
-                    .Where(w => w.自社コード == company &&
-                        w.支払年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
-                        w.支払先コード == code &&
-                        w.支払先枝番 == eda )
-                    .OrderByDescending(o => o.回数)
-                    .FirstOrDefault();
+                return befSeiCnt;
+
             }
 
+            befSeiCnt =
+                context.S07_SRIHD
+                    .Where(w => w.自社コード == company &&
+                        w.支払年月 == 支払年月 &&
+                        w.支払先コード == code &&
+                        w.支払先枝番 == eda)
+                    .OrderByDescending(o => o.回数)
+                    .FirstOrDefault();
             return befSeiCnt;
         }
         #endregion
