@@ -531,6 +531,7 @@ namespace KyoeiSystem.Application.WCFService
                         //売上日→伝票番号の順でソート
                         var dtl = dtlResult.Concat(nyukinDtl).OrderBy(o => o.売上日).ThenBy(o => o.伝票番号);
 
+                        
                     #endregion
 
                     //20190910 CB add - s 軽減税率対応
@@ -568,6 +569,22 @@ namespace KyoeiSystem.Application.WCFService
                     hdDt.TableName = PRINT_HEADER_TABLE_NAME;
                     DataTable dtlDt = KESSVCEntry.ConvertListToDataTable<PrintDetailMember>(dtl.AsQueryable().ToList());
                     dtlDt.TableName = PRINT_DETAIL_TABLE_NAME;
+
+                    if (dtlDt.Rows.Count == 0 && (decimal)hdDt.Rows[0]["今回請求額"] != 0)
+                    {
+                        DataRow dr = dtlDt.NewRow();
+
+                        dr["PagingKey"] = hdDt.Rows[0]["PagingKey"];
+                        dr["自社コード"] = hdDt.Rows[0]["自社コード"];
+                        dr["請求年月"] = hdDt.Rows[0]["請求年月"];
+                        dr["請求先コード"] = hdDt.Rows[0]["請求先コード"];
+                        dr["請求先枝番"] = hdDt.Rows[0]["請求先枝番"];
+                        dr["得意先コード"] = hdDt.Rows[0]["得意先コード"];
+                        dr["得意先枝番"] = hdDt.Rows[0]["得意先枝番"];
+                        dr["回数"] = hdDt.Rows[0]["回数"];
+
+                        dtlDt.Rows.Add(dr);
+                    }
 
                     if (dsResult.Tables.Contains(hdDt.TableName))
                     {
