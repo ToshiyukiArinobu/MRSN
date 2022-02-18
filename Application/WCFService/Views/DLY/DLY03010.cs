@@ -1927,7 +1927,7 @@ namespace KyoeiSystem.Application.WCFService
                 if (row.RowState == DataRowState.Added)
                 {
                     // Spreadに重複データありかつDBに既存データが存在する場合
-                    if (keyRec.Count() > 1 && dbRec != null)
+                    if (keyRec.Count() > 0 && dbRec != null)
                     {
                         // 履歴更新
                         S04Service.UpdateProductHistory(history, hstDic);
