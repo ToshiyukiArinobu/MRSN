@@ -205,6 +205,75 @@ namespace KyoeiSystem.Application.WCFService
             }
 
         }
+
+        /// <summary>
+        /// 移動入力情報を削除する
+        /// </summary>
+        /// <param name="ds">
+        /// 移動データセット
+        /// [0:T04_AGRHD、1:T04_AGRDTL]
+        /// </param>
+        /// <param name="userId">ログインユーザID</param>
+        /// <returns></returns>
+        public void Delete(DataSet ds, int userId)
+        {
+            using (TRAC3Entities context = new TRAC3Entities(CommonData.TRAC3_GetConnectionString()))
+            {
+                context.Connection.Open();
+
+                using (var tran = context.Connection.BeginTransaction(System.Data.IsolationLevel.Serializable))
+                {
+                    T05Service = new T05(context, userId);
+                    S03Service = new S03(context, userId);
+                    S04Service = new S04(context, userId, S04.機能ID.商品移動入力);
+
+                    try
+                    {
+                        DataRow hdRow = ds.Tables[TABLE_HEADER].Rows[0];
+                        T05_IDOHD idohd = convertDataRowToT05_IDOHD_Entity(hdRow);
+                        DataTable dtlTbl = ds.Tables[TABLE_DETAIL];
+
+                        // 1>> ヘッダ情報削除
+                        T05Service.T05_IDOHD_Delete(idohd.伝票番号);
+
+
+                        // 2>> 明細情報削除
+                        T05Service.T05_IDODTL_Delete(idohd.伝票番号);
+
+                        // 3>> 在庫情報更新
+                        // (出荷元に戻す)
+                        if (idohd.出荷元倉庫コード != null)
+                        {
+                            setS03_STOK_Update(context, idohd, dtlTbl, true, true);           
+                        }
+
+                        // (出荷先から引落し)
+                        if (idohd.出荷先倉庫コード != null)
+                        {
+                            setS03_STOK_Update(context, idohd, dtlTbl,false , true);          
+                        }
+
+                        //履歴テーブルの削除
+                        S04Service.PhysicalDeletionProductHistory(context, idohd.伝票番号, (int)S04.機能ID.商品移動入力);
+
+
+                        // 変更状態を確定
+                        context.SaveChanges();
+
+                        tran.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw ex;
+                    }
+
+                }
+
+            }
+
+        }
         #endregion
 
         #endregion
@@ -518,7 +587,7 @@ namespace KyoeiSystem.Application.WCFService
         /// <param name="idohd">移動ヘッダデータ</param>
         /// <param name="dtlTbl">移動明細データテーブル</param>
         /// <param name="isSubtract">減算フラグ(True:減算,False:減算しない)</param>
-        private void setS03_STOK_Update(TRAC3Entities context, T05_IDOHD idohd, DataTable dtlTbl, bool isSubtract)          // No-258 Mod
+        private void setS03_STOK_Update(TRAC3Entities context, T05_IDOHD idohd, DataTable dtlTbl, bool isSubtract, bool isDeleteFlg = false)          // No-258 Mod
         {
             foreach (DataRow row in dtlTbl.Rows)
             {
@@ -534,7 +603,11 @@ namespace KyoeiSystem.Application.WCFService
                 decimal oldstockQty = 0;
                 bool iskigenChangeFlg = false;    // 賞味期限変更フラグ    No-258 Add
 
-                if (row.RowState == DataRowState.Deleted)
+                if (isDeleteFlg)
+                {
+                    stockQty = dtlRow.数量 * (isSubtract ? 1 : -1);
+                }
+                else if (row.RowState == DataRowState.Deleted)
                 {
                     // 数量分在庫数を加減算
                     stockQty = dtlRow.数量 * (isSubtract ? -1 : 1);

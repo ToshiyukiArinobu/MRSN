@@ -67,6 +67,8 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string T05_GetData = "T05_GetData";
         /// <summary>移動情報更新</summary>
         private const string T05_Update = "T05_Update";
+        /// <summary>移動情報削除</summary>
+        private const string T05_Delete = "T05_Delete";
 
         /// <summary>自社品番情報取得</summary>
         private const string MasterCode_MyProduct = "UcMyProduct";
@@ -430,7 +432,11 @@ namespace KyoeiSystem.Application.Windows.Views
                         // コントロール初期化
                         ScreenClear();
                         break;
-
+                    case T05_Delete:
+                         MessageBox.Show(AppConst.SUCCESS_DELETE, "削除完了", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // コントロール初期化
+                        ScreenClear();
+                        break;
                     case MasterCode_MyProduct:
                         #region 自社品番 手入力時
                         DataTable ctbl = data as DataTable;
@@ -796,6 +802,32 @@ namespace KyoeiSystem.Application.Windows.Views
 
         }
         #endregion
+        #region F12 削除
+        /// <summary>
+        /// F12　リボン　削除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF12Key(object sender, KeyEventArgs e)
+        {
+            if (this.MaintenanceMode == null)
+                this.Close();
+
+            else
+            {
+                if (DataUpdateVisible != Visibility.Hidden)
+                {
+                    var yesno = MessageBox.Show("編集中の伝票を削除してもよろしいですか？", "終了確認", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (yesno == MessageBoxResult.No)
+                        return;
+
+                }
+
+                Delete();
+            }
+
+        }
+        #endregion
 
         #endregion
 
@@ -868,6 +900,22 @@ namespace KyoeiSystem.Application.Windows.Views
                 new CommunicationObject(
                     MessageType.UpdateData,
                     T05_Update,
+                    new object[] {
+                        SearchDetail.DataSet,
+                        ccfg.ユーザID
+                    }));
+
+        }
+
+        /// <summary>
+        /// 移動情報の登録処理をおこなう
+        /// </summary>
+        private void Delete()
+        {
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.UpdateData,
+                    T05_Delete,
                     new object[] {
                         SearchDetail.DataSet,
                         ccfg.ユーザID

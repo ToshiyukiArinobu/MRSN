@@ -340,6 +340,7 @@ namespace KyoeiSystem.Application.WCFService
             // 移動入力
             new WCFDataAccessConfig() { Name = "T05_GetData", ServiceClass = "DLY04010", MethodName = "GetData", Descprition = "移動入力情報取得" },
             new WCFDataAccessConfig() { Name = "T05_Update", ServiceClass = "DLY04010", MethodName = "Update", Descprition = "移動入力情報登録・更新" },
+            new WCFDataAccessConfig() { Name = "T05_Delete", ServiceClass = "DLY04010", MethodName = "Delete", Descprition = "移動入力情報削除" },
             new WCFDataAccessConfig() { Name = "T05_UpdateData_CheckStock", ServiceClass = "DLY04010", MethodName = "CheckStockQty", Descprition = "在庫数量チェック" },        // No-222 Add
 
             // 振替入力
