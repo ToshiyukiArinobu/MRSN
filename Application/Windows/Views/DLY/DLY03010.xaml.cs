@@ -119,6 +119,7 @@ namespace KyoeiSystem.Application.Windows.Views
             メーカー販社商流直送 = 4,
             委託売上 = 5,
             預け売上 = 6,
+            預け出荷 = 7,
         }
 
         /// <summary>
@@ -665,7 +666,6 @@ namespace KyoeiSystem.Application.Windows.Views
                                 zaiUpdateMessage = "在庫がマイナスになる品番が存在しますが、\r\n登録してもよろしいでしょうか？";
                             }
                         }
-
                         if (MessageBox.Show(zaiUpdateMessage,
                                 "登録確認",
                                 MessageBoxButton.YesNo,
@@ -680,7 +680,6 @@ namespace KyoeiSystem.Application.Windows.Views
                         updateList = data as Dictionary<int, string>;
                         zaiUpdateMessage = AppConst.CONFIRM_UPDATE;
                         zaiMBImage = MessageBoxImage.Question;
-
                         foreach (DataRow row in SearchDetail.Select("", "", DataViewRowState.CurrentRows))
                         {
                             int rowNum = row.Field<int>("行番号");
@@ -1913,7 +1912,23 @@ namespace KyoeiSystem.Application.Windows.Views
                     }
                 }
 
-                if (string.IsNullOrEmpty(row["単価"].ToString()))
+                if ((int)SearchHeader["売上区分"] == (int)売上区分.預け出荷)
+                {
+                    decimal d単価, d金額;
+                    decimal.TryParse(row["単価"].ToString(), out d単価);
+                    decimal.TryParse(row["金額"].ToString(), out d金額);
+                    if(d単価 != 0 || d金額 != 0)
+                    {
+                        gcSpreadGrid.Rows[rIdx]
+                        .ValidationErrors.Add(new SpreadValidationError("預け出荷は単価と金額は0で入力してください。", null, rIdx, GridColumnsMapping.単価.GetHashCode()));
+
+                        if (!isDetailErr)
+                            gcSpreadGrid.ActiveCellPosition = new CellPosition(rIdx, GridColumnsMapping.単価.GetHashCode());
+
+                        isDetailErr = true;
+                    }
+                }
+                else if (string.IsNullOrEmpty(row["単価"].ToString()))
                 {
                     gcSpreadGrid.Rows[rIdx]
                         .ValidationErrors.Add(new SpreadValidationError("単価が入力されていません。", null, rIdx, GridColumnsMapping.単価.GetHashCode()));

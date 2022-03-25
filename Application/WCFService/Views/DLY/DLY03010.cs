@@ -783,6 +783,7 @@ namespace KyoeiSystem.Application.WCFService
                             case (int)CommonConstants.売上区分.通常売上:
                             case (int)CommonConstants.売上区分.委託売上:
                             case (int)CommonConstants.売上区分.預け売上:
+                            case (int)CommonConstants.売上区分.預け出荷:
                                 // 通常更新(売上～在庫引去り)
                                 setUsualSalesProc(context, ds);     // No.176 Mod
                                 break;
@@ -1086,6 +1087,12 @@ namespace KyoeiSystem.Application.WCFService
 
             // 2.売上詳細の更新
             setT02_URDTL_Update(hdData, dtlTbl, false);
+
+            if ((int)CommonConstants.売上区分.預け売上 == hdData.売上区分)
+            {
+                //預け売上の時は在庫変動無し
+                return;
+            }
 
             // 3.在庫の更新
             setS03_STOK_Update(context, hdData, dtlTbl, hdRow);  // No.176 Mod

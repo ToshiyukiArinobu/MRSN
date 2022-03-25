@@ -161,6 +161,7 @@ namespace KyoeiSystem.Application.WCFService
             メーカー販社商流直送 = 4,
             委託売上 = 5,
             預け売上 = 6,
+            預け出荷 = 7,
 
             // 返品系
             通常売上返品 = 91,

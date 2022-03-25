@@ -56,7 +56,7 @@ namespace KyoeiSystem.Application.WCFService
                 {
                     // 在庫基本情報
                     var stockList =
-                        context.S03_STOK.Where(w => w.削除日時 == null)
+                        context.S03_STOK.Where(w => w.削除日時 == null && w.在庫数 != 0)
                             .Join(context.M09_HIN.Where(w => w.削除日時 == null),
                                 x => x.品番コード,
                                 y => y.品番コード,
