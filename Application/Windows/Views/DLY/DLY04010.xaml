@@ -317,7 +317,7 @@
             <!-- 摘要 -->
             <sg:Column Locked="False" Focusable="True" CanUserResize="False">
               <sg:Column.CellType>
-                <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeState="On" />
+                <sg:TextCellType MaxLength="40" MaxLengthUnit="Byte" ImeConversionMode="Native"/>
               </sg:Column.CellType>
               <sg:Column.DataField>
                 <sg:BindingDataField Binding="{Binding 摘要, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
