@@ -430,9 +430,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
                             // 確定モード画面制御
                             setFixDisplay(this.MaintenanceMode);
+                            this.SetFreeForInput();
+                        
                         }
                         else
                         {
+                            this.SetFreeForInput();
                             MessageBox.Show("指定の伝票番号は登録されていません。", "伝票未登録", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                             this.txt伝票番号.Focus();
                         }
@@ -463,7 +466,21 @@ namespace KyoeiSystem.Application.Windows.Views
 
                     case DLY11010_PRINTOUT:
                         printPreviewDisp(tbl);
-                        //納品書プレビュー画面閉じた後は表示を残しておく
+                        string str自社ID = this.txt自社名.Text1;
+                        string str伝票番号 = this.txt伝票番号.Text;
+                        ScreenClear();
+                        //納品書プレビュー画面閉じた後は表示を残しておくために編集モードに移行用SQL発行
+                        // 入力伝票番号で検索
+                        base.SendRequest(
+                            new CommunicationObject(
+                                MessageType.RequestDataWithBusy,
+                                T02_GetData,
+                                new object[] {
+                                              str自社ID,
+                                              str伝票番号,
+                                              0,
+                                              ccfg.ユーザID
+                                              }));
                         break;
 
                     case T02_Delete:
