@@ -142,7 +142,7 @@ namespace KyoeiSystem.Application.Windows.Views
             販社 = 1
         }
 
-        //商品分類コンボ用
+        //出力期間コンボ用
         private ComboBoxClass[] _PeriodStatus
             = { 
 				  new ComboBoxClass() { コード = 0, 名称 = "1年間", },
@@ -747,7 +747,7 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
                 string strfilePath;
-            string selectValue = cmdPeriod.SelectedValue.ToString();
+                string selectValue = cmdPeriod.SelectedValue.ToString();
                 switch(selectValue)
                 {
                     case "1":
@@ -896,7 +896,11 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
         #endregion
-
+        /// <summary>
+        /// 出力期間コンボボックス変更時イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdPeriod_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             FiscalPeriod period = new FiscalPeriod();

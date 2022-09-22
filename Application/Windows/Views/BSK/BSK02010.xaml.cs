@@ -63,6 +63,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>帳票定義体ファイルパス</summary>
         private const string ReportFileName = @"Files\BSK\BSK02010.rpt";
+        private const string ReportFileName_3Month = @"Files\BSK\BSK02010_3Month.rpt";
+        private const string ReportFileName_6Month = @"Files\BSK\BSK02010_6Month.rpt";
 
         /// <summary>初期決算月</summary>
         private const int DEFAULT_SETTLEMENT_MONTH = 3;
@@ -104,6 +106,27 @@ namespace KyoeiSystem.Application.Windows.Views
 
         #endregion
 
+        #region << クラス定義 >>
+        /// <summary>
+        /// 年度指定期間
+        /// </summary>
+        public class FiscalPeriod
+        {
+            public DateTime PeriodStart;
+            public DateTime PeriodEnd;
+        }
+
+        /// <summary>
+        /// コンボボックス用
+        /// </summary>
+        public class ComboBoxClass
+        {
+            public int コード { get; set; }
+            public string 名称 { get; set; }
+
+        }
+        #endregion
+
         #region << 列挙型定義 >>
         /// <summary>
         /// 自社販社区分 内包データ
@@ -113,16 +136,18 @@ namespace KyoeiSystem.Application.Windows.Views
             自社 = 0,
             販社 = 1
         }
-        #endregion
 
-        #region << クラス定義 >>
-        /// <summary>
-        /// 年度指定期間
-        /// </summary>
-        public class FiscalPeriod
+        //出力期間コンボ用
+        private ComboBoxClass[] _PeriodStatus
+            = { 
+				  new ComboBoxClass() { コード = 0, 名称 = "1年間", },
+				  new ComboBoxClass() { コード = 1, 名称 = "6ヶ月", },
+				  new ComboBoxClass() { コード = 2, 名称 = "3ヶ月", },
+			  };
+        public ComboBoxClass[] PeriodStatus
         {
-            public DateTime PeriodStart;
-            public DateTime PeriodEnd;
+            get { return _PeriodStatus; }
+            set { _PeriodStatus = value; NotifyPropertyChanged(); }
         }
         #endregion
 
@@ -561,16 +586,32 @@ namespace KyoeiSystem.Application.Windows.Views
             FiscalPeriod ret = new FiscalPeriod();
             int ival = -1;
             string[] yearMonth = fiscalYm.Split('/');
-            DateTime wkDt = new DateTime(Int32.TryParse(yearMonth[0], out ival)? ival : -1,
+            DateTime wkDt = new DateTime(Int32.TryParse(yearMonth[0], out ival) ? ival : -1,
                                          Int32.TryParse(yearMonth[1], out ival) ? ival : -1,
                                          1);
             if (wkDt == null)
             {
                 return null;
             }
-            // 年度指定の値から過去12か月が指定期間
-            ret.PeriodStart = wkDt.AddMonths(-11);
-            ret.PeriodEnd = wkDt.AddMonths(1).AddDays(-1);
+
+            string selectValue = cmdPeriod.SelectedValue.ToString();
+            switch (selectValue)
+            {
+                case "1"://6ヶ月
+                    ret.PeriodStart = wkDt.AddMonths(-5);
+                    ret.PeriodEnd = wkDt.AddMonths(1).AddDays(-1);
+                    break;
+                case "2"://3ヶ月
+                    ret.PeriodStart = wkDt.AddMonths(-2);
+                    ret.PeriodEnd = wkDt.AddMonths(1).AddDays(-1);
+                    break;
+                case "0": //1年
+                default:
+                    // 年度指定の値から過去12か月が指定期間
+                    ret.PeriodStart = wkDt.AddMonths(-11);
+                    ret.PeriodEnd = wkDt.AddMonths(1).AddDays(-1);
+                    break;
+            }
 
             return ret;
         }
@@ -640,6 +681,7 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             // 期間を算出
             int mCounter = 1;
+            string selectValue = cmdPeriod.SelectedValue.ToString();
             
             DateTime targetMonth = Convert.ToDateTime(paramDic[PARAMS_NAME_FISCAL_FROM]);   // No.398 Mod
             DateTime lastMonth = Convert.ToDateTime(paramDic[PARAMS_NAME_FISCAL_TO]);       // No.398 Mod
@@ -650,18 +692,99 @@ namespace KyoeiSystem.Application.Windows.Views
             printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH01, targetMonth);
             printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH02, targetMonth.AddMonths(mCounter++));
             printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH03, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH04, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH05, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH06, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH07, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH08, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH09, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH10, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH11, targetMonth.AddMonths(mCounter++));
-            printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH12, lastMonth);
-
+            if (selectValue == "0" || selectValue == "1")
+            {
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH04, targetMonth.AddMonths(mCounter++));
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH05, targetMonth.AddMonths(mCounter++));
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH06, targetMonth.AddMonths(mCounter++));
+            }
+            if (selectValue == "0")
+            {
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH07, targetMonth.AddMonths(mCounter++));
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH08, targetMonth.AddMonths(mCounter++));
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH09, targetMonth.AddMonths(mCounter++));
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH10, targetMonth.AddMonths(mCounter++));
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH11, targetMonth.AddMonths(mCounter++));
+                printDic.Add(REPORT_PARAM_NAME_YEAR_MONTH12, lastMonth);
+            }
             return printDic;
+        }
+        /// <summary>
+        /// 帳票用パラメータ設定
+        /// </summary>
+        /// <param name="printParams"></param>
+        /// <returns></returns>
+        private List<FwRepPreview.ReportParameter> SetParam(Dictionary<string, DateTime> printParams)
+        {
 
+            string selectValue = cmdPeriod.SelectedValue.ToString();
+            switch (selectValue)
+            {
+                case "1":
+                    return new List<FwRepPreview.ReportParameter>()
+                    {
+                        #region 印字パラメータ設定
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_START]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_END]},
+
+                        // No.400 Add Start
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_FROM, VALUE = this.得意先From.Label2Text},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_TO, VALUE = this.得意先To.Label2Text},
+                        // No.400 Add End
+
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH01]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH02]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH03]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH04, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH04]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH05, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH05]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH06, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH06]},
+                        #endregion
+                    };
+                case "2":
+                    return new List<FwRepPreview.ReportParameter>()
+                    {
+                        #region 印字パラメータ設定
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_START]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_END]},
+
+                        // No.400 Add Start
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_FROM, VALUE = this.得意先From.Label2Text},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_TO, VALUE = this.得意先To.Label2Text},
+                        // No.400 Add End
+
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH01]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH02]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH03]},
+                        #endregion
+                    };
+                case "0":
+                default:
+                    return new List<FwRepPreview.ReportParameter>()
+                    {
+                        #region 印字パラメータ設定
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_START]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_END]},
+
+                        // No.400 Add Start
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_FROM, VALUE = this.得意先From.Label2Text},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_TO, VALUE = this.得意先To.Label2Text},
+                        // No.400 Add End
+
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH01]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH02]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH03]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH04, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH04]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH05, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH05]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH06, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH06]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH07, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH07]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH08, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH08]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH09, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH09]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH10, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH10]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH11, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH11]},
+                        new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH12]},
+                        #endregion
+                    };
+            }
         }
         #endregion
 
@@ -729,33 +852,50 @@ namespace KyoeiSystem.Application.Windows.Views
 
                 Dictionary<string, DateTime> printParams = getPrintParameter(); // No.398 Mod
 
-                var parms = new List<FwRepPreview.ReportParameter>()
-                {
-                    #region 印字パラメータ設定
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_START]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_END]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_FROM, VALUE = this.得意先From.Label2Text},                       // No.398 Add
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_TO, VALUE = this.得意先To.Label2Text},                           // No.398 Add
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH01]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH02]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH03]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH04, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH04]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH05, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH05]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH06, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH06]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH07, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH07]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH08, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH08]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH09, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH09]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH10, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH10]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH11, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH11]},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH12]},
-                    #endregion
-                };
+                var parms = SetParam(printParams);
+
+                //var parms = new List<FwRepPreview.ReportParameter>()
+                //{
+                //    #region 印字パラメータ設定
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_START, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_START]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_PRIOD_END, VALUE = printParams[REPORT_PARAM_NAME_PRIOD_END]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_FROM, VALUE = this.得意先From.Label2Text},                       // No.398 Add
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TOK_TO, VALUE = this.得意先To.Label2Text},                           // No.398 Add
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH01, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH01]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH02, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH02]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH03, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH03]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH04, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH04]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH05, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH05]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH06, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH06]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH07, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH07]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH08, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH08]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH09, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH09]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH10, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH10]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH11, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH11]},
+                //    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_YEAR_MONTH12, VALUE = printParams[REPORT_PARAM_NAME_YEAR_MONTH12]},
+                //    #endregion
+                //};
 
                 DataTable 印刷データ = tbl.Copy();
                 印刷データ.TableName = "得意先別売上統計表";
 
                 FwRepPreview.ReportPreview view = new FwRepPreview.ReportPreview();
-                view.MakeReport(印刷データ.TableName, ReportFileName, 0, 0, 0);
+                string strfilePath;
+                string selectValue = cmdPeriod.SelectedValue.ToString();
+                switch(selectValue)
+                {
+                    case "1":
+                        strfilePath = ReportFileName_6Month;
+                        break;
+                    case "2":
+                        strfilePath = ReportFileName_3Month;
+                        break;
+                    case "0":
+                    default:
+                        strfilePath = ReportFileName;
+                        break;
+                }
+                view.MakeReport(印刷データ.TableName, strfilePath, 0, 0, 0);
                 view.SetReportData(印刷データ);
 
                 view.SetupParmeters(parms);
@@ -891,7 +1031,26 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
         #endregion
+        /// <summary>
+        /// 出力期間コンボボックス変更時イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdPeriod_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            FiscalPeriod period = new FiscalPeriod();
 
+            // 年度指定期間を再計算
+            period = getFiscalFromTo(this.FiscalYear.Text);
+            if (period == null)
+            {
+                this.PeriodYM.Text = string.Empty;
+            }
+            else
+            {
+                this.PeriodYM.Text = string.Format("月度 : {0}～{1}月度", period.PeriodStart.ToString("yyyy/MM"), period.PeriodEnd.ToString("yyyy/MM"));
+            }
+        }
     }
 
 }
