@@ -131,20 +131,26 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
-                    <!-- 処理年度 -->
-                    <ctls:UcLabelTextBox
-                          Name="FiscalYear" Grid.Row="0" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
-                          ValidationType="DateYYYYMM" ImeType="Off"
-                          Label_Context="処理年度" Label_Width="100" Mask="yyyy/MM"
-                          cMaxLength="7" cWidth="60" cVerticalContentAlignment="Center" cTextChanged="FiscalYear_cTextChanged"
-                      />
-                    <TextBlock Name="PeriodYM" Text="月度 :" Grid.Row="0" VerticalAlignment="Center" Margin="170,5,0,0" />
-
+                    <StackPanel  Grid.RowSpan="2">
+                        <ctls:UcLabelComboBox Name="cmdPeriod" Margin="5,5,0,0" Label_Width="100" Label_Context="出力期間" 
+                                              ComboboxItems="{Binding PeriodStatus,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                              Combo_DisplayMemberPath="名称" Combo_SelectedValuePath="コード"
+                                              Width="200" HorizontalAlignment="Left" SelectionChanged="cmdPeriod_SelectionChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                            <!-- 処理月度 -->
+                            <ctls:UcLabelTextBox Name="FiscalYear" HorizontalAlignment="Left" IsRequired="True" IsKeyItem="True" Margin="5,5,0,0"
+                                                 ValidationType="DateYYYYMM" ImeType="Off"
+                                                 Label_Context="処理月度" Label_Width="100" Mask="yyyy/MM"
+                                                 cMaxLength="7" cWidth="60" cVerticalContentAlignment="Center" cTextChanged="FiscalYear_cTextChanged"/>
+                            <TextBlock Name="PeriodYM" Text="月度 :" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
                     <!-- 対象自社 -->
                     <ctls:UcLabelTwinTextBox
-                          Name="MyCompany" Grid.Row="1" HorizontalAlignment="Left" IsKeyItem="True" Margin="5,5,0,0"
+                          Name="MyCompany" Grid.Row="2" HorizontalAlignment="Left" IsKeyItem="True" Margin="5,5,0,0"
                           DataAccessName="M70_JIS" DataAccessMode="On"
                           Label_Context="対象自社" Label_Width="100"
                           Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -152,7 +158,7 @@
                           Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
                       />
                     <!-- 得意先指定 -->
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
@@ -180,7 +186,7 @@
                         />
                     </Grid>
 
-                    <Grid Grid.Row="3">
+                    <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
