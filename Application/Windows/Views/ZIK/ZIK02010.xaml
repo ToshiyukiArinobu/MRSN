@@ -420,7 +420,7 @@
                         AutoGenerateColumns="False" HighlightHeader="None" OperationMode="Normal" RowCount="0" 
                         Protected="True" CanUserSortColumns="False" ColumnDragMode="Direct"  Margin="24,0,0,0"
                         DocumentUri="/KyoeiSystem.Application.Windows;component/views/ZIK/ZIK02010G1.sgxml"
-                        ItemsSource="{Binding}" MinHeight="300"
+                        ItemsSource="{Binding}" MinHeight="300" CanUserFilterColumns="True"
                         LostFocus="gcStokGrid_LostFocus" CellEditEnded="gcRowGrid_CellEditEnded"
                         >
 
