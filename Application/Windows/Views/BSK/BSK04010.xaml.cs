@@ -51,6 +51,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
         /// <summary>帳票定義体ファイルパス</summary>
         private const string ReportFileName_Month = @"Files\BSK\BSK04010m.rpt";
+        private const string ReportFileName_3Month = @"Files\BSK\BSK04010m_3Month.rpt";
+        private const string ReportFileName_6Month = @"Files\BSK\BSK04010m_6Month.rpt";
         private const string ReportFileName_Day = @"Files\BSK\BSK04010d.rpt";
 
         // 画面パラメータ名
@@ -102,6 +104,23 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <summary>検索時パラメータ保持用</summary>
         Dictionary<string, string> paramDic = new Dictionary<string, string>();
 
+        /// <summary>
+        /// 年度指定期間
+        /// </summary>
+        public class FiscalPeriod
+        {
+            public DateTime PeriodStart;
+            public DateTime PeriodEnd;
+        }
+        /// <summary>
+        /// コンボボックス用
+        /// </summary>
+        public class ComboBoxClass
+        {
+            public int コード { get; set; }
+            public string 名称 { get; set; }
+
+        }
         #endregion
 
         #region << 列挙型定義 >>
@@ -112,6 +131,18 @@ namespace KyoeiSystem.Application.Windows.Views
         {
             自社 = 0,
             販社 = 1
+        }
+        //出力期間コンボ用
+        private ComboBoxClass[] _PeriodStatus
+            = { 
+				  new ComboBoxClass() { コード = 0, 名称 = "1年間", },
+				  new ComboBoxClass() { コード = 1, 名称 = "6ヶ月", },
+				  new ComboBoxClass() { コード = 2, 名称 = "3ヶ月", },
+			  };
+        public ComboBoxClass[] PeriodStatus
+        {
+            get { return _PeriodStatus; }
+            set { _PeriodStatus = value; NotifyPropertyChanged(); }
         }
         #endregion
 
@@ -410,9 +441,8 @@ namespace KyoeiSystem.Application.Windows.Views
 
             // 処理年度の初期値設定
             // No.401 Mod Start
-            BSK02010 bsk020 = new BSK02010();
             this.FiscalYear.Text = string.Format("{0}/{1}", DateTime.Now.Year, DateTime.Now.Month);
-            BSK02010.FiscalPeriod period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            FiscalPeriod period = getFiscalFromTo(this.FiscalYear.Text);
             this.PeriodYM.Text = string.Format("月度 : {0}～{1}月度", period.PeriodStart.ToString("yyyy/MM"), period.PeriodEnd.ToString("yyyy/MM"));
             
             // 作成月の初期設定
@@ -499,9 +529,8 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add(PARAMS_NAME_CUSTOMER_CODE, txt得意先.Text1 == null ? null : txt得意先.Text1);
             paramDic.Add(PARAMS_NAME_CUSTOMER_EDA, txt得意先.Text2 == null ? null : txt得意先.Text2);
             // No.401 Mod Start
-            BSK02010 bsk020 = new BSK02010();
-            BSK02010.FiscalPeriod period = new BSK02010.FiscalPeriod();
-            period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            FiscalPeriod period = new FiscalPeriod();
+            period = getFiscalFromTo(this.FiscalYear.Text);
             paramDic.Add(PARAMS_NAME_START_YM, period.PeriodStart.ToShortDateString());
             paramDic.Add(PARAMS_NAME_END_YM, period.PeriodEnd.ToShortDateString());
             paramDic.Add(PARAMS_NAME_CREATE_YM, this.txt作成月.Text);
@@ -750,7 +779,20 @@ namespace KyoeiSystem.Application.Windows.Views
                 if (rdo出力帳票.Text == "0")
                 {
                     parms = getMonthPrintParameter();
-                    reportFileName = ReportFileName_Month;
+                    string selectValue = cmdPeriod.SelectedValue.ToString();
+                    switch (selectValue)
+                    {
+                        case "1":
+                            reportFileName = ReportFileName_6Month;
+                            break;
+                        case "2":
+                            reportFileName = ReportFileName_3Month;
+                            break;
+                        case "0":
+                        default:
+                            reportFileName = ReportFileName_Month;
+                            break;
+                    }
                 }
                 // 日別
                 else
@@ -917,10 +959,9 @@ namespace KyoeiSystem.Application.Windows.Views
         /// <param name="e"></param>
         private void FiscalYear_cTextChanged(object sender, RoutedEventArgs e)
         {
-            BSK02010.FiscalPeriod period = new BSK02010.FiscalPeriod();
-            BSK02010 bsk020 = new BSK02010();
+            FiscalPeriod period = new FiscalPeriod();
             // 作成期間を再計算
-            period = bsk020.getFiscalFromTo(this.FiscalYear.Text);
+            period = getFiscalFromTo(this.FiscalYear.Text);
             if (period == null)
             {
                 this.PeriodYM.Text = string.Empty;
@@ -931,7 +972,74 @@ namespace KyoeiSystem.Application.Windows.Views
             }
         }
         #endregion
+        /// <summary>
+        /// 出力期間コンボボックス変更時イベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdPeriod_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            FiscalPeriod period = new FiscalPeriod();
 
+            // 年度指定期間を再計算
+            period = getFiscalFromTo(this.FiscalYear.Text);
+            if (period == null)
+            {
+                this.PeriodYM.Text = string.Empty;
+            }
+            else
+            {
+                this.PeriodYM.Text = string.Format("月度 : {0}～{1}月度", period.PeriodStart.ToString("yyyy/MM"), period.PeriodEnd.ToString("yyyy/MM"));
+            }
+        }
+        #region 年度指定期間の設定
+        // No.398 Add Start
+        /// <summary>
+        /// 年度指定期間の設定
+        /// </summary>
+        /// <param name="fiscalYm">年度指定yyyy/MM</param>
+        /// <returns></returns>
+        public FiscalPeriod getFiscalFromTo(string fiscalYm)
+        {
+            if (string.IsNullOrEmpty(fiscalYm))
+            {
+                return null;
+            }
+
+            FiscalPeriod ret = new FiscalPeriod();
+            int ival = -1;
+            string[] yearMonth = fiscalYm.Split('/');
+            DateTime wkDt = new DateTime(Int32.TryParse(yearMonth[0], out ival) ? ival : -1,
+                                         Int32.TryParse(yearMonth[1], out ival) ? ival : -1,
+                                         1);
+            if (wkDt == null)
+            {
+                return null;
+            }
+
+            string selectValue = cmdPeriod.SelectedValue.ToString();
+            switch (selectValue)
+            {
+                case "1"://6ヶ月
+                    ret.PeriodStart = wkDt.AddMonths(-5);
+                    ret.PeriodEnd = wkDt.AddMonths(1).AddDays(-1);
+                    break;
+                case "2"://3ヶ月
+                    ret.PeriodStart = wkDt.AddMonths(-2);
+                    ret.PeriodEnd = wkDt.AddMonths(1).AddDays(-1);
+                    break;
+                case "0": //1年
+                default:
+                    // 年度指定の値から過去12か月が指定期間
+                    ret.PeriodStart = wkDt.AddMonths(-11);
+                    ret.PeriodEnd = wkDt.AddMonths(1).AddDays(-1);
+                    break;
+            }
+
+            return ret;
+        }
+        // No.398 Add End
+        #endregion
         #endregion
 
     }

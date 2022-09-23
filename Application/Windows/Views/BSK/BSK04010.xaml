@@ -11,7 +11,7 @@
     x:Class="KyoeiSystem.Application.Windows.Views.BSK04010"
     mc:Ignorable="d" d:DesignWidth="300" Name="Window"
     WindowStyle="SingleBorderWindow" AllowsTransparency="False" 
-    MinHeight="300" MinWidth="1024"
+    MinHeight="500" MinWidth="1024"
     Height="768" Width="1024"
     WindowStartupLocation="CenterOwner" Language="ja-JP"
     Title="担当者・得意先別売上統計表(BSK04010)" ResizeMode="NoResize"
@@ -168,16 +168,21 @@
                           Text="{Binding Path=出力帳票, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" 
                           TargetUpdated="rdo出力帳票_TargetUpdated" PreviewTextInput="rdo出力帳票_PreviewTextInput"
                      />
-
-                    <!-- 作成期間(月別用) -->
-                    <ctls:UcLabelTextBox
-                      Name="FiscalYear" Grid.Row="3" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,3,0,0"
-                      ValidationType="DateYYYYMM" ImeType="Off" Mask="yyyy/MM"
-                      Label_Context="作成期間(月別用)" Label_Width="105" 
-                      cMaxLength="7" cWidth="60" cVerticalContentAlignment="Center" cTextChanged="FiscalYear_cTextChanged"
-                    />
-                    <TextBlock Name="PeriodYM" Text="月度 :" Grid.Row="3" VerticalAlignment="Center" Margin="180,5,0,0" />
-                    
+                    <StackPanel Grid.Row="3"  >
+                        <ctls:UcLabelComboBox Name="cmdPeriod" Margin="5,5,0,0" Label_Width="100" Label_Context="出力期間" 
+                                              ComboboxItems="{Binding PeriodStatus,Mode=TwoWay,NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                                              Combo_DisplayMemberPath="名称" Combo_SelectedValuePath="コード"
+                                              Width="200" HorizontalAlignment="Left" SelectionChanged="cmdPeriod_SelectionChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                        <!-- 作成期間(月別用) -->
+                        <ctls:UcLabelTextBox Name="FiscalYear" HorizontalAlignment="Left" IsRequired="False" IsKeyItem="False" Margin="5,3,0,0"
+                                              ValidationType="DateYYYYMM" ImeType="Off" Mask="yyyy/MM"
+                                              Label_Context="作成期間(月別用)" Label_Width="105" 
+                                              cMaxLength="7" cWidth="60" cVerticalContentAlignment="Center" cTextChanged="FiscalYear_cTextChanged"
+                                            />
+                        <TextBlock Name="PeriodYM" Text="月度 :" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </StackPanel>
 
                     <!-- 作成月(日別用) -->
                     <ctls:UcLabelTextBox 
