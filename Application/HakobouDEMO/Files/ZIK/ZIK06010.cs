@@ -138,7 +138,7 @@ namespace Hakobou.Files.ZIK {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_対象在庫 {
+        public CrystalDecisions.Shared.IParameterField Parameter_会社コード {
             get {
                 return this.DataDefinition.ParameterFields[4];
             }
@@ -146,7 +146,7 @@ namespace Hakobou.Files.ZIK {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_会社コード {
+        public CrystalDecisions.Shared.IParameterField Parameter_商品形態 {
             get {
                 return this.DataDefinition.ParameterFields[5];
             }

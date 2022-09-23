@@ -60,7 +60,18 @@ namespace KyoeiSystem.Application.Windows.Views
         private const string REPORT_PARAM_NAME_SOKO_CD = "倉庫コード";
         private const string REPORT_PARAM_NAME_YM = "処理年月";
         private const string REPORT_PARAM_NAME_TARGET_STOCK = "対象在庫";
+        private const string REPORT_PARAM_NAME_ITEM_STYLE = "商品形態";
 
+        /// <summary>
+        /// 商品形態分類
+        /// </summary>
+        private enum eItemStyle : int
+        {
+            SET品 = 1,
+            資材単品 = 2,
+            雑コード = 3,
+            副資材 = 4
+        }
         #endregion
 
         #region バインディングデータ
@@ -388,6 +399,7 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add("会社コード", this.txt会社.Text1);
             paramDic.Add("倉庫コード", this.txt倉庫.Text1);
             paramDic.Add("対象在庫", this.rdo対象在庫.Text);
+            paramDic.Add("商品形態", ItemStyle.Text);
 
             base.SendRequest(
                     new CommunicationObject(
@@ -418,6 +430,7 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add("会社コード", this.txt会社.Text1);
             paramDic.Add("倉庫コード", this.txt倉庫.Text1);
             paramDic.Add("対象在庫", this.rdo対象在庫.Text);
+            paramDic.Add("商品形態", ItemStyle.Text);
 
             base.SendRequest(
                     new CommunicationObject(
@@ -1067,6 +1080,28 @@ namespace KyoeiSystem.Application.Windows.Views
             {
                 base.SetBusyForInput();
 
+                string strItemStyle;
+                switch (ItemStyle.Text)
+                {
+                    case "1":
+                        strItemStyle = "SET品";
+                        break;
+                    case "2":
+                        strItemStyle = "資材・単品";
+                        break;
+                    case "3":
+                        strItemStyle = "雑コード";
+                        break;
+                    case "4":
+                        strItemStyle = "副資材";
+                        break;
+                    case"0":
+                    default:
+                        strItemStyle = "指定なし";
+                        break;
+                }
+                
+
                 var parms = new List<FwRepPreview.ReportParameter>()
                 {
                     // 印字パラメータ設定
@@ -1075,7 +1110,7 @@ namespace KyoeiSystem.Application.Windows.Views
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_COMPANY, VALUE = this.txt会社.Text2},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_SOKO_CD, VALUE = string.IsNullOrEmpty(this.txt倉庫.Text1)? "": this.txt倉庫.Text1},
                     new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_SOKO, VALUE = string.IsNullOrEmpty(this.txt倉庫.Text2)? "": this.txt倉庫.Text2},
-                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_TARGET_STOCK, VALUE = this.rdo対象在庫.Text == "0"? "月次在庫":"調整在庫"},
+                    new FwRepPreview.ReportParameter(){ PNAME = REPORT_PARAM_NAME_ITEM_STYLE, VALUE = strItemStyle},
                 };
 
                 reportFileName = ReportFileName;

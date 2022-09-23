@@ -173,9 +173,16 @@
                       Text2Width="260" Text2IsReadOnly="True" Text2AcceptsTab="False" Text2Background="Transparent" Text2BorderThickness="0" Text2VerticalContentAlignment="Center"
                     />
 
+                    <!--商品形態-->
+                    <ctls:UcLabelTextRadioButton
+                        x:Name="ItemStyle" Label_Content="商品形態" Grid.Row="3" Label_Width="100" Margin="5,3,0,0"
+                        RadioOneStart="False" RadioViewCount="Five" RadioSelectButton="One" IsRequired="True"
+                        RadioOne_Content="指定無し" RadioSecond_Content="SET品" RadioThird_Content="資材・単品" RadioFourth_Content="雑コード" RadioFifth_Content="副資材"
+                        />
+                    
                     <!-- 対象在庫 -->
                     <ctls:UcLabelTextRadioButton
-                      x:Name="rdo対象在庫" Grid.Row="3" Grid.Column="0" Margin="5,3,0,0"
+                      x:Name="rdo対象在庫" Grid.Row="4" Grid.Column="0" Margin="5,3,0,0"
                       Label_Content="対象在庫" Label_Width="100"
                       RadioSelectButton="One" RadioViewCount="Two"
                       RadioOne_Content="月次在庫" RadioSecond_Content="調整在庫"
