@@ -457,6 +457,7 @@ namespace KyoeiSystem.Application.WCFService
                     int tagetStock = Int32.TryParse(dic["対象在庫"], out val) ?
                                         val == (int)対象在庫.月次在庫 ? (int)対象在庫.月次在庫 : (int)対象在庫.調整在庫 :
                                      -1;
+                    int ItemStyle = Int32.TryParse(dic["商品形態"], out val) ? val: -1;
 
                     #region 月次在庫データを取得
                     // 月次在庫データを取得
@@ -488,6 +489,10 @@ namespace KyoeiSystem.Application.WCFService
                         if (sokoCd != -1)
                         {
                             stocktakingList = stocktakingList.Where(w => w.STOK_MONTH.倉庫コード == sokoCd).ToList();
+                        }
+                        if (ItemStyle > 0)　//0は指定なし
+                        {
+                            stocktakingList = stocktakingList.Where(w => w.HIN.商品形態分類 == ItemStyle).ToList();
                         }
 
                         // ===========================
@@ -588,7 +593,7 @@ namespace KyoeiSystem.Application.WCFService
                                 .ThenBy(t => t.賞味期限)
                                 ;
 
-                        return dataList.ToList();
+                        return dataList.Where(c => c.数量 != 0).ToList();
                     }
                     #endregion
 
@@ -622,6 +627,10 @@ namespace KyoeiSystem.Application.WCFService
                         if (sokoCd != -1)
                         {
                             stockAdjTakingList = stockAdjTakingList.Where(w => w.STOK_MONTH.倉庫コード == sokoCd).ToList();
+                        }
+                        if (ItemStyle > 0)
+                        {
+                            stockAdjTakingList = stockAdjTakingList.Where(w => w.HIN.商品形態分類 == ItemStyle).ToList();
                         }
 
                         // ===========================
@@ -665,7 +674,7 @@ namespace KyoeiSystem.Application.WCFService
                                 .ThenBy(t => t.賞味期限)
                                 ;
 
-                        return dataList.ToList();
+                        return dataList.Where(c => c.数量 != 0).ToList();
                      
                     }
                     
