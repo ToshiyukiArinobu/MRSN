@@ -531,6 +531,8 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column自社FAX;
             
+            private global::System.Data.DataColumn column法人ナンバー;
+            
             private global::System.Data.DataColumn column締日;
             
             private global::System.Data.DataColumn column発行日付;
@@ -564,6 +566,10 @@ namespace Hakobou.Data.TKS {
             private global::System.Data.DataColumn column消費税率;
             
             private global::System.Data.DataColumn column振込先;
+            
+            private global::System.Data.DataColumn column振込先2;
+            
+            private global::System.Data.DataColumn column振込先3;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -768,6 +774,14 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 法人ナンバーColumn {
+                get {
+                    return this.column法人ナンバー;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 締日Column {
                 get {
                     return this.column締日;
@@ -904,6 +918,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 振込先2Column {
+                get {
+                    return this.column振込先2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 振込先3Column {
+                get {
+                    return this.column振込先3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -961,6 +991,7 @@ namespace Hakobou.Data.TKS {
                         string 自社住所, 
                         string 自社TEL, 
                         string 自社FAX, 
+                        string 法人ナンバー, 
                         int 締日, 
                         string 発行日付, 
                         decimal 前回請求額, 
@@ -977,7 +1008,9 @@ namespace Hakobou.Data.TKS {
                         decimal 今回請求額, 
                         int 軽減税率, 
                         int 消費税率, 
-                        string 振込先) {
+                        string 振込先, 
+                        string 振込先2, 
+                        string 振込先3) {
                 TKS01020_H請求書Row rowTKS01020_H請求書Row = ((TKS01020_H請求書Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PagingKey,
@@ -1001,6 +1034,7 @@ namespace Hakobou.Data.TKS {
                         自社住所,
                         自社TEL,
                         自社FAX,
+                        法人ナンバー,
                         締日,
                         発行日付,
                         前回請求額,
@@ -1017,7 +1051,9 @@ namespace Hakobou.Data.TKS {
                         今回請求額,
                         軽減税率,
                         消費税率,
-                        振込先};
+                        振込先,
+                        振込先2,
+                        振込先3};
                 rowTKS01020_H請求書Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTKS01020_H請求書Row);
                 return rowTKS01020_H請求書Row;
@@ -1061,6 +1097,7 @@ namespace Hakobou.Data.TKS {
                 this.column自社住所 = base.Columns["自社住所"];
                 this.column自社TEL = base.Columns["自社TEL"];
                 this.column自社FAX = base.Columns["自社FAX"];
+                this.column法人ナンバー = base.Columns["法人ナンバー"];
                 this.column締日 = base.Columns["締日"];
                 this.column発行日付 = base.Columns["発行日付"];
                 this.column前回請求額 = base.Columns["前回請求額"];
@@ -1078,6 +1115,8 @@ namespace Hakobou.Data.TKS {
                 this.column軽減税率 = base.Columns["軽減税率"];
                 this.column消費税率 = base.Columns["消費税率"];
                 this.column振込先 = base.Columns["振込先"];
+                this.column振込先2 = base.Columns["振込先2"];
+                this.column振込先3 = base.Columns["振込先3"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1125,6 +1164,8 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column自社TEL);
                 this.column自社FAX = new global::System.Data.DataColumn("自社FAX", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column自社FAX);
+                this.column法人ナンバー = new global::System.Data.DataColumn("法人ナンバー", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column法人ナンバー);
                 this.column締日 = new global::System.Data.DataColumn("締日", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column締日);
                 this.column発行日付 = new global::System.Data.DataColumn("発行日付", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1159,6 +1200,10 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column消費税率);
                 this.column振込先 = new global::System.Data.DataColumn("振込先", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column振込先);
+                this.column振込先2 = new global::System.Data.DataColumn("振込先2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column振込先2);
+                this.column振込先3 = new global::System.Data.DataColumn("振込先3", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column振込先3);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4521,6 +4566,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 法人ナンバー {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS01020_H請求書.法人ナンバーColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'法人ナンバー\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.法人ナンバーColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int 締日 {
                 get {
                     try {
@@ -4793,6 +4854,38 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 振込先2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS01020_H請求書.振込先2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'振込先2\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.振込先2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 振込先3 {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS01020_H請求書.振込先3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'振込先3\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.振込先3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPagingKeyNull() {
                 return this.IsNull(this.tableTKS01020_H請求書.PagingKeyColumn);
             }
@@ -5045,6 +5138,18 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is法人ナンバーNull() {
+                return this.IsNull(this.tableTKS01020_H請求書.法人ナンバーColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set法人ナンバーNull() {
+                this[this.tableTKS01020_H請求書.法人ナンバーColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is締日Null() {
                 return this.IsNull(this.tableTKS01020_H請求書.締日Column);
             }
@@ -5245,6 +5350,30 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set振込先Null() {
                 this[this.tableTKS01020_H請求書.振込先Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is振込先2Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.振込先2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set振込先2Null() {
+                this[this.tableTKS01020_H請求書.振込先2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is振込先3Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.振込先3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set振込先3Null() {
+                this[this.tableTKS01020_H請求書.振込先3Column] = global::System.Convert.DBNull;
             }
         }
         
