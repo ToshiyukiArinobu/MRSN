@@ -80,6 +80,7 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社住所 { get; set; }
             public string 自社TEL { get; set; }
             public string 自社FAX { get; set; }
+            public string 法人ナンバー { get; set; }
             public string 締日 { get; set; }
             public string 発行日付 { get; set; }
             public decimal 前回請求額 { get; set; }
@@ -100,6 +101,8 @@ namespace KyoeiSystem.Application.WCFService
             /// ○○銀行 ○○支店 口座種別：〇〇 口座番号：ｘｘｘｘｘｘｘ　口座名義：ｘｘｘｘｘｘｘ
             /// </summary>
             public string 振込先 { get; set; }
+            public string 振込先2 { get; set; }
+            public string 振込先3 { get; set; }
 
             //20190903 CB add-s 軽減税率対応
             public decimal 通常税率対象金額 { get; set; }
@@ -395,6 +398,7 @@ namespace KyoeiSystem.Application.WCFService
                             自社住所 = x.JIS.住所１.Trim() + x.JIS.住所２.Trim(),
                             自社TEL = x.JIS.電話番号,
                             自社FAX = x.JIS.ＦＡＸ,
+                            法人ナンバー = x.JIS.法人ナンバー,
                             締日 = (x.TOK.Ｔ締日 >= 31) ? "末" : x.TOK.Ｔ締日.ToString(),
                             発行日付 = printDate.ToString("yyyy/MM/dd"),
                             前回請求額 = x.SEIHD.前月残高,
@@ -414,6 +418,8 @@ namespace KyoeiSystem.Application.WCFService
                             //20190903 mod&add-s CB 軽減税率対応
                             //振込先 = x.JIS.振込銀行１
                             振込先 = x.JIS.振込銀行１,
+                            振込先2 = x.JIS.振込銀行２,
+                            振込先3 = x.JIS.振込銀行３,
                             通常税率対象金額 = x.SEIHD.通常税率対象金額,
                             軽減税率対象金額 = x.SEIHD.軽減税率対象金額,
                             通常税率消費税 = x.SEIHD.通常税率消費税,
