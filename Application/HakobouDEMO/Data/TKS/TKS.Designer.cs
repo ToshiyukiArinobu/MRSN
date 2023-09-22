@@ -533,6 +533,8 @@ namespace Hakobou.Data.TKS {
             
             private global::System.Data.DataColumn column法人ナンバー;
             
+            private global::System.Data.DataColumn columnメールアドレス;
+            
             private global::System.Data.DataColumn column締日;
             
             private global::System.Data.DataColumn column発行日付;
@@ -570,6 +572,8 @@ namespace Hakobou.Data.TKS {
             private global::System.Data.DataColumn column振込先2;
             
             private global::System.Data.DataColumn column振込先3;
+            
+            private global::System.Data.DataColumn column角印;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -782,6 +786,14 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn メールアドレスColumn {
+                get {
+                    return this.columnメールアドレス;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 締日Column {
                 get {
                     return this.column締日;
@@ -934,6 +946,14 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 角印Column {
+                get {
+                    return this.column角印;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -992,6 +1012,7 @@ namespace Hakobou.Data.TKS {
                         string 自社TEL, 
                         string 自社FAX, 
                         string 法人ナンバー, 
+                        string メールアドレス, 
                         int 締日, 
                         string 発行日付, 
                         decimal 前回請求額, 
@@ -1010,7 +1031,8 @@ namespace Hakobou.Data.TKS {
                         int 消費税率, 
                         string 振込先, 
                         string 振込先2, 
-                        string 振込先3) {
+                        string 振込先3, 
+                        byte[] 角印) {
                 TKS01020_H請求書Row rowTKS01020_H請求書Row = ((TKS01020_H請求書Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PagingKey,
@@ -1035,6 +1057,7 @@ namespace Hakobou.Data.TKS {
                         自社TEL,
                         自社FAX,
                         法人ナンバー,
+                        メールアドレス,
                         締日,
                         発行日付,
                         前回請求額,
@@ -1053,7 +1076,8 @@ namespace Hakobou.Data.TKS {
                         消費税率,
                         振込先,
                         振込先2,
-                        振込先3};
+                        振込先3,
+                        角印};
                 rowTKS01020_H請求書Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTKS01020_H請求書Row);
                 return rowTKS01020_H請求書Row;
@@ -1098,6 +1122,7 @@ namespace Hakobou.Data.TKS {
                 this.column自社TEL = base.Columns["自社TEL"];
                 this.column自社FAX = base.Columns["自社FAX"];
                 this.column法人ナンバー = base.Columns["法人ナンバー"];
+                this.columnメールアドレス = base.Columns["メールアドレス"];
                 this.column締日 = base.Columns["締日"];
                 this.column発行日付 = base.Columns["発行日付"];
                 this.column前回請求額 = base.Columns["前回請求額"];
@@ -1117,6 +1142,7 @@ namespace Hakobou.Data.TKS {
                 this.column振込先 = base.Columns["振込先"];
                 this.column振込先2 = base.Columns["振込先2"];
                 this.column振込先3 = base.Columns["振込先3"];
+                this.column角印 = base.Columns["角印"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1166,6 +1192,8 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column自社FAX);
                 this.column法人ナンバー = new global::System.Data.DataColumn("法人ナンバー", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column法人ナンバー);
+                this.columnメールアドレス = new global::System.Data.DataColumn("メールアドレス", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnメールアドレス);
                 this.column締日 = new global::System.Data.DataColumn("締日", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column締日);
                 this.column発行日付 = new global::System.Data.DataColumn("発行日付", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1204,6 +1232,8 @@ namespace Hakobou.Data.TKS {
                 base.Columns.Add(this.column振込先2);
                 this.column振込先3 = new global::System.Data.DataColumn("振込先3", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column振込先3);
+                this.column角印 = new global::System.Data.DataColumn("角印", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column角印);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4582,6 +4612,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string メールアドレス {
+                get {
+                    try {
+                        return ((string)(this[this.tableTKS01020_H請求書.メールアドレスColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'メールアドレス\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.メールアドレスColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int 締日 {
                 get {
                     try {
@@ -4886,6 +4932,22 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public byte[] 角印 {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableTKS01020_H請求書.角印Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TKS01020_H請求書\' にある列 \'角印\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTKS01020_H請求書.角印Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsPagingKeyNull() {
                 return this.IsNull(this.tableTKS01020_H請求書.PagingKeyColumn);
             }
@@ -5150,6 +5212,18 @@ namespace Hakobou.Data.TKS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsメールアドレスNull() {
+                return this.IsNull(this.tableTKS01020_H請求書.メールアドレスColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetメールアドレスNull() {
+                this[this.tableTKS01020_H請求書.メールアドレスColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Is締日Null() {
                 return this.IsNull(this.tableTKS01020_H請求書.締日Column);
             }
@@ -5374,6 +5448,18 @@ namespace Hakobou.Data.TKS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set振込先3Null() {
                 this[this.tableTKS01020_H請求書.振込先3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is角印Null() {
+                return this.IsNull(this.tableTKS01020_H請求書.角印Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set角印Null() {
+                this[this.tableTKS01020_H請求書.角印Column] = global::System.Convert.DBNull;
             }
         }
         

@@ -81,6 +81,8 @@ namespace KyoeiSystem.Application.WCFService
             public string 自社TEL { get; set; }
             public string 自社FAX { get; set; }
             public string 法人ナンバー { get; set; }
+            public string メールアドレス { get; set; }
+            public byte[] 角印 { get; set; }
             public string 締日 { get; set; }
             public string 発行日付 { get; set; }
             public decimal 前回請求額 { get; set; }
@@ -399,6 +401,8 @@ namespace KyoeiSystem.Application.WCFService
                             自社TEL = x.JIS.電話番号,
                             自社FAX = x.JIS.ＦＡＸ,
                             法人ナンバー = x.JIS.法人ナンバー,
+                            メールアドレス = x.JIS.メールアドレス,
+                            角印 = x.JIS.ロゴ画像,
                             締日 = (x.TOK.Ｔ締日 >= 31) ? "末" : x.TOK.Ｔ締日.ToString(),
                             発行日付 = printDate.ToString("yyyy/MM/dd"),
                             前回請求額 = x.SEIHD.前月残高,

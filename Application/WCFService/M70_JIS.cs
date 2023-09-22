@@ -297,6 +297,21 @@ namespace KyoeiSystem.Application.WCFService
         private Nullable<int> _決算月;
     
         [DataMember]
+        public string メールアドレス
+        {
+            get { return _メールアドレス; }
+            set
+            {
+                if (_メールアドレス != value)
+                {
+                    _メールアドレス = value;
+                    OnPropertyChanged("メールアドレス");
+                }
+            }
+        }
+        private string _メールアドレス;
+    
+        [DataMember]
         public Nullable<int> 登録者
         {
             get { return _登録者; }

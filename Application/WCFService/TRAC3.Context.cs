@@ -167,12 +167,6 @@ namespace KyoeiSystem.Application.WCFService
         }
         private ObjectSet<M22_SOUK> _m22_SOUK;
     
-        public ObjectSet<M70_JIS> M70_JIS
-        {
-            get { return _m70_JIS  ?? (_m70_JIS = CreateObjectSet<M70_JIS>("M70_JIS")); }
-        }
-        private ObjectSet<M70_JIS> _m70_JIS;
-    
         public ObjectSet<M72_TNT> M72_TNT
         {
             get { return _m72_TNT  ?? (_m72_TNT = CreateObjectSet<M72_TNT>("M72_TNT")); }
@@ -502,6 +496,12 @@ namespace KyoeiSystem.Application.WCFService
             get { return _s05_STOK_ADJUST  ?? (_s05_STOK_ADJUST = CreateObjectSet<S05_STOK_ADJUST>("S05_STOK_ADJUST")); }
         }
         private ObjectSet<S05_STOK_ADJUST> _s05_STOK_ADJUST;
+    
+        public ObjectSet<M70_JIS> M70_JIS
+        {
+            get { return _m70_JIS  ?? (_m70_JIS = CreateObjectSet<M70_JIS>("M70_JIS")); }
+        }
+        private ObjectSet<M70_JIS> _m70_JIS;
 
         #endregion
 

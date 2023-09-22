@@ -40,6 +40,7 @@
               <xs:element name="自社TEL" msprop:Generator_ColumnVarNameInTable="column自社TEL" msprop:Generator_ColumnPropNameInRow="自社TEL" msprop:Generator_ColumnPropNameInTable="自社TELColumn" msprop:Generator_UserColumnName="自社TEL" type="xs:string" minOccurs="0" />
               <xs:element name="自社FAX" msprop:Generator_ColumnVarNameInTable="column自社FAX" msprop:Generator_ColumnPropNameInRow="自社FAX" msprop:Generator_ColumnPropNameInTable="自社FAXColumn" msprop:Generator_UserColumnName="自社FAX" type="xs:string" minOccurs="0" />
               <xs:element name="法人ナンバー" msprop:Generator_ColumnVarNameInTable="column法人ナンバー" msprop:Generator_ColumnPropNameInRow="法人ナンバー" msprop:Generator_ColumnPropNameInTable="法人ナンバーColumn" msprop:Generator_UserColumnName="法人ナンバー" type="xs:string" minOccurs="0" />
+              <xs:element name="メールアドレス" msprop:Generator_ColumnVarNameInTable="columnメールアドレス" msprop:Generator_ColumnPropNameInRow="メールアドレス" msprop:Generator_ColumnPropNameInTable="メールアドレスColumn" msprop:Generator_UserColumnName="メールアドレス" type="xs:string" minOccurs="0" />
               <xs:element name="締日" msprop:Generator_ColumnVarNameInTable="column締日" msprop:Generator_ColumnPropNameInRow="締日" msprop:Generator_ColumnPropNameInTable="締日Column" msprop:Generator_UserColumnName="締日" type="xs:int" minOccurs="0" />
               <xs:element name="発行日付" msprop:Generator_ColumnVarNameInTable="column発行日付" msprop:Generator_ColumnPropNameInRow="発行日付" msprop:Generator_ColumnPropNameInTable="発行日付Column" msprop:Generator_UserColumnName="発行日付" type="xs:string" minOccurs="0" />
               <xs:element name="前回請求額" msprop:Generator_ColumnVarNameInTable="column前回請求額" msprop:Generator_ColumnPropNameInRow="前回請求額" msprop:Generator_ColumnPropNameInTable="前回請求額Column" msprop:Generator_UserColumnName="前回請求額" type="xs:decimal" minOccurs="0" />
@@ -59,6 +60,7 @@
               <xs:element name="振込先" msprop:Generator_ColumnVarNameInTable="column振込先" msprop:Generator_ColumnPropNameInRow="振込先" msprop:Generator_ColumnPropNameInTable="振込先Column" msprop:Generator_UserColumnName="振込先" type="xs:string" minOccurs="0" />
               <xs:element name="振込先2" msprop:Generator_ColumnVarNameInTable="column振込先2" msprop:Generator_ColumnPropNameInRow="振込先2" msprop:Generator_ColumnPropNameInTable="振込先2Column" msprop:Generator_UserColumnName="振込先2" type="xs:string" minOccurs="0" />
               <xs:element name="振込先3" msprop:Generator_ColumnVarNameInTable="column振込先3" msprop:Generator_ColumnPropNameInRow="振込先3" msprop:Generator_ColumnPropNameInTable="振込先3Column" msprop:Generator_UserColumnName="振込先3" type="xs:string" minOccurs="0" />
+              <xs:element name="角印" msprop:Generator_ColumnVarNameInTable="column角印" msprop:Generator_ColumnPropNameInRow="角印" msprop:Generator_ColumnPropNameInTable="角印Column" msprop:Generator_UserColumnName="角印" type="xs:base64Binary" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

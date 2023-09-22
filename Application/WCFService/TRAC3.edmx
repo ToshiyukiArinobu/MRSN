@@ -652,6 +652,7 @@
           <Property Name="取引先コード" Type="int" />
           <Property Name="枝番" Type="int" />
           <Property Name="決算月" Type="int" />
+          <Property Name="メールアドレス" Type="varchar" MaxLength="50" />
           <Property Name="登録者" Type="int" />
           <Property Name="登録日時" Type="datetime" />
           <Property Name="最終更新者" Type="int" />
@@ -1843,7 +1844,6 @@
           <EntitySet Name="M16_HINGUN" EntityType="TRAC3Model.M16_HINGUN" />
           <EntitySet Name="M21_SYUK" EntityType="TRAC3Model.M21_SYUK" />
           <EntitySet Name="M22_SOUK" EntityType="TRAC3Model.M22_SOUK" />
-          <EntitySet Name="M70_JIS" EntityType="TRAC3Model.M70_JIS" />
           <EntitySet Name="M72_TNT" EntityType="TRAC3Model.M72_TNT" />
           <EntitySet Name="M73_ZEI" EntityType="TRAC3Model.M73_ZEI" />
           <EntitySet Name="M74_KGRP" EntityType="TRAC3Model.M74_KGRP" />
@@ -1899,6 +1899,7 @@
           <EntitySet Name="S09_KAIKAKE" EntityType="TRAC3Model.S09_KAIKAKE" />
           <EntitySet Name="M10_NEWSHINHD" EntityType="TRAC3Model.M10_NEWSHINHD" />
           <EntitySet Name="S05_STOK_ADJUST" EntityType="TRAC3Model.S05_STOK_ADJUST" />
+          <EntitySet Name="M70_JIS" EntityType="TRAC3Model.M70_JIS" />
         </EntityContainer>
         <ComplexType Name="ComplexType1" />
         <EntityType Name="M02_BAIKA">
@@ -2149,35 +2150,6 @@
           <Property Type="Int32" Name="寄託会社コード" Nullable="false" />
           <Property Type="Int32" Name="登録者" />
           <Property Type="DateTime" Name="登録日時" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="最終更新者" />
-          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
-          <Property Type="Int32" Name="削除者" />
-          <Property Type="DateTime" Name="削除日時" Precision="3" />
-        </EntityType>
-        <EntityType Name="M70_JIS">
-          <Key>
-            <PropertyRef Name="自社コード" />
-          </Key>
-          <Property Type="Int32" Name="自社コード" Nullable="false" />
-          <Property Type="String" Name="自社名" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="カナ" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="代表者名" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="住所１" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="住所２" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ＦＡＸ" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="振込銀行１" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="振込銀行２" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="振込銀行３" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="ロゴ画像" MaxLength="Max" FixedLength="false" />
-          <Property Type="String" Name="法人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="自社区分" Nullable="false" />
-          <Property Type="Int32" Name="取引先コード" />
-          <Property Type="Int32" Name="枝番" />
-          <Property Type="Int32" Name="決算月" />
-          <Property Type="Int32" Name="登録者" />
-          <Property Type="DateTime" Name="登録日時" Precision="3" />
           <Property Type="Int32" Name="最終更新者" />
           <Property Type="DateTime" Name="最終更新日時" Precision="3" />
           <Property Type="Int32" Name="削除者" />
@@ -3458,6 +3430,36 @@
           <Property Type="Int32" Name="登録者" Nullable="false" />
           <Property Type="DateTime" Name="登録日時" Precision="3" />
         </EntityType>
+        <EntityType Name="M70_JIS">
+          <Key>
+            <PropertyRef Name="自社コード" />
+          </Key>
+          <Property Type="Int32" Name="自社コード" Nullable="false" />
+          <Property Type="String" Name="自社名" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="カナ" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="代表者名" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="郵便番号" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="住所１" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="住所２" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="電話番号" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ＦＡＸ" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="振込銀行１" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="振込銀行２" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="振込銀行３" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="ロゴ画像" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="法人ナンバー" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="自社区分" Nullable="false" />
+          <Property Type="Int32" Name="取引先コード" />
+          <Property Type="Int32" Name="枝番" />
+          <Property Type="Int32" Name="決算月" />
+          <Property Type="String" Name="メールアドレス" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="登録者" />
+          <Property Type="DateTime" Name="登録日時" Precision="3" />
+          <Property Type="Int32" Name="最終更新者" />
+          <Property Type="DateTime" Name="最終更新日時" Precision="3" />
+          <Property Type="Int32" Name="削除者" />
+          <Property Type="DateTime" Name="削除日時" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3719,36 +3721,6 @@
                 <ScalarProperty Name="倉庫略称名" ColumnName="倉庫略称名" />
                 <ScalarProperty Name="倉庫名" ColumnName="倉庫名" />
                 <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="M70_JIS">
-            <EntityTypeMapping TypeName="TRAC3Model.M70_JIS">
-              <MappingFragment StoreEntitySet="M70_JIS">
-                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
-                <ScalarProperty Name="削除者" ColumnName="削除者" />
-                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
-                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
-                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
-                <ScalarProperty Name="登録者" ColumnName="登録者" />
-                <ScalarProperty Name="決算月" ColumnName="決算月" />
-                <ScalarProperty Name="枝番" ColumnName="枝番" />
-                <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
-                <ScalarProperty Name="自社区分" ColumnName="自社区分" />
-                <ScalarProperty Name="法人ナンバー" ColumnName="法人ナンバー" />
-                <ScalarProperty Name="ロゴ画像" ColumnName="ロゴ画像" />
-                <ScalarProperty Name="振込銀行３" ColumnName="振込銀行３" />
-                <ScalarProperty Name="振込銀行２" ColumnName="振込銀行２" />
-                <ScalarProperty Name="振込銀行１" ColumnName="振込銀行１" />
-                <ScalarProperty Name="ＦＡＸ" ColumnName="ＦＡＸ" />
-                <ScalarProperty Name="電話番号" ColumnName="電話番号" />
-                <ScalarProperty Name="住所２" ColumnName="住所２" />
-                <ScalarProperty Name="住所１" ColumnName="住所１" />
-                <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
-                <ScalarProperty Name="代表者名" ColumnName="代表者名" />
-                <ScalarProperty Name="カナ" ColumnName="カナ" />
-                <ScalarProperty Name="自社名" ColumnName="自社名" />
-                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4960,6 +4932,37 @@
                 <ScalarProperty Name="品番コード" ColumnName="品番コード" />
                 <ScalarProperty Name="倉庫コード" ColumnName="倉庫コード" />
                 <ScalarProperty Name="締年月" ColumnName="締年月" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M70_JIS">
+            <EntityTypeMapping TypeName="TRAC3Model.M70_JIS">
+              <MappingFragment StoreEntitySet="M70_JIS">
+                <ScalarProperty Name="削除日時" ColumnName="削除日時" />
+                <ScalarProperty Name="削除者" ColumnName="削除者" />
+                <ScalarProperty Name="最終更新日時" ColumnName="最終更新日時" />
+                <ScalarProperty Name="最終更新者" ColumnName="最終更新者" />
+                <ScalarProperty Name="登録日時" ColumnName="登録日時" />
+                <ScalarProperty Name="登録者" ColumnName="登録者" />
+                <ScalarProperty Name="メールアドレス" ColumnName="メールアドレス" />
+                <ScalarProperty Name="決算月" ColumnName="決算月" />
+                <ScalarProperty Name="枝番" ColumnName="枝番" />
+                <ScalarProperty Name="取引先コード" ColumnName="取引先コード" />
+                <ScalarProperty Name="自社区分" ColumnName="自社区分" />
+                <ScalarProperty Name="法人ナンバー" ColumnName="法人ナンバー" />
+                <ScalarProperty Name="ロゴ画像" ColumnName="ロゴ画像" />
+                <ScalarProperty Name="振込銀行３" ColumnName="振込銀行３" />
+                <ScalarProperty Name="振込銀行２" ColumnName="振込銀行２" />
+                <ScalarProperty Name="振込銀行１" ColumnName="振込銀行１" />
+                <ScalarProperty Name="ＦＡＸ" ColumnName="ＦＡＸ" />
+                <ScalarProperty Name="電話番号" ColumnName="電話番号" />
+                <ScalarProperty Name="住所２" ColumnName="住所２" />
+                <ScalarProperty Name="住所１" ColumnName="住所１" />
+                <ScalarProperty Name="郵便番号" ColumnName="郵便番号" />
+                <ScalarProperty Name="代表者名" ColumnName="代表者名" />
+                <ScalarProperty Name="カナ" ColumnName="カナ" />
+                <ScalarProperty Name="自社名" ColumnName="自社名" />
+                <ScalarProperty Name="自社コード" ColumnName="自社コード" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

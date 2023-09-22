@@ -79,6 +79,7 @@ namespace KyoeiSystem.Application.Windows.Views
         private byte[] _ロゴ画像;
         private DateTime? _削除日時 = null;
         private int? _決算月 = null;
+        private string _メールアドレス;
 
         public string 自社ID { get { return _自社ID; } set { this._自社ID = value; NotifyPropertyChanged(); } }
         public string 自社名 { get { return _自社名; } set { this._自社名 = value; NotifyPropertyChanged(); } }
@@ -98,6 +99,7 @@ namespace KyoeiSystem.Application.Windows.Views
         public byte[] ロゴ画像 { get { return _ロゴ画像; } set { this._ロゴ画像 = value; NotifyPropertyChanged(); } }
         public DateTime? 削除日時 { get { return this._削除日時; } set { this._削除日時 = value; NotifyPropertyChanged(); } }
         public int? 決算月 { get { return _決算月; } set { this._決算月 = value; NotifyPropertyChanged(); } }
+        public string メールアドレス { get { return _メールアドレス; } set { this._メールアドレス = value; NotifyPropertyChanged(); } }
         private DataRow _MstData;
         public DataRow MstData
         {
@@ -278,6 +280,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 取引先コード = MstData["取引先コード"].ToString();
                 取引先コード枝番 = MstData["枝番"].ToString();
                 object obj = MstData["ロゴ画像"];
+                メールアドレス = MstData["メールアドレス"].ToString();
                 ロゴ画像 = obj == DBNull.Value ? null : (byte[])obj;
                 DateTime Wk;
                 削除日時 = DateTime.TryParse(tbl.Rows[0]["削除日時"].ToString(), out Wk) ? Wk : (DateTime?)null;
@@ -643,6 +646,7 @@ namespace KyoeiSystem.Application.Windows.Views
             ロゴ画像 = null;
             削除日時 = null;
             決算月 = null;
+            メールアドレス = string.Empty;
             
             this.MaintenanceMode = string.Empty;
 
@@ -729,6 +733,7 @@ namespace KyoeiSystem.Application.Windows.Views
                 MstData["枝番"] = TryParseInteger(取引先コード枝番);
                 MstData["ロゴ画像"] = ロゴ画像;
                 MstData["決算月"] = 決算月;
+                MstData["メールアドレス"] = メールアドレス;
 
                 // 更新実行
                 base.SendRequest(
