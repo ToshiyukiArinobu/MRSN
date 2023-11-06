@@ -404,7 +404,7 @@ namespace KyoeiSystem.Application.WCFService
                             集計コード２ = c.TOK.集計コード２,
                             集計コード３ = c.TOK.集計コード３,
                             自社区分 = c.JIS.自社区分,
-                        });
+                        }).Distinct();
                 #endregion
 
                 #region 対象日付条件(確定データを除く場合)

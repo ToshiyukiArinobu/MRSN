@@ -496,6 +496,7 @@
     <Compile Include="Views\TKS\TKS09010.cs" />
     <Compile Include="Views\TKS\TKS02011.cs" />
     <Compile Include="Views\TKS\TKS90010.cs" />
+    <Compile Include="Views\TKS\TKS02012.cs" />
     <Compile Include="Views\ZIJ\S03.cs" />
     <Compile Include="Views\ZIJ\S04.cs" />
     <Compile Include="Views\ZIJ\ZIJ02010.cs" />

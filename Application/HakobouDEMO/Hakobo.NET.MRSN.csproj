@@ -611,6 +611,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Files\TKS\TKS02012.cs">
+      <DependentUpon>TKS02012.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Files\ZIJ\ZIJ03010.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1019,6 +1026,11 @@
     <Content Include="Files\SHR\SHR05011.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SHR05011.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\TKS\TKS02012.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TKS02012.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\licenses.licx" />

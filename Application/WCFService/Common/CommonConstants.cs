@@ -207,6 +207,12 @@ namespace KyoeiSystem.Application.WCFService
             販社 = 4
         }
 
+        public enum 台帳出力期間 : int
+        {
+            月末締 = 1,
+            得意先締 = 2
+        }
+
         public enum 明細番号ID : int
         {
             ID01_売上_仕入_移動 = 1,

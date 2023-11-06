@@ -148,7 +148,7 @@
           />
 
                     <!-- 得意先 -->
-                    <uc:M01_TOK_TextBox x:Name="Customer" Grid.Row="3" Grid.ColumnSpan="2" IsKeyItem="False" HorizontalAlignment="Left" Margin="0,3,0,0"
+                    <uc:M01_TOK_TextBox x:Name="Customer" Grid.Row="2" Grid.ColumnSpan="2" IsKeyItem="False" HorizontalAlignment="Left" Margin="0,3,0,0"
                               DataAccessMode="On" DataAccessName="M01_TOK" LinkItem="0,3,4"
                               Label_Context="得意先指定" Label_Width="100"
                               Label1Visibility="Collapsed" Label2Visibility="Collapsed"
@@ -158,6 +158,13 @@
                               Label2Text=""
           />
 
+                    <ctls:UcLabelTextRadioButton x:Name="T_OUTPUT" Grid.Row="3"
+                                                Label_Content="出力期間" Label_Width="100"
+                                                RadioSelectButton="One" RadioOneStart="True" RadioViewCount="Three"
+                                                RadioSecond_Content="社内期間 " RadioThird_Content="得意先締日期間" 
+                                                Text1VerticalContentAlignment="Center"
+                                                Text="{Binding Path=RowM01TOK[Ｔ消費税区分], Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                /> 
                 </Grid>
 
             </Border>

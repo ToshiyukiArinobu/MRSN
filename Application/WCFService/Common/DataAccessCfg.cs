@@ -416,7 +416,9 @@ namespace KyoeiSystem.Application.WCFService
             // 売掛台帳
             new WCFDataAccessConfig() { Name = "TKS02011_GetCsvData", ServiceClass = "TKS02011", MethodName = "GetCsvData", Descprition = "売上集計、一覧表ＣＳＶデータ取得" },
             new WCFDataAccessConfig() { Name = "TKS02011_GetPrintData", ServiceClass = "TKS02011", MethodName = "GetPrintData", Descprition = "売上集計処理、一覧表印刷データ取得" },
-
+            // 売掛台帳
+            new WCFDataAccessConfig() { Name = "TKS02012_GetCsvData", ServiceClass = "TKS02012", MethodName = "GetCsvData", Descprition = "売上集計、一覧表ＣＳＶデータ取得" },
+            new WCFDataAccessConfig() { Name = "TKS02012_GetPrintData", ServiceClass = "TKS02012", MethodName = "GetPrintData", Descprition = "売上集計処理、一覧表印刷データ取得" },
             // 納品書出力
             new WCFDataAccessConfig() { Name = "DLY11010_Print", ServiceClass = "DLY11010", MethodName = "GetPrintData", Descprition = "納品書出力情報取得" },
 

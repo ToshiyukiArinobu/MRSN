@@ -1062,11 +1062,11 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Click_TKS02011(object sender, RoutedEventArgs e)
+        private void Click_TKS02012(object sender, RoutedEventArgs e)
         {
             try
             {
-                Start(typeof(TKS02011));
+                Start(typeof(TKS02012));
             }
             catch (Exception ex)
             {
