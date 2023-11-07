@@ -464,6 +464,8 @@ namespace KyoeiSystem.Application.WCFService
             // 買掛台帳
             new WCFDataAccessConfig() { Name = "SHR02010_GetCsvData", ServiceClass = "SHR02010", MethodName = "GetCsvData", Descprition = "買掛集計、一覧表ＣＳＶデータ取得" },
             new WCFDataAccessConfig() { Name = "SHR02010_GetPrintData", ServiceClass = "SHR02010", MethodName = "GetPrintData", Descprition = "買掛集計処理、一覧表印刷データ取得" },
+            new WCFDataAccessConfig() { Name = "SHR02011_GetCsvData", ServiceClass = "SHR02011", MethodName = "GetCsvData", Descprition = "買掛集計、一覧表ＣＳＶデータ取得" },
+            new WCFDataAccessConfig() { Name = "SHR02011_GetPrintData", ServiceClass = "SHR02011", MethodName = "GetPrintData", Descprition = "買掛集計処理、一覧表印刷データ取得" },
 
             // 支払締集計
             new WCFDataAccessConfig() { Name = "SHR03010_GetDataList", ServiceClass = "SHR03010", MethodName = "GetListData", Descprition = "支払集計対象取得" },

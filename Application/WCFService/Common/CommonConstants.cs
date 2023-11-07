@@ -210,7 +210,7 @@ namespace KyoeiSystem.Application.WCFService
         public enum 台帳出力期間 : int
         {
             月末締 = 1,
-            得意先締 = 2
+            取引先締 = 2
         }
 
         public enum 明細番号ID : int

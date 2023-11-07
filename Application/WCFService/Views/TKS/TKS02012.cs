@@ -165,10 +165,15 @@ namespace KyoeiSystem.Application.WCFService
 
                     tokList = tokList.OrderBy(o => o.取引先コード).ThenBy(t => t.枝番).ToList();
 
+                    if (tokList.Count() == 0)
+                    {
+                        return new DataTable();
+                    }
+
                     DateTime targetStDate = new DateTime(createYearMonth / 100, createYearMonth % 100, 1);
                     DateTime targetEdDate = new DateTime(createYearMonth / 100, createYearMonth % 100, 1).AddMonths(1).AddDays(-1);
 
-                    if (outputPeriod == (int)CommonConstants.台帳出力期間.得意先締 && tokList[0].Ｔ締日 != 31)
+                    if (outputPeriod == (int)CommonConstants.台帳出力期間.取引先締 && tokList[0].Ｔ締日 != 31)
                     {
                         targetEdDate = new DateTime(createYearMonth/100, createYearMonth % 100, (int)tokList[0].Ｔ締日) ;
                         targetStDate = targetEdDate.AddMonths(-1).AddDays(1);
@@ -568,7 +573,7 @@ namespace KyoeiSystem.Application.WCFService
                         自社品名 = x.URIKAKE.金種コード == 0 ? x.URIKAKE.自社品名 : goldType.Where(c => c.コード == x.URIKAKE.金種コード).Select(c => c.表示名).FirstOrDefault(),
                         数量 = x.URIKAKE.数量,
                         単位 = x.HIN.単位,
-                        軽減 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "*" : "",
+                        軽減 = x.HIN.消費税区分 == (int)CommonConstants.商品消費税区分.軽減税率 ? "※" : "",
                         単価 = x.URIKAKE.単価,
                         金額 = x.URIKAKE.金額,
                         通常税率消費税 = x.URIKAKE.通常税率消費税,
@@ -751,7 +756,6 @@ namespace KyoeiSystem.Application.WCFService
                                                    }).ToList();
                 urList = urList.Concat(zei).ToList();
             }
-
 
             return urList;
 

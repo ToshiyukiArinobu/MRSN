@@ -9049,6 +9049,8 @@ namespace Hakobou.Data.SHR {
             
             private global::System.Data.DataColumn column単位;
             
+            private global::System.Data.DataColumn column軽減;
+            
             private global::System.Data.DataColumn column単価;
             
             private global::System.Data.DataColumn column金額;
@@ -9186,6 +9188,14 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn 軽減Column {
+                get {
+                    return this.column軽減;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn 単価Column {
                 get {
                     return this.column単価;
@@ -9289,6 +9299,7 @@ namespace Hakobou.Data.SHR {
                         string 自社品名, 
                         decimal 数量, 
                         string 単位, 
+                        string 軽減, 
                         decimal 単価, 
                         decimal 金額, 
                         decimal 通常税率消費税, 
@@ -9309,6 +9320,7 @@ namespace Hakobou.Data.SHR {
                         自社品名,
                         数量,
                         単位,
+                        軽減,
                         単価,
                         金額,
                         通常税率消費税,
@@ -9349,6 +9361,7 @@ namespace Hakobou.Data.SHR {
                 this.column自社品名 = base.Columns["自社品名"];
                 this.column数量 = base.Columns["数量"];
                 this.column単位 = base.Columns["単位"];
+                this.column軽減 = base.Columns["軽減"];
                 this.column単価 = base.Columns["単価"];
                 this.column金額 = base.Columns["金額"];
                 this.column通常税率消費税 = base.Columns["通常税率消費税"];
@@ -9383,6 +9396,8 @@ namespace Hakobou.Data.SHR {
                 base.Columns.Add(this.column数量);
                 this.column単位 = new global::System.Data.DataColumn("単位", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単位);
+                this.column軽減 = new global::System.Data.DataColumn("軽減", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column軽減);
                 this.column単価 = new global::System.Data.DataColumn("単価", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.column単価);
                 this.column金額 = new global::System.Data.DataColumn("金額", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -19902,6 +19917,22 @@ namespace Hakobou.Data.SHR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string 軽減 {
+                get {
+                    try {
+                        return ((string)(this[this.tableSHR02010_買掛台帳.軽減Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'SHR02010_買掛台帳\' にある列 \'軽減\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableSHR02010_買掛台帳.軽減Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public decimal 単価 {
                 get {
                     try {
@@ -20142,6 +20173,18 @@ namespace Hakobou.Data.SHR {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Set単位Null() {
                 this[this.tableSHR02010_買掛台帳.単位Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Is軽減Null() {
+                return this.IsNull(this.tableSHR02010_買掛台帳.軽減Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Set軽減Null() {
+                this[this.tableSHR02010_買掛台帳.軽減Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

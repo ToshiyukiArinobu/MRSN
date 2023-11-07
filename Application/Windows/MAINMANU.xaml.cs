@@ -1235,11 +1235,11 @@ namespace KyoeiSystem.Application.Windows.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Click_SHR02010(object sender, RoutedEventArgs e)
+        private void Click_SHR02011(object sender, RoutedEventArgs e)
         {
             try
             {
-                Start(typeof(SHR02010));
+                Start(typeof(SHR02011));
             }
             catch (Exception ex)
             {
