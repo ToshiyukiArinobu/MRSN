@@ -78,10 +78,12 @@ namespace KyoeiSystem.Application.Windows.Views
 
         private const string TKS01020_SEARCHLIST = "TKS01020_GetDataList";
         private const string TKS01020_GETPRINGDATA = "TKS01020_GetPrintData";
+        private const string TKS01020_GETPRINGDATA_RECEIPT = "TKS01020_GetReceiptData";
         private const string TKS01020_DELETE = "TKS01020_DataDelete";
 
         /// <summary>納品書 帳票定義パス</summary>
         private const string REPORT_FILE_PATH = @"Files\TKS\TKS01020.rpt";
+        private const string RECEIPT_FILE_PATH = @"Files\TKS\Recipt.rpt";
 
         /// <summary>帳票の(１枚あたり)最大出力行数</summary>
         //private const int MAX_PRINT_ROW_COUNT = 50; 2019/11/11 DEL
@@ -315,6 +317,28 @@ namespace KyoeiSystem.Application.Windows.Views
 
                         PrintPreview(ds);
                         break;
+                    case TKS01020_GETPRINGDATA_RECEIPT:
+                        ds = data as DataSet;
+
+                        if (ds.Tables.Count < 1)
+                        {
+                            base.ErrorMessage = "対象データが存在しません。";
+                            return;
+                        }
+                        else
+                        {
+                            //20190910 add-s CB 軽減税率対応 
+                            // 詳細データがない場合、メッセージ表示
+                            if ((ds.Tables["TKS01020_H請求書"].Rows.Count) <= 0)
+                            {
+                                base.ErrorMessage = "対象データが存在しません。";
+                                return;
+                            }
+                            //20190910 add-e CB 軽減税率対応 
+                        }
+
+                        PrintReceiptPreview(ds);
+                        break;
 
                     case TKS01020_DELETE:
                         if ((bool)data)
@@ -386,6 +410,61 @@ namespace KyoeiSystem.Application.Windows.Views
             }
 
         }
+
+        /// <summary>
+        /// F6　リボン　領収書
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public override void OnF6Key(object sender, KeyEventArgs e)
+        {
+            PrinterDriver ret = AppCommon.GetPrinter(frmcfg.PrinterName);
+            if (ret.Result == false)
+            {
+                base.ErrorMessage = "プリンタドライバーがインストールされていません！";
+                return;
+            }
+            frmcfg.PrinterName = ret.PrinterName;
+
+            if (!base.CheckAllValidation())
+            {
+                MessageBox.Show("入力内容に誤りがあります。");
+                SetFocusToTopControl();
+                return;
+            }
+
+            if (this.請求書一覧データ == null)
+            {
+                base.ErrorMessage = "印刷データを取得していません。";
+                return;
+            }
+
+            int cnt = 0;
+            foreach (DataRow rec in this.請求書一覧データ.Rows)
+            {
+                if (rec.IsNull("印刷区分") != true && (bool)rec["印刷区分"] == true)
+                    cnt++;
+            }
+            if (cnt == 0)
+            {
+                base.ErrorMessage = "印刷対象が選択されていません。";
+                return;
+            }
+
+            _請求書一覧データ.AcceptChanges();
+            DataSet ds = new DataSet();
+            ds.Tables.Add(_請求書一覧データ.Copy());
+
+            // REMARKS:条件は検索実行時に使用したものを使う
+            base.SendRequest(
+                new CommunicationObject(
+                    MessageType.RequestData,
+                    TKS01020_GETPRINGDATA_RECEIPT,
+                    condition,
+                    ds));
+
+        }
+
 
         /// <summary>
         /// F8　リボン　印刷
@@ -646,6 +725,39 @@ namespace KyoeiSystem.Application.Windows.Views
             // 第3以上　帳票の開始点(0で良い)
             view.MakeReport("請求書発行", REPORT_FILE_PATH, "トレイ2");
             //view.MakeReport("請求書", REPORT_FILE_PATH);
+
+            var parms = new List<FwPreview.ReportParameter>()
+                {
+                    new FwPreview.ReportParameter(){ PNAME="出力日付", VALUE=(this.PrintDate.Text)},
+                    //new FwPreview.ReportParameter(){ PNAME="行数１", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
+                    //new FwPreview.ReportParameter(){ PNAME="最大行数", VALUE=(MAX_PRINT_ROW_COUNT)},// ページあたり行数
+                    //new FwPreview.ReportParameter(){ PNAME="行数２", VALUE=(ds.Tables[0].Rows.Count)},
+                };
+
+            // 帳票ファイルに送るデータ。
+            // 帳票データの列と同じ列名を保持したDataSetを引数とする
+            view.SetReportData(ds);
+            view.PrinterName = frmcfg.PrinterName;
+            view.SetupParmeters(parms);
+            view.ShowPreview();
+            view.Close();
+            frmcfg.PrinterName = view.PrinterName;
+
+        }
+
+        /// <summary>
+        /// 領収書出力処理
+        /// </summary>
+        /// <param name="ds"></param>
+        private void PrintReceiptPreview(DataSet ds)
+        {
+            // 印刷処理
+            FwPreview.ReportPreview view = new FwPreview.ReportPreview();
+            view.PrinterName = frmcfg.PrinterName;
+            // 第1引数　帳票タイトル
+            // 第2引数　帳票ファイルPass
+            // 第3以上　帳票の開始点(0で良い)
+            view.MakeReport("領収書発行", RECEIPT_FILE_PATH, "トレイ2");
 
             var parms = new List<FwPreview.ReportParameter>()
                 {

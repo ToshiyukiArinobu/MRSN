@@ -395,7 +395,7 @@ namespace KyoeiSystem.Application.WCFService
 
             var tok = context.M01_TOK.Where(w => w.取引先コード == code && w.枝番 == eda).FirstOrDefault();
 
-            if (outputPeriod == (int)CommonConstants.台帳出力期間.月末締 ||  tok.Ｔ締日 == 31)
+            if (outputPeriod == (int)CommonConstants.台帳出力期間.月末締 )
             {
                 var befAccountsRec =
                     context.S08_URIKAKE
@@ -421,7 +421,15 @@ namespace KyoeiSystem.Application.WCFService
             }
             else
             {
-                int iYearMonth = targetStDate.Year * 100 + targetStDate.Month;
+                int iYearMonth;
+                if (tok.Ｔ締日 == 31)
+                {
+                    iYearMonth = targetStDate.AddMonths(-1).Year * 100 + targetStDate.AddMonths(-1).Month;
+                }
+                else
+                {
+                    iYearMonth = targetStDate.Year * 100 + targetStDate.Month;
+                }
                 //前月の請求明細から繰越残を取得
                 var befAccountsRec =
                     context.S01_SEIHD
