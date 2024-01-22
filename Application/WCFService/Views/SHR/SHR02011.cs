@@ -187,7 +187,7 @@ namespace KyoeiSystem.Application.WCFService
                     DateTime targetStDate = new DateTime(createYearMonth / 100, createYearMonth % 100, 1);
                     DateTime targetEdDate = new DateTime(createYearMonth / 100, createYearMonth % 100, 1).AddMonths(1).AddDays(-1);
 
-                    if (outputPeriod == (int)CommonConstants.台帳出力期間.取引先締 && tokList[0].Ｓ締日 != 31)
+                    if (outputPeriod == (int)CommonConstants.台帳出力期間.取引先締 && (tokList[0].Ｓ締日 != 31 && tokList[0].Ｓ締日 != null))
                     {
                         targetEdDate = new DateTime(createYearMonth / 100, createYearMonth % 100, (int)tokList[0].Ｓ締日);
                         targetStDate = targetEdDate.AddMonths(-1).AddDays(1);

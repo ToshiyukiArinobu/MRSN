@@ -503,6 +503,9 @@ namespace KyoeiSystem.Application.WCFService
             // 前回請求情報取得
             var befSeiCnt = getLastChargeInfo(context, company, yearMonth, code, eda, cnt);
 
+            //今月請求情報取得
+            var thisSeiCnt = getThisChargeInfo(context, company, yearMonth, code, eda, cnt);
+
             // 入金情報取得
             var nyukin = getPaymentInfo(context, company, code, eda, targetStDate, targetEdDate);
             // No-100 Mod End
@@ -620,7 +623,7 @@ namespace KyoeiSystem.Application.WCFService
                         通常税率対象金額 = (long)x.Sum(s => s.Data.通常税率対象金額),
                         軽減税率対象金額 = (long)x.Sum(s => s.Data.軽減税率対象金額),
                         // No.135-1 Mod Start
-                        通常税率消費税 =
+                        通常税率消費税 =  thisSeiCnt != null ? thisSeiCnt.通常税率消費税 :
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
                                     x.Sum(s => s.Data.通常税率対象金額) > 0 ?
@@ -635,7 +638,7 @@ namespace KyoeiSystem.Application.WCFService
                                 0 :
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID03_請求無 ? 0 :      // No.272 Add
                             (long)x.Sum(s => s.Data.通常税率消費税),
-                        軽減税率消費税 =
+                        軽減税率消費税 = thisSeiCnt != null ? thisSeiCnt.軽減税率消費税 :
                             x.Key.支払消費税区分 == (int)CommonConstants.消費税区分.ID01_一括 ?
                                 x.Key.消費税丸め区分 == (int)CommonConstants.税区分.ID01_切捨て ?
                                     x.Sum(s => s.Data.軽減税率対象金額) > 0 ?
@@ -934,6 +937,51 @@ namespace KyoeiSystem.Application.WCFService
             urdata.当月請求額 = urdata.繰越残高 + urdata.売上額 + urdata.消費税;
 
             return urdata;
+
+        }
+
+        /// <summary>
+        /// 今月請求情報取得
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="company">会社名コード</param>
+        /// <param name="yearMonth">作成年月</param>
+        /// <param name="code">得意先コード</param>
+        /// <param name="eda">得意先枝番</param>
+        /// <param name="cnt">回数</param>
+        public S01_SEIHD getThisChargeInfo(TRAC3Entities context, int company, int yearMonth, int? code, int? eda, int cnt)
+        {
+            // No-100 Mod Start
+            // 前回請求情報取得
+            DateTime befCntMonth = new DateTime(yearMonth / 100, yearMonth % 100, 1);
+            if (cnt == 1)
+            {
+
+                var befSeiCnt =
+                    context.S01_SEIHD
+                        .Where(w => w.自社コード == company &&
+                            w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
+                            w.請求先コード == code &&
+                            w.請求先枝番 == eda)
+                        .OrderByDescending(o => o.回数)
+                        .FirstOrDefault();
+
+                return befSeiCnt;
+            }
+
+
+            var befSeiCntDup =
+                 context.S01_SEIHD
+                     .Where(w => w.自社コード == company &&
+                         w.請求年月 == (befCntMonth.Year * 100 + befCntMonth.Month) &&
+                         w.請求先コード == code &&
+                         w.請求先枝番 == eda && w.回数 < cnt)
+                     .OrderByDescending(o => o.回数)
+                     .FirstOrDefault();
+
+            return befSeiCntDup;
+
+            // No-100 Mod End
 
         }
 
