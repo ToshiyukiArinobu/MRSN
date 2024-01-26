@@ -783,9 +783,13 @@ namespace KyoeiSystem.Application.WCFService
                                                        消費税区分 = (int)CommonConstants.消費税区分.ID01_一括,
                                                        金額 = 0,
                                                        通常税率消費税 = sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.通常税率) == null ?
-                                                                            0 : (int)Math.Floor(sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.通常税率).Sum(c => c.金額) * (int)mstZei.消費税率 / 100d),
+                                                                            0 : (sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.通常税率).Sum(c => c.金額) > 0 ?
+                                                                            (int)Math.Floor(sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.通常税率).Sum(c => c.金額) * (int)mstZei.消費税率 / 100d)
+                                                                            : (int)Math.Ceiling(sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.通常税率).Sum(c => c.金額) * (int)mstZei.消費税率 / 100d)),
                                                        軽減税率消費税 = sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.軽減税率) == null ?
-                                                                            0 : (int)Math.Floor(sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.軽減税率).Sum(c => c.金額) * (int)mstZei.軽減税率 / 100d),
+                                                                            0 : (sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.軽減税率).Sum(c => c.金額) > 0 ?
+                                                                            (int)Math.Floor(sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.軽減税率).Sum(c => c.金額) * (int)mstZei.軽減税率 / 100d)
+                                                                            : (int)Math.Ceiling(sumgrp.Where(c => c.軽減 == (int)CommonConstants.商品消費税区分.軽減税率).Sum(c => c.金額) * (int)mstZei.軽減税率 / 100d)),
                                                        出金額 = 0,
                                                        前月繰越 = 0,
                                                        残高 = 0,
