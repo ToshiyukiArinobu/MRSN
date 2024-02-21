@@ -440,7 +440,7 @@ namespace KyoeiSystem.Application.WCFService
             else
             {
                 int iYearMonth;
-                if(tok.Ｓ締日 == 31)
+                if(tok.Ｓ締日 == 31 || tok.Ｓ締日 == null)
                 {
                  iYearMonth= targetStDate.AddMonths(-1).Year * 100 + targetStDate.AddMonths(-1).Month;
                 }
