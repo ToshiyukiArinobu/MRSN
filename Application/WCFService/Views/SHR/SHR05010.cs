@@ -162,6 +162,7 @@ namespace KyoeiSystem.Application.WCFService
                         軽減支払額 = s.Sum(m => m.軽減税率対象金額),
                         通常消費税 = s.Sum(m => m.通常税率消費税),
                         軽減消費税 = s.Sum(m => m.軽減税率消費税),
+                        出金額 = s.Sum(m => m.出金額),
                         売上額 = s.Sum(m => m.支払額),
                         値引額 = s.Sum(m => m.値引額),
                         非税売上額 = s.Sum(m => m.非課税支払額),
@@ -184,7 +185,7 @@ namespace KyoeiSystem.Application.WCFService
                     });
 
             // 入金データを取得(金額集計済)
-            List<T12_PAY_Data> payList = getPayData(createYearMonth / 100, createYearMonth % 100, hdList);
+            //List<T12_PAY_Data> payList = getPayData(createYearMonth / 100, createYearMonth % 100, hdList);
 
             // 取引先情報を取得
             List<M01_TOK> tokList = getTokData(hdList);
@@ -197,18 +198,18 @@ namespace KyoeiSystem.Application.WCFService
                     (x, y) => new { x, y })
                 .SelectMany(x => x.y.DefaultIfEmpty(),
                     (a, b) => new { NHD = a.x, NDTL = b })
-                .GroupJoin(payList,
-                    x => new { x.NHD.自社コード, コード = x.NHD.支払先コード, 枝番 = x.NHD.支払先枝番 },
-                    y => new { y.自社コード, コード = y.得意先コード, 枝番 = y.得意先枝番 },
-                    (x, y) => new { x, y })
-                .SelectMany(x => x.y.DefaultIfEmpty(),
-                    (c, d) => new { c.x.NHD, c.x.NDTL, PAY = d })
+                //.GroupJoin(payList,
+                //    x => new { x.NHD.自社コード, コード = x.NHD.支払先コード, 枝番 = x.NHD.支払先枝番 },
+                //    y => new { y.自社コード, コード = y.得意先コード, 枝番 = y.得意先枝番 },
+                //    (x, y) => new { x, y })
+                //.SelectMany(x => x.y.DefaultIfEmpty(),
+                //    (c, d) => new { c.x.NHD, c.x.NDTL, PAY = d })
                 .GroupJoin(tokList,
                     x => new { コード = x.NHD.支払先コード, 枝番 = x.NHD.支払先枝番 },
                     y => new { コード = y.取引先コード, 枝番 = y.枝番 },
                     (x, y) => new { x, y })
                 .SelectMany(x => x.y.DefaultIfEmpty(),
-                    (e, f) => new { e.x.NHD, e.x.NDTL, e.x.PAY, TOK = f })
+                    (e, f) => new { e.x.NHD, e.x.NDTL, TOK = f })
                 .OrderBy(o => o.NHD.支払先コード)
                 .ThenBy(t => t.NHD.支払先枝番)
                 .ToList()
@@ -220,7 +221,7 @@ namespace KyoeiSystem.Application.WCFService
                     仕入先名称 = x.TOK == null ? "" : x.TOK.略称名,
                     支払締日 = x.NHD.支払締日.ToString(),
                     前月残高 = x.NHD.前月残高,
-                    出金金額 = x.PAY == null ? 0 : x.PAY.出金額,
+                    出金金額 = x.NHD.出金額,
                     支払額 = x.NHD.売上額,
                     値引額 = x.NHD.値引額,
                     非課税支払額 = x.NHD.非税売上額,
