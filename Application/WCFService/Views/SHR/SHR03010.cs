@@ -166,7 +166,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 作成締日絞込
                 if (closingDays != null)
-                    TOK = TOK.Where(w => w.Ｓ締日 == closingDays);
+                    TOK = TOK.Where(w => w.Ｓ締日 == closingDays || w.Ｓ締日 == null);
 
                 // 得意先(支払先)絞込
                 if (code != null && eda != null)
