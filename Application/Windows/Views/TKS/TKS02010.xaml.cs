@@ -500,7 +500,7 @@ namespace KyoeiSystem.Application.Windows.Views
             paramDic.Add("自社コード", myCompany.Text1);
             paramDic.Add("作成年月", CreateYearMonth.Text);
             paramDic.Add("得意先コード", Customer.Text1 == null ? null : Customer.Text1);
-            paramDic.Add("得意先枝番", Customer.Text2 == null ? null : Customer.Text2);
+            paramDic.Add("得意先枝番", Customer.Text2 == null || CreateType.SelectedValue.ToString() == "1" ? null : Customer.Text2);
             paramDic.Add("作成区分", CreateType.SelectedValue.ToString());
             paramDic.Add("userId", ccfg.ユーザID.ToString());
 
