@@ -207,6 +207,14 @@ namespace KyoeiSystem.Application.WCFService
             販社 = 4
         }
 
+        public enum 取引先コード : int
+        {
+            /// <summary>
+            /// 取引先コード1が販社とする
+            /// </summary>
+            販社 = 1,
+        }
+
         public enum 台帳出力期間 : int
         {
             月末締 = 1,

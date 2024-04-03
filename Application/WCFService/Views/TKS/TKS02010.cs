@@ -480,7 +480,7 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 販社リスト取得
                 var hanList =
-                    tokList.Where(c => c.取引区分 == (int)CommonConstants.取引区分.販社)
+                    tokList.Where(c => c.取引先コード == (int)CommonConstants.取引先コード.販社)
                     .GroupJoin(context.M70_JIS.Where(w => w.削除日時 == null && w.自社区分 == (int)CommonConstants.自社区分.販社 &&　w.取引先コード != null && w.枝番 != null),
                         x => new { code = x.取引先コード, eda = x.枝番 },
                         y => new { code = (int)y.取引先コード, eda = (int)y.枝番 },
