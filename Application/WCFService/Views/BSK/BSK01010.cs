@@ -129,11 +129,10 @@ namespace KyoeiSystem.Application.WCFService
 
                 // 自社情報を取得   
                 var tok =
-                    context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分));
+                    context.M01_TOK.Where(w => kbnList.Contains(w.取引区分));
 
                 // No.400 Add Start
-                var hin =
-                    context.M09_HIN.Where(w => w.削除日時 == null);
+                var hin = context.M09_HIN.AsQueryable();
 
                 #region 条件絞り込み
 

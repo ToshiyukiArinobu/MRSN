@@ -655,7 +655,30 @@ namespace KyoeiSystem.Application.Windows.Views
         private void changeColumnsName(DataTable tbl)
         {
             Dictionary<string, DateTime> printParams = getPrintParameter();     // No.402 Mod
+            //3・6ヶ月の場合カラムを削除しておく。
+            switch (cmdPeriod.SelectedValue.ToString())
+            {
+                case "1": //6ヶ月
 
+                    tbl.Columns.Remove("集計売上額０７");
+                    tbl.Columns.Remove("集計売上額０８");
+                    tbl.Columns.Remove("集計売上額０９");
+                    tbl.Columns.Remove("集計売上額１０");
+                    tbl.Columns.Remove("集計売上額１１");
+                    tbl.Columns.Remove("集計売上額１２");
+                    break;
+                case "2": //3ヶ月
+                    tbl.Columns.Remove("集計売上額０４");
+                    tbl.Columns.Remove("集計売上額０５");
+                    tbl.Columns.Remove("集計売上額０６");
+                    tbl.Columns.Remove("集計売上額０７");
+                    tbl.Columns.Remove("集計売上額０８");
+                    tbl.Columns.Remove("集計売上額０９");
+                    tbl.Columns.Remove("集計売上額１０");
+                    tbl.Columns.Remove("集計売上額１１");
+                    tbl.Columns.Remove("集計売上額１２");
+                    break;
+            }
             foreach (DataColumn col in tbl.Columns)
             {
                 switch (col.ColumnName)

@@ -106,7 +106,7 @@ namespace KyoeiSystem.Application.WCFService
                 List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };
 
                 var tok =
-                    context.M01_TOK.Where(w => w.削除日時 == null &&
+                    context.M01_TOK.Where(w => 
                                             kbnList.Contains(w.取引区分));
 
                 // No.398 Add Start

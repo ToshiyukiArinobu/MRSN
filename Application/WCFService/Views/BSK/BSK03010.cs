@@ -128,11 +128,11 @@ namespace KyoeiSystem.Application.WCFService
                 List<int> kbnList = new List<int>() { (int)CommonConstants.取引区分.得意先, (int)CommonConstants.取引区分.相殺, (int)CommonConstants.取引区分.販社 };  // No.402 Mod
 
                 var tok =
-                    context.M01_TOK.Where(w => w.削除日時 == null && kbnList.Contains(w.取引区分));
+                    context.M01_TOK.Where(w => kbnList.Contains(w.取引区分));
 
                 // No.402 Add Start
                 var hin =
-                    context.M09_HIN.Where(w => w.削除日時 == null);
+                    context.M09_HIN.AsQueryable();
 
                 #region 条件絞り込み
                 // 自社が指定されていれば条件追加
