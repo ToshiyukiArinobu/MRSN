@@ -92,8 +92,7 @@ namespace KyoeiSystem.Application.WCFService
                                 (e, f) => new { e.x.NHD, e.x.NDTL, e.x.JIS1, e.x.JIS2, e.x.NM, TOK = f })
                             .OrderBy(o => o.NHD.入金日)
                             .ThenBy(t => t.NDTL.伝票番号)
-                            .ThenBy(t => t.NDTL.行番号)
-                            .ToList();
+                            .ThenBy(t => t.NDTL.行番号).AsQueryable();
 
                     #endregion
 
@@ -103,19 +102,19 @@ namespace KyoeiSystem.Application.WCFService
                     DateTime wkFromDate;
                     string fromDate = cond["入金日From"];
                     if (!string.IsNullOrEmpty(fromDate) && DateTime.TryParse(fromDate, out wkFromDate))
-                        nkDataList = nkDataList.Where(w => w.NHD.入金日 >= wkFromDate).ToList();
+                        nkDataList = nkDataList.Where(w => w.NHD.入金日 >= wkFromDate).AsQueryable();
 
                     // 入金日To
                     DateTime wkToDate;
                     string toDate = cond["入金日To"];
                     if (!string.IsNullOrEmpty(toDate) && DateTime.TryParse(toDate, out wkToDate))
-                        nkDataList = nkDataList.Where(w => w.NHD.入金日 <= wkToDate).ToList();
+                        nkDataList = nkDataList.Where(w => w.NHD.入金日 <= wkToDate).AsQueryable();
 
                     // 入金元販社
                     int wkJisCode;
                     string jisCode = cond["入金元販社コード"];
                     if (!string.IsNullOrEmpty(jisCode) && int.TryParse(jisCode, out wkJisCode))
-                        nkDataList = nkDataList.Where(w => w.NHD.入金元販社コード == wkJisCode).ToList();
+                        nkDataList = nkDataList.Where(w => w.NHD.入金元販社コード == wkJisCode).AsQueryable();
 
                     // 得意先
                     int wkCode, wkEda;
@@ -123,7 +122,7 @@ namespace KyoeiSystem.Application.WCFService
                     if (!string.IsNullOrEmpty(tCode) && !string.IsNullOrEmpty(tEda))
                     {
                         if(int.TryParse(tCode, out wkCode) && int.TryParse(tEda, out wkEda))
-                            nkDataList = nkDataList.Where(w => w.NHD.得意先コード == wkCode && w.NHD.得意先枝番 == wkEda).ToList();
+                            nkDataList = nkDataList.Where(w => w.NHD.得意先コード == wkCode && w.NHD.得意先枝番 == wkEda).AsQueryable();
 
                     }
 
@@ -132,21 +131,21 @@ namespace KyoeiSystem.Application.WCFService
                     string sGoldType = cond["金種コード"];
                     if(!string.IsNullOrEmpty(sGoldType) && int.TryParse(sGoldType, out wkGoldType))
                         if(wkGoldType > 0)
-                            nkDataList = nkDataList.Where(w => w.NDTL.金種コード == wkGoldType).ToList();
+                            nkDataList = nkDataList.Where(w => w.NDTL.金種コード == wkGoldType).AsQueryable();
 
                     // 伝票番号From
                     int wkSlipNoFrom;
                     string sSlipNoFrom = cond["伝票番号From"];
                     if (!string.IsNullOrEmpty(sSlipNoFrom) && int.TryParse(sSlipNoFrom, out wkSlipNoFrom))
                         if (wkSlipNoFrom > 0)
-                            nkDataList = nkDataList.Where(w => w.NHD.伝票番号 >= wkSlipNoFrom).ToList();
+                            nkDataList = nkDataList.Where(w => w.NHD.伝票番号 >= wkSlipNoFrom).AsQueryable();
 
                     // 伝票番号To
                     int wkSlipNoTo;
                     string sSlipNoTo = cond["伝票番号To"];
                     if (!string.IsNullOrEmpty(sSlipNoTo) && int.TryParse(sSlipNoTo, out wkSlipNoTo))
                         if (wkSlipNoTo > 0)
-                            nkDataList = nkDataList.Where(w => w.NHD.伝票番号 <= wkSlipNoTo).ToList();
+                            nkDataList = nkDataList.Where(w => w.NHD.伝票番号 <= wkSlipNoTo).AsQueryable();
 
                     #endregion
 
